@@ -1,0 +1,17 @@
+<tr id="<%%= dom_id(<%= singular_table_name %>) %>" >
+
+<% attributes.each do |attribute| -%>
+<% case attribute.type; when /references/ -%>
+  <td><%%= <%= singular_table_name %>.<%= attribute.name.gsub(/_id\z/, '') %> %></td>
+<% when /date/ -%>
+  <td><%%= l(<%= singular_table_name %>.<%= attribute.name %>) %></td>
+<% else -%>
+  <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+<% end -%>
+<% end -%>
+
+  <td class="index_table-actions">
+    <%%= link_to_edit(<%= singular_table_name %>) %>
+    <%%= link_to_destroy(<%= singular_table_name %>) %>
+  </td>
+</tr>

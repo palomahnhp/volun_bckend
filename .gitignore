@@ -15,3 +15,8 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Rubymine hidden files
+.idea/
+
+/config/database.yml

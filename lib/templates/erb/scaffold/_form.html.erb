@@ -1,0 +1,21 @@
+<%%= simple_form_for(@<%= singular_table_name %>, remote: request.xhr?, html: { class: 'form-horizontal' },
+                                                      wrapper: :horizontal_form,
+                                                      wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes,
+                                                                          radio_buttons: :horizontal_radio_and_checkboxes,
+                                                                          file: :horizontal_file_input,
+                                                                          boolean: :horizontal_boolean}) do |f| %>
+  <%%= hidden_field_tag 'update_token', params[:update_token] %>
+  <%%= f.error_notification %>
+
+  <div class="form-inputs">
+  <%- attributes.each do |attribute| -%>
+    <%%= f.input :<%= attribute.name %><%= "_id, as: :autocomplete" if attribute.reference? %> %>
+  <%- end -%>
+  </div>
+
+  <div class="form-actions">
+    <%%= f.submit class: "btn btn-primary" %>
+    <%%= cancel_button(f.object) %>
+  </div>
+
+<%% end %>

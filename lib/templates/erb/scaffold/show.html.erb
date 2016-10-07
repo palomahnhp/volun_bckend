@@ -1,0 +1,14 @@
+<%%= section_title(t("action.show", model: <%= singular_table_name.camelize %>.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+<%- for attribute in attributes -%>
+  <dt><%%= <%= singular_table_name.camelize %>.human_attribute_name(:<%= attribute.name %><%= "_id" if attribute.reference? %>) %>:</dt>
+  <dd><%%= @<%= singular_table_name %>.<%= attribute.name %> %></dd>
+
+<%- end -%>
+
+</dl>
+
+<%%= button_to_back %>
+<%%= button_to_edit(@<%= singular_table_name %>) %>

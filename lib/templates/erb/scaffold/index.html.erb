@@ -1,0 +1,29 @@
+<%% model_class = <%= singular_table_name.camelize %> %>
+
+<%%= page_alert(model_class) %>
+<%%= section_title(model_plural_name(model_class)) %>
+
+<div class="page-header clearfix">
+  <%%= content_tag(:div, link_to_new(model_class), class: 'pull-left') %>
+  <%%= content_tag(:div, search_form_index(@q, :<%= attributes.select{ |attr| attr.type  =~ /(string|text)/ }.map(&:name).join("_or_") || "id" %>_cont), class: 'pull-right') %>
+</div>
+
+<table id="<%= plural_table_name %>_table" class="index-table">
+  <thead>
+    <tr>
+  <% attributes.each do |attribute| -%>
+    <th><%%= remote_sort_link(@q, :<%= attribute.name %><%= "_id" if attribute.reference? %>) %>) %></th>
+  <% end -%>
+
+      <th class="actions">
+        <%%= t("actions") %>
+      </th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <%%= render(partial: '<%= singular_table_name %>', collection: @<%= plural_table_name %>) || render(partial: "global/empty_tr", locals: {tr_number: <%= attributes.size+1 %>}) %>
+  </tbody>
+</table>
+
+<%%= paginate_with_filter @<%= plural_table_name %>, @q %>
