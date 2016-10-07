@@ -1,9 +1,18 @@
-<%%= simple_form_for(@<%= singular_table_name %>, remote: request.xhr?, html: { class: 'form-horizontal' },
-                                                      wrapper: :horizontal_form,
-                                                      wrapper_mappings: { check_boxes: :horizontal_radio_and_checkboxes,
-                                                                          radio_buttons: :horizontal_radio_and_checkboxes,
-                                                                          file: :horizontal_file_input,
-                                                                          boolean: :horizontal_boolean}) do |f| %>
+<%%=
+  <%
+    form_options = {
+       remote:  request.xhr?,
+       html:    { class: 'form-horizontal' },
+       wrapper: :horizontal_form,
+       wrapper_mappings: { check_boxes:   :horizontal_radio_and_checkboxes,
+                           radio_buttons: :horizontal_radio_and_checkboxes,
+                           file:          :horizontal_file_input,
+                           boolean:       :horizontal_boolean}
+    }
+  %>
+%>
+
+<%%= simple_form_for(@<%= singular_table_name %>, form_options ) do |f| %>
   <%%= hidden_field_tag 'update_token', params[:update_token] %>
   <%%= f.error_notification %>
 
