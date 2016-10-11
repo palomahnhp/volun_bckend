@@ -44,7 +44,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     respond_to do |format|
       if @<%= singular_table_name %>.save
-        flash[:notice] = successfully_created_notice(<%= singular_table_name.camelize %>)
+        flash[:notice] = I18n.t('activerecord.messages.successfully_created')
         format.html { redirect_to <%= plural_table_name %>_path}
         format.js {render 'global/create', locals: {record: @<%= singular_table_name %>} }
       else
@@ -58,7 +58,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     respond_to do |format|
       if @<%= singular_table_name %>.update_attributes(<%= singular_table_name %>_params)
-        flash[:notice] = successfully_updated_notice(<%= singular_table_name.camelize %>)
+        flash[:notice] = I18n.t('activerecord.messages.successfully_updated')
         format.html { redirect_to <%= plural_table_name %>_path}
         format.js {render 'global/update', locals: {record: @<%= singular_table_name %>} }
       else
@@ -72,7 +72,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
     respond_to do |format|
       if @<%= singular_table_name %>.destroy
-        flash[:notice] = successfully_destroy_notice(<%= singular_table_name.camelize %>)
+        flash[:notice] = I18n.t('activerecord.messages.successfully_destroyed')
       else
         flash[:alert] = not_destroy_element_notice(@<%= singular_table_name %>)
       end

@@ -12,7 +12,7 @@
   <thead>
     <tr>
   <% attributes.each do |attribute| -%>
-    <th><%%= remote_sort_link(@q, :<%= attribute.name %><%= "_id" if attribute.reference? %>) %>) %></th>
+    <th><%%= remote_sort_link(@q, :<%= attribute.name %><%= "_id" if attribute.reference? %>) %></th>
   <% end -%>
 
       <th class="actions">

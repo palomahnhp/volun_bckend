@@ -1,0 +1,12 @@
+<tr id="<%= dom_id(proposal) %>" >
+
+  <td><%= proposal.name %></td>
+  <td><%= proposal.comments %></td>
+  <td><%= l(proposal.registry_date) %></td>
+  <td><%= l(proposal.approval_date) %></td>
+
+  <td class="index_table-actions">
+    <%= link_to_edit(proposal) %>
+    <%= link_to_destroy(proposal) %>
+  </td>
+</tr>

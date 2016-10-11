@@ -1,0 +1,268 @@
+// import the CSS framework
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+body{
+  padding-top: 50px;
+}
+
+/* Sticky footer styles ---------------------------------------------------- */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 100px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 50px;
+  background-color: #f5f5f5;
+}
+
+.copyright {
+  margin: 15px 0;
+  text-align: center;
+}
+
+.footer > .container {
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.stored, .sent{
+  @extend .info;
+}
+
+.opened, .clicked, .available, .sent_info, .sent_gift {
+  @extend .success;
+}
+
+.delivered{
+  @extend .warning;
+}
+
+.failed{
+  background-color: #740000 !important;
+  color: #FFFFFF !important;
+}
+
+.unsubscribed,
+.complained,
+.cancelled{
+  background-color: #000000 !important;
+  color: #FFFFFF !important;
+}
+
+.index-table{
+  @extend .table;
+  @extend .table-condensed;
+  @extend .table-striped;
+  @extend .table-hover;
+}
+
+.filter_form .filter-input-group{
+  margin-right: 15px;
+}
+
+.form-actions{
+  margin-top: 30px;
+}
+
+/* ------------------------------------------------------------------------- */
+
+.table-responsive {
+  width: 100%;
+  margin-bottom: 15px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  border: 1px solid #DDD;
+}
+
+.page-header{
+  margin: 18px 0;
+}
+
+.alert {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  margin-top: 10px;
+}
+
+.pagination_wrapper form{
+  margin: 20px 0;
+}
+
+th a{
+  color: #000000;
+}
+
+.form-row {
+  margin-bottom: 15px;
+}
+
+.form-inline input.form-control {
+  width: 100%;
+}
+
+.mw800 {
+  min-width: 800px;
+}
+.mw600 {
+  min-width: 600px;
+}
+
+.fa{
+  cursor: pointer;
+}
+
+.reduce-gutter .form-group{
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.reduce-gutter .row{
+  margin-left: -5px;
+  margin-right: -5px;
+}
+
+.nav-tabs-grey li.active a,
+.nav-tabs-grey li.active a:focus{
+  background-color: #F9F9F9;
+}
+
+.form-inline .control-label{
+  margin-right: 10px;
+}
+
+li.has-error a{
+  border-color: #953b39;
+  color: #953b39 !important;
+}
+
+#notice_template_fields{
+  padding-top:15px;
+}
+
+#campaign_form_tabs{
+  margin-top: 25px;
+}
+
+a:focus{
+  outline: 0;
+}
+
+.tooltip-inner {
+  max-width: none;
+  white-space: nowrap;
+}
+
+span.simplecolorpicker.icon{
+  @extend .form-control;
+  border-radius: 4px !important;
+}
+
+.simplecolorpicker.picker {
+  z-index: 5002 !important;
+  max-width: 265px !important;
+}
+
+.priority-col {
+  margin-right: 5px;
+  .select2-container.select2-allowclear .select2-choice .select2-chosen {
+    margin-right: 55px;
+  }
+}
+.priority-col .select2-chosen,
+.priority-col .select2-choice > span:first-child,
+.priority-col .select2-container .select2-choices .select2-search-field input,
+.product_col .select2-chosen,
+.product_col .select2-choice > span:first-child,
+.product_col .select2-container .select2-choices .select2-search-field input{
+  padding: 6px 1px 6px 5px;
+}
+@media screen and (min-width: 769px) and (max-width: 1199px) {
+  .priority-col {
+    width: 21%;
+    .select2-container .select2-choice > .select2-chosen {
+      min-width: 6em;
+      max-width: 6em;
+    }
+  }
+}
+@media screen and (min-width: 1200px) {
+  .priority-col {
+    width: 22.5%;
+    .select2-container .select2-choice > .select2-chosen {
+      min-width: 12em;
+      max-width: 12em;
+    }
+  }
+  a.select2-choice {
+    max-width: 90%;
+  }
+}
+.priority {
+  background: #DDEFFF;
+}
+label[for='notice_template_mail_template_id'],
+label[for='notice_template_sms_template_id'],
+label[for='notice_template_print_template_id'] {
+  margin-left: 22px;
+}
+
+.product_col {
+  min-width: 165px;
+}
+.remove-col {
+  max-width: 20px;
+  .btn{
+    padding: 6px 0;
+  }
+}
+.order_col{
+  padding-left: 8px;
+  max-width: 6%;
+  input {
+    padding-right: 2px;
+  }
+}
+
+.thick {
+  color: gray;
+  font-weight: bolder !important;
+  font-size: 40px !important;
+  margin-top: -8px;
+  margin-right: 20px;
+}
+
+.campaign_title{
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  cursor: pointer;
+}
+
+.index_table-actions {
+  text-align: center;
+}
+
+footer {
+  background-color: rgba(173, 224, 50, 0.35);
+  margin-top: 10px;
+}
+
+#main {
+  padding: 2%;
+}
+
+#welcome {
+
+}
