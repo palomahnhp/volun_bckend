@@ -22,5 +22,20 @@ module VoluntDraft
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.generators do |g|
+      g.test_framework :rspec,
+                       fixtures:         true,
+                       view_specs:       false,
+                       helper_specs:     false,
+                       routing_specs:    false,
+                       request_specs:    false,
+                       jbuilder:         false
+      g.fixture_replacement :factory_girl, dir: 'spec/factories'
+      g.helper            false
+      g.assets            false
+      g.view_specs        false
+      g.jbuilder          false
+    end
   end
 end

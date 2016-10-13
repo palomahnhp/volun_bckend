@@ -1,0 +1,7 @@
+es:
+  action:
+    new:     'Nuevo'
+    edit:    'Editar'
+    show:    'Ver'
+    destroy: 'Eliminar'
+    search:  'Buscar'
