@@ -273,12 +273,29 @@ footer {
     color: #333333;
     &:hover {
       background-color: #cae3f9;
+      font-size: 160px;
+      a {
+        color: #0b4577;
+      }
+      h3 {
+        font-weight: bold;
+        color: #0b4577;
+      }
+    }
+    &:visited {
       color: #333333;
     }
   }
   &:hover {
     background-color: #cae3f9;
-    color: #333333;
+    font-size: 160px;
+    a {
+      color: #0b4577;
+    }
+    h3 {
+      font-weight: bold;
+      color: #0b4577;
+    }
   }
 }
 
