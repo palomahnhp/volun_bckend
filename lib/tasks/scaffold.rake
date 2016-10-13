@@ -17,13 +17,36 @@ AUX_MODELS_AND_ATTRS = {
 
 
 namespace :scaffold do
-  desc 'Builds the user model through the devise generator'
-  task user: :environment do
-    # Generate scaffold for user
-    sh 'rails generate scaffold User name --f'
+  desc 'Deletes "devise_for :users" line in routes.rb'
+  task destroy_devise_routes: :environment do
+    require 'fileutils'
+    require 'tempfile'
 
+    # Open temporary file
+    tmp = Tempfile.new('extract')
+
+    # Write good lines to temporary file
+    open('config/routes.rb', 'r').each { |l| tmp << l unless /devise_for/ =~ l.chomp }
+
+    # Close tmp, or troubles ahead
+    tmp.close
+
+    # Move temp file to origin
+    FileUtils.mv(tmp.path, 'config/routes.rb')
+  end
+
+  desc 'Builds the user model'
+  task create_user: :environment do
     # Add devise attrs to User model
-    sh 'rails g devise User'
+    sh 'rails generate devise User --skip'
+  end
+
+  desc 'Destroy the user model'
+  task destroy_user: :environment do
+    Rake::Task['scaffold:destroy_devise_routes'].invoke
+
+    # Generate scaffold for user
+    sh 'rails destroy scaffold User --skip'
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
@@ -52,15 +75,17 @@ namespace :scaffold do
     end
   end
 
-
   desc 'Builds the application data model basement by scaffolding the models'
   task reset: :environment do
     Rake::Task['scaffold:destroy'].invoke
+    Rake::Task['scaffold:destroy_user'].invoke
+
     Rake::Task['scaffold:build'].invoke
-    Rake::Task['scaffold:user'].invoke
+    Rake::Task['scaffold:create_user'].invoke
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
+    Rake::Task['db:seed'].invoke
   end
 end
 
