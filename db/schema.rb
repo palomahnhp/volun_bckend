@@ -11,10 +11,62 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161010155121) do
+ActiveRecord::Schema.define(version: 20161011153631) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "activities", force: :cascade do |t|
+    t.integer  "project_id"
+    t.text     "description"
+    t.string   "hour"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "activities", ["project_id"], name: "index_activities_on_project_id", using: :btree
+
+  create_table "districts", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "project_types", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string   "code"
+    t.integer  "district_id"
+    t.integer  "proposal_id"
+    t.string   "description"
+    t.string   "registry_date"
+    t.string   "start_date"
+    t.string   "end_date"
+    t.string   "city_hall"
+    t.integer  "project_type_id"
+    t.string   "important"
+    t.string   "status"
+    t.string   "subsidized"
+    t.string   "assesment"
+    t.string   "work_place"
+    t.string   "manager"
+    t.string   "manager_telf"
+    t.string   "voluntaries_num"
+    t.string   "profile"
+    t.string   "cooperation_agreement"
+    t.string   "name"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "projects", ["district_id"], name: "index_projects_on_district_id", using: :btree
+  add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree
+  add_index "projects", ["proposal_id"], name: "index_projects_on_proposal_id", using: :btree
 
   create_table "proposals", force: :cascade do |t|
     t.string   "name"
@@ -23,6 +75,13 @@ ActiveRecord::Schema.define(version: 20161010155121) do
     t.date     "approval_date"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+  end
+
+  create_table "scopes", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,4 +102,8 @@ ActiveRecord::Schema.define(version: 20161010155121) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "activities", "projects"
+  add_foreign_key "projects", "districts"
+  add_foreign_key "projects", "project_types"
+  add_foreign_key "projects", "proposals"
 end
