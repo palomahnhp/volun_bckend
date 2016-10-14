@@ -1,22 +1,26 @@
 <%% model_class = <%= singular_table_name.camelize %> %>
 
-<%%= page_alert(model_class) %>
-<%%= section_title(model_plural_name(model_class)) %>
-
-<div class="page-header clearfix">
-  <%%= content_tag(:div, link_to_new(model_class), class: 'pull-left') %>
-  <%%= content_tag(:div, search_collection(@q, :<%= attributes.select{ |attr| attr.type  =~ /(string|text)/ }.map(&:name).join("_or_") || "id" %>_cont), class: 'pull-right') %>
+<div class="row">
+  <div class="col-md-6">
+    <%%= model_title(model_class) %>
+  </div>
+  <div class="index-panel well col-md-6">
+    <div class="row">
+      <%%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+      <%%= content_tag(:div, search_collection(@search_q, :<%= attributes.select{ |attr| attr.type  =~ /(string|text)/ }.map(&:name).join("_or_") || "id" %>_cont), class: 'col-md-6 pull-right') %>
+    </div>
+  </div>
 </div>
 
-<table id="<%= plural_table_name %>_table" class="index-table">
+<table class="index-table">
   <thead>
     <tr>
   <% attributes.each do |attribute| -%>
-    <th><%%= sort_link(@q, :<%= attribute.name %><%= "_id" if attribute.reference? %>) %></th>
+    <th><%%= sort_link(@search_q, :<%= attribute.name %><%= "_id" if attribute.reference? %>) %></th>
   <% end -%>
 
       <th class="actions">
-        <%%= t("actions") %>
+        <%%= t('actions') %>
       </th>
     </tr>
   </thead>

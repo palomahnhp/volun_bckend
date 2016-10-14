@@ -2,6 +2,7 @@
 class ActiveRecord::Base
 
   # SCAFFOLD ------------------------------------------------------------------
+
   def self.ransack_order_to_s
     'id'
   end

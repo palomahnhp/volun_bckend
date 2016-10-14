@@ -6,86 +6,51 @@ require_dependency "<%= namespaced_file_path %>/application_controller"
 class <%= controller_class_name %>Controller < ApplicationController
 
   load_and_authorize_resource
+  respond_to :html, :js
 
   def index
-    params[:q] ||= <%= singular_table_name.camelize %>.ransack_default
-    @q = @<%= plural_table_name %>.search(params[:q])
-    @<%= plural_table_name %> = @q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    params[:search_q] ||= <%= singular_table_name.camelize %>.ransack_default
+    @search_q = @<%= plural_table_name %>.search(params[:q])
+    @<%= plural_table_name %> = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
-    respond_to do |format|
-      format.html
-      format.json { render json: {total: @<%= plural_table_name %>.count, records: @<%= plural_table_name %>.map{|p| {id: p.id, text: p.to_s} }.as_json } }
-      format.js { render 'global/index', locals: { index_folder: <%= singular_table_name.camelize %>.model_name.plural }}
-    end
+    respond_with(@<%= plural_table_name %>)
   end
 
   def show
+    respond_with(@<%= singular_table_name %>)
   end
 
   def new
-    @<%= singular_table_name %>.name       = params[:init_data] if params[:init_data].kind_of?(String)
-    @<%= singular_table_name %>.attributes = params[:init_data] if params[:init_data].kind_of?(Hash)
-
-    respond_to do |format|
-      format.html
-      format.js {render 'global/popup_form', locals: {record: @<%= singular_table_name %>} }
-    end
+    @<%= singular_table_name %> = <%= orm_class.build(class_name) %>
+    respond_with(@<%= singular_table_name %>)
   end
 
   def edit
-
-    respond_to do |format|
-      format.html
-      format.js {render 'global/popup_form', locals: {record: @<%= singular_table_name %>} }
-    end
   end
 
   def create
-
-    respond_to do |format|
-      if @<%= singular_table_name %>.save
-        flash[:notice] = I18n.t('activerecord.messages.successfully_created')
-        format.html { redirect_to <%= plural_table_name %>_path}
-        format.js {render 'global/create', locals: {record: @<%= singular_table_name %>} }
-      else
-        format.html { render action: 'new' }
-        format.js {render 'global/popup_form', locals: {record: @<%= singular_table_name %>} }
-      end
-    end
+    @<%= orm_instance.save %>
+    respond_with(@<%= singular_table_name %>)
   end
 
   def update
-
-    respond_to do |format|
-      if @<%= singular_table_name %>.update_attributes(<%= singular_table_name %>_params)
-        flash[:notice] = I18n.t('activerecord.messages.successfully_updated')
-        format.html { redirect_to <%= plural_table_name %>_path}
-        format.js {render 'global/update', locals: {record: @<%= singular_table_name %>} }
-      else
-        format.html { render action: 'edit' }
-        format.js {render 'global/popup_form', locals: {record: @<%= singular_table_name %>} }
-      end
-    end
+    @<%= singular_table_name %>.update_attributes(<%= singular_table_name %>_params)
+    respond_with(@<%= singular_table_name %>)
   end
 
   def destroy
-
-    respond_to do |format|
-      if @<%= singular_table_name %>.destroy
-        flash[:notice] = I18n.t('activerecord.messages.successfully_destroyed')
-      else
-        flash[:alert] = not_destroy_element_notice(@<%= singular_table_name %>)
-      end
-      format.html{ redirect_to <%= plural_table_name %>_path }
-      format.js {render 'global/destroy', locals: {record: @<%= singular_table_name %>} }
-    end
+    @<%= orm_instance.destroy %>
+    respond_with(@<%= singular_table_name %>)
   end
 
   private
 
-    # Only allow a trusted parameter "white list" through.
-    def <%= singular_table_name %>_params
-      params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
-    end
+    def <%= "#{singular_table_name}_params" %>
+    <%- if attributes_names.empty? -%>
+        params[:<%= singular_table_name %>]
+          <%- else -%>
+    params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
+    <%- end -%>
+   end
 end
 <% end -%>

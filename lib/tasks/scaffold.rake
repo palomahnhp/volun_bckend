@@ -1,4 +1,3 @@
-require 'rails/generators'
 MODELS_AND_ATTRS = {
   'Proposal'    => 'name comments:text registry_date:date approval_date:date',
   'ProjectType' => 'name status:integer',
@@ -77,11 +76,15 @@ namespace :scaffold do
 
   desc 'Builds the application data model basement by scaffolding the models'
   task reset: :environment do
+    puts "Destroying scaffolds"
     Rake::Task['scaffold:destroy'].invoke
     Rake::Task['scaffold:destroy_user'].invoke
 
+    puts "Generating scaffolds"
     Rake::Task['scaffold:build'].invoke
     Rake::Task['scaffold:create_user'].invoke
+
+    puts "Recreating DB and seeding"
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
