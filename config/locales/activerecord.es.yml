@@ -39,6 +39,7 @@ es:
         name:   'Nombre'
         status: 'Estado'
       district:
+        code:   'Código'
         name:   'Nombre'
       scope:
         name:   'Denominación'

@@ -1,7 +1,7 @@
 MODELS_AND_ATTRS = {
   'Proposal'    => 'name comments:text registry_date:date approval_date:date',
   'ProjectType' => 'name status:integer',
-  'District'    => 'name',
+  'District'    => 'code name',
   'Scope'       => 'name status:integer',
   'Project'     => 'code name description ' \
                           'registry_date:date start_date:date end_date:date city_hall ' \
