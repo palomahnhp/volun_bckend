@@ -15,7 +15,7 @@ module ScaffoldHelper
                 (hidden_field_tag :per_page, params[:per_page]) +
                 (f.search_field search_condition, class: 'form-control', placeholder: t('type_text')) +
                 (button_tag name: 'commit', class: 'btn btn-default' do
-                  (t('search') + '  ' + (fa_icon 'search')).html_safe
+                  ((fa_icon 'search')).html_safe
                 end)
             end
     form.html_safe
@@ -80,7 +80,7 @@ module ScaffoldHelper
         path:   "#{record.class.model_name.singular}_path",
         remote: false,
         method: :delete,
-        data:   {confirm: t('messages.are_your_sure')}
+        data:   {confirm: t('messages.are_you_sure')}
     }.merge(opts)
     path = options.delete(:path)
     text = options.delete(:text)

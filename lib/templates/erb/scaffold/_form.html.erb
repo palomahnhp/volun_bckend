@@ -3,7 +3,13 @@
 
 <div class="form-inputs">
   <%- attributes.each do |attr| -%>
-      <%%= f.<%= attr.reference? ? :association : :input %> :<%= attr.name %> %>
+      <%- if attr.reference? -%>
+          <%%= f.association :<%= attr.name %> %>
+      <%- elsif /_date|date_/ =~ attr.name -%>
+          <%%= f.input :<%= attr.name %>, as: :datepicker %>
+      <%- else -%>
+          <%%= f.input :<%= attr.name %> %>
+      <%- end -%>
   <%- end -%>
 </div>
 

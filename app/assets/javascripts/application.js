@@ -12,6 +12,24 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui/datepicker
+//= require jquery-ui/datepicker-es
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+// jQuery date picker
+// $(document).on('ready', function(){
+//     $("input.datepicker").datepicker();
+// });
+// $(document).on('page:load', function(){
+//     $("input.datepicker").datepicker();
+// });
+$(document).on('ready page:load turbolinks:load', function(){
+    $('input.datepicker').datepicker({
+        format: 'dd-mm-yyyy',
+        // autoclose: true,
+        // todayHighlight: true,
+        // language: 'es'
+    });
+});

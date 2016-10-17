@@ -5,3 +5,24 @@ es:
     show:    'Ver'
     destroy: 'Eliminar'
     search:  'Buscar'
+    back:    'Volver'
+  type_text: 'Introducir texto'
+  date_placeholder: 'dd-mm-aaaa'
+  messages:
+    are_you_sure: ¿Está seguro?
+  will_paginate:
+    next_label: ❱
+    page_entries_info:
+      multi_page: Mostrando %{model} %{from} - %{to} de %{count} en total
+      multi_page_html: Mostrando %{model} <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b> en total
+      single_page:
+        one: Mostrando 1 %{model}
+        other: Mostrando en total %{count} %{model}
+        zero: No se encontraron %{model}
+      single_page_html:
+        one: Mostrando <b>1</b> %{model}
+        other: Mostrando en <b>total&nbsp;%{count}</b> %{model}
+        zero: No se encontraron %{model}
+    page_gap: "&hellip;"
+    previous_label: "❰"
+  items_per_page: "Elementos por página"
