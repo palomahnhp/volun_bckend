@@ -1,0 +1,45 @@
+es:
+  activerecord:
+    models:
+      project:
+        one:   'Projecto'
+        other: 'Proyectos'
+      project_type:
+        one:   'Tipo de proyecto'
+        other: 'Tipos de proyecto'
+      district:
+        one:   'Distrito'
+        other: 'Distritos'
+      scope:
+        one:   'Ámbito'
+        other: 'Ámbitos'
+    attributes:
+      project:
+        name:                  'Nombre'
+        code:                  'Código'
+        district_id:           'Distrito'
+        proposal_id:           'Propuesta'
+        description:           'Descripción'
+        registry_date:         'Fecha de registro'
+        start_date:            'Fecha de alta'
+        end_date:              'Fecha de baja'
+        city_hall:             'Ayuntamiento'
+        project_type_id:       'Tipo de proyecto'
+        important:             'Importante'
+        status:                'Estado'
+        subsidized:            'Subsidiado'
+        assesment:             'Valoración'
+        work_place:            'Lugar de ejecución'
+        manager:               'Responsable'
+        manager_telf:          'Telf. de responsable'
+        voluntaries_num:       'Número de voluntarios'
+        profile:               'Perfil'
+        cooperation_agreement: 'Acuerdo de cooperación'
+      project_type:
+        name:   'Nombre'
+        status: 'Estado'
+      district:
+        name:   'Nombre'
+      scope:
+        name:   'Denominación'
+        status: 'Estado'
