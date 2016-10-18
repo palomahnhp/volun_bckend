@@ -14,9 +14,10 @@
         </div>
         <div class="well col-md-4">
           <%= f.association :project_type %>
-          <%= f.association :district %>
           <%= f.association :neighborhood %>
           <%= f.association :proposal %>
+          <%= f.association :district %>
+          <%= f.association :scopes, collection: Scope.all, input_html: { class: 'multiselectscope'} %>
         </div>
       </div>
       <div class="row row-2">
@@ -68,7 +69,7 @@
       </div>
   </div>
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-primary' %>
   </div>
   <% end %>
 </div>
