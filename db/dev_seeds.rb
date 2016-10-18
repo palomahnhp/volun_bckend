@@ -78,6 +78,7 @@ puts "Creando Proyectos"
     district_id: District.all.sample.id,
     proposal_id: Proposal.all.sample.id,
     project_type_id: ProjectType.all.sample.id,
+    neighborhood_id: Neighborhood.all.sample.id,
     registry_date: Faker::Time.between(DateTime.now - 10, DateTime.now),
     start_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),
     end_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),

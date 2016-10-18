@@ -96,4 +96,16 @@ module ScaffoldHelper
     link_to_edit(record, {text: icon_edit+' '+t('action.edit', model: ''), class: "btn btn-primary"}.merge(opts))
   end
 
+  def default_form_options
+    {
+      remote:           request.xhr?,
+      html:             { class: 'form-horizontal' },
+      wrapper:          :horizontal_form,
+      wrapper_mappings: { check_boxes:   :horizontal_radio_and_checkboxes,
+                          radio_buttons: :horizontal_radio_and_checkboxes,
+                          file:          :horizontal_file_input,
+                          boolean:       :horizontal_boolean }
+     }
+  end
+
 end
