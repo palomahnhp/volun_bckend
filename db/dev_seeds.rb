@@ -7,6 +7,9 @@ PROJECTS_NUM   = 100
 DISTRICTS_NUM  = 10
 ACTIVITIES_NUM = 10
 SCOPES_NUM     = 10
+NEIGHBORHOOD   = 10
+PROPOSAL       = 10
+ORGANIZATION   = 10
 
 PROJECT_TYPE_NAMES = ['Servicios Sociales', 'Centros de mayores', 'Permanentes', 'Puntuales', 'Entidades', 'Subvencionados']
 
@@ -45,32 +48,56 @@ puts "Creando Ámbitos"
 end
 
 puts "Creando Distritos"
-DISTRICTS.each do |code, name|
-  District.create!(code: code, name: name)
+DISTRICTS.each do |_code, name|
+  District.create!(name: name)
 end
 
-puts "Creando Projectos"
+puts "Creando Propuestas"
+(1..PROPOSAL).each do |n|
+  Proposal.create!(name: "#{Proposal.model_name.human} #{n}")
+end
+
+puts "Creando Entidades"
+(1..ORGANIZATION).each do |n|
+  Organization.create!(name: "#{Organization.model_name.human} #{n}")
+end
+
+puts "Creando Barrios"
+(1..NEIGHBORHOOD).each do |n|
+  Neighborhood.create!(name: "#{Neighborhood.model_name.human} #{n}")
+end
+
+puts "Creando Proyectos"
 (1..PROJECTS_NUM).each do |n|
   Project.create!(
-    code: Faker::Code.isbn,
+    # code: Faker::Code.isbn,
+    # description: Faker::Lorem.sentence,
+    # status:,
+    # work_place:,
     name: Faker::App.name,
-    description: Faker::Lorem.sentence,
+    district_id: District.all.sample.id,
+    proposal_id: Proposal.all.sample.id,
+    project_type_id: ProjectType.all.sample.id,
     registry_date: Faker::Time.between(DateTime.now - 10, DateTime.now),
     start_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),
     end_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),
-    city_hall: Faker::Address.city,
-    # important: false,
-    # status:,
-    # assessment:,
-    # work_place:,
+    city_hall: false,
+    important: false,
+    subsidized: false,
+    cooperation_agreement: false,
+    assessment: Faker::Lorem.paragraph,
     manager: Faker::Name.name,
     manager_telf: Faker::PhoneNumber.phone_number,
     voluntaries_num: rand(100),
-    # profile:,
-    # cooperation_agreement:,
-    district_id: District.all.sample.id,
-    # proposal_id:,
-    project_type_id: ProjectType.all.sample.id
+    profile: "Perfil de voluntario #{n}",
+    postal_code: Faker::Address.postcode,
+    road_type: ['Calle', 'Plaza', 'Av.'].sample,
+    road_name: Faker::Address.street_name,
+    number_type: nil,
+    grader: nil,
+    stairs_number: rand(300).to_s,
+    floor_number: rand(9).to_s,
+    door_number: rand(10).to_s
   )
 end
 

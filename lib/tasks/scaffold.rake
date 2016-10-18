@@ -1,14 +1,15 @@
 MODELS_AND_ATTRS = {
-  'Proposal'    => 'name comments:text registry_date:date approval_date:date',
-  'ProjectType' => 'name status:integer',
-  'District'    => 'code name',
-  'Scope'       => 'name status:integer',
-  'Project'     => 'code name description ' \
-                          'registry_date:date start_date:date end_date:date city_hall ' \
-                          'important status assessment work_place manager manager_telf ' \
-                          'voluntaries_num:integer profile cooperation_agreement ' \
-                          'district:references proposal:references project_type:references',
-  'Activity'    => 'project:references description:text hour'
+  'Proposal'     => 'name',
+  'ProjectType'  => 'name',
+  'Organization' => 'name',
+  'District'     => 'name',
+  'Scope'        => 'name',
+  'Neighborhood' => 'name',
+  'Project'      => 'name project_type:references district:references neighborhood:references proposal:references  ' \
+                     'registry_date:date start_date:date end_date:date city_hall:boolean ' \
+                     'important:boolean subsidized:boolean cooperation_agreement:boolean assessment:text manager manager_telf ' \
+                     'voluntaries_num:integer profile postal_code road_type road_name number_type number grader stairs_number floor_number door_number',
+  'Activity'     => 'project:references description:text hour'
 }
 AUX_MODELS_AND_ATTRS = {
   'ProjectScope' => 'project:references scope:references'
@@ -75,20 +76,38 @@ namespace :scaffold do
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
-  task reset: :environment do
+  task destroy_all: :environment do
     puts "Destroying scaffolds"
     Rake::Task['scaffold:destroy'].invoke
     Rake::Task['scaffold:destroy_user'].invoke
+  end
 
+  desc 'Builds the application data model basement by scaffolding the models'
+  task generate_all: :environment do
     puts "Generating scaffolds"
     Rake::Task['scaffold:build'].invoke
     Rake::Task['scaffold:create_user'].invoke
+  end
 
+  desc 'Builds the application data model basement by scaffolding the models'
+  task recreate_db: :environment do
     puts "Recreating DB and seeding"
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
     Rake::Task['db:dev_seed'].invoke
+  end
+
+  desc 'Builds the application data model basement by scaffolding the models'
+  task reset: :environment do
+    puts "Destroying scaffolds"
+    Rake::Task['scaffold:destroy_all'].invoke
+
+    puts "Generating scaffolds"
+    Rake::Task['scaffold:generate_all'].invoke
+
+    puts "Recreating DB and seeding"
+    Rake::Task['scaffold:recreate_db'].invoke
   end
 end
 

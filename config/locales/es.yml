@@ -1,8 +1,8 @@
 es:
   action:
-    new:     'Nuevo'
-    edit:    'Editar'
-    show:    'Ver'
+    new:     'Nuevo %{model}'
+    edit:    'Editar %{model}'
+    show:    'Ver %{model}'
     destroy: 'Eliminar'
     search:  'Buscar'
     back:    'Volver'

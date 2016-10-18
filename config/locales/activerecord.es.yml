@@ -13,6 +13,15 @@ es:
       scope:
         one:   'Ámbito'
         other: 'Ámbitos'
+      organization:
+        one:   'Entidad'
+        other: 'Entidades'
+      proposal:
+        one:   'Propuesta'
+        other: 'Propuestas'
+      neighborhood:
+        one:   'Barrio'
+        other: 'Barrios'
     attributes:
       project:
         name:                  'Nombre'
@@ -21,10 +30,12 @@ es:
         district:              'Distrito'
         proposal_id:           'Propuesta'
         proposal:              'Propuesta'
+        neighborhood_id:       'Barrio'
+        neighborhood:          'Barrios'
         description:           'Descripción'
         registry_date:         'Fecha de registro'
-        start_date:            'Fecha de alta'
-        end_date:              'Fecha de baja'
+        start_date:            'Fecha de inicio'
+        end_date:              'Fecha de finalización'
         city_hall:             'Ayuntamiento'
         project_type_id:       'Tipo de proyecto'
         project_type:          'Tipo de proyecto'
@@ -38,6 +49,14 @@ es:
         voluntaries_num:       'Número de voluntarios'
         profile:               'Perfil'
         cooperation_agreement: 'Acuerdo de cooperación'
+        postal_code:           'Código postal'
+        road_type:             'Tipo de vía'
+        road_name:             'Nombre de vía'
+        number_type:           'Tipo de número'
+        grader:                'Calificador'
+        stairs_number:         'Escalera'
+        floor_number:          'Planta'
+        door_number:           'Puerta'
       project_type:
         name:   'Nombre'
         status: 'Estado'
