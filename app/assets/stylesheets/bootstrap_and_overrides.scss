@@ -335,3 +335,57 @@ a.btn-primary:visited {
   background-color: lightgoldenrodyellow;
   margin-top: 30px;
 }
+
+.form-subtitle {
+  margin-top:    20px;
+  margin-bottom: 35px;
+  margin-left:   45px;
+}
+
+#project.form{
+  .row-1 {
+    .well {
+      min-height: 271px;
+    }
+  }
+
+  .row-2 {
+    .well {
+      min-height: 208px;
+    }
+    textarea {
+      min-height: 150px;
+    }
+  }
+
+  .hasDatepicker {
+    max-width: 110px;
+  }
+
+  .project_assessment {
+    .col-sm-5 {
+      width: 20%;
+    }
+    .col-sm-7 {
+      width: 80%;
+    }
+  }
+
+  .address {
+    .col-sm-5 {
+      width: 40%;
+    }
+    .col-sm-7 {
+      width: 60%;
+    }
+  }
+
+}
+
+.footer {
+  bottom: -100px;
+}
+
+
+
+

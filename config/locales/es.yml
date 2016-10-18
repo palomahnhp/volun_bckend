@@ -7,7 +7,7 @@ es:
     search:  'Buscar'
     back:    'Volver'
   type_text: 'Introducir texto'
-  date_placeholder: 'dd-mm-aaaa'
+  date_placeholder: 'dd/mm/aaaa'
   messages:
     are_you_sure: ¿Está seguro?
   will_paginate:
