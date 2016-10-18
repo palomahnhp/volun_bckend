@@ -1,0 +1,74 @@
+<div id="project" class="form">
+  <%= simple_form_for(@project, project_form_options) do |f| %>
+
+  <div class="form-inputs">
+      <div class="row row-1">
+        <div class="well col-md-4">
+          <%= f.input :name %>
+          <%= f.input :manager %>
+          <%= f.input :manager_telf %>
+        </div>
+        <div class="well col-md-4">
+          <%= f.input :voluntaries_num %>
+          <%= f.input :profile %>
+        </div>
+        <div class="well col-md-4">
+          <%= f.association :project_type %>
+          <%= f.association :district %>
+          <%= f.association :neighborhood %>
+          <%= f.association :proposal %>
+        </div>
+      </div>
+      <div class="row row-2">
+        <div class="well col-md-4">
+          <div class="row">
+            <%= f.input :registry_date, as: :datepicker %>
+            <%= f.input :start_date, as: :datepicker %>
+            <%= f.input :end_date, as: :datepicker %>
+          </div>
+        </div>
+          <div class="well col-md-4">
+            <%= f.input :city_hall %>
+            <%= f.input :important %>
+            <%= f.input :subsidized %>
+            <%= f.input :cooperation_agreement %>
+          </div>
+          <div class="well col-md-4">
+            <%= f.input :assessment %>
+          </div>
+      </div>
+      <div class="row row-3 well">
+        <div class="address">
+          <%= content_tag :h3, 'Dirección', class: 'form-subtitle' %>
+
+          <div class="col-md-4">
+            <%= f.input :road_type %>
+            <%= f.input :road_name %>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-4">
+                <%= f.input :grader %>
+                <%= f.input :postal_code %>
+              </div>
+              <div class="col-md-3">
+                <%= f.input :number %>
+              </div>
+              <div class="col-md-3">
+                <%= f.input :number_type %>
+                <%= f.input :stairs_number %>
+              </div>
+              <div class="col-md-2">
+                <%= f.input :floor_number %>
+                <%= f.input :door_number %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>
