@@ -29,3 +29,5 @@
     <%%= render(partial: '<%= singular_table_name %>', collection: @<%= plural_table_name %>)%>
   </tbody>
 </table>
+
+<%%= render partial: "shared/pagination", locals: {collection: @<%= plural_table_name %>} %>

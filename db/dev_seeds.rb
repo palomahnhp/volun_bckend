@@ -3,10 +3,10 @@ require 'database_cleaner'
 DatabaseCleaner.clean_with :truncation
 Faker::Config.locale = I18n.locale
 
-PROJECTS_NUM      = 100
-DISTRICTS_NUM     = 10
-ACTIVITIES_NUM    = 10
-SCOPES_NUM        = 10
+PROJECTS_NUM   = 100
+DISTRICTS_NUM  = 10
+ACTIVITIES_NUM = 10
+SCOPES_NUM     = 10
 
 PROJECT_TYPE_NAMES = ['Servicios Sociales', 'Centros de mayores', 'Permanentes', 'Puntuales', 'Entidades', 'Subvencionados']
 

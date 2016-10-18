@@ -2,7 +2,7 @@ es:
   activerecord:
     models:
       project:
-        one:   'Projecto'
+        one:   'Proyecto'
         other: 'Proyectos'
       project_type:
         one:   'Tipo de proyecto'
@@ -18,17 +18,20 @@ es:
         name:                  'Nombre'
         code:                  'Código'
         district_id:           'Distrito'
+        district:              'Distrito'
         proposal_id:           'Propuesta'
+        proposal:              'Propuesta'
         description:           'Descripción'
         registry_date:         'Fecha de registro'
         start_date:            'Fecha de alta'
         end_date:              'Fecha de baja'
         city_hall:             'Ayuntamiento'
         project_type_id:       'Tipo de proyecto'
+        project_type:          'Tipo de proyecto'
         important:             'Importante'
         status:                'Estado'
         subsidized:            'Subsidiado'
-        assesment:             'Valoración'
+        assessment:             'Valoración'
         work_place:            'Lugar de ejecución'
         manager:               'Responsable'
         manager_telf:          'Telf. de responsable'
