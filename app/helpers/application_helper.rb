@@ -12,7 +12,6 @@ class DatepickerInput < SimpleForm::Inputs::Base
   def input(wrapper_options)
     input_html_options.merge!(placeholder: I18n.t('date_placeholder')) unless input_html_options[:placeholder]
     input_html_options[:class] << :"form-control"
-    # byebug
     @builder.text_field(attribute_name, input_html_options) +
     @builder.hidden_field(attribute_name, { class: "#{attribute_name}-alt"})
   end
