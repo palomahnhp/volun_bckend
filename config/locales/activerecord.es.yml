@@ -44,7 +44,7 @@ es:
         project_type:          'Tipo de proyecto'
         important:             'Importante'
         status:                'Estado'
-        subsidized:            'Subsidiado'
+        subsidized:            'Subvencionado'
         assessment:            'Valoración'
         work_place:            'Lugar de ejecución'
         manager:               'Responsable'
