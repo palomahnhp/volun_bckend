@@ -432,12 +432,16 @@ a.btn-primary:visited {
 
   .row-4, .row-5 {
     .checkbox-inline {
+      background-color: #eaeaea;
+      border-radius: 2px;
+      margin-bottom: 10px;
+      padding-right: 5px;
+
       .form-subtitle {
         margin-left: 9px;
       }
       label {
         font-weight: normal;
-        margin-right: 40px;
       }
     }
   }
