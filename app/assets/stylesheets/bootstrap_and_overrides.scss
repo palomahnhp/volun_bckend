@@ -1,11 +1,6 @@
-//$navbar-default-bg: #4CBB17;
 $navbar-default-bg: #3b5f79;
 
 $input-border-focus: #66C000;
-
-//$navbar-default-brand-color: yellow;
-//$navbar-default-brand-hover-color: white;
-//$navbar-default-brand-hover-bg: #549f00;
 
 $navbar-default-brand-color: yellow;
 $navbar-default-brand-hover-color: yellow;
@@ -13,10 +8,6 @@ $navbar-default-brand-hover-bg: #5482a2;
 
 $btn-primary-bg: #5482a2;
 $nav-link-hover-bg: #e9e9e9;
-
-//$navbar-default-link-color: white;
-//$navbar-default-link-hover-color: yellow;
-//$navbar-default-link-hover-bg: #549f00;
 
 $navbar-default-link-color: white;
 $navbar-default-link-hover-color: yellow;
@@ -339,13 +330,40 @@ a.btn-primary:visited {
 .form-subtitle {
   margin-top:    20px;
   margin-bottom: 35px;
-  margin-left:   45px;
+  margin-left:   15px;
 }
 
 #project.form{
   .row-1 {
+    padding-bottom: 0;
+
     .well {
       min-height: 271px;
+      padding-bottom: 0;
+    }
+    .col-sm-5 {
+      padding-left: 0px;
+      padding-right: 12px;
+    }
+    .district {
+      .col-sm-5 {
+        width: 30%;
+        padding-left: 0px;
+      }
+      .col-sm-7 {
+        width: 70%;
+        padding-left: 0px;
+      }
+    }
+    .project_profile {
+      textarea {
+        min-height: 88px;
+      }
+    }
+    .project_voluntaries_num {
+      .col-sm-7{
+        max-width: 30%;
+      }
     }
   }
 
@@ -371,14 +389,59 @@ a.btn-primary:visited {
     }
   }
 
-  .address {
-    .col-sm-5 {
-      width: 40%;
+  .row-3{
+
+    .row-3-1 {
+      .col-sm-5 {
+        width: 20%;
+      }
+      .col-sm-7 {
+        width: 80%;
+      }
     }
-    .col-sm-7 {
-      width: 60%;
+
+    .row-3-2, .row-3-3 {
+      padding-left: 24px;
+
+      .col-sm-7 {
+        max-width: 100px;
+      }
+    }
+
+    .address {
+      .col-sm-5 {
+        width: 40%;
+        padding-left: 0px;
+        padding-right: 5px;
+      }
+      .col-sm-7 {
+        width: 60%;
+      }
+      .project_road_name {
+        .col-sm-5 {
+          width: 25%;
+          padding-left: 0px;
+          padding-right: 5px;
+        }
+        .col-sm-7 {
+          width: 75%;
+        }
+      }
     }
   }
+
+  .row-4, .row-5 {
+    .checkbox-inline {
+      .form-subtitle {
+        margin-left: 9px;
+      }
+      label {
+        font-weight: normal;
+        margin-right: 40px;
+      }
+    }
+  }
+
 
 }
 

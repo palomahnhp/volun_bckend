@@ -5,65 +5,105 @@
       <div class="row row-1">
         <div class="well col-md-4">
           <%= f.input :name %>
+          <%= f.association :project_type %>
+          <%= f.association :proposal %>
+          <%= f.association :organization %>
+        </div>
+        <div class="well col-md-4">
           <%= f.input :manager %>
           <%= f.input :manager_telf %>
-        </div>
-        <div class="well col-md-4">
           <%= f.input :voluntaries_num %>
-          <%= f.input :profile %>
+          <%= f.input :profile, as: :text %>
         </div>
-        <div class="well col-md-4">
-          <%= f.association :project_type %>
-          <%= f.association :neighborhood %>
-          <%= f.association :proposal %>
+        <div class="district well col-md-4">
           <%= f.association :district %>
-          <%= f.association :scopes, collection: Scope.all, input_html: { class: 'multiselectscope'} %>
+          <%= f.association :neighborhood %>
         </div>
       </div>
       <div class="row row-2">
         <div class="well col-md-4">
           <div class="row">
-            <%= f.input :registry_date, as: :datepicker %>
             <%= f.input :start_date, as: :datepicker %>
             <%= f.input :end_date, as: :datepicker %>
           </div>
         </div>
-          <div class="well col-md-4">
+        <div class="well">
+          <div class="col-md-4">
             <%= f.input :city_hall %>
             <%= f.input :important %>
             <%= f.input :subsidized %>
             <%= f.input :cooperation_agreement %>
           </div>
-          <div class="well col-md-4">
+          <div class="col-md-4">
             <%= f.input :assessment %>
           </div>
+        </div>
       </div>
-      <div class="row row-3 well">
-        <div class="address">
-          <%= content_tag :h3, 'Dirección', class: 'form-subtitle' %>
+      <div class="row row-3">
+        <div class="address well col-md-12">
+          <%= content_tag :h3, t('work_place_address'), class: 'form-subtitle' %>
 
-          <div class="col-md-4">
-            <%= f.input :road_type %>
-            <%= f.input :road_name %>
-          </div>
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-4">
-                <%= f.input :grader %>
-                <%= f.input :postal_code %>
-              </div>
-              <div class="col-md-3">
-                <%= f.input :number %>
-              </div>
-              <div class="col-md-3">
-                <%= f.input :number_type %>
-                <%= f.input :stairs_number %>
-              </div>
-              <div class="col-md-2">
-                <%= f.input :floor_number %>
-                <%= f.input :door_number %>
-              </div>
+          <div class="row row-3-1">
+            <div class="col-md-4">
+              <%= f.input :road_type %>
             </div>
+            <div class="col-md-8">
+              <%= f.input :road_name %>
+            </div>
+          </div>
+          <div class="row row-3-2">
+            <div class="col-md-3">
+              <%= f.input :number_type %>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-3">
+              <%= f.input :number %>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-3">
+              <%= f.input :grader %>
+            </div>
+            <div class="col-md-1">
+            </div>
+          </div>
+          <div class="row row-3-3">
+            <div class="col-md-3">
+              <%= f.input :stairs_number %>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-3">
+              <%= f.input :floor_number %>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-3">
+              <%= f.input :door_number %>
+            </div>
+            <div class="col-md-1">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-4">
+        <div class="well">
+          <%= content_tag :h3, Scope.model_name.human(count: 2), class: 'form-subtitle' %>
+          <div class="checkbox-inline">
+            <% Scope.all.each do |scope| %>
+                <%= check_box_tag scope.name %> <%= label_tag scope.name %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="row row-5">
+        <div class="checkbox-list well">
+          <%= content_tag :h3, Sector.model_name.human(count: 2), class: 'form-subtitle' %>
+          <div class="checkbox-inline">
+            <% Sector.all.each do |sector| %>
+                <%= check_box_tag sector.name %> <%= label_tag sector.name %>
+            <% end %>
           </div>
         </div>
       </div>

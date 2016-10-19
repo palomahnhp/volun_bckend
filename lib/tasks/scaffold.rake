@@ -4,8 +4,9 @@ MODELS_AND_ATTRS = {
   'Organization' => 'name',
   'District'     => 'name',
   'Scope'        => 'name',
+  'Sector'       => 'name',
   'Neighborhood' => 'name',
-  'Project'      => 'name project_type:references district:references neighborhood:references proposal:references  ' \
+  'Project'      => 'name project_type:references district:references neighborhood:references proposal:references organization:references ' \
                      'registry_date:date start_date:date end_date:date city_hall:boolean ' \
                      'important:boolean subsidized:boolean cooperation_agreement:boolean assessment:text manager manager_telf ' \
                      'voluntaries_num:integer profile postal_code road_type road_name number_type number grader stairs_number floor_number door_number',

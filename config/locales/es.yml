@@ -26,3 +26,4 @@ es:
     page_gap: "&hellip;"
     previous_label: "❰"
   items_per_page: "Elementos por página"
+  work_place_address: 'Dirección del lugar de ejecución'

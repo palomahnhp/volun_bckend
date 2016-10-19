@@ -11,8 +11,11 @@ es:
         one:   'Distrito'
         other: 'Distritos'
       scope:
-        one:   'Ámbito'
-        other: 'Ámbitos'
+        one:   'Ámbito de actuación'
+        other: 'Ámbitos de actuación'
+      sector:
+        one:   'Sector de intervención'
+        other: 'Sectores de intervención'
       organization:
         one:   'Entidad'
         other: 'Entidades'
@@ -24,7 +27,7 @@ es:
         other: 'Barrios'
     attributes:
       project:
-        name:                  'Nombre'
+        name:                  'Nombre del Proyecto'
         code:                  'Código'
         district_id:           'Distrito'
         district:              'Distrito'
