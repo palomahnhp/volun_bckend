@@ -357,7 +357,7 @@ a.btn-primary:visited {
     }
     .project_profile {
       textarea {
-        min-height: 88px;
+        min-height: 80px;
       }
     }
     .project_voluntaries_num {
@@ -391,40 +391,25 @@ a.btn-primary:visited {
 
   .row-3{
 
-    .row-3-1 {
-      .col-sm-5 {
-        width: 20%;
-      }
-      .col-sm-7 {
-        width: 80%;
-      }
-    }
-
-    .row-3-2, .row-3-3 {
-      padding-left: 24px;
-
-      .col-sm-7 {
-        max-width: 100px;
-      }
-    }
-
     .address {
-      .col-sm-5 {
-        width: 40%;
-        padding-left: 0px;
-        padding-right: 5px;
-      }
-      .col-sm-7 {
-        width: 60%;
-      }
-      .project_road_name {
-        .col-sm-5 {
-          width: 25%;
-          padding-left: 0px;
-          padding-right: 5px;
+
+      .row-3-1 {
+        .col-md-8 {
+          .col-sm-5 {
+            width: 21%;
+          }
+          .col-sm-7 {
+            width: 70%;
+            input {
+              max-width: 465px;
+            }
+          }
         }
-        .col-sm-7 {
-          width: 75%;
+      }
+
+      .row-3-2, .row-3-3 {
+        input {
+          max-width: 80px;
         }
       }
     }
