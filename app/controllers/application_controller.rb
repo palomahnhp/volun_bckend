@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def uweb_authenticated?
-    session[:user_authenticated] = UwebAuthenticator.new(params).authenticate!
+    session[:user_authenticated] ||= UwebAuthenticator.new(params).authenticate!
   end
 
   def user_authenticated?
@@ -48,6 +48,12 @@ class ApplicationController < ActionController::Base
   def set_page_params
     params[:per_page_list] ||= [10,20,30,40,50]
     params[:per_page] ||= 20
+  end
+
+  # TODO user persistent users when uweb authentication
+  def current_user
+    return super if use_devise_authentication?
+    User.new if uweb_authenticated?
   end
 
 end
