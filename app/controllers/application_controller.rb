@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate!, unless: :user_authenticated?
   before_action :set_page_params, only: [:index]
 
-  # check_authorization unless: :devise_controller?
+  helper_method :use_devise_authentication?
 
   rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = "Access denied! \n#{exception.inspect}"
+    flash[:error] = I18n.t('messages.access_denied')
     begin
       redirect_to :back
     rescue
@@ -27,15 +27,20 @@ class ApplicationController < ActionController::Base
   end
 
   def uweb_authenticated?
-    session[:user_authenticated] ||= UwebAuthenticator.new(params).authenticate!
+    return true if session[:user_authenticated]
+    uweb_auth     = UwebAuthenticator.new(params)
+    authenticated = uweb_auth.authenticate!
+    session[:uweb_user_data] = uweb_auth.uweb_user_data
+    authenticated
   end
 
   def user_authenticated?
     session.fetch(:user_authenticated, false)
   end
 
+  # TODO Create Setting model for app configuration
   def use_devise_authentication?
-    Object.const_defined?('Devise') # && Setting.use_devise?
+    # Object.const_defined?('Devise') && Setting.use_devise?
     false
   end
 

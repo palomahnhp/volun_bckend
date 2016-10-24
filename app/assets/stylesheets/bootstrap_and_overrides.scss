@@ -438,6 +438,19 @@ a.btn-primary:visited {
   bottom: -100px;
 }
 
+.login-info {
+  ul {
+    padding-top: 5px;
+    li {
+      color: white;
+      label {
+        margin-bottom: 0px;
+        width: 50px;
+      }
+    }
+  }
+}
+
 
 
 

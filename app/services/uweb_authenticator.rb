@@ -1,5 +1,7 @@
 class UwebAuthenticator
-  
+
+  attr_accessor :uweb_user_data
+
   def initialize(data = {})
     @user_params = { login: data[:login] }.with_indifferent_access
   end
@@ -15,8 +17,8 @@ class UwebAuthenticator
     def user_exists?
       response        = client.call(:get_user_data_by_login, message: { ub: { login: @user_params[:login] } }).body
       parsed_response = parser.parse(response[:get_user_data_by_login_response][:get_user_data_by_login_return])
-      uweb_user_date  = get_uweb_user_data(parsed_response)
-      @user_params[:login] == uweb_user_date[:login]
+      self.uweb_user_data = get_uweb_user_data(parsed_response)
+      @user_params[:login] == uweb_user_data[:login]
     rescue  Exception  => e
       Rails.logger.error('UwebAuthenticator#user_exists?') do
         "Error llamada UWEB: get_user_data_by_login - #{@user_params}: \n#{e}"

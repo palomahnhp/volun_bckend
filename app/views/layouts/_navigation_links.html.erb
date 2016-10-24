@@ -1,6 +1,17 @@
-<!--<li><%#= link_to 'Info', page_path('about') %></li>-->
-<% if user_signed_in? %>
-  <li><%= link_to 'Cerrar sesión', destroy_user_session_path, :method=>'delete' %></li>
-<% else %>
-  <li><%= link_to 'Iniciar sesión', new_user_session_path %></li>
+<li class="login-info">
+  <ul class="list-inline">
+    <li><%= label_tag "#{t('user_name')}:" %></li>
+    <li><%= uweb_user_data[:full_name].titleize %></li>
+  </ul>
+  <ul class="list-inline">
+    <li><%= label_tag "#{t('user_login')}:" %></li>
+    <li><%= uweb_user_data[:login] %></li>
+  </ul>
+</li>
+<% if use_devise_authentication? %>
+  <% if user_signed_in? %>
+    <li><%= link_to 'Cerrar sesión', destroy_user_session_path, :method=>'delete' %></li>
+  <% else %>
+    <li><%= link_to 'Iniciar sesión', new_user_session_path %></li>
+  <% end %>
 <% end %>
