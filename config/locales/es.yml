@@ -10,6 +10,7 @@ es:
   date_placeholder: 'dd/mm/aaaa'
   messages:
     are_you_sure: ¿Está seguro?
+    access_denied: "Accesso denegado"
   will_paginate:
     next_label: ❱
     page_entries_info:
@@ -27,3 +28,5 @@ es:
     previous_label: "❰"
   items_per_page: "Elementos por página"
   work_place_address: 'Dirección del lugar de ejecución'
+  user_name:  'Nombre'
+  user_login: 'Login'

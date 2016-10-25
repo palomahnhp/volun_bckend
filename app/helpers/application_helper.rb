@@ -1,4 +1,16 @@
 module ApplicationHelper
+
+  def uweb_user_data
+    @uweb_user_data = session[:uweb_user_data] || {}
+    @uweb_user_data[:full_name] = "#{@uweb_user_data[:name]} #{@uweb_user_data[:surname]} #{@uweb_user_data[:second_surname]} "
+    @uweb_user_data
+  end
+
+  def logged_user_name
+    user_data = session[:uweb_user_data] || {}
+    "#{user_data[:name]} #{user_data[:surname]} #{user_data[:second_surname]} "
+  end
+
 end
 
 module ActionView::Helpers::FormHelper
