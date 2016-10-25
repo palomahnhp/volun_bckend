@@ -357,7 +357,7 @@ a.btn-primary:visited {
     }
     .project_profile {
       textarea {
-        min-height: 80px;
+        min-height: 70px;
       }
     }
     .project_voluntaries_num {
@@ -372,7 +372,8 @@ a.btn-primary:visited {
       min-height: 208px;
     }
     textarea {
-      min-height: 150px;
+      margin-top: 10px;
+      min-height: 130px;
     }
   }
 
@@ -382,10 +383,10 @@ a.btn-primary:visited {
 
   .project_assessment {
     .col-sm-5 {
-      width: 20%;
+      width: 30%;
     }
     .col-sm-7 {
-      width: 80%;
+      width: 100%;
     }
   }
 
