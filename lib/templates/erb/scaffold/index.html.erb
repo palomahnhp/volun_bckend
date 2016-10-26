@@ -1,14 +1,16 @@
 <%% model_class = <%= singular_table_name.camelize %> %>
 
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-12">
     <%%= model_title(model_class) %>
   </div>
-  <div class="index-panel well col-md-6">
-    <div class="row">
-      <%%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
-      <%%= content_tag(:div, search_collection(@search_q, :<%= attributes.select{ |attr| attr.type  =~ /(string|text)/ }.map(&:name).join("_or_") || "id" %>_cont), class: 'col-md-6 pull-right') %>
-    </div>
+</div>
+<div class="index-panel row well">
+  <div class="col-md-6">
+    <%%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+  </div>
+  <div class="col-md-6">
+    <%%= content_tag(:div, search_collection(@search_q, :<%= attributes.select{ |attr| attr.type  =~ /(string|text)/ }.map(&:name).join("_or_") || "id" %>_cont), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 
