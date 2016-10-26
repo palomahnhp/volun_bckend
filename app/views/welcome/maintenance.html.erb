@@ -1,0 +1,17 @@
+<div class="welcome">
+  <div class="jumbotron">
+    <h1>Catálogo</h1>
+    <p>Aquí prodrás administrar las tablas de la aplicación</p>
+    <br/>
+    <br/>
+    <br/>
+    <div class="row">
+      <div class="col-md-6 list-group">
+        <%= link_to Scope.model_name.human(count: 2), scopes_path, class: 'list-group-item' %>
+        <%= link_to ProjectType.model_name.human(count: 2), project_types_path, class: 'list-group-item' %>
+        <%= link_to Group.model_name.human(count: 2), groups_path, class: 'list-group-item' %>
+        <%= link_to Coordination.model_name.human(count: 2), coordinations_path, class: 'list-group-item' %>
+      </div>
+    </div>
+  </div>
+</div>
