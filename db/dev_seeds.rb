@@ -84,23 +84,18 @@ DISTRICTS = {
 }
 
 puts "Creando Colectivos"
-  PROJECT_TYPE_NAMES.each do |pt_name|
-    ProjectType.create!(name: pt_name)
+  SCOPE_NAMES.each do |name|
+    Scope.create!(name: name)
 end
 
 puts "Creando Ámbitos"
-  PROJECT_TYPE_NAMES.each do |pt_name|
-    ProjectType.create!(name: pt_name)
+  GROUP_NAMES.each do |name|
+    Group.create!(name: name)
 end
 
 puts "Creando Tipos de proyectos"
-  PROJECT_TYPE_NAMES.each do |pt_name|
-    ProjectType.create!(name: pt_name)
-end
-
-puts "Creando Ámbitos de actuación"
-(1..SCOPES_NUM).each do |n|
-  Scope.create!(name: Faker::Company.profession)
+  PROJECT_TYPE_NAMES.each do |name|
+    ProjectType.create!(name: name)
 end
 
 puts "Creando entidades"
