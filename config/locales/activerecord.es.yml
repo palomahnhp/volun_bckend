@@ -25,6 +25,12 @@ es:
       neighborhood:
         one:   'Barrio'
         other: 'Barrios'
+      coordination:
+        one:   'Coordinación'
+        other: 'Coordinaciones'
+      group:
+        one:   'Colectivo'
+        other: 'Colectivos'
     attributes:
       project:
         name:                  'Nombre del Proyecto'
@@ -64,12 +70,18 @@ es:
         floor_number:          'Planta'
         door_number:           'Puerta'
 #        scopes:                'Ámbitos'
-      project_type:
-        name:   'Nombre'
-        status: 'Estado'
       district:
         code:   'Código'
         name:   'Nombre'
+      project_type:
+        name:   'Nombre'
+        active: 'Activo'
       scope:
         name:   'Denominación'
-        status: 'Estado'
+        active: 'Activo'
+      coordination:
+        name:   'Denominación'
+        active: 'Activo'
+      group:
+        name:   'Denominación'
+        active: 'Activo'

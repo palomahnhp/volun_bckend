@@ -6,14 +6,58 @@ Faker::Config.locale = I18n.locale
 PROJECTS_NUM      = 100
 DISTRICTS_NUM     = 10
 ACTIVITIES_NUM    = 10
-SCOPES_NUM        = 10
 ORGANIZATIONS_NUM = 10
 SECTORS_NUM       = 10
 NEIGHBORHOOD      = 10
 PROPOSAL          = 10
 ORGANIZATION      = 10
 
-PROJECT_TYPE_NAMES = ['Servicios Sociales', 'Centros de mayores', 'Permanentes', 'Puntuales', 'Entidades', 'Subvencionados']
+PROJECT_TYPE_NAMES = [
+  'Servicios Sociales',
+  'Centros de mayores',
+  'Permanentes',
+  'Puntuales',
+  'Entidades',
+  'Subvencionados'
+]
+
+SCOPE_NAMES = [
+  'Derechos Sociales',
+  'Ambiental',
+  'Cultural',
+  'Deportivo',
+  'Educativo',
+  'Socio-sanitario',
+  'Ocio y tiempo libre',
+  'Comunitario y/o de ciudad',
+  'Animales',
+  'Participación',
+  'On line',
+  'Cuidados a las personas',
+  'Sensibilización',
+  'Comunicación',
+  'Cooperación',
+  'Responsabilidad social',
+  'Emergencias',
+  'Otros'
+]
+
+GROUP_NAMES = [
+  'Menores',
+  'Jóvenes',
+  'Mayores',
+  'Diversidad funcional',
+  'Mujer',
+  'Inmigrantes',
+  'Refugiados',
+  'Personas sin hogar',
+  'Reclusos y exreclusos',
+  'Personas enfermas',
+  'Exclusión social',
+  'Voluntariado',
+  'Toda la población',
+  'Otros'
+]
 
 DISTRICTS = {
   '01' => 'Centro',
@@ -38,6 +82,16 @@ DISTRICTS = {
   '20' => 'San Blas Canillejas',
   '21' => 'Barajas',
 }
+
+puts "Creando Colectivos"
+  PROJECT_TYPE_NAMES.each do |pt_name|
+    ProjectType.create!(name: pt_name)
+end
+
+puts "Creando Ámbitos"
+  PROJECT_TYPE_NAMES.each do |pt_name|
+    ProjectType.create!(name: pt_name)
+end
 
 puts "Creando Tipos de proyectos"
   PROJECT_TYPE_NAMES.each do |pt_name|

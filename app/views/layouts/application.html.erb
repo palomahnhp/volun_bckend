@@ -48,16 +48,16 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "#{fa_icon('users')} Voluntariado".html_safe, root_path, class: "navbar-brand"  %>
+      <%= link_to "#{fa_icon('users')} #{t('app_name')}".html_safe, root_path, class: "navbar-brand"  %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="navbar-collapse collapse navbar-responsive-collapse">
       <ul class="nav navbar-nav">
-        <li><%= link_to "Proyectos", '/projects' %></li>
+        <li><%= link_to Project.model_name.human(count: 2), '/projects' %></li>
         <!--<li><%#= link_to Project.model_name.human, projects_path %></li>-->
         <li><%= link_to "Voluntarios", '#' %></li>
-        <li><%= link_to "Catálogo", '#' %></li>
+        <li><%= link_to "Catálogo", maintenance_path %></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
