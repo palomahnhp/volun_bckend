@@ -2,19 +2,19 @@ $navbar-default-bg: #3b5f79;
 
 $input-border-focus: #66C000;
 
-$navbar-default-brand-color: yellow;
-$navbar-default-brand-hover-color: yellow;
+$navbar-default-brand-color: #fdfd75;
+$navbar-default-brand-hover-color: #fdfd75;
 $navbar-default-brand-hover-bg: #5482a2;
 
 $btn-primary-bg: #5482a2;
 $nav-link-hover-bg: #e9e9e9;
 
 $navbar-default-link-color: white;
-$navbar-default-link-hover-color: yellow;
+$navbar-default-link-hover-color: #fdfd75;
 $navbar-default-link-hover-bg: #5482a2;
 
 $link-color: #A64203;
-
+$border-radius-base: 0;
 
 // import the CSS framework
 @import "bootstrap-sprockets";
@@ -313,6 +313,9 @@ label[for='notice_template_print_template_id'] {
   padding: 10px;
   min-height: 54px;
   margin-top: 14px;
+  width: 99%;
+  margin-left: 0.5%;
+  background-color: lightgoldenrodyellow;
 
   .form-inline input.form-control {
     width: 80%;
@@ -431,8 +434,6 @@ a.btn-primary:visited {
       }
     }
   }
-
-
 }
 
 .footer {
@@ -452,6 +453,69 @@ a.btn-primary:visited {
   }
 }
 
+.navbar {
+  font-weight: bold;
+}
 
+.panel-list .panel {
+  cursor: pointer;
+}
 
+h1, h2, h3 {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #8a6d3b;
+}
+a, th a, th {
+  color: #6b4505;
+}
 
+// Scale content -----------------------------------------------------
+
+.fond{
+  position:absolute;
+  padding-top:85px;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color:#00506b;}
+
+.style_prevu_kit
+{
+  display:inline-block;
+  border:0;
+  width:196px;
+  height:210px;
+  position: relative;
+  -webkit-transition: all 200ms ease-in;
+  -webkit-transform: scale(1);
+  -ms-transition: all 200ms ease-in;
+  -ms-transform: scale(1);
+  -moz-transition: all 200ms ease-in;
+  -moz-transform: scale(1);
+  transition: all 200ms ease-in;
+  transform: scale(1);
+
+}
+.style_prevu_kit:hover
+{
+  box-shadow: 0px 0px 150px #000000;
+  z-index: 2;
+  -webkit-transition: all 200ms ease-in;
+  -webkit-transform: scale(1.5);
+  -ms-transition: all 200ms ease-in;
+  -ms-transform: scale(1.5);
+  -moz-transition: all 200ms ease-in;
+  -moz-transform: scale(1.5);
+  transition: all 200ms ease-in;
+  transform: scale(1.5);
+}
+
+.jumbotron {
+  h1{
+    color: #6b4505
+  }
+  h1{
+    color: #8a6d3b;
+  }
+}
