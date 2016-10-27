@@ -3,7 +3,7 @@ class Scope < ActiveRecord::Base
 
   validates :name, uniqueness: true
 
-  def self.main_attributes
+  def self.main_columns
     [:id, :name, :active]
   end
 
