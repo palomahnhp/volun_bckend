@@ -1,4 +1,7 @@
 es:
+  humanize:
+    "true":  "Sí"
+    "false": "No"
   app_name: 'Voluntariado'
   action:
     new:     'Nuevo %{model}'

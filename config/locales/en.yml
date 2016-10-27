@@ -20,6 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  humanize:
+    true:  "Yes"
+    false: "No"
   action:
     new:     'Add'
     edit:    'Edit'

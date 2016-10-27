@@ -17,9 +17,9 @@
 <table class="index-table">
   <thead>
     <tr>
-  <% attributes.each do |attribute| -%>
-    <th><%%= sort_link(@search_q, :<%= attribute.name %><%= "_id" if attribute.reference? %>) %></th>
-  <% end -%>
+    <%% model_class.main_columns.each do |column| -%>
+      <th><%%= sort_link(@search_q, column) %></th>
+    <%% end -%>
 
       <th class="actions">
         <%%= t('actions') %>

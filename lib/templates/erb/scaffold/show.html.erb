@@ -4,8 +4,11 @@
 
 <%- for attribute in attributes -%>
   <dt><%%= <%= singular_table_name.camelize %>.human_attribute_name(:<%= attribute.name %><%= "_id" if attribute.reference? %>) %>:</dt>
+  <%- if attribute.class.in? [TrueClass, FalseClass]  %>
   <dd><%%= @<%= singular_table_name %>.<%= attribute.name %> %></dd>
-
+  <%- else -%>
+  <dd><%%= t("humanize.#{@<%= singular_table_name %>.<%= attribute.name %>}") %></dd>
+  <%- end -%>
 <%- end -%>
 
 </dl>

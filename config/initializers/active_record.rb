@@ -15,4 +15,8 @@ class ActiveRecord::Base
     {s: "#{self.ransack_order_to_s} asc"}
   end
 
+  def self.main_columns
+    column_names.reject{ |column| column =~ /\b(id|created_at|updated_at)\b/ }
+  end
+
 end

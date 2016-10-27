@@ -1,17 +1,97 @@
 <div class="welcome">
   <div class="jumbotron">
     <h1>Catálogo</h1>
+    <br/>
     <p>Aquí prodrás administrar las tablas de la aplicación</p>
     <br/>
     <br/>
-    <br/>
-    <div class="row">
-      <div class="col-md-6 list-group">
-        <%= link_to Scope.model_name.human(count: 2), scopes_path, class: 'list-group-item' %>
-        <%= link_to ProjectType.model_name.human(count: 2), project_types_path, class: 'list-group-item' %>
-        <%= link_to Group.model_name.human(count: 2), groups_path, class: 'list-group-item' %>
-        <%= link_to Coordination.model_name.human(count: 2), coordinations_path, class: 'list-group-item' %>
+    <div class="panel-list row">
+      <div class="col-md-6">
+        <div class="panel panel-info" onclick="window.location='<%= scopes_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Scope.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Ámbitos a los que pertenece un proyecto
+          </div>
+        </div>
+        <div class="panel panel-info" onclick="window.location='<%= project_types_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= ProjectType.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Tipos de proyecto a los que un proyecto puede ser
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-info" onclick="window.location='<%= groups_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Group.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Colectivos a los que pertenece un proyecto
+          </div>
+        </div>
+        <div class="panel panel-info" onclick="window.location='<%= coordinations_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Coordination.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Coordinaciones asociadas a un proyecto
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<!--&lt;!&ndash; Button trigger modal &ndash;&gt;-->
+<!--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">-->
+  <!--Launch demo modal-->
+<!--</button>-->
+
+<!--&lt;!&ndash; Modal &ndash;&gt;-->
+<!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">-->
+  <!--<div class="modal-dialog" role="document">-->
+    <!--<div class="modal-content">-->
+      <!--<div class="modal-header">-->
+        <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>-->
+        <!--<h4 class="modal-title" id="myModalLabel">Modal title</h4>-->
+      <!--</div>-->
+      <!--<div class="modal-body">-->
+        <!--...-->
+      <!--</div>-->
+      <!--<div class="modal-footer">-->
+        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+<!--<link href='http://fonts.googleapis.com/css?family=Roboto:100,400,300,500,700' rel='stylesheet' type='text/css'>-->
+
+<!--<div align="center" class="fond">-->
+  <!--<div style="width:1000px;">-->
+
+    <!--<div class="style_prevu_kit" style="background-color:#cb2025;"></div>-->
+    <!--<div class="style_prevu_kit" style="background-color:#f8b334;"></div>-->
+    <!--<div class="style_prevu_kit" style="background-color:#97bf0d;"></div>-->
+    <!--<div class="style_prevu_kit" style="background-color:#00a096;"></div>-->
+    <!--<div class="style_prevu_kit" style="background-color:#93a6a8;"></div>-->
+
+
+    <!--<div style=" padding:5px; color:#b5e6e3; font-weight:300; font-size:30px; font-family:'Roboto';padding-top:20px;">CSS <font style="font-weight:400;">HOVER</font></div>-->
+    <!--<a href="http://www.wifeo.com/code" style="text-decoration:none;" target="_blank"><div style="  color:#b5e6e3; font-weight:300; font-size:20px; font-family:'Roboto';">www.wifeo.com/code</div></a>-->
+
+  <!--</div>-->
+<!--</div>-->
