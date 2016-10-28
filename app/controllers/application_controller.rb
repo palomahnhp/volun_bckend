@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate!, unless: :user_authenticated?
   before_action :set_page_params, only: [:index]
-  after_action :associate_current_user, only: [:create, :update, :destroy]
+  after_action :associate_current_user, only: [:create, :update, :destroy], unless: :devise_controller?
 
   helper_method :use_devise_authentication?
 

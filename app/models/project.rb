@@ -1,5 +1,4 @@
 class Project < ActiveRecord::Base
-
   belongs_to :project_type
   belongs_to :district
   belongs_to :neighborhood
@@ -8,10 +7,6 @@ class Project < ActiveRecord::Base
 
   def to_s
     name
-  end
-
-  def main_attributes
-    attributes.slice('created_at', 'updated_at').symbolize_keys.keys
   end
 
 end

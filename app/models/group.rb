@@ -1,4 +1,6 @@
 class Group < ActiveRecord::Base
+
+  include Recordable
   include Archivable
 
   validates :name, uniqueness: true

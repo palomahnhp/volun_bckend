@@ -1,4 +1,6 @@
 class Scope < ActiveRecord::Base
+
+  include Recordable
   include Archivable
 
   validates :name, uniqueness: true
