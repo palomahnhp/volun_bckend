@@ -1,4 +1,5 @@
 MODELS_AND_ATTRS = {
+  'RecordHistory'     => 'user:references recordable_id:integer recordable_type recordable_changed_at',
   'Scope'             => 'name active:boolean',
   'ProjectType'       => 'name active:boolean',
   'Group'             => 'name active:boolean',
@@ -76,12 +77,12 @@ namespace :scaffold do
   task build: :environment do
     # Generate the scaffolds for all models
     MODELS_AND_ATTRS.each do |model_name, attrs_list|
-      sh "rails generate scaffold #{model_name} #{attrs_list} --f"
+      sh "rails generate scaffold #{model_name} #{attrs_list} --skip"
     end
 
     # Generate intermediate models
     AUX_MODELS_AND_ATTRS.each do |model_name, attrs_list|
-      sh "rails generate model #{model_name} #{attrs_list} --f"
+      sh "rails generate model #{model_name} #{attrs_list} --skip"
     end
   end
 
