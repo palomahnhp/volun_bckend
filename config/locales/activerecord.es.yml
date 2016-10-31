@@ -74,14 +74,22 @@ es:
         code:   'Código'
         name:   'Nombre'
       project_type:
+        id:     'ID'
         name:   'Nombre'
         active: 'Activo'
+        created_at : 'Fecha de creación'
       scope:
+        id:     'ID'
         name:   'Denominación'
         active: 'Activo'
+        created_at : 'Fecha de creación'
       coordination:
+        id:     'ID'
         name:   'Denominación'
         active: 'Activo'
+        created_at : 'Fecha de creación'
       group:
+        id:     'ID'
         name:   'Denominación'
         active: 'Activo'
+        created_at : 'Fecha de creación'

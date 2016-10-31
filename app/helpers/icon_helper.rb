@@ -16,6 +16,10 @@ module IconHelper
     build_icon(:delete, opts.merge(icon_name: 'times', class: 'danger'))
   end
 
+  def icon_recover(opts = {})
+    build_icon(:bolt, opts.merge(icon_name: 'bolt', class: 'danger'))
+  end
+
   def icon_search(opts = {})
     build_icon(:search, opts)
   end

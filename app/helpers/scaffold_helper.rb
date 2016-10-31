@@ -49,7 +49,8 @@ module ScaffoldHelper
     options = {
         text: icon_show,
         path: "#{record.class.model_name.singular}_path",
-        class: 'grey-color'
+        class: 'grey-color',
+        remote: true
     }.merge(opts)
     path = options.delete(:path)
     text = options.delete(:text)
@@ -80,6 +81,22 @@ module ScaffoldHelper
         path:   "#{record.class.model_name.singular}_path",
         remote: false,
         method: :delete,
+        data:   {confirm: t('messages.are_you_sure')}
+    }.merge(opts)
+    path = options.delete(:path)
+    text = options.delete(:text)
+
+    link_to(text, public_send(path, record, options[:path_params]||{}), options)
+  end
+
+  def link_to_recover(record, opts = {})
+    return unless can?(:recover, record)
+    options = {
+        id:     "#{dom_id(record)}_recover",
+        text:   icon_recover,
+        path:   "recover_#{record.class.model_name.singular}_path",
+        remote: false,
+        method: :post,
         data:   {confirm: t('messages.are_you_sure')}
     }.merge(opts)
     path = options.delete(:path)
