@@ -9,7 +9,9 @@
 
 puts "Creando usuario administrador..."
 
-User.first_or_initialize(email: 'admin@email.com',
+User.first_or_initialize(email: 'admin@madrid.es',
                          password: 'Wordpass1',
                          password_confirmation: 'Wordpass1')
     .save!
+
+  User.first_or_initialize(email: 'user1@madrid.es', password: 'Wordpass1', password_confirmation: 'Wordpass1').save!

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :authenticate!, unless: :user_authenticated?
   before_action :set_page_params, only: [:index]
-  after_action :associate_current_user, only: [:create, :update, :destroy], unless: :devise_controller?
+  after_action :update_record_history, only: [:create, :update, :destroy], unless: :devise_controller?
 
   helper_method :use_devise_authentication?
 
@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def associate_current_user
+  def update_record_history
     return unless recordable?
     record = instance_variable_get("@#{model.model_name.singular}")
     record.update_history(current_user.try(:id))

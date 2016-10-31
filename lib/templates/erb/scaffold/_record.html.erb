@@ -1,10 +1,14 @@
 <tr id="<%%= dom_id(<%= singular_table_name %>) %>" >
 
+  <td><%%= <%= singular_table_name %>.id %></td>
 <% attributes.each do |attribute| -%>
-<% case attribute.type; when /references/ -%>
+<% case attribute.type -%>
+<% when /references/ -%>
   <td><%%= <%= singular_table_name %>.<%= attribute.name.gsub(/_id\z/, '') %> %></td>
 <% when /date/ -%>
   <td><%%= l(<%= singular_table_name %>.<%= attribute.name %>) %></td>
+<% when /boolean/ -%>
+  <td><%%= t("humanize.#{<%= singular_table_name %>.<%= attribute.name %>}") %></td>
 <% else -%>
   <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
 <% end -%>
