@@ -133,12 +133,6 @@ th a{
   width: 100%;
 }
 
-.mw800 {
-  min-width: 800px;
-}
-.mw600 {
-  min-width: 600px;
-}
 
 .fa{
   cursor: pointer;
@@ -180,35 +174,6 @@ a:focus{
   outline: 0;
 }
 
-.tooltip-inner {
-  max-width: none;
-  white-space: nowrap;
-}
-
-span.simplecolorpicker.icon{
-  @extend .form-control;
-  border-radius: 4px !important;
-}
-
-.simplecolorpicker.picker {
-  z-index: 5002 !important;
-  max-width: 265px !important;
-}
-
-.priority-col {
-  margin-right: 5px;
-  .select2-container.select2-allowclear .select2-choice .select2-chosen {
-    margin-right: 55px;
-  }
-}
-.priority-col .select2-chosen,
-.priority-col .select2-choice > span:first-child,
-.priority-col .select2-container .select2-choices .select2-search-field input,
-.product_col .select2-chosen,
-.product_col .select2-choice > span:first-child,
-.product_col .select2-container .select2-choices .select2-search-field input{
-  padding: 6px 1px 6px 5px;
-}
 @media screen and (min-width: 769px) and (max-width: 1199px) {
   .priority-col {
     width: 21%;
@@ -247,27 +212,6 @@ label[for='notice_template_print_template_id'] {
   .btn{
     padding: 6px 0;
   }
-}
-.order_col{
-  padding-left: 8px;
-  max-width: 6%;
-  input {
-    padding-right: 2px;
-  }
-}
-
-.thick {
-  color: gray;
-  font-weight: bolder !important;
-  font-size: 40px !important;
-  margin-top: -8px;
-  margin-right: 20px;
-}
-
-.campaign_title{
-  padding: 15px;
-  border-bottom: 1px solid #333;
-  cursor: pointer;
 }
 
 .index_table-actions {

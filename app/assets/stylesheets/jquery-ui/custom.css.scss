@@ -11,9 +11,11 @@
 }
 
 .ui-widget-header {
-  border: 1px solid #aaaaaa/*{borderColorHeader}*/;
+  border: 0;
   background: lightgoldenrodyellow/*{bgColorHeader}; url(/assets/jquery-ui/ui-bg_highlight-soft_75_cccccc_1x100-54270656df079c4da5182629a080fc633b6f84b87985eb016d25a560e2c38d4a.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/;
-  font-weight: bold;
+  min-height: 50px;
+  border-bottom: 1px solid #eeeeee;
+  color: #3b5f79;
 }
 
 .ui-dialog {
@@ -25,8 +27,23 @@
 .ui-datepicker-header {
   color: #3b5f79;
   border-radius: 0/*{cornerRadius}; */;
+  border-bottom: 1px #cccccc/*{cornerRadius}; */;
 }
 
 #ui-datepicker-div {
   border-radius: 0/*{cornerRadius}; */;
+}
+
+.ui-widget span{
+  font-size: 1.5em/*{fsDefault}*/;
+  line-height: 25px;
+}
+
+.ui-dialog-buttonpane.ui-widget-content {
+  border: 0;
+  border-top: 1px solid #eeeeee;
+}
+
+.ui-widget-content dt{
+  color: #824505;
 }
