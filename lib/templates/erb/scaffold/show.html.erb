@@ -2,16 +2,23 @@
 
 <dl class="dl-horizontal">
 
+  <dt><%%= <%= singular_table_name.camelize %>.human_attribute_name(:id) %>:</dt>
+  <dd><%%= @<%= singular_table_name %>.id %></dd>
+  <dt><%%= <%= singular_table_name.camelize %>.human_attribute_name(:created_at) %>:</dt>
+  <dd><%%= l(@<%= singular_table_name %>.created_at) %></dd>
 <%- for attribute in attributes -%>
   <dt><%%= <%= singular_table_name.camelize %>.human_attribute_name(:<%= attribute.name %><%= "_id" if attribute.reference? %>) %>:</dt>
   <%- if attribute.field_type.to_sym == :check_box -%>
   <dd><%%= t("humanize.#{@<%= singular_table_name %>.<%= attribute.name %>}") %></dd>
   <%- elsif attribute.field_type.to_sym == :date_select -%>
   <dd><%%= l(@<%= singular_table_name %>.<%= attribute.name %>) %></dd>
+  <%- else -%>
+  <dd><%%= @<%= singular_table_name %>.<%= attribute.name %> %></dd>
   <%- end -%>
 <%- end -%>
 
 </dl>
-
+<%% unless request.xhr? %>
 <%%= button_to_back %>
 <%%= button_to_edit(@<%= singular_table_name %>) %>
+<%% end %>

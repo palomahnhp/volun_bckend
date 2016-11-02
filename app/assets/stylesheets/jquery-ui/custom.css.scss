@@ -1,0 +1,32 @@
+// Dialog
+
+.ui-dialog .ui-dialog-titlebar-close {
+  display: none;
+
+}
+
+.ui-draggable .ui-dialog-titlebar {
+  border-radius: 0;
+  background-color: lightgoldenrodyellow;
+}
+
+.ui-widget-header {
+  border: 1px solid #aaaaaa/*{borderColorHeader}*/;
+  background: lightgoldenrodyellow/*{bgColorHeader}; url(/assets/jquery-ui/ui-bg_highlight-soft_75_cccccc_1x100-54270656df079c4da5182629a080fc633b6f84b87985eb016d25a560e2c38d4a.png)/*{bgImgUrlHeader}*/ 50%/*{bgHeaderXPos}*/ 50%/*{bgHeaderYPos}*/ repeat-x/*{bgHeaderRepeat}*/;
+  font-weight: bold;
+}
+
+.ui-dialog {
+  border-radius: 0/*{cornerRadius}; */;
+}
+
+// Datepicker
+
+.ui-datepicker-header {
+  color: #3b5f79;
+  border-radius: 0/*{cornerRadius}; */;
+}
+
+#ui-datepicker-div {
+  border-radius: 0/*{cornerRadius}; */;
+}

@@ -1,7 +1,7 @@
 <% template_path =  local_assigns[:template_path] || "#{params[:controller]}/#{params[:action]}" %>
 <% html_content  =  j(render file: template_path) %>
 
-alert("<%= params.inspect %>");
+//alert("<%= params.inspect %>");
 
 $('<div/>', {
   id: 'myDialog',
@@ -16,9 +16,10 @@ dialog({
   stack:       true,
   dialogClass: '',
   modal:       false,
+  width:       600,
   buttons: [
     {
-      text: "Close",
+      text: "<%= t('action.close') %>",
       class: "btn btn-default",
       click: function() {
         $( this ).dialog( "close" );

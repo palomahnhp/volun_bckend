@@ -1,7 +1,7 @@
 module ScaffoldHelper
 
   def model_title(model_class, opts = {})
-    main_title(I18n.t('.title', default: model_class.model_name.human(count: 2).titleize), opts)
+    main_title(I18n.t('.title', default: model_class.model_name.human(count: 2).capitalize), opts)
   end
 
   def main_title(title, opts = {})
@@ -55,7 +55,7 @@ module ScaffoldHelper
     path = options.delete(:path)
     text = options.delete(:text)
 
-    link_to(text, public_send(path, record,options[:path_params]||{}), options)
+    link_to(text, public_send(path, record, options[:path_params]||{}), options)
   end
 
   def link_to_edit(record, opts = {})
@@ -70,7 +70,7 @@ module ScaffoldHelper
     path = options.delete(:path)
     text = options.delete(:text)
 
-    link_to(text, public_send(path, record,options[:path_params]||{}), options)
+    link_to(text, public_send(path, record, options[:path_params]||{}), options)
   end
 
   def link_to_destroy(record, opts = {})

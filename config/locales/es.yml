@@ -10,6 +10,7 @@ es:
     destroy: 'Eliminar'
     search:  'Buscar'
     back:    'Volver'
+    close:   'Cerrar'
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
   messages:
