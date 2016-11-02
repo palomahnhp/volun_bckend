@@ -1,4 +1,6 @@
 class Project < ActiveRecord::Base
+  include Archivable
+
   belongs_to :project_type
   belongs_to :district
   belongs_to :neighborhood

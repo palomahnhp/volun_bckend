@@ -25,12 +25,12 @@ MODELS_AND_ATTRS = {
   # 'VolunteerType'     => 'name active:boolean',
   # 'Degree'            => 'name active:boolean',
 
-  'Proposal'     => 'name',
-  'Organization' => 'name',
-  'District'     => 'name',
-  'Neighborhood' => 'name',
+  'Proposal'     => 'name active:boolean',
+  'Organization' => 'name active:boolean',
+  'District'     => 'name active:boolean',
+  'Neighborhood' => 'name active:boolean',
   'Project'      => 'name project_type:references district:references neighborhood:references proposal:references organization:references ' \
-                     'registry_date:date start_date:date end_date:date city_hall:boolean ' \
+                     'registry_date:date start_date:date end_date:date city_hall:boolean active:boolean ' \
                      'important:boolean subsidized:boolean cooperation_agreement:boolean assessment:text manager manager_telf ' \
                      'voluntaries_num:integer profile postal_code road_type road_name number_type number grader stairs_number floor_number door_number',
   'Activity'     => 'project:references description:text hour'
@@ -109,8 +109,8 @@ namespace :scaffold do
   desc 'Builds the application data model basement by scaffolding the models'
   task generate_all: :environment do
     puts "Generating scaffolds"
-    Rake::Task['scaffold:build'].invoke
     Rake::Task['scaffold:create_user'].invoke
+    Rake::Task['scaffold:build'].invoke
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
