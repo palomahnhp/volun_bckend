@@ -3,7 +3,7 @@ module Archivable
 
   included do
 
-    # default_scope ->{ where("#{self.table_name}.active" => true) }
+    default_scope ->{ where("#{self.table_name}.active" => true).order("#{self.table_name}.id") }
 
     def archived?
       !active?

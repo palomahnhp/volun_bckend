@@ -17,6 +17,10 @@
   <td class="index_table-actions">
     <%%= link_to_show(<%= singular_table_name %>) %>
     <%%= link_to_edit(<%= singular_table_name %>) %>
+<%% if <%= singular_table_name %>.archived? %>
+    <%%= link_to_recover(<%= singular_table_name %>) %>
+<%% else %>
     <%%= link_to_destroy(<%= singular_table_name %>) %>
+<%% end %>
   </td>
 </tr>
