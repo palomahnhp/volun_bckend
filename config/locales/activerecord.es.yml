@@ -31,6 +31,9 @@ es:
       group:
         one:   'Colectivo'
         other: 'Colectivos'
+      record_history:
+        one:   'Historial de registro'
+        other: 'Historial de registros'
     attributes:
       project:
         name:                  'Nombre del Proyecto'
@@ -93,3 +96,10 @@ es:
         name:   'Denominación'
         active: 'Activo'
         created_at : 'Fecha de creación'
+      record_history:
+        id:                    'ID'
+        user_id:               'Usuario'
+        user:                  'Usuario'
+        recordable_id:         'Id de registro'
+        recordable_type:       'Tipo de registro'
+        recordable_changed_at: 'Fecha de modificación'
