@@ -4,19 +4,19 @@
 //alert("<%= params.inspect %>");
 
 $('<div/>', {
-  id: 'myDialog',
+  id: 'dialog',
   class: 'dialog-custom',
   style: 'display:none'
 }).appendTo('body').
 html("<%= html_content %>").
 dialog({
-  title:       $('#myDialog > h1.page-header').remove().text(),
+  title:       $('#dialog > h1.page-header').remove().text(),
   resizable:   true,
   closeText:   '',
   stack:       true,
   dialogClass: '',
   modal:       false,
-  width:       600,
+  width:       'auto',
   buttons: [
     {
       text: "<%= t('action.close') %>",

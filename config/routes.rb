@@ -1,10 +1,25 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  resources :scopes do
+
+  concern :recoverable do
     post :recover, on: :member
   end
-  resources :record_histories
+
+  resources :activities      , concerns: :recoverable
+  resources :projects        , concerns: :recoverable
+  resources :neighborhoods   , concerns: :recoverable
+  resources :districts       , concerns: :recoverable
+  resources :organizations   , concerns: :recoverable
+  resources :proposals       , concerns: :recoverable
+  resources :sectors         , concerns: :recoverable
+  resources :coordinations   , concerns: :recoverable
+  resources :groups          , concerns: :recoverable
+  resources :project_types   , concerns: :recoverable
+  resources :scopes          , concerns: :recoverable
+  resources :record_histories, concerns: :recoverable
+  resources :scopes          , concerns: :recoverable
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

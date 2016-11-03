@@ -45,6 +45,11 @@ class <%= controller_class_name %>Controller < ApplicationController
     respond_with(@<%= singular_table_name %>)
   end
 
+  def recover
+    @<%= orm_instance.recover %>
+    respond_with(@<%= singular_table_name %>)
+  end
+
   private
 
     def <%= "#{singular_table_name}_params" %>
