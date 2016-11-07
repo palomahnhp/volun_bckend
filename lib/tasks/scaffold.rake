@@ -19,14 +19,14 @@ MODELS_AND_ATTRS = {
   # 'WorkSituation'     => 'name active:boolean',
   # 'Technician'        => 'name active:boolean',
   # 'ActivityType'      => 'name active:boolean',
-  # 'OrganizationType'  => 'name active:boolean',
+  # 'EntityType'  => 'name active:boolean',
   # 'MonitoringType'    => 'name active:boolean',
   # 'RoadType'          => 'name active:boolean',
   # 'VolunteerType'     => 'name active:boolean',
   # 'Degree'            => 'name active:boolean',
 
   'Proposal'     => 'name active:boolean',
-  'Organization' => 'name active:boolean',
+  'Entity'       => 'name active:boolean',
   'District'     => 'name active:boolean',
   'Neighborhood' => 'name active:boolean',
   'Project'      => 'name project_type:references district:references neighborhood:references proposal:references organization:references ' \
@@ -50,13 +50,37 @@ namespace :scaffold do
     tmp = Tempfile.new('extract')
 
     # Write good lines to temporary file
-    open('config/routes.rb', 'r').each { |l| tmp << l unless /devise_for/ =~ l.chomp }
+    File.open('config/routes.rb', 'r').each { |l| tmp << l unless /devise_for/ =~ l.chomp }
 
     # Close tmp, or troubles ahead
     tmp.close
 
     # Move temp file to origin
     FileUtils.mv(tmp.path, 'config/routes.rb')
+  end
+
+  desc 'Add default: true in migrations with field active'
+  task add_default_true: :environment do
+    require 'fileutils'
+    require 'tempfile'
+
+    Dir.glob('db/migrate/*.rb') do |rb_file|
+      tmp = Tempfile.new('extract')
+
+      File.open(rb_file, 'r').each do |l|
+        line = l
+        if line.chomp =~ /boolean.*active/
+          line  = line.sub("\n", '')
+          line += ", default: true\n"
+        end
+        tmp  << line
+      end
+
+      tmp.close
+
+      # Move temp file to origin
+      FileUtils.mv(tmp.path, rb_file)
+    end
   end
 
   desc 'Builds the user model'
@@ -111,6 +135,7 @@ namespace :scaffold do
     puts "Generating scaffolds"
     Rake::Task['scaffold:create_user'].invoke
     Rake::Task['scaffold:build'].invoke
+    Rake::Task['scaffold:add_default_true'].invoke
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
