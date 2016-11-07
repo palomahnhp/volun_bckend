@@ -31,7 +31,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def create
-    @<%= orm_instance.save %>
+    @<%= singular_table_name %>.save
     respond_with(@<%= singular_table_name %>)
   end
 
@@ -41,23 +41,23 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def destroy
-    @<%= orm_instance.destroy %>
+    @<%= singular_table_name %>.destroy
     respond_with(@<%= singular_table_name %>)
   end
 
   def recover
-    @<%= orm_instance.recover %>
+    @<%= singular_table_name %>.recover
     respond_with(@<%= singular_table_name %>)
   end
 
-  private
+  protected
 
     def <%= "#{singular_table_name}_params" %>
     <%- if attributes_names.empty? -%>
-        params[:<%= singular_table_name %>]
-          <%- else -%>
-    params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
+      params[:<%= singular_table_name %>]
+    <%- else -%>
+      params.require(:<%= singular_table_name %>).permit(<%= attributes_names.map { |name| ":#{name}" }.join(', ') %>)
     <%- end -%>
-   end
+    end
 end
 <% end -%>
