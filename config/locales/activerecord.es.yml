@@ -2,104 +2,145 @@ es:
   activerecord:
     models:
       project:
-        one:   'Proyecto'
-        other: 'Proyectos'
+        one:   Proyecto
+        other: Proyectos
       project_type:
-        one:   'Tipo de proyecto'
-        other: 'Tipos de proyecto'
+        one:   Tipo de proyecto
+        other: Tipos de proyecto
       district:
-        one:   'Distrito'
-        other: 'Distritos'
+        one:   Distrito
+        other: Distritos
       Area:
-        one:   'Ámbito de actuación'
-        other: 'Ámbitos de actuación'
+        one:   Ámbito de actuación
+        other: Ámbitos de actuación
       sector:
-        one:   'Sector de intervención'
-        other: 'Sectores de intervención'
+        one:   Sector de intervención
+        other: Sectores de intervención
       organization:
-        one:   'Entidad'
-        other: 'Entidades'
+        one:   Entidad
+        other: Entidades
       proposal:
-        one:   'Propuesta'
-        other: 'Propuestas'
-      neighborhood:
-        one:   'Barrio'
-        other: 'Barrios'
+        one:   Propuesta
+        other: Propuestas
       coordination:
-        one:   'Coordinación'
-        other: 'Coordinaciones'
-      group:
-        one:   'Colectivo'
-        other: 'Colectivos'
+        one:   Coordinación
+        other: Coordinaciones
+      collective:
+        one:   Colectivo
+        other: Colectivos
       record_history:
-        one:   'Historial de registro'
-        other: 'Historial de registros'
+        one:   Historial de registro
+        other: Historial de registros
+      proyect_type_subsidized:
+        one:   Proyecto subvencionado
+        other: Proyectos subvencionados
+      project_type_entity:
+        one:   Proyecto de entidad
+        other: Proyectos de entidades
+      project_type_exceptional:
+        one:   Proyecto excepcional
+        other: Proyectos excepcionales
+      project_type_permanent:
+        one:   Proyecto permanente
+        other: Proyectos permanentes
+      project_type_centre:
+        one:   Proyecto de centro de mayores
+        other: Proyectos de centros de mayores
+      project_type_social:
+        one:   Proyecto de servicios sociales
+        other: Proyectos de servicios sociales
+      project_type_other:
+        one:   Otro tipo proyecto
+        other: Otros tipos proyecto
+      timetable:
+        one:   Horario
+        other: Horarios
     attributes:
       project:
-        name:                  'Nombre del Proyecto'
-        code:                  'Código'
-        district_id:           'Distrito'
-        district:              'Distrito'
-        proposal_id:           'Propuesta'
-        proposal:              'Propuesta'
-        neighborhood_id:       'Barrio'
-        neighborhood:          'Barrio'
-        organization_id:       'Entidad'
-        organization:          'Entidad'
-        description:           'Descripción'
-        registry_date:         'Fecha de registro'
-        start_date:            'Fecha de inicio'
-        end_date:              'Fecha de finalización'
-        city_hall:             'Ayuntamiento'
-        project_type_id:       'Tipo de proyecto'
-        project_type:          'Tipo de proyecto'
-        important:             'Importante'
-        status:                'Estado'
-        subsidized:            'Subvencionado'
-        assessment:            'Valoración'
-        work_place:            'Lugar de ejecución'
-        manager:               'Responsable'
-        manager_telf:          'Teléfono del responsable'
-        voluntaries_num:       'Número de voluntarios'
-        profile:               'Perfil de voluntario'
-        cooperation_agreement: 'Acuerdo de cooperación'
-        postal_code:           'Código postal'
-        road_type:             'Tipo de vía'
-        road_name:             'Nombre de vía'
-        number_type:           'Tipo de Nº'
-        number:                'Número'
-        grader:                'Calificador'
-        stairs_number:         'Escalera'
-        floor_number:          'Planta'
-        door_number:           'Puerta'
-#        Areas:                'Ámbitos'
+        name:                  Nombre
+        description:           Descripción
+        created_at:            Fecha creación
+        functions:             Funciones del voluntario
+        execution_start_date:  Fecha ejecución desde
+        execution_end_date:    Fecha ejecución hasta
+        contact_person:        Persona de contacto
+        phone_number:          Teléfono de contacto
+        email:                 Correo electrónico
+        comments:              Observaciones
+        beneficiaries_num:     Número de beneficiarios
+        volunteers_num:        Número de voluntarios demandados
+        insured:               Seguro de accidentes
+        insurance_expiry_date: Fecha de caducidad seguro
+        project_type_id:       Tipo proyecto
+        entity_id:             Entidad
       district:
-        code:   'Código'
-        name:   'Nombre'
+        code:        Código
+        name:        Nombre
+        created_at : Fecha de creación
       project_type:
-        id:     'ID'
-        name:   'Nombre'
-        active: 'Activo'
-        created_at : 'Fecha de creación'
+        id:          ID
+        name:        Nombre
+        description: Descripción
+        active:      Activo
+        created_at : Fecha de creación
       Area:
-        id:     'ID'
-        name:   'Denominación'
-        active: 'Activo'
-        created_at : 'Fecha de creación'
+        id:          ID
+        name:        Denominación
+        description: Descripción
+        active:      Activo
+        created_at : Fecha de creación
       coordination:
-        id:     'ID'
-        name:   'Denominación'
-        active: 'Activo'
-        created_at : 'Fecha de creación'
-      group:
-        id:     'ID'
-        name:   'Denominación'
-        active: 'Activo'
-        created_at : 'Fecha de creación'
+        id:          ID
+        name:        Denominación
+        description: Descripción
+        active:      Activo
+        created_at : Fecha de creación
+      collective:
+        id:          ID
+        name:        Denominación
+        description: Descripción
+        active:      Activo
+        created_at : Fecha de creación
+      issue:
+        name:        Título
+        description: Descripción
+        created_at : Fecha de creación
+        project_id:  Proyecto
       record_history:
-        id:                    'ID'
-        user_id:               'Usuario'
-        user:                  'Usuario'
-        recordable_id:         'Id de registro'
-        recordable_type:       'Tipo de registro'
-        recordable_changed_at: 'Fecha de modificación'
+        id:                    ID
+        user_id:               Usuario
+        user:                  Usuario
+        recordable_id:         Id de registro
+        recordable_type:       Tipo de registro
+        recordable_changed_at: Fecha de modificación
+      proyect_type_subvention:
+        legal_representative:   Representante legal (P.física, nombre y apellidos)
+        entity_registry:        Registro Entidades ciudadanas Ayto (S/N)
+        cost:                   Coste total del proyecto
+        requested_amount:       Cantidad solicitada
+        subsidized_amount:      Cantidad subvencionada
+        initial_volunteers_num: Número de voluntarios iniciales
+        participants_num:       Número de voluntarios participantes
+        has_quality_evaluation: Posee sistema de evaluación de calidad
+        project_id:             Proyecto
+        proposal_id:            Propuesta
+      project_type_entity:
+        request_date:             Fecha recepción demanda
+        request_description:      Descripción demanda
+        requested_volunteers_num: Número de voluntarios solicitados
+        volunteers_profile:       Perfil de voluntarios solicitados (texto libre)
+        activities:               Actividades solicitadas a desarrollar por los voluntarios
+        sav_date:                 Fecha de derivación SAV
+        derived_volunteers_num:   Número de voluntarios derivados
+        added_volunteers_num:     Número de voluntarios incorporados
+        agreement_signed:         Acuerdos firmados de colaboración (S/N)
+        agreement_date:           Fecha del acuerdo
+        prevailing:               Vigencia
+        project_id:               Proyecto
+        project_type_id:          Tipo proyecto
+      timetable:
+        day:        Día de la semana
+        start_hour: Hora inicio
+        end_hour:   Hora fin
+        created_at: Fecha de creación
+        project_id: ID del proyecto
