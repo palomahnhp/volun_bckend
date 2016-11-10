@@ -1,43 +1,82 @@
 MODELS_AND_ATTRS = {
-  'RecordHistory'     => 'user:references recordable_id:integer recordable_type recordable_changed_at',
-  'Scope'             => 'name active:boolean',
-  'ProjectType'       => 'name active:boolean',
-  'Group'             => 'name active:boolean',
-  'Coordination'      => 'name active:boolean',
-  'Sector'            => 'name active:boolean',
-  # 'Contact'           => 'name active:boolean',
-  # 'Availability'      => 'name active:boolean',
-  # 'DegreeFamily'      => 'name active:boolean',
-  # 'Language'          => 'name active:boolean',
-  # 'Issue'             => 'name active:boolean',
-  # 'Motivation'        => 'name active:boolean',
-  # 'UnsubscribeReason' => 'name active:boolean',
-  # 'Nationality'       => 'name active:boolean',
-  # 'EducationalLevel'  => 'name active:boolean',
-  # 'Profile'           => 'name active:boolean',
-  # 'Situation'         => 'name active:boolean',
-  # 'WorkSituation'     => 'name active:boolean',
-  # 'Technician'        => 'name active:boolean',
-  # 'ActivityType'      => 'name active:boolean',
-  # 'EntityType'  => 'name active:boolean',
-  # 'MonitoringType'    => 'name active:boolean',
-  # 'RoadType'          => 'name active:boolean',
-  # 'VolunteerType'     => 'name active:boolean',
-  # 'Degree'            => 'name active:boolean',
 
-  'Proposal'     => 'name active:boolean',
-  'Entity'       => 'name active:boolean',
-  'District'     => 'name active:boolean',
-  'Neighborhood' => 'name active:boolean',
-  'Project'      => 'name project_type:references district:references neighborhood:references proposal:references organization:references ' \
-                     'registry_date:date start_date:date end_date:date city_hall:boolean active:boolean ' \
-                     'important:boolean subsidized:boolean cooperation_agreement:boolean assessment:text manager manager_telf ' \
-                     'voluntaries_num:integer profile postal_code road_type road_name number_type number grader stairs_number floor_number door_number',
-  'Activity'     => 'project:references description:text hour'
+  # -------------------------------------------------
+  # 1:N tables
+  # -------------------------------------------------
+
+  'Proposal' => 'name description:text',
+  'Entity'   => 'name description:text active:boolean',
+
+  # -------------------------------------------------
+
+  'ProjectType' => 'name description:text active:boolean',
+
+  # -------------------------------------------------
+
+  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_person phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean insurance_date project_type:references entity:references',
+
+  # -------------------------------------------------
+
+  'Tracking'  => 'name description:text project:references',
+  'Issue'     => 'name description:text project:references',
+  'Timetable' => 'day:integer start_hour end_hour:date project:references',
+  'Document'  => 'name description documentum_id:string project:references',
+
+  # -------------------------------------------------
+
+  'ProjectTypeSubsidized' => 'legal_representative entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
+
+  # -------------------------------------------------
+
+  'ProjectTypeEntity' => 'request_date:date request_description:text requested_volunteers_num:integer volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean project:references project_type:references',
+
+  # -------------------------------------------------
+
+  'ProjectTypeExceptional' => 'project:references project_type:references',
+
+  # -------------------------------------------------
+
+  'ProjectTypePermanent' => 'project:references project_type:references',
+
+  # -------------------------------------------------
+
+  'ProjectTypeCentre' => 'project:references project_type:references',
+
+  # -------------------------------------------------
+
+  'ProjectTypeSocial' => 'project:references project_type:references',
+
+  # -------------------------------------------------
+
+  'ProjectTypeOther' => 'project:references project_type:references',
+
+  # -------------------------------------------------
+
+
+  # -------------------------------------------------
+  # N:N tables
+  # -------------------------------------------------
+
+  'Address'      => 'postal_code road_type road_name number_type number grader stairs_number floor_number door_number',
+  'Area'         => 'name description:text active:boolean',
+  'Collective'   => 'name description:text active:boolean',
+  'Coordination' => 'name description:text active:boolean',
+  'District'     => 'name',
+
+  # -------------------------------------------------
+
+  'RecordHistory' => 'user:references recordable_id:integer recordable_type recordable_changed_at:date',
+
 }
-AUX_MODELS_AND_ATTRS = {
-  'ProjectScope' => 'project:references scope:references'
-}
+
+# AUX_MODELS_AND_ATTRS = {}
+
+JOINED_TABLES = [
+    %w(project address),
+    %w(project area),
+    %w(project collective),
+    %w(project district),
+]
 
 
 namespace :scaffold do
@@ -69,9 +108,10 @@ namespace :scaffold do
 
       File.open(rb_file, 'r').each do |l|
         line = l
-        if line.chomp =~ /boolean.*active/
+        if line.chomp =~ /boolean.*/
+          default_value = /active.*/ === line.chomp
           line  = line.sub("\n", '')
-          line += ", default: true\n"
+          line += ", default: #{default_value}\n"
         end
         tmp  << line
       end
@@ -104,9 +144,14 @@ namespace :scaffold do
       sh "rails generate scaffold #{model_name} #{attrs_list} --skip"
     end
 
-    # Generate intermediate models
-    AUX_MODELS_AND_ATTRS.each do |model_name, attrs_list|
-      sh "rails generate model #{model_name} #{attrs_list} --skip"
+    # # Generate intermediate models
+    # AUX_MODELS_AND_ATTRS.each do |model_name, attrs_list|
+    #   sh "rails generate model #{model_name} #{attrs_list} --skip"
+    # end
+
+    # Generate simple intermediate models
+    JOINED_TABLES.each do |table1, table2|
+      sh "rails g migration create_join_table_#{table1}_#{table2} #{table1}:index #{table2}:index"
     end
   end
 
@@ -117,10 +162,25 @@ namespace :scaffold do
       sh "rails destroy scaffold #{model_name}"
     end
 
-    # Destroy models
-    AUX_MODELS_AND_ATTRS.keys.each do |model_name|
-      sh "rails destroy model #{model_name}"
+    # # Destroy models
+    # AUX_MODELS_AND_ATTRS.keys.each do |model_name|
+    #   sh "rails destroy model #{model_name}"
+    # end
+
+    # Generate simple intermediate models
+    JOINED_TABLES.each do |table1, table2|
+      if table1 > table2
+        _table1 = table1.dup
+        table1  = table2
+        table2  = _table1
+      end
+      sh "rails destroy migration rails g migration create_join_table_#{table1}_#{table2}"
     end
+  end
+
+  desc 'Builds the application data model basement by scaffolding the models'
+  task gco_files: :environment do
+    sh 'git checkout -- app'
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
@@ -144,6 +204,7 @@ namespace :scaffold do
     Rake::Task['db:drop'].invoke
     Rake::Task['db:create'].invoke
     Rake::Task['db:migrate'].invoke
+    Rake::Task['db:gco_files'].invoke
     Rake::Task['db:dev_seed'].invoke
   end
 

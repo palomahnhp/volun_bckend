@@ -45,11 +45,6 @@ class <%= controller_class_name %>Controller < ApplicationController
     respond_with(@<%= singular_table_name %>)
   end
 
-  def recover
-    @<%= singular_table_name %>.recover
-    respond_with(@<%= singular_table_name %>)
-  end
-
   protected
 
     def <%= "#{singular_table_name}_params" %>
