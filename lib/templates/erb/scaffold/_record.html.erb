@@ -1,7 +1,7 @@
 <tr id="<%%= dom_id(<%= singular_table_name %>) %>" >
 
-<%% project.main_attributes.each do |attr_name| %>
-    <%% attr = project.public_send(attr_name) %>
+<%% <%= singular_table_name %>.main_attributes.each do |attr_name| %>
+    <%% attr = <%= singular_table_name %>.public_send(attr_name) %>
     <%% if attr.is_a?(TrueClass) || attr.is_a?(FalseClass) %>
         <td><%%= t("humanize.#{attr}") %></td>
     <%% elsif attr.is_a?(Date) %>

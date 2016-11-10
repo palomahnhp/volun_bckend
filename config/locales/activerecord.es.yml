@@ -10,7 +10,7 @@ es:
       district:
         one:   'Distrito'
         other: 'Distritos'
-      scope:
+      Area:
         one:   'Ámbito de actuación'
         other: 'Ámbitos de actuación'
       sector:
@@ -72,7 +72,7 @@ es:
         stairs_number:         'Escalera'
         floor_number:          'Planta'
         door_number:           'Puerta'
-#        scopes:                'Ámbitos'
+#        Areas:                'Ámbitos'
       district:
         code:   'Código'
         name:   'Nombre'
@@ -81,7 +81,7 @@ es:
         name:   'Nombre'
         active: 'Activo'
         created_at : 'Fecha de creación'
-      scope:
+      Area:
         id:     'ID'
         name:   'Denominación'
         active: 'Activo'
