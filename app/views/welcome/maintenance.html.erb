@@ -7,10 +7,10 @@
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-        <div class="panel panel-info" onclick="window.location='<%= scopes_url %>';">
+        <div class="panel panel-info" onclick="window.location='<%= areas_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= Scope.model_name.human(count: 2)  %>
+              <%= Area.model_name.human(count: 2)  %>
             </h3>
           </div>
           <div class="panel-body">
@@ -29,10 +29,10 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="panel panel-info" onclick="window.location='<%= groups_url %>';">
+        <div class="panel panel-info" onclick="window.location='<%= collectives_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= Group.model_name.human(count: 2)  %>
+              <%= Collective.model_name.human(count: 2)  %>
             </h3>
           </div>
           <div class="panel-body">
