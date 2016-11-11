@@ -3,7 +3,7 @@ class ProjectType < ActiveRecord::Base
 
 
   def to_s
-    name
+    kind
   end
 
 end

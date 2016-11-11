@@ -15,15 +15,15 @@ RACKING        = 10
 ISSUE          = 10
 TIMETABLE      = 10
 DOCUMENT       = 10
-PROJECT_TYPE_NAMES = [
-  'Servicios Sociales',
-  'Centros de mayores',
-  'Permanentes',
-  'Puntuales',
-  'Entidades',
-  'Subvencionados',
-  'Otros'
-]
+PROJECT_TYPES = {
+  1 => 'Servicios Sociales',
+  2 => 'Centros de mayores',
+  3 => 'Permanentes',
+  4 => 'Puntuales',
+  5 => 'Entidades',
+  6 => 'Subvencionados',
+  7 => 'Otros'
+}
 
 AREA_NAMES = [
   'Derechos Sociales',
@@ -98,8 +98,8 @@ COLLECTIVE_NAMES.each do |name|
 end
 
 puts "Creando Tipos de proyectos"
-PROJECT_TYPE_NAMES.each do |name|
-  ProjectType.create!(name: name)
+PROJECT_TYPES.each do |kind , name|
+  ProjectType.create!(kind: kind)
 end
 
 puts "Creando entidades"

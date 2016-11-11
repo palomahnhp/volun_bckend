@@ -9,7 +9,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'ProjectType' => 'name description:text active:boolean',
+  'ProjectType' => 'kind:integer description:text active:boolean',
 
   # -------------------------------------------------
 
@@ -24,7 +24,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'ProjectTypeSubsidized' => 'legal_representative entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
+  'ProjectTypeSubvention' => 'legal_representative entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
 
   # -------------------------------------------------
 

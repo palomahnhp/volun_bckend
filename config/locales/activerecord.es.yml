@@ -31,7 +31,7 @@ es:
       record_history:
         one:   Historial de registro
         other: Historial de registros
-      proyect_type_subsidized:
+      project_type_subvention:
         one:   Proyecto subvencionado
         other: Proyectos subvencionados
       project_type_entity:
@@ -50,8 +50,8 @@ es:
         one:   Proyecto de servicios sociales
         other: Proyectos de servicios sociales
       project_type_other:
-        one:   Otro tipo proyecto
-        other: Otros tipos proyecto
+        one:   Otro tipo de proyecto
+        other: Otros tipos de proyecto
       timetable:
         one:   Horario
         other: Horarios
@@ -79,7 +79,7 @@ es:
         created_at : Fecha de creación
       project_type:
         id:          ID
-        name:        Nombre
+        kind:        Nombre
         description: Descripción
         active:      Activo
         created_at : Fecha de creación
@@ -113,7 +113,7 @@ es:
         recordable_id:         Id de registro
         recordable_type:       Tipo de registro
         recordable_changed_at: Fecha de modificación
-      proyect_type_subvention:
+      project_type_subvention:
         legal_representative:   Representante legal (P.física, nombre y apellidos)
         entity_registry:        Registro Entidades ciudadanas Ayto (S/N)
         cost:                   Coste total del proyecto
@@ -123,7 +123,11 @@ es:
         participants_num:       Número de voluntarios participantes
         has_quality_evaluation: Posee sistema de evaluación de calidad
         project_id:             Proyecto
+        project:                Proyecto
+        project_type_id:        Tipo de proyecto
+        project_type:           Tipo de proyecto
         proposal_id:            Propuesta
+        proposal:               Propuesta
       project_type_entity:
         request_date:             Fecha recepción demanda
         request_description:      Descripción demanda
