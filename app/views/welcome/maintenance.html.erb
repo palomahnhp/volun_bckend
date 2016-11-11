@@ -1,65 +1,63 @@
-<div class="welcome">
-  <div class="jumbotron">
-    <h1>Catálogo</h1>
-    <br/>
-    <p>Aquí se administran las tablas de la aplicación</p>
-    <br/>
-    <br/>
-    <div class="panel-list row">
-      <div class="col-md-6">
-        <div class="panel panel-info" onclick="window.location='<%= areas_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= Area.model_name.human(count: 2)  %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Ámbitos a los que pertenece un proyecto
-          </div>
+<div class="jumbotron scale">
+  <h1>Catálogo</h1>
+  <br/>
+  <p>Aquí se administran las tablas de la aplicación</p>
+  <br/>
+  <br/>
+  <div class="panel-list row">
+    <div class="col-md-6">
+      <div class="panel panel-info" onclick="window.location='<%= areas_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Area.model_name.human(count: 2)  %>
+          </h3>
         </div>
-        <div class="panel panel-info" onclick="window.location='<%= project_types_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= ProjectType.model_name.human(count: 2)  %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Tipos de proyecto a los que un proyecto puede ser
-          </div>
+        <div class="panel-body">
+          Ámbitos a los que pertenece un proyecto
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="panel panel-info" onclick="window.location='<%= collectives_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= Collective.model_name.human(count: 2)  %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Colectivos a los que pertenece un proyecto
-          </div>
+      <div class="panel panel-info" onclick="window.location='<%= project_types_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= ProjectType.model_name.human(count: 2)  %>
+          </h3>
         </div>
-        <div class="panel panel-info" onclick="window.location='<%= coordinations_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= Coordination.model_name.human(count: 2)  %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Coordinaciones asociadas a un proyecto
-          </div>
+        <div class="panel-body">
+          Tipos de proyecto a los que un proyecto puede ser
         </div>
-        <!--<div class="panel panel-info" onclick="window.location='<%#= record_histories_url %>';">-->
-          <!--<div class="panel-heading">-->
-            <!--<h3 class="panel-title">-->
-              <!--<%#= RecordHistory.model_name.human(count: 2)  %>-->
-            <!--</h3>-->
-          <!--</div>-->
-          <!--<div class="panel-body">-->
-            <!--Historial de modificación de los registros de las tablas de catálogo-->
-          <!--</div>-->
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-info" onclick="window.location='<%= collectives_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Collective.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          Colectivos a los que pertenece un proyecto
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= coordinations_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Coordination.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          Coordinaciones asociadas a un proyecto
+        </div>
+      </div>
+      <!--<div class="panel panel-info" onclick="window.location='<%#= record_histories_url %>';">-->
+        <!--<div class="panel-heading">-->
+          <!--<h3 class="panel-title">-->
+            <!--<%#= RecordHistory.model_name.human(count: 2)  %>-->
+          <!--</h3>-->
         <!--</div>-->
-      </div>
+        <!--<div class="panel-body">-->
+          <!--Historial de modificación de los registros de las tablas de catálogo-->
+        <!--</div>-->
+      <!--</div>-->
     </div>
   </div>
 </div>

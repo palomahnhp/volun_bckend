@@ -37,9 +37,9 @@ es:
       project_type_entity:
         one:   Proyecto de entidad
         other: Proyectos de entidades
-      project_type_exceptional:
-        one:   Proyecto excepcional
-        other: Proyectos excepcionales
+      project_type_punctual:
+        one:   Proyecto puntual
+        other: Proyectos puntuales
       project_type_permanent:
         one:   Proyecto permanente
         other: Proyectos permanentes

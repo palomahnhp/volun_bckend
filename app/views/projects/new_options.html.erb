@@ -1,5 +1,5 @@
-<div class="welcome">
-  <div class="jumbotron">
+<div class="new-project-type">
+  <div class="jumbotron scale">
     <h2>Elegir el tipo de proyecto a crear</h2>
     <br/>
     <!--<p>Aquí se administran las tablas de la aplicación</p>-->
@@ -7,7 +7,7 @@
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-        <div class="panel panel-info" onclick="window.location='<%= new_project_type_subvention_url %>';">
+        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_subvention_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeSubvention.model_name.human %>
@@ -17,7 +17,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-info" onclick="window.location='<%= new_project_type_entity_url %>';">
+        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_entity_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeEntity.model_name.human %>
@@ -27,7 +27,7 @@
             Asociados a una entidad
           </div>
         </div>
-        <div class="panel panel-info" onclick="window.location='<%= new_project_type_exceptional_url %>';">
+        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_exceptional_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeExceptional.model_name.human %>
@@ -37,7 +37,7 @@
             Excepcionales
           </div>
         </div>
-        <div class="panel panel-info" onclick="window.location='<%= new_project_type_permanent_url %>';">
+        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_permanent_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypePermanent.model_name.human %>
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="panel panel-info" onclick="window.location='<%= new_project_type_centre_url %>';">
+        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_centre_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeCentre.model_name.human %>
@@ -59,7 +59,7 @@
             De centros de mayores
           </div>
         </div>
-        <div class="panel panel-info" onclick="window.location='<%= new_project_type_social_url %>';">
+        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_social_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeSocial.model_name.human %>
@@ -69,7 +69,7 @@
             De servicios sociales
           </div>
         </div>
-        <div class="panel panel-info" onclick="window.location='<%= new_project_type_other_url %>';">
+        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_other_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeOther.model_name.human %>

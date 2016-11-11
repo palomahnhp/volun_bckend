@@ -438,3 +438,43 @@ a:visited {
 .panel-list .panel-title {
   font-size: 25px;
 }
+
+.new-project-type {
+  .jumbotron {
+    h2 {
+      color: $btn-primary-bg;
+    }
+  }
+}
+
+.jumbotron.scale {
+    h2 {
+      font-weight: 600;
+      padding-bottom: 5px;
+      border-bottom-style: solid;
+      width: 106%;
+    }
+
+    .panel {
+      &:hover{
+        font-size: 15px;
+        .panel-title{
+          font-size: 27px;
+        }
+      }
+    }
+
+    .panel.panel-warning {
+      &:hover{
+        border-color: #def1b0;
+        box-shadow: 0 0 1em #FFD800;
+      }
+    }
+
+    .panel.panel-info {
+      &:hover{
+        border-color: #8BD1FF;
+        box-shadow: 0 0 1em $btn-primary-bg;
+      }
+    }
+}
