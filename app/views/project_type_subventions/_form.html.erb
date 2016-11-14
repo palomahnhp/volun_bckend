@@ -1,0 +1,25 @@
+<div class="well">
+  <%= simple_form_for(@project_type_subvention, default_form_options) do |f| %>
+
+      <%= f.simple_fields_for :project do |f_project|  %>
+        <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
+      <% end %>
+
+  <div class="form-inputs">
+        <%= f.input :legal_representative %>
+        <%= f.input :entity_registry %>
+        <%= f.input :cost %>
+        <%= f.input :requested_amount %>
+        <%= f.input :subsidized_amount %>
+        <%= f.input :initial_volunteers_num %>
+        <%= f.input :participants_num %>
+        <%= f.input :has_quality_evaluation %>
+        <%= f.association :proposal %>
+        <%= f.association :project_type %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>

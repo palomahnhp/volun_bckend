@@ -448,7 +448,7 @@ a:visited {
 }
 
 .jumbotron.scale {
-    h2 {
+    h1, h2 {
       font-weight: 600;
       padding-bottom: 5px;
       border-bottom-style: solid;
@@ -474,7 +474,7 @@ a:visited {
     .panel.panel-info {
       &:hover{
         border-color: #8BD1FF;
-        box-shadow: 0 0 1em $btn-primary-bg;
+        box-shadow: 0 0 1em #009CFF;
       }
     }
 }

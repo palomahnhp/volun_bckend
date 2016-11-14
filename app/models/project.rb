@@ -8,6 +8,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :collectives
   has_and_belongs_to_many :coordinations
   has_and_belongs_to_many :districts
+  has_one :project_type_subvention
 
   validates :name, uniqueness: true
 

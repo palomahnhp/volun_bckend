@@ -1,103 +1,10 @@
 <div id="project" class="form">
   <%= simple_form_for(@project, default_form_options) do |f| %>
 
-  <div class="form-inputs">
-      <div class="row row-1">
-        <div class="well col-md-4">
-          <%= f.input :name %>
-          <%= f.association :project_type %>
-          <%= f.association :proposal %>
-          <%= f.association :organization %>
-        </div>
-        <div class="well col-md-4">
-          <%= f.input :manager %>
-          <%= f.input :manager_telf %>
-          <%= f.input :voluntaries_num %>
-          <%= f.input :profile, as: :text %>
-        </div>
-        <div class="district well col-md-4">
-          <%= f.association :district %>
-          <%= f.association :neighborhood %>
-        </div>
-      </div>
-      <div class="row row-2">
-        <div class="well col-md-4">
-          <div class="row">
-            <%= f.input :start_date, as: :datepicker %>
-            <%= f.input :end_date, as: :datepicker %>
-          </div>
-        </div>
-        <div class="well">
-          <div class="col-md-4">
-            <%= f.input :city_hall %>
-            <%= f.input :important %>
-            <%= f.input :subsidized %>
-            <%= f.input :cooperation_agreement %>
-          </div>
-          <div class="col-md-4">
-            <%= f.input :assessment %>
-          </div>
-        </div>
-      </div>
-      <div class="row row-3">
-        <div class="address well col-md-12">
-          <%= content_tag :h3, t('work_place_address'), class: 'form-subtitle' %>
+      <%= render partial: 'form_fields', locals: { f: f } %>
 
-          <div class="row row-3-1">
-            <div class="col-md-4">
-              <%= f.input :road_type %>
-            </div>
-            <div class="col-md-8">
-              <%= f.input :road_name %>
-            </div>
-          </div>
-          <div class="row row-3-2">
-            <div class="col-md-4">
-               <%= f.input :number_type %>
-            </div>
-            <div class="col-md-4">
-              <%= f.input :number %>
-            </div>
-            <div class="col-md-4">
-              <%= f.input :grader %>
-            </div>
-          </div>
-          <div class="row row-3-3">
-            <div class="col-md-4">
-              <%= f.input :stairs_number %>
-            </div>
-            <div class="col-md-4">
-              <%= f.input :floor_number %>
-            </div>
-            <div class="col-md-4">
-              <%= f.input :door_number %>
-            </div>
-          </div>
-        </div>
+      <div class="form-actions">
+        <%= f.button :submit, class: 'btn btn-primary' %>
       </div>
-      <div class="row row-4 well">
-        <%= content_tag :h3, Scope.model_name.human(count: 2), class: 'form-subtitle' %>
-        <% Scope.all.each do |scope| %>
-            <div class="checkbox-inline">
-              <label>
-                <%= check_box_tag scope.name %> <%= scope.name %>
-              </label>
-            </div>
-        <% end %>
-      </div>
-      <div class="row row-5 well">
-        <%= content_tag :h3, Sector.model_name.human(count: 2), class: 'form-subtitle' %>
-        <% Sector.all.each do |sector| %>
-            <div class="checkbox-inline">
-              <label>
-                <%= check_box_tag sector.name %> <%= sector.name %>
-              </label>
-            </div>
-        <% end %>
-      </div>
-  </div>
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-primary' %>
-  </div>
   <% end %>
 </div>
