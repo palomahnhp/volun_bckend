@@ -1,0 +1,23 @@
+<tr id="<%= dom_id(project_type_other) %>" >
+
+<% project_type_other.main_attributes.each do |attr_name| %>
+    <% attr = project_type_other.public_send(attr_name) %>
+    <% if attr.is_a?(TrueClass) || attr.is_a?(FalseClass) %>
+        <td><%= t("humanize.#{attr}") %></td>
+    <% elsif attr.is_a?(Date) %>
+        <td><%= l(attr) %></td>
+    <% else %>
+        <td><%= attr %></td>
+    <% end %>
+<% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(project_type_other) %>
+    <%= link_to_edit(project_type_other) %>
+<% if project_type_other.try(:archived?) %>
+    <%= link_to_recover(project_type_other) %>
+<% else %>
+    <%= link_to_destroy(project_type_other) %>
+<% end %>
+  </td>
+</tr>

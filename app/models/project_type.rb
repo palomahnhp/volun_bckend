@@ -11,7 +11,11 @@ class ProjectType < ActiveRecord::Base
                )
 
   def self.active?(kind)
-    send(kind.to_s).take.active? rescue nil
+    send(kind).take.try(:active?)
+  end
+
+  def self.get_project_type(kind)
+    send(kind).take
   end
 
   def to_s

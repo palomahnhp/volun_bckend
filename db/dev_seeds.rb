@@ -87,6 +87,13 @@ DISTRICTS = [
   'Barajas',
 ]
 
+PROPOSALS = [
+    'subvencionado',
+    'desistido',
+    'desestimado',
+    'excluido'
+]
+
 puts "Creando Colectivos"
 AREA_NAMES.each do |name|
   Area.create!(name: name)
@@ -95,6 +102,11 @@ end
 puts "Creando Ámbitos"
 COLLECTIVE_NAMES.each do |name|
   Collective.create!(name: name)
+end
+
+puts "Creando Propuestas"
+PROPOSALS.each do |name|
+  Proposal.create!(name: name)
 end
 
 puts "Creando Tipos de proyectos"
@@ -110,11 +122,6 @@ end
 puts "Creando Distritos"
 DISTRICTS.each do |name|
   District.create!(name: name)
-end
-
-puts "Creando Propuestas"
-(1..PROPOSAL).each do |n|
-  Proposal.create!(name: "#{Proposal.model_name.human} #{n}")
 end
 
 puts "Creando direcciones"

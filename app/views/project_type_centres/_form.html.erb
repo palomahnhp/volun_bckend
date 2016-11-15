@@ -1,0 +1,17 @@
+<div class="well">
+  <%= simple_form_for(@project_type_centre, default_form_options) do |f| %>
+
+      <%= f.simple_fields_for :project do |f_project|  %>
+          <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
+      <% end %>
+
+  <div class="form-inputs">
+    <%= f.input :project_type, disabled: true, input_html: { value: f.object.my_type_i18n } %>
+    <%= f.input :project_type_id, as: :hidden %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>

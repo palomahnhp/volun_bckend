@@ -15,7 +15,8 @@
         <%= f.input :participants_num %>
         <%= f.input :has_quality_evaluation %>
         <%= f.association :proposal %>
-        <%= f.association :project_type %>
+        <%= f.input :project_type, disabled: true, input_html: { value: f.object.my_type_i18n } %>
+        <%= f.input :project_type_id, as: :hidden %>
   </div>
 
   <div class="form-actions">

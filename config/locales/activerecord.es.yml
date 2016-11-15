@@ -1,4 +1,14 @@
 es:
+  enums:
+    project_type:
+      kind:
+        centre:     Centro de mayores
+        entity:     Entidad
+        permanent:  Permanente
+        punctual:   Puntual
+        social:     Sociales
+        subvention: Subvencionado
+        other:      Otros
   activerecord:
     models:
       project:
@@ -10,7 +20,7 @@ es:
       district:
         one:   Distrito
         other: Distritos
-      Area:
+      area:
         one:   Ámbito de actuación
         other: Ámbitos de actuación
       sector:
@@ -37,12 +47,12 @@ es:
       project_type_entity:
         one:   Proyecto de entidad
         other: Proyectos de entidades
-      project_type_punctual:
-        one:   Proyecto puntual
-        other: Proyectos puntuales
       project_type_permanent:
         one:   Proyecto permanente
         other: Proyectos permanentes
+      project_type_punctual:
+        one:   Proyecto puntual
+        other: Proyectos puntuales
       project_type_centre:
         one:   Proyecto de centro de mayores
         other: Proyectos de centros de mayores
@@ -114,8 +124,8 @@ es:
         recordable_type:       Tipo de registro
         recordable_changed_at: Fecha de modificación
       project_type_subvention:
-        legal_representative:   Representante legal (P.física, nombre y apellidos)
-        entity_registry:        Registro Entidades ciudadanas Ayto (S/N)
+        legal_representative:   Representante legal
+        entity_registry:        Registro Entidades ciudadanas Ayto
         cost:                   Coste total del proyecto
         requested_amount:       Cantidad solicitada
         subsidized_amount:      Cantidad subvencionada
@@ -132,19 +142,49 @@ es:
         request_date:             Fecha recepción demanda
         request_description:      Descripción demanda
         requested_volunteers_num: Número de voluntarios solicitados
-        volunteers_profile:       Perfil de voluntarios solicitados (texto libre)
+        volunteers_profile:       Perfil de voluntarios solicitados
         activities:               Actividades solicitadas a desarrollar por los voluntarios
         sav_date:                 Fecha de derivación SAV
         derived_volunteers_num:   Número de voluntarios derivados
         added_volunteers_num:     Número de voluntarios incorporados
-        agreement_signed:         Acuerdos firmados de colaboración (S/N)
+        agreement_signed:         Acuerdos firmados de colaboración
         agreement_date:           Fecha del acuerdo
         prevailing:               Vigencia
+        project:                  Proyecto
         project_id:               Proyecto
-        project_type_id:          Tipo proyecto
+        project_type:             Tipo de proyecto
+        project_type_id:          Tipo de proyecto
+      project_type_punctual:
+        project:                  Proyecto
+        project_id:               Proyecto
+        project_type:             Tipo de proyecto
+        project_type_id:          Tipo de proyecto
+      project_type_permanent:
+        project:                  Proyecto
+        project_id:               Proyecto
+        project_type:             Tipo de proyecto
+        project_type_id:          Tipo de proyecto
+      project_type_centre:
+        project:                  Proyecto
+        project_id:               Proyecto
+        project_type:             Tipo de proyecto
+        project_type_id:          Tipo de proyecto
+      project_type_social:
+        project:                  Proyecto
+        project_id:               Proyecto
+        project_type:             Tipo de proyecto
+        project_type_id:          Tipo de proyecto
+      project_type_other:
+        project:                  Proyecto
+        project_id:               Proyecto
+        project_type:             Tipo de proyecto
+        project_type_id:          Tipo de proyecto
       timetable:
         day:        Día de la semana
         start_hour: Hora inicio
         end_hour:   Hora fin
         created_at: Fecha de creación
         project_id: ID del proyecto
+    errors:
+      messages:
+        invalid_project_type: El tipo de proyecto es inválido

@@ -32,7 +32,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'ProjectTypeExceptional' => 'project:references project_type:references',
+  'ProjectTypePunctual' => 'project:references project_type:references',
 
   # -------------------------------------------------
 

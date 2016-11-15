@@ -1,0 +1,40 @@
+<%= main_title(t("action.show", model: ProjectTypeEntity.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= ProjectTypeEntity.human_attribute_name(:id) %>:</dt>
+  <dd><%= @project_type_entity.id %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:request_date) %>:</dt>
+  <dd><%= l(@project_type_entity.request_date) %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:request_description) %>:</dt>
+  <dd><%= @project_type_entity.request_description %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:requested_volunteers_num) %>:</dt>
+  <dd><%= @project_type_entity.requested_volunteers_num %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:volunteers_profile) %>:</dt>
+  <dd><%= @project_type_entity.volunteers_profile %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:activities) %>:</dt>
+  <dd><%= @project_type_entity.activities %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:sav_date) %>:</dt>
+  <dd><%= l(@project_type_entity.sav_date) %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:derived_volunteers_num) %>:</dt>
+  <dd><%= @project_type_entity.derived_volunteers_num %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:added_volunteers_num) %>:</dt>
+  <dd><%= @project_type_entity.added_volunteers_num %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:agreement_signed) %>:</dt>
+  <dd><%= t("humanize.#{@project_type_entity.agreement_signed}") %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:agreement_date) %>:</dt>
+  <dd><%= l(@project_type_entity.agreement_date) %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:prevailing) %>:</dt>
+  <dd><%= t("humanize.#{@project_type_entity.prevailing}") %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:project_id) %>:</dt>
+  <dd><%= @project_type_entity.project %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:project_type_id) %>:</dt>
+  <dd><%= @project_type_entity.project_type %></dd>
+  <dt><%= ProjectTypeEntity.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= l(@project_type_entity.created_at, format: :long) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@project_type_entity) %>
+<% end %>

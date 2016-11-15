@@ -73,10 +73,23 @@ class ApplicationController < ActionController::Base
     params[:per_page] ||= 20
   end
 
-  # TODO user persistent users when uweb authentication
+  # TODO use persistent users when uweb authentication
   def current_user
     return super if use_devise_authentication?
     User.new if uweb_authenticated?
+  end
+
+  def permitted_project_attrs
+    {
+      project_attributes: [
+        :name,
+        :contact_person,
+        :phone_number,
+        :volunteers_num,
+        :execution_start_date,
+        :execution_end_date
+      ]
+    }
   end
 
 end
