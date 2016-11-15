@@ -31,6 +31,7 @@ gem 'factory_girl_rails'
 gem 'font-awesome-rails'
 gem 'responders'
 gem 'rails-i18n', '~> 4.0.0'
+gem 'enum_help'
 gem 'savon'
 
 
