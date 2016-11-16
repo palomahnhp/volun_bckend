@@ -1,0 +1,38 @@
+<div class="form-inputs">
+  <div class="row">
+    <div class="well col-md-12">
+      <%= f.input :name %>
+      <%#= f.association :project_type %>
+    </div>
+    <div class="well col-md-12">
+      <%= f.input :contact_person %>
+      <%= f.input :phone_number %>
+      <%= f.input :volunteers_num %>
+      <%= f.input :beneficiaries_num %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="well col-md-12">
+      <div class="row">
+        <%= f.input :execution_start_date, as: :datepicker %>
+        <%= f.input :execution_end_date, as: :datepicker %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="well col-md-12">
+      <div class="row">
+        <%= f.input :active unless f.object.new_record? %>
+        <%= f.input :description %>
+        <%= f.input :functions %>
+        <%= f.input :email %>
+        <%= f.input :comments %>
+        <%= f.input :insured %>
+        <%= f.input :insurance_date, as: :datepicker %>
+        <%= f.association :entity %>
+        <%= f.association :areas, as: :check_boxes %>
+        <%= f.association :collectives, as: :check_boxes %>
+      </div>
+    </div>
+  </div>
+</div>
