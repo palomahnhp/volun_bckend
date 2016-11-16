@@ -1,7 +1,5 @@
 class Project < ActiveRecord::Base
 
-  enum volunteers_num: [:uno, :dos, :tres]
-
   include Archivable
 
   belongs_to :project_type
