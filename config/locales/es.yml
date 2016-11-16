@@ -16,6 +16,7 @@ es:
   messages:
     are_you_sure: ¿Está seguro?
     access_denied: "Accesso denegado"
+    select_a_model: Seleccionar %{model}
   will_paginate:
     next_label: ❱
     page_entries_info:

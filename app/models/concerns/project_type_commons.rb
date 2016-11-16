@@ -6,6 +6,7 @@ module ProjectTypeCommons
     belongs_to :project_type, required: true
     belongs_to :project, required: true
     accepts_nested_attributes_for :project
+    accepts_nested_attributes_for :project_type
 
     validate :check_project_type
     after_initialize :set_project_type
@@ -13,10 +14,6 @@ module ProjectTypeCommons
 
     def self.my_type
       model_name.singular.sub(/project_type_/,'')
-    end
-
-    def my_type_i18n
-      project_type ? project_type.kind_i18n : ''
     end
 
     private

@@ -13,7 +13,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_person phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean insurance_date project_type:references entity:references',
+  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_person phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean insurance_date:date project_type:references entity:references',
 
   # -------------------------------------------------
 

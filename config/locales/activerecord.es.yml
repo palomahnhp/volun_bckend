@@ -82,6 +82,7 @@ es:
         insured:               Seguro de accidentes
         insurance_expiry_date: Fecha de caducidad seguro
         project_type_id:       Tipo proyecto
+        entity:                Entidad
         entity_id:             Entidad
       district:
         code:        Código

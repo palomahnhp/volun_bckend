@@ -6,8 +6,10 @@
       <% end %>
 
   <div class="form-inputs">
-    <%= f.input :project_type, disabled: true, input_html: { value: f.object.my_type_i18n } %>
-    <%= f.input :project_type_id, as: :hidden %>
+    <%= f.simple_fields_for :project_type do |f_project_type|  %>
+        <%= f_project_type.input :kind, disabled: true, label: ProjectType.model_name.human %>
+        <%= f_project_type.input :kind, as: :hidden %>
+    <% end %>
   </div>
 
   <div class="form-actions">

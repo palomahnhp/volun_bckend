@@ -1,5 +1,6 @@
 class ProjectType < ActiveRecord::Base
   include Archivable
+
   enum kind: %i(
                   social
                   centre
@@ -9,6 +10,8 @@ class ProjectType < ActiveRecord::Base
                   subvention
                   other
                )
+
+  validates :kind, presence: true
 
   def self.active?(kind)
     send(kind).take.try(:active?)
