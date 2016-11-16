@@ -87,7 +87,9 @@ class ApplicationController < ActionController::Base
         :phone_number,
         :volunteers_num,
         :execution_start_date,
-        :execution_end_date
+        :execution_end_date,
+        :areas_ids => [],
+        :collectives_ids => []
       ]
     }
   end

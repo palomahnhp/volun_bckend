@@ -16,13 +16,13 @@ ISSUE          = 10
 TIMETABLE      = 10
 DOCUMENT       = 10
 PROJECT_TYPES = {
-  1 => 'Servicios Sociales',
-  2 => 'Centros de mayores',
-  3 => 'Permanentes',
-  4 => 'Puntuales',
-  5 => 'Entidades',
-  6 => 'Subvencionados',
-  7 => 'Otros'
+  0 => 'Servicios Sociales',
+  1 => 'Centros de mayores',
+  2 => 'Permanentes',
+  3 => 'Puntuales',
+  4 => 'Entidades',
+  5 => 'Subvencionados',
+  6 => 'Otros'
 }
 
 AREA_NAMES = [

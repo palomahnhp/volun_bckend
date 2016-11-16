@@ -1,14 +1,13 @@
 <div class="form-inputs">
   <div class="row">
-    <div class="well col-md-12">
+    <div class="well col-md-6">
       <%= f.input :name %>
-      <%#= f.association :project_type %>
-    </div>
-    <div class="well col-md-12">
-      <%= f.input :contact_person %>
-      <%= f.input :phone_number %>
       <%= f.input :volunteers_num %>
       <%= f.input :beneficiaries_num %>
+    </div>
+    <div class="well col-md-6">
+      <%= f.input :contact_person %>
+      <%= f.input :phone_number %>
     </div>
   </div>
   <div class="row">
@@ -30,9 +29,18 @@
         <%= f.input :insured %>
         <%= f.input :insurance_date, as: :datepicker %>
         <%= f.association :entity %>
-        <%= f.association :areas, as: :check_boxes %>
-        <%= f.association :collectives, as: :check_boxes %>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="well col-md-4">
+      <%= f.association :areas, as: :check_boxes %>
+    </div>
+    <div class="well col-md-4">
+      <%= f.association :collectives, as: :check_boxes %>
+    </div>
+    <div class="well col-md-4">
+      <%= f.association :coordinations, as: :check_boxes %>
     </div>
   </div>
 </div>

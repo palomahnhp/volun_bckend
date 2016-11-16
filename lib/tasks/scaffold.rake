@@ -1,10 +1,8 @@
 MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
-  # 1:N tables
+  # N:1 tables for Project
   # -------------------------------------------------
-
-  'Proposal' => 'name description:text',
   'Entity'   => 'name description:text active:boolean',
 
   # -------------------------------------------------
@@ -15,16 +13,20 @@ MODELS_AND_ATTRS = {
 
   'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_person phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean insurance_date:date project_type:references entity:references',
 
-  # -------------------------------------------------
-
-  'Tracking'  => 'name description:text project:references',
-  'Issue'     => 'name description:text project:references',
+  # 1:N tables for Project
+  'Tracking'  => 'comments:text start_date:date project:references',
+  'Issue'     => 'comments:text start_date:date project:references',
+  'Document'  => 'name description:text documentum_id:string project:references',
   'Timetable' => 'day:integer start_hour end_hour:date project:references',
-  'Document'  => 'name description documentum_id:string project:references',
+
+  # -------------------------------------------------
+  # 1:N tables for ProjectTypeSubvention
+
+  'Proposal' => 'name description:text',
 
   # -------------------------------------------------
 
-  'ProjectTypeSubvention' => 'legal_representative entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
+  'ProjectTypeSubvention' => 'legal_representative id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
 
   # -------------------------------------------------
 
@@ -76,6 +78,7 @@ JOINED_TABLES = [
     %w(project area),
     %w(project collective),
     %w(project district),
+    %w(project coordination),
 ]
 
 
