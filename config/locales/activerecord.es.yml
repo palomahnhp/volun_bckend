@@ -109,8 +109,10 @@ es:
         project_type_id:       Tipo proyecto
         entity:                Entidad
         entity_id:             Entidad
-        areas:                 Ámbitos    # N:N Association (for simple_form)
-        collectives:           Colectivos # N:N Association (for simple_form)
+        areas:                 Ámbitos        # N:N Association (for simple_form)
+        districts:             Distritos      # N:N Association (for simple_form)
+        collectives:           Colectivos     # N:N Association (for simple_form)
+        coordinations:         Coordinaciones # N:N Association (for simple_form)
       district:
         code:        Código
         name:        Nombre

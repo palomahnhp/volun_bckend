@@ -16,6 +16,11 @@ $navbar-default-link-hover-bg: #5482a2;
 $link-color: #A64203;
 $border-radius-base: 0;
 
+
+$btn-success-color: #286f28;
+$btn-success-bg: #ffffff;
+$btn-success-border: #4cae4c;
+
 // import the CSS framework
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -70,13 +75,6 @@ body {
 
 .failed{
   background-color: #740000 !important;
-  color: #FFFFFF !important;
-}
-
-.unsubscribed,
-.complained,
-.cancelled{
-  background-color: #000000 !important;
   color: #FFFFFF !important;
 }
 
@@ -174,44 +172,10 @@ a:focus{
   outline: 0;
 }
 
-@media screen and (min-width: 769px) and (max-width: 1199px) {
-  .priority-col {
-    width: 21%;
-    .select2-container .select2-choice > .select2-chosen {
-      min-width: 6em;
-      max-width: 6em;
-    }
-  }
-}
-@media screen and (min-width: 1200px) {
-  .priority-col {
-    width: 22.5%;
-    .select2-container .select2-choice > .select2-chosen {
-      min-width: 12em;
-      max-width: 12em;
-    }
-  }
-  a.select2-choice {
-    max-width: 90%;
-  }
-}
-.priority {
-  background: #DDEFFF;
-}
 label[for='notice_template_mail_template_id'],
 label[for='notice_template_sms_template_id'],
 label[for='notice_template_print_template_id'] {
   margin-left: 22px;
-}
-
-.product_col {
-  min-width: 165px;
-}
-.remove-col {
-  max-width: 20px;
-  .btn{
-    padding: 6px 0;
-  }
 }
 
 .index_table-actions {
@@ -278,40 +242,24 @@ a.btn-primary:visited {
   margin-top:    20px;
   margin-bottom: 35px;
   margin-left:   15px;
+  padding-bottom: 5px;
+  border-bottom-style: solid;
+  width: 100%;
 }
 
-#project.form{
-  .row-1 {
-    padding-bottom: 0;
+.page-header{
+  font-weight: 600;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  border-bottom: 3px solid;
+  border-left: 1px solid;
+  width: 100%;
+}
 
-    .well {
-      min-height: 271px;
-      padding-bottom: 0;
-    }
-    .col-sm-5 {
-      padding-left: 0px;
-      padding-right: 12px;
-    }
-    .district {
-      .col-sm-5 {
-        width: 30%;
-        padding-left: 0px;
-      }
-      .col-sm-7 {
-        width: 70%;
-        padding-left: 0px;
-      }
-    }
-    .project_profile {
-      textarea {
-        min-height: 70px;
-      }
-    }
-    .project_voluntaries_num {
-      .col-sm-7{
-        max-width: 30%;
-      }
-    }
+form {
+
+  label {
+    color: #3b5f79;
   }
 
   .row-2 {
@@ -325,32 +273,25 @@ a.btn-primary:visited {
   }
 
   .hasDatepicker {
-    max-width: 130px;
-  }
-
-  .project_assessment {
-    .col-sm-5 {
-      width: 30%;
-    }
-    .col-sm-7 {
-      width: 100%;
-    }
+    max-width: 170px;
+    text-align: center;
   }
 
   .row-3{
 
     .address {
 
+      label {
+        padding-right: 0;
+      }
+
       .row-3-1 {
-        .col-md-8 {
+        .col-md-9 {
           .col-sm-5 {
-            width: 21%;
+            width: 23%;
           }
           .col-sm-7 {
-            width: 70%;
-            input {
-              max-width: 465px;
-            }
+            width: 71%;
           }
         }
       }
@@ -362,22 +303,14 @@ a.btn-primary:visited {
       }
     }
   }
+}
 
-  .row-4, .row-5 {
-    .checkbox-inline {
-      background-color: #eaeaea;
-      border-radius: 2px;
-      margin-bottom: 10px;
-      padding-right: 5px;
-
-      .form-subtitle {
-        margin-left: 9px;
-      }
-      label {
-        font-weight: normal;
-      }
-    }
-  }
+.checkbox-inline.checkbox-custom {
+  background-color: #f0eee9;
+  border-radius: 2px;
+  margin-bottom: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
 }
 
 .footer {
@@ -477,4 +410,36 @@ a:visited {
         box-shadow: 0 0 1em #009CFF;
       }
     }
+}
+
+.remove_nested_fields, .undo {
+  color: darkred;
+  &:visited {
+    color: darkred;
+  }
+}
+
+.add_nested_fields {
+  color: #207320;
+  background-color: #ffffff;
+  border-color: #4cae4c;
+}
+
+.add_nested_fields {
+  &:hover, &:focus, &:active {
+    color: #207320;
+    background-color: #faffe6;
+  }
+}
+
+.btn-success, .open>.dropdown-toggle.btn-success {
+  font-weight: 600;
+  &:visited, &:hover, &:focus, &:active, &:active.focus {
+    font-weight: 600;
+    background-color: #faffe6;
+  }
+}
+
+a:hover {
+  background-color: white;
 }

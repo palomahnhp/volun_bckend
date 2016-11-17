@@ -35,52 +35,90 @@
       </div>
     </div>
   </div>
+  <div class="row row-3 well">
+    <%= content_tag :h3, t('work_place_addresses'), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :addresses, (f.object.addresses.build if f.object.addresses.empty?) do |f_address|  %>
+        <div class="address well col-md-12">
+          <div class="row row-3-1">
+            <div class="col-md-3">
+              <%= f_address.input :road_type %>
+            </div>
+            <div class="col-md-9">
+              <%= f_address.input :road_name %>
+            </div>
+          </div>
+          <div class="row row-3-2">
+            <div class="col-md-3">
+              <%= f_address.input :postal_code %>
+            </div>
+            <div class="col-md-3">
+              <%= f_address.input :number_type %>
+            </div>
+            <div class="col-md-3">
+              <%= f_address.input :number %>
+            </div>
+            <div class="col-md-3">
+              <%= f_address.input :grader %>
+            </div>
+          </div>
+          <div class="row row-3-3">
+            <div class="col-md-3">
+              <%= f_address.input :stairs_number %>
+            </div>
+            <div class="col-md-3">
+              <%= f_address.input :floor_number %>
+            </div>
+            <div class="col-md-3">
+              <%= f_address.input :door_number %>
+            </div>
+          </div>
+          <%= f_address.link_to_remove build_icon('trash-o', text: t('action.remove')), class: 'pull-right' %>
+        </div>
+      <% end %>
+    <p><%= f.link_to_add icon_new(text: t('action.add')), :addresses, class: 'btn' %></p>
+  </div>
+  <div class="row well">
+    <%= content_tag :h3, Timetable.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :timetables, (f.object.timetables.build if f.object.timetables.empty?) do |f_address|  %>
+        <div class="well col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <%= f_address.input :day %>
+            </div>
+            <div class="col-md-4">
+              <%= f_address.input :start_hour, as: :datepicker %>
+            </div>
+            <div class="col-md-4">
+              <%= f_address.input :end_hour, as: :datepicker %>
+            </div>
+          </div>
+          <%= f_address.link_to_remove build_icon('trash-o', text: t('action.remove')), class: 'pull-right' %>
+        </div>
+      <% end %>
+    <p><%= f.link_to_add icon_new(text: t('action.add')), :timetables, class: 'btn' %></p>
+  </div>
   <div class="row">
-    <div class="well col-md-5">
-      <div class="row">
-        <h3><%= Address.model_name.human(count: 2) %></h3>
-        <%= f.simple_fields_for :addresses, (f.object.addresses.build if f.object.addresses.empty?) do |f_address|  %>
-            <%= f_address.input :postal_code %>
-            <%= f_address.input :road_type %>
-            <%= f_address.input :road_name %>
-            <%= f_address.input :number_type %>
-            <%= f_address.input :number %>
-            <%= f_address.input :grader %>
-            <%= f_address.input :stairs_number %>
-            <%= f_address.input :floor_number %>
-            <%= f_address.input :door_number %>
-            <%= f_address.link_to_remove "Eliminar dirección" %>
-        <% end %>
-        <p><%= f.link_to_add "Añadir a dirección", :addresses %></p>
-      </div>
-    </div>
-    <div class="well col-md-7">
-      <div class="row">
-        <h3><%= Timetable.model_name.human(count: 2) %></h3>
-        <%= f.simple_fields_for :timetables, (f.object.timetables.build if f.object.timetables.empty?) do |f_address|  %>
-            <%= f_address.input :day %>
-            <%= f_address.input :start_hour, as: :datepicker %>
-            <%= f_address.input :end_hour, as: :datepicker %>
-            <%= f_address.link_to_remove "Eliminar horario" %>
-        <% end %>
-        <p><%= f.link_to_add "Añadir horario", :timetables %></p>
-      </div>
+    <div class="well col-md-12">
+      <%= content_tag :h3, Area.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.association :areas, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
     </div>
   </div>
   <div class="row">
-    <div class="well col-md-6">
-      <%= f.association :areas, as: :check_boxes %>
-    </div>
-    <div class="well col-md-6">
-      <%= f.association :collectives, as: :check_boxes %>
+    <div class="well col-md-12">
+      <%= content_tag :h3, Collective.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.association :collectives, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
     </div>
   </div>
   <div class="row">
-    <div class="well col-md-6">
-      <%= f.association :coordinations, as: :check_boxes %>
+    <div class="well col-md-12">
+      <%= content_tag :h3, Coordination.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.association :coordinations, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
     </div>
-    <div class="well col-md-6">
-      <%= f.association :districts, as: :check_boxes %>
+  </div>
+  <div class="row">
+    <div class="well col-md-12">
+      <%= content_tag :h3, District.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.association :districts, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
     </div>
   </div>
 </div>

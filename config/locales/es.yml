@@ -11,6 +11,8 @@ es:
     search:  'Buscar'
     back:    'Volver'
     close:   'Cerrar'
+    add:     'Añadir'
+    remove:  'Eliminar'
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
   messages:
@@ -18,7 +20,8 @@ es:
     access_denied: "Accesso denegado"
     select_a_model: Seleccionar %{model}
     confirm_modification: Se van a modificar los datos. ¿Está seguro de que desea continuar?
-    reloadable: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
+    confirm_undo: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
+    undo_changes: Deshacer cambios
   will_paginate:
     next_label: ❱
     page_entries_info:
@@ -35,6 +38,6 @@ es:
     page_gap: "&hellip;"
     previous_label: "❰"
   items_per_page: "Elementos por página"
-  work_place_address: 'Dirección del lugar de ejecución'
+  work_place_addresses: 'Direcciones del lugar de ejecución'
   user_name:  'Nombre'
   user_login: 'Login'

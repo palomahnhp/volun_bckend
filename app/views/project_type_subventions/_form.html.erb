@@ -23,7 +23,7 @@
 
   <div class="form-actions">
     <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
-    <%= link_to 'Deshacer cambios', '', class: 'btn btn-danger js-reloadable' %>
+    <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
   <% end %>
 </div>
