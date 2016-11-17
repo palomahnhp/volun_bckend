@@ -36,4 +36,21 @@ $(document).on('ready page:load turbolinks:load', function(){
     });
 });
 
+var confirmable_submit = function (msg) {
+    $('.js-confirmable').closest('form').submit(function() {
+        var message = (msg === undefined) ? 'Are you sure?' : msg;
+        var c = confirm(message);
+        return c;
+    });
+};
+var reloadable = function (msg) {
+    $('.js-reloadable').click(function() {
+        var message = (msg === undefined) ? 'Are you sure?' : msg;
+        var c = confirm(message);
+        if (c == true)
+            return window.location.reload();
+        else
+            return false;
+    });
+};
 
