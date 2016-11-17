@@ -1,38 +1,47 @@
 <div class="form-inputs">
+  <div class="row well">
+    <%= content_tag :h3, 'Proyecto', class: 'form-subtitle' %>
+    <div class="col-md-5">
+      <%= f.input :name  %>
+    </div>
+    <div class="col-md-7">
+      <%= f.input :description %>
+    </div>
+  </div>
   <div class="row">
     <div class="well col-md-6">
-      <%= f.input :name %>
+      <%= content_tag :h3, 'Voluntarios', class: 'form-subtitle' %>
       <%= f.input :volunteers_num %>
       <%= f.input :beneficiaries_num %>
+      <%= f.input :functions, as: :text %>
     </div>
     <div class="well col-md-6">
+      <%= content_tag :h3, 'Persona de contacto', class: 'form-subtitle' %>
       <%= f.input :contact_person %>
+      <%= f.input :email %>
       <%= f.input :phone_number %>
     </div>
   </div>
   <div class="row">
-    <div class="well col-md-12">
-      <div class="row">
-        <%= f.input :execution_start_date, as: :datepicker %>
-        <%= f.input :execution_end_date, as: :datepicker %>
-      </div>
+    <div class="well col-md-6">
+      <%= content_tag :h3, 'Fechas de ejecución', class: 'form-subtitle' %>
+      <%= f.input :execution_start_date, as: :datepicker %>
+      <%= f.input :execution_end_date, as: :datepicker %>
+    </div>
+    <div class="well col-md-6">
+      <%= content_tag :h3, 'Datos del seguro', class: 'form-subtitle' %>
+      <%= f.input :insurance_date, as: :datepicker %>
+      <%= f.input :insured %>
     </div>
   </div>
   <div class="row">
     <div class="well col-md-12">
-      <div class="row">
-        <%= f.input :active unless f.object.new_record? %>
-        <%= f.input :description %>
-        <%= f.input :functions %>
-        <%= f.input :email %>
-        <%= f.input :comments %>
-        <%= f.input :insured %>
-        <%= f.input :insurance_date, as: :datepicker %>
-        <%= f.association :entity %>
-        <%= f.simple_fields_for :documents do |f_document|  %>
-            <%= f_document.input :name, label: Document.model_name.human %>
-        <% end %>
-      </div>
+      <%= f.input :active unless f.object.new_record? %>
+      <%= f.input :comments %>
+      <%= f.association :entity %>
+      <%= f.simple_fields_for :documents do |f_document|  %>
+          <%= f_document.input :name, label: Document.model_name.human %>
+      <% end %>
     </div>
   </div>
   <div class="row row-3 well">

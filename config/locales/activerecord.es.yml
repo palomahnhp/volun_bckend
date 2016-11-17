@@ -95,17 +95,17 @@ es:
         name:                  Nombre
         description:           Descripción
         created_at:            Fecha creación
-        functions:             Funciones del voluntario
+        functions:             Funciones
         execution_start_date:  Fecha ejecución desde
         execution_end_date:    Fecha ejecución hasta
-        contact_person:        Persona de contacto
-        phone_number:          Teléfono de contacto
-        email:                 Correo electrónico
+        contact_person:        Nombre y Apellidos
+        phone_number:          Teléfono
+        email:                 E-mail
         comments:              Observaciones
         beneficiaries_num:     Número de beneficiarios
         volunteers_num:        Número de voluntarios demandados
         insured:               Seguro de accidentes
-        insurance_expiry_date: Fecha de caducidad seguro
+        insurance_date:        Fecha de caducidad seguro
         project_type_id:       Tipo proyecto
         entity:                Entidad
         entity_id:             Entidad
