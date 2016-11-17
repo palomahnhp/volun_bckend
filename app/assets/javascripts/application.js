@@ -15,6 +15,7 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/datepicker-es
 //= require jquery-ui/dialog
+//= require jquery_nested_form
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
@@ -34,3 +35,5 @@ $(document).on('ready page:load turbolinks:load', function(){
         // language: 'es'
     });
 });
+
+

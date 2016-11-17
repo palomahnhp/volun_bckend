@@ -9,6 +9,15 @@ es:
         social:     Sociales
         subvention: Subvencionado
         other:      Otros
+    timetable:
+      day:
+        monday:     Lunes
+        tuesday:    Martes
+        wednesday:  Miércoles
+        thursday:   Jueves
+        friday:     Viernes
+        saturday:   Sábado
+        sunday:     Domingo
   activerecord:
     models:
       project:
@@ -20,9 +29,15 @@ es:
       district:
         one:   Distrito
         other: Distritos
+      document:
+        one:   Documento
+        other: Documentos
       area:
         one:   Ámbito de actuación
         other: Ámbitos de actuación
+      address:
+        one:   Dirección
+        other: Direcciones
       sector:
         one:   Sector de intervención
         other: Sectores de intervención
@@ -66,6 +81,16 @@ es:
         one:   Horario
         other: Horarios
     attributes:
+      address:
+        postal_code:   Código postal
+        road_type:     Tipo de vía
+        road_name:     Nombre de la vía
+        number_type:   Tipo de número
+        number:        Número
+        grader:        Calificador
+        stairs_number: Escalera
+        floor_number:  Planta
+        door_number:   Puerta
       project:
         name:                  Nombre
         description:           Descripción
@@ -84,6 +109,8 @@ es:
         project_type_id:       Tipo proyecto
         entity:                Entidad
         entity_id:             Entidad
+        areas:                 Ámbitos    # N:N Association (for simple_form)
+        collectives:           Colectivos # N:N Association (for simple_form)
       district:
         code:        Código
         name:        Nombre
