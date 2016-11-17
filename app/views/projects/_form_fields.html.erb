@@ -29,18 +29,58 @@
         <%= f.input :insured %>
         <%= f.input :insurance_date, as: :datepicker %>
         <%= f.association :entity %>
+        <%= f.simple_fields_for :documents do |f_document|  %>
+            <%= f_document.input :name, label: Document.model_name.human %>
+        <% end %>
       </div>
     </div>
   </div>
   <div class="row">
-    <div class="well col-md-4">
+    <div class="well col-md-5">
+      <div class="row">
+        <h3><%= Address.model_name.human(count: 2) %></h3>
+        <%= f.simple_fields_for :addresses, (f.object.addresses.build if f.object.addresses.empty?) do |f_address|  %>
+            <%= f_address.input :postal_code %>
+            <%= f_address.input :road_type %>
+            <%= f_address.input :road_name %>
+            <%= f_address.input :number_type %>
+            <%= f_address.input :number %>
+            <%= f_address.input :grader %>
+            <%= f_address.input :stairs_number %>
+            <%= f_address.input :floor_number %>
+            <%= f_address.input :door_number %>
+            <%= f_address.link_to_remove "Eliminar dirección" %>
+        <% end %>
+        <p><%= f.link_to_add "Añadir a dirección", :addresses %></p>
+      </div>
+    </div>
+    <div class="well col-md-7">
+      <div class="row">
+        <h3><%= Timetable.model_name.human(count: 2) %></h3>
+        <%= f.simple_fields_for :timetables, (f.object.timetables.build if f.object.timetables.empty?) do |f_address|  %>
+            <%= f_address.input :day %>
+            <%= f_address.input :start_hour, as: :datepicker %>
+            <%= f_address.input :end_hour, as: :datepicker %>
+            <%= f_address.link_to_remove "Eliminar horario" %>
+        <% end %>
+        <p><%= f.link_to_add "Añadir horario", :timetables %></p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="well col-md-6">
       <%= f.association :areas, as: :check_boxes %>
     </div>
-    <div class="well col-md-4">
+    <div class="well col-md-6">
       <%= f.association :collectives, as: :check_boxes %>
     </div>
-    <div class="well col-md-4">
+  </div>
+  <div class="row">
+    <div class="well col-md-6">
       <%= f.association :coordinations, as: :check_boxes %>
+    </div>
+    <div class="well col-md-6">
+      <%= f.association :districts, as: :check_boxes %>
     </div>
   </div>
 </div>

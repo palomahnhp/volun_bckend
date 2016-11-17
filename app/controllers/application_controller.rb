@@ -89,9 +89,14 @@ class ApplicationController < ActionController::Base
         :execution_start_date,
         :execution_end_date,
         :areas_ids => [],
-        :collectives_ids => []
+        :collectives_ids => [],
+        addresses_attributes: [:id, :postal_code, :road_type, :_destroy]
       ]
     }
+  end
+
+  def fields_for_options(collection)
+    collection.build if collection.empty?
   end
 
 end

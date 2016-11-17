@@ -3,18 +3,18 @@ require 'database_cleaner'
 DatabaseCleaner.clean_with :truncation
 Faker::Config.locale = I18n.locale
 
-PROJECTS_NUM   = 100
-DISTRICTS_NUM  = 10
-ACTIVITIES_NUM = 10
-ENTITIES_NUM   = 10
-SECTORS_NUM    = 10
-ADDRESSES_NUM  = 20
-PROPOSAL       = 10
-ENTITY         = 10
-RACKING        = 10
-ISSUE          = 10
-TIMETABLE      = 10
-DOCUMENT       = 10
+PROJECTS_NUM      = 100
+DISTRICTS_NUM     = 10
+ACTIVITIES_NUM    = 10
+ENTITIES_NUM      = 10
+COORDINATIONS_NUM = 10
+ADDRESSES_NUM     = 20
+PROPOSAL          = 10
+ENTITY            = 10
+RACKING           = 10
+ISSUE             = 10
+TIMETABLE         = 10
+DOCUMENT          = 10
 PROJECT_TYPES = {
   0 => 'Servicios Sociales',
   1 => 'Centros de mayores',
@@ -117,6 +117,11 @@ end
 puts "Creando entidades"
 (1..ENTITIES_NUM).each do |n|
   Entity.create!(name: "#{Entity.model_name.human} #{n}")
+end
+
+puts "Creando coordinaciones"
+(1..COORDINATIONS_NUM).each do |n|
+  Coordination.create!(name: "#{Coordination.model_name.human} #{n}")
 end
 
 puts "Creando Distritos"

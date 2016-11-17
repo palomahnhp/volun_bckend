@@ -5,11 +5,17 @@ class Project < ActiveRecord::Base
   belongs_to :project_type
   belongs_to :entity
   has_and_belongs_to_many :addresses
+  has_and_belongs_to_many :timetables
   has_and_belongs_to_many :areas
   has_and_belongs_to_many :collectives
   has_and_belongs_to_many :coordinations
   has_and_belongs_to_many :districts
   has_one :project_type_subvention
+  has_many :documents
+  has_many :timetables
+
+  accepts_nested_attributes_for :timetables, allow_destroy: true
+  accepts_nested_attributes_for :addresses,  allow_destroy: true
 
   validates :name, uniqueness: true
   validates :name, presence: true

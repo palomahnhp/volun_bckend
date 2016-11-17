@@ -17,6 +17,8 @@ es:
     are_you_sure: ¿Está seguro?
     access_denied: "Accesso denegado"
     select_a_model: Seleccionar %{model}
+    confirm_modification: Se van a modificar los datos. ¿Está seguro de que desea continuar?
+    reloadable: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
   will_paginate:
     next_label: ❱
     page_entries_info:
