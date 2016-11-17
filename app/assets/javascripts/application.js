@@ -36,14 +36,15 @@ $(document).on('ready page:load turbolinks:load', function(){
     });
 });
 
-var confirmable_submit = function (msg) {
+var confirm_submit = function (msg) {
     $('.js-confirmable').closest('form').submit(function() {
         var message = (msg === undefined) ? 'Are you sure?' : msg;
         var c = confirm(message);
         return c;
     });
 };
-var reloadable = function (msg) {
+
+var confirm_reload = function (msg) {
     $('.js-reloadable').click(function() {
         var message = (msg === undefined) ? 'Are you sure?' : msg;
         var c = confirm(message);
@@ -52,5 +53,9 @@ var reloadable = function (msg) {
         else
             return false;
     });
+};
+
+var confirm_undo = function (msg) {
+    confirm_reload(msg);
 };
 
