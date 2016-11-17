@@ -1,4 +1,4 @@
-<div class="well">
+<div class="well well-form">
   <%= simple_nested_form_for(@project_type_entity, default_form_options) do |f| %>
 
     <%= f.simple_fields_for :project do |f_project|  %>
@@ -6,21 +6,33 @@
     <% end %>
 
   <div class="form-inputs">
-    <%= f.input :request_date, as: :datepicker %>
-    <%= f.input :request_description %>
-    <%= f.input :requested_volunteers_num %>
-    <%= f.input :volunteers_profile %>
-    <%= f.input :activities %>
-    <%= f.input :sav_date, as: :datepicker %>
-    <%= f.input :derived_volunteers_num %>
-    <%= f.input :added_volunteers_num %>
-    <%= f.input :agreement_signed %>
-    <%= f.input :agreement_date, as: :datepicker %>
-    <%= f.input :prevailing %>
-    <%= f.simple_fields_for :project_type do |f_project_type|  %>
-        <%= f_project_type.input :kind, disabled: true, label: ProjectType.model_name.human %>
-        <%= f_project_type.input :kind, as: :hidden %>
-    <% end %>
+  </div>
+
+  <div class="form-inputs">
+    <div class="row well">
+      <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
+      <div class="well col-md-6">
+        <%= content_tag :h4, 'Datos de voluntariado', class: 'form-subtitle' %>
+        <%= f.input :requested_volunteers_num %>
+        <%= f.input :volunteers_profile %>
+        <%= f.input :derived_volunteers_num %>
+        <%= f.input :added_volunteers_num %>
+        <%= f.input :activities %>
+      </div>
+      <div class="well col-md-6">
+        <%= content_tag :h4, 'Otros datos de interes', class: 'form-subtitle' %>
+        <%= f.input :request_date, as: :datepicker %>
+        <%= f.input :request_description %>
+        <%= f.input :agreement_date, as: :datepicker %>
+        <%= f.input :sav_date, as: :datepicker %>
+        <%= f.simple_fields_for :project_type do |f_project_type|  %>
+            <%= f_project_type.input :kind, disabled: true, label: ProjectType.model_name.human %>
+            <%= f_project_type.input :kind, as: :hidden %>
+        <% end %>
+        <%= f.input :agreement_signed %>
+        <%= f.input :prevailing %>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">

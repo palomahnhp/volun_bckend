@@ -105,7 +105,7 @@ es:
         beneficiaries_num:     Número de beneficiarios
         volunteers_num:        Número de voluntarios demandados
         insured:               Seguro de accidentes
-        insurance_date:        Fecha de caducidad seguro
+        insurance_date:        Fecha de caducidad
         project_type_id:       Tipo proyecto
         entity:                Entidad
         entity_id:             Entidad
@@ -162,6 +162,8 @@ es:
         initial_volunteers_num: Número de voluntarios iniciales
         participants_num:       Número de voluntarios participantes
         has_quality_evaluation: Posee sistema de evaluación de calidad
+        id_num:                 NIF
+        vat_num:                CIF
         project_id:             Proyecto
         project:                Proyecto
         project_type_id:        Tipo de proyecto

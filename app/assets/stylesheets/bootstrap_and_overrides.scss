@@ -105,11 +105,11 @@ body {
 
 .page-header{
   font-weight: 600;
-  margin: 18px 0;
+  margin: 50px 0;
   padding-bottom: 5px;
-  padding-left: 10px;
+  padding-left: 30px;
   border-bottom: 3px solid;
-  border-left: 9px solid;
+  border-left: 20px solid;
   width: 100%;
 }
 
@@ -250,14 +250,14 @@ a.btn-primary:visited {
   border-bottom: 2px solid;
   width: 100%;
   color: #aa9269;
-  //color: #628198;
+  border-left: 8px solid;
+  padding-left: 10px;
 }
 
 form {
 
   label {
     color: #628198;
-    //color: #8a6d3b;
   }
 
   label.enum {
@@ -446,4 +446,18 @@ a:visited {
 a:hover {
   //color: inherit !important;
   //background-color: inherit !important;
+}
+
+.row-2 .well {
+  min-height: 359px;
+}
+.row-3 .well {
+  min-height: 268px;
+}
+
+.well-form {
+  background-color: #fffff4;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 0;
 }
