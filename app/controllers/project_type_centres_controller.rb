@@ -33,12 +33,12 @@ class ProjectTypeCentresController < ApplicationController
 
   def update
     @project_type_centre.update_attributes(project_type_centre_params)
-    respond_with(@project_type_centre)
+    respond_with(@project_type_centre, location: projects_path)
   end
 
   def destroy
     @project_type_centre.destroy
-    respond_with(@project_type_centre)
+    respond_with(@project_type_centre, location: projects_path)
   end
 
   protected

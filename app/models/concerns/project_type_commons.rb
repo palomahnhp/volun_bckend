@@ -18,16 +18,23 @@ module ProjectTypeCommons
 
     private
 
+    def get_related_project_type
+      ProjectType.get_project_type(self.class.my_type)
+    end
+
     def set_project_type
-      self.project_type_id ||= ProjectType.get_project_type(self.class.my_type).id
+      self.project_type_id ||= project.try(:project_type_id) || get_related_project_type.id
     end
 
     def build_new_project
-      self.build_project unless project_id || project
+      return if project_id || project
+      build_project
+      project.project_type_id = project_type_id
+      project
     end
 
     def project_type_valid?
-      project_type_id == ProjectType.get_project_type(self.class.my_type).id
+      project_type_id == get_related_project_type.id
     end
 
     def check_project_type

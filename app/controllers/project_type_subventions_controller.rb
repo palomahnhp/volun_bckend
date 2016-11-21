@@ -32,12 +32,12 @@ class ProjectTypeSubventionsController < ApplicationController
 
   def update
     @project_type_subvention.update_attributes(project_type_subvention_params)
-    respond_with(@project_type_subvention)
+    respond_with(@project_type_subvention, location: projects_path)
   end
 
   def destroy
     @project_type_subvention.destroy
-    respond_with(@project_type_subvention)
+    respond_with(@project_type_subvention, location: projects_path)
   end
 
   protected
@@ -54,6 +54,8 @@ class ProjectTypeSubventionsController < ApplicationController
                 :participants_num,
                 :has_quality_evaluation,
                 :proposal_id,
+                :id_num,
+                :vat_num,
                 permitted_project_attrs)
     end
 end

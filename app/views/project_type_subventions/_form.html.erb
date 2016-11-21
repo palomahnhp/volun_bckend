@@ -1,44 +1,40 @@
 <div class="well well-form">
   <%= simple_nested_form_for(@project_type_subvention, default_form_options) do |f| %>
 
-      <%= f.simple_fields_for :project do |f_project|  %>
-        <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
-      <% end %>
+    <%= f.simple_fields_for :project do |f_project|  %>
+      <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
+    <% end %>
 
-  <div class="form-inputs">
-    <div class="row last-row-sub well">
-      <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
-      <div class="well col-md-6">
-      <%= content_tag :h4, 'Representante legal', class: 'form-subtitle' %>
-        <%= f.input :legal_representative, label: 'Nombre y apellidos' %>
-        <%= f.input :id_num %>
-        <%= f.input :vat_num %>
-      </div>
-      <div class="well col-md-6">
-        <%= content_tag :h4, 'Costes', class: 'form-subtitle' %>
-        <%= f.input :cost %>
-        <%= f.input :requested_amount %>
-        <%= f.input :subsidized_amount %>
-      </div>
-      <div class="well col-md-6">
-        <%= f.input :initial_volunteers_num %>
-        <%= f.input :participants_num %>
-        <%= f.input :entity_registry %>
-        <%= f.input :has_quality_evaluation %>
-      </div>
-      <div class="well col-md-6">
-        <%= f.association :proposal %>
-        <%= f.simple_fields_for :project_type do |f_project_type|  %>
-            <%= f_project_type.input :kind, disabled: true, label: ProjectType.model_name.human %>
-            <%= f_project_type.input :kind, as: :hidden %>
-        <% end %>
+    <div class="form-inputs">
+      <div class="row last-row-sub well">
+        <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
+        <div class="well col-md-6">
+        <%= content_tag :h4, 'Representante legal', class: 'form-subtitle' %>
+          <%= f.input :legal_representative, label: 'Nombre y apellidos' %>
+          <%= f.input :id_num %>
+          <%= f.input :vat_num %>
+        </div>
+        <div class="well col-md-6">
+          <%= content_tag :h4, 'Costes', class: 'form-subtitle' %>
+          <%= f.input :cost %>
+          <%= f.input :requested_amount %>
+          <%= f.input :subsidized_amount %>
+        </div>
+        <div class="well col-md-6">
+          <%= f.input :initial_volunteers_num %>
+          <%= f.input :participants_num %>
+          <%= f.input :entity_registry %>
+          <%= f.input :has_quality_evaluation %>
+        </div>
+        <div class="well col-md-6">
+          <%= f.association :proposal %>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
-    <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+      <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
+    </div>
   <% end %>
 </div>

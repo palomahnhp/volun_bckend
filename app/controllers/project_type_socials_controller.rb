@@ -32,12 +32,12 @@ class ProjectTypeSocialsController < ApplicationController
 
   def update
     @project_type_social.update_attributes(project_type_social_params)
-    respond_with(@project_type_social)
+    respond_with(@project_type_social, location: projects_path)
   end
 
   def destroy
     @project_type_social.destroy
-    respond_with(@project_type_social)
+    respond_with(@project_type_social, location: projects_path)
   end
 
   protected

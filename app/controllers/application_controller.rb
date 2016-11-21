@@ -82,15 +82,53 @@ class ApplicationController < ActionController::Base
   def permitted_project_attrs
     {
       project_attributes: [
+        :id,
         :name,
-        :contact_person,
-        :phone_number,
+        :description,
+        :project_type_id,
+        :active,
+        :comments,
+        :beneficiaries_num,
         :volunteers_num,
+        :functions,
+        :insured,
+        :insurance_date,
+        :documents,
+        :contact_person,
+        :email,
+        :phone_number,
+        :entity_id,
         :execution_start_date,
         :execution_end_date,
-        :areas_ids => [],
-        :collectives_ids => [],
-        addresses_attributes: [:id, :postal_code, :road_type, :_destroy]
+        area_ids:         [],
+        collective_ids:   [],
+        coordination_ids: [],
+        district_ids:     [],
+        addresses_attributes: [
+          :id,
+          :postal_code,
+          :road_type,
+          :road_name,
+          :number_type,
+          :number,
+          :grader,
+          :stairs_number,
+          :floor_number,
+          :door_number,
+          :_destroy
+        ],
+        timetables_attributes: [
+          :id,
+          :day,
+          :start_hour,
+          :end_hour,
+          :_destroy
+        ],
+        documents_attributes: [
+          :id,
+          :name,
+          :_destroy
+        ]
       ]
     }
   end

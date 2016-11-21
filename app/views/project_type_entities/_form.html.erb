@@ -5,35 +5,28 @@
         <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
     <% end %>
 
-  <div class="form-inputs">
-  </div>
-
-  <div class="form-inputs">
-    <div class="row last-row-ent well">
-      <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
-      <div class="well col-md-6">
-        <%= content_tag :h4, 'Datos de voluntariado', class: 'form-subtitle' %>
-        <%= f.input :requested_volunteers_num %>
-        <%= f.input :volunteers_profile %>
-        <%= f.input :derived_volunteers_num %>
-        <%= f.input :added_volunteers_num %>
-        <%= f.input :activities %>
-      </div>
-      <div class="well col-md-6">
-        <%= content_tag :h4, 'Otros datos de interes', class: 'form-subtitle' %>
-        <%= f.input :request_date, as: :datepicker %>
-        <%= f.input :request_description %>
-        <%= f.input :agreement_date, as: :datepicker %>
-        <%= f.input :sav_date, as: :datepicker %>
-        <%= f.simple_fields_for :project_type do |f_project_type|  %>
-            <%= f_project_type.input :kind, disabled: true, label: ProjectType.model_name.human %>
-            <%= f_project_type.input :kind, as: :hidden %>
-        <% end %>
-        <%= f.input :agreement_signed %>
-        <%= f.input :prevailing %>
+    <div class="form-inputs">
+      <div class="row last-row-ent well">
+        <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
+        <div class="well col-md-6">
+          <%= content_tag :h4, 'Datos de voluntariado', class: 'form-subtitle' %>
+          <%= f.input :requested_volunteers_num %>
+          <%= f.input :volunteers_profile %>
+          <%= f.input :derived_volunteers_num %>
+          <%= f.input :added_volunteers_num %>
+          <%= f.input :activities %>
+        </div>
+        <div class="well col-md-6">
+          <%= content_tag :h4, 'Otros datos de interes', class: 'form-subtitle' %>
+          <%= f.input :request_date, as: :datepicker %>
+          <%= f.input :request_description %>
+          <%= f.input :agreement_date, as: :datepicker %>
+          <%= f.input :sav_date, as: :datepicker %>
+          <%= f.input :agreement_signed %>
+          <%= f.input :prevailing %>
+        </div>
       </div>
     </div>
-  </div>
 
   <div class="form-actions">
     <%= f.button :submit, class: 'btn btn-success js-confirmable' %>

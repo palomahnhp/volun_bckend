@@ -16,8 +16,8 @@
   <td><%= show_simple_list(project.collectives) %></td>
 
   <td class="index_table-actions">
-    <%= link_to_show(project) %>
-    <%= link_to_edit(project) %>
+    <%= link_to_show(project.detailed_project) rescue nil %>
+    <%= link_to_edit(project.detailed_project) rescue nil %>
 <% if project.try(:archived?) %>
     <%= link_to_recover(project) %>
 <% else %>

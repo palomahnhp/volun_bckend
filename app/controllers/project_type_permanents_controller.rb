@@ -32,12 +32,12 @@ class ProjectTypePermanentsController < ApplicationController
 
   def update
     @project_type_permanent.update_attributes(project_type_permanent_params)
-    respond_with(@project_type_permanent)
+    respond_with(@project_type_permanent, location: projects_path)
   end
 
   def destroy
     @project_type_permanent.destroy
-    respond_with(@project_type_permanent)
+    respond_with(@project_type_permanent, location: projects_path)
   end
 
   protected

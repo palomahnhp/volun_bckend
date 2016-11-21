@@ -1,20 +1,16 @@
 <div class="well">
   <%= simple_nested_form_for(@project_type_other, default_form_options) do |f| %>
 
-      <%= f.simple_fields_for :project do |f_project|  %>
-          <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
-      <% end %>
-
-  <div class="form-inputs">
-    <%= f.simple_fields_for :project_type do |f_project_type|  %>
-        <%= f_project_type.input :kind, disabled: true, label: ProjectType.model_name.human %>
-        <%= f_project_type.input :kind, as: :hidden %>
+    <%= f.simple_fields_for :project do |f_project|  %>
+        <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
     <% end %>
-  </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
-    <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
-  </div>
+    <div class="form-inputs">
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+      <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
+    </div>
   <% end %>
 </div>

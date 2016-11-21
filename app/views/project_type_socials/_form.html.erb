@@ -5,16 +5,12 @@
         <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
     <% end %>
 
-  <div class="form-inputs">
-    <%= f.simple_fields_for :project_type do |f_project_type|  %>
-        <%= f_project_type.input :kind, disabled: true, label: ProjectType.model_name.human %>
-        <%= f_project_type.input :kind, as: :hidden %>
-    <% end %>
-  </div>
+    <div class="form-inputs">
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
-    <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+      <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
+    </div>
   <% end %>
 </div>

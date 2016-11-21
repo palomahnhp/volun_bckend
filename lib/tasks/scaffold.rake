@@ -211,7 +211,7 @@ namespace :scaffold do
     Rake::Task['db:dev_seed'].invoke
   end
 
-  desc 'Builds the application data model basement by scaffolding the models'
+  desc 'Builds/Rebuilds the application data model basement by scaffolding the models'
   task reset: :environment do
     puts "Destroying scaffolds"
     Rake::Task['scaffold:destroy_all'].invoke

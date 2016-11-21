@@ -19,7 +19,6 @@ class ProjectTypeEntitiesController < ApplicationController
 
   def new
     @project_type_entity = ProjectTypeEntity.new
-    @project_type_entity.build_project
     respond_with(@project_type_entity)
   end
 
@@ -33,12 +32,12 @@ class ProjectTypeEntitiesController < ApplicationController
 
   def update
     @project_type_entity.update_attributes(project_type_entity_params)
-    respond_with(@project_type_entity)
+    respond_with(@project_type_entity, location: projects_path)
   end
 
   def destroy
     @project_type_entity.destroy
-    respond_with(@project_type_entity)
+    respond_with(@project_type_entity, location: projects_path)
   end
 
   protected
@@ -46,8 +45,17 @@ class ProjectTypeEntitiesController < ApplicationController
     def project_type_entity_params
       params
         .require(:project_type_entity)
-        .permit(:project_id,
-                :project_type_id,
+        .permit(:requested_volunteers_num,
+                :volunteers_profile,
+                :derived_volunteers_num,
+                :added_volunteers_num,
+                :activities,
+                :request_date,
+                :request_description,
+                :agreement_date,
+                :sav_date,
+                :agreement_signed,
+                :prevailing,
                 permitted_project_attrs)
     end
 end

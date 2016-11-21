@@ -137,7 +137,7 @@ es:
         description:           Descripción
         active:                Activo
         created_at:            Fecha creación
-        functions:             Funciones
+        functions:             Funciones del voluntario
         execution_start_date:  Fecha ejecución desde
         execution_end_date:    Fecha ejecución hasta
         contact_person:        Nombre y Apellidos
@@ -148,6 +148,7 @@ es:
         volunteers_num:        Nº de voluntarios demandados
         insured:               Seguro de accidentes
         insurance_date:        Fecha de caducidad
+        project_type:          Tipo de proyecto
         project_type_id:       Tipo de proyecto
         entity:                Entidad
         entity_id:             Entidad

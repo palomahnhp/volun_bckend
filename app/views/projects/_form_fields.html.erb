@@ -4,6 +4,7 @@
     <div class="col-md-6">
       <%= f.input :name  %>
       <%= f.input :description %>
+      <%= f.input :project_type_id, as: :hidden %>
     </div>
     <div class="col-md-6">
       <%= f.input :active unless f.object.new_record? %>
@@ -14,8 +15,8 @@
     <div class="well col-md-6">
       <%#= TODO 'Voluntarios' should be Volunteer.model_name.human %>
       <%= content_tag :h3, 'Voluntarios', class: 'form-subtitle' %>
-      <%= f.input :volunteers_num, placeholder: '0', input_html: { data: { mask: '9'} } %>
-      <%= f.input :beneficiaries_num, placeholder: '0', input_html: { data: { mask: '999-99-99-99'} } %>
+      <%= f.input :volunteers_num, placeholder: '0' %>
+      <%= f.input :beneficiaries_num, placeholder: '0' %>
       <%= f.input :functions, as: :text %>
     </div>
     <div class="well col-md-6">

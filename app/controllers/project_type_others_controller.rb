@@ -33,12 +33,12 @@ class ProjectTypeOthersController < ApplicationController
 
   def update
     @project_type_other.update_attributes(project_type_other_params)
-    respond_with(@project_type_other)
+    respond_with(@project_type_other, location: projects_path)
   end
 
   def destroy
     @project_type_other.destroy
-    respond_with(@project_type_other)
+    respond_with(@project_type_other, location: projects_path)
   end
 
   protected
