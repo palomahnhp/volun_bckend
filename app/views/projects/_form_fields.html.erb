@@ -1,27 +1,28 @@
 <div class="form-inputs">
   <div class="row well">
-    <%= content_tag :h3, 'Proyecto', class: 'form-subtitle' %>
-    <div class="col-md-5">
+    <%= content_tag :h3, Project.model_name.human, class: 'form-subtitle' %>
+    <div class="col-md-6">
       <%= f.input :name  %>
       <%= f.input :description %>
     </div>
-    <div class="col-md-7">
+    <div class="col-md-6">
       <%= f.input :active unless f.object.new_record? %>
       <%= f.input :comments %>
     </div>
   </div>
   <div class="row row-2">
     <div class="well col-md-6">
+      <%#= TODO 'Voluntarios' should be Volunteer.model_name.human %>
       <%= content_tag :h3, 'Voluntarios', class: 'form-subtitle' %>
-      <%= f.input :volunteers_num %>
-      <%= f.input :beneficiaries_num %>
+      <%= f.input :volunteers_num, placeholder: '0', input_html: { data: { mask: '9'} } %>
+      <%= f.input :beneficiaries_num, placeholder: '0', input_html: { data: { mask: '999-99-99-99'} } %>
       <%= f.input :functions, as: :text %>
     </div>
     <div class="well col-md-6">
-      <%= content_tag :h3, 'Persona de contacto', class: 'form-subtitle' %>
+      <%= content_tag :h3, t('contact_person'), class: 'form-subtitle' %>
       <%= f.input :contact_person %>
-      <%= f.input :email %>
-      <%= f.input :phone_number %>
+      <%= f.input :email, placeholder: 'email@email.com' %>
+      <%= f.input :phone_number, placeholder: 'XXX-XXX-XXX', input_html: { data: { mask: '999-999-999'} } %>
       <%= f.association :entity %>
     </div>
   </div>
@@ -40,11 +41,11 @@
       <% end %>
     </div>
   </div>
-  <div class="row row-3 well">
+  <div class="row row-4 well">
     <%= content_tag :h3, t('work_place_addresses'), class: 'form-subtitle' %>
       <%= f.simple_fields_for :addresses, (f.object.addresses.build if f.object.addresses.empty?) do |f_address|  %>
         <div class="address well col-md-12">
-          <div class="row row-3-1">
+          <div class="row row-4-1">
             <div class="col-md-3">
               <%= f_address.input :road_type %>
             </div>
@@ -52,7 +53,7 @@
               <%= f_address.input :road_name %>
             </div>
           </div>
-          <div class="row row-3-2">
+          <div class="row row-4-2">
             <div class="col-md-3">
               <%= f_address.input :postal_code %>
             </div>
@@ -66,7 +67,7 @@
               <%= f_address.input :grader %>
             </div>
           </div>
-          <div class="row row-3-3">
+          <div class="row row-4-3">
             <div class="col-md-3">
               <%= f_address.input :stairs_number %>
             </div>

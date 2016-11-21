@@ -11,6 +11,14 @@ module ApplicationHelper
     "#{user_data[:name]} #{user_data[:surname]} #{user_data[:second_surname]} "
   end
 
+  def show_simple_list(ar_collection, attr = :name)
+    ar_collection.pluck(attr).join(" <strong>-</strong> ").html_safe
+  end
+
+  def show_simple_date(date, opts = {})
+    l(date, opts) if date
+  end
+
 end
 
 module ActionView::Helpers::FormHelper

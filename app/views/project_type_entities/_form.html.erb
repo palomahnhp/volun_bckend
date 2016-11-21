@@ -9,7 +9,7 @@
   </div>
 
   <div class="form-inputs">
-    <div class="row well">
+    <div class="row last-row-ent well">
       <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
       <div class="well col-md-6">
         <%= content_tag :h4, 'Datos de voluntariado', class: 'form-subtitle' %>
@@ -36,7 +36,8 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+    <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
   <% end %>
 </div>

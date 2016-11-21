@@ -3,6 +3,7 @@ es:
     "true":  "Sí"
     "false": "No"
   app_name: 'Voluntariado'
+  actions:   Acciones
   action:
     new:     'Nuevo %{model}'
     edit:    'Editar %{model}'

@@ -6,8 +6,7 @@
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-        <%# if ProjectType.active?(:subvention) %>
-          <div class="panel panel-warning" onclick="window.location='<%= new_project_type_subvention_url %>';">
+          <div class="panel panel-<%= ProjectType.active?(:subvention) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_type_subvention_url %>';">
             <div class="panel-heading">
               <h3 class="panel-title">
                 <%= ProjectTypeSubvention.model_name.human %>
@@ -17,8 +16,7 @@
               Asociados a una subvención
             </div>
           </div>
-        <%# end %>
-        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_entity_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:entity) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_type_entity_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeEntity.model_name.human %>
@@ -28,7 +26,7 @@
             Asociados a una entidad
           </div>
         </div>
-        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_permanent_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:permanent) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_type_permanent_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypePermanent.model_name.human %>
@@ -40,7 +38,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_centre_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:centre) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_type_centre_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeCentre.model_name.human %>
@@ -50,7 +48,7 @@
             De centros de mayores
           </div>
         </div>
-        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_social_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:social) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_type_social_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeSocial.model_name.human %>
@@ -60,7 +58,7 @@
             De servicios sociales
           </div>
         </div>
-        <div class="panel panel-warning" onclick="window.location='<%= new_project_type_other_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_type_other_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectTypeOther.model_name.human %>

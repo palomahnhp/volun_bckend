@@ -22,7 +22,7 @@ class ProjectType < ActiveRecord::Base
   end
 
   def to_s
-    kind
+    kind_i18n
   end
 
 end
