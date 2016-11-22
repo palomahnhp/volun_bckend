@@ -10,9 +10,11 @@
         <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
         <div class="well col-md-6">
         <%= content_tag :h4, 'Representante legal', class: 'form-subtitle' %>
-          <%= f.input :representative_name, label: 'Nombre y apellidos' %>
-          <%= f.input :id_num %>
-          <%= f.input :vat_num %>
+          <%= f.input :representative_name %>
+          <%= f.input :representative_first_surname %>
+          <%= f.input :representative_second_surname %>
+          <%= f.input :id_num, input_html: { class: 'with150' } %>
+          <%= f.input :vat_num, input_html: { class: 'with150' } %>
         </div>
         <div class="well col-md-6">
           <%= content_tag :h4, 'Costes', class: 'form-subtitle' %>
@@ -21,13 +23,15 @@
           <%= f.input :subsidized_amount %>
         </div>
         <div class="well col-md-6">
+          <%= content_tag :h4, 'Número de voluntarios', class: 'form-subtitle' %>
           <%= f.input :initial_volunteers_num %>
           <%= f.input :participants_num %>
-          <%= f.input :entity_registry %>
-          <%= f.input :has_quality_evaluation %>
         </div>
         <div class="well col-md-6">
-          <%= f.association :proposal %>
+          <%= content_tag :h4, 'Otros datos de interes', class: 'form-subtitle' %>
+          <%= f.input :entity_registry %>
+          <%= f.input :has_quality_evaluation %>
+          <%= f.association :proposal, input_html: { class: 'with300' } %>
         </div>
       </div>
     </div>

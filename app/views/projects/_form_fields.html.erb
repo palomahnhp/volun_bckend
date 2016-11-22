@@ -22,6 +22,8 @@
     <div class="well col-md-6">
       <%= content_tag :h3, t('contact_person'), class: 'form-subtitle' %>
       <%= f.input :contact_name %>
+      <%= f.input :contact_first_surname %>
+      <%= f.input :contact_second_surname %>
       <%= f.input :email, placeholder: 'email@email.com' %>
       <%= f.input :phone_number, placeholder: 'XXX-XXX-XXX', input_html: { data: { mask: '999-999-999'} } %>
       <%= f.association :entity %>

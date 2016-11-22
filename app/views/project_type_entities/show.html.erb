@@ -29,7 +29,7 @@
   <dt><%= ProjectTypeEntity.human_attribute_name(:project_type_id) %>:</dt>
   <dd><%= @project_type_entity.project_type %></dd>
   <dt><%= ProjectTypeEntity.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@project_type_entity.created_at, format: :long) %></dd>
+  <dd><%= show_simple_date(@project_type_entity.created_at) %></dd>
 
 </dl>
 <% unless request.xhr? %>

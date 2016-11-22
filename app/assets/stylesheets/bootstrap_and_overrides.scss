@@ -244,7 +244,7 @@ form {
   .row {
     textarea {
       margin-top: 10px;
-      min-height: 100px;
+      min-height: 161px;
     }
   }
 
@@ -255,7 +255,7 @@ form {
 
   .last-row-sub {
     .col-md-6 {
-      min-height: 250px;
+      min-height: 366px;
     }
   }
 
@@ -489,4 +489,11 @@ form .well {
   .dl-horizontal dt {
     width: 220px;
   }
+}
+
+.with150 {
+  max-width: 150px;
+}
+.with300 {
+  max-width: 300px;
 }

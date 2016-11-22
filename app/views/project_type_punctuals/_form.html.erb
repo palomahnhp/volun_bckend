@@ -1,0 +1,13 @@
+<div class="well">
+  <%= simple_form_for(@project_type_punctual, default_form_options) do |f| %>
+
+  <div class="form-inputs">
+          <%= f.association :project %>
+          <%= f.association :project_type %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>

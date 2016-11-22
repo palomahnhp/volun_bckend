@@ -6,12 +6,10 @@ class Project < ActiveRecord::Base
   belongs_to :entity
   has_and_belongs_to_many :addresses
   has_and_belongs_to_many :timetables
-  # TODO make these associations updatable from form
   has_and_belongs_to_many :areas, -> { order('areas.name asc') }
   has_and_belongs_to_many :collectives, -> { order('collectives.name asc') }
   has_and_belongs_to_many :coordinations, -> { order('coordinations.name asc') }
   has_and_belongs_to_many :districts, -> { order('districts.name asc') }
-  # END TODO
   has_many :documents
   has_many :timetables
   has_one :project_type_subvention
@@ -26,7 +24,9 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :addresses,  allow_destroy: true, reject_if: :all_blank
 
   validates :name, uniqueness: true
-  validates :name, presence: true
+  validates :name, :entity_id, :description, :execution_start_date, :contact_name,
+            :phone_number, :email, presence: true
+
 
   def self.main_columns
     %i(id name project_type entity execution_start_date
@@ -42,7 +42,7 @@ class Project < ActiveRecord::Base
   end
 
   def detailed_project
-    public_send "project_type_#{project_type.kind}" # rescue nil
+    public_send "project_type_#{project_type.kind}"
   end
 
 end

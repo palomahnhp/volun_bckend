@@ -4,8 +4,12 @@
 
   <dt><%= ProjectTypeSubvention.human_attribute_name(:id) %>:</dt>
   <dd><%= @project_type_subvention.id %></dd>
-  <dt><%= ProjectTypeSubvention.human_attribute_name(:legal_representative) %>:</dt>
-  <dd><%= @project_type_subvention.legal_representative %></dd>
+  <dt><%= ProjectTypeSubvention.human_attribute_name(:representative_name) %>:</dt>
+  <dd><%= @project_type_subvention.representative_name %></dd>
+  <dt><%= ProjectTypeSubvention.human_attribute_name(:representative_first_surname) %>:</dt>
+  <dd><%= @project_type_subvention.representative_first_surname %></dd>
+  <dt><%= ProjectTypeSubvention.human_attribute_name(:representative_second_surname) %>:</dt>
+  <dd><%= @project_type_subvention.representative_second_surname %></dd>
   <dt><%= ProjectTypeSubvention.human_attribute_name(:entity_registry) %>:</dt>
   <dd><%= t("humanize.#{@project_type_subvention.entity_registry}") %></dd>
   <dt><%= ProjectTypeSubvention.human_attribute_name(:cost) %>:</dt>
@@ -27,7 +31,7 @@
   <dt><%= ProjectTypeSubvention.human_attribute_name(:project_type_id) %>:</dt>
   <dd><%= @project_type_subvention.project_type %></dd>
   <dt><%= ProjectTypeSubvention.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@project_type_subvention.created_at, format: :long) %></dd>
+  <dd><%= show_simple_date(@project_type_subvention.created_at) %></dd>
 
 </dl>
 <% unless request.xhr? %>
