@@ -9,7 +9,7 @@
   <dt><%= ProjectTypePermanent.human_attribute_name(:project_type_id) %>:</dt>
   <dd><%= @project_type_permanent.project_type %></dd>
   <dt><%= ProjectTypePermanent.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= l(@project_type_permanent.created_at, format: :long) %></dd>
+  <dd><%= show_simple_date(@project_type_permanent.created_at, format: :long) %></dd>
 
 </dl>
 <% unless request.xhr? %>

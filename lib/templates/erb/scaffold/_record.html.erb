@@ -5,7 +5,7 @@
     <%% if attr.is_a?(TrueClass) || attr.is_a?(FalseClass) %>
         <td><%%= t("humanize.#{attr}") %></td>
     <%% elsif attr.is_a?(Date) %>
-        <td><%%= l(attr) %></td>
+        <td><%%= show_simple_date(attr) %></td>
     <%% else %>
         <td><%%= attr %></td>
     <%% end %>
