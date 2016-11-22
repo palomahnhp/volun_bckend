@@ -28,6 +28,16 @@ class Project < ActiveRecord::Base
             :phone_number, :email, presence: true
 
 
+  scope :all_active,   ->(){ where(active: true) }
+  scope :all_inactive, ->(){ where(active: false) }
+  scope :with_status, ->(status){
+    if status.in? %w(active inactive)
+      public_send("all_#{status}")
+    else
+      all
+    end
+  }
+
   def self.main_columns
     %i(id name project_type entity execution_start_date
        execution_end_date volunteers_num beneficiaries_num)

@@ -39,6 +39,7 @@ es:
     page_gap: "&hellip;"
     previous_label: "❰"
   items_per_page: "Elementos por página"
+  select_item: Elegir opcion
   work_place_addresses: 'Direcciones del lugar de ejecución'
   user_name:  'Nombre'
   user_login: 'Login'

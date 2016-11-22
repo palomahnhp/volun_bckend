@@ -5,12 +5,23 @@
     <%= model_title(model_class) %>
   </div>
 </div>
-<div class="index-panel row well">
-  <div class="col-md-6">
+<div class="index-panel row well" id="projects">
+  <div class="col-md-4">
     <%= content_tag(:div, link_to_new(model_class, path: 'new_options_projects_path'), class: 'col-md-6 pull-left') %>
   </div>
-  <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :name_or_description_cont), class: 'col-md-6 pull-right') %>
+  <div class="col-md-4 form-group select">
+    <div clas="row">
+     <%= content_tag :label, 'Seleccionar estado:', for: 'status-select', class: 'col-sm-5 control-label' %>
+     <div class="col-sm-7 form-group select">
+        <%= select_tag :status, options_for_select({'Activos' => 'active', 'No activos' => 'inactive', 'Todos' => 'all'}, params[:status] || :active),
+                       onchange:  "if(this.value){$('#status').prop('value',this.value)}; $('.search-form').submit()",
+                       class:     'form-control',
+                       id:        'pages-select' %>
+     </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <%= content_tag(:div, search_collection(@search_q, :name_or_description_cont, hidden_fields: { status: params[:status] }), class: 'pull-right') %>
   </div>
 </div>
 
