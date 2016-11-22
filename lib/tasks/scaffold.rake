@@ -11,26 +11,30 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_person phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean insurance_date:date project_type:references entity:references',
+  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_first_surname contact_second_surname phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean insurance_date:date project_type:references entity:references',
 
   # 1:N tables for Project
-  'Tracking'  => 'comments:text start_date:date project:references',
-  'Issue'     => 'comments:text start_date:date project:references',
+  'Tracking'  => 'comments:text start_date:datetime project:references',
+  'Issue'     => 'comments:text start_date:datetime project:references',
   'Document'  => 'name description:text documentum_id:string project:references',
-  'Timetable' => 'day:integer start_hour end_hour:date project:references',
+  'Timetable' => 'day:integer start_hour end_hour project:references',
 
   # -------------------------------------------------
   # 1:N tables for ProjectTypeSubvention
 
-  'Proposal' => 'name description:text',
+  'Proposal' => 'name description:text active:boolean',
 
   # -------------------------------------------------
 
-  'ProjectTypeSubvention' => 'legal_representative id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
+  'Activity' => 'name description:text project:references',
 
   # -------------------------------------------------
 
-  'ProjectTypeEntity' => 'request_date:date request_description:text requested_volunteers_num:integer volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean project:references project_type:references',
+  'ProjectTypeSubvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
+
+  # -------------------------------------------------
+
+  'ProjectTypeEntity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean project:references project_type:references',
 
   # -------------------------------------------------
 
@@ -59,15 +63,15 @@ MODELS_AND_ATTRS = {
   # N:N tables
   # -------------------------------------------------
 
-  'Address'      => 'postal_code road_type road_name number_type number grader stairs_number floor_number door_number',
+  'Address'      => 'postal_code road_type road_name number_type number grader stairs_number floor_number door_number country province town ndp_code local_code class_name',
   'Area'         => 'name description:text active:boolean',
   'Collective'   => 'name description:text active:boolean',
   'Coordination' => 'name description:text active:boolean',
-  'District'     => 'name',
+  'District'     => 'name code active:boolean',
 
   # -------------------------------------------------
 
-  'RecordHistory' => 'user:references recordable_id:integer recordable_type recordable_changed_at:date',
+  'RecordHistory' => 'user:references recordable_id:integer recordable_type recordable_changed_at:datetime',
 
 }
 
@@ -126,8 +130,35 @@ namespace :scaffold do
     end
   end
 
+  desc 'Add default: true in migrations with field active'
+  task add_polymorphic_true: :environment do
+    require 'fileutils'
+    require 'tempfile'
+
+    Dir.glob('db/migrate/*.rb') do |rb_file|
+      tmp = Tempfile.new('extract')
+
+      File.open(rb_file, 'r').each do |l|
+        line = l
+        if line.chomp =~ /profileable/
+          line  = line.sub('foreign_key', 'polymorphic')
+        end
+        tmp  << line
+      end
+
+      tmp.close
+
+      # Move temp file to origin
+      FileUtils.mv(tmp.path, rb_file)
+    end
+  end
+
   desc 'Builds the user model'
   task create_user: :environment do
+    # Generate scaffold for User model
+    sh 'rails g scaffold User locale profileable:references'
+    Rake::Task['scaffold:add_polymorphic_true'].invoke
+
     # Add devise attrs to User model
     sh 'rails generate devise User --skip'
   end
@@ -136,8 +167,11 @@ namespace :scaffold do
   task destroy_user: :environment do
     Rake::Task['scaffold:destroy_devise_routes'].invoke
 
-    # Generate scaffold for user
+    # Destroy scaffold for user
     sh 'rails destroy scaffold User --skip'
+
+    # Destroy devise scaffold for user
+    sh 'rm -f db/migrate/*_devise_*.rb'
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
@@ -154,6 +188,11 @@ namespace :scaffold do
 
     # Generate simple intermediate models
     JOINED_TABLES.each do |table1, table2|
+      if table1 > table2
+        _table1 = table1.dup
+        table1  = table2
+        table2  = _table1
+      end
       sh "rails g migration create_join_table_#{table1}_#{table2} #{table1}:index #{table2}:index"
     end
   end
@@ -177,7 +216,7 @@ namespace :scaffold do
         table1  = table2
         table2  = _table1
       end
-      sh "rails destroy migration rails g migration create_join_table_#{table1}_#{table2}"
+      sh "rails destroy migration create_join_table_#{table1}_#{table2}"
     end
   end
 
@@ -211,16 +250,20 @@ namespace :scaffold do
     Rake::Task['db:dev_seed'].invoke
   end
 
-  desc 'Builds/Rebuilds the application data model basement by scaffolding the models'
+  desc 'Builds/Rebuilds the application data base by scaffolding the models'
   task reset: :environment do
-    puts "Destroying scaffolds"
-    Rake::Task['scaffold:destroy_all'].invoke
+    puts "You are going to drop/create the whole DB. Proceed? (y/n) "
+    continue = STDIN.gets.chomp.to_s
+    unless continue =~ /\A(n|no)\z/i
+      puts "Destroying scaffolds"
+      Rake::Task['scaffold:destroy_all'].invoke
 
-    puts "Generating scaffolds"
-    Rake::Task['scaffold:generate_all'].invoke
+      puts "Generating scaffolds"
+      Rake::Task['scaffold:generate_all'].invoke
 
-    puts "Recreating DB and seeding"
-    Rake::Task['scaffold:recreate_db'].invoke
+      puts "Recreating DB and seeding"
+      Rake::Task['scaffold:recreate_db'].invoke
+    end
   end
 end
 

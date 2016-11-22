@@ -3,7 +3,7 @@ require 'database_cleaner'
 DatabaseCleaner.clean_with :truncation
 Faker::Config.locale = I18n.locale
 
-PROJECTS_NUM      = 100
+PROJECTS_NUM      = 10
 DISTRICTS_NUM     = 10
 ACTIVITIES_NUM    = 10
 ENTITIES_NUM      = 10
@@ -94,6 +94,11 @@ PROPOSALS = [
     'excluido'
 ]
 
+puts "Creando usuario administrador..."
+User.first_or_initialize(email: 'admin@madrid.es',
+                         password: 'Wordpass1',
+                         password_confirmation: 'Wordpass1').save!
+
 puts "Creando Colectivos"
 AREA_NAMES.each do |name|
   Area.create!(name: name)
@@ -144,33 +149,42 @@ puts "Creando direcciones"
 end
 
 puts "Creando Proyectos"
-(1..PROJECTS_NUM).each do |n|
-  p = Project.create!(
-    name:                  "#{Faker::App.name} #{n}",
-    description:           Faker::Lorem.sentence,
-    functions:             Faker::Lorem.sentence,
-    comments:              Faker::Lorem.sentence,
-    project_type_id:       ProjectType.all.sample.id,
-    entity_id:             Entity.all.sample.id,
-    execution_start_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),
-    execution_end_date:    Faker::Time.between(DateTime.tomorrow - 10, DateTime.tomorrow),
-    contact_person:        Faker::Name.name,
-    phone_number:          Faker::PhoneNumber.phone_number,
-    email:                 Faker::Internet.email,
-    beneficiaries_num:     10,
-    volunteers_num:        rand(100),
-  )
+PROJECT_TYPE_MODELS = [
+  ProjectTypeSubvention,
+  ProjectTypeEntity,
+  ProjectTypePunctual,
+  ProjectTypePermanent,
+  ProjectTypeCentre,
+  ProjectTypeSocial,
+  ProjectTypeOther
+]
+PROJECT_TYPE_MODELS.each do |pt_model|
+  (1..PROJECTS_NUM).each do |n|
+    pt_record = pt_model.new
+    project   = pt_record.project
+    project.attributes = {
+      name:                  "#{Faker::App.name} #{pt_model.model_name.human} #{n}",
+      description:           Faker::Lorem.sentence,
+      functions:             Faker::Lorem.sentence,
+      comments:              Faker::Lorem.sentence,
+      entity_id:             Entity.all.sample.id,
+      execution_start_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),
+      execution_end_date:    Faker::Time.between(DateTime.tomorrow - 10, DateTime.tomorrow),
+      contact_name:          Faker::Name.name,
+      phone_number:          Faker::PhoneNumber.phone_number,
+      email:                 Faker::Internet.email,
+      beneficiaries_num:     10,
+      volunteers_num:        rand(100),
+    }
 
-  [Address, Area, Collective, Coordination, District].each do |model|
-    model.first(5).each do |record|
-      unless p.public_send("#{model.model_name.singular}_ids").include? record.id
-        p.public_send(model.model_name.plural) << record
+    [Address, Area, Collective, Coordination, District].each do |model|
+      model.first(5).each do |record|
+        unless project.public_send("#{model.model_name.singular}_ids").include? record.id
+          project.public_send(model.model_name.plural) << record
+        end
       end
     end
+
+    pt_record.save!
   end
 end
-
-puts "Creando usuario administrador..."
-User.first_or_initialize(email: 'admin@madrid.es',
-                         password: 'Wordpass1',
-                         password_confirmation: 'Wordpass1').save!

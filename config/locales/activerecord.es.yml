@@ -166,7 +166,7 @@ es:
         participants_num:       Nº de voluntarios participantes
         has_quality_evaluation: Posee sistema de evaluación de calidad
         id_num:                 NIF
-        vat_num:                CIF
+        vat_num:                CIF de la entidad
         project_id:             Proyecto
         project:                Proyecto
         project_type_id:        Tipo de proyecto
