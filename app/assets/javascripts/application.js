@@ -27,12 +27,13 @@
 // $(document).on('page:load', function(){
 //     $("input.datepicker").datepicker();
 // });
+
+
 $(document).on('ready page:load turbolinks:load', function(){
-    $('input.datepicker').datepicker({
-        format: 'dd-mm-yyyy',
-        // autoclose: true,
-        // todayHighlight: true,
-        // language: 'es'
+    $( "input.datepicker" ).datepicker({
+        onSelect: function () {
+            $(this).next('input[type="hidden"]').attr('value', this.value);
+        }
     });
 });
 

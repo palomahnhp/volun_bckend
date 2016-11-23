@@ -1,15 +1,8 @@
 <tr id="<%%= dom_id(<%= singular_table_name %>) %>" >
 
-<%% <%= singular_table_name %>.main_attributes.each do |attr_name| %>
-    <%% attr = <%= singular_table_name %>.public_send(attr_name) %>
-    <%% if attr.is_a?(TrueClass) || attr.is_a?(FalseClass) %>
-        <td><%%= t("humanize.#{attr}") %></td>
-    <%% elsif attr.is_a?(Date) %>
-        <td><%%= show_simple_date(attr) %></td>
-    <%% else %>
-        <td><%%= attr %></td>
-    <%% end %>
-<%% end %>
+  <%% project.main_attributes.each do |attr_name| %>
+  <td><%%= show_attr(<%= singular_table_name %>.public_send attr_name) %></td>
+  <%% end %>
 
   <td class="index_table-actions">
     <%%= link_to_show(<%= singular_table_name %>) %>

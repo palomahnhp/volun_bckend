@@ -1,14 +1,7 @@
 <tr id="<%= dom_id(project_type_subvention) %>" >
 
 <% project_type_subvention.main_attributes.each do |attr_name| %>
-    <% attr = project_type_subvention.public_send(attr_name) %>
-    <% if attr.is_a?(TrueClass) || attr.is_a?(FalseClass) %>
-        <td><%= t("humanize.#{attr}") %></td>
-    <% elsif attr.is_a?(Date) %>
-        <td><%= show_simple_date(attr) %></td>
-    <% else %>
-        <td><%= attr %></td>
-    <% end %>
+      <td><%= show_attr(project_type_subvention.public_send attr_name) %></td>
 <% end %>
 
   <td class="index_table-actions">

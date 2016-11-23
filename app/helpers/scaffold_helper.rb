@@ -125,4 +125,20 @@ module ScaffoldHelper
      }
   end
 
+  def show_simple_date(date, options = {})
+    return unless date
+    format = date.is_a?(DateTime) ? '%d/%m/%Y %H:%M' : '%d/%m/%Y'
+    l(date, { format: format }.merge(options))
+  end
+
+  def show_attr(attr, date_opts = {})
+    if attr.is_a?(TrueClass) || attr.is_a?(FalseClass)
+      t("humanize.#{attr}")
+    elsif attr.is_a?(Date)
+      show_simple_date(attr, date_opts)
+    else
+      attr
+    end
+  end
+
 end

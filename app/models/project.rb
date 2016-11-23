@@ -15,6 +15,7 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :timetables, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :addresses,  allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :documents,  allow_destroy: true, reject_if: :all_blank
 
   validates :name, uniqueness: true
   validates :name, :entity_id, :description, :execution_start_date, :contact_name,
@@ -45,12 +46,12 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def extended_project_type_model
+  def extended_project_model
     "ProjectType#{project_type.kind.classify}".constantize
   end
 
-  def extended_project_type(join_tables = :project)
-    extended_project_type_model.includes(join_tables).where(project_id: id).take
+  def extended_project(join_tables = :project)
+    extended_project_model.includes(join_tables).where(project_id: id).take
   end
 
 end

@@ -1,14 +1,7 @@
 <tr id="<%= dom_id(project) %>" >
 
 <% project.main_attributes.each do |attr_name| %>
-    <% attr = project.public_send(attr_name) %>
-    <% if attr.is_a?(TrueClass) || attr.is_a?(FalseClass) %>
-        <td><%= t("humanize.#{attr}") %></td>
-    <% elsif attr.is_a?(Date) %>
-        <td><%= show_simple_date(attr) %></td>
-    <% else %>
-        <td><%= attr %></td>
-    <% end %>
+    <td><%= show_attr(project.public_send attr_name) %></td>
 <% end %>
 
   <td><%= show_simple_list(project.districts) %></td>
@@ -16,8 +9,8 @@
   <td><%= show_simple_list(project.collectives) %></td>
 
   <td class="index_table-actions">
-    <%= link_to_show(project.detailed_project) rescue nil %>
-    <%= link_to_edit(project.detailed_project) rescue nil %>
+    <%= link_to_show(project.extended_project) %>
+    <%= link_to_edit(project.extended_project) %>
 <% if project.try(:archived?) %>
     <%= link_to_recover(project) %>
 <% else %>

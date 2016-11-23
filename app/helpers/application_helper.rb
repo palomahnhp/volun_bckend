@@ -15,12 +15,6 @@ module ApplicationHelper
     ar_collection.pluck(attr).join(" <strong>-</strong> ").html_safe
   end
 
-  def show_simple_date(date, options = {})
-    return unless date
-    format = date.is_a?(DateTime) ? '%d/%m/%Y %H:%M' : '%d/%m/%Y'
-    l(date, { format: format }.merge(options))
-  end
-
 end
 
 module ActionView::Helpers::FormHelper

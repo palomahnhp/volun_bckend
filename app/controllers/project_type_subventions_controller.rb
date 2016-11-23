@@ -45,7 +45,9 @@ class ProjectTypeSubventionsController < ApplicationController
     def project_type_subvention_params
       params
         .require(:project_type_subvention)
-        .permit(:legal_representative,
+        .permit(:representative_name,
+                :representative_first_surname,
+                :representative_second_surname,
                 :entity_registry,
                 :cost,
                 :requested_amount,
