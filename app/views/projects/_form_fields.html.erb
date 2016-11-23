@@ -24,9 +24,9 @@
       <%= f.input :contact_name %>
       <%= f.input :contact_first_surname %>
       <%= f.input :contact_second_surname %>
-      <%= f.input :email, placeholder: 'email@email.com' %>
-      <%= f.input :phone_number, placeholder: 'XXX-XXX-XXX', input_html: { data: { mask: '999-999-999'} } %>
-      <%= f.association :entity %>
+      <%= f.input :email, placeholder: 'email@email.com', input_html: { class: 'with250' } %>
+      <%= f.input :phone_number, input_html: { class: 'with150' }  %>
+      <%= f.association :entity, input_html: { class: 'with200' } %>
     </div>
   </div>
   <div class="row row-3">
@@ -95,10 +95,10 @@
               <%= f_address.input :day %>
             </div>
             <div class="col-md-4">
-              <%= f_address.input :start_hour, as: :datepicker %>
+              <%= f_address.input :start_hour, input_html: { class: 'with70', data: { mask: '99:99'} } %>
             </div>
             <div class="col-md-4">
-              <%= f_address.input :end_hour, as: :datepicker %>
+              <%= f_address.input :end_hour, input_html: { class: 'with70', data: { mask: '99:99'} } %>
             </div>
           </div>
           <%= f_address.link_to_remove build_icon('trash-o', text: t('action.remove')), class: 'pull-right' %>

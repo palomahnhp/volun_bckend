@@ -12,13 +12,6 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :districts, -> { order('districts.name asc') }
   has_many :documents
   has_many :timetables
-  has_one :project_type_subvention
-  has_one :project_type_entity
-  has_one :project_type_centre
-  has_one :project_type_permanent
-  has_one :project_type_punctual
-  has_one :project_type_social
-  has_one :project_type_other
 
   accepts_nested_attributes_for :timetables, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :addresses,  allow_destroy: true, reject_if: :all_blank
@@ -26,12 +19,13 @@ class Project < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :name, :entity_id, :description, :execution_start_date, :contact_name,
             :phone_number, :email, presence: true
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
 
   scope :all_active,   ->(){ where(active: true) }
   scope :all_inactive, ->(){ where(active: false) }
   scope :with_status, ->(status){
-    if status.in? %w(active inactive)
+    if status.to_s.in? %w(active inactive)
       public_send("all_#{status}")
     else
       all
@@ -51,8 +45,12 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def detailed_project
-    public_send "project_type_#{project_type.kind}"
+  def extended_project_type_model
+    "ProjectType#{project_type.kind.classify}".constantize
+  end
+
+  def extended_project_type(join_tables = :project)
+    extended_project_type_model.includes(join_tables).where(project_id: id).take
   end
 
 end

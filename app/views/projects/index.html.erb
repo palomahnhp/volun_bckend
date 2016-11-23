@@ -9,11 +9,11 @@
   <div class="col-md-4">
     <%= content_tag(:div, link_to_new(model_class, path: 'new_options_projects_path'), class: 'col-md-6 pull-left') %>
   </div>
-  <div class="col-md-4 form-group select">
-    <div clas="row">
-     <%= content_tag :label, 'Seleccionar estado:', for: 'status-select', class: 'col-sm-5 control-label' %>
-     <div class="col-sm-7 form-group select">
-        <%= select_tag :status, options_for_select({'Activos' => 'active', 'No activos' => 'inactive', 'Todos' => 'all'}, params[:status] || :active),
+  <div class="status-filter col-md-4 form-group select">
+    <div class="row">
+     <%= content_tag :label, 'Seleccionar estado:', for: 'status-select', class: 'col-sm-6 control-label' %>
+     <div class="col-sm-6">
+        <%= select_tag :status, options_for_select({ t('active') => :active, t('inactive') => :inactive, t('all') => :all }, params[:status] || :active),
                        onchange:  "if(this.value){$('#status').prop('value',this.value)}; $('.search-form').submit()",
                        class:     'form-control',
                        id:        'pages-select' %>

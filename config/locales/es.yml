@@ -43,3 +43,7 @@ es:
   work_place_addresses: 'Direcciones del lugar de ejecución'
   user_name:  'Nombre'
   user_login: 'Login'
+  active:   Activo
+  inactive: Inactivo
+  all:      Todos
+  contact_person: Persona de contacto

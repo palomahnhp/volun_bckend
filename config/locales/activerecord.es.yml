@@ -235,3 +235,4 @@ es:
     errors:
       messages:
         invalid_project_type: El tipo de proyecto es inválido
+        start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin

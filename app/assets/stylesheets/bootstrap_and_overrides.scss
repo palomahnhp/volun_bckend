@@ -491,9 +491,34 @@ form .well {
   }
 }
 
+.with50 {
+  max-width: 50px;
+}
+.with70 {
+  max-width: 70px;
+}
+.with100 {
+  max-width: 100px;
+}
 .with150 {
   max-width: 150px;
 }
+.with200 {
+  max-width: 200px;
+}
+.with250 {
+  max-width: 250px;
+}
 .with300 {
   max-width: 300px;
+}
+.status-filter {
+  margin-bottom: 0;
+  color: #3b5f79;
+  label {
+    margin-top: 8px;
+  }
+  select {
+    width: 75%;
+  }
 }
