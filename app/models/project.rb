@@ -51,6 +51,10 @@ class Project < ActiveRecord::Base
   end
 
   def extended_project(join_tables = :project)
+    @extended_project ||= fetch_extended_project(join_tables)
+  end
+
+  def fetch_extended_project(join_tables = :project)
     extended_project_model.includes(join_tables).where(project_id: id).take
   end
 
