@@ -1,0 +1,20 @@
+<%= main_title(t("action.show", model: Collective.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Collective.human_attribute_name(:id) %>:</dt>
+  <dd><%= @collective.id %></dd>
+  <dt><%= Collective.human_attribute_name(:name) %>:</dt>
+  <dd><%= @collective.name %></dd>
+  <dt><%= Collective.human_attribute_name(:description) %>:</dt>
+  <dd><%= @collective.description %></dd>
+  <dt><%= Collective.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@collective.active}") %></dd>
+  <dt><%= Collective.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@collective.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@collective) %>
+<% end %>

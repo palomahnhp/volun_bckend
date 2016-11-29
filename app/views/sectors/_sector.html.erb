@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(sector) %>" >
+
+  <td><%= sector.id %></td>
+  <td><%= sector.name %></td>
+  <td><%= t("humanize.#{sector.active}") %></td>
+
+  <td class="index_table-actions">
+    <%= link_to_show(sector) %>
+    <%= link_to_edit(sector) %>
+<% if sector.try(:archived?) %>
+    <%= link_to_recover(sector) %>
+<% else %>
+    <%= link_to_destroy(sector) %>
+<% end %>
+  </td>
+</tr>

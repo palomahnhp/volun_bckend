@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(rft_entity_unsubscribe) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(rft_entity_unsubscribe.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(rft_entity_unsubscribe) %>
+    <%= link_to_edit(rft_entity_unsubscribe) %>
+<% if rft_entity_unsubscribe.try(:archived?) %>
+    <%= link_to_recover(rft_entity_unsubscribe) %>
+<% else %>
+    <%= link_to_destroy(rft_entity_unsubscribe) %>
+<% end %>
+  </td>
+</tr>

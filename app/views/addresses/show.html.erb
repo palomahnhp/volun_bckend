@@ -1,0 +1,44 @@
+<%= main_title(t("action.show", model: Address.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Address.human_attribute_name(:id) %>:</dt>
+  <dd><%= @address.id %></dd>
+  <dt><%= Address.human_attribute_name(:road_type) %>:</dt>
+  <dd><%= @address.road_type %></dd>
+  <dt><%= Address.human_attribute_name(:road_name) %>:</dt>
+  <dd><%= @address.road_name %></dd>
+  <dt><%= Address.human_attribute_name(:road_number_type) %>:</dt>
+  <dd><%= @address.road_number_type %></dd>
+  <dt><%= Address.human_attribute_name(:road_number) %>:</dt>
+  <dd><%= @address.road_number %></dd>
+  <dt><%= Address.human_attribute_name(:grader) %>:</dt>
+  <dd><%= @address.grader %></dd>
+  <dt><%= Address.human_attribute_name(:stairs) %>:</dt>
+  <dd><%= @address.stairs %></dd>
+  <dt><%= Address.human_attribute_name(:floor) %>:</dt>
+  <dd><%= @address.floor %></dd>
+  <dt><%= Address.human_attribute_name(:door) %>:</dt>
+  <dd><%= @address.door %></dd>
+  <dt><%= Address.human_attribute_name(:postal_code) %>:</dt>
+  <dd><%= @address.postal_code %></dd>
+  <dt><%= Address.human_attribute_name(:town) %>:</dt>
+  <dd><%= @address.town %></dd>
+  <dt><%= Address.human_attribute_name(:province) %>:</dt>
+  <dd><%= @address.province %></dd>
+  <dt><%= Address.human_attribute_name(:country) %>:</dt>
+  <dd><%= @address.country %></dd>
+  <dt><%= Address.human_attribute_name(:ndp_code) %>:</dt>
+  <dd><%= @address.ndp_code %></dd>
+  <dt><%= Address.human_attribute_name(:local_code) %>:</dt>
+  <dd><%= @address.local_code %></dd>
+  <dt><%= Address.human_attribute_name(:class_name) %>:</dt>
+  <dd><%= @address.class_name %></dd>
+  <dt><%= Address.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@address.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@address) %>
+<% end %>

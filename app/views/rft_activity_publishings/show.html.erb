@@ -1,0 +1,42 @@
+<%= main_title(t("action.show", model: RftActivityPublishing.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= RftActivityPublishing.human_attribute_name(:id) %>:</dt>
+  <dd><%= @rft_activity_publishing.id %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:request_form_type_id) %>:</dt>
+  <dd><%= @rft_activity_publishing.request_form_type %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:entity_id) %>:</dt>
+  <dd><%= @rft_activity_publishing.entity %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:name) %>:</dt>
+  <dd><%= @rft_activity_publishing.name %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:organizer) %>:</dt>
+  <dd><%= @rft_activity_publishing.organizer %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:description) %>:</dt>
+  <dd><%= @rft_activity_publishing.description %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:execution_date) %>:</dt>
+  <dd><%= show_simple_date(@rft_activity_publishing.execution_date) %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:execution_hour) %>:</dt>
+  <dd><%= @rft_activity_publishing.execution_hour %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:road_type) %>:</dt>
+  <dd><%= @rft_activity_publishing.road_type %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:road_name) %>:</dt>
+  <dd><%= @rft_activity_publishing.road_name %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:number_type) %>:</dt>
+  <dd><%= @rft_activity_publishing.number_type %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:road_number) %>:</dt>
+  <dd><%= @rft_activity_publishing.road_number %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:postal_code) %>:</dt>
+  <dd><%= @rft_activity_publishing.postal_code %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:town) %>:</dt>
+  <dd><%= @rft_activity_publishing.town %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:province) %>:</dt>
+  <dd><%= @rft_activity_publishing.province %></dd>
+  <dt><%= RftActivityPublishing.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@rft_activity_publishing.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@rft_activity_publishing) %>
+<% end %>

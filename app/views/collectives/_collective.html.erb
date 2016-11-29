@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(collective) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(collective.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(collective) %>
+    <%= link_to_edit(collective) %>
+<% if collective.try(:archived?) %>
+    <%= link_to_recover(collective) %>
+<% else %>
+    <%= link_to_destroy(collective) %>
+<% end %>
+  </td>
+</tr>

@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(group) %>" >
+
+  <td><%= group.id %></td>
+  <td><%= group.name %></td>
+  <td><%= t("humanize.#{group.active}") %></td>
+
+  <td class="index_table-actions">
+    <%= link_to_show(group) %>
+    <%= link_to_edit(group) %>
+<% if group.try(:archived?) %>
+    <%= link_to_recover(group) %>
+<% else %>
+    <%= link_to_destroy(group) %>
+<% end %>
+  </td>
+</tr>

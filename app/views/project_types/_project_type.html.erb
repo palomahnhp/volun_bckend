@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(project_type) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(project_type.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(project_type) %>
+    <%= link_to_edit(project_type) %>
+<% if project_type.try(:archived?) %>
+    <%= link_to_recover(project_type) %>
+<% else %>
+    <%= link_to_destroy(project_type) %>
+<% end %>
+  </td>
+</tr>

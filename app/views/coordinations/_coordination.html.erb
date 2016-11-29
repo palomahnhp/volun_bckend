@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(coordination) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(coordination.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(coordination) %>
+    <%= link_to_edit(coordination) %>
+<% if coordination.try(:archived?) %>
+    <%= link_to_recover(coordination) %>
+<% else %>
+    <%= link_to_destroy(coordination) %>
+<% end %>
+  </td>
+</tr>

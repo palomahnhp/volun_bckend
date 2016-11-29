@@ -1,0 +1,15 @@
+<div class="well">
+  <%= simple_form_for(@record_history, default_form_options) do |f| %>
+
+  <div class="form-inputs">
+          <%= f.association :user %>
+          <%= f.input :recordable_id %>
+          <%= f.input :recordable_type %>
+          <%= f.input :recordable_changed_at %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>

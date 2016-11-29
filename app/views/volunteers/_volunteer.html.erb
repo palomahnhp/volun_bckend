@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(volunteer) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(volunteer.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(volunteer) %>
+    <%= link_to_edit(volunteer) %>
+<% if volunteer.try(:archived?) %>
+    <%= link_to_recover(volunteer) %>
+<% else %>
+    <%= link_to_destroy(volunteer) %>
+<% end %>
+  </td>
+</tr>

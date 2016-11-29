@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(record_history) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(record_history.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(record_history) %>
+    <%= link_to_edit(record_history) %>
+<% if record_history.try(:archived?) %>
+    <%= link_to_recover(record_history) %>
+<% else %>
+    <%= link_to_destroy(record_history) %>
+<% end %>
+  </td>
+</tr>

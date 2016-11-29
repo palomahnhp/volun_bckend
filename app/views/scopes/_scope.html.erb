@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(Area) %>" >
+
+  <td><%= Area.id %></td>
+  <td><%= Area.name %></td>
+  <td><%= t("humanize.#{Area.active}") %></td>
+
+  <td class="index_table-actions">
+    <%= link_to_show(Area) %>
+    <%= link_to_edit(Area) %>
+<% if Area.try(:archived?) %>
+    <%= link_to_recover(Area) %>
+<% else %>
+    <%= link_to_destroy(Area) %>
+<% end %>
+  </td>
+</tr>

@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(rft_activity_unpublishing) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(rft_activity_unpublishing.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(rft_activity_unpublishing) %>
+    <%= link_to_edit(rft_activity_unpublishing) %>
+<% if rft_activity_unpublishing.try(:archived?) %>
+    <%= link_to_recover(rft_activity_unpublishing) %>
+<% else %>
+    <%= link_to_destroy(rft_activity_unpublishing) %>
+<% end %>
+  </td>
+</tr>

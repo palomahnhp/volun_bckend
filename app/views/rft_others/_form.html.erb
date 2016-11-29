@@ -1,0 +1,14 @@
+<div class="well">
+  <%= simple_form_for(@rft_other, default_form_options) do |f| %>
+
+  <div class="form-inputs">
+          <%= f.association :request_form_type %>
+          <%= f.association :entity %>
+          <%= f.input :description %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>

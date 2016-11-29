@@ -1,0 +1,22 @@
+<%= main_title(t("action.show", model: RecordHistory.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= RecordHistory.human_attribute_name(:id) %>:</dt>
+  <dd><%= @record_history.id %></dd>
+  <dt><%= RecordHistory.human_attribute_name(:user_id) %>:</dt>
+  <dd><%= @record_history.user %></dd>
+  <dt><%= RecordHistory.human_attribute_name(:recordable_id) %>:</dt>
+  <dd><%= @record_history.recordable_id %></dd>
+  <dt><%= RecordHistory.human_attribute_name(:recordable_type) %>:</dt>
+  <dd><%= @record_history.recordable_type %></dd>
+  <dt><%= RecordHistory.human_attribute_name(:recordable_changed_at) %>:</dt>
+  <dd><%= @record_history.recordable_changed_at %></dd>
+  <dt><%= RecordHistory.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@record_history.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@record_history) %>
+<% end %>

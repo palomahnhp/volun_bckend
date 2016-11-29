@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(timetable) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(timetable.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(timetable) %>
+    <%= link_to_edit(timetable) %>
+<% if timetable.try(:archived?) %>
+    <%= link_to_recover(timetable) %>
+<% else %>
+    <%= link_to_destroy(timetable) %>
+<% end %>
+  </td>
+</tr>

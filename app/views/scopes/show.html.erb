@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: Area.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Area.human_attribute_name(:id) %>:</dt>
+  <dd><%= @Area.id %></dd>
+  <dt><%= Area.human_attribute_name(:name) %>:</dt>
+  <dd><%= @Area.name %></dd>
+  <dt><%= Area.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@Area.active}") %></dd>
+  <dt><%= Area.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@Area.created_at, format: :long) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@Area) %>
+<% end %>

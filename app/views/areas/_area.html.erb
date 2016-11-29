@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(area) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(area.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(area) %>
+    <%= link_to_edit(area) %>
+<% if area.try(:archived?) %>
+    <%= link_to_recover(area) %>
+<% else %>
+    <%= link_to_destroy(area) %>
+<% end %>
+  </td>
+</tr>

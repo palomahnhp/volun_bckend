@@ -1,0 +1,22 @@
+<%= main_title(t("action.show", model: Document.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Document.human_attribute_name(:id) %>:</dt>
+  <dd><%= @document.id %></dd>
+  <dt><%= Document.human_attribute_name(:name) %>:</dt>
+  <dd><%= @document.name %></dd>
+  <dt><%= Document.human_attribute_name(:description) %>:</dt>
+  <dd><%= @document.description %></dd>
+  <dt><%= Document.human_attribute_name(:documentum_id) %>:</dt>
+  <dd><%= @document.documentum_id %></dd>
+  <dt><%= Document.human_attribute_name(:project_id) %>:</dt>
+  <dd><%= @document.project %></dd>
+  <dt><%= Document.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@document.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@document) %>
+<% end %>

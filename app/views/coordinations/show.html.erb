@@ -1,0 +1,20 @@
+<%= main_title(t("action.show", model: Coordination.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Coordination.human_attribute_name(:id) %>:</dt>
+  <dd><%= @coordination.id %></dd>
+  <dt><%= Coordination.human_attribute_name(:name) %>:</dt>
+  <dd><%= @coordination.name %></dd>
+  <dt><%= Coordination.human_attribute_name(:description) %>:</dt>
+  <dd><%= @coordination.description %></dd>
+  <dt><%= Coordination.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@coordination.active}") %></dd>
+  <dt><%= Coordination.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@coordination.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@coordination) %>
+<% end %>

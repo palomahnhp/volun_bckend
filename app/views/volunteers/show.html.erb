@@ -1,0 +1,24 @@
+<%= main_title(t("action.show", model: Volunteer.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Volunteer.human_attribute_name(:id) %>:</dt>
+  <dd><%= @volunteer.id %></dd>
+  <dt><%= Volunteer.human_attribute_name(:name) %>:</dt>
+  <dd><%= @volunteer.name %></dd>
+  <dt><%= Volunteer.human_attribute_name(:first_surname) %>:</dt>
+  <dd><%= @volunteer.first_surname %></dd>
+  <dt><%= Volunteer.human_attribute_name(:second_surname) %>:</dt>
+  <dd><%= @volunteer.second_surname %></dd>
+  <dt><%= Volunteer.human_attribute_name(:age) %>:</dt>
+  <dd><%= @volunteer.age %></dd>
+  <dt><%= Volunteer.human_attribute_name(:id_number) %>:</dt>
+  <dd><%= @volunteer.id_number %></dd>
+  <dt><%= Volunteer.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@volunteer.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@volunteer) %>
+<% end %>

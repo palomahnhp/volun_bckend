@@ -1,0 +1,20 @@
+<%= main_title(t("action.show", model: RftProjectUnpublishing.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= RftProjectUnpublishing.human_attribute_name(:id) %>:</dt>
+  <dd><%= @rft_project_unpublishing.id %></dd>
+  <dt><%= RftProjectUnpublishing.human_attribute_name(:request_form_type_id) %>:</dt>
+  <dd><%= @rft_project_unpublishing.request_form_type %></dd>
+  <dt><%= RftProjectUnpublishing.human_attribute_name(:entity_id) %>:</dt>
+  <dd><%= @rft_project_unpublishing.entity %></dd>
+  <dt><%= RftProjectUnpublishing.human_attribute_name(:reason) %>:</dt>
+  <dd><%= @rft_project_unpublishing.reason %></dd>
+  <dt><%= RftProjectUnpublishing.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@rft_project_unpublishing.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@rft_project_unpublishing) %>
+<% end %>

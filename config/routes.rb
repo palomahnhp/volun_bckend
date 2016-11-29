@@ -2,6 +2,24 @@ Rails.application.routes.draw do
 
 
 
+  resources :rft_others
+  resources :rft_activity_unpublishings
+  resources :rft_activity_publishings
+  resources :rft_project_unsubscribes
+  resources :rft_project_unpublishings
+  resources :rft_project_publishings
+  resources :rft_volunteers_demands
+  resources :rft_entity_unsubscribes
+  resources :rft_entity_subscribes
+  resources :rft_volunteer_appointments
+  resources :rft_volunteer_amendments
+  resources :rft_volunteer_unsubscribes
+  resources :rft_volunteer_subscribes
+  resources :request_forms
+  resources :request_form_reasons
+  resources :request_form_types
+  resources :rejection_types
+  resources :volunteers
   resources :record_histories
   resources :timetables
   resources :districts
