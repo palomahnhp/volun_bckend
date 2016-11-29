@@ -11,7 +11,6 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :coordinations, -> { order('coordinations.name asc') }
   has_and_belongs_to_many :districts, -> { order('districts.name asc') }
   has_many :documents
-  has_many :timetables
 
   accepts_nested_attributes_for :timetables, allow_destroy: true, reject_if: :all_blank
   accepts_nested_attributes_for :addresses,  allow_destroy: true, reject_if: :all_blank
@@ -47,7 +46,7 @@ class Project < ActiveRecord::Base
   end
 
   def extended_project_model
-    "ProjectType#{project_type.kind.classify}".constantize
+    "Pt#{project_type.kind.classify}".constantize
   end
 
   def extended_project(join_tables = :project)

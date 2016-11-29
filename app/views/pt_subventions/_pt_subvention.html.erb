@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(pt_subvention) %>" >
+
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(pt_subvention.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(pt_subvention) %>
+    <%= link_to_edit(pt_subvention) %>
+<% if pt_subvention.try(:archived?) %>
+    <%= link_to_recover(pt_subvention) %>
+<% else %>
+    <%= link_to_destroy(pt_subvention) %>
+<% end %>
+  </td>
+</tr>

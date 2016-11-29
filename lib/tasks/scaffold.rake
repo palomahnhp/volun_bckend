@@ -1,11 +1,18 @@
 MODELS_AND_ATTRS = {
 
-  # -------------------------------------------------
-  # N:1 tables for Project
-  # -------------------------------------------------
-  'Entity'   => 'name description:text active:boolean',
+  # --------------------------------------------------------------------------------------------------
+  # Entity Tables
+  # --------------------------------------------------------------------------------------------------
 
-  # -------------------------------------------------
+
+  'EntityType'   => 'kind:integer description:text active:boolean',
+
+  'Entity'   => 'name description:text active:boolean entity_type:references',
+
+
+  # --------------------------------------------------------------------------------------------------
+  # Project Tables
+  # --------------------------------------------------------------------------------------------------
 
   'ProjectType' => 'kind:integer description:text active:boolean',
 
@@ -17,44 +24,50 @@ MODELS_AND_ATTRS = {
   'Tracking'  => 'comments:text start_date:datetime project:references',
   'Issue'     => 'comments:text start_date:datetime project:references',
   'Document'  => 'name description:text documentum_id:string project:references',
-  'Timetable' => 'day:integer start_hour end_hour project:references',
 
   # -------------------------------------------------
+
   # 1:N tables for ProjectTypeSubvention
 
   'Proposal' => 'name description:text active:boolean',
+  'Activity' => 'name description:text active:boolean',
+  'Image'    => 'name payload:binary project:references',
+  'Link'     => 'name url project:references',
 
   # -------------------------------------------------
 
-  'Activity' => 'name description:text project:references',
+  # 'PtSubvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
+  'PtSubvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
 
   # -------------------------------------------------
 
-  'ProjectTypeSubvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
+  # 'ProjectTypeEntity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean project:references project_type:references',
+  'PtEntity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean project:references project_type:references',
 
   # -------------------------------------------------
 
-  'ProjectTypeEntity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean project:references project_type:references',
+  # 'ProjectTypePunctual' => 'project:references project_type:references',
+  'PtPunctual' => 'project:references project_type:references',
 
   # -------------------------------------------------
 
-  'ProjectTypePunctual' => 'project:references project_type:references',
+  # 'ProjectTypePermanent' => 'project:references project_type:references',
+  'PtPermanent' => 'project:references project_type:references',
 
   # -------------------------------------------------
 
-  'ProjectTypePermanent' => 'project:references project_type:references',
+  # 'ProjectTypeCentre' => 'project:references project_type:references',
+  'PtCentre' => 'project:references project_type:references',
 
   # -------------------------------------------------
 
-  'ProjectTypeCentre' => 'project:references project_type:references',
+  # 'ProjectTypeSocial' => 'project:references project_type:references',
+  'PtSocial' => 'project:references project_type:references',
 
   # -------------------------------------------------
 
-  'ProjectTypeSocial' => 'project:references project_type:references',
-
-  # -------------------------------------------------
-
-  'ProjectTypeOther' => 'project:references project_type:references',
+  # 'ProjectTypeOther' => 'project:references project_type:references',
+  'PtOther' => 'project:references project_type:references',
 
   # -------------------------------------------------
 
@@ -63,15 +76,51 @@ MODELS_AND_ATTRS = {
   # N:N tables
   # -------------------------------------------------
 
-  'Address'      => 'postal_code road_type road_name number_type number grader stairs_number floor_number door_number country province town ndp_code local_code class_name',
+  'Address'      => 'road_type road_name road_number_type road_number grader stairs floor door postal_code town province country ndp_code local_code class_name',
   'Area'         => 'name description:text active:boolean',
   'Collective'   => 'name description:text active:boolean',
   'Coordination' => 'name description:text active:boolean',
   'District'     => 'name code active:boolean',
+  'Timetable'    => 'day:integer start_hour end_hour',
 
   # -------------------------------------------------
 
   'RecordHistory' => 'user:references recordable_id:integer recordable_type recordable_changed_at:datetime',
+
+
+
+  # --------------------------------------------------------------------------------------------------
+  # Request Form Tables
+  # --------------------------------------------------------------------------------------------------
+
+  # 'Volunteer'     => 'name first_surname second_surname age:integer id_number',
+  #
+  # 'RejectionType' => 'kind:integer description:text active:boolean',
+  #
+  # 'RequestFormType'         => 'kind:integer description:text active:boolean',
+  # 'RequestFormReason'       => 'kind:integer description:text active:boolean',
+  # 'RequestForm'             => 'request_form_type:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  # 'RftVolunteerSubscribe'   => 'request_form_type:references name first_surname second_surname phone_number phone_number_alt email',
+  # 'RftVolunteerUnsubscribe' => 'request_form_type:references volunteer:references level:integer reason:text',
+  # 'RftVolunteerAmendment'   => 'request_form_type:references volunteer:references address:references phone_number phone_number_alt',
+  # 'RftVolunteerAppointment' => 'request_form_type:references volunteer:references reason:text',
+  # 'RftEntitySubscribe'      => 'request_form_type:references entity:references name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province',
+  # 'RftEntityUnsubscribe'    => 'request_form_type:references entity:references reason:text',
+  # 'RftVolunteersDemand'     => 'request_form_type:references entity:references description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
+  # 'RftProjectPublishing'    => 'request_form_type:references entity:references description:text road_type road_name number_type road_number postal_code town province',
+  # 'RftProjectUnpublishing'  => 'request_form_type:references entity:references reason:text',
+  # 'RftProjectUnsubscribe'   => 'request_form_type:references entity:references project:references reason:text',
+  # 'RftActivityPublishing'   => 'request_form_type:references entity:references name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
+  # 'RftActivityUnpublishing' => 'request_form_type:references entity:references reason:text',
+  # 'RftOther'                => 'request_form_type:references entity:references description:text',
+
+
+  ## 'RftProjectSubscribe'     => 'name description:text active:boolean',
+  ## 'RftActivitySubscribe'    => 'name description:text active:boolean',
+  ## 'RftProjectUnsubscribe'   => 'name description:text active:boolean',
+  ## 'RftActivityUnsubscribe'  => 'name description:text active:boolean',
+
+  # -------------------------------------------------
 
 }
 
@@ -83,6 +132,7 @@ JOINED_TABLES = [
     %w(project collective),
     %w(project district),
     %w(project coordination),
+    %w(timetable project),
 ]
 
 

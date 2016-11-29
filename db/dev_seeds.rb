@@ -9,12 +9,13 @@ ACTIVITIES_NUM    = 10
 ENTITIES_NUM      = 10
 COORDINATIONS_NUM = 10
 ADDRESSES_NUM     = 20
-PROPOSAL          = 10
-ENTITY            = 10
-RACKING           = 10
-ISSUE             = 10
-TIMETABLE         = 10
-DOCUMENT          = 10
+PROPOSAL_NUM      = 10
+ENTITY_NUM        = 10
+RACKING_NUM       = 10
+ISSUE_NUM         = 10
+TIMETABLE_NUM     = 10
+DOCUMENT_NUM      = 10
+
 PROJECT_TYPES = {
   0 => 'Servicios Sociales',
   1 => 'Centros de mayores',
@@ -23,6 +24,13 @@ PROJECT_TYPES = {
   4 => 'Entidades',
   5 => 'Subvencionados',
   6 => 'Otros'
+}
+
+REQUEST_REASONS = {
+  0 => 'Difusión de proyectos',
+  1 => 'Solicitud voluntarios',
+  2 => 'Publicación actividad en agenda',
+  3 => 'Otros'
 }
 
 AREA_NAMES = [
@@ -63,36 +71,35 @@ COLLECTIVE_NAMES = [
   'Otros'
 ]
 
-DISTRICTS = [
-  'Centro',
-  'Arganzuela',
-  'Retiro',
-  'Salamanca',
-  'Chamartín',
-  'Tetuán',
-  'Chamberí',
-  'Fuencarral',
-  'Moncloa',
-  'Latina',
-  'Carabanchel',
-  'Usera',
-  'Puente de Vallecas',
-  'Moratalaz',
-  'Ciudad Lineal',
-  'Hortaleza',
-  'Villaverde',
-  'Villa de Vallecas',
-  'Vicálvaro',
-  'San Blas Canillejas',
-  'Barajas',
-]
+DISTRICTS = {
 
-PROPOSALS = [
-    'subvencionado',
-    'desistido',
-    'desestimado',
-    'excluido'
-]
+  '01' => 'CENTRO',
+  '02' => 'ARGANZUELA',
+  '03' => 'RETIRO',
+  '04' => 'SALAMANCA',
+  '05' => 'CHAMARTIN',
+  '06' => 'TETUAN',
+  '07' => 'CHAMBERI',
+  '08' => 'FUENCARRAL-EL PARDO',
+  '09' => 'MONCLOA-ARAVACA',
+  '10' => 'LATINA',
+  '11' => 'CARABANCHEL',
+  '12' => 'USERA',
+  '13' => 'PUENTE VALLECAS',
+  '14' => 'MORATALAZ',
+  '15' => 'CIUDAD LINEAL',
+  '16' => 'HORTALEZA',
+  '17' => 'VILLAVERDE',
+  '18' => 'VILLA DE VALLECAS',
+  '19' => 'VICÁLAVARO',
+  '20' => 'SAN BLAS',
+  '21' => 'BARAJAS',
+  '22' => 'OTRO MUNICIPIO',
+  '99' => 'OTROS'
+
+}
+
+PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
 puts "Creando usuario administrador..."
 User.first_or_initialize(email: 'admin@madrid.es',
@@ -130,33 +137,48 @@ puts "Creando coordinaciones"
 end
 
 puts "Creando Distritos"
-DISTRICTS.each do |name|
-  District.create!(name: name)
+DISTRICTS.each do |code, name|
+  District.create!(code: code, name: name)
 end
 
-puts "Creando direcciones"
+puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
   Address.create!(
       postal_code:           Faker::Address.postcode,
       road_type:             ['Calle', 'Plaza', 'Av.'].sample,
       road_name:             Faker::Address.street_name,
-      number_type:           nil,
+      road_number_type:           nil,
+      road_number:           rand(100).to_s,
       grader:                nil,
-      stairs_number:         rand(300).to_s,
-      floor_number:          rand(9).to_s,
-      door_number:           rand(10).to_s
+      stairs:                rand(300).to_s,
+      floor:                 rand(9).to_s,
+      door:                  rand(10).to_s
   )
 end
 
+puts "Creando Forarios"
+(1..TIMETABLE_NUM).each do |n|
+  Timetable.create!(
+      day:        Timetable.days.values.sample,
+      start_hour: '11:11',
+      end_hour:   '12:12'
+  )
+end
+
+# puts "Creando Motivos de solicitud"
+# REQUEST_REASONS.each do |kind , name|
+#   RequestReason.create!(kind: kind)
+# end
+
 puts "Creando Proyectos"
 PROJECT_TYPE_MODELS = [
-  ProjectTypeSubvention,
-  ProjectTypeEntity,
-  ProjectTypePunctual,
-  ProjectTypePermanent,
-  ProjectTypeCentre,
-  ProjectTypeSocial,
-  ProjectTypeOther
+  PtSubvention,
+  PtEntity,
+  PtPunctual,
+  PtPermanent,
+  PtCentre,
+  PtSocial,
+  PtOther
 ]
 PROJECT_TYPE_MODELS.each do |pt_model|
   (1..PROJECTS_NUM).each do |n|
@@ -177,7 +199,7 @@ PROJECT_TYPE_MODELS.each do |pt_model|
       volunteers_num:        rand(100),
     }
 
-    [Address, Area, Collective, Coordination, District].each do |model|
+    [Address, Area, Collective, Coordination, District, Timetable].each do |model|
       model.first(5).each do |record|
         unless project.public_send("#{model.model_name.singular}_ids").include? record.id
           project.public_send(model.model_name.plural) << record

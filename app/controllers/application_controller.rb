@@ -110,12 +110,12 @@ class ApplicationController < ActionController::Base
           :postal_code,
           :road_type,
           :road_name,
-          :number_type,
-          :number,
+          :road_number_type,
+          :road_number,
           :grader,
-          :stairs_number,
-          :floor_number,
-          :door_number,
+          :stairs,
+          :floor,
+          :door,
           :_destroy
         ],
         timetables_attributes: [

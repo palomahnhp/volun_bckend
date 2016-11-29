@@ -2,14 +2,14 @@ class ProjectType < ActiveRecord::Base
   include Archivable
 
   enum kind: %i(
-                  social
-                  centre
-                  permanent
-                  punctual
-                  entity
-                  subvention
-                  other
-               )
+          social
+          centre
+          permanent
+          punctual
+          entity
+          subvention
+          other
+       )
 
   validates :kind, presence: true
 

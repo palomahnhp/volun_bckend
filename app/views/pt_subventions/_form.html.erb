@@ -1,0 +1,49 @@
+<div class="well well-form">
+  <%= simple_nested_form_for(@pt_subvention, default_form_options) do |f| %>
+
+      <%= f.simple_fields_for :project do |f_project|  %>
+          <%= render partial: 'projects/form_fields', locals: { f: f_project } %>
+      <% end %>
+
+    <div class="row last-row-sub">
+      <div class="form-inputs well">
+        <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
+        <div class="row">
+          <div class="well col-md-6">
+            <%= content_tag :h4, 'Representante legal', class: 'form-subtitle' %>
+            <%= f.input :representative_name %>
+            <%= f.input :representative_first_surname %>
+            <%= f.input :representative_second_surname %>
+            <%= f.input :id_num, input_html: { class: 'm-width150' } %>
+            <%= f.input :vat_num, input_html: { class: 'm-width150' } %>
+          </div>
+          <div class="well col-md-6">
+            <%= content_tag :h4, 'Costes', class: 'form-subtitle' %>
+            <%= f.input :cost %>
+            <%= f.input :requested_amount %>
+            <%= f.input :subsidized_amount %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="well col-md-6">
+            <%= content_tag :h4, 'Número de voluntarios', class: 'form-subtitle' %>
+            <%= f.input :initial_volunteers_num, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5}%>
+            <%= f.input :participants_num, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
+          </div>
+          <div class="well col-md-6">
+            <%= content_tag :h4, 'Otros datos de interes', class: 'form-subtitle' %>
+            <%= f.input :entity_registry %>
+            <%= f.input :has_quality_evaluation %>
+            <%= f.association :proposal, input_html: { class: 'm-width300' } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+        <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
+      </div>
+    </div>
+
+  <% end %>
+</div>

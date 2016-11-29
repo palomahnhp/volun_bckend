@@ -56,41 +56,41 @@ es:
       record_history:
         one:   Historial de registro
         other: Historial de registros
-      project_type_subvention:
+      pt_subvention:
         one:   Proyecto subvencionado
         other: Proyectos subvencionados
-      project_type_entity:
+      pt_entity:
         one:   Proyecto de entidad
         other: Proyectos de entidades
-      project_type_permanent:
+      pt_permanent:
         one:   Proyecto permanente
         other: Proyectos permanentes
-      project_type_punctual:
+      pt_punctual:
         one:   Proyecto puntual
         other: Proyectos puntuales
-      project_type_centre:
+      pt_centre:
         one:   Proyecto de centro de mayores
         other: Proyectos de centros de mayores
-      project_type_social:
+      pt_social:
         one:   Proyecto de servicios sociales
         other: Proyectos de servicios sociales
-      project_type_other:
-        one:   Otro tipo de proyecto
-        other: Otros tipos de proyecto
+      pt_other:
+        one:   Proyecto "Otros"
+        other: Proyectos "Otros"
       timetable:
         one:   Horario
         other: Horarios
     attributes:
       address:
-        postal_code:   Código postal
-        road_type:     Tipo de vía
-        road_name:     Nombre de la vía
-        number_type:   Tipo de número
-        number:        Número
-        grader:        Calificador
-        stairs_number: Escalera
-        floor_number:  Planta
-        door_number:   Puerta
+        postal_code:      Código postal
+        road_type:        Tipo de vía
+        road_name:        Nombre de la vía
+        road_number_type: Tipo de número
+        road_number:      Número
+        grader:           Calificador
+        stairs:           Escalera
+        floor:            Planta
+        door:             Puerta
       district:
         code:        Código
         name:        Nombre
@@ -101,7 +101,7 @@ es:
         description: Descripción
         active:      Activo
         created_at : Fecha de creación
-      Area:
+      area:
         id:          ID
         name:        Denominación
         description: Descripción
@@ -158,7 +158,7 @@ es:
         districts:              Distritos      # N:N Association (for simple_form)
         collectives:            Colectivos     # N:N Association (for simple_form)
         coordinations:          Coordinaciones # N:N Association (for simple_form)
-      project_type_subvention:
+      pt_subvention:
         id:                            ID
         representative_name:           Nombre
         representative_first_surname:  Primer Apellido
@@ -178,7 +178,7 @@ es:
         project_type:                  Tipo de proyecto
         proposal_id:                   Propuesta
         proposal:                      Propuesta
-      project_type_entity:
+      pt_entity:
         id:                       ID
         request_date:             Fecha recepción demanda
         request_description:      Descripción demanda
@@ -195,31 +195,31 @@ es:
         project_id:               Proyecto
         project_type:             Tipo de proyecto
         project_type_id:          Tipo de proyecto
-      project_type_punctual:
+      pt_punctual:
         id:                       ID
         project:                  Proyecto
         project_id:               Proyecto
         project_type:             Tipo de proyecto
         project_type_id:          Tipo de proyecto
-      project_type_permanent:
+      pt_permanent:
         id:                       ID
         project:                  Proyecto
         project_id:               Proyecto
         project_type:             Tipo de proyecto
         project_type_id:          Tipo de proyecto
-      project_type_centre:
+      pt_centre:
         id:                       ID
         project:                  Proyecto
         project_id:               Proyecto
         project_type:             Tipo de proyecto
         project_type_id:          Tipo de proyecto
-      project_type_social:
+      pt_social:
         id:                       ID
         project:                  Proyecto
         project_id:               Proyecto
         project_type:             Tipo de proyecto
         project_type_id:          Tipo de proyecto
-      project_type_other:
+      pt_other:
         id:                       ID
         project:                  Proyecto
         project_id:               Proyecto

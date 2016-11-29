@@ -2,30 +2,34 @@ Rails.application.routes.draw do
 
 
 
+  resources :record_histories
+  resources :timetables
+  resources :districts
+  resources :addresses
+  resources :pt_others
+  resources :pt_socials
+  resources :pt_centres
+  resources :pt_permanents
+  resources :pt_punctuals
+  resources :pt_entities
+  resources :pt_subventions
+  resources :links
+  resources :images
+  resources :activities
+  resources :proposals
+  resources :documents
+  resources :issues
+  resources :trackings
+  resources :entities
+  resources :entity_types
+  devise_for :users
+  resources :users
   concern :recoverable do
     post :recover, on: :member
   end
   resources :projects, concerns: :recoverable do
     get 'new_options', on: :collection
   end
-  devise_for :users
-  resources :record_histories
-  resources :districts
-  resources :addresses
-  resources :project_type_others
-  resources :project_type_socials
-  resources :project_type_centres
-  resources :project_type_permanents
-  resources :project_type_punctuals
-  resources :project_type_entities
-  resources :project_type_subventions
-  resources :activities
-  resources :proposals
-  resources :timetables
-  resources :documents
-  resources :issues
-  resources :trackings
-  resources :entities
   resources :project_types, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable

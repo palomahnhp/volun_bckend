@@ -61,10 +61,10 @@
               <%= f_address.input :postal_code %>
             </div>
             <div class="col-md-3">
-              <%= f_address.input :number_type %>
+              <%= f_address.input :road_number_type %>
             </div>
             <div class="col-md-3">
-              <%= f_address.input :number %>
+              <%= f_address.input :road_number %>
             </div>
             <div class="col-md-3">
               <%= f_address.input :grader %>
@@ -72,13 +72,13 @@
           </div>
           <div class="row row-4-3">
             <div class="col-md-3">
-              <%= f_address.input :stairs_number %>
+              <%= f_address.input :stairs %>
             </div>
             <div class="col-md-3">
-              <%= f_address.input :floor_number %>
+              <%= f_address.input :floor %>
             </div>
             <div class="col-md-3">
-              <%= f_address.input :door_number %>
+              <%= f_address.input :door %>
             </div>
           </div>
           <%= f_address.link_to_remove build_icon('trash-o', text: t('action.remove')), class: 'pull-right' %>

@@ -13,7 +13,7 @@ module ProjectTypeCommons
     after_initialize :build_new_project
 
     def self.my_type
-      model_name.singular.sub(/project_type_/,'')
+      model_name.singular.sub(/pt_/,'')
     end
 
     private
