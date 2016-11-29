@@ -60,9 +60,15 @@ group :development, :test do
   gem 'quiet_assets'
   gem 'bullet'
   gem 'faker'
+  gem 'capybara' # integration testing tool for rack based web applications.
+  gem 'fuubar'   # RSpec progress bar formatter
+  gem 'i18n-tasks' #  helps you find and manage missing and unused translations.
 end
 
 group :development do
+  gem 'poltergeist'
+  gem 'coveralls', require: false
+  gem 'email_spec'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
