@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(rft_volunteer_subscribe) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% rft_volunteer_subscribe.main_attributes.each do |attr_name| %>
   <td><%= show_attr(rft_volunteer_subscribe.public_send attr_name) %></td>
   <% end %>
 

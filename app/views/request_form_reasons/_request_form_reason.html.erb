@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(request_form_reason) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% request_form_reason.main_attributes.each do |attr_name| %>
   <td><%= show_attr(request_form_reason.public_send attr_name) %></td>
   <% end %>
 

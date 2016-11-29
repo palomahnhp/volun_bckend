@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(tracking) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% tracking.main_attributes.each do |attr_name| %>
   <td><%= show_attr(tracking.public_send attr_name) %></td>
   <% end %>
 

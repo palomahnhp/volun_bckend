@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(timetable) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% timetable.main_attributes.each do |attr_name| %>
   <td><%= show_attr(timetable.public_send attr_name) %></td>
   <% end %>
 

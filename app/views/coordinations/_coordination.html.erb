@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(coordination) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% coordination.main_attributes.each do |attr_name| %>
   <td><%= show_attr(coordination.public_send attr_name) %></td>
   <% end %>
 

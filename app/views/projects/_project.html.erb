@@ -1,16 +1,12 @@
 <tr id="<%= dom_id(project) %>" >
 
-<% project.main_attributes.each do |attr_name| %>
-    <td><%= show_attr(project.public_send attr_name) %></td>
-<% end %>
-
-  <td><%= show_simple_list(project.districts) %></td>
-  <td><%= show_simple_list(project.areas) %></td>
-  <td><%= show_simple_list(project.collectives) %></td>
+  <% project.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(project.public_send attr_name) %></td>
+  <% end %>
 
   <td class="index_table-actions">
-    <%= link_to_show(project.extended_project) %>
-    <%= link_to_edit(project.extended_project) %>
+    <%= link_to_show(project) %>
+    <%= link_to_edit(project) %>
 <% if project.try(:archived?) %>
     <%= link_to_recover(project) %>
 <% else %>

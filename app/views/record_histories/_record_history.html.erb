@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(record_history) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% record_history.main_attributes.each do |attr_name| %>
   <td><%= show_attr(record_history.public_send attr_name) %></td>
   <% end %>
 

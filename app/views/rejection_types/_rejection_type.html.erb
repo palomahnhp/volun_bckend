@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(rejection_type) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% rejection_type.main_attributes.each do |attr_name| %>
   <td><%= show_attr(rejection_type.public_send attr_name) %></td>
   <% end %>
 
