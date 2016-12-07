@@ -63,6 +63,13 @@ group :development, :test do
 end
 
 group :development do
+  #  utility and framework for executing commands in parallel on multiple remote machines, via SSH.
+  gem 'capistrano',         '3.5.0', require: false
+  gem 'capistrano-rails',   '1.1.6', require: false
+  gem 'capistrano-bundler', '1.1.4', require: false
+  gem 'capistrano-rvm',              require: false
+  # gem 'capistrano3-delayed-job', '~> 1.0'
+
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
