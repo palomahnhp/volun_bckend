@@ -16,21 +16,11 @@ test:
   <<: *default
   database: volunt-test
 
+staging:
+  <<: *development
+
+preproduction:
+  <<: *development
+
 production:
   <<: *default
-
-
-#  # The staging, preproduction and production dbs are only needed
-#  # for running rake assets:precompile locally before deploying
-#  staging:
-#    <<: *development
-#
-#  preproduction:
-#    <<: *development
-#
-#  production:
-#    <<: *development
-#
-#  test:
-#    <<: *default
-#    database: consul_test
