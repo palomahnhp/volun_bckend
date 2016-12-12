@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   resources :trackings
   resources :entities
   resources :entity_types
+  resources :road_types
+  resources :provinces
   devise_for :users
   resources :users
   concern :recoverable do

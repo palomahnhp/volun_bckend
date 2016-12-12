@@ -99,6 +99,95 @@ DISTRICTS = {
 
 }
 
+PROVINCES = {
+
+  '1'  => 'ARABA-ALAVA',
+  '2'  => 'ALBACETE',
+  '3'  => 'ALICANTE-ALACANT',
+  '4'  => 'ALMERIA',
+  '5'  => 'AVILA',
+  '6'  => 'BADAJOZ',
+  '7'  => 'ILLES BALEARS',
+  '8'  => 'BARCELONA',
+  '9'  => 'BURGOS',
+  '10' => 'CACERES',
+  '11' => 'CADIZ',
+  '12' => 'CASTELLON-CASTELLO',
+  '13' => 'CIUDAD REAL',
+  '14' => 'CORDOBA',
+  '15' => 'A CORUÑA',
+  '16' => 'CUENCA',
+  '17' => 'GIRONA',
+  '18' => 'GRANADA',
+  '19' => 'GUADALAJARA',
+  '20' => 'GIPUZKOA',
+  '21' => 'HUELVA',
+  '22' => 'HUESCA',
+  '23' => 'JAEN',
+  '24' => 'LEON',
+  '25' => 'LLEIDA',
+  '26' => 'LA RIOJA',
+  '27' => 'LUGO',
+  '28' => 'MADRID',
+  '29' => 'MALAGA',
+  '30' => 'MURCIA',
+  '31' => 'NAVARRA',
+  '32' => 'OURENSE',
+  '33' => 'ASTURIAS',
+  '34' => 'PALENCIA',
+  '35' => 'LAS PALMAS',
+  '36' => 'PONTEVEDRA',
+  '37' => 'SALAMANCA',
+  '38' => 'SANTA CRUZ DE TENERIFE',
+  '39' => 'CANTABRIA',
+  '40' => 'SEGOVIA',
+  '41' => 'SEVILLA',
+  '42' => 'SORIA',
+  '43' => 'TARRAGONA',
+  '44' => 'TERUEL',
+  '45' => 'TOLEDO',
+  '46' => 'VALENCIA',
+  '47' => 'VALLADOLID',
+  '48' => 'BIZKAIA',
+  '49' => 'ZAMORA',
+  '50' => 'ZARAGOZA',
+  '51' => 'CEUTA',
+  '52' => 'MELILLA'
+
+}
+
+ROAD_TYPES = {
+    'ACCESO'     => '13',
+    'ARROYO'     => '1',
+    'AUTOPISTA'  => '10',
+    'AUTOVIA'    => '364',
+    'AVENIDA'    => '13063',
+    'BULEVAR'    => '199',
+    'CALLE'      => '176374',
+    'CALLEJON'   => '159',
+    'CAMINO'     => '1604',
+    'CAMINOALTO' => '28',
+    'CARRERA'    => '50',
+    'CARRETERA'  => '831',
+    'CAÑADA'     => '107',
+    'COLONIA'    => '364',
+    'COSTANILLA' => '107',
+    'CUESTA'     => '113',
+    'GALERIA'    => '10',
+    'GLORIETA'   => '288',
+    'PARQUE'     => '30',
+    'PARTICULAR' => '21',
+    'PASADIZO'   => '6',
+    'PASAJE'     => '',
+    'PASEO'      => '4239',
+    'PISTA'      => '4',
+    'PLAZA'      => '3478',
+    'PLAZUELA'   => '16',
+    'PUENTE'     => '1',
+    'RONDA'      => '',
+    'TRAVESIA'   => '1007',
+}
+
 PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
 puts "Creando usuario administrador..."
@@ -141,18 +230,29 @@ DISTRICTS.each do |code, name|
   District.create!(code: code, name: name)
 end
 
+puts "Creando Provincias"
+PROVINCES.each do |code, name|
+  Province.create!(code: code, name: name)
+end
+
+puts "Creando Tipos de vías"
+ROAD_TYPES.each do |name, code|
+  RoadType.create!(name: name, code: code)
+end
+
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
   Address.create!(
       postal_code:           Faker::Address.postcode,
-      road_type:             ['Calle', 'Plaza', 'Av.'].sample,
+      road_type:             RoadType.all.sample,
       road_name:             Faker::Address.street_name,
-      road_number_type:           nil,
+      road_number_type:      Address::ROAD_NUMBER_TYPE.sample,
       road_number:           rand(100).to_s,
-      grader:                nil,
+      grader:                Address::GRADER.sample,
       stairs:                rand(300).to_s,
       floor:                 rand(9).to_s,
-      door:                  rand(10).to_s
+      door:                  rand(10).to_s,
+      province:              Province.all.sample
   )
 end
 
