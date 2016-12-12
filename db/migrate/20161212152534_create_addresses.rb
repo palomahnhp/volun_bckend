@@ -16,6 +16,8 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :ndp_code
       t.string :local_code
       t.string :class_name
+      t.string :latitude
+      t.string :longitude
 
       t.timestamps null: false
     end
