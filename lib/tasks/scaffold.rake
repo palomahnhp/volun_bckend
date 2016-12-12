@@ -4,6 +4,9 @@ MODELS_AND_ATTRS = {
   # Entity Tables
   # --------------------------------------------------------------------------------------------------
 
+  'Province' => 'name code',
+
+  'RoadType' => 'name code',
 
   'EntityType'   => 'kind:integer description:text active:boolean',
 
@@ -69,7 +72,7 @@ MODELS_AND_ATTRS = {
   # N:N tables
   # -------------------------------------------------
 
-  'Address'      => 'road_type road_name road_number_type road_number grader stairs floor door postal_code town province country ndp_code local_code class_name',
+  'Address'      => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code town province:references country ndp_code local_code class_name',
   'Area'         => 'name description:text active:boolean',
   'Collective'   => 'name description:text active:boolean',
   'Coordination' => 'name description:text active:boolean',
