@@ -7,7 +7,13 @@
   <dt><%= Project.human_attribute_name(:name) %>:</dt>
   <dd><%= @project.name %></dd>
   <dt><%= Project.human_attribute_name(:active) %>:</dt>
-  <dd><%= t("humanize.#{@project.active}") %></dd>
+  <dd><%= t("humanize.#{@project.active?}") %></dd>
+  <dt><%= Project.human_attribute_name(:volunteers_allowed) %>:</dt>
+  <dd><%= t("humanize.#{@project.volunteers_allowed?}") %></dd>
+  <dt><%= Project.human_attribute_name(:public) %>:</dt>
+  <dd><%= t("humanize.#{@project.public?}") %></dd>
+  <dt><%= Project.human_attribute_name(:outstanding) %>:</dt>
+  <dd><%= t("humanize.#{@project.outstanding?}") %></dd>
   <dt><%= Project.human_attribute_name(:description) %>:</dt>
   <dd><%= @project.description %></dd>
   <dt><%= Project.human_attribute_name(:functions) %>:</dt>

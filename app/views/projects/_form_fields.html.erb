@@ -3,11 +3,18 @@
     <%= content_tag :h3, Project.model_name.human, class: 'form-subtitle' %>
     <div class="col-md-6">
       <%= f.input :name  %>
-      <%= f.input :description %>
-      <%= f.input :project_type_id, as: :hidden %>
     </div>
     <div class="col-md-6">
+      <%= f.input :project_type_id, as: :hidden %>
       <%= f.input :active unless f.object.new_record? %>
+      <%= f.input :volunteers_allowed %>
+      <%= f.input :public %>
+      <%= f.input :outstanding %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :description %>
+    </div>
+    <div class="col-md-6">
       <%= f.input :comments %>
     </div>
   </div>

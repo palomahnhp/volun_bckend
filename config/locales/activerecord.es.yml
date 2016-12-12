@@ -85,12 +85,17 @@ es:
         postal_code:      Código postal
         road_type:        Tipo de vía
         road_name:        Nombre de la vía
-        road_number_type: Tipo de número
+        road_number_type: Tipo de numeración
         road_number:      Número
         grader:           Calificador
         stairs:           Escalera
         floor:            Planta
         door:             Puerta
+        town:             Población
+        province:         Provincia
+        country:          País
+        latitude:         Latitud
+        longitude:        Longitud
       district:
         code:        Código
         name:        Nombre
@@ -136,6 +141,9 @@ es:
         name:                   Nombre
         description:            Descripción
         active:                 Activo
+        volunteers_allowed:     Admite voluntarios
+        public:                 Publicitar
+        outstanding:            Destacado
         created_at:             Fecha creación
         functions:              Funciones del voluntario
         execution_start_date:   Fecha ejecución desde
