@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161129131321) do
+ActiveRecord::Schema.define(version: 20161212080812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20161129131321) do
   end
 
   create_table "addresses", force: :cascade do |t|
-    t.string   "road_type"
+    t.integer  "road_type_id"
     t.string   "road_name"
     t.string   "road_number_type"
     t.string   "road_number"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20161129131321) do
     t.string   "door"
     t.string   "postal_code"
     t.string   "town"
-    t.string   "province"
+    t.integer  "province_id"
     t.string   "country"
     t.string   "ndp_code"
     t.string   "local_code"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(version: 20161129131321) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
+
+  add_index "addresses", ["province_id"], name: "index_addresses_on_province_id", using: :btree
+  add_index "addresses", ["road_type_id"], name: "index_addresses_on_road_type_id", using: :btree
 
   create_table "addresses_projects", id: false, force: :cascade do |t|
     t.integer "address_id", null: false
@@ -224,6 +227,13 @@ ActiveRecord::Schema.define(version: 20161129131321) do
     t.boolean  "active",      default: true
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+  end
+
+  create_table "provinces", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pt_centres", force: :cascade do |t|
@@ -570,6 +580,13 @@ ActiveRecord::Schema.define(version: 20161129131321) do
   add_index "rft_volunteers_demands", ["entity_id"], name: "index_rft_volunteers_demands_on_entity_id", using: :btree
   add_index "rft_volunteers_demands", ["request_form_type_id"], name: "index_rft_volunteers_demands_on_request_form_type_id", using: :btree
 
+  create_table "road_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "timetables", force: :cascade do |t|
     t.integer  "day"
     t.string   "start_hour"
@@ -620,6 +637,8 @@ ActiveRecord::Schema.define(version: 20161129131321) do
     t.datetime "updated_at",     null: false
   end
 
+  add_foreign_key "addresses", "provinces"
+  add_foreign_key "addresses", "road_types"
   add_foreign_key "documents", "projects"
   add_foreign_key "entities", "entity_types"
   add_foreign_key "images", "projects"
