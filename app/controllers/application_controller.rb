@@ -79,61 +79,6 @@ class ApplicationController < ActionController::Base
     User.new if uweb_authenticated?
   end
 
-  def permitted_project_attrs
-    {
-      project_attributes: [
-        :id,
-        :name,
-        :description,
-        :project_type_id,
-        :active,
-        :comments,
-        :beneficiaries_num,
-        :volunteers_num,
-        :functions,
-        :insured,
-        :insurance_date,
-        :contact_name,
-        :contact_first_surname,
-        :contact_second_surname,
-        :email,
-        :phone_number,
-        :entity_id,
-        :execution_start_date,
-        :execution_end_date,
-        area_ids:         [],
-        collective_ids:   [],
-        coordination_ids: [],
-        district_ids:     [],
-        addresses_attributes: [
-          :id,
-          :postal_code,
-          :road_type,
-          :road_name,
-          :road_number_type,
-          :road_number,
-          :grader,
-          :stairs,
-          :floor,
-          :door,
-          :_destroy
-        ],
-        timetables_attributes: [
-          :id,
-          :day,
-          :start_hour,
-          :end_hour,
-          :_destroy
-        ],
-        documents_attributes: [
-          :id,
-          :name,
-          :_destroy
-        ]
-      ]
-    }
-  end
-
   def fields_for_options(collection)
     collection.build if collection.empty?
   end

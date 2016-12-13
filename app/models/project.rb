@@ -11,6 +11,7 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :coordinations, -> { order('coordinations.name asc') }
   has_and_belongs_to_many :districts, -> { order('districts.name asc') }
   has_many :documents
+  belongs_to :pt_extendable, polymorphic: true
 
   accepts_nested_attributes_for :timetables, allow_destroy: true
   accepts_nested_attributes_for :addresses,  allow_destroy: true
@@ -20,7 +21,6 @@ class Project < ActiveRecord::Base
   validates :name, :entity_id, :description, :execution_start_date, :contact_name,
             :phone_number, :email, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
-
 
   scope :all_active,   ->(){ where(active: true) }
   scope :all_inactive, ->(){ where(active: false) }
@@ -45,16 +45,21 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def extended_project_model
-    "Pt#{project_type.kind.classify}".constantize
+  def pt_extendable?
+    extendable.present?
   end
 
-  def extended_project(join_tables = :project)
-    @extended_project ||= fetch_extended_project(join_tables)
+  def pt_extension_kind
+    project_type.kind
   end
 
-  def fetch_extended_project(join_tables = :project)
-    extended_project_model.includes(join_tables).where(project_id: id).take
+  def pt_extendable_class
+    pt_extendable.try(:class) || "Pt#{pt_extension_kind.classify}".constantize
+  end
+
+  def build_pt_extendable(pt_extension_kind)
+    return unless pt_extension_kind.to_s.in? ProjectType.kinds.keys
+    self.extendable ||= pt_extendable_class.constantize.new
   end
 
 end

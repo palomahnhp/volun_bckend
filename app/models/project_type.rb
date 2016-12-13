@@ -11,6 +11,16 @@ class ProjectType < ActiveRecord::Base
           other
        )
 
+  # enum kind: {
+  #   1 => :social,
+  #   2 => :centre,
+  #   3 => :permanent,
+  #   4 => :punctual,
+  #   5 => :entity,
+  #   6 => :subvention,
+  #   7 => :other
+  # }
+
   validates :kind, presence: true
 
   def self.active?(kind)

@@ -17,7 +17,7 @@ class Address < ActiveRecord::Base
   end
 
   def bdc_validator
-    self.bdc_validator ||= BdcValidator.new(bdc_fields)
+    @bdc_validator ||= BdcValidator.new(bdc_fields)
   end
 
   private

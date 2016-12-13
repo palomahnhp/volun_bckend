@@ -2,6 +2,7 @@ class ProjectsController < ApplicationController
 
   load_and_authorize_resource
   respond_to :html, :js, :json
+  before_action :set_pt_extension, only: [:new, :create]
 
   def index
     params[:q] ||= Project.ransack_default
@@ -46,12 +47,67 @@ class ProjectsController < ApplicationController
     respond_with(@project)
   end
 
-  def new_options
+  def select_pt_extensions
   end
 
   protected
 
+    def set_pt_extension
+      @project.build_pt_extendable(params[:pt_extension])
+    end
+
     def project_params
-      params.require(:project).permit(:name, :active, :description, :functions, :execution_start_date, :execution_end_date, :contact_person, :phone_number, :email, :comments, :beneficiaries_num, :volunteers_num, :insured, :insurance_date, :project_type_id, :entity_id)
+      params
+        .require(:project)
+        .permit(
+          :id,
+          :name,
+          :description,
+          :project_type_id,
+          :active,
+          :comments,
+          :beneficiaries_num,
+          :volunteers_num,
+          :functions,
+          :insured,
+          :insurance_date,
+          :contact_name,
+          :contact_first_surname,
+          :contact_second_surname,
+          :email,
+          :phone_number,
+          :entity_id,
+          :execution_start_date,
+          :execution_end_date,
+          area_ids:         [],
+          collective_ids:   [],
+          coordination_ids: [],
+          district_ids:     [],
+          addresses_attributes: [
+            :id,
+            :postal_code,
+            :road_type,
+            :road_name,
+            :road_number_type,
+            :road_number,
+            :grader,
+            :stairs,
+            :floor,
+            :door,
+            :_destroy
+          ],
+          timetables_attributes: [
+            :id,
+            :day,
+            :start_hour,
+            :end_hour,
+            :_destroy
+          ],
+          documents_attributes: [
+            :id,
+            :name,
+            :_destroy
+          ]
+        )
     end
 end

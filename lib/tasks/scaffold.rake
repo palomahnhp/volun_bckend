@@ -21,7 +21,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_first_surname contact_second_surname phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references entity:references',
+  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_first_surname contact_second_surname phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references entity:references',
 
   # 1:N tables for Project
   'Tracking'  => 'comments:text start_date:datetime project:references',
@@ -47,23 +47,23 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'PtPunctual' => 'project:references project_type:references',
+  # 'PtPunctual' => '',
 
   # -------------------------------------------------
 
-  'PtPermanent' => 'project:references project_type:references',
+  # 'PtPermanent' => '',
 
   # -------------------------------------------------
 
-  'PtCentre' => 'project:references project_type:references',
+  # 'PtCentre' => '',
 
   # -------------------------------------------------
 
-  'PtSocial' => 'project:references project_type:references',
+  # 'PtSocial' => '',
 
   # -------------------------------------------------
 
-  'PtOther' => 'project:references project_type:references',
+  # 'PtOther' => '',
 
   # -------------------------------------------------
 
@@ -95,20 +95,20 @@ MODELS_AND_ATTRS = {
 
   'RequestFormType'          => 'kind:integer description:text active:boolean',
   'RequestFormReason'        => 'kind:integer description:text active:boolean',
-  'RequestForm'              => 'request_form_type:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
-  'RftVolunteerSubscribe'    => 'request_form_type:references name first_surname second_surname phone_number phone_number_alt email',
-  'RftVolunteerUnsubscribe'  => 'request_form_type:references volunteer:references level:integer reason:text',
-  'RftVolunteerAmendment'    => 'request_form_type:references volunteer:references address:references phone_number phone_number_alt',
-  'RftVolunteerAppointment'  => 'request_form_type:references volunteer:references reason:text',
-  'RftEntitySubscribe'       => 'request_form_type:references entity:references name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province',
-  'RftEntityUnsubscribe'     => 'request_form_type:references entity:references reason:text',
-  'RftVolunteersDemand'      => 'request_form_type:references entity:references description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
-  'RftProjectPublishing'     => 'request_form_type:references entity:references description:text road_type road_name number_type road_number postal_code town province',
-  'RftProjectUnpublishing'   => 'request_form_type:references entity:references reason:text',
-  'RftProjectUnsubscribe'    => 'request_form_type:references entity:references project:references reason:text',
-  'RftActivityPublishing'    => 'request_form_type:references entity:references name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
-  'RftActivityUnpublishing'  => 'request_form_type:references entity:references reason:text',
-  'RftOther'                 => 'request_form_type:references entity:references description:text',
+  'RequestForm'              => 'request_form_type:references rft_extendable:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  'RftVolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
+  'RftVolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
+  'RftVolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
+  'RftVolunteerAppointment'  => 'volunteer:references reason:text',
+  'RftEntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province',
+  'RftEntityUnsubscribe'     => 'reason:text',
+  'RftVolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
+  'RftProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
+  'RftProjectUnpublishing'   => 'reason:text',
+  'RftProjectUnsubscribe'    => 'project:references reason:text',
+  'RftActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
+  'RftActivityUnpublishing'  => 'reason:text',
+  'RftOther'                 => 'description:text',
 
 
   ## 'RftProjectSubscribe'     => 'name description:text active:boolean',
@@ -186,8 +186,8 @@ namespace :scaffold do
 
       File.open(rb_file, 'r').each do |l|
         line = l
-        if line.chomp =~ /profileable/
-          line  = line.sub('foreign_key', 'polymorphic')
+        if line.chomp =~ /profileable|pt_extendable|rft_extendable/
+          line = line.sub('foreign_key', 'polymorphic')
         end
         tmp  << line
       end
@@ -203,7 +203,6 @@ namespace :scaffold do
   task create_user: :environment do
     # Generate scaffold for User model
     sh 'rails g scaffold User locale profileable:references'
-    Rake::Task['scaffold:add_polymorphic_true'].invoke
 
     # Add devise attrs to User model
     sh 'rails generate devise User --skip'
@@ -283,6 +282,7 @@ namespace :scaffold do
     puts "Generating scaffolds"
     Rake::Task['scaffold:create_user'].invoke
     Rake::Task['scaffold:build'].invoke
+    Rake::Task['scaffold:add_polymorphic_true'].invoke
     Rake::Task['scaffold:add_default_true'].invoke
     Rake::Task['scaffold:gco_files'].invoke
   end

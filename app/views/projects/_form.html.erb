@@ -1,7 +1,8 @@
-<div id="project" class="form">
+<div id="project" class="well well-form">
   <%= simple_nested_form_for(@project, default_form_options) do |f| %>
 
-      <%= render partial: 'form_fields', locals: { f: f } %>
+      <%= render partial: '_project_fields', locals: { f: f } %>
+      <%= render partial: "_pt_#{@project.pt_extension_kind}_fields", locals: { f: f } if @project.pt_extendable? %>
 
       <div class="form-actions">
         <%= f.button :submit, class: 'btn btn-primary' %>
