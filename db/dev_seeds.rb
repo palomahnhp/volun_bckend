@@ -246,13 +246,15 @@ puts "Creando Direcciones"
       postal_code:           Faker::Address.postcode,
       road_type:             RoadType.all.sample,
       road_name:             Faker::Address.street_name,
-      road_number_type:      Address::ROAD_NUMBER_TYPE.sample,
+      road_number_type:      Address::ROAD_NUMBER_TYPES.sample,
       road_number:           rand(100).to_s,
-      grader:                Address::GRADER.sample,
+      grader:                Address::GRADERS.sample,
       stairs:                rand(300).to_s,
       floor:                 rand(9).to_s,
       door:                  rand(10).to_s,
-      province:              Province.all.sample
+      province:              Province.all.sample,
+      country:               "España",
+      town:                  "Madrid"
   )
 end
 

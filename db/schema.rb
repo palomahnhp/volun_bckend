@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212080812) do
+ActiveRecord::Schema.define(version: 20161212152607) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,8 @@ ActiveRecord::Schema.define(version: 20161212080812) do
     t.string   "ndp_code"
     t.string   "local_code"
     t.string   "class_name"
+    t.string   "latitude"
+    t.string   "longitude"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
@@ -203,6 +205,9 @@ ActiveRecord::Schema.define(version: 20161212080812) do
     t.integer  "beneficiaries_num"
     t.integer  "volunteers_num"
     t.boolean  "insured",                default: false
+    t.boolean  "volunteers_allowed",     default: false
+    t.boolean  "public",                 default: false
+    t.boolean  "outstanding",            default: false
     t.date     "insurance_date"
     t.integer  "project_type_id"
     t.integer  "entity_id"
