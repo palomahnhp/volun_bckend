@@ -6,30 +6,30 @@
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-          <div class="panel panel-<%= ProjectType.active?(:subvention) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_subvention_url %>';">
+          <div class="panel panel-<%= ProjectType.active?(:subvention) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :subvention) %>';">
             <div class="panel-heading">
               <h3 class="panel-title">
-                <%= PtSubvention.model_name.human %>
+                <%= ProjectType.kinds_i18n[:subvention] %>
               </h3>
             </div>
             <div class="panel-body">
               Asociados a una subvención
             </div>
           </div>
-        <div class="panel panel-<%= ProjectType.active?(:entity) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_entity_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:entity) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :entity) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= PtEntity.model_name.human %>
+              <%= ProjectType.kinds_i18n[:entity] %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una entidad
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:permanent) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_permanent_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:permanent) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :permanent) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= PtPermanent.model_name.human %>
+              <%= ProjectType.kinds_i18n[:permanent] %>
             </h3>
           </div>
           <div class="panel-body">
@@ -38,30 +38,30 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="panel panel-<%= ProjectType.active?(:centre) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_centre_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:centre) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :centre) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= PtCentre.model_name.human %>
+              <%= ProjectType.kinds_i18n[:centre] %>
             </h3>
           </div>
           <div class="panel-body">
             De centros de mayores
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:social) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_social_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:social) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :social) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= PtSocial.model_name.human %>
+              <%= ProjectType.kinds_i18n[:social] %>
             </h3>
           </div>
           <div class="panel-body">
             De servicios sociales
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_other_url %>';">
+        <div class="panel panel-<%= ProjectType.active?(:other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :other) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= PtOther.model_name.human %>
+              <%= ProjectType.kinds_i18n[:other] %>
             </h3>
           </div>
           <div class="panel-body">
