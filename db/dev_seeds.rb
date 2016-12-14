@@ -17,13 +17,13 @@ TIMETABLE_NUM     = 10
 DOCUMENT_NUM      = 10
 
 PROJECT_TYPES = {
-  0 => 'Servicios Sociales',
-  1 => 'Centros de mayores',
-  2 => 'Permanentes',
-  3 => 'Puntuales',
-  4 => 'Entidades',
-  5 => 'Subvencionados',
-  6 => 'Otros'
+  1 => 'Servicios Sociales',
+  2 => 'Centros de mayores',
+  3 => 'Permanentes',
+  4 => 'Puntuales',
+  5 => 'Entidades',
+  6 => 'Subvencionados',
+  7 => 'Otros'
 }
 
 REQUEST_REASONS = {
@@ -243,22 +243,22 @@ end
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
   Address.create!(
-      postal_code:           Faker::Address.postcode,
-      road_type:             RoadType.all.sample,
-      road_name:             Faker::Address.street_name,
-      road_number_type:      Address::ROAD_NUMBER_TYPES.sample,
-      road_number:           rand(100).to_s,
-      grader:                Address::GRADERS.sample,
-      stairs:                rand(300).to_s,
-      floor:                 rand(9).to_s,
-      door:                  rand(10).to_s,
-      province:              Province.all.sample,
-      country:               "España",
-      town:                  "Madrid"
+    postal_code:           Faker::Address.postcode,
+    road_type:             RoadType.all.sample,
+    road_name:             Faker::Address.street_name,
+    road_number_type:      Address::ROAD_NUMBER_TYPES.sample,
+    road_number:           rand(100).to_s,
+    grader:                Address::GRADERS.sample,
+    stairs:                rand(300).to_s,
+    floor:                 rand(9).to_s,
+    door:                  rand(10).to_s,
+    province:              Province.all.sample,
+    country:               "España",
+    town:                  "Madrid"
   )
 end
 
-puts "Creando Forarios"
+puts "Creando Horarios"
 (1..TIMETABLE_NUM).each do |n|
   Timetable.create!(
       day:        Timetable.days.values.sample,
@@ -273,21 +273,10 @@ end
 # end
 
 puts "Creando Proyectos"
-PROJECT_TYPE_MODELS = [
-  PtSubvention,
-  PtEntity,
-  PtPunctual,
-  PtPermanent,
-  PtCentre,
-  PtSocial,
-  PtOther
-]
-PROJECT_TYPE_MODELS.each do |pt_model|
+ProjectType.all.each do |project_type|
   (1..PROJECTS_NUM).each do |n|
-    pt_record = pt_model.new
-    project   = pt_record.project
-    project.attributes = {
-      name:                  "#{Faker::App.name} #{pt_model.model_name.human} #{n}",
+    project = Project.new(
+      name:                  "#{Faker::App.name} #{project_type} #{n}",
       description:           Faker::Lorem.sentence,
       functions:             Faker::Lorem.sentence,
       comments:              Faker::Lorem.sentence,
@@ -299,7 +288,15 @@ PROJECT_TYPE_MODELS.each do |pt_model|
       email:                 Faker::Internet.email,
       beneficiaries_num:     10,
       volunteers_num:        rand(100),
-    }
+      project_type:          project_type
+    )
+
+    project.pt_extendable = case project_type.kind
+                            when ProjectType.kinds[:subvention] then PtSubvention.new
+                            when ProjectType.kinds[:entity]     then PtEntity.new
+                            end
+
+    project.save!
 
     [Address, Area, Collective, Coordination, District, Timetable].each do |model|
       model.first(5).each do |record|
@@ -308,7 +305,5 @@ PROJECT_TYPE_MODELS.each do |pt_model|
         end
       end
     end
-
-    pt_record.save!
   end
 end

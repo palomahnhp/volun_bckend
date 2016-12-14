@@ -1,4 +1,4 @@
-<% model_class = PtEntity %>
+<% model_class = RtOther %>
 
 <div class="row">
   <div class="col-md-12">
@@ -7,7 +7,7 @@
 </div>
 <div class="index-panel row well">
   <div class="col-md-12">
-    <%= content_tag(:div, search_collection(@search_q, :request_description_or_volunteers_profile_or_activities_cont), class: 'col-md-4 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :description_cont), class: 'col-md-4 pull-right') %>
   </div>
 </div>
 
@@ -25,8 +25,8 @@
   </thead>
   
   <tbody>
-    <%= render(partial: 'pt_entity', collection: @pt_entities)%>
+    <%= render(partial: 'rt_other', collection: @rt_others)%>
   </tbody>
 </table>
 
-<%= render partial: "shared/pagination", locals: {collection: @pt_entities} %>
+<%= render partial: "shared/pagination", locals: {collection: @rt_others} %>

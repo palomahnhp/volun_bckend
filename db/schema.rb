@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161212152607) do
+ActiveRecord::Schema.define(version: 20161214172322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -210,6 +210,8 @@ ActiveRecord::Schema.define(version: 20161212152607) do
     t.boolean  "outstanding",            default: false
     t.date     "insurance_date"
     t.integer  "project_type_id"
+    t.integer  "pt_extendable_id"
+    t.string   "pt_extendable_type"
     t.integer  "entity_id"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
@@ -217,6 +219,7 @@ ActiveRecord::Schema.define(version: 20161212152607) do
 
   add_index "projects", ["entity_id"], name: "index_projects_on_entity_id", using: :btree
   add_index "projects", ["project_type_id"], name: "index_projects_on_project_type_id", using: :btree
+  add_index "projects", ["pt_extendable_type", "pt_extendable_id"], name: "index_projects_on_pt_extendable_type_and_pt_extendable_id", using: :btree
 
   create_table "projects_timetables", id: false, force: :cascade do |t|
     t.integer "project_id",   null: false
@@ -241,16 +244,6 @@ ActiveRecord::Schema.define(version: 20161212152607) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pt_centres", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "project_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "pt_centres", ["project_id"], name: "index_pt_centres_on_project_id", using: :btree
-  add_index "pt_centres", ["project_type_id"], name: "index_pt_centres_on_project_type_id", using: :btree
-
   create_table "pt_entities", force: :cascade do |t|
     t.date     "request_date"
     t.text     "request_description"
@@ -270,46 +263,6 @@ ActiveRecord::Schema.define(version: 20161212152607) do
 
   add_index "pt_entities", ["project_id"], name: "index_pt_entities_on_project_id", using: :btree
   add_index "pt_entities", ["project_type_id"], name: "index_pt_entities_on_project_type_id", using: :btree
-
-  create_table "pt_others", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "project_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "pt_others", ["project_id"], name: "index_pt_others_on_project_id", using: :btree
-  add_index "pt_others", ["project_type_id"], name: "index_pt_others_on_project_type_id", using: :btree
-
-  create_table "pt_permanents", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "project_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "pt_permanents", ["project_id"], name: "index_pt_permanents_on_project_id", using: :btree
-  add_index "pt_permanents", ["project_type_id"], name: "index_pt_permanents_on_project_type_id", using: :btree
-
-  create_table "pt_punctuals", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "project_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "pt_punctuals", ["project_id"], name: "index_pt_punctuals_on_project_id", using: :btree
-  add_index "pt_punctuals", ["project_type_id"], name: "index_pt_punctuals_on_project_type_id", using: :btree
-
-  create_table "pt_socials", force: :cascade do |t|
-    t.integer  "project_id"
-    t.integer  "project_type_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
-  add_index "pt_socials", ["project_id"], name: "index_pt_socials_on_project_id", using: :btree
-  add_index "pt_socials", ["project_type_id"], name: "index_pt_socials_on_project_type_id", using: :btree
 
   create_table "pt_subventions", force: :cascade do |t|
     t.string   "representative_name"
@@ -372,6 +325,8 @@ ActiveRecord::Schema.define(version: 20161212152607) do
 
   create_table "request_forms", force: :cascade do |t|
     t.integer  "request_form_type_id"
+    t.integer  "rt_extendable_id"
+    t.string   "rt_extendable_type"
     t.datetime "sent_at"
     t.integer  "status"
     t.datetime "status_date"
@@ -383,10 +338,16 @@ ActiveRecord::Schema.define(version: 20161212152607) do
 
   add_index "request_forms", ["rejection_type_id"], name: "index_request_forms_on_rejection_type_id", using: :btree
   add_index "request_forms", ["request_form_type_id"], name: "index_request_forms_on_request_form_type_id", using: :btree
+  add_index "request_forms", ["rt_extendable_type", "rt_extendable_id"], name: "index_request_forms_on_rt_extendable_type_and_rt_extendable_id", using: :btree
 
-  create_table "rft_activity_publishings", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "road_types", force: :cascade do |t|
+    t.string   "name"
+    t.string   "code"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rt_activity_publishings", force: :cascade do |t|
     t.string   "name"
     t.string   "organizer"
     t.text     "description"
@@ -399,27 +360,17 @@ ActiveRecord::Schema.define(version: 20161212152607) do
     t.string   "postal_code"
     t.string   "town"
     t.string   "province"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
-  add_index "rft_activity_publishings", ["entity_id"], name: "index_rft_activity_publishings_on_entity_id", using: :btree
-  add_index "rft_activity_publishings", ["request_form_type_id"], name: "index_rft_activity_publishings_on_request_form_type_id", using: :btree
-
-  create_table "rft_activity_unpublishings", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "rt_activity_unpublishings", force: :cascade do |t|
     t.text     "reason"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "rft_activity_unpublishings", ["entity_id"], name: "index_rft_activity_unpublishings_on_entity_id", using: :btree
-  add_index "rft_activity_unpublishings", ["request_form_type_id"], name: "index_rft_activity_unpublishings_on_request_form_type_id", using: :btree
-
-  create_table "rft_entity_subscribes", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "rt_entity_subscribes", force: :cascade do |t|
     t.string   "name"
     t.string   "vat_num"
     t.string   "email"
@@ -442,34 +393,19 @@ ActiveRecord::Schema.define(version: 20161212152607) do
     t.datetime "updated_at",                    null: false
   end
 
-  add_index "rft_entity_subscribes", ["entity_id"], name: "index_rft_entity_subscribes_on_entity_id", using: :btree
-  add_index "rft_entity_subscribes", ["request_form_type_id"], name: "index_rft_entity_subscribes_on_request_form_type_id", using: :btree
-
-  create_table "rft_entity_unsubscribes", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "rt_entity_unsubscribes", force: :cascade do |t|
     t.text     "reason"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "rft_entity_unsubscribes", ["entity_id"], name: "index_rft_entity_unsubscribes_on_entity_id", using: :btree
-  add_index "rft_entity_unsubscribes", ["request_form_type_id"], name: "index_rft_entity_unsubscribes_on_request_form_type_id", using: :btree
-
-  create_table "rft_others", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "rt_others", force: :cascade do |t|
     t.text     "description"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "rft_others", ["entity_id"], name: "index_rft_others_on_entity_id", using: :btree
-  add_index "rft_others", ["request_form_type_id"], name: "index_rft_others_on_request_form_type_id", using: :btree
-
-  create_table "rft_project_publishings", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "rt_project_publishings", force: :cascade do |t|
     t.text     "description"
     t.string   "road_type"
     t.string   "road_name"
@@ -478,91 +414,68 @@ ActiveRecord::Schema.define(version: 20161212152607) do
     t.string   "postal_code"
     t.string   "town"
     t.string   "province"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
-  add_index "rft_project_publishings", ["entity_id"], name: "index_rft_project_publishings_on_entity_id", using: :btree
-  add_index "rft_project_publishings", ["request_form_type_id"], name: "index_rft_project_publishings_on_request_form_type_id", using: :btree
-
-  create_table "rft_project_unpublishings", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "rt_project_unpublishings", force: :cascade do |t|
     t.text     "reason"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "rft_project_unpublishings", ["entity_id"], name: "index_rft_project_unpublishings_on_entity_id", using: :btree
-  add_index "rft_project_unpublishings", ["request_form_type_id"], name: "index_rft_project_unpublishings_on_request_form_type_id", using: :btree
-
-  create_table "rft_project_unsubscribes", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "rt_project_unsubscribes", force: :cascade do |t|
     t.integer  "project_id"
     t.text     "reason"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "rft_project_unsubscribes", ["entity_id"], name: "index_rft_project_unsubscribes_on_entity_id", using: :btree
-  add_index "rft_project_unsubscribes", ["project_id"], name: "index_rft_project_unsubscribes_on_project_id", using: :btree
-  add_index "rft_project_unsubscribes", ["request_form_type_id"], name: "index_rft_project_unsubscribes_on_request_form_type_id", using: :btree
+  add_index "rt_project_unsubscribes", ["project_id"], name: "index_rt_project_unsubscribes_on_project_id", using: :btree
 
-  create_table "rft_volunteer_amendments", force: :cascade do |t|
-    t.integer  "request_form_type_id"
+  create_table "rt_volunteer_amendments", force: :cascade do |t|
     t.integer  "volunteer_id"
     t.integer  "address_id"
     t.string   "phone_number"
     t.string   "phone_number_alt"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
-  add_index "rft_volunteer_amendments", ["address_id"], name: "index_rft_volunteer_amendments_on_address_id", using: :btree
-  add_index "rft_volunteer_amendments", ["request_form_type_id"], name: "index_rft_volunteer_amendments_on_request_form_type_id", using: :btree
-  add_index "rft_volunteer_amendments", ["volunteer_id"], name: "index_rft_volunteer_amendments_on_volunteer_id", using: :btree
+  add_index "rt_volunteer_amendments", ["address_id"], name: "index_rt_volunteer_amendments_on_address_id", using: :btree
+  add_index "rt_volunteer_amendments", ["volunteer_id"], name: "index_rt_volunteer_amendments_on_volunteer_id", using: :btree
 
-  create_table "rft_volunteer_appointments", force: :cascade do |t|
-    t.integer  "request_form_type_id"
+  create_table "rt_volunteer_appointments", force: :cascade do |t|
     t.integer  "volunteer_id"
     t.text     "reason"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  add_index "rft_volunteer_appointments", ["request_form_type_id"], name: "index_rft_volunteer_appointments_on_request_form_type_id", using: :btree
-  add_index "rft_volunteer_appointments", ["volunteer_id"], name: "index_rft_volunteer_appointments_on_volunteer_id", using: :btree
+  add_index "rt_volunteer_appointments", ["volunteer_id"], name: "index_rt_volunteer_appointments_on_volunteer_id", using: :btree
 
-  create_table "rft_volunteer_subscribes", force: :cascade do |t|
-    t.integer  "request_form_type_id"
+  create_table "rt_volunteer_subscribes", force: :cascade do |t|
     t.string   "name"
     t.string   "first_surname"
     t.string   "second_surname"
     t.string   "phone_number"
     t.string   "phone_number_alt"
     t.string   "email"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
-  add_index "rft_volunteer_subscribes", ["request_form_type_id"], name: "index_rft_volunteer_subscribes_on_request_form_type_id", using: :btree
-
-  create_table "rft_volunteer_unsubscribes", force: :cascade do |t|
-    t.integer  "request_form_type_id"
+  create_table "rt_volunteer_unsubscribes", force: :cascade do |t|
     t.integer  "volunteer_id"
     t.integer  "level"
     t.text     "reason"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
-  add_index "rft_volunteer_unsubscribes", ["request_form_type_id"], name: "index_rft_volunteer_unsubscribes_on_request_form_type_id", using: :btree
-  add_index "rft_volunteer_unsubscribes", ["volunteer_id"], name: "index_rft_volunteer_unsubscribes_on_volunteer_id", using: :btree
+  add_index "rt_volunteer_unsubscribes", ["volunteer_id"], name: "index_rt_volunteer_unsubscribes_on_volunteer_id", using: :btree
 
-  create_table "rft_volunteers_demands", force: :cascade do |t|
-    t.integer  "request_form_type_id"
-    t.integer  "entity_id"
+  create_table "rt_volunteers_demands", force: :cascade do |t|
     t.text     "description"
     t.date     "execution_start_date"
     t.date     "execution_end_date"
@@ -580,16 +493,6 @@ ActiveRecord::Schema.define(version: 20161212152607) do
     t.text     "volunteer_functions_3"
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-  end
-
-  add_index "rft_volunteers_demands", ["entity_id"], name: "index_rft_volunteers_demands_on_entity_id", using: :btree
-  add_index "rft_volunteers_demands", ["request_form_type_id"], name: "index_rft_volunteers_demands_on_request_form_type_id", using: :btree
-
-  create_table "road_types", force: :cascade do |t|
-    t.string   "name"
-    t.string   "code"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "timetables", force: :cascade do |t|
@@ -651,50 +554,18 @@ ActiveRecord::Schema.define(version: 20161212152607) do
   add_foreign_key "links", "projects"
   add_foreign_key "projects", "entities"
   add_foreign_key "projects", "project_types"
-  add_foreign_key "pt_centres", "project_types"
-  add_foreign_key "pt_centres", "projects"
   add_foreign_key "pt_entities", "project_types"
   add_foreign_key "pt_entities", "projects"
-  add_foreign_key "pt_others", "project_types"
-  add_foreign_key "pt_others", "projects"
-  add_foreign_key "pt_permanents", "project_types"
-  add_foreign_key "pt_permanents", "projects"
-  add_foreign_key "pt_punctuals", "project_types"
-  add_foreign_key "pt_punctuals", "projects"
-  add_foreign_key "pt_socials", "project_types"
-  add_foreign_key "pt_socials", "projects"
   add_foreign_key "pt_subventions", "project_types"
   add_foreign_key "pt_subventions", "projects"
   add_foreign_key "pt_subventions", "proposals"
   add_foreign_key "record_histories", "users"
   add_foreign_key "request_forms", "rejection_types"
   add_foreign_key "request_forms", "request_form_types"
-  add_foreign_key "rft_activity_publishings", "entities"
-  add_foreign_key "rft_activity_publishings", "request_form_types"
-  add_foreign_key "rft_activity_unpublishings", "entities"
-  add_foreign_key "rft_activity_unpublishings", "request_form_types"
-  add_foreign_key "rft_entity_subscribes", "entities"
-  add_foreign_key "rft_entity_subscribes", "request_form_types"
-  add_foreign_key "rft_entity_unsubscribes", "entities"
-  add_foreign_key "rft_entity_unsubscribes", "request_form_types"
-  add_foreign_key "rft_others", "entities"
-  add_foreign_key "rft_others", "request_form_types"
-  add_foreign_key "rft_project_publishings", "entities"
-  add_foreign_key "rft_project_publishings", "request_form_types"
-  add_foreign_key "rft_project_unpublishings", "entities"
-  add_foreign_key "rft_project_unpublishings", "request_form_types"
-  add_foreign_key "rft_project_unsubscribes", "entities"
-  add_foreign_key "rft_project_unsubscribes", "projects"
-  add_foreign_key "rft_project_unsubscribes", "request_form_types"
-  add_foreign_key "rft_volunteer_amendments", "addresses"
-  add_foreign_key "rft_volunteer_amendments", "request_form_types"
-  add_foreign_key "rft_volunteer_amendments", "volunteers"
-  add_foreign_key "rft_volunteer_appointments", "request_form_types"
-  add_foreign_key "rft_volunteer_appointments", "volunteers"
-  add_foreign_key "rft_volunteer_subscribes", "request_form_types"
-  add_foreign_key "rft_volunteer_unsubscribes", "request_form_types"
-  add_foreign_key "rft_volunteer_unsubscribes", "volunteers"
-  add_foreign_key "rft_volunteers_demands", "entities"
-  add_foreign_key "rft_volunteers_demands", "request_form_types"
+  add_foreign_key "rt_project_unsubscribes", "projects"
+  add_foreign_key "rt_volunteer_amendments", "addresses"
+  add_foreign_key "rt_volunteer_amendments", "volunteers"
+  add_foreign_key "rt_volunteer_appointments", "volunteers"
+  add_foreign_key "rt_volunteer_unsubscribes", "volunteers"
   add_foreign_key "trackings", "projects"
 end

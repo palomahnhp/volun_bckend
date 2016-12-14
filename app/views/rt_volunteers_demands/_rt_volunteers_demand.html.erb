@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(rt_volunteers_demand) %>" >
+
+  <% rt_volunteers_demand.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(rt_volunteers_demand.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(rt_volunteers_demand) %>
+    <%= link_to_edit(rt_volunteers_demand) %>
+<% if rt_volunteers_demand.try(:archived?) %>
+    <%= link_to_recover(rt_volunteers_demand) %>
+<% else %>
+    <%= link_to_destroy(rt_volunteers_demand) %>
+<% end %>
+  </td>
+</tr>

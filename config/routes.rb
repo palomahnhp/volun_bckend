@@ -2,19 +2,19 @@ Rails.application.routes.draw do
 
 
 
-  resources :rt_others
-  resources :rt_activity_unpublishings
-  resources :rt_activity_publishings
-  resources :rt_project_unsubscribes
-  resources :rt_project_unpublishings
-  resources :rt_project_publishings
-  resources :rt_volunteers_demands
-  resources :rt_entity_unsubscribes
-  resources :rt_entity_subscribes
-  resources :rt_volunteer_appointments
-  resources :rt_volunteer_amendments
-  resources :rt_volunteer_unsubscribes
-  resources :rt_volunteer_subscribes
+  resources :rt_others, only: [:index, :show, :edit, :update]
+  resources :rt_activity_unpublishings, only: [:index, :show, :edit, :update]
+  resources :rt_activity_publishings, only: [:index, :show, :edit, :update]
+  resources :rt_project_unsubscribes, only: [:index, :show, :edit, :update]
+  resources :rt_project_unpublishings, only: [:index, :show, :edit, :update]
+  resources :rt_project_publishings, only: [:index, :show, :edit, :update]
+  resources :rt_volunteers_demands, only: [:index, :show, :edit, :update]
+  resources :rt_entity_unsubscribes, only: [:index, :show, :edit, :update]
+  resources :rt_entity_subscribes, only: [:index, :show, :edit, :update]
+  resources :rt_volunteer_appointments, only: [:index, :show, :edit, :update]
+  resources :rt_volunteer_amendments, only: [:index, :show, :edit, :update]
+  resources :rt_volunteer_unsubscribes, only: [:index, :show, :edit, :update]
+  resources :rt_volunteer_subscribes, only: [:index, :show, :edit, :update]
   resources :pt_entities, only: [:index, :show, :edit, :update]
   resources :pt_subventions, only: [:index, :show, :edit, :update]
   resources :request_forms

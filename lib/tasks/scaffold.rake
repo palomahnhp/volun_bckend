@@ -93,28 +93,28 @@ MODELS_AND_ATTRS = {
 
   'RejectionType' => 'kind:integer description:text active:boolean',
 
-  'RequestFormType'          => 'kind:integer description:text active:boolean',
-  'RequestFormReason'        => 'kind:integer description:text active:boolean',
-  'RequestForm'              => 'request_form_type:references rft_extendable:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
-  'RftVolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
-  'RftVolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
-  'RftVolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
-  'RftVolunteerAppointment'  => 'volunteer:references reason:text',
-  'RftEntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province',
-  'RftEntityUnsubscribe'     => 'reason:text',
-  'RftVolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
-  'RftProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
-  'RftProjectUnpublishing'   => 'reason:text',
-  'RftProjectUnsubscribe'    => 'project:references reason:text',
-  'RftActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
-  'RftActivityUnpublishing'  => 'reason:text',
-  'RftOther'                 => 'description:text',
+  'RequestFormType'         => 'kind:integer description:text active:boolean',
+  'RequestFormReason'       => 'kind:integer description:text active:boolean',
+  'RequestForm'             => 'request_form_type:references rt_extendable:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  'RtVolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
+  'RtVolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
+  'RtVolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
+  'RtVolunteerAppointment'  => 'volunteer:references reason:text',
+  'RtEntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province',
+  'RtEntityUnsubscribe'     => 'reason:text',
+  'RtVolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
+  'RtProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
+  'RtProjectUnpublishing'   => 'reason:text',
+  'RtProjectUnsubscribe'    => 'project:references reason:text',
+  'RtActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
+  'RtActivityUnpublishing'  => 'reason:text',
+  'RtOther'                 => 'description:text',
 
 
-  ## 'RftProjectSubscribe'     => 'name description:text active:boolean',
-  ## 'RftActivitySubscribe'    => 'name description:text active:boolean',
-  ## 'RftProjectUnsubscribe'   => 'name description:text active:boolean',
-  ## 'RftActivityUnsubscribe'  => 'name description:text active:boolean',
+  ## 'RtProjectSubscribe'     => 'name description:text active:boolean',
+  ## 'RtActivitySubscribe'    => 'name description:text active:boolean',
+  ## 'RtProjectUnsubscribe'   => 'name description:text active:boolean',
+  ## 'RtActivityUnsubscribe'  => 'name description:text active:boolean',
 
   # -------------------------------------------------
 
@@ -186,7 +186,7 @@ namespace :scaffold do
 
       File.open(rb_file, 'r').each do |l|
         line = l
-        if line.chomp =~ /profileable|pt_extendable|rft_extendable/
+        if line.chomp =~ /profileable|pt_extendable|rt_extendable/
           line = line.sub('foreign_key', 'polymorphic')
         end
         tmp  << line
