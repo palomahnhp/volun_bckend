@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :rt_volunteer_amendments
   resources :rt_volunteer_unsubscribes
   resources :rt_volunteer_subscribes
+  resources :pt_entities, only: [:index, :show, :edit, :update]
+  resources :pt_subventions, only: [:index, :show, :edit, :update]
   resources :request_forms
   resources :request_form_reasons
   resources :request_form_types
@@ -24,8 +26,6 @@ Rails.application.routes.draw do
   resources :timetables
   resources :districts
   resources :addresses
-  resources :pt_entities
-  resources :pt_subventions
   resources :links
   resources :images
   resources :activities

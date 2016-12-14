@@ -17,26 +17,11 @@ class PtSubventionsController < ApplicationController
     end
   end
 
-  def new
-    @pt_subvention = PtSubvention.new
-    respond_with(@pt_subvention)
-  end
-
   def edit
-  end
-
-  def create
-    @pt_subvention.save
-    respond_with(@pt_subvention)
   end
 
   def update
     @pt_subvention.update_attributes(pt_subvention_params)
-    respond_with(@pt_subvention)
-  end
-
-  def destroy
-    @pt_subvention.destroy
     respond_with(@pt_subvention)
   end
 
@@ -59,8 +44,6 @@ class PtSubventionsController < ApplicationController
           :participants_num,
           :has_quality_evaluation,
           :proposal_id,
-          :project_id,
-          :project_type_id
         )
     end
 end
