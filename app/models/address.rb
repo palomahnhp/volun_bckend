@@ -29,9 +29,9 @@ class Address < ActiveRecord::Base
   def bdc_fields
     {
         country:          country,
-        province:         province.name,
+        province:         province.try(:name),
         town:             town,
-        road_type:        road_type.name,
+        road_type:        road_type.try(:name),
         road_name:        road_name,
         road_number_type: road_number_type,
         road_number:      road_number,

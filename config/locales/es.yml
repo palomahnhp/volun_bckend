@@ -47,3 +47,5 @@ es:
   inactive: Inactivo
   all:      Todos
   contact_person: Persona de contacto
+  common_fields: 'Campos comunes'
+  specific_fields:  'Campos específicos'

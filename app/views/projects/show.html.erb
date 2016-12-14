@@ -1,55 +1,77 @@
-<%= main_title(t("action.show", model: Project.model_name.human)) %>
+<%= main_title(t('action.show', model:"#{Project.model_name.human} #{ProjectType.kinds_i18n[@pt_extension]}" )) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-<%= @project.pt_extendable ? '6' : '12' %>">
 
-  <dt><%= Project.human_attribute_name(:id) %>:</dt>
-  <dd><%= @project.id %></dd>
-  <dt><%= Project.human_attribute_name(:name) %>:</dt>
-  <dd><%= @project.name %></dd>
-  <dt><%= Project.human_attribute_name(:active) %>:</dt>
-  <dd><%= t("humanize.#{@project.active?}") %></dd>
-  <dt><%= Project.human_attribute_name(:volunteers_allowed) %>:</dt>
-  <dd><%= t("humanize.#{@project.volunteers_allowed?}") %></dd>
-  <dt><%= Project.human_attribute_name(:public) %>:</dt>
-  <dd><%= t("humanize.#{@project.public?}") %></dd>
-  <dt><%= Project.human_attribute_name(:outstanding) %>:</dt>
-  <dd><%= t("humanize.#{@project.outstanding?}") %></dd>
-  <dt><%= Project.human_attribute_name(:description) %>:</dt>
-  <dd><%= @project.description %></dd>
-  <dt><%= Project.human_attribute_name(:functions) %>:</dt>
-  <dd><%= @project.functions %></dd>
-  <dt><%= Project.human_attribute_name(:execution_start_date) %>:</dt>
-  <dd><%= show_simple_date(@project.execution_start_date) %></dd>
-  <dt><%= Project.human_attribute_name(:execution_end_date) %>:</dt>
-  <dd><%= show_simple_date(@project.execution_end_date) %></dd>
-  <dt><%= Project.human_attribute_name(:contact_name) %>:</dt>
-  <dd><%= @project.contact_name %></dd>
-  <dt><%= Project.human_attribute_name(:contact_first_surname) %>:</dt>
-  <dd><%= @project.contact_first_surname %></dd>
-  <dt><%= Project.human_attribute_name(:contact_second_surname) %>:</dt>
-  <dd><%= @project.contact_second_surname %></dd>
-  <dt><%= Project.human_attribute_name(:phone_number) %>:</dt>
-  <dd><%= @project.phone_number %></dd>
-  <dt><%= Project.human_attribute_name(:email) %>:</dt>
-  <dd><%= @project.email %></dd>
-  <dt><%= Project.human_attribute_name(:comments) %>:</dt>
-  <dd><%= @project.comments %></dd>
-  <dt><%= Project.human_attribute_name(:beneficiaries_num) %>:</dt>
-  <dd><%= @project.beneficiaries_num %></dd>
-  <dt><%= Project.human_attribute_name(:volunteers_num) %>:</dt>
-  <dd><%= @project.volunteers_num %></dd>
-  <dt><%= Project.human_attribute_name(:insured) %>:</dt>
-  <dd><%= t("humanize.#{@project.insured}") %></dd>
-  <dt><%= Project.human_attribute_name(:insurance_date) %>:</dt>
-  <dd><%= show_simple_date(@project.insurance_date) %></dd>
-  <dt><%= Project.human_attribute_name(:project_type_id) %>:</dt>
-  <dd><%= @project.project_type %></dd>
-  <dt><%= Project.human_attribute_name(:entity_id) %>:</dt>
-  <dd><%= @project.entity %></dd>
-  <dt><%= Project.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@project.created_at) %></dd>
+    <h3><%= t('common_fields') %></h3>
 
-</dl>
+    <dl class="dl-horizontal">
+      <dt><%= Project.human_attribute_name(:id) %>:</dt>
+      <dd><%= @project.id %></dd>
+      <dt><%= Project.human_attribute_name(:name) %>:</dt>
+      <dd><%= @project.name %></dd>
+      <dt><%= Project.human_attribute_name(:active) %>:</dt>
+      <dd><%= t("humanize.#{@project.active?}") %></dd>
+      <dt><%= Project.human_attribute_name(:volunteers_allowed) %>:</dt>
+      <dd><%= t("humanize.#{@project.volunteers_allowed?}") %></dd>
+      <dt><%= Project.human_attribute_name(:public) %>:</dt>
+      <dd><%= t("humanize.#{@project.public?}") %></dd>
+      <dt><%= Project.human_attribute_name(:outstanding) %>:</dt>
+      <dd><%= t("humanize.#{@project.outstanding?}") %></dd>
+      <dt><%= Project.human_attribute_name(:description) %>:</dt>
+      <dd><%= @project.description %></dd>
+      <dt><%= Project.human_attribute_name(:functions) %>:</dt>
+      <dd><%= @project.functions %></dd>
+      <dt><%= Project.human_attribute_name(:execution_start_date) %>:</dt>
+      <dd><%= show_simple_date(@project.execution_start_date) %></dd>
+      <dt><%= Project.human_attribute_name(:execution_end_date) %>:</dt>
+      <dd><%= show_simple_date(@project.execution_end_date) %></dd>
+      <dt><%= Project.human_attribute_name(:contact_name) %>:</dt>
+      <dd><%= @project.contact_name %></dd>
+      <dt><%= Project.human_attribute_name(:contact_first_surname) %>:</dt>
+      <dd><%= @project.contact_first_surname %></dd>
+      <dt><%= Project.human_attribute_name(:contact_second_surname) %>:</dt>
+      <dd><%= @project.contact_second_surname %></dd>
+      <dt><%= Project.human_attribute_name(:phone_number) %>:</dt>
+      <dd><%= @project.phone_number %></dd>
+      <dt><%= Project.human_attribute_name(:email) %>:</dt>
+      <dd><%= @project.email %></dd>
+      <dt><%= Project.human_attribute_name(:comments) %>:</dt>
+      <dd><%= @project.comments %></dd>
+      <dt><%= Project.human_attribute_name(:beneficiaries_num) %>:</dt>
+      <dd><%= @project.beneficiaries_num %></dd>
+      <dt><%= Project.human_attribute_name(:volunteers_num) %>:</dt>
+      <dd><%= @project.volunteers_num %></dd>
+      <dt><%= Project.human_attribute_name(:insured) %>:</dt>
+      <dd><%= t("humanize.#{@project.insured}") %></dd>
+      <dt><%= Project.human_attribute_name(:insurance_date) %>:</dt>
+      <dd><%= show_simple_date(@project.insurance_date) %></dd>
+      <dt><%= Project.human_attribute_name(:project_type_id) %>:</dt>
+      <dd><%= @project.project_type %></dd>
+      <dt><%= Project.human_attribute_name(:entity_id) %>:</dt>
+      <dd><%= @project.entity %></dd>
+      <dt><%= Project.human_attribute_name(:created_at) %>:</dt>
+      <dd><%= show_simple_date(@project.created_at) %></dd>
+    </dl>
+
+  </div>
+
+  <% if @project.pt_extendable %>
+    <div class="col-md-6">
+
+      <h3><%= t('specific_fields') %></h3>
+
+      <%= render partial: "#{@project.pt_extendable.class.model_name.plural}/show",
+                 locals: { @project.pt_extendable.class.model_name.singular.to_sym => @project.pt_extendable } %>
+
+    </div>
+  <% end %>
+</div>
+
+
+
+
+
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@project) %>

@@ -6,30 +6,30 @@
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-          <div class="panel panel-<%= ProjectType.active?(:subvention) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :subvention) %>';">
+          <div class="panel panel-<%= ProjectType.active?(:pt_subvention) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_subvention) %>';">
             <div class="panel-heading">
               <h3 class="panel-title">
-                <%= ProjectType.kinds_i18n[:subvention] %>
+                <%= ProjectType.kinds_i18n[:pt_subvention] %>
               </h3>
             </div>
             <div class="panel-body">
               Asociados a una subvención
             </div>
           </div>
-        <div class="panel panel-<%= ProjectType.active?(:entity) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :entity) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_entity) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_entity) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= ProjectType.kinds_i18n[:entity] %>
+              <%= ProjectType.kinds_i18n[:pt_entity] %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una entidad
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:permanent) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :permanent) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_permanent) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_permanent) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= ProjectType.kinds_i18n[:permanent] %>
+              <%= ProjectType.kinds_i18n[:pt_permanent] %>
             </h3>
           </div>
           <div class="panel-body">
@@ -38,30 +38,30 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="panel panel-<%= ProjectType.active?(:centre) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :centre) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_centre) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_centre) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= ProjectType.kinds_i18n[:centre] %>
+              <%= ProjectType.kinds_i18n[:pt_centre] %>
             </h3>
           </div>
           <div class="panel-body">
             De centros de mayores
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:social) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :social) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_social) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_social) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= ProjectType.kinds_i18n[:social] %>
+              <%= ProjectType.kinds_i18n[:pt_social] %>
             </h3>
           </div>
           <div class="panel-body">
             De servicios sociales
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :other) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_other) %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= ProjectType.kinds_i18n[:other] %>
+              <%= ProjectType.kinds_i18n[:pt_other] %>
             </h3>
           </div>
           <div class="panel-body">

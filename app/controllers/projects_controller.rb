@@ -1,8 +1,9 @@
 class ProjectsController < ApplicationController
 
   load_and_authorize_resource
+  before_action :set_pt_extension, only: [:show, :new, :edit, :create, :update]
+
   respond_to :html, :js, :json
-  before_action :set_pt_extension, only: [:new, :create]
 
   def index
     params[:q] ||= Project.ransack_default
@@ -20,7 +21,6 @@ class ProjectsController < ApplicationController
   end
 
   def new
-    @project = Project.new
     respond_with(@project)
   end
 
@@ -53,7 +53,9 @@ class ProjectsController < ApplicationController
   protected
 
     def set_pt_extension
-      @project.build_pt_extendable(params[:pt_extension])
+      @pt_extension = params[:pt_extension]
+      @project.project_type = ProjectType.where(kind: ProjectType.kinds[@pt_extension]).take
+      @project.build_pt_extendable @pt_extension
     end
 
     def project_params
@@ -63,6 +65,10 @@ class ProjectsController < ApplicationController
           :id,
           :name,
           :description,
+          :volunteers_allowed,
+          :public,
+          :outstanding,
+          :pt_subvention,
           :project_type_id,
           :active,
           :comments,
@@ -83,10 +89,10 @@ class ProjectsController < ApplicationController
           collective_ids:   [],
           coordination_ids: [],
           district_ids:     [],
+          pt_extendable_attributes: pt_extendable_attributes,
           addresses_attributes: [
             :id,
-            :postal_code,
-            :road_type,
+            :road_type_id,
             :road_name,
             :road_number_type,
             :road_number,
@@ -94,6 +100,10 @@ class ProjectsController < ApplicationController
             :stairs,
             :floor,
             :door,
+            :postal_code,
+            :town,
+            :province_id,
+            :country,
             :_destroy
           ],
           timetables_attributes: [
@@ -107,7 +117,50 @@ class ProjectsController < ApplicationController
             :id,
             :name,
             :_destroy
-          ]
+          ],
         )
+    end
+
+    def pt_extendable_attributes
+      case params[:pt_extension]
+      when 'pt_subvention' then pt_subvention_attributes
+      when 'pt_entity'     then pt_entity_attributes
+      else {}
+      end
+    end
+
+    def pt_subvention_attributes
+      [
+        :id,
+        :representative_name,
+        :representative_first_surname,
+        :representative_second_surname,
+        :id_num,
+        :vat_num,
+        :entity_registry,
+        :cost,
+        :requested_amount,
+        :subsidized_amount,
+        :initial_volunteers_num,
+        :participants_num,
+        :has_quality_evaluation,
+        :proposal_id
+      ]
+    end
+
+    def pt_entity_attributes
+      [
+        :id,
+        :request_date,
+        :request_description,
+        :volunteers_profile,
+        :activities,
+        :sav_date,
+        :derived_volunteers_num,
+        :added_volunteers_num,
+        :agreement_signed,
+        :agreement_date,
+        :prevailing
+      ]
     end
 end

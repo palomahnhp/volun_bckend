@@ -2,13 +2,13 @@ es:
   enums:
     project_type:
       kind:
-        centre:     Centro de mayores
-        entity:     Entidad
-        permanent:  Permanente
-        punctual:   Puntual
-        social:     Sociales
-        subvention: Subvencionado
-        other:      Otros
+        pt_centre:     Centro de mayores
+        pt_entity:     Entidad
+        pt_permanent:  Permanente
+        pt_punctual:   Puntual
+        pt_social:     Sociales
+        pt_subvention: Subvencionado
+        pt_other:      Otros
     timetable:
       day:
         monday:     Lunes
@@ -182,8 +182,6 @@ es:
         vat_num:                       CIF de la entidad
         project_id:                    Proyecto
         project:                       Proyecto
-        project_type_id:               Tipo de proyecto
-        project_type:                  Tipo de proyecto
         proposal_id:                   Propuesta
         proposal:                      Propuesta
       pt_entity:
@@ -201,38 +199,6 @@ es:
         prevailing:               Vigencia
         project:                  Proyecto
         project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_punctual:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_permanent:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_centre:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_social:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_other:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
       timetable:
         id:                       ID
         day:                      Día de la semana

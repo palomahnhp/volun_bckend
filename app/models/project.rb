@@ -16,6 +16,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :timetables, allow_destroy: true
   accepts_nested_attributes_for :addresses,  allow_destroy: true
   accepts_nested_attributes_for :documents,  allow_destroy: true
+  accepts_nested_attributes_for :pt_extendable
 
   validates :name, uniqueness: true
   validates :name, :entity_id, :description, :execution_start_date, :contact_name,
@@ -45,21 +46,13 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def pt_extendable?
-    extendable.present?
-  end
-
-  def pt_extension_kind
-    project_type.kind
-  end
-
   def pt_extendable_class
-    pt_extendable.try(:class) || "Pt#{pt_extension_kind.classify}".constantize
+    @pt_extendable_class ||= pt_extendable.try(:class) || project_type.kind.classify.constantize
   end
 
   def build_pt_extendable(pt_extension_kind)
-    return unless pt_extension_kind.to_s.in? ProjectType.kinds.keys
-    self.extendable ||= pt_extendable_class.constantize.new
+    return unless pt_extension_kind.to_s.in? ProjectType.pt_extension_tables
+    self.pt_extendable ||= pt_extendable_class.new
   end
 
 end
