@@ -47,7 +47,7 @@ class ProjectsController < ApplicationController
     respond_with(@project)
   end
 
-  def select_pt_extensions
+  def pt_extensions_menu
   end
 
   protected

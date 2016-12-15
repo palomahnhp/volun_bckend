@@ -43,7 +43,7 @@ Rails.application.routes.draw do
     post :recover, on: :member
   end
   resources :projects, concerns: :recoverable do
-    get 'select_pt_extensions', on: :collection
+    get 'pt_extensions_menu', on: :collection
   end
   resources :project_types, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
