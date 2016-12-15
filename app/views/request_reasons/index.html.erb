@@ -1,4 +1,4 @@
-<% model_class = RequestFormReason %>
+<% model_class = RequestReason %>
 
 <div class="row">
   <div class="col-md-12">
@@ -28,8 +28,8 @@
   </thead>
   
   <tbody>
-    <%= render(partial: 'request_form_reason', collection: @request_form_reasons)%>
+    <%= render(partial: 'request_reason', collection: @request_reasons)%>
   </tbody>
 </table>
 
-<%= render partial: "shared/pagination", locals: {collection: @request_form_reasons} %>
+<%= render partial: "shared/pagination", locals: {collection: @request_reasons} %>

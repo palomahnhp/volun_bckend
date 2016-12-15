@@ -19,6 +19,7 @@ class CreateRtEntitySubscribes < ActiveRecord::Migration
       t.string :postal_code
       t.string :town
       t.string :province
+      t.references :request_reason, index: true, foreign_key: true
 
       t.timestamps null: false
     end

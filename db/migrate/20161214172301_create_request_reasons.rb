@@ -1,6 +1,6 @@
-class CreateRequestFormReasons < ActiveRecord::Migration
+class CreateRequestReasons < ActiveRecord::Migration
   def change
-    create_table :request_form_reasons do |t|
+    create_table :request_reasons do |t|
       t.integer :kind
       t.text :description
       t.boolean :active, default: true

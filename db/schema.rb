@@ -307,7 +307,24 @@ ActiveRecord::Schema.define(version: 20161214172322) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "request_form_reasons", force: :cascade do |t|
+  create_table "request_forms", force: :cascade do |t|
+    t.integer  "request_type_id"
+    t.integer  "rt_extendable_id"
+    t.string   "rt_extendable_type"
+    t.datetime "sent_at"
+    t.integer  "status"
+    t.datetime "status_date"
+    t.integer  "rejection_type_id"
+    t.text     "comments"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  add_index "request_forms", ["rejection_type_id"], name: "index_request_forms_on_rejection_type_id", using: :btree
+  add_index "request_forms", ["request_type_id"], name: "index_request_forms_on_request_type_id", using: :btree
+  add_index "request_forms", ["rt_extendable_type", "rt_extendable_id"], name: "index_request_forms_on_rt_extendable_type_and_rt_extendable_id", using: :btree
+
+  create_table "request_reasons", force: :cascade do |t|
     t.integer  "kind"
     t.text     "description"
     t.boolean  "active",      default: true
@@ -322,23 +339,6 @@ ActiveRecord::Schema.define(version: 20161214172322) do
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
-
-  create_table "request_forms", force: :cascade do |t|
-    t.integer  "request_type_id"
-    t.integer  "rt_extendable_id"
-    t.string   "rt_extendable_type"
-    t.datetime "sent_at"
-    t.integer  "status"
-    t.datetime "status_date"
-    t.integer  "rejection_type_id"
-    t.text     "comments"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  add_index "request_forms", ["rejection_type_id"], name: "index_request_forms_on_rejection_type_id", using: :btree
-  add_index "request_forms", ["request_type_id"], name: "index_request_forms_on_request_type_id", using: :btree
-  add_index "request_forms", ["rt_extendable_type", "rt_extendable_id"], name: "index_request_forms_on_rt_extendable_type_and_rt_extendable_id", using: :btree
 
   create_table "road_types", force: :cascade do |t|
     t.string   "name"
@@ -389,9 +389,12 @@ ActiveRecord::Schema.define(version: 20161214172322) do
     t.string   "postal_code"
     t.string   "town"
     t.string   "province"
+    t.integer  "request_reason_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
+
+  add_index "rt_entity_subscribes", ["request_reason_id"], name: "index_rt_entity_subscribes_on_request_reason_id", using: :btree
 
   create_table "rt_entity_unsubscribes", force: :cascade do |t|
     t.text     "reason"
@@ -562,6 +565,7 @@ ActiveRecord::Schema.define(version: 20161214172322) do
   add_foreign_key "record_histories", "users"
   add_foreign_key "request_forms", "rejection_types"
   add_foreign_key "request_forms", "request_types"
+  add_foreign_key "rt_entity_subscribes", "request_reasons"
   add_foreign_key "rt_project_unsubscribes", "projects"
   add_foreign_key "rt_volunteer_amendments", "addresses"
   add_foreign_key "rt_volunteer_amendments", "volunteers"

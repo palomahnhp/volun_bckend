@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :pt_entities, only: [:index, :show, :edit, :update]
   resources :pt_subventions, only: [:index, :show, :edit, :update]
   resources :request_forms
-  resources :request_form_reasons
+  resources :request_reasons
   resources :request_types
   resources :rejection_types
   resources :volunteers
