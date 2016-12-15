@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   resources :pt_subventions, only: [:index, :show, :edit, :update]
   resources :request_forms
   resources :request_form_reasons
-  resources :request_form_types
+  resources :request_types
   resources :rejection_types
   resources :volunteers
   resources :record_histories
@@ -44,6 +44,9 @@ Rails.application.routes.draw do
   end
   resources :projects, concerns: :recoverable do
     get 'pt_extensions_menu', on: :collection
+  end
+  resources :request_forms, concerns: :recoverable do
+    get 'rt_extensions_menu', on: :collection
   end
   resources :project_types, concerns: :recoverable
   resources :coordinations, concerns: :recoverable

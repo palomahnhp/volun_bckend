@@ -315,7 +315,7 @@ ActiveRecord::Schema.define(version: 20161214172322) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "request_form_types", force: :cascade do |t|
+  create_table "request_types", force: :cascade do |t|
     t.integer  "kind"
     t.text     "description"
     t.boolean  "active",      default: true
@@ -324,7 +324,7 @@ ActiveRecord::Schema.define(version: 20161214172322) do
   end
 
   create_table "request_forms", force: :cascade do |t|
-    t.integer  "request_form_type_id"
+    t.integer  "request_type_id"
     t.integer  "rt_extendable_id"
     t.string   "rt_extendable_type"
     t.datetime "sent_at"
@@ -337,7 +337,7 @@ ActiveRecord::Schema.define(version: 20161214172322) do
   end
 
   add_index "request_forms", ["rejection_type_id"], name: "index_request_forms_on_rejection_type_id", using: :btree
-  add_index "request_forms", ["request_form_type_id"], name: "index_request_forms_on_request_form_type_id", using: :btree
+  add_index "request_forms", ["request_type_id"], name: "index_request_forms_on_request_type_id", using: :btree
   add_index "request_forms", ["rt_extendable_type", "rt_extendable_id"], name: "index_request_forms_on_rt_extendable_type_and_rt_extendable_id", using: :btree
 
   create_table "road_types", force: :cascade do |t|
@@ -561,7 +561,7 @@ ActiveRecord::Schema.define(version: 20161214172322) do
   add_foreign_key "pt_subventions", "proposals"
   add_foreign_key "record_histories", "users"
   add_foreign_key "request_forms", "rejection_types"
-  add_foreign_key "request_forms", "request_form_types"
+  add_foreign_key "request_forms", "request_types"
   add_foreign_key "rt_project_unsubscribes", "projects"
   add_foreign_key "rt_volunteer_amendments", "addresses"
   add_foreign_key "rt_volunteer_amendments", "volunteers"

@@ -93,9 +93,9 @@ MODELS_AND_ATTRS = {
 
   'RejectionType' => 'kind:integer description:text active:boolean',
 
-  'RequestFormType'         => 'kind:integer description:text active:boolean',
+  'RequestType'             => 'kind:integer description:text active:boolean',
   'RequestFormReason'       => 'kind:integer description:text active:boolean',
-  'RequestForm'             => 'request_form_type:references rt_extendable:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  'RequestForm'             => 'request_type:references rt_extendable:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
   'RtVolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
   'RtVolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
   'RtVolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',

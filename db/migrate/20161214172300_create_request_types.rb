@@ -1,6 +1,6 @@
-class CreateRequestFormTypes < ActiveRecord::Migration
+class CreateRequestTypes < ActiveRecord::Migration
   def change
-    create_table :request_form_types do |t|
+    create_table :request_types do |t|
       t.integer :kind
       t.text :description
       t.boolean :active, default: true

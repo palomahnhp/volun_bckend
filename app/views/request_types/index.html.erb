@@ -1,4 +1,4 @@
-<% model_class = RequestFormType %>
+<% model_class = RequestType %>
 
 <div class="row">
   <div class="col-md-12">
@@ -28,8 +28,8 @@
   </thead>
   
   <tbody>
-    <%= render(partial: 'request_form_type', collection: @request_form_types)%>
+    <%= render(partial: 'request_type', collection: @request_types)%>
   </tbody>
 </table>
 
-<%= render partial: "shared/pagination", locals: {collection: @request_form_types} %>
+<%= render partial: "shared/pagination", locals: {collection: @request_types} %>
