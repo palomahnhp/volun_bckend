@@ -6,11 +6,8 @@
   </div>
 </div>
 <div class="index-panel row well">
-  <div class="col-md-6">
-    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
-  </div>
-  <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :name_or_first_surname_or_second_surname_or_phone_number_or_phone_number_alt_or_email_cont), class: 'col-md-6 pull-right') %>
+  <div class="col-md-12">
+    <%= content_tag(:div, search_collection(@search_q, :name_or_first_surname_or_second_surname_or_phone_number_or_phone_number_alt_or_email_cont), class: 'col-md-4 pull-right') %>
   </div>
 </div>
 

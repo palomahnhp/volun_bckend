@@ -1,26 +1,7 @@
-<div class="well">
-  <%= simple_form_for(@rt_volunteers_demand, default_form_options) do |f| %>
+<div class="well well-form">
+  <%= simple_nested_form_for(@rt_volunteers_demand, default_form_options) do |f| %>
 
-  <div class="form-inputs">
-          <%= f.input :description %>
-          <%= f.input :execution_start_date, as: :datepicker %>
-          <%= f.input :execution_end_date, as: :datepicker %>
-          <%= f.input :road_type %>
-          <%= f.input :road_name %>
-          <%= f.input :number_type %>
-          <%= f.input :road_number %>
-          <%= f.input :postal_code %>
-          <%= f.input :town %>
-          <%= f.input :province %>
-          <%= f.input :requested_volunteers_num %>
-          <%= f.input :volunteers_profile %>
-          <%= f.input :volunteer_functions_1 %>
-          <%= f.input :volunteer_functions_2 %>
-          <%= f.input :volunteer_functions_3 %>
-  </div>
+      <%= render partial: 'form_fields', locals: {f: f } %>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
   <% end %>
 </div>
