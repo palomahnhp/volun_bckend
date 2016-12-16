@@ -1,5 +1,7 @@
 class Address < ActiveRecord::Base
 
+  # include BdcNormalizator
+
   attr_accessor :bdc_validator
 
   ROAD_NUMBER_TYPES = %w(num km.)
@@ -20,6 +22,10 @@ class Address < ActiveRecord::Base
     @bdc_validator ||= BdcValidator.new(bdc_fields)
   end
 
+  def bdc_address_result
+    bdc_validator.search_towns
+  end
+
   private
 
   def check_normalization
@@ -28,19 +34,19 @@ class Address < ActiveRecord::Base
 
   def bdc_fields
     {
-        country:          country,
-        province:         province.try(:name),
-        town:             town,
-        road_type:        road_type.try(:name),
-        road_name:        road_name,
-        road_number_type: road_number_type,
-        road_number:      road_number,
-        grader:           grader,
-        stairs:           stairs,
-        floor:            floor,
-        door:             door,
+        country:          country.to_s,
+        province:         province.try(:name).to_s,
+        town:             town.to_s,
+        road_type:        road_type.try(:name).to_s,
+        road_name:        road_name.to_s,
+        road_number_type: road_number_type.to_s,
+        road_number:      road_number.to_s,
+        grader:           grader.to_s,
+        stairs:           stairs.to_s,
+        floor:            floor.to_s,
+        door:             door.to_s,
         bdc_exchange:     '',
-        aplication:       ''
+        aplication:       Rails.application.secrets.bdc_app_name
     }
   end
 end

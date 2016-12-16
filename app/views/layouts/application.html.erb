@@ -78,6 +78,12 @@
   <%= render 'layouts/footer' %>
 </footer>
 
+<div class="spinner">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+</div>
+
 </body>
 </html>
 
@@ -85,4 +91,8 @@
 <script type="text/javascript">
   confirm_submit("<%= t('messages.confirm_modification') %>");
   confirm_undo("<%= t('messages.confirm_undo') %>");
+
+  $(function() {
+      new app.Addresses;
+  });
 </script>
