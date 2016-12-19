@@ -50,7 +50,9 @@ class AddressesController < ApplicationController
   def bdc_search_roads
     @address = Address.new(address_params)
     respond_with(@address) do |format|
-      format.json { render json: { towns: @address.bdc_validator.search_roads } }
+      format.json {
+        render json: { roads: @address.bdc_validator.search_roads }
+      }
     end
   end
 
@@ -60,9 +62,9 @@ class AddressesController < ApplicationController
       params
         .require(:address)
         .permit(
-          :road_type,
+          :road_type_id,
           :road_name,
-          :road_number_type_id,
+          :road_number_type,
           :road_number,
           :grader,
           :stairs,

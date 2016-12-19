@@ -162,9 +162,10 @@ class BdcValidator
     self.clean_bdc_fields = deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return])
     self.address_data = clean_bdc_fields[:bloquedireccion][:datosdireccion]
     if road_name_unique?
-      [road_name[:nomvial]]
+      [road_name]
     elsif town_unique?
-      road_names.map { |town| town[:nomvial] }
+      road_names.select! { |road| road[:nomclase] == bdc_fields[:road_type] } if bdc_fields[:road_type].present?
+      road_names.sort_by { |road| road[:nomvial] }
     else
       []
     end

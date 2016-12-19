@@ -74,9 +74,9 @@
                             country:             $("#address_country").val(),
                             province_id:         $("#address_province_id").val(),
                             town:                $("#address_town").val(),
-                            road_type:           $("#address_road_type").val(),
+                            road_type_id:        $("#address_road_type_id").val(),
                             road_name:           $("#address_road_name").val(),
-                            road_number_type_id: $("#address_road_number_type_id").val(),
+                            road_number_type:    $("#address_road_number_type").val(),
                             road_number:         $("#address_road_number").val(),
                             grader:              $("#address_grader").val(),
                             stairs:              $("#address_stairs").val(),
@@ -125,9 +125,9 @@
                             country:             $("#address_country").val(),
                             province_id:         $("#address_province_id").val(),
                             town:                $("#address_town").val(),
-                            road_type:           $("#address_road_type").val(),
+                            road_type_id:        $("#address_road_type_id").val(),
                             road_name:           $("#address_road_name").val(),
-                            road_number_type_id: $("#address_road_number_type_id").val(),
+                            road_number_type:    $("#address_road_number_type").val(),
                             road_number:         $("#address_road_number").val(),
                             grader:              $("#address_grader").val(),
                             stairs:              $("#address_stairs").val(),
@@ -136,16 +136,21 @@
                         },
                     },
                     success: function( data ) {
-                        console.log(data.towns)
-                        response( data.towns );
+                        console.log( data.roads )
+                        var road_list = [];
+                        $.each(data.roads, function(index, road) {
+                            road_list.push(road.nomvial + ' (' + road.nomclase + ')');
+                        });
+                        console.log( road_list )
+                        response( road_list );
                     }
                 });
             },
             minLength: 3,
             select: function( event, ui ) {
                 log( ui.item ?
-                "Selected: " + ui.item.label :
-                "Nothing selected, input was " + this.value);
+                    "Selected: " + ui.item.label :
+                    "Nothing selected, input was " + this.value);
             },
             open: function() {
                 $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
