@@ -1,0 +1,7 @@
+<div class="well well-form">
+  <%= simple_nested_form_for(@rt_project_publishing, default_form_options) do |f| %>
+
+      <%= render partial: 'form_fields', locals: {f: f } %>
+
+  <% end %>
+</div>

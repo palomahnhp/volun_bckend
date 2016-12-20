@@ -1,6 +1,6 @@
 <tr id="<%%= dom_id(<%= singular_table_name %>) %>" >
 
-  <%% project.main_attributes.each do |attr_name| %>
+  <%% <%= singular_table_name %>.main_attributes.each do |attr_name| %>
   <td><%%= show_attr(<%= singular_table_name %>.public_send attr_name) %></td>
   <%% end %>
 

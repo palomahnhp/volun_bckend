@@ -17,27 +17,12 @@ class PtSubventionsController < ApplicationController
     end
   end
 
-  def new
-    @pt_subvention = PtSubvention.new
-    respond_with(@pt_subvention)
-  end
-
   def edit
-  end
-
-  def create
-    @pt_subvention.save
-    respond_with(@pt_subvention, location: projects_path)
   end
 
   def update
     @pt_subvention.update_attributes(pt_subvention_params)
-    respond_with(@pt_subvention, location: projects_path)
-  end
-
-  def destroy
-    @pt_subvention.destroy
-    respond_with(@pt_subvention, location: projects_path)
+    respond_with(@pt_subvention)
   end
 
   protected
@@ -45,19 +30,20 @@ class PtSubventionsController < ApplicationController
     def pt_subvention_params
       params
         .require(:pt_subvention)
-        .permit(:representative_name,
-                :representative_first_surname,
-                :representative_second_surname,
-                :id_num,
-                :vat_num,
-                :entity_registry,
-                :cost,
-                :requested_amount,
-                :subsidized_amount,
-                :initial_volunteers_num,
-                :participants_num,
-                :has_quality_evaluation,
-                :proposal_id,
-                permitted_project_attrs)
+        .permit(
+          :representative_name,
+          :representative_first_surname,
+          :representative_second_surname,
+          :id_num,
+          :vat_num,
+          :entity_registry,
+          :cost,
+          :requested_amount,
+          :subsidized_amount,
+          :initial_volunteers_num,
+          :participants_num,
+          :has_quality_evaluation,
+          :proposal_id,
+        )
     end
 end

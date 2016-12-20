@@ -17,27 +17,12 @@ class PtEntitiesController < ApplicationController
     end
   end
 
-  def new
-    @pt_entity = PtEntity.new
-    respond_with(@pt_entity)
-  end
-
   def edit
-  end
-
-  def create
-    @pt_entity.save
-    respond_with(@pt_entity, location: projects_path)
   end
 
   def update
     @pt_entity.update_attributes(pt_entity_params)
-    respond_with(@pt_entity, location: projects_path)
-  end
-
-  def destroy
-    @pt_entity.destroy
-    respond_with(@pt_entity, location: projects_path)
+    respond_with(@pt_entity)
   end
 
   protected
@@ -45,16 +30,17 @@ class PtEntitiesController < ApplicationController
     def pt_entity_params
       params
         .require(:pt_entity)
-        .permit(:request_date,
-                :request_description,
-                :volunteers_profile,
-                :activities,
-                :sav_date,
-                :derived_volunteers_num,
-                :added_volunteers_num,
-                :agreement_signed,
-                :agreement_date,
-                :prevailing,
-                permitted_project_attrs)
+        .permit(
+          :request_date,
+          :request_description,
+          :volunteers_profile,
+          :activities,
+          :sav_date,
+          :derived_volunteers_num,
+          :added_volunteers_num,
+          :agreement_signed,
+          :agreement_date,
+          :prevailing,
+        )
     end
 end

@@ -1,10 +1,17 @@
-<div id="project" class="form">
-  <%= simple_nested_form_for(@project, default_form_options) do |f| %>
+<% pt_extendable = @project.pt_extendable %>
 
+<div id="project" class="well well-form">
+  <%= simple_nested_form_for(@project, default_form_options) do |f| %>
       <%= render partial: 'form_fields', locals: { f: f } %>
+      <%= hidden_field_tag :pt_extension, @pt_extension %>
+
+      <%= f.simple_fields_for :pt_extendable, pt_extendable do |f_project|  %>
+          <%= render partial: "#{pt_extendable.class.model_name.plural}/form_fields", locals: { f: f_project } if pt_extendable %>
+      <% end %>
 
       <div class="form-actions">
-        <%= f.button :submit, class: 'btn btn-primary' %>
+        <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+        <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
       </div>
   <% end %>
 </div>

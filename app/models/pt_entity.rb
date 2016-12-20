@@ -1,5 +1,5 @@
 class PtEntity < ActiveRecord::Base
 
-  include ProjectTypeCommons
+  has_one :project, as: :pt_extendable
 
 end

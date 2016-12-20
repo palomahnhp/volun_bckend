@@ -4,9 +4,13 @@
   <td><%= show_attr(project.public_send attr_name) %></td>
   <% end %>
 
+  <td><%= project.districts.to_sentence %></td>
+  <td><%= project.areas.to_sentence %></td>
+  <td><%= project.collectives.to_sentence %></td>
+
   <td class="index_table-actions">
-    <%= link_to_show(project) %>
-    <%= link_to_edit(project) %>
+    <%= link_to_show(project, path_params: { pt_extension: project.project_type.kind }) %>
+    <%= link_to_edit(project, path_params: { pt_extension: project.project_type.kind }) %>
 <% if project.try(:archived?) %>
     <%= link_to_recover(project) %>
 <% else %>

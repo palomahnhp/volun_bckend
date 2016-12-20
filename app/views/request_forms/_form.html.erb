@@ -2,7 +2,7 @@
   <%= simple_form_for(@request_form, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.association :request_form_type %>
+          <%= f.association :request_type %>
           <%= f.input :sent_at %>
           <%= f.input :status %>
           <%= f.input :status_date, as: :datepicker %>
