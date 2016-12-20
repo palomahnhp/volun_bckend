@@ -56,6 +56,15 @@ class AddressesController < ApplicationController
     end
   end
 
+  def bdc_search_road_numbers
+    @address = Address.new(address_params)
+    respond_with(@address) do |format|
+      format.json {
+        render json: { numbers: @address.bdc_validator.search_road_numbers }
+      }
+    end
+  end
+
   protected
 
     def address_params

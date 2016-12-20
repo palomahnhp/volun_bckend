@@ -4,10 +4,10 @@ module BdcCompatible
   included do
 
     attr_accessor :bdc_validator
-    after_validation :check_normalization
+    before_validation :check_normalization
 
     def normalized?
-      ndp_code.present? || bdc_validator.address_normalized?
+      ndp_code.present?
     end
 
     def bdc_validator
@@ -20,8 +20,21 @@ module BdcCompatible
 
     private
 
+    # BDC service need two white spaces in the grader field in order to look for
+    # an address without a grader
+    def normalize_grader
+      self.grader = '  ' if grader.blank?
+    end
+
     def check_normalization
-      self.ndp_code ||= bdc_validator.ndp_code if normalized?
+      normalize_grader
+      if bdc_validator.address_normalized?
+        self.ndp_code      = bdc_validator.ndp_code
+        self.latitude      = bdc_validator.latitude
+        self.longitude     = bdc_validator.longitude
+        self.local_code    = bdc_validator.local_code
+        self.road_type_id  = RoadType.find_by(name: bdc_validator.road_type).try(:id)
+      end
     end
 
     def bdc_fields
