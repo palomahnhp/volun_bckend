@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(road_type) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% road_type.main_attributes.each do |attr_name| %>
   <td><%= show_attr(road_type.public_send attr_name) %></td>
   <% end %>
 

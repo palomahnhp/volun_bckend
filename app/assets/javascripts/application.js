@@ -15,18 +15,12 @@
 //= require jquery-ui/datepicker
 //= require jquery-ui/datepicker-es
 //= require jquery-ui/dialog
+//= require jquery-ui/autocomplete
 //= require jquery_nested_form
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
 
-// jQuery date picker
-// $(document).on('ready', function(){
-//     $("input.datepicker").datepicker();
-// });
-// $(document).on('page:load', function(){
-//     $("input.datepicker").datepicker();
-// });
 
 
 $(document).on('ready page:load turbolinks:load', function(){
@@ -60,3 +54,20 @@ var confirm_undo = function (msg) {
     confirm_reload(msg);
 };
 
+
+$( document ).ready(function() {
+
+    // hide spinner
+    $(".spinner").hide();
+
+    // show spinner on AJAX start
+    $(document).ajaxStart(function(){
+        $(".spinner").show();
+    });
+
+    // hide spinner on AJAX stop
+    $(document).ajaxStop(function(){
+        $(".spinner").delay(500).hide(0);
+    });
+
+});

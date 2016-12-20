@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(activity) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% activitie.main_attributes.each do |attr_name| %>
   <td><%= show_attr(activity.public_send attr_name) %></td>
   <% end %>
 

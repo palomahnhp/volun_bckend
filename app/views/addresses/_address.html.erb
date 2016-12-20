@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(address) %>" >
 
-  <% project.main_attributes.each do |attr_name| %>
+  <% address.main_attributes.each do |attr_name| %>
   <td><%= show_attr(address.public_send attr_name) %></td>
   <% end %>
 
