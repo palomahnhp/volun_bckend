@@ -30,12 +30,17 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
+  'Event'    => 'eventable_id:integer eventable_type:string address_id:integer',
+  'Timetable' => 'event_id:integer execution_date:date start_hour:string end_hour:string ',
+
   # 1:N tables for ProjectTypeSubvention
 
-  'Proposal' => 'name description:text active:boolean',
-  'Activity' => 'name description:text active:boolean',
+
+  'Activity' => 'name:string description:text start_date:datetime end_date:datetime transport:text pdf_url:string entity_id:integer area_id:integer project_id:integer share:boolean ',
   'Image'    => 'name payload:binary project:references',
   'Link'     => 'name url project:references',
+
+  'Proposal' => 'name description:text active:boolean',
 
   # -------------------------------------------------
 
@@ -77,7 +82,6 @@ MODELS_AND_ATTRS = {
   'Collective'   => 'name description:text active:boolean',
   'Coordination' => 'name description:text active:boolean',
   'District'     => 'name code active:boolean',
-  'Timetable'    => 'day:integer start_hour end_hour',
 
   # -------------------------------------------------
 

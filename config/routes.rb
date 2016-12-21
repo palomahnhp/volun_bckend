@@ -23,16 +23,12 @@ Rails.application.routes.draw do
   resources :rejection_types
   resources :volunteers
   resources :record_histories
-  resources :timetables
   resources :districts
   resources :addresses do
     get 'bdc_search_towns', on: :collection
     get 'bdc_search_roads', on: :collection
     get 'bdc_search_road_numbers', on: :collection
   end
-  resources :links
-  resources :images
-  resources :activities
   resources :proposals
   resources :documents
   resources :issues
