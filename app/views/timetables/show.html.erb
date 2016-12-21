@@ -1,0 +1,22 @@
+<%= main_title(t("action.show", model: Timetable.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Timetable.human_attribute_name(:id) %>:</dt>
+  <dd><%= @timetable.id %></dd>
+  <dt><%= Timetable.human_attribute_name(:event_id) %>:</dt>
+  <dd><%= @timetable.event_id %></dd>
+  <dt><%= Timetable.human_attribute_name(:execution_date) %>:</dt>
+  <dd><%= show_simple_date(@timetable.execution_date) %></dd>
+  <dt><%= Timetable.human_attribute_name(:start_hour) %>:</dt>
+  <dd><%= @timetable.start_hour %></dd>
+  <dt><%= Timetable.human_attribute_name(:end_hour) %>:</dt>
+  <dd><%= @timetable.end_hour %></dd>
+  <dt><%= Timetable.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@timetable.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@timetable) %>
+<% end %>

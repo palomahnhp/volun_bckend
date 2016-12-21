@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214172322) do
+ActiveRecord::Schema.define(version: 20161221103708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,16 @@ ActiveRecord::Schema.define(version: 20161214172322) do
   create_table "activities", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.boolean  "active",      default: true
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.text     "transport"
+    t.string   "pdf_url"
+    t.integer  "entity_id"
+    t.integer  "area_id"
+    t.integer  "project_id"
+    t.boolean  "share",       default: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "addresses", force: :cascade do |t|
@@ -48,14 +55,6 @@ ActiveRecord::Schema.define(version: 20161214172322) do
 
   add_index "addresses", ["province_id"], name: "index_addresses_on_province_id", using: :btree
   add_index "addresses", ["road_type_id"], name: "index_addresses_on_road_type_id", using: :btree
-
-  create_table "addresses_projects", id: false, force: :cascade do |t|
-    t.integer "address_id", null: false
-    t.integer "project_id", null: false
-  end
-
-  add_index "addresses_projects", ["address_id", "project_id"], name: "index_addresses_projects_on_address_id_and_project_id", using: :btree
-  add_index "addresses_projects", ["project_id", "address_id"], name: "index_addresses_projects_on_project_id_and_address_id", using: :btree
 
   create_table "areas", force: :cascade do |t|
     t.string   "name"
@@ -151,15 +150,15 @@ ActiveRecord::Schema.define(version: 20161214172322) do
     t.datetime "updated_at",                 null: false
   end
 
-  create_table "images", force: :cascade do |t|
-    t.string   "name"
-    t.binary   "payload"
-    t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "events", force: :cascade do |t|
+    t.integer  "eventable_id"
+    t.string   "eventable_type"
+    t.integer  "address_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
-  add_index "images", ["project_id"], name: "index_images_on_project_id", using: :btree
+  add_index "events", ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id", using: :btree
 
   create_table "issues", force: :cascade do |t|
     t.text     "comments"
@@ -172,14 +171,16 @@ ActiveRecord::Schema.define(version: 20161214172322) do
   add_index "issues", ["project_id"], name: "index_issues_on_project_id", using: :btree
 
   create_table "links", force: :cascade do |t|
-    t.string   "name"
     t.string   "url"
-    t.integer  "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.text     "description"
+    t.integer  "kind"
+    t.integer  "linkable_id"
+    t.string   "linkable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "links", ["project_id"], name: "index_links_on_project_id", using: :btree
+  add_index "links", ["linkable_type", "linkable_id"], name: "index_links_on_linkable_type_and_linkable_id", using: :btree
 
   create_table "project_types", force: :cascade do |t|
     t.integer  "kind"
@@ -297,6 +298,7 @@ ActiveRecord::Schema.define(version: 20161214172322) do
     t.datetime "updated_at",            null: false
   end
 
+  add_index "record_histories", ["recordable_type", "recordable_id"], name: "index_record_histories_on_recordable_type_and_recordable_id", using: :btree
   add_index "record_histories", ["user_id"], name: "index_record_histories_on_user_id", using: :btree
 
   create_table "rejection_types", force: :cascade do |t|
@@ -499,11 +501,12 @@ ActiveRecord::Schema.define(version: 20161214172322) do
   end
 
   create_table "timetables", force: :cascade do |t|
-    t.integer  "day"
+    t.integer  "event_id"
+    t.date     "execution_date"
     t.string   "start_hour"
     t.string   "end_hour"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "trackings", force: :cascade do |t|
@@ -552,9 +555,7 @@ ActiveRecord::Schema.define(version: 20161214172322) do
   add_foreign_key "addresses", "road_types"
   add_foreign_key "documents", "projects"
   add_foreign_key "entities", "entity_types"
-  add_foreign_key "images", "projects"
   add_foreign_key "issues", "projects"
-  add_foreign_key "links", "projects"
   add_foreign_key "projects", "entities"
   add_foreign_key "projects", "project_types"
   add_foreign_key "pt_entities", "project_types"

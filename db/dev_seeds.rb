@@ -14,6 +14,7 @@ ENTITY_NUM        = 10
 RACKING_NUM       = 10
 ISSUE_NUM         = 10
 TIMETABLE_NUM     = 10
+EVENTS_NUM        = 10
 DOCUMENT_NUM      = 10
 
 PROJECT_TYPES = {
@@ -258,14 +259,6 @@ puts "Creando Direcciones"
   )
 end
 
-puts "Creando Horarios"
-(1..TIMETABLE_NUM).each do |n|
-  Timetable.create!(
-      day:        Timetable.days.values.sample,
-      start_hour: '11:11',
-      end_hour:   '12:12'
-  )
-end
 
 # puts "Creando Motivos de solicitud"
 # REQUEST_REASONS.each do |kind , name|
@@ -298,12 +291,65 @@ ProjectType.all.each do |project_type|
 
     project.save!
 
-    [Address, Area, Collective, Coordination, District, Timetable].each do |model|
+    [Area, Collective, Coordination, District].each do |model|
       model.first(5).each do |record|
         unless project.public_send("#{model.model_name.singular}_ids").include? record.id
           project.public_send(model.model_name.plural) << record
         end
       end
     end
+
+
+    puts "Creando Eventos"
+    EVENTS_NUM.times do
+      event = Event.create!(
+        address:    Address.all.sample,
+        eventable:  project,
+      )
+
+      puts "Creando Horarios para evento #{event.id}"
+      TIMETABLE_NUM.times do
+        Timetable.create!(
+          event: event,
+          execution_date:  rand(100).days.since.to_date,
+          start_hour: '11:11',
+          end_hour:   '12:12'
+        )
+      end
+    end
   end
 end
+
+puts "Creando Actividades"
+  (1..ACTIVITIES_NUM).each do |n|
+    activity = Activity.create!(
+      name:        "Actividad #{n}",
+      description: Faker::Lorem.sentence,
+      start_date:  rand(100).days.ago.to_date,
+      end_date:    rand(100).days.since.to_date,
+      transport:   "Medio de transporte #{n}",
+      pdf_url:     nil,
+      entity_id:   Entity.all.sample,
+      area_id:     Area.all.sample,
+      project_id:  nil,
+      share:       [true, false].sample,
+    )
+
+    puts "Creando eventos de actividad #{activity.id}"
+    EVENTS_NUM.times do
+      event = Event.create!(
+        address:    Address.all.sample,
+        eventable:  activity,
+      )
+
+      puts "Creando Horarios para evento #{event.id}"
+      TIMETABLE_NUM.times do
+        Timetable.create!(
+          event: event,
+          execution_date:  rand(100).days.since.to_date,
+          start_hour: '11:11',
+          end_hour:   '12:12'
+        )
+      end
+    end
+  end

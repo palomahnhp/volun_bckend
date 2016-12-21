@@ -2,6 +2,28 @@ Rails.application.routes.draw do
 
 
 
+  resources :request_forms
+  resources :request_reasons
+  resources :request_types
+  resources :rejection_types
+  resources :volunteers
+  resources :record_histories
+  resources :addresses
+  resources :pt_entities
+  resources :pt_subventions
+  resources :proposals
+  resources :links
+  resources :activities
+  resources :timetables
+  resources :events
+  resources :documents
+  resources :issues
+  resources :trackings
+  resources :entities
+  resources :entity_types
+  resources :road_types
+  resources :provinces
+  devise_for :users
   resources :rt_others, only: [:index, :show, :edit, :update]
   resources :rt_activity_unpublishings, only: [:index, :show, :edit, :update]
   resources :rt_activity_publishings, only: [:index, :show, :edit, :update]
@@ -17,28 +39,11 @@ Rails.application.routes.draw do
   resources :rt_volunteer_subscribes, only: [:index, :show, :edit, :update]
   resources :pt_entities, only: [:index, :show, :edit, :update]
   resources :pt_subventions, only: [:index, :show, :edit, :update]
-  resources :request_forms
-  resources :request_reasons
-  resources :request_types
-  resources :rejection_types
-  resources :volunteers
-  resources :record_histories
-  resources :districts
   resources :addresses do
     get 'bdc_search_towns', on: :collection
     get 'bdc_search_roads', on: :collection
     get 'bdc_search_road_numbers', on: :collection
   end
-  resources :proposals
-  resources :documents
-  resources :issues
-  resources :trackings
-  resources :entities
-  resources :entity_types
-  resources :road_types
-  resources :provinces
-  devise_for :users
-  resources :users
   concern :recoverable do
     post :recover, on: :member
   end

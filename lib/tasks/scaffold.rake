@@ -30,15 +30,14 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Event'    => 'eventable_id:integer eventable_type:string address_id:integer',
+  'Event'    => 'eventable:references address_id:integer',
   'Timetable' => 'event_id:integer execution_date:date start_hour:string end_hour:string ',
 
   # 1:N tables for ProjectTypeSubvention
 
 
   'Activity' => 'name:string description:text start_date:datetime end_date:datetime transport:text pdf_url:string entity_id:integer area_id:integer project_id:integer share:boolean ',
-  'Image'    => 'name payload:binary project:references',
-  'Link'     => 'name url project:references',
+  'Link'     => 'url description:text kind:integer linkable:references',
 
   'Proposal' => 'name description:text active:boolean',
 
@@ -85,7 +84,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'RecordHistory' => 'user:references recordable_id:integer recordable_type recordable_changed_at:datetime',
+  'RecordHistory' => 'user:references recordable:references recordable_changed_at:datetime',
 
 
 
@@ -127,7 +126,6 @@ MODELS_AND_ATTRS = {
 # AUX_MODELS_AND_ATTRS = {}
 
 JOINED_TABLES = [
-    %w(project address),
     %w(project area),
     %w(project collective),
     %w(project district),
@@ -190,7 +188,7 @@ namespace :scaffold do
 
       File.open(rb_file, 'r').each do |l|
         line = l
-        if line.chomp =~ /profileable|pt_extendable|rt_extendable/
+        if line.chomp =~ /recordable|profileable|pt_extendable|rt_extendable|linkable|eventable/
           line = line.sub('foreign_key', 'polymorphic')
         end
         tmp  << line

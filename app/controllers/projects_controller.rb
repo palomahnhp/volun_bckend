@@ -90,34 +90,36 @@ class ProjectsController < ApplicationController
           coordination_ids: [],
           district_ids:     [],
           pt_extendable_attributes: pt_extendable_attributes,
-          addresses_attributes: [
-            :id,
-            :road_type_id,
-            :road_name,
-            :road_number_type,
-            :road_number,
-            :grader,
-            :stairs,
-            :floor,
-            :door,
-            :postal_code,
-            :town,
-            :province_id,
-            :country,
-            :_destroy
-          ],
-          timetables_attributes: [
-            :id,
-            :day,
-            :start_hour,
-            :end_hour,
-            :_destroy
-          ],
           documents_attributes: [
             :id,
             :name,
             :_destroy
-          ],
+          ]
+      # TODO Pending of adapting addresses and timetables form to the new model design
+          # addresses_attributes: [
+          #   :id,
+          #   :road_type_id,
+          #   :road_name,
+          #   :road_number_type,
+          #   :road_number,
+          #   :grader,
+          #   :stairs,
+          #   :floor,
+          #   :door,
+          #   :postal_code,
+          #   :town,
+          #   :province_id,
+          #   :country,
+          #   :_destroy
+          # ],
+      # TODO Pending of adapting addresses and timetables form to the new model design
+      #     timetables_attributes: [
+      #       :id,
+      #       :day,
+      #       :start_hour,
+      #       :end_hour,
+      #       :_destroy
+      #     ],
         )
     end
 
