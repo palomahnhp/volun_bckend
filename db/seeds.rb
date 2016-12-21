@@ -1,3 +1,6 @@
+require 'database_cleaner'
+
+DatabaseCleaner.clean_with :truncation
 Faker::Config.locale = I18n.locale
 
 PROJECTS_NUM      = 10
