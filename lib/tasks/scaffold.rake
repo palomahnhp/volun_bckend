@@ -21,7 +21,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_first_surname contact_second_surname phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references entity:references',
+  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_first_surname contact_second_surname phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
   'Tracking'  => 'comments:text start_date:datetime project:references',
@@ -30,14 +30,14 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Event'    => 'eventable:references address_id:integer',
+  'Event'    => 'eventable:references{polymorphic} address_id:integer',
   'Timetable' => 'event_id:integer execution_date:date start_hour:string end_hour:string ',
 
   # 1:N tables for ProjectTypeSubvention
 
 
   'Activity' => 'name:string description:text start_date:datetime end_date:datetime transport:text pdf_url:string entity_id:integer area_id:integer project_id:integer share:boolean ',
-  'Link'     => 'url description:text kind:integer linkable:references',
+  'Link'     => 'url description:text kind:integer linkable:references{polymorphic}',
 
   'Proposal' => 'name description:text active:boolean',
 
@@ -84,7 +84,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'RecordHistory' => 'user:references recordable:references recordable_changed_at:datetime',
+  'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
 
 
 
@@ -98,7 +98,7 @@ MODELS_AND_ATTRS = {
 
   'RequestType'             => 'kind:integer description:text active:boolean',
   'RequestReason'           => 'kind:integer description:text active:boolean',
-  'RequestForm'             => 'request_type:references rt_extendable:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  'RequestForm'             => 'request_type:references rt_extendable:references{polymorphic} sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
   'RtVolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
   'RtVolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
   'RtVolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
@@ -178,33 +178,10 @@ namespace :scaffold do
     end
   end
 
-  desc 'Add default: true in migrations with field active'
-  task add_polymorphic_true: :environment do
-    require 'fileutils'
-    require 'tempfile'
-
-    Dir.glob('db/migrate/*.rb') do |rb_file|
-      tmp = Tempfile.new('extract')
-
-      File.open(rb_file, 'r').each do |l|
-        line = l
-        if line.chomp =~ /recordable|profileable|pt_extendable|rt_extendable|linkable|eventable/
-          line = line.sub('foreign_key', 'polymorphic')
-        end
-        tmp  << line
-      end
-
-      tmp.close
-
-      # Move temp file to origin
-      FileUtils.mv(tmp.path, rb_file)
-    end
-  end
-
   desc 'Builds the user model'
   task create_user: :environment do
     # Generate scaffold for User model
-    sh 'rails g scaffold User locale profileable:references'
+    sh 'rails g scaffold User locale profileable:references{polymorphic}'
 
     # Add devise attrs to User model
     sh 'rails generate devise User --skip'
@@ -284,7 +261,6 @@ namespace :scaffold do
     puts "Generating scaffolds"
     Rake::Task['scaffold:create_user'].invoke
     Rake::Task['scaffold:build'].invoke
-    Rake::Task['scaffold:add_polymorphic_true'].invoke
     Rake::Task['scaffold:add_default_true'].invoke
     Rake::Task['scaffold:gco_files'].invoke
   end
