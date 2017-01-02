@@ -1,7 +1,7 @@
 class CreateEvents < ActiveRecord::Migration
   def change
     create_table :events do |t|
-      t.references :eventable, index: true, polymorphic: true
+      t.references :eventable, polymorphic: true, index: true
       t.integer :address_id
 
       t.timestamps null: false

@@ -4,7 +4,7 @@ class CreateLinks < ActiveRecord::Migration
       t.string :url
       t.text :description
       t.integer :kind
-      t.references :linkable, index: true, polymorphic: true
+      t.references :linkable, polymorphic: true, index: true
 
       t.timestamps null: false
     end

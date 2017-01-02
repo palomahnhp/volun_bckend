@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161221103708) do
+ActiveRecord::Schema.define(version: 20170102144853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -257,13 +257,11 @@ ActiveRecord::Schema.define(version: 20161221103708) do
     t.date     "agreement_date"
     t.boolean  "prevailing",             default: false
     t.integer  "project_id"
-    t.integer  "project_type_id"
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
   end
 
   add_index "pt_entities", ["project_id"], name: "index_pt_entities_on_project_id", using: :btree
-  add_index "pt_entities", ["project_type_id"], name: "index_pt_entities_on_project_type_id", using: :btree
 
   create_table "pt_subventions", force: :cascade do |t|
     t.string   "representative_name"
@@ -280,13 +278,11 @@ ActiveRecord::Schema.define(version: 20161221103708) do
     t.boolean  "has_quality_evaluation",        default: false
     t.integer  "proposal_id"
     t.integer  "project_id"
-    t.integer  "project_type_id"
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
   end
 
   add_index "pt_subventions", ["project_id"], name: "index_pt_subventions_on_project_id", using: :btree
-  add_index "pt_subventions", ["project_type_id"], name: "index_pt_subventions_on_project_type_id", using: :btree
   add_index "pt_subventions", ["proposal_id"], name: "index_pt_subventions_on_proposal_id", using: :btree
 
   create_table "record_histories", force: :cascade do |t|
@@ -313,6 +309,7 @@ ActiveRecord::Schema.define(version: 20161221103708) do
     t.integer  "request_type_id"
     t.integer  "rt_extendable_id"
     t.string   "rt_extendable_type"
+    t.integer  "user_id"
     t.datetime "sent_at"
     t.integer  "status"
     t.datetime "status_date"
@@ -325,6 +322,7 @@ ActiveRecord::Schema.define(version: 20161221103708) do
   add_index "request_forms", ["rejection_type_id"], name: "index_request_forms_on_rejection_type_id", using: :btree
   add_index "request_forms", ["request_type_id"], name: "index_request_forms_on_request_type_id", using: :btree
   add_index "request_forms", ["rt_extendable_type", "rt_extendable_id"], name: "index_request_forms_on_rt_extendable_type_and_rt_extendable_id", using: :btree
+  add_index "request_forms", ["user_id"], name: "index_request_forms_on_user_id", using: :btree
 
   create_table "request_reasons", force: :cascade do |t|
     t.integer  "kind"
@@ -558,14 +556,13 @@ ActiveRecord::Schema.define(version: 20161221103708) do
   add_foreign_key "issues", "projects"
   add_foreign_key "projects", "entities"
   add_foreign_key "projects", "project_types"
-  add_foreign_key "pt_entities", "project_types"
   add_foreign_key "pt_entities", "projects"
-  add_foreign_key "pt_subventions", "project_types"
   add_foreign_key "pt_subventions", "projects"
   add_foreign_key "pt_subventions", "proposals"
   add_foreign_key "record_histories", "users"
   add_foreign_key "request_forms", "rejection_types"
   add_foreign_key "request_forms", "request_types"
+  add_foreign_key "request_forms", "users"
   add_foreign_key "rt_entity_subscribes", "request_reasons"
   add_foreign_key "rt_project_unsubscribes", "projects"
   add_foreign_key "rt_volunteer_amendments", "addresses"
