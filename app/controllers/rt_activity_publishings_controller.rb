@@ -17,11 +17,26 @@ class RtActivityPublishingsController < ApplicationController
     end
   end
 
+  def new
+    @rt_activity_publishing = RtActivityPublishing.new
+    respond_with(@rt_activity_publishing)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_activity_publishing.save
+    respond_with(@rt_activity_publishing)
   end
 
   def update
     @rt_activity_publishing.update_attributes(rt_activity_publishing_params)
+    respond_with(@rt_activity_publishing)
+  end
+
+  def destroy
+    @rt_activity_publishing.destroy
     respond_with(@rt_activity_publishing)
   end
 

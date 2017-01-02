@@ -17,11 +17,26 @@ class RtVolunteersDemandsController < ApplicationController
     end
   end
 
+  def new
+    @rt_volunteers_demand = RtVolunteersDemand.new
+    respond_with(@rt_volunteers_demand)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_volunteers_demand.save
+    respond_with(@rt_volunteers_demand)
   end
 
   def update
     @rt_volunteers_demand.update_attributes(rt_volunteers_demand_params)
+    respond_with(@rt_volunteers_demand)
+  end
+
+  def destroy
+    @rt_volunteers_demand.destroy
     respond_with(@rt_volunteers_demand)
   end
 

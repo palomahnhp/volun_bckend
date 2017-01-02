@@ -17,11 +17,26 @@ class RtActivityUnpublishingsController < ApplicationController
     end
   end
 
+  def new
+    @rt_activity_unpublishing = RtActivityUnpublishing.new
+    respond_with(@rt_activity_unpublishing)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_activity_unpublishing.save
+    respond_with(@rt_activity_unpublishing)
   end
 
   def update
     @rt_activity_unpublishing.update_attributes(rt_activity_unpublishing_params)
+    respond_with(@rt_activity_unpublishing)
+  end
+
+  def destroy
+    @rt_activity_unpublishing.destroy
     respond_with(@rt_activity_unpublishing)
   end
 

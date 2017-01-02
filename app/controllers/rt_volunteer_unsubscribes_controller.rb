@@ -17,11 +17,26 @@ class RtVolunteerUnsubscribesController < ApplicationController
     end
   end
 
+  def new
+    @rt_volunteer_unsubscribe = RtVolunteerUnsubscribe.new
+    respond_with(@rt_volunteer_unsubscribe)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_volunteer_unsubscribe.save
+    respond_with(@rt_volunteer_unsubscribe)
   end
 
   def update
     @rt_volunteer_unsubscribe.update_attributes(rt_volunteer_unsubscribe_params)
+    respond_with(@rt_volunteer_unsubscribe)
+  end
+
+  def destroy
+    @rt_volunteer_unsubscribe.destroy
     respond_with(@rt_volunteer_unsubscribe)
   end
 
