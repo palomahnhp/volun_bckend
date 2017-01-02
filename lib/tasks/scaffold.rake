@@ -43,11 +43,11 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'PtSubvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references project_type:references',
+  'PtSubvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references project:references',
 
   # -------------------------------------------------
 
-  'PtEntity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean project:references project_type:references',
+  'PtEntity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean project:references',
 
   # -------------------------------------------------
 
@@ -98,7 +98,7 @@ MODELS_AND_ATTRS = {
 
   'RequestType'             => 'kind:integer description:text active:boolean',
   'RequestReason'           => 'kind:integer description:text active:boolean',
-  'RequestForm'             => 'request_type:references rt_extendable:references{polymorphic} sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  'RequestForm'             => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
   'RtVolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
   'RtVolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
   'RtVolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
@@ -262,7 +262,7 @@ namespace :scaffold do
     Rake::Task['scaffold:create_user'].invoke
     Rake::Task['scaffold:build'].invoke
     Rake::Task['scaffold:add_default_true'].invoke
-    Rake::Task['scaffold:gco_files'].invoke
+    # Rake::Task['scaffold:gco_files'].invoke
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
