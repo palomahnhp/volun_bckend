@@ -59,6 +59,7 @@ class PtSubventionsController < ApplicationController
           :participants_num,
           :has_quality_evaluation,
           :proposal_id,
+          project_attributes: project_attributes
         )
     end
 end

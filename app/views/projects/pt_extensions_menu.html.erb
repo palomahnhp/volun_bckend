@@ -6,7 +6,7 @@
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-          <div class="panel panel-<%= ProjectType.active?(:pt_subvention) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_subvention) %>';">
+          <div class="panel panel-<%= ProjectType.active?(:pt_subvention) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_subvention_url %>';">
             <div class="panel-heading">
               <h3 class="panel-title">
                 <%= ProjectType.kinds_i18n[:pt_subvention] %>
@@ -16,7 +16,7 @@
               Asociados a una subvención
             </div>
           </div>
-        <div class="panel panel-<%= ProjectType.active?(:pt_entity) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_entity) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_entity) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_entity_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectType.kinds_i18n[:pt_entity] %>

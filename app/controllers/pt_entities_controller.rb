@@ -56,6 +56,7 @@ class PtEntitiesController < ApplicationController
           :agreement_signed,
           :agreement_date,
           :prevailing,
+          project_attributes: project_attributes
         )
     end
 end

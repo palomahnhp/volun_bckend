@@ -83,4 +83,41 @@ class ApplicationController < ActionController::Base
     collection.build if collection.empty?
   end
 
+  def project_attributes
+    [
+      :id,
+      :name,
+      :description,
+      :volunteers_allowed,
+      :public,
+      :outstanding,
+      :pt_subvention,
+      :project_type_id,
+      :active,
+      :comments,
+      :beneficiaries_num,
+      :volunteers_num,
+      :functions,
+      :insured,
+      :insurance_date,
+      :contact_name,
+      :contact_first_surname,
+      :contact_second_surname,
+      :email,
+      :phone_number,
+      :entity_id,
+      :execution_start_date,
+      :execution_end_date,
+      area_ids:         [],
+      collective_ids:   [],
+      coordination_ids: [],
+      district_ids:     [],
+      documents_attributes: [
+        :id,
+        :name,
+        :_destroy
+      ]
+    ]
+  end
+
 end
