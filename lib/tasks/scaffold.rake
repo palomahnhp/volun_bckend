@@ -262,7 +262,7 @@ namespace :scaffold do
     Rake::Task['scaffold:create_user'].invoke
     Rake::Task['scaffold:build'].invoke
     Rake::Task['scaffold:add_default_true'].invoke
-    # Rake::Task['scaffold:gco_files'].invoke
+    Rake::Task['scaffold:gco_files'].invoke
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
