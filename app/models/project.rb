@@ -2,19 +2,17 @@ class Project < ActiveRecord::Base
 
   include Archivable
 
+  belongs_to :pt_extendable, polymorphic: true
   belongs_to :project_type, required: true
   belongs_to :entity
-  has_and_belongs_to_many :addresses
-  has_and_belongs_to_many :timetables
   has_and_belongs_to_many :areas, -> { order('areas.name asc') }
   has_and_belongs_to_many :collectives, -> { order('collectives.name asc') }
   has_and_belongs_to_many :coordinations, -> { order('coordinations.name asc') }
   has_and_belongs_to_many :districts, -> { order('districts.name asc') }
   has_many :documents
-  belongs_to :pt_extendable, polymorphic: true
+  has_many :activities
+  has_many :events, as: :eventable
 
-  accepts_nested_attributes_for :timetables, allow_destroy: true
-  accepts_nested_attributes_for :addresses,  allow_destroy: true
   accepts_nested_attributes_for :documents,  allow_destroy: true
   accepts_nested_attributes_for :pt_extendable
 

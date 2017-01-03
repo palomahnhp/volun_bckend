@@ -17,7 +17,17 @@ class RtEntitySubscribesController < ApplicationController
     end
   end
 
+  def new
+    @rt_entity_subscribe = RtEntitySubscribe.new
+    respond_with(@rt_entity_subscribe)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_entity_subscribe.save
+    respond_with(@rt_entity_subscribe)
   end
 
   def update
@@ -25,9 +35,14 @@ class RtEntitySubscribesController < ApplicationController
     respond_with(@rt_entity_subscribe)
   end
 
+  def destroy
+    @rt_entity_subscribe.destroy
+    respond_with(@rt_entity_subscribe)
+  end
+
   protected
 
     def rt_entity_subscribe_params
-      params.require(:rt_entity_subscribe).permit(:name, :vat_num, :email, :contact_name, :contact_first_surname, :contact_second_surname, :representative_name, :representative_first_surname, :representative_second_surname, :phone_number, :phone_number_alt, :road_type, :road_name, :number_type, :road_number, :postal_code, :town, :province)
+      params.require(:rt_entity_subscribe).permit(:name, :vat_num, :email, :contact_name, :contact_first_surname, :contact_second_surname, :representative_name, :representative_first_surname, :representative_second_surname, :phone_number, :phone_number_alt, :road_type, :road_name, :number_type, :road_number, :postal_code, :town, :province, :request_reason_id)
     end
 end

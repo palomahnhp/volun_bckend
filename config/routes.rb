@@ -2,34 +2,18 @@ Rails.application.routes.draw do
 
 
 
-  resources :rt_others, only: [:index, :show, :edit, :update]
-  resources :rt_activity_unpublishings, only: [:index, :show, :edit, :update]
-  resources :rt_activity_publishings, only: [:index, :show, :edit, :update]
-  resources :rt_project_unsubscribes, only: [:index, :show, :edit, :update]
-  resources :rt_project_unpublishings, only: [:index, :show, :edit, :update]
-  resources :rt_project_publishings, only: [:index, :show, :edit, :update]
-  resources :rt_volunteers_demands, only: [:index, :show, :edit, :update]
-  resources :rt_entity_unsubscribes, only: [:index, :show, :edit, :update]
-  resources :rt_entity_subscribes, only: [:index, :show, :edit, :update]
-  resources :rt_volunteer_appointments, only: [:index, :show, :edit, :update]
-  resources :rt_volunteer_amendments, only: [:index, :show, :edit, :update]
-  resources :rt_volunteer_unsubscribes, only: [:index, :show, :edit, :update]
-  resources :rt_volunteer_subscribes, only: [:index, :show, :edit, :update]
-  resources :pt_entities, only: [:index, :show, :edit, :update]
-  resources :pt_subventions, only: [:index, :show, :edit, :update]
   resources :request_forms
   resources :request_reasons
   resources :request_types
   resources :rejection_types
   resources :volunteers
   resources :record_histories
-  resources :districts
-  resources :addresses do
-    get 'bdc_search_towns', on: :collection
-    get 'bdc_search_roads', on: :collection
-    get 'bdc_search_road_numbers', on: :collection
-  end
+  resources :addresses
   resources :proposals
+  resources :links
+  resources :activities
+  resources :timetables
+  resources :events
   resources :documents
   resources :issues
   resources :trackings
@@ -38,7 +22,26 @@ Rails.application.routes.draw do
   resources :road_types
   resources :provinces
   devise_for :users
-  resources :users
+  resources :rt_others
+  resources :rt_activity_unpublishings
+  resources :rt_activity_publishings
+  resources :rt_project_unsubscribes
+  resources :rt_project_unpublishings
+  resources :rt_project_publishings
+  resources :rt_volunteers_demands
+  resources :rt_entity_unsubscribes
+  resources :rt_entity_subscribes
+  resources :rt_volunteer_appointments
+  resources :rt_volunteer_amendments
+  resources :rt_volunteer_unsubscribes
+  resources :rt_volunteer_subscribes
+  resources :pt_entities
+  resources :pt_subventions
+  resources :addresses do
+    get 'bdc_search_towns', on: :collection
+    get 'bdc_search_roads', on: :collection
+    get 'bdc_search_road_numbers', on: :collection
+  end
   concern :recoverable do
     post :recover, on: :member
   end

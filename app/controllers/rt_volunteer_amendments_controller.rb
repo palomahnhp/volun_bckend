@@ -17,11 +17,26 @@ class RtVolunteerAmendmentsController < ApplicationController
     end
   end
 
+  def new
+    @rt_volunteer_amendment = RtVolunteerAmendment.new
+    respond_with(@rt_volunteer_amendment)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_volunteer_amendment.save
+    respond_with(@rt_volunteer_amendment)
   end
 
   def update
     @rt_volunteer_amendment.update_attributes(rt_volunteer_amendment_params)
+    respond_with(@rt_volunteer_amendment)
+  end
+
+  def destroy
+    @rt_volunteer_amendment.destroy
     respond_with(@rt_volunteer_amendment)
   end
 

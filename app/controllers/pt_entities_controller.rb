@@ -17,11 +17,26 @@ class PtEntitiesController < ApplicationController
     end
   end
 
+  def new
+    @pt_entity = PtEntity.new
+    respond_with(@pt_entity)
+  end
+
   def edit
+  end
+
+  def create
+    @pt_entity.save
+    respond_with(@pt_entity)
   end
 
   def update
     @pt_entity.update_attributes(pt_entity_params)
+    respond_with(@pt_entity)
+  end
+
+  def destroy
+    @pt_entity.destroy
     respond_with(@pt_entity)
   end
 
@@ -41,6 +56,7 @@ class PtEntitiesController < ApplicationController
           :agreement_signed,
           :agreement_date,
           :prevailing,
+          project_attributes: project_attributes
         )
     end
 end

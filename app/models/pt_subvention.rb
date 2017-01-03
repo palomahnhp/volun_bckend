@@ -1,6 +1,6 @@
 class PtSubvention < ActiveRecord::Base
 
+  include PtCommons
   belongs_to :proposal
-  has_one :project, as: :pt_extendable
 
 end

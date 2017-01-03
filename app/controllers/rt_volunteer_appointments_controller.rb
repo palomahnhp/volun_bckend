@@ -17,11 +17,26 @@ class RtVolunteerAppointmentsController < ApplicationController
     end
   end
 
+  def new
+    @rt_volunteer_appointment = RtVolunteerAppointment.new
+    respond_with(@rt_volunteer_appointment)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_volunteer_appointment.save
+    respond_with(@rt_volunteer_appointment)
   end
 
   def update
     @rt_volunteer_appointment.update_attributes(rt_volunteer_appointment_params)
+    respond_with(@rt_volunteer_appointment)
+  end
+
+  def destroy
+    @rt_volunteer_appointment.destroy
     respond_with(@rt_volunteer_appointment)
   end
 

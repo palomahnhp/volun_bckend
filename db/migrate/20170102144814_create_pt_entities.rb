@@ -12,7 +12,6 @@ class CreatePtEntities < ActiveRecord::Migration
       t.date :agreement_date
       t.boolean :prevailing, default: false
       t.references :project, index: true, foreign_key: true
-      t.references :project_type, index: true, foreign_key: true
 
       t.timestamps null: false
     end

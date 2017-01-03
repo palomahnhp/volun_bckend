@@ -17,11 +17,26 @@ class RtProjectUnpublishingsController < ApplicationController
     end
   end
 
+  def new
+    @rt_project_unpublishing = RtProjectUnpublishing.new
+    respond_with(@rt_project_unpublishing)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_project_unpublishing.save
+    respond_with(@rt_project_unpublishing)
   end
 
   def update
     @rt_project_unpublishing.update_attributes(rt_project_unpublishing_params)
+    respond_with(@rt_project_unpublishing)
+  end
+
+  def destroy
+    @rt_project_unpublishing.destroy
     respond_with(@rt_project_unpublishing)
   end
 

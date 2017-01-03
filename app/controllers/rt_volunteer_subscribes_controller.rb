@@ -17,11 +17,26 @@ class RtVolunteerSubscribesController < ApplicationController
     end
   end
 
+  def new
+    @rt_volunteer_subscribe = RtVolunteerSubscribe.new
+    respond_with(@rt_volunteer_subscribe)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_volunteer_subscribe.save
+    respond_with(@rt_volunteer_subscribe)
   end
 
   def update
     @rt_volunteer_subscribe.update_attributes(rt_volunteer_subscribe_params)
+    respond_with(@rt_volunteer_subscribe)
+  end
+
+  def destroy
+    @rt_volunteer_subscribe.destroy
     respond_with(@rt_volunteer_subscribe)
   end
 

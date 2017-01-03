@@ -17,11 +17,26 @@ class RtProjectUnsubscribesController < ApplicationController
     end
   end
 
+  def new
+    @rt_project_unsubscribe = RtProjectUnsubscribe.new
+    respond_with(@rt_project_unsubscribe)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_project_unsubscribe.save
+    respond_with(@rt_project_unsubscribe)
   end
 
   def update
     @rt_project_unsubscribe.update_attributes(rt_project_unsubscribe_params)
+    respond_with(@rt_project_unsubscribe)
+  end
+
+  def destroy
+    @rt_project_unsubscribe.destroy
     respond_with(@rt_project_unsubscribe)
   end
 

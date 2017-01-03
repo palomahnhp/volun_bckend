@@ -17,11 +17,26 @@ class RtEntityUnsubscribesController < ApplicationController
     end
   end
 
+  def new
+    @rt_entity_unsubscribe = RtEntityUnsubscribe.new
+    respond_with(@rt_entity_unsubscribe)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_entity_unsubscribe.save
+    respond_with(@rt_entity_unsubscribe)
   end
 
   def update
     @rt_entity_unsubscribe.update_attributes(rt_entity_unsubscribe_params)
+    respond_with(@rt_entity_unsubscribe)
+  end
+
+  def destroy
+    @rt_entity_unsubscribe.destroy
     respond_with(@rt_entity_unsubscribe)
   end
 

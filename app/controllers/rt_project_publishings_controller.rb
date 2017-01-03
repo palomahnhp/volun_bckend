@@ -17,11 +17,26 @@ class RtProjectPublishingsController < ApplicationController
     end
   end
 
+  def new
+    @rt_project_publishing = RtProjectPublishing.new
+    respond_with(@rt_project_publishing)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_project_publishing.save
+    respond_with(@rt_project_publishing)
   end
 
   def update
     @rt_project_publishing.update_attributes(rt_project_publishing_params)
+    respond_with(@rt_project_publishing)
+  end
+
+  def destroy
+    @rt_project_publishing.destroy
     respond_with(@rt_project_publishing)
   end
 

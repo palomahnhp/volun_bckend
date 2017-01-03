@@ -17,11 +17,26 @@ class RtOthersController < ApplicationController
     end
   end
 
+  def new
+    @rt_other = RtOther.new
+    respond_with(@rt_other)
+  end
+
   def edit
+  end
+
+  def create
+    @rt_other.save
+    respond_with(@rt_other)
   end
 
   def update
     @rt_other.update_attributes(rt_other_params)
+    respond_with(@rt_other)
+  end
+
+  def destroy
+    @rt_other.destroy
     respond_with(@rt_other)
   end
 

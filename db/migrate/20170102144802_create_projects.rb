@@ -21,7 +21,7 @@ class CreateProjects < ActiveRecord::Migration
       t.boolean :outstanding, default: false
       t.date :insurance_date
       t.references :project_type, index: true, foreign_key: true
-      t.references :pt_extendable, index: true, polymorphic: true
+      t.references :pt_extendable, polymorphic: true, index: true
       t.references :entity, index: true, foreign_key: true
 
       t.timestamps null: false
