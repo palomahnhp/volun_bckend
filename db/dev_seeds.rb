@@ -3,19 +3,19 @@ require 'database_cleaner'
 DatabaseCleaner.clean_with :truncation
 Faker::Config.locale = I18n.locale
 
+ADDRESSES_NUM     = 20
 PROJECTS_NUM      = 10
 DISTRICTS_NUM     = 10
-ACTIVITIES_NUM    = 10
 ENTITIES_NUM      = 10
 COORDINATIONS_NUM = 10
-ADDRESSES_NUM     = 20
 PROPOSAL_NUM      = 10
 ENTITY_NUM        = 10
 RACKING_NUM       = 10
 ISSUE_NUM         = 10
-TIMETABLE_NUM     = 10
-EVENTS_NUM        = 10
-DOCUMENT_NUM      = 10
+ACTIVITIES_NUM    = 5
+TIMETABLE_NUM     = 5
+EVENTS_NUM        = 5
+DOCUMENT_NUM      = 5
 
 PROJECT_TYPES = {
   1 => 'Servicios Sociales',
@@ -284,10 +284,7 @@ ProjectType.all.each do |project_type|
       project_type:          project_type
     )
 
-    project.pt_extendable = case project_type.kind
-                            when ProjectType.kinds[:subvention] then PtSubvention.new
-                            when ProjectType.kinds[:entity]     then PtEntity.new
-                            end
+    project.build_pt_extendable
 
     project.save!
 

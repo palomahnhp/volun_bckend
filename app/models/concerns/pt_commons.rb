@@ -7,7 +7,7 @@ module PtCommons
     accepts_nested_attributes_for :project
 
     validate :check_project_type
-    after_initialize :build_new_project, unless: 'project'
+    after_initialize :build_new_project, unless: 'project_id || project'
 
     private
 

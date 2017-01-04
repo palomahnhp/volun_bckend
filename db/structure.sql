@@ -555,7 +555,7 @@ CREATE TABLE projects (
     entity_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    CONSTRAINT extendable_must_be_consistent CHECK (((((((((project_type_id = 1) AND (pt_extendable_type IS NULL)) OR ((project_type_id = 2) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 3) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 4) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 7) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 6) AND ((pt_extendable_type)::text = 'PtSubvention'::text))) OR ((project_type_id = 5) AND ((pt_extendable_type)::text = 'PtEntity'::text))))
+    CONSTRAINT extendable_must_be_consistent CHECK (((((((((project_type_id = 1) AND (pt_extendable_type IS NULL)) OR ((project_type_id = 2) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 3) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 4) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 7) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 6) AND ((pt_extendable_type)::text = 'Pt::Subvention'::text))) OR ((project_type_id = 5) AND ((pt_extendable_type)::text = 'Pt::Entity'::text))))
 );
 
 

@@ -43,31 +43,11 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'PtSubvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
+  'Pt::Subvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
 
   # -------------------------------------------------
 
-  'PtEntity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean',
-
-  # -------------------------------------------------
-
-  # 'PtPunctual' => '',
-
-  # -------------------------------------------------
-
-  # 'PtPermanent' => '',
-
-  # -------------------------------------------------
-
-  # 'PtCentre' => '',
-
-  # -------------------------------------------------
-
-  # 'PtSocial' => '',
-
-  # -------------------------------------------------
-
-  # 'PtOther' => '',
+  'Pt::Entity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean',
 
   # -------------------------------------------------
 
@@ -96,28 +76,28 @@ MODELS_AND_ATTRS = {
 
   'RejectionType' => 'kind:integer description:text active:boolean',
 
-  'RequestType'             => 'kind:integer description:text active:boolean',
-  'RequestReason'           => 'kind:integer description:text active:boolean',
-  'RequestForm'             => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
-  'RtVolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
-  'RtVolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
-  'RtVolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
-  'RtVolunteerAppointment'  => 'volunteer:references reason:text',
-  'RtEntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
-  'RtEntityUnsubscribe'     => 'reason:text',
-  'RtVolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
-  'RtProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
-  'RtProjectUnpublishing'   => 'reason:text',
-  'RtProjectUnsubscribe'    => 'project:references reason:text',
-  'RtActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
-  'RtActivityUnpublishing'  => 'reason:text',
-  'RtOther'                 => 'description:text',
+  'RequestType'               => 'kind:integer description:text active:boolean',
+  'RequestReason'             => 'kind:integer description:text active:boolean',
+  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  'Rt::VolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
+  'Rt::VolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
+  'Rt::VolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
+  'Rt::VolunteerAppointment'  => 'volunteer:references reason:text',
+  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
+  'Rt::EntityUnsubscribe'     => 'reason:text',
+  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
+  'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
+  'Rt::ProjectUnpublishing'   => 'reason:text',
+  'Rt::ProjectUnsubscribe'    => 'project:references reason:text',
+  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
+  'Rt::ActivityUnpublishing'  => 'reason:text',
+  'Rt::Other'                 => 'description:text',
 
 
-  ## 'RtProjectSubscribe'     => 'name description:text active:boolean',
-  ## 'RtActivitySubscribe'    => 'name description:text active:boolean',
-  ## 'RtProjectUnsubscribe'   => 'name description:text active:boolean',
-  ## 'RtActivityUnsubscribe'  => 'name description:text active:boolean',
+  ## 'Rt::ProjectSubscribe'     => 'name description:text active:boolean',
+  ## 'Rt::ActivitySubscribe'    => 'name description:text active:boolean',
+  ## 'Rt::ProjectUnsubscribe'   => 'name description:text active:boolean',
+  ## 'Rt::ActivityUnsubscribe'  => 'name description:text active:boolean',
 
   # -------------------------------------------------
 
@@ -164,7 +144,7 @@ namespace :scaffold do
       File.open(rb_file, 'r').each do |l|
         line = l
         if line.chomp =~ /boolean.*/
-          default_value = /active.*/ === line.chomp
+          default_value = /(active|volunteers_allowed).*/ === line.chomp
           line  = line.sub("\n", '')
           line += ", default: #{default_value}\n"
         end

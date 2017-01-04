@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
   end
 
   def recordable?
-    model.included_modules.map(&:to_s).include?('Recordable')
+    model && model.included_modules.map(&:to_s).include?('Recordable')
   end
 
   def model
-    @model ||= controller_name.classify.constantize
+    @model ||= controller_name.classify.safe_constantize
   end
 
   def authenticate!
@@ -87,19 +87,16 @@ class ApplicationController < ActionController::Base
     [
       :id,
       :name,
-      :description,
+      :project_type_id,
       :volunteers_allowed,
       :public,
-      :outstanding,
-      :pt_subvention,
-      :project_type_id,
       :active,
+      :outstanding,
+      :description,
       :comments,
-      :beneficiaries_num,
       :volunteers_num,
+      :beneficiaries_num,
       :functions,
-      :insured,
-      :insurance_date,
       :contact_name,
       :contact_first_surname,
       :contact_second_surname,
@@ -108,15 +105,30 @@ class ApplicationController < ActionController::Base
       :entity_id,
       :execution_start_date,
       :execution_end_date,
+      :insured,
+      :insurance_date,
       area_ids:         [],
       collective_ids:   [],
       coordination_ids: [],
       district_ids:     [],
-      documents_attributes: [
-        :id,
-        :name,
-        :_destroy
-      ]
+    # TODO Pending of adapting addresses and timetables form to the new model design
+      # documents_attributes: [
+      #   :id,
+      #   :name,
+      #   :_destroy
+      # ]
+    ]
+  end
+
+  def request_form_attributes
+    [
+      :request_type_id,
+      :user_id,
+      :sent_at,
+      :status,
+      :status_date,
+      :rejection_type_id,
+      :comments
     ]
   end
 

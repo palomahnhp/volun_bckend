@@ -11,8 +11,8 @@ class AddPtExtendableConstraintToProjects < ActiveRecord::Migration
           (project_type_id = #{ProjectType.kinds[:pt_permanent]}  AND pt_extendable_type IS NULL) OR
           (project_type_id = #{ProjectType.kinds[:pt_punctual]}   AND pt_extendable_type IS NULL) OR
           (project_type_id = #{ProjectType.kinds[:pt_other]}      AND pt_extendable_type IS NULL) OR
-          (project_type_id = #{ProjectType.kinds[:pt_subvention]} AND pt_extendable_type = '#{PtSubvention.name}') OR
-          (project_type_id = #{ProjectType.kinds[:pt_entity]}     AND pt_extendable_type = '#{PtEntity.name}')
+          (project_type_id = #{ProjectType.kinds[:pt_subvention]} AND pt_extendable_type = '#{Pt::Subvention.name}') OR
+          (project_type_id = #{ProjectType.kinds[:pt_entity]}     AND pt_extendable_type = '#{Pt::Entity.name}')
         )
     }
   end 

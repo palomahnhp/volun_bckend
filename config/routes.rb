@@ -22,21 +22,25 @@ Rails.application.routes.draw do
   resources :road_types
   resources :provinces
   devise_for :users
-  resources :rt_others
-  resources :rt_activity_unpublishings
-  resources :rt_activity_publishings
-  resources :rt_project_unsubscribes
-  resources :rt_project_unpublishings
-  resources :rt_project_publishings
-  resources :rt_volunteers_demands
-  resources :rt_entity_unsubscribes
-  resources :rt_entity_subscribes
-  resources :rt_volunteer_appointments
-  resources :rt_volunteer_amendments
-  resources :rt_volunteer_unsubscribes
-  resources :rt_volunteer_subscribes
-  resources :pt_entities
-  resources :pt_subventions
+  namespace :rt do
+    resources :others
+    resources :activity_unpublishings
+    resources :activity_publishings
+    resources :project_unsubscribes
+    resources :project_unpublishings
+    resources :project_publishings
+    resources :volunteers_demands
+    resources :entity_unsubscribes
+    resources :entity_subscribes
+    resources :volunteer_appointments
+    resources :volunteer_amendments
+    resources :volunteer_unsubscribes
+    resources :volunteer_subscribes
+  end
+  namespace :pt do
+    resources :entities
+    resources :subventions
+  end
   resources :addresses do
     get 'bdc_search_towns', on: :collection
     get 'bdc_search_roads', on: :collection

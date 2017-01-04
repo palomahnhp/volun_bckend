@@ -19,7 +19,8 @@ class Project < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :name, :entity_id, :description, :execution_start_date, :contact_name,
             :phone_number, :email, presence: true
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validate :pt_extendable_consistency
 
   scope :all_active,   ->(){ where(active: true) }
   scope :all_inactive, ->(){ where(active: false) }
@@ -44,13 +45,19 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def pt_extendable_class
-    @pt_extendable_class ||= pt_extendable.try(:class) || project_type.kind.classify.constantize
+  def build_pt_extendable
+    return unless project_type.extendable?
+    self.pt_extendable ||= pt_extendable_class.new(project: self)
   end
 
-  def build_pt_extendable(pt_extension_kind)
-    return unless pt_extension_kind.to_s.in? ProjectType.pt_extension_tables
-    self.pt_extendable ||= pt_extendable_class.new
+  private
+
+  def pt_extendable_class
+    @pt_extendable_class ||= pt_extendable.try(:class) || project_type.kind.classify.sub('Pt', 'Pt::').constantize
+  end
+
+  def pt_extendable_consistency
+
   end
 
 end
