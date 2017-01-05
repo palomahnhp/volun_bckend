@@ -2,15 +2,9 @@
 
 <div class="row">
   <div class="col-md-12">
-
-    <%= render partial: 'show', locals: { pt_subvention: @pt_subvention } %>
-
+    <%= render partial: 'show', locals: { project: @project } %>p
   </div>
 </div>
-
-
-
-
 
 <% unless request.xhr? %>
 <%= button_to_back %>

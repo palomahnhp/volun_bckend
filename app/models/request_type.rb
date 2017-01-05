@@ -2,7 +2,10 @@ class RequestType < ActiveRecord::Base
 
   include Archivable
 
-  # rt stands for RequestType
+  # These values are used to set database constraints, so whether they change
+  # or are removed or a new one is added, a new migration must be created
+  # in order to ensure the rt_extendable consistency for the request_forms table
+
   enum kind: {
     rt_volunteer_subscribe:    1,
     rt_volunteer_unsubscribe:  2,
@@ -26,7 +29,7 @@ class RequestType < ActiveRecord::Base
   end
 
   def extendable?
-    kind.classify.sub('Rt', 'Rt::').safe_constantize.present?
+    kind.classify.sub(/\ARt/, 'Rt::').safe_constantize.present?
   end
 
   def to_s

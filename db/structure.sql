@@ -555,7 +555,7 @@ CREATE TABLE projects (
     entity_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    CONSTRAINT extendable_must_be_consistent CHECK (((((((((project_type_id = 1) AND (pt_extendable_type IS NULL)) OR ((project_type_id = 2) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 3) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 4) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 7) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 6) AND ((pt_extendable_type)::text = 'Pt::Subvention'::text))) OR ((project_type_id = 5) AND ((pt_extendable_type)::text = 'Pt::Entity'::text))))
+    CONSTRAINT pt_extendable_must_be_consistent CHECK (((((((((project_type_id = 1) AND (pt_extendable_type IS NULL)) OR ((project_type_id = 2) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 3) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 4) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 7) AND (pt_extendable_type IS NULL))) OR ((project_type_id = 6) AND ((pt_extendable_type)::text = 'Pt::Subvention'::text))) OR ((project_type_id = 5) AND ((pt_extendable_type)::text = 'Pt::Entity'::text))))
 );
 
 
@@ -821,7 +821,8 @@ CREATE TABLE request_forms (
     rejection_type_id integer,
     comments text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    CONSTRAINT rt_extendable_must_be_consistent CHECK (((((((((((((((request_type_id = 1) AND ((rt_extendable_type)::text = 'Rt::VolunteerSubscribe'::text)) OR ((request_type_id = 2) AND ((rt_extendable_type)::text = 'Rt::VolunteerUnsubscribe'::text))) OR ((request_type_id = 3) AND ((rt_extendable_type)::text = 'Rt::VolunteerAmendment'::text))) OR ((request_type_id = 4) AND ((rt_extendable_type)::text = 'Rt::VolunteerAppointment'::text))) OR ((request_type_id = 5) AND ((rt_extendable_type)::text = 'Rt::EntitySubscribe'::text))) OR ((request_type_id = 6) AND ((rt_extendable_type)::text = 'Rt::EntityUnsubscribe'::text))) OR ((request_type_id = 7) AND ((rt_extendable_type)::text = 'Rt::VolunteersDemand'::text))) OR ((request_type_id = 8) AND ((rt_extendable_type)::text = 'Rt::ProjectPublishing'::text))) OR ((request_type_id = 9) AND ((rt_extendable_type)::text = 'Rt::ProjectUnpublishing'::text))) OR ((request_type_id = 10) AND ((rt_extendable_type)::text = 'Rt::ProjectUnsubscribe'::text))) OR ((request_type_id = 11) AND ((rt_extendable_type)::text = 'Rt::ActivityPublishing'::text))) OR ((request_type_id = 12) AND ((rt_extendable_type)::text = 'Rt::ActivityUnpublishing'::text))) OR ((request_type_id = 13) AND ((rt_extendable_type)::text = 'Rt::Other'::text))))
 );
 
 
@@ -887,7 +888,8 @@ CREATE TABLE request_types (
     description text,
     active boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    CONSTRAINT kind_and_id_must_be_equal CHECK (((((((((((((((id = 1) AND (kind = 1)) OR ((id = 2) AND (kind = 2))) OR ((id = 3) AND (kind = 3))) OR ((id = 4) AND (kind = 4))) OR ((id = 5) AND (kind = 5))) OR ((id = 6) AND (kind = 6))) OR ((id = 7) AND (kind = 7))) OR ((id = 8) AND (kind = 8))) OR ((id = 9) AND (kind = 9))) OR ((id = 10) AND (kind = 10))) OR ((id = 11) AND (kind = 11))) OR ((id = 12) AND (kind = 12))) OR ((id = 13) AND (kind = 13))))
 );
 
 
@@ -2724,7 +2726,11 @@ INSERT INTO schema_migrations (version) VALUES ('20170102144852');
 
 INSERT INTO schema_migrations (version) VALUES ('20170102144853');
 
-INSERT INTO schema_migrations (version) VALUES ('20170302083218');
+INSERT INTO schema_migrations (version) VALUES ('20170302083216');
 
 INSERT INTO schema_migrations (version) VALUES ('20170303083217');
+
+INSERT INTO schema_migrations (version) VALUES ('20170304083216');
+
+INSERT INTO schema_migrations (version) VALUES ('20170305083217');
 

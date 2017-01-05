@@ -1,29 +1,16 @@
 <%= main_title(t("action.show", model: Rt::ProjectPublishing.model_name.human)) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'request_forms/show', locals: { request_form: @rt_project_publishing.request_form } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { rt_project_publishing: @rt_project_publishing } %>
+  </div>
+</div>
 
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:id) %>:</dt>
-  <dd><%= @rt_project_publishing.id %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:description) %>:</dt>
-  <dd><%= @rt_project_publishing.description %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:road_type) %>:</dt>
-  <dd><%= @rt_project_publishing.road_type %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:road_name) %>:</dt>
-  <dd><%= @rt_project_publishing.road_name %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:number_type) %>:</dt>
-  <dd><%= @rt_project_publishing.number_type %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:road_number) %>:</dt>
-  <dd><%= @rt_project_publishing.road_number %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:postal_code) %>:</dt>
-  <dd><%= @rt_project_publishing.postal_code %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:town) %>:</dt>
-  <dd><%= @rt_project_publishing.town %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:province) %>:</dt>
-  <dd><%= @rt_project_publishing.province %></dd>
-  <dt><%= Rt::ProjectPublishing.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@rt_project_publishing.created_at) %></dd>
-
-</dl>
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@rt_project_publishing) %>

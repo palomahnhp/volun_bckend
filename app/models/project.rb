@@ -45,19 +45,27 @@ class Project < ActiveRecord::Base
     name
   end
 
-  def build_pt_extendable
+  def build_pt_extendable(attributes = {})
     return unless project_type.extendable?
-    self.pt_extendable ||= pt_extendable_class.new(project: self)
+    self.pt_extendable = pt_extendable_class.new(attributes.merge(project: self))
   end
 
   private
 
   def pt_extendable_class
-    @pt_extendable_class ||= pt_extendable.try(:class) || project_type.kind.classify.sub('Pt', 'Pt::').constantize
+    pt_extendable.try(:class) || project_type.kind.classify.sub(/\APt/, 'Pt::').constantize
   end
 
   def pt_extendable_consistency
-
+    pt_consistent =
+      project_type_id == ProjectType.kinds[:pt_social]     && pt_extendable_type.nil? ||
+      project_type_id == ProjectType.kinds[:pt_centre]     && pt_extendable_type.nil? ||
+      project_type_id == ProjectType.kinds[:pt_permanent]  && pt_extendable_type.nil? ||
+      project_type_id == ProjectType.kinds[:pt_punctual]   && pt_extendable_type.nil? ||
+      project_type_id == ProjectType.kinds[:pt_other]      && pt_extendable_type.nil? ||
+      project_type_id == ProjectType.kinds[:pt_subvention] && pt_extendable_type == Pt::Subvention.name ||
+      project_type_id == ProjectType.kinds[:pt_entity]     && pt_extendable_type == Pt::Entity.name
+    errors.add(:pt_extendable_type, :pt_extendable_inconsistency) unless pt_consistent
   end
 
 end

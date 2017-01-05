@@ -4,7 +4,7 @@ class AddPtExtendableConstraintToProjects < ActiveRecord::Migration
       ALTER TABLE
         projects
       ADD CONSTRAINT
-        extendable_must_be_consistent
+        pt_extendable_must_be_consistent
         CHECK (
           (project_type_id = #{ProjectType.kinds[:pt_social]}     AND pt_extendable_type IS NULL) OR
           (project_type_id = #{ProjectType.kinds[:pt_centre]}     AND pt_extendable_type IS NULL) OR
@@ -22,7 +22,7 @@ class AddPtExtendableConstraintToProjects < ActiveRecord::Migration
       ALTER TABLE
         projects
       DROP CONSTRAINT
-        extendable_must_be_consistent
+        pt_extendable_must_be_consistent
     }
   end
 end

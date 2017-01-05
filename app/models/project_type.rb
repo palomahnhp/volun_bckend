@@ -2,7 +2,11 @@ class ProjectType < ActiveRecord::Base
 
   include Archivable
 
-  # pt stands for ProjectType
+
+  # These values are used to set database constraints, so whether they change
+  # or are removed or a new one is added, a new migration must be created
+  # in order to ensure the pt_extendable consistency for the projects table
+
   enum kind: {
     pt_social:     1,
     pt_centre:     2,
@@ -20,7 +24,7 @@ class ProjectType < ActiveRecord::Base
   end
 
   def extendable?
-    kind.classify.sub('Pt', 'Pt::').safe_constantize.present?
+    kind.classify.sub(/\APt/, 'Pt::').safe_constantize.present?
   end
 
   def to_s

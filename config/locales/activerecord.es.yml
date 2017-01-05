@@ -56,25 +56,25 @@ es:
       record_history:
         one:   Historial de registro
         other: Historial de registros
-      pt_subvention:
+      pt/subvention:
         one:   Proyecto subvencionado
         other: Proyectos subvencionados
-      pt_entity:
+      pt/entity:
         one:   Proyecto de entidad
         other: Proyectos de entidades
-      pt_permanent:
+      pt/permanent:
         one:   Proyecto permanente
         other: Proyectos permanentes
-      pt_punctual:
+      pt/punctual:
         one:   Proyecto puntual
         other: Proyectos puntuales
-      pt_centre:
+      pt/centre:
         one:   Proyecto de centro de mayores
         other: Proyectos de centros de mayores
-      pt_social:
+      pt/social:
         one:   Proyecto de servicios sociales
         other: Proyectos de servicios sociales
-      pt_other:
+      pt/other:
         one:   Proyecto "Otros"
         other: Proyectos "Otros"
       timetable:
@@ -166,7 +166,7 @@ es:
         districts:              Distritos      # N:N Association (for simple_form)
         collectives:            Colectivos     # N:N Association (for simple_form)
         coordinations:          Coordinaciones # N:N Association (for simple_form)
-      pt_subvention:
+      pt/subvention:
         id:                            ID
         representative_name:           Nombre
         representative_first_surname:  Primer Apellido
@@ -184,7 +184,7 @@ es:
         project:                       Proyecto
         proposal_id:                   Propuesta
         proposal:                      Propuesta
-      pt_entity:
+      pt/entity:
         id:                       ID
         request_date:             Fecha recepción demanda
         request_description:      Descripción demanda
@@ -207,6 +207,21 @@ es:
         created_at:               Fecha de creación
         project_id:               ID del proyecto
     errors:
+      models:
+        pt/entity:
+          attributes:
+            base:
+              invalid_project_type: "Tipo de proyecto inválido"
+        pt/subvention:
+          attributes:
+            base:
+              invalid_project_type: "Tipo de proyecto inválido"
+        rt/activity_publishing:
+          attributes:
+            base:
+              invalid_request_type: "Tipo de solicitud inválida"
       messages:
         invalid_project_type: El tipo de proyecto es inválido
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
+        pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
+        rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"

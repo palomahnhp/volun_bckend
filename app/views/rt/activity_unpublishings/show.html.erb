@@ -1,15 +1,16 @@
 <%= main_title(t("action.show", model: Rt::ActivityUnpublishing.model_name.human)) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'request_forms/show', locals: { request_form: @rt_activity_unpublishing.request_form } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { rt_activity_unpublishing: @rt_activity_unpublishing } %>
+  </div>
+</div>
 
-  <dt><%= Rt::ActivityUnpublishing.human_attribute_name(:id) %>:</dt>
-  <dd><%= @rt_activity_unpublishing.id %></dd>
-  <dt><%= Rt::ActivityUnpublishing.human_attribute_name(:reason) %>:</dt>
-  <dd><%= @rt_activity_unpublishing.reason %></dd>
-  <dt><%= Rt::ActivityUnpublishing.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@rt_activity_unpublishing.created_at) %></dd>
-
-</dl>
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@rt_activity_unpublishing) %>
