@@ -16,7 +16,7 @@ class CreateProjects < ActiveRecord::Migration
       t.integer :beneficiaries_num
       t.integer :volunteers_num
       t.boolean :insured, default: false
-      t.boolean :volunteers_allowed, default: false
+      t.boolean :volunteers_allowed, default: true
       t.boolean :public, default: false
       t.boolean :outstanding, default: false
       t.date :insurance_date
