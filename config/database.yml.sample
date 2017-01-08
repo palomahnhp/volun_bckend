@@ -3,15 +3,10 @@ default: &default
   encoding: unicode
   host: localhost
   pool: 5
-#  username: IAM
-#  password: IAM
-
-
 
 development: &development
   <<: *default
-  #database: svolund.munimadrid.es
-  database: volunt-dev
+  database: volun-dev
   username: postgres
   password: password
 
