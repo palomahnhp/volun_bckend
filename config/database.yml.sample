@@ -12,7 +12,7 @@ development: &development
   <<: *default
   #database: svolund.munimadrid.es
   database: volunt-dev
-  username: marcia
+  username: postgres
   password: password
 
 # The staging, preproduction and production dbs are only needed
