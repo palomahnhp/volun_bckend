@@ -1,16 +1,19 @@
 MODELS_AND_ATTRS = {
 
   # --------------------------------------------------------------------------------------------------
-  # Entity Tables
+  # Tables
   # --------------------------------------------------------------------------------------------------
 
-  'Province' => 'name code',
-
-  'RoadType' => 'name code',
-
-  'EntityType'   => 'kind:integer description:text active:boolean',
-
-  'Entity'   => 'name description:text active:boolean entity_type:references',
+  'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
+  'Province'      => 'name code',
+  'RoadType'      => 'name code',
+  'EntityType'    => 'kind:integer description:text active:boolean',
+  'Entity'        => 'name description:text active:boolean entity_type:references',
+  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code town province:references country ndp_code local_code class_name latitude longitude',
+  'Area'          => 'name description:text active:boolean',
+  'Collective'    => 'name description:text active:boolean',
+  'Coordination'  => 'name description:text active:boolean',
+  'District'      => 'name code active:boolean',
 
 
   # --------------------------------------------------------------------------------------------------
@@ -50,23 +53,6 @@ MODELS_AND_ATTRS = {
   'Pt::Entity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean',
 
   # -------------------------------------------------
-
-
-  # -------------------------------------------------
-  # N:N tables
-  # -------------------------------------------------
-
-  'Address'      => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code town province:references country ndp_code local_code class_name latitude longitude',
-  'Area'         => 'name description:text active:boolean',
-  'Collective'   => 'name description:text active:boolean',
-  'Coordination' => 'name description:text active:boolean',
-  'District'     => 'name code active:boolean',
-
-  # -------------------------------------------------
-
-  'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
-
-
 
   # --------------------------------------------------------------------------------------------------
   # Request Form Tables
