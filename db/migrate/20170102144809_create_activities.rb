@@ -7,9 +7,9 @@ class CreateActivities < ActiveRecord::Migration
       t.datetime :end_date
       t.text :transport
       t.string :pdf_url
-      t.integer :entity_id
-      t.integer :area_id
-      t.integer :project_id
+      t.references :entity, index: true, foreign_key: true
+      t.references :area, index: true, foreign_key: true
+      t.references :project, index: true, foreign_key: true
       t.boolean :share, default: false
 
       t.timestamps null: false

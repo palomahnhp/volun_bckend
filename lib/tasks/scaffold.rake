@@ -30,13 +30,13 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Event'    => 'eventable:references{polymorphic} address_id:integer',
-  'Timetable' => 'event_id:integer execution_date:date start_hour:string end_hour:string ',
+  'Event'    => 'eventable:references{polymorphic} address:references',
+  'Timetable' => 'event:references execution_date:date start_hour end_hour ',
 
   # 1:N tables for ProjectTypeSubvention
 
 
-  'Activity' => 'name:string description:text start_date:datetime end_date:datetime transport:text pdf_url:string entity_id:integer area_id:integer project_id:integer share:boolean ',
+  'Activity' => 'name description:text start_date:datetime end_date:datetime transport:text pdf_url entity:references area:references project:references share:boolean ',
   'Link'     => 'url description:text kind:integer linkable:references{polymorphic}',
 
   'Proposal' => 'name description:text active:boolean',
