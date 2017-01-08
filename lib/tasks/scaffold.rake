@@ -54,11 +54,61 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
+  # TODO Add missing tables
+  # --------------------------------------------------------------------------------------------------
+  # Volunteer Tables
+  # --------------------------------------------------------------------------------------------------
+
+  'IdNumberType' => 'name:string active:boolean',
+
+  'Nationality' => 'name:string active:boolean',
+
+  'Status' => 'name:string active:boolean',
+
+  'EmploymentStatus' => 'name:string active:boolean',
+
+  'AcademicLevel' => 'name:string type:string active:boolean',
+
+  'UnsubscribeReason' => 'name:string active:boolean',
+
+  'Technician' => 'name:string profile_id:string active:boolean',
+
+  'Knowledge' => 'name:string active:boolean',
+
+  'Skill' => 'name:string active:boolean',
+
+  'Profession' => 'name:string active:boolean',
+
+  'LanguageLevel' => 'name:string active:boolean',
+
+  'TrackingType' => 'name:string active:boolean',
+
+  'ContactResult' => 'name:string active:boolean',
+
+  'Trait' => 'name:string active:boolean',
+
+
+  'Volunteer' => 'name first_surname second_surname document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
+
+
+  # 1:n
+
+  'VolunAvailability' => 'volunteer:references day:string start_hour:string end_hour:string',
+
+  'VolunTracking' => 'volunteer:references tracking:references project:references technician:references tracking_date:datetime comments:text',
+
+  'VolunContact' => 'volunteer:references project:references technician:references contact_date:datetime contact_result:references comments:text',
+
+  # n:n
+
+  # address
+
+
+
+
   # --------------------------------------------------------------------------------------------------
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
-
-  'Volunteer'     => 'name first_surname second_surname age:integer id_number',
 
   'RejectionType' => 'kind:integer description:text active:boolean',
 
@@ -97,6 +147,12 @@ JOINED_TABLES = [
     %w(project district),
     %w(project coordination),
     %w(timetable project),
+
+    %w(address volunteer),
+    %w(degree volunteer),
+    %w(language volunteer),
+    %w(area volunteer),
+    %w(assessment volunteer),
 ]
 
 
