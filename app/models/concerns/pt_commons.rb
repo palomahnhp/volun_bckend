@@ -7,7 +7,7 @@ module PtCommons
     accepts_nested_attributes_for :project
 
     validate :check_project_type
-    after_initialize :build_new_project, unless: 'project'
+    after_initialize :build_new_project
 
     private
 
@@ -19,8 +19,12 @@ module PtCommons
       errors.add(:base, :invalid_project_type) unless project_type_valid?
     end
 
-    def build_new_project
-      build_project(project_type: ProjectType.where(kind: ProjectType.kinds[self.class.model_name.singular]).take)
+    def build_new_project(attributes = {})
+      return if persisted? || project
+      attributes.reverse_merge!(
+        project_type: ProjectType.where(kind: ProjectType.kinds[self.class.model_name.singular]).take
+      )
+      build_project(attributes)
     end
 
   end

@@ -1,16 +1,19 @@
 MODELS_AND_ATTRS = {
 
   # --------------------------------------------------------------------------------------------------
-  # Entity Tables
+  # Tables
   # --------------------------------------------------------------------------------------------------
 
-  'Province' => 'name code',
-
-  'RoadType' => 'name code',
-
-  'EntityType'   => 'kind:integer description:text active:boolean',
-
-  'Entity'   => 'name description:text active:boolean entity_type:references',
+  'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
+  'Province'      => 'name code',
+  'RoadType'      => 'name code',
+  'EntityType'    => 'kind:integer description:text active:boolean',
+  'Entity'        => 'name description:text active:boolean entity_type:references',
+  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code town province:references country ndp_code local_code class_name latitude longitude',
+  'Area'          => 'name description:text active:boolean',
+  'Collective'    => 'name description:text active:boolean',
+  'Coordination'  => 'name description:text active:boolean',
+  'District'      => 'name code active:boolean',
 
 
   # --------------------------------------------------------------------------------------------------
@@ -30,63 +33,26 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Event'    => 'eventable:references{polymorphic} address_id:integer',
-  'Timetable' => 'event_id:integer execution_date:date start_hour:string end_hour:string ',
+  'Event'    => 'eventable:references{polymorphic} address:references',
+  'Timetable' => 'event:references execution_date:date start_hour end_hour ',
 
   # 1:N tables for ProjectTypeSubvention
 
 
-  'Activity' => 'name:string description:text start_date:datetime end_date:datetime transport:text pdf_url:string entity_id:integer area_id:integer project_id:integer share:boolean ',
+  'Activity' => 'name description:text start_date:datetime end_date:datetime transport:text pdf_url entity:references area:references project:references share:boolean ',
   'Link'     => 'url description:text kind:integer linkable:references{polymorphic}',
 
   'Proposal' => 'name description:text active:boolean',
 
   # -------------------------------------------------
 
-  'PtSubvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
+  'Pt::Subvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
 
   # -------------------------------------------------
 
-  'PtEntity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean',
+  'Pt::Entity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean',
 
   # -------------------------------------------------
-
-  # 'PtPunctual' => '',
-
-  # -------------------------------------------------
-
-  # 'PtPermanent' => '',
-
-  # -------------------------------------------------
-
-  # 'PtCentre' => '',
-
-  # -------------------------------------------------
-
-  # 'PtSocial' => '',
-
-  # -------------------------------------------------
-
-  # 'PtOther' => '',
-
-  # -------------------------------------------------
-
-
-  # -------------------------------------------------
-  # N:N tables
-  # -------------------------------------------------
-
-  'Address'      => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code town province:references country ndp_code local_code class_name latitude longitude',
-  'Area'         => 'name description:text active:boolean',
-  'Collective'   => 'name description:text active:boolean',
-  'Coordination' => 'name description:text active:boolean',
-  'District'     => 'name code active:boolean',
-
-  # -------------------------------------------------
-
-  'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
-
-
 
   # --------------------------------------------------------------------------------------------------
   # Request Form Tables
@@ -96,28 +62,28 @@ MODELS_AND_ATTRS = {
 
   'RejectionType' => 'kind:integer description:text active:boolean',
 
-  'RequestType'             => 'kind:integer description:text active:boolean',
-  'RequestReason'           => 'kind:integer description:text active:boolean',
-  'RequestForm'             => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
-  'RtVolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
-  'RtVolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
-  'RtVolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
-  'RtVolunteerAppointment'  => 'volunteer:references reason:text',
-  'RtEntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
-  'RtEntityUnsubscribe'     => 'reason:text',
-  'RtVolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
-  'RtProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
-  'RtProjectUnpublishing'   => 'reason:text',
-  'RtProjectUnsubscribe'    => 'project:references reason:text',
-  'RtActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
-  'RtActivityUnpublishing'  => 'reason:text',
-  'RtOther'                 => 'description:text',
+  'RequestType'               => 'kind:integer description:text active:boolean',
+  'RequestReason'             => 'kind:integer description:text active:boolean',
+  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  'Rt::VolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
+  'Rt::VolunteerUnsubscribe'  => 'volunteer:references level:integer reason:text',
+  'Rt::VolunteerAmendment'    => 'volunteer:references address:references phone_number phone_number_alt',
+  'Rt::VolunteerAppointment'  => 'volunteer:references reason:text',
+  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
+  'Rt::EntityUnsubscribe'     => 'reason:text',
+  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
+  'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
+  'Rt::ProjectUnpublishing'   => 'reason:text',
+  'Rt::ProjectUnsubscribe'    => 'project:references reason:text',
+  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
+  'Rt::ActivityUnpublishing'  => 'reason:text',
+  'Rt::Other'                 => 'description:text',
 
 
-  ## 'RtProjectSubscribe'     => 'name description:text active:boolean',
-  ## 'RtActivitySubscribe'    => 'name description:text active:boolean',
-  ## 'RtProjectUnsubscribe'   => 'name description:text active:boolean',
-  ## 'RtActivityUnsubscribe'  => 'name description:text active:boolean',
+  ## 'Rt::ProjectSubscribe'     => 'name description:text active:boolean',
+  ## 'Rt::ActivitySubscribe'    => 'name description:text active:boolean',
+  ## 'Rt::ProjectUnsubscribe'   => 'name description:text active:boolean',
+  ## 'Rt::ActivityUnsubscribe'  => 'name description:text active:boolean',
 
   # -------------------------------------------------
 
@@ -164,7 +130,7 @@ namespace :scaffold do
       File.open(rb_file, 'r').each do |l|
         line = l
         if line.chomp =~ /boolean.*/
-          default_value = /active.*/ === line.chomp
+          default_value = /(active|volunteers_allowed).*/ === line.chomp
           line  = line.sub("\n", '')
           line += ", default: #{default_value}\n"
         end
