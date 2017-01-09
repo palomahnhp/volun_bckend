@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: Skill.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Skill.human_attribute_name(:id) %>:</dt>
+  <dd><%= @skill.id %></dd>
+  <dt><%= Skill.human_attribute_name(:name) %>:</dt>
+  <dd><%= @skill.name %></dd>
+  <dt><%= Skill.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@skill.active}") %></dd>
+  <dt><%= Skill.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@skill.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@skill) %>
+<% end %>

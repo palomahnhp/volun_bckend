@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: Language.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Language.human_attribute_name(:id) %>:</dt>
+  <dd><%= @language.id %></dd>
+  <dt><%= Language.human_attribute_name(:name) %>:</dt>
+  <dd><%= @language.name %></dd>
+  <dt><%= Language.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@language.active}") %></dd>
+  <dt><%= Language.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@language.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@language) %>
+<% end %>

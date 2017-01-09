@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(status) %>" >
+
+  <% status.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(status.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(status) %>
+    <%= link_to_edit(status) %>
+<% if status.try(:archived?) %>
+    <%= link_to_recover(status) %>
+<% else %>
+    <%= link_to_destroy(status) %>
+<% end %>
+  </td>
+</tr>

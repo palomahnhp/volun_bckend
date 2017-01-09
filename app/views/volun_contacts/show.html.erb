@@ -1,0 +1,26 @@
+<%= main_title(t("action.show", model: VolunContact.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= VolunContact.human_attribute_name(:id) %>:</dt>
+  <dd><%= @volun_contact.id %></dd>
+  <dt><%= VolunContact.human_attribute_name(:volunteer_id) %>:</dt>
+  <dd><%= @volun_contact.volunteer %></dd>
+  <dt><%= VolunContact.human_attribute_name(:project_id) %>:</dt>
+  <dd><%= @volun_contact.project %></dd>
+  <dt><%= VolunContact.human_attribute_name(:technician_id) %>:</dt>
+  <dd><%= @volun_contact.technician %></dd>
+  <dt><%= VolunContact.human_attribute_name(:contact_date) %>:</dt>
+  <dd><%= @volun_contact.contact_date %></dd>
+  <dt><%= VolunContact.human_attribute_name(:contact_result_id) %>:</dt>
+  <dd><%= @volun_contact.contact_result %></dd>
+  <dt><%= VolunContact.human_attribute_name(:comments) %>:</dt>
+  <dd><%= @volun_contact.comments %></dd>
+  <dt><%= VolunContact.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@volun_contact.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@volun_contact) %>
+<% end %>

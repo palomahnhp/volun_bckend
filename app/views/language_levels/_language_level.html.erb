@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(language_level) %>" >
+
+  <% language_level.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(language_level.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(language_level) %>
+    <%= link_to_edit(language_level) %>
+<% if language_level.try(:archived?) %>
+    <%= link_to_recover(language_level) %>
+<% else %>
+    <%= link_to_destroy(language_level) %>
+<% end %>
+  </td>
+</tr>

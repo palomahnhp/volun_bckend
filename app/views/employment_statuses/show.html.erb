@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: EmploymentStatus.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= EmploymentStatus.human_attribute_name(:id) %>:</dt>
+  <dd><%= @employment_status.id %></dd>
+  <dt><%= EmploymentStatus.human_attribute_name(:name) %>:</dt>
+  <dd><%= @employment_status.name %></dd>
+  <dt><%= EmploymentStatus.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@employment_status.active}") %></dd>
+  <dt><%= EmploymentStatus.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@employment_status.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@employment_status) %>
+<% end %>

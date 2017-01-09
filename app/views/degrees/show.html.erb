@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: Degree.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Degree.human_attribute_name(:id) %>:</dt>
+  <dd><%= @degree.id %></dd>
+  <dt><%= Degree.human_attribute_name(:name) %>:</dt>
+  <dd><%= @degree.name %></dd>
+  <dt><%= Degree.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@degree.active}") %></dd>
+  <dt><%= Degree.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@degree.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@degree) %>
+<% end %>

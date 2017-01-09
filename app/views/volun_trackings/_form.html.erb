@@ -1,0 +1,17 @@
+<div class="well">
+  <%= simple_form_for(@volun_tracking, default_form_options) do |f| %>
+
+  <div class="form-inputs">
+          <%= f.association :volunteer %>
+          <%= f.association :tracking %>
+          <%= f.association :project %>
+          <%= f.association :technician %>
+          <%= f.input :tracking_date, as: :datepicker %>
+          <%= f.input :comments %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>

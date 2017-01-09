@@ -6,9 +6,28 @@ Rails.application.routes.draw do
   resources :request_reasons
   resources :request_types
   resources :rejection_types
+  resources :volun_assessments
+  resources :volun_contacts
+  resources :volun_trackings
+  resources :volun_availabilities
   resources :volunteers
-  resources :record_histories
-  resources :addresses
+  resources :traits
+  resources :contact_results
+  resources :tracking_types
+  resources :language_levels
+  resources :languages
+  resources :professions
+  resources :skills
+  resources :knowledges
+  resources :profiles
+  resources :technicians
+  resources :unsubscribe_reasons
+  resources :academic_levels
+  resources :degrees
+  resources :employment_statuses
+  resources :statuses
+  resources :nationalities
+  resources :id_number_types
   resources :proposals
   resources :links
   resources :activities
@@ -17,11 +36,17 @@ Rails.application.routes.draw do
   resources :documents
   resources :issues
   resources :trackings
+  resources :districts
   resources :entities
   resources :entity_types
   resources :road_types
   resources :provinces
+  resources :record_histories
   devise_for :users
+  namespace :pt do
+    resources :entities
+    resources :subventions
+  end
   namespace :rt do
     resources :others
     resources :activity_unpublishings
@@ -36,10 +61,6 @@ Rails.application.routes.draw do
     resources :volunteer_amendments
     resources :volunteer_unsubscribes
     resources :volunteer_subscribes
-  end
-  namespace :pt do
-    resources :entities
-    resources :subventions
   end
   resources :addresses do
     get 'bdc_search_towns', on: :collection

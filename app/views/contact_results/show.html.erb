@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: ContactResult.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= ContactResult.human_attribute_name(:id) %>:</dt>
+  <dd><%= @contact_result.id %></dd>
+  <dt><%= ContactResult.human_attribute_name(:name) %>:</dt>
+  <dd><%= @contact_result.name %></dd>
+  <dt><%= ContactResult.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@contact_result.active}") %></dd>
+  <dt><%= ContactResult.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@contact_result.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@contact_result) %>
+<% end %>

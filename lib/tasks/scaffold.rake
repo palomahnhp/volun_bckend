@@ -59,33 +59,39 @@ MODELS_AND_ATTRS = {
   # Volunteer Tables
   # --------------------------------------------------------------------------------------------------
 
-  'IdNumberType' => 'name:string active:boolean',
+  'IdNumberType' => 'name active:boolean',
 
-  'Nationality' => 'name:string active:boolean',
+  'Nationality' => 'name active:boolean',
 
-  'Status' => 'name:string active:boolean',
+  'Status' => 'name active:boolean',
 
-  'EmploymentStatus' => 'name:string active:boolean',
+  'EmploymentStatus' => 'name active:boolean',
 
-  'AcademicLevel' => 'name:string type:string active:boolean',
+  'Degree' => 'name active:boolean',
 
-  'UnsubscribeReason' => 'name:string active:boolean',
+  'AcademicLevel' => 'name educational_type active:boolean',
 
-  'Technician' => 'name:string profile_id:string active:boolean',
+  'UnsubscribeReason' => 'name active:boolean',
 
-  'Knowledge' => 'name:string active:boolean',
+  'Technician' => 'name profile_id active:boolean',
 
-  'Skill' => 'name:string active:boolean',
+  'Profile' => 'name active:boolean',
 
-  'Profession' => 'name:string active:boolean',
+  'Knowledge' => 'name active:boolean',
 
-  'LanguageLevel' => 'name:string active:boolean',
+  'Skill' => 'name active:boolean',
 
-  'TrackingType' => 'name:string active:boolean',
+  'Profession' => 'name active:boolean',
 
-  'ContactResult' => 'name:string active:boolean',
+  'Language' => 'name active:boolean',
 
-  'Trait' => 'name:string active:boolean',
+  'LanguageLevel' => 'name active:boolean',
+
+  'TrackingType' => 'name active:boolean',
+
+  'ContactResult' => 'name active:boolean',
+
+  'Trait' => 'name active:boolean',
 
 
   'Volunteer' => 'name first_surname second_surname document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
@@ -98,6 +104,8 @@ MODELS_AND_ATTRS = {
   'VolunTracking' => 'volunteer:references tracking:references project:references technician:references tracking_date:datetime comments:text',
 
   'VolunContact' => 'volunteer:references project:references technician:references contact_date:datetime contact_result:references comments:text',
+
+  'VolunAssessments' => 'volunteer:references project:references trait:references trait_other:string assessment:boolean comments:text',
 
   # n:n
 
@@ -139,14 +147,15 @@ MODELS_AND_ATTRS = {
 
 }
 
-# AUX_MODELS_AND_ATTRS = {}
+ADVANCED_JOINED_TABLES = {
+    'LanguageVolunteer' => 'volunteer:references language:references language_level:references'
+}
 
 JOINED_TABLES = [
     %w(project area),
     %w(project collective),
     %w(project district),
     %w(project coordination),
-    %w(timetable project),
 
     %w(address volunteer),
     %w(degree volunteer),
@@ -154,6 +163,141 @@ JOINED_TABLES = [
     %w(area volunteer),
     %w(assessment volunteer),
 ]
+
+MANUAL_MIGRATIONS = {
+    :add_kind_constraint_to_project_types => %q(
+class AddKindConstraintToProjectTypes < ActiveRecord::Migration
+  def up
+    execute %{
+      ALTER TABLE
+        project_types
+      ADD CONSTRAINT
+        kind_and_id_must_be_equal
+        CHECK (
+          (id = #{ProjectType.kinds[:pt_social]}     AND kind = #{ProjectType.kinds[:pt_social]})     OR
+          (id = #{ProjectType.kinds[:pt_centre]}     AND kind = #{ProjectType.kinds[:pt_centre]})     OR
+          (id = #{ProjectType.kinds[:pt_permanent]}  AND kind = #{ProjectType.kinds[:pt_permanent]})  OR
+          (id = #{ProjectType.kinds[:pt_punctual]}   AND kind = #{ProjectType.kinds[:pt_punctual]})   OR
+          (id = #{ProjectType.kinds[:pt_entity]}     AND kind = #{ProjectType.kinds[:pt_entity]})     OR
+          (id = #{ProjectType.kinds[:pt_subvention]} AND kind = #{ProjectType.kinds[:pt_subvention]}) OR
+          (id = #{ProjectType.kinds[:pt_other]}      AND kind = #{ProjectType.kinds[:pt_other]})
+        )
+    }
+  end
+
+  def down
+    execute %{
+      ALTER TABLE
+        project_types
+      DROP CONSTRAINT
+        kind_and_id_must_be_equal
+    }
+  end
+end
+),
+    :add_pt_extendable_constraint_to_projects => %q(
+class AddPtExtendableConstraintToProjects < ActiveRecord::Migration
+  def up
+    execute %{
+      ALTER TABLE
+        projects
+      ADD CONSTRAINT
+        pt_extendable_must_be_consistent
+        CHECK (
+          (project_type_id = #{ProjectType.kinds[:pt_social]}     AND pt_extendable_type IS NULL) OR
+          (project_type_id = #{ProjectType.kinds[:pt_centre]}     AND pt_extendable_type IS NULL) OR
+          (project_type_id = #{ProjectType.kinds[:pt_permanent]}  AND pt_extendable_type IS NULL) OR
+          (project_type_id = #{ProjectType.kinds[:pt_punctual]}   AND pt_extendable_type IS NULL) OR
+          (project_type_id = #{ProjectType.kinds[:pt_entity]}     AND pt_extendable_type = '#{Pt::Entity.name}') OR
+          (project_type_id = #{ProjectType.kinds[:pt_subvention]} AND pt_extendable_type = '#{Pt::Subvention.name}') OR
+          (project_type_id = #{ProjectType.kinds[:pt_other]}      AND pt_extendable_type IS NULL)
+        )
+    }
+  end
+
+  def down
+    execute %{
+      ALTER TABLE
+        projects
+      DROP CONSTRAINT
+        pt_extendable_must_be_consistent
+    }
+  end
+end
+),
+    :add_kind_constraint_to_request_types => %q(
+class AddKindConstraintToRequestTypes < ActiveRecord::Migration
+  def up
+    execute %{
+      ALTER TABLE
+        request_types
+      ADD CONSTRAINT
+        kind_and_id_must_be_equal
+        CHECK (
+          (id = #{RequestType.kinds[:rt_volunteer_subscribe]}   AND kind = #{RequestType.kinds[:rt_volunteer_subscribe]})   OR
+          (id = #{RequestType.kinds[:rt_volunteer_unsubscribe]} AND kind = #{RequestType.kinds[:rt_volunteer_unsubscribe]}) OR
+          (id = #{RequestType.kinds[:rt_volunteer_amendment]}   AND kind = #{RequestType.kinds[:rt_volunteer_amendment]})   OR
+          (id = #{RequestType.kinds[:rt_volunteer_appointment]} AND kind = #{RequestType.kinds[:rt_volunteer_appointment]}) OR
+          (id = #{RequestType.kinds[:rt_entity_subscribe]}      AND kind = #{RequestType.kinds[:rt_entity_subscribe]})      OR
+          (id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND kind = #{RequestType.kinds[:rt_entity_unsubscribe]})    OR
+          (id = #{RequestType.kinds[:rt_volunteers_demand]}     AND kind = #{RequestType.kinds[:rt_volunteers_demand]})     OR
+          (id = #{RequestType.kinds[:rt_project_publishing]}    AND kind = #{RequestType.kinds[:rt_project_publishing]})    OR
+          (id = #{RequestType.kinds[:rt_project_unpublishing]}  AND kind = #{RequestType.kinds[:rt_project_unpublishing]})  OR
+          (id = #{RequestType.kinds[:rt_project_unsubscribe]}   AND kind = #{RequestType.kinds[:rt_project_unsubscribe]})   OR
+          (id = #{RequestType.kinds[:rt_activity_publishing]}   AND kind = #{RequestType.kinds[:rt_activity_publishing]})   OR
+          (id = #{RequestType.kinds[:rt_activity_unpublishing]} AND kind = #{RequestType.kinds[:rt_activity_unpublishing]}) OR
+          (id = #{RequestType.kinds[:rt_other]}                 AND kind = #{RequestType.kinds[:rt_other]})
+        )
+    }
+  end
+
+  def down
+    execute %{
+      ALTER TABLE
+        request_types
+      DROP CONSTRAINT
+        kind_and_id_must_be_equal
+    }
+  end
+end
+),
+    :add_rt_extendable_constraint_to_request_forms => %q(
+class AddRtExtendableConstraintToRequestForms < ActiveRecord::Migration
+  def up
+    execute %{
+      ALTER TABLE
+        request_forms
+      ADD CONSTRAINT
+        rt_extendable_must_be_consistent
+        CHECK (
+          (request_type_id = #{RequestType.kinds[:rt_volunteer_subscribe]}   AND rt_extendable_type = '#{Rt::VolunteerSubscribe.name}')   OR
+          (request_type_id = #{RequestType.kinds[:rt_volunteer_unsubscribe]} AND rt_extendable_type = '#{Rt::VolunteerUnsubscribe.name}') OR
+          (request_type_id = #{RequestType.kinds[:rt_volunteer_amendment]}   AND rt_extendable_type = '#{Rt::VolunteerAmendment.name}')   OR
+          (request_type_id = #{RequestType.kinds[:rt_volunteer_appointment]} AND rt_extendable_type = '#{Rt::VolunteerAppointment.name}') OR
+          (request_type_id = #{RequestType.kinds[:rt_entity_subscribe]}      AND rt_extendable_type = '#{Rt::EntitySubscribe.name}')      OR
+          (request_type_id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND rt_extendable_type = '#{Rt::EntityUnsubscribe.name}')    OR
+          (request_type_id = #{RequestType.kinds[:rt_volunteers_demand]}     AND rt_extendable_type = '#{Rt::VolunteersDemand.name}')     OR
+          (request_type_id = #{RequestType.kinds[:rt_project_publishing]}    AND rt_extendable_type = '#{Rt::ProjectPublishing.name}')    OR
+          (request_type_id = #{RequestType.kinds[:rt_project_unpublishing]}  AND rt_extendable_type = '#{Rt::ProjectUnpublishing.name}')  OR
+          (request_type_id = #{RequestType.kinds[:rt_project_unsubscribe]}   AND rt_extendable_type = '#{Rt::ProjectUnsubscribe.name}')   OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_publishing]}   AND rt_extendable_type = '#{Rt::ActivityPublishing.name}')   OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_unpublishing]} AND rt_extendable_type = '#{Rt::ActivityUnpublishing.name}') OR
+          (request_type_id = #{RequestType.kinds[:rt_other]}                 AND rt_extendable_type = '#{Rt::Other.name}')
+        )
+    }
+  end
+
+  def down
+    execute %{
+      ALTER TABLE
+        request_forms
+      DROP CONSTRAINT
+        rt_extendable_must_be_consistent
+    }
+  end
+end
+)
+}
 
 
 namespace :scaffold do
@@ -200,6 +344,21 @@ namespace :scaffold do
     end
   end
 
+  desc 'Builds manual migrations'
+  task build_manual_migrations: :environment do
+    MANUAL_MIGRATIONS.each do |name, content|
+      sh "rails g migration #{name}"
+      sh "echo \"#{content}\" > $(ls db/migrate/*#{name}.rb)"
+    end
+  end
+
+  desc 'Destroy manual migrations'
+  task destroy_manual_migrations: :environment do
+    MANUAL_MIGRATIONS.keys.each do |name|
+      sh "rails destroy migration #{name}"
+    end
+  end
+
   desc 'Builds the user model'
   task create_user: :environment do
     # Generate scaffold for User model
@@ -227,10 +386,10 @@ namespace :scaffold do
       sh "rails generate scaffold #{model_name} #{attrs_list} --skip"
     end
 
-    # # Generate intermediate models
-    # AUX_MODELS_AND_ATTRS.each do |model_name, attrs_list|
-    #   sh "rails generate model #{model_name} #{attrs_list} --skip"
-    # end
+    # Generate the models for advanced join tables
+    ADVANCED_JOINED_TABLES.each do |model_name, attrs_list|
+      sh "rails generate model #{model_name} #{attrs_list} --skip"
+    end
 
     # Generate simple intermediate models
     JOINED_TABLES.each do |table1, table2|
@@ -250,10 +409,10 @@ namespace :scaffold do
       sh "rails destroy scaffold #{model_name}"
     end
 
-    # # Destroy models
-    # AUX_MODELS_AND_ATTRS.keys.each do |model_name|
-    #   sh "rails destroy model #{model_name}"
-    # end
+    # Destroy models
+    ADVANCED_JOINED_TABLES.keys.each do |model_name|
+      sh "rails destroy model #{model_name}"
+    end
 
     # Generate simple intermediate models
     JOINED_TABLES.each do |table1, table2|
@@ -264,6 +423,8 @@ namespace :scaffold do
       end
       sh "rails destroy migration create_join_table_#{table1}_#{table2}"
     end
+
+    Rake::Task['scaffold:destroy_manual_migrations'].invoke
   end
 
   desc 'Builds the application data model basement by scaffolding the models'
@@ -283,6 +444,7 @@ namespace :scaffold do
     puts "Generating scaffolds"
     Rake::Task['scaffold:create_user'].invoke
     Rake::Task['scaffold:build'].invoke
+    Rake::Task['scaffold:build_manual_migrations'].invoke
     Rake::Task['scaffold:add_default_true'].invoke
     Rake::Task['scaffold:gco_files'].invoke
   end
