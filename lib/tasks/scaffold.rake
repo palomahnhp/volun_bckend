@@ -152,6 +152,7 @@ JOINED_TABLES = [
     %w(address volunteer),
     %w(degree  volunteer),
     %w(area    volunteer),
+    %w(project volunteer),
 ]
 
 MANUAL_MIGRATIONS = {
