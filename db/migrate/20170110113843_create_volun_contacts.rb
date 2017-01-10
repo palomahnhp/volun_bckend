@@ -1,11 +1,11 @@
-class CreateVolunTrackings < ActiveRecord::Migration
+class CreateVolunContacts < ActiveRecord::Migration
   def change
-    create_table :volun_trackings do |t|
+    create_table :volun_contacts do |t|
       t.references :volunteer, index: true, foreign_key: true
-      t.references :tracking, index: true, foreign_key: true
+      t.references :contact_result, index: true, foreign_key: true
       t.references :project, index: true, foreign_key: true
       t.references :technician, index: true, foreign_key: true
-      t.datetime :tracking_date
+      t.datetime :contact_date
       t.text :comments
 
       t.timestamps null: false

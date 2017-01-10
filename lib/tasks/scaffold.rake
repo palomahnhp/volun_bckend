@@ -36,8 +36,7 @@ MODELS_AND_ATTRS = {
   'Event'    => 'eventable:references{polymorphic} address:references',
   'Timetable' => 'event:references execution_date:date start_hour end_hour ',
 
-  # 1:N tables for ProjectTypeSubvention
-
+  # 1:N tables
 
   'Activity' => 'name description:text start_date:datetime end_date:datetime transport:text pdf_url entity:references area:references project:references share:boolean ',
   'Link'     => 'url description:text kind:integer linkable:references{polymorphic}',
@@ -97,22 +96,9 @@ MODELS_AND_ATTRS = {
   'Volunteer' => 'name first_surname second_surname document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
 
 
-  # 1:n
+  # 1:N
 
-  'VolunAvailability' => 'volunteer:references day:string start_hour:string end_hour:string',
-
-  'VolunTracking' => 'volunteer:references tracking:references project:references technician:references tracking_date:datetime comments:text',
-
-  'VolunContact' => 'volunteer:references project:references technician:references contact_date:datetime contact_result:references comments:text',
-
-  'VolunAssessments' => 'volunteer:references project:references trait:references trait_other:string assessment:boolean comments:text',
-
-  # n:n
-
-  # address
-
-
-
+  'Volun::Availability' => 'volunteer:references day:string start_hour:string end_hour:string',
 
   # --------------------------------------------------------------------------------------------------
   # Request Form Tables
@@ -147,21 +133,25 @@ MODELS_AND_ATTRS = {
 
 }
 
+# N:N (advanced)
+
 ADVANCED_JOINED_TABLES = {
-    'LanguageVolunteer' => 'volunteer:references language:references language_level:references'
+  'Volun::KnownLanguage' => 'volunteer:references language:references language_level:references',
+  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references technician:references tracking_date:datetime comments:text',
+  'Volun::Contact'       => 'volunteer:references contact_result:references project:references technician:references contact_date:datetime  comments:text',
+  'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string assessment:boolean comments:text'
 }
 
+ # N:N (simple)
 JOINED_TABLES = [
-    %w(project area),
-    %w(project collective),
-    %w(project district),
-    %w(project coordination),
+    %w(area         project),
+    %w(collective   project),
+    %w(district     project),
+    %w(coordination project),
 
     %w(address volunteer),
-    %w(degree volunteer),
-    %w(language volunteer),
-    %w(area volunteer),
-    %w(assessment volunteer),
+    %w(degree  volunteer),
+    %w(area    volunteer),
 ]
 
 MANUAL_MIGRATIONS = {
@@ -347,7 +337,7 @@ namespace :scaffold do
   desc 'Builds manual migrations'
   task build_manual_migrations: :environment do
     MANUAL_MIGRATIONS.each do |name, content|
-      sh "rails g migration #{name}"
+      sh "bundle exec rails generate migration #{name}"
       sh "echo \"#{content}\" > $(ls db/migrate/*#{name}.rb)"
     end
   end
@@ -355,17 +345,17 @@ namespace :scaffold do
   desc 'Destroy manual migrations'
   task destroy_manual_migrations: :environment do
     MANUAL_MIGRATIONS.keys.each do |name|
-      sh "rails destroy migration #{name}"
+      sh "bundle exec rails destroy migration #{name}"
     end
   end
 
   desc 'Builds the user model'
   task create_user: :environment do
     # Generate scaffold for User model
-    sh 'rails g scaffold User locale profileable:references{polymorphic}'
+    sh 'bundle exec rails generate scaffold User locale profileable:references{polymorphic}'
 
     # Add devise attrs to User model
-    sh 'rails generate devise User --skip'
+    sh 'bundle exec rails generate devise User --skip'
   end
 
   desc 'Destroy the user model'
@@ -373,7 +363,7 @@ namespace :scaffold do
     Rake::Task['scaffold:destroy_devise_routes'].invoke
 
     # Destroy scaffold for user
-    sh 'rails destroy scaffold User --skip'
+    sh 'bundle exec rails destroy scaffold User --skip'
 
     # Destroy devise scaffold for user
     sh 'rm -f db/migrate/*_devise_*.rb'
@@ -383,12 +373,12 @@ namespace :scaffold do
   task build: :environment do
     # Generate the scaffolds for all models
     MODELS_AND_ATTRS.each do |model_name, attrs_list|
-      sh "rails generate scaffold #{model_name} #{attrs_list} --skip"
+      sh "bundle exec rails generate scaffold #{model_name} #{attrs_list} -f"
     end
 
     # Generate the models for advanced join tables
     ADVANCED_JOINED_TABLES.each do |model_name, attrs_list|
-      sh "rails generate model #{model_name} #{attrs_list} --skip"
+      sh "bundle exec rails generate model #{model_name} #{attrs_list} -f"
     end
 
     # Generate simple intermediate models
@@ -398,7 +388,7 @@ namespace :scaffold do
         table1  = table2
         table2  = _table1
       end
-      sh "rails g migration create_join_table_#{table1}_#{table2} #{table1}:index #{table2}:index"
+      sh "bundle exec rails generate migration create_join_table_#{table1}_#{table2} #{table1}:index #{table2}:index -f"
     end
   end
 
@@ -406,12 +396,12 @@ namespace :scaffold do
   task destroy: :environment do
     # Destroy the scaffolds of all models
     MODELS_AND_ATTRS.keys.each do |model_name|
-      sh "rails destroy scaffold #{model_name}"
+      sh "bundle exec rails destroy scaffold #{model_name}"
     end
 
     # Destroy models
     ADVANCED_JOINED_TABLES.keys.each do |model_name|
-      sh "rails destroy model #{model_name}"
+      sh "bundle exec rails destroy model #{model_name}"
     end
 
     # Generate simple intermediate models
@@ -421,7 +411,7 @@ namespace :scaffold do
         table1  = table2
         table2  = _table1
       end
-      sh "rails destroy migration create_join_table_#{table1}_#{table2}"
+      sh "bundle exec rails destroy migration create_join_table_#{table1}_#{table2}"
     end
 
     Rake::Task['scaffold:destroy_manual_migrations'].invoke

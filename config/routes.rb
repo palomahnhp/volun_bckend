@@ -1,15 +1,10 @@
 Rails.application.routes.draw do
 
 
-
   resources :request_forms
   resources :request_reasons
   resources :request_types
   resources :rejection_types
-  resources :volun_assessments
-  resources :volun_contacts
-  resources :volun_trackings
-  resources :volun_availabilities
   resources :volunteers
   resources :traits
   resources :contact_results
@@ -42,11 +37,18 @@ Rails.application.routes.draw do
   resources :road_types
   resources :provinces
   resources :record_histories
+
   devise_for :users
+
+  namespace :volun do
+    resources :availabilities
+  end
+
   namespace :pt do
     resources :entities
     resources :subventions
   end
+
   namespace :rt do
     resources :others
     resources :activity_unpublishings
@@ -62,20 +64,25 @@ Rails.application.routes.draw do
     resources :volunteer_unsubscribes
     resources :volunteer_subscribes
   end
+
   resources :addresses do
     get 'bdc_search_towns', on: :collection
     get 'bdc_search_roads', on: :collection
     get 'bdc_search_road_numbers', on: :collection
   end
+
   concern :recoverable do
     post :recover, on: :member
   end
+
   resources :projects, concerns: :recoverable do
     get 'pt_extensions_menu', on: :collection
   end
+
   resources :request_forms, concerns: :recoverable do
     get 'rt_extensions_menu', on: :collection
   end
+
   resources :project_types, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable

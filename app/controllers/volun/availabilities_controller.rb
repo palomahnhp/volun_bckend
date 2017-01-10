@@ -1,10 +1,10 @@
-class VolunAvailabilitiesController < ApplicationController
+class Volun::AvailabilitiesController < ApplicationController
 
   load_and_authorize_resource
   respond_to :html, :js, :json
 
   def index
-    params[:q] ||= VolunAvailability.ransack_default
+    params[:q] ||= Volun::Availability.ransack_default
     @search_q = @volun_availabilities.search(params[:q])
     @volun_availabilities = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
@@ -18,7 +18,6 @@ class VolunAvailabilitiesController < ApplicationController
   end
 
   def new
-    @volun_availability = VolunAvailability.new
     respond_with(@volun_availability)
   end
 

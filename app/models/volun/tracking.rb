@@ -1,9 +1,9 @@
-class VolunContact < ActiveRecord::Base
+class Volun::Tracking < ActiveRecord::Base
 
   belongs_to :volunteer
+  belongs_to :tracking_type
   belongs_to :project
   belongs_to :technician
-  belongs_to :contact_result
 
 
 end

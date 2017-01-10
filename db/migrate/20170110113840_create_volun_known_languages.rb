@@ -1,6 +1,6 @@
-class CreateLanguageVolunteers < ActiveRecord::Migration
+class CreateVolunKnownLanguages < ActiveRecord::Migration
   def change
-    create_table :language_volunteers do |t|
+    create_table :volun_known_languages do |t|
       t.references :volunteer, index: true, foreign_key: true
       t.references :language, index: true, foreign_key: true
       t.references :language_level, index: true, foreign_key: true
