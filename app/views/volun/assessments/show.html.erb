@@ -1,0 +1,26 @@
+<%= main_title(t("action.show", model: VolunAssessment.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= VolunAssessment.human_attribute_name(:id) %>:</dt>
+  <dd><%= @volun_assessment.id %></dd>
+  <dt><%= VolunAssessment.human_attribute_name(:volunteer_id) %>:</dt>
+  <dd><%= @volun_assessment.volunteer %></dd>
+  <dt><%= VolunAssessment.human_attribute_name(:trait_id) %>:</dt>
+  <dd><%= @volun_assessment.trait %></dd>
+  <dt><%= VolunAssessment.human_attribute_name(:project_id) %>:</dt>
+  <dd><%= @volun_assessment.project %></dd>
+  <dt><%= VolunAssessment.human_attribute_name(:trait_other) %>:</dt>
+  <dd><%= @volun_assessment.trait_other %></dd>
+  <dt><%= VolunAssessment.human_attribute_name(:assessment) %>:</dt>
+  <dd><%= t("humanize.#{@volun_assessment.assessment}") %></dd>
+  <dt><%= VolunAssessment.human_attribute_name(:comments) %>:</dt>
+  <dd><%= @volun_assessment.comments %></dd>
+  <dt><%= VolunAssessment.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@volun_assessment.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@volun_assessment) %>
+<% end %>

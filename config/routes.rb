@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-
   resources :request_forms
   resources :request_reasons
   resources :request_types
@@ -37,11 +36,13 @@ Rails.application.routes.draw do
   resources :road_types
   resources :provinces
   resources :record_histories
-
   devise_for :users
 
   namespace :volun do
+    resources :assessments
     resources :availabilities
+    resources :contacts
+    resources :trackings
   end
 
   namespace :pt do

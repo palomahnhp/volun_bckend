@@ -97,8 +97,12 @@ MODELS_AND_ATTRS = {
 
 
   # 1:N
-
   'Volun::Availability' => 'volunteer:references day:string start_hour:string end_hour:string',
+
+  # 1:N
+  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references technician:references tracking_date:datetime comments:text',
+  'Volun::Contact'       => 'volunteer:references contact_result:references project:references technician:references contact_date:datetime  comments:text',
+  'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string assessment:boolean comments:text',
 
   # --------------------------------------------------------------------------------------------------
   # Request Form Tables
@@ -134,12 +138,8 @@ MODELS_AND_ATTRS = {
 }
 
 # N:N (advanced)
-
 ADVANCED_JOINED_TABLES = {
   'Volun::KnownLanguage' => 'volunteer:references language:references language_level:references',
-  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references technician:references tracking_date:datetime comments:text',
-  'Volun::Contact'       => 'volunteer:references contact_result:references project:references technician:references contact_date:datetime  comments:text',
-  'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string assessment:boolean comments:text'
 }
 
  # N:N (simple)
