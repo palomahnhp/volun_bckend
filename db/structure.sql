@@ -1871,7 +1871,7 @@ ALTER SEQUENCE statuses_id_seq OWNED BY statuses.id;
 CREATE TABLE technicians (
     id integer NOT NULL,
     name character varying,
-    profile_id character varying,
+    profile_id integer,
     active boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -3287,6 +3287,13 @@ ALTER TABLE ONLY volunteers
 
 
 --
+-- Name: index_academic_levels_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_academic_levels_on_name ON academic_levels USING btree (name);
+
+
+--
 -- Name: index_activities_on_area_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3298,6 +3305,13 @@ CREATE INDEX index_activities_on_area_id ON activities USING btree (area_id);
 --
 
 CREATE INDEX index_activities_on_entity_id ON activities USING btree (entity_id);
+
+
+--
+-- Name: index_activities_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_activities_on_name ON activities USING btree (name);
 
 
 --
@@ -3336,6 +3350,13 @@ CREATE INDEX index_addresses_volunteers_on_volunteer_id_and_address_id ON addres
 
 
 --
+-- Name: index_areas_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_areas_on_name ON areas USING btree (name);
+
+
+--
 -- Name: index_areas_projects_on_area_id_and_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3364,6 +3385,13 @@ CREATE INDEX index_areas_volunteers_on_volunteer_id_and_area_id ON areas_volunte
 
 
 --
+-- Name: index_collectives_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_collectives_on_name ON collectives USING btree (name);
+
+
+--
 -- Name: index_collectives_projects_on_collective_id_and_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3375,6 +3403,20 @@ CREATE INDEX index_collectives_projects_on_collective_id_and_project_id ON colle
 --
 
 CREATE INDEX index_collectives_projects_on_project_id_and_collective_id ON collectives_projects USING btree (project_id, collective_id);
+
+
+--
+-- Name: index_contact_results_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_contact_results_on_name ON contact_results USING btree (name);
+
+
+--
+-- Name: index_coordinations_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_coordinations_on_name ON coordinations USING btree (name);
 
 
 --
@@ -3392,6 +3434,13 @@ CREATE INDEX index_coordinations_projects_on_project_id_and_coordination_id ON c
 
 
 --
+-- Name: index_degrees_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_degrees_on_name ON degrees USING btree (name);
+
+
+--
 -- Name: index_degrees_volunteers_on_degree_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3403,6 +3452,20 @@ CREATE INDEX index_degrees_volunteers_on_degree_id_and_volunteer_id ON degrees_v
 --
 
 CREATE INDEX index_degrees_volunteers_on_volunteer_id_and_degree_id ON degrees_volunteers USING btree (volunteer_id, degree_id);
+
+
+--
+-- Name: index_districts_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_districts_on_code ON districts USING btree (code);
+
+
+--
+-- Name: index_districts_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_districts_on_name ON districts USING btree (name);
 
 
 --
@@ -3420,6 +3483,13 @@ CREATE INDEX index_districts_projects_on_project_id_and_district_id ON districts
 
 
 --
+-- Name: index_documents_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_documents_on_name ON documents USING btree (name);
+
+
+--
 -- Name: index_documents_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3427,10 +3497,31 @@ CREATE INDEX index_documents_on_project_id ON documents USING btree (project_id)
 
 
 --
+-- Name: index_employment_statuses_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_employment_statuses_on_name ON employment_statuses USING btree (name);
+
+
+--
 -- Name: index_entities_on_entity_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_entities_on_entity_type_id ON entities USING btree (entity_type_id);
+
+
+--
+-- Name: index_entities_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_entities_on_name ON entities USING btree (name);
+
+
+--
+-- Name: index_entity_types_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_entity_types_on_kind ON entity_types USING btree (kind);
 
 
 --
@@ -3448,10 +3539,45 @@ CREATE INDEX index_events_on_eventable_type_and_eventable_id ON events USING btr
 
 
 --
+-- Name: index_id_number_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_id_number_types_on_name ON id_number_types USING btree (name);
+
+
+--
 -- Name: index_issues_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_issues_on_project_id ON issues USING btree (project_id);
+
+
+--
+-- Name: index_knowledges_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_knowledges_on_name ON knowledges USING btree (name);
+
+
+--
+-- Name: index_language_levels_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_language_levels_on_name ON language_levels USING btree (name);
+
+
+--
+-- Name: index_languages_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_languages_on_name ON languages USING btree (name);
+
+
+--
+-- Name: index_links_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_links_on_kind ON links USING btree (kind);
 
 
 --
@@ -3462,10 +3588,45 @@ CREATE INDEX index_links_on_linkable_type_and_linkable_id ON links USING btree (
 
 
 --
+-- Name: index_nationalities_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_nationalities_on_name ON nationalities USING btree (name);
+
+
+--
+-- Name: index_professions_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_professions_on_name ON professions USING btree (name);
+
+
+--
+-- Name: index_profiles_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_profiles_on_name ON profiles USING btree (name);
+
+
+--
+-- Name: index_project_types_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_project_types_on_kind ON project_types USING btree (kind);
+
+
+--
 -- Name: index_projects_on_entity_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_projects_on_entity_id ON projects USING btree (entity_id);
+
+
+--
+-- Name: index_projects_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_projects_on_name ON projects USING btree (name);
 
 
 --
@@ -3497,6 +3658,27 @@ CREATE INDEX index_projects_volunteers_on_volunteer_id_and_project_id ON project
 
 
 --
+-- Name: index_proposals_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_proposals_on_name ON proposals USING btree (name);
+
+
+--
+-- Name: index_provinces_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_provinces_on_code ON provinces USING btree (code);
+
+
+--
+-- Name: index_provinces_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_provinces_on_name ON provinces USING btree (name);
+
+
+--
 -- Name: index_pt_subventions_on_proposal_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3515,6 +3697,13 @@ CREATE INDEX index_record_histories_on_recordable_type_and_recordable_id ON reco
 --
 
 CREATE INDEX index_record_histories_on_user_id ON record_histories USING btree (user_id);
+
+
+--
+-- Name: index_rejection_types_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_rejection_types_on_kind ON rejection_types USING btree (kind);
 
 
 --
@@ -3546,6 +3735,48 @@ CREATE INDEX index_request_forms_on_user_id ON request_forms USING btree (user_i
 
 
 --
+-- Name: index_request_reasons_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_request_reasons_on_kind ON request_reasons USING btree (kind);
+
+
+--
+-- Name: index_request_types_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_request_types_on_kind ON request_types USING btree (kind);
+
+
+--
+-- Name: index_road_types_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_road_types_on_code ON road_types USING btree (code);
+
+
+--
+-- Name: index_road_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_road_types_on_name ON road_types USING btree (name);
+
+
+--
+-- Name: index_rt_activity_publishings_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_rt_activity_publishings_on_name ON rt_activity_publishings USING btree (name);
+
+
+--
+-- Name: index_rt_entity_subscribes_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_rt_entity_subscribes_on_name ON rt_entity_subscribes USING btree (name);
+
+
+--
 -- Name: index_rt_entity_subscribes_on_request_reason_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3567,6 +3798,20 @@ CREATE INDEX index_rt_volunteer_amendments_on_address_id ON rt_volunteer_amendme
 
 
 --
+-- Name: index_skills_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_skills_on_name ON skills USING btree (name);
+
+
+--
+-- Name: index_statuses_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_statuses_on_name ON statuses USING btree (name);
+
+
+--
 -- Name: index_timetables_on_event_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3574,10 +3819,31 @@ CREATE INDEX index_timetables_on_event_id ON timetables USING btree (event_id);
 
 
 --
+-- Name: index_tracking_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_tracking_types_on_name ON tracking_types USING btree (name);
+
+
+--
 -- Name: index_trackings_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_trackings_on_project_id ON trackings USING btree (project_id);
+
+
+--
+-- Name: index_traits_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_traits_on_name ON traits USING btree (name);
+
+
+--
+-- Name: index_unsubscribe_reasons_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_unsubscribe_reasons_on_name ON unsubscribe_reasons USING btree (name);
 
 
 --
@@ -4172,155 +4438,155 @@ ALTER TABLE ONLY projects
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151442');
+INSERT INTO schema_migrations (version) VALUES ('20170111161252');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151443');
+INSERT INTO schema_migrations (version) VALUES ('20170111161253');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151445');
+INSERT INTO schema_migrations (version) VALUES ('20170111161254');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151446');
+INSERT INTO schema_migrations (version) VALUES ('20170111161256');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151448');
+INSERT INTO schema_migrations (version) VALUES ('20170111161257');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151449');
+INSERT INTO schema_migrations (version) VALUES ('20170111161259');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151451');
+INSERT INTO schema_migrations (version) VALUES ('20170111161300');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151452');
+INSERT INTO schema_migrations (version) VALUES ('20170111161301');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151453');
+INSERT INTO schema_migrations (version) VALUES ('20170111161303');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151455');
+INSERT INTO schema_migrations (version) VALUES ('20170111161304');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151456');
+INSERT INTO schema_migrations (version) VALUES ('20170111161305');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151458');
+INSERT INTO schema_migrations (version) VALUES ('20170111161307');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151500');
+INSERT INTO schema_migrations (version) VALUES ('20170111161308');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151501');
+INSERT INTO schema_migrations (version) VALUES ('20170111161310');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151502');
+INSERT INTO schema_migrations (version) VALUES ('20170111161311');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151504');
+INSERT INTO schema_migrations (version) VALUES ('20170111161312');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151506');
+INSERT INTO schema_migrations (version) VALUES ('20170111161314');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151507');
+INSERT INTO schema_migrations (version) VALUES ('20170111161315');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151509');
+INSERT INTO schema_migrations (version) VALUES ('20170111161317');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151510');
+INSERT INTO schema_migrations (version) VALUES ('20170111161318');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151512');
+INSERT INTO schema_migrations (version) VALUES ('20170111161319');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151513');
+INSERT INTO schema_migrations (version) VALUES ('20170111161321');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151515');
+INSERT INTO schema_migrations (version) VALUES ('20170111161322');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151516');
+INSERT INTO schema_migrations (version) VALUES ('20170111161324');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151518');
+INSERT INTO schema_migrations (version) VALUES ('20170111161325');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151520');
+INSERT INTO schema_migrations (version) VALUES ('20170111161327');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151521');
+INSERT INTO schema_migrations (version) VALUES ('20170111161328');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151523');
+INSERT INTO schema_migrations (version) VALUES ('20170111161330');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151524');
+INSERT INTO schema_migrations (version) VALUES ('20170111161331');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151526');
+INSERT INTO schema_migrations (version) VALUES ('20170111161332');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151527');
+INSERT INTO schema_migrations (version) VALUES ('20170111161334');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151529');
+INSERT INTO schema_migrations (version) VALUES ('20170111161335');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151530');
+INSERT INTO schema_migrations (version) VALUES ('20170111161337');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151532');
+INSERT INTO schema_migrations (version) VALUES ('20170111161338');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151533');
+INSERT INTO schema_migrations (version) VALUES ('20170111161340');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151535');
+INSERT INTO schema_migrations (version) VALUES ('20170111161341');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151537');
+INSERT INTO schema_migrations (version) VALUES ('20170111161343');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151538');
+INSERT INTO schema_migrations (version) VALUES ('20170111161344');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151540');
+INSERT INTO schema_migrations (version) VALUES ('20170111161346');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151541');
+INSERT INTO schema_migrations (version) VALUES ('20170111161347');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151543');
+INSERT INTO schema_migrations (version) VALUES ('20170111161349');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151544');
+INSERT INTO schema_migrations (version) VALUES ('20170111161350');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151546');
+INSERT INTO schema_migrations (version) VALUES ('20170111161352');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151548');
+INSERT INTO schema_migrations (version) VALUES ('20170111161353');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151549');
+INSERT INTO schema_migrations (version) VALUES ('20170111161355');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151551');
+INSERT INTO schema_migrations (version) VALUES ('20170111161356');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151552');
+INSERT INTO schema_migrations (version) VALUES ('20170111161358');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151554');
+INSERT INTO schema_migrations (version) VALUES ('20170111161359');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151555');
+INSERT INTO schema_migrations (version) VALUES ('20170111161401');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151557');
+INSERT INTO schema_migrations (version) VALUES ('20170111161402');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151559');
+INSERT INTO schema_migrations (version) VALUES ('20170111161404');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151600');
+INSERT INTO schema_migrations (version) VALUES ('20170111161405');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151602');
+INSERT INTO schema_migrations (version) VALUES ('20170111161407');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151603');
+INSERT INTO schema_migrations (version) VALUES ('20170111161408');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151605');
+INSERT INTO schema_migrations (version) VALUES ('20170111161410');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151607');
+INSERT INTO schema_migrations (version) VALUES ('20170111161412');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151608');
+INSERT INTO schema_migrations (version) VALUES ('20170111161413');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151610');
+INSERT INTO schema_migrations (version) VALUES ('20170111161415');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151611');
+INSERT INTO schema_migrations (version) VALUES ('20170111161416');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151613');
+INSERT INTO schema_migrations (version) VALUES ('20170111161418');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151615');
+INSERT INTO schema_migrations (version) VALUES ('20170111161419');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151616');
+INSERT INTO schema_migrations (version) VALUES ('20170111161421');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151618');
+INSERT INTO schema_migrations (version) VALUES ('20170111161423');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151619');
+INSERT INTO schema_migrations (version) VALUES ('20170111161424');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151621');
+INSERT INTO schema_migrations (version) VALUES ('20170111161426');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151622');
+INSERT INTO schema_migrations (version) VALUES ('20170111161427');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151624');
+INSERT INTO schema_migrations (version) VALUES ('20170111161428');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151625');
+INSERT INTO schema_migrations (version) VALUES ('20170111161429');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151626');
+INSERT INTO schema_migrations (version) VALUES ('20170111161430');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151628');
+INSERT INTO schema_migrations (version) VALUES ('20170111161432');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151629');
+INSERT INTO schema_migrations (version) VALUES ('20170111161433');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151630');
+INSERT INTO schema_migrations (version) VALUES ('20170111161434');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151631');
+INSERT INTO schema_migrations (version) VALUES ('20170111161436');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151633');
+INSERT INTO schema_migrations (version) VALUES ('20170111161437');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151634');
+INSERT INTO schema_migrations (version) VALUES ('20170111161438');
 
-INSERT INTO schema_migrations (version) VALUES ('20170110151635');
+INSERT INTO schema_migrations (version) VALUES ('20170111161439');
 

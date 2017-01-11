@@ -5,43 +5,43 @@ MODELS_AND_ATTRS = {
   # --------------------------------------------------------------------------------------------------
 
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
-  'Province'      => 'name code',
-  'RoadType'      => 'name code',
-  'EntityType'    => 'kind:integer description:text active:boolean',
-  'Entity'        => 'name description:text active:boolean entity_type:references',
+  'Province'      => 'name:string:uniq code:string:uniq',
+  'RoadType'      => 'name:string:uniq code:string:uniq',
+  'EntityType'    => 'kind:integer:uniq description:text active:boolean',
+  'Entity'        => 'name:string:uniq description:text active:boolean entity_type:references',
   'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code town province:references country ndp_code local_code class_name latitude longitude',
-  'Area'          => 'name description:text active:boolean',
-  'Collective'    => 'name description:text active:boolean',
-  'Coordination'  => 'name description:text active:boolean',
-  'District'      => 'name code active:boolean',
+  'Area'          => 'name:string:uniq description:text active:boolean',
+  'Collective'    => 'name:string:uniq description:text active:boolean',
+  'Coordination'  => 'name:string:uniq description:text active:boolean',
+  'District'      => 'name:string:uniq code:string:uniq active:boolean',
 
 
   # --------------------------------------------------------------------------------------------------
   # Project Tables
   # --------------------------------------------------------------------------------------------------
 
-  'ProjectType' => 'kind:integer description:text active:boolean',
+  'ProjectType' => 'kind:integer:uniq description:text active:boolean',
 
   # -------------------------------------------------
 
-  'Project' => 'name active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_first_surname contact_second_surname phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
+  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_first_surname contact_second_surname phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
   'Tracking'  => 'comments:text start_date:datetime project:references',
   'Issue'     => 'comments:text start_date:datetime project:references',
-  'Document'  => 'name description:text documentum_id:string project:references',
+  'Document'  => 'name:string:uniq description:text documentum_id:string project:references',
 
   # -------------------------------------------------
 
-  'Event'    => 'eventable:references{polymorphic} address:references',
-  'Timetable' => 'event:references execution_date:date start_hour end_hour ',
+  'Event'     => 'eventable:references{polymorphic} address:references',
+  'Timetable' => 'event:references execution_date:date start_hour end_hour',
 
   # 1:N tables
 
-  'Activity' => 'name description:text start_date:datetime end_date:datetime transport:text pdf_url entity:references area:references project:references share:boolean ',
-  'Link'     => 'url description:text kind:integer linkable:references{polymorphic}',
+  'Activity' => 'name:string:uniq description:text start_date:datetime end_date:datetime transport:text pdf_url entity:references area:references project:references share:boolean ',
+  'Link'     => 'url description:text kind:integer:uniq linkable:references{polymorphic}',
 
-  'Proposal' => 'name description:text active:boolean',
+  'Proposal' => 'name:string:uniq description:text active:boolean',
 
   # -------------------------------------------------
 
@@ -58,42 +58,42 @@ MODELS_AND_ATTRS = {
   # Volunteer Tables
   # --------------------------------------------------------------------------------------------------
 
-  'IdNumberType' => 'name active:boolean',
+  'IdNumberType' => 'name:string:uniq active:boolean',
 
-  'Nationality' => 'name active:boolean',
+  'Nationality' => 'name:string:uniq active:boolean',
 
-  'Status' => 'name active:boolean',
+  'Status' => 'name:string:uniq active:boolean',
 
-  'EmploymentStatus' => 'name active:boolean',
+  'EmploymentStatus' => 'name:string:uniq active:boolean',
 
-  'Degree' => 'name active:boolean',
+  'Degree' => 'name:string:uniq active:boolean',
 
-  'AcademicLevel' => 'name educational_type active:boolean',
+  'AcademicLevel' => 'name:string:uniq educational_type active:boolean',
 
-  'UnsubscribeReason' => 'name active:boolean',
+  'UnsubscribeReason' => 'name:string:uniq active:boolean',
 
-  'Technician' => 'name profile_id active:boolean',
+  'Technician' => 'name profile_id:integer active:boolean',
 
-  'Profile' => 'name active:boolean',
+  'Profile' => 'name:string:uniq active:boolean',
 
-  'Knowledge' => 'name active:boolean',
+  'Knowledge' => 'name:string:uniq active:boolean',
 
-  'Skill' => 'name active:boolean',
+  'Skill' => 'name:string:uniq active:boolean',
 
-  'Profession' => 'name active:boolean',
+  'Profession' => 'name:string:uniq active:boolean',
 
-  'Language' => 'name active:boolean',
+  'Language' => 'name:string:uniq active:boolean',
 
-  'LanguageLevel' => 'name active:boolean',
+  'LanguageLevel' => 'name:string:uniq active:boolean',
 
-  'TrackingType' => 'name active:boolean',
+  'TrackingType' => 'name:string:uniq active:boolean',
 
-  'ContactResult' => 'name active:boolean',
+  'ContactResult' => 'name:string:uniq active:boolean',
 
-  'Trait' => 'name active:boolean',
+  'Trait' => 'name:string:uniq active:boolean',
 
 
-  'Volunteer' => 'name first_surname second_surname document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
+  'Volunteer' => 'name:string first_surname second_surname document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
 
 
   # 1:N
@@ -108,30 +108,30 @@ MODELS_AND_ATTRS = {
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
-  'RejectionType' => 'kind:integer description:text active:boolean',
+  'RejectionType' => 'kind:integer:uniq description:text active:boolean',
 
-  'RequestType'               => 'kind:integer description:text active:boolean',
-  'RequestReason'             => 'kind:integer description:text active:boolean',
+  'RequestType'               => 'kind:integer:uniq description:text active:boolean',
+  'RequestReason'             => 'kind:integer:uniq description:text active:boolean',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
+  'Rt::VolunteerSubscribe'    => 'name:string first_surname second_surname phone_number phone_number_alt email',
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'address:references phone_number phone_number_alt',
   'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
+  'Rt::EntitySubscribe'       => 'name:string:uniq vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
   'Rt::EntityUnsubscribe'     => 'reason:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
   'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
   'Rt::ProjectUnpublishing'   => 'reason:text',
   'Rt::ProjectUnsubscribe'    => 'project:references reason:text',
-  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
+  'Rt::ActivityPublishing'    => 'name:string:uniq organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
   'Rt::ActivityUnpublishing'  => 'reason:text',
   'Rt::Other'                 => 'description:text',
 
 
-  ## 'Rt::ProjectSubscribe'     => 'name description:text active:boolean',
-  ## 'Rt::ActivitySubscribe'    => 'name description:text active:boolean',
-  ## 'Rt::ProjectUnsubscribe'   => 'name description:text active:boolean',
-  ## 'Rt::ActivityUnsubscribe'  => 'name description:text active:boolean',
+  ## 'Rt::ProjectSubscribe'     => 'name:string:uniq description:text active:boolean',
+  ## 'Rt::ActivitySubscribe'    => 'name:string:uniq description:text active:boolean',
+  ## 'Rt::ProjectUnsubscribe'   => 'name:string:uniq description:text active:boolean',
+  ## 'Rt::ActivityUnsubscribe'  => 'name:string:uniq description:text active:boolean',
 
   # -------------------------------------------------
 
