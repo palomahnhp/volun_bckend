@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
   belongs_to :pt_extendable, polymorphic: true
   belongs_to :project_type, required: true
   belongs_to :entity
+  has_and_belongs_to_many :volunteers
   has_and_belongs_to_many :areas, -> { order('areas.name asc') }
   has_and_belongs_to_many :collectives, -> { order('collectives.name asc') }
   has_and_belongs_to_many :coordinations, -> { order('coordinations.name asc') }

@@ -1,5 +1,6 @@
 class Volunteer < ActiveRecord::Base
 
+  has_and_belongs_to_many :projects
   has_many :known_languages, :class_name => 'Volun::KnownLanguage'
   has_many :assessments,     :class_name => 'Volun::Assessment'
   has_many :availabilities,  :class_name => 'Volun::Availability'
