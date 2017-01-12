@@ -99,7 +99,7 @@ MODELS_AND_ATTRS = {
   # 1:N
   'Volun::Availability' => 'volunteer:references day:string start_hour:string end_hour:string',
 
-  # 1:N
+  # N:N
   'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references technician:references tracking_date:datetime comments:text',
   'Volun::Contact'       => 'volunteer:references contact_result:references project:references technician:references contact_date:datetime  comments:text',
   'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string assessment:boolean comments:text',
@@ -113,17 +113,17 @@ MODELS_AND_ATTRS = {
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
   'RequestReason'             => 'kind:integer:uniq description:text active:boolean',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name:string first_surname second_surname phone_number phone_number_alt email',
+  'Rt::VolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'address:references phone_number phone_number_alt',
   'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name:string:uniq vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
+  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
   'Rt::EntityUnsubscribe'     => 'reason:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
   'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
   'Rt::ProjectUnpublishing'   => 'reason:text',
   'Rt::ProjectUnsubscribe'    => 'project:references reason:text',
-  'Rt::ActivityPublishing'    => 'name:string:uniq organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
+  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type road_name number_type road_number postal_code town province',
   'Rt::ActivityUnpublishing'  => 'reason:text',
   'Rt::Other'                 => 'description:text',
 

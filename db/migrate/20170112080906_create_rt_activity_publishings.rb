@@ -16,6 +16,5 @@ class CreateRtActivityPublishings < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :rt_activity_publishings, :name, unique: true
   end
 end

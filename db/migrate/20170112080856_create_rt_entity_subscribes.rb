@@ -23,6 +23,5 @@ class CreateRtEntitySubscribes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_index :rt_entity_subscribes, :name, unique: true
   end
 end
