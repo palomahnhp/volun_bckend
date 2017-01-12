@@ -9,7 +9,7 @@
       <div class="col-sm-4 col-md-4">
         <div class="thumbnail element">
           <div>
-            <%= link_to build_icon('file-powerpoint-o'), '/projects' %>
+            <%= link_to build_icon('file-powerpoint-o'), projects_path %>
           </div>
           <div class="caption">
             <h3><%= Project.model_name.human(count: 2) %></h3>
@@ -19,20 +19,42 @@
       <div class="col-sm-4 col-md-4">
         <div class="thumbnail element">
           <div>
-            <%= link_to build_icon('users'), '#' %>
+            <%= link_to build_icon('users'), volunteers_path %>
           </div>
           <div class="caption">
-            <h3><%= "Voluntarios" %></h3>
+            <h3><%= Volunteer.model_name.human(count: 2) %></h3>
           </div>
         </div>
       </div>
       <div class="col-sm-4 col-md-4">
         <div class="thumbnail element">
           <div>
-            <%= link_to build_icon('list-alt'), maintenance_path %>
+            <%= link_to build_icon('cubes'), entities_path %>
           </div>
           <div class="caption">
-            <h3><%= "Catálogo" %></h3>
+            <h3><%= Entity.model_name.human(count: 2) %></h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4 col-md-4">
+        <div class="thumbnail element">
+          <div>
+            <%= link_to build_icon('list'), request_forms_path %>
+          </div>
+          <div class="caption">
+            <h3><%= RequestForm.model_name.human(count: 2) %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4 col-md-4">
+        <div class="thumbnail element">
+          <div>
+            <%= link_to build_icon('cogs'), maintenance_path %>
+          </div>
+          <div class="caption">
+            <h3><%= t('administration') %></h3>
           </div>
         </div>
       </div>

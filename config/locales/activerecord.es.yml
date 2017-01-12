@@ -80,6 +80,15 @@ es:
       timetable:
         one:   Horario
         other: Horarios
+      entity:
+        one:   Entidad
+        other: Entidades
+      request_form:
+        one:   Solicitud
+        other: Solicitudes
+      volunteer:
+        one:   Voluntario
+        other: Voluntarios
     attributes:
       address:
         postal_code:      Código postal
