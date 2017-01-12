@@ -182,6 +182,11 @@ a:focus{
   text-align: center;
   font-size: 150px;
   margin-top: 20px;
+  min-height: 350px;
+  .count {
+    font-size: 16px;
+    color: #3b5f79;
+  }
   a {
     padding-left: 7%;
     padding-right: 7%;
