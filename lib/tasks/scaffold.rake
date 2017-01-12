@@ -33,7 +33,8 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Event'     => 'eventable:references{polymorphic} address:references',
+  'EventType' => 'kind:integer:uniq description:text',
+  'Event'     => 'eventable:references{polymorphic} event_type:references address:references',
   'Timetable' => 'event:references execution_date:date start_hour end_hour',
 
   # 1:N tables
@@ -156,6 +157,7 @@ JOINED_TABLES = [
 ]
 
 MANUAL_MIGRATIONS = {
+  # Projects and ProjectTypes
     :add_kind_constraint_to_project_types => %q(
 class AddKindConstraintToProjectTypes < ActiveRecord::Migration
   def up
@@ -287,6 +289,59 @@ class AddRtExtendableConstraintToRequestForms < ActiveRecord::Migration
     }
   end
 end
+),
+
+  # Events and EventTypes
+
+  :add_kind_constraint_to_event_types => %q(
+  class AddKindConstraintToEventTypes < ActiveRecord::Migration
+    def up
+      execute %{
+      ALTER TABLE
+        event_types
+      ADD CONSTRAINT
+        kind_and_id_must_be_equal
+        CHECK (
+          (id = #{EventType.kinds[:activity]} AND kind = #{EventType.kinds[:activity]}) OR
+          (id = #{EventType.kinds[:project]}  AND kind = #{EventType.kinds[:project]})
+        )
+    }
+    end
+
+    def down
+      execute %{
+      ALTER TABLE
+        event_types
+      DROP CONSTRAINT
+        kind_and_id_must_be_equal
+    }
+    end
+  end
+),
+  :add_eventable_constraint_to_events => %q(
+    class AddEventableConstraintToEvents < ActiveRecord::Migration
+      def up
+        execute %{
+      ALTER TABLE
+        events
+      ADD CONSTRAINT
+        eventable_must_be_consistent
+        CHECK (
+          (event_type_id = #{EventType.kinds[:activity]} AND eventable_type = '#{Activity.name}') OR
+          (event_type_id = #{EventType.kinds[:project]}  AND eventable_type = '#{Project.name}')
+        )
+    }
+      end
+
+      def down
+        execute %{
+      ALTER TABLE
+        events
+      DROP CONSTRAINT
+        eventable_must_be_consistent
+    }
+      end
+    end
 )
 }
 

@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :activities
   resources :timetables
   resources :events
+  resources :event_types
   resources :documents
   resources :issues
   resources :trackings
