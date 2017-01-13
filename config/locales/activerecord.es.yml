@@ -80,6 +80,9 @@ es:
       timetable:
         one:   Horario
         other: Horarios
+      event:
+        one:   Evento
+        other: Eventos
       entity:
         one:   Entidad
         other: Entidades
