@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
   end
 
   def recordable?
-    model.included_modules.map(&:to_s).include?('Recordable')
+    model && model.included_modules.map(&:to_s).include?('Recordable')
   end
 
   def model
-    @model ||= controller_name.classify.constantize
+    @model ||= controller_name.classify.safe_constantize
   end
 
   def authenticate!
@@ -81,6 +81,55 @@ class ApplicationController < ActionController::Base
 
   def fields_for_options(collection)
     collection.build if collection.empty?
+  end
+
+  def project_attributes
+    [
+      :id,
+      :name,
+      :project_type_id,
+      :volunteers_allowed,
+      :public,
+      :active,
+      :outstanding,
+      :description,
+      :comments,
+      :volunteers_num,
+      :beneficiaries_num,
+      :functions,
+      :contact_name,
+      :contact_first_surname,
+      :contact_second_surname,
+      :email,
+      :phone_number,
+      :entity_id,
+      :execution_start_date,
+      :execution_end_date,
+      :insured,
+      :insurance_date,
+      area_ids:         [],
+      collective_ids:   [],
+      coordination_ids: [],
+      district_ids:     [],
+    # TODO Pending of adapting addresses and timetables form to the new model design
+      # documents_attributes: [
+      #   :id,
+      #   :name,
+      #   :_destroy
+      # ]
+    ]
+  end
+
+  def request_form_attributes
+    [
+      :request_type_id,
+      :user_id,
+      :sent_at,
+      :status,
+      :status_date,
+      :rejection_type_id,
+      :comments
+    ]
   end
 
 end

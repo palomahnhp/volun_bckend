@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: IdNumberType.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= IdNumberType.human_attribute_name(:id) %>:</dt>
+  <dd><%= @id_number_type.id %></dd>
+  <dt><%= IdNumberType.human_attribute_name(:name) %>:</dt>
+  <dd><%= @id_number_type.name %></dd>
+  <dt><%= IdNumberType.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@id_number_type.active}") %></dd>
+  <dt><%= IdNumberType.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@id_number_type.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@id_number_type) %>
+<% end %>

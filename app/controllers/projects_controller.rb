@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   def index
     params[:q] ||= Project.ransack_default
     @projects = @projects.with_status(params[:status])
-    @search_q = @projects.includes(:districts, :areas, :collectives, :project_type).search(params[:q])
+    @search_q = @projects.unscoped.includes(:pt_extendable, :project_type, :entity, :areas, :districts, :collectives).search(params[:q])
     @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@projects)
@@ -21,6 +21,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    @project.project_type = ProjectType.where(kind: ProjectType.kinds[@pt_extension]).take
     respond_with(@project)
   end
 
@@ -54,8 +55,6 @@ class ProjectsController < ApplicationController
 
     def set_pt_extension
       @pt_extension = params[:pt_extension]
-      @project.project_type = ProjectType.where(kind: ProjectType.kinds[@pt_extension]).take
-      @project.build_pt_extendable @pt_extension
     end
 
     def project_params
@@ -85,82 +84,50 @@ class ProjectsController < ApplicationController
           :entity_id,
           :execution_start_date,
           :execution_end_date,
-          area_ids:         [],
-          collective_ids:   [],
-          coordination_ids: [],
-          district_ids:     [],
-          pt_extendable_attributes: pt_extendable_attributes,
-          addresses_attributes: [
-            :id,
-            :road_type_id,
-            :road_name,
-            :road_number_type,
-            :road_number,
-            :grader,
-            :stairs,
-            :floor,
-            :door,
-            :postal_code,
-            :town,
-            :province_id,
-            :country,
-            :_destroy
-          ],
-          timetables_attributes: [
-            :id,
-            :day,
-            :start_hour,
-            :end_hour,
-            :_destroy
-          ],
-          documents_attributes: [
-            :id,
-            :name,
-            :_destroy
-          ],
+          { area_ids:         [] },
+          { collective_ids:   [] },
+          { coordination_ids: [] },
+          { district_ids:     [] },
+          {
+            documents_attributes: [
+              :id,
+              :name,
+              :_destroy
+            ]
+          },
+          {
+            events_attributes: [
+              :id,
+              {
+                address_attributes: [
+                  :id,
+                  :road_type_id,
+                  :road_name,
+                  :road_number_type,
+                  :road_number,
+                  :grader,
+                  :stairs,
+                  :floor,
+                  :door,
+                  :postal_code,
+                  :town,
+                  :province_id,
+                  :country,
+                  :_destroy
+                ]
+              },
+              {
+                timetables_attributes: [
+                  :id,
+                  :execution_date,
+                  :start_hour,
+                  :end_hour,
+                  :_destroy
+                ]
+              },
+              :_destroy
+            ]
+          }
         )
-    end
-
-    def pt_extendable_attributes
-      case params[:pt_extension]
-      when 'pt_subvention' then pt_subvention_attributes
-      when 'pt_entity'     then pt_entity_attributes
-      else {}
-      end
-    end
-
-    def pt_subvention_attributes
-      [
-        :id,
-        :representative_name,
-        :representative_first_surname,
-        :representative_second_surname,
-        :id_num,
-        :vat_num,
-        :entity_registry,
-        :cost,
-        :requested_amount,
-        :subsidized_amount,
-        :initial_volunteers_num,
-        :participants_num,
-        :has_quality_evaluation,
-        :proposal_id
-      ]
-    end
-
-    def pt_entity_attributes
-      [
-        :id,
-        :request_date,
-        :request_description,
-        :volunteers_profile,
-        :activities,
-        :sav_date,
-        :derived_volunteers_num,
-        :added_volunteers_num,
-        :agreement_signed,
-        :agreement_date,
-        :prevailing
-      ]
     end
 end

@@ -43,6 +43,15 @@ class RequestFormsController < ApplicationController
   protected
 
     def request_form_params
-      params.require(:request_form).permit(:request_type_id, :sent_at, :status, :status_date, :rejection_type_id, :comments)
+      params
+        .require(:request_form)
+        .permit(
+          :request_type_id,
+          :sent_at,
+          :status,
+          :status_date,
+          :rejection_type_id,
+          :comments
+        )
     end
 end

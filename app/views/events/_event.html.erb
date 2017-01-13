@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(event) %>" >
+
+  <% event.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(event.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(event) %>
+    <%= link_to_edit(event) %>
+<% if event.try(:archived?) %>
+    <%= link_to_recover(event) %>
+<% else %>
+    <%= link_to_destroy(event) %>
+<% end %>
+  </td>
+</tr>

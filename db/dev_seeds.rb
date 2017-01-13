@@ -3,18 +3,36 @@ require 'database_cleaner'
 DatabaseCleaner.clean_with :truncation
 Faker::Config.locale = I18n.locale
 
+ADDRESSES_NUM     = 20
 PROJECTS_NUM      = 10
+REQUEST_FORMS_NUM = 10
 DISTRICTS_NUM     = 10
-ACTIVITIES_NUM    = 10
 ENTITIES_NUM      = 10
 COORDINATIONS_NUM = 10
-ADDRESSES_NUM     = 20
 PROPOSAL_NUM      = 10
 ENTITY_NUM        = 10
 RACKING_NUM       = 10
 ISSUE_NUM         = 10
-TIMETABLE_NUM     = 10
-DOCUMENT_NUM      = 10
+ACTIVITIES_NUM    = 5
+TIMETABLE_NUM     = 5
+EVENTS_NUM        = 5
+DOCUMENT_NUM      = 5
+
+REQUEST_TYPES = {
+  1  => 'rt_volunteer_subscribe',
+  2  => 'rt_volunteer_unsubscribe',
+  3  => 'rt_volunteer_amendment',
+  4  => 'rt_volunteer_appointment',
+  5  => 'rt_entity_subscribe',
+  6  => 'rt_entity_unsubscribe',
+  7  => 'rt_volunteers_demand',
+  8  => 'rt_project_publishing',
+  9  => 'rt_project_unpublishing',
+  10 => 'rt_project_unsubscribe',
+  11 => 'rt_activity_publishing',
+  12 => 'rt_activity_unpublishing',
+  13 => 'rt_other'
+}
 
 PROJECT_TYPES = {
   1 => 'Servicios Sociales',
@@ -170,10 +188,10 @@ ROAD_TYPES = {
     'CARRERA'    => '50',
     'CARRETERA'  => '831',
     'CAÑADA'     => '107',
-    'COLONIA'    => '364',
-    'COSTANILLA' => '107',
+    'COLONIA'    => '364 ',
+    'COSTANILLA' => '107 ',
     'CUESTA'     => '113',
-    'GALERIA'    => '10',
+    'GALERIA'    => '10 ',
     'GLORIETA'   => '288',
     'PARQUE'     => '30',
     'PARTICULAR' => '21',
@@ -183,8 +201,8 @@ ROAD_TYPES = {
     'PISTA'      => '4',
     'PLAZA'      => '3478',
     'PLAZUELA'   => '16',
-    'PUENTE'     => '1',
-    'RONDA'      => '',
+    'PUENTE'     => '1 ',
+    'RONDA'      => ' ',
     'TRAVESIA'   => '1007',
 }
 
@@ -208,6 +226,11 @@ end
 puts "Creando Propuestas"
 PROPOSALS.each do |name|
   Proposal.create!(name: name)
+end
+
+puts "Creando Tipos de solicitudes"
+REQUEST_TYPES.each do |kind , name|
+  RequestType.create!(kind: kind)
 end
 
 puts "Creando Tipos de proyectos"
@@ -258,14 +281,6 @@ puts "Creando Direcciones"
   )
 end
 
-puts "Creando Horarios"
-(1..TIMETABLE_NUM).each do |n|
-  Timetable.create!(
-      day:        Timetable.days.values.sample,
-      start_hour: '11:11',
-      end_hour:   '12:12'
-  )
-end
 
 # puts "Creando Motivos de solicitud"
 # REQUEST_REASONS.each do |kind , name|
@@ -291,19 +306,89 @@ ProjectType.all.each do |project_type|
       project_type:          project_type
     )
 
-    project.pt_extendable = case project_type.kind
-                            when ProjectType.kinds[:subvention] then PtSubvention.new
-                            when ProjectType.kinds[:entity]     then PtEntity.new
-                            end
+    project.build_pt_extendable
 
     project.save!
 
-    [Address, Area, Collective, Coordination, District, Timetable].each do |model|
+    [Area, Collective, Coordination, District].each do |model|
       model.first(5).each do |record|
         unless project.public_send("#{model.model_name.singular}_ids").include? record.id
           project.public_send(model.model_name.plural) << record
         end
       end
     end
+
+
+    puts "Creando Eventos"
+    EVENTS_NUM.times do
+      event = Event.create!(
+        address:    Address.all.sample,
+        eventable:  project,
+      )
+
+      puts "Creando Horarios para evento #{event.id}"
+      TIMETABLE_NUM.times do
+        Timetable.create!(
+          event: event,
+          execution_date:  rand(100).days.since.to_date,
+          start_hour: '11:11',
+          end_hour:   '12:12'
+        )
+      end
+    end
+  end
+end
+
+puts "Creando Actividades"
+(1..ACTIVITIES_NUM).each do |n|
+  activity = Activity.create!(
+    name:        "Actividad #{n}",
+    description: Faker::Lorem.sentence,
+    start_date:  rand(100).days.ago.to_date,
+    end_date:    rand(100).days.since.to_date,
+    transport:   "Medio de transporte #{n}",
+    pdf_url:     nil,
+    entity_id:   Entity.all.sample,
+    area_id:     Area.all.sample,
+    project_id:  nil,
+    share:       [true, false].sample,
+  )
+
+  puts "Creando eventos de actividad #{activity.id}"
+  EVENTS_NUM.times do
+    event = Event.create!(
+      address:    Address.all.sample,
+      eventable:  activity,
+    )
+
+    puts "Creando Horarios para evento #{event.id}"
+    TIMETABLE_NUM.times do
+      Timetable.create!(
+        event: event,
+        execution_date:  rand(100).days.since.to_date,
+        start_hour: '11:11',
+        end_hour:   '12:12'
+      )
+    end
+  end
+end
+
+
+puts "Creando Solicitudes"
+RequestType.all.each do |request_type|
+  (1..REQUEST_FORMS_NUM).each do |n|
+    request_form = RequestForm.new(
+      request_type: request_type,
+      sent_at: DateTime.now,
+      status: RequestForm.statuses[:pending],
+      status_date: DateTime.now,
+      comments: "#{n} #{Faker::Lorem.sentence}",
+      # rejection_type_id: integer,
+      # user: User.all.sample,
+    )
+
+    request_form.build_rt_extendable
+
+    request_form.save!
   end
 end

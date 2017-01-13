@@ -1,0 +1,22 @@
+<%= main_title(t("action.show", model: VolunAvailability.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= VolunAvailability.human_attribute_name(:id) %>:</dt>
+  <dd><%= @volun_availability.id %></dd>
+  <dt><%= VolunAvailability.human_attribute_name(:volunteer_id) %>:</dt>
+  <dd><%= @volun_availability.volunteer %></dd>
+  <dt><%= VolunAvailability.human_attribute_name(:day) %>:</dt>
+  <dd><%= @volun_availability.day %></dd>
+  <dt><%= VolunAvailability.human_attribute_name(:start_hour) %>:</dt>
+  <dd><%= @volun_availability.start_hour %></dd>
+  <dt><%= VolunAvailability.human_attribute_name(:end_hour) %>:</dt>
+  <dd><%= @volun_availability.end_hour %></dd>
+  <dt><%= VolunAvailability.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@volun_availability.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@volun_availability) %>
+<% end %>

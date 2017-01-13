@@ -1,57 +1,90 @@
 Rails.application.routes.draw do
 
-
-
-  resources :rt_others, only: [:index, :show, :edit, :update]
-  resources :rt_activity_unpublishings, only: [:index, :show, :edit, :update]
-  resources :rt_activity_publishings, only: [:index, :show, :edit, :update]
-  resources :rt_project_unsubscribes, only: [:index, :show, :edit, :update]
-  resources :rt_project_unpublishings, only: [:index, :show, :edit, :update]
-  resources :rt_project_publishings, only: [:index, :show, :edit, :update]
-  resources :rt_volunteers_demands, only: [:index, :show, :edit, :update]
-  resources :rt_entity_unsubscribes, only: [:index, :show, :edit, :update]
-  resources :rt_entity_subscribes, only: [:index, :show, :edit, :update]
-  resources :rt_volunteer_appointments, only: [:index, :show, :edit, :update]
-  resources :rt_volunteer_amendments, only: [:index, :show, :edit, :update]
-  resources :rt_volunteer_unsubscribes, only: [:index, :show, :edit, :update]
-  resources :rt_volunteer_subscribes, only: [:index, :show, :edit, :update]
-  resources :pt_entities, only: [:index, :show, :edit, :update]
-  resources :pt_subventions, only: [:index, :show, :edit, :update]
   resources :request_forms
   resources :request_reasons
   resources :request_types
   resources :rejection_types
   resources :volunteers
-  resources :record_histories
+  resources :traits
+  resources :contact_results
+  resources :tracking_types
+  resources :language_levels
+  resources :languages
+  resources :professions
+  resources :skills
+  resources :knowledges
+  resources :profiles
+  resources :technicians
+  resources :unsubscribe_reasons
+  resources :academic_levels
+  resources :degrees
+  resources :employment_statuses
+  resources :statuses
+  resources :nationalities
+  resources :id_number_types
+  resources :proposals
+  resources :links
+  resources :activities
   resources :timetables
+  resources :events
+  resources :event_types
+  resources :documents
+  resources :issues
+  resources :trackings
   resources :districts
+  resources :entities
+  resources :entity_types
+  resources :road_types
+  resources :provinces
+  resources :record_histories
+  devise_for :users
+
+  namespace :volun do
+    resources :assessments
+    resources :availabilities
+    resources :contacts
+    resources :trackings
+  end
+
+  namespace :pt do
+    resources :entities
+    resources :subventions
+  end
+
+  namespace :rt do
+    resources :others
+    resources :activity_unpublishings
+    resources :activity_publishings
+    resources :project_unsubscribes
+    resources :project_unpublishings
+    resources :project_publishings
+    resources :volunteers_demands
+    resources :entity_unsubscribes
+    resources :entity_subscribes
+    resources :volunteer_appointments
+    resources :volunteer_amendments
+    resources :volunteer_unsubscribes
+    resources :volunteer_subscribes
+  end
+
   resources :addresses do
     get 'bdc_search_towns', on: :collection
     get 'bdc_search_roads', on: :collection
     get 'bdc_search_road_numbers', on: :collection
   end
-  resources :links
-  resources :images
-  resources :activities
-  resources :proposals
-  resources :documents
-  resources :issues
-  resources :trackings
-  resources :entities
-  resources :entity_types
-  resources :road_types
-  resources :provinces
-  devise_for :users
-  resources :users
+
   concern :recoverable do
     post :recover, on: :member
   end
+
   resources :projects, concerns: :recoverable do
     get 'pt_extensions_menu', on: :collection
   end
+
   resources :request_forms, concerns: :recoverable do
     get 'rt_extensions_menu', on: :collection
   end
+
   resources :project_types, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable

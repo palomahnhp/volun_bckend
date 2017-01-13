@@ -1,0 +1,24 @@
+<dl class="dl-horizontal">
+  <dt><%= Pt::Entity.human_attribute_name(:request_date) %>:</dt>
+  <dd><%= show_simple_date(pt_entity.request_date) %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:request_description) %>:</dt>
+  <dd><%= pt_entity.request_description %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:volunteers_profile) %>:</dt>
+  <dd><%= pt_entity.volunteers_profile %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:activities) %>:</dt>
+  <dd><%= pt_entity.activities %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:sav_date) %>:</dt>
+  <dd><%= show_simple_date(pt_entity.sav_date) %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:derived_volunteers_num) %>:</dt>
+  <dd><%= pt_entity.derived_volunteers_num %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:added_volunteers_num) %>:</dt>
+  <dd><%= pt_entity.added_volunteers_num %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:agreement_signed) %>:</dt>
+  <dd><%= t("humanize.#{pt_entity.agreement_signed}") %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:agreement_date) %>:</dt>
+  <dd><%= show_simple_date(pt_entity.agreement_date) %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:prevailing) %>:</dt>
+  <dd><%= t("humanize.#{pt_entity.prevailing}") %></dd>
+  <dt><%= Pt::Entity.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(pt_entity.created_at) %></dd>
+</dl>

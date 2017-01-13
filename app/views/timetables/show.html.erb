@@ -4,8 +4,10 @@
 
   <dt><%= Timetable.human_attribute_name(:id) %>:</dt>
   <dd><%= @timetable.id %></dd>
-  <dt><%= Timetable.human_attribute_name(:day) %>:</dt>
-  <dd><%= @timetable.day %></dd>
+  <dt><%= Timetable.human_attribute_name(:event_id) %>:</dt>
+  <dd><%= @timetable.event_id %></dd>
+  <dt><%= Timetable.human_attribute_name(:execution_date) %>:</dt>
+  <dd><%= show_simple_date(@timetable.execution_date) %></dd>
   <dt><%= Timetable.human_attribute_name(:start_hour) %>:</dt>
   <dd><%= @timetable.start_hour %></dd>
   <dt><%= Timetable.human_attribute_name(:end_hour) %>:</dt>

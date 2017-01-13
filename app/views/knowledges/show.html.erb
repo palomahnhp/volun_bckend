@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: Knowledge.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Knowledge.human_attribute_name(:id) %>:</dt>
+  <dd><%= @knowledge.id %></dd>
+  <dt><%= Knowledge.human_attribute_name(:name) %>:</dt>
+  <dd><%= @knowledge.name %></dd>
+  <dt><%= Knowledge.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@knowledge.active}") %></dd>
+  <dt><%= Knowledge.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@knowledge.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@knowledge) %>
+<% end %>

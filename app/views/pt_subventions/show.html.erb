@@ -1,8 +1,0 @@
-<%= main_title(t("action.show", model: PtSubvention.model_name.human)) %>
-
-<%= render partial: 'show', locals: { pt_subvention: @pt_subvention } %>
-
-<% unless request.xhr? %>
-<%= button_to_back %>
-<%= button_to_edit(@pt_subvention) %>
-<% end %>

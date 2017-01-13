@@ -4,7 +4,14 @@
   <div class="form-inputs">
           <%= f.input :name %>
           <%= f.input :description %>
-          <%= f.input :active %>
+          <%= f.input :start_date, as: :datepicker %>
+          <%= f.input :end_date, as: :datepicker %>
+          <%= f.input :transport %>
+          <%= f.input :pdf_url %>
+          <%= f.input :entity_id %>
+          <%= f.input :area_id %>
+          <%= f.input :project_id %>
+          <%= f.input :share %>
   </div>
 
   <div class="form-actions">

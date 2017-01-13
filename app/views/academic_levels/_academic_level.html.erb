@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(academic_level) %>" >
+
+  <% academic_level.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(academic_level.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(academic_level) %>
+    <%= link_to_edit(academic_level) %>
+<% if academic_level.try(:archived?) %>
+    <%= link_to_recover(academic_level) %>
+<% else %>
+    <%= link_to_destroy(academic_level) %>
+<% end %>
+  </td>
+</tr>

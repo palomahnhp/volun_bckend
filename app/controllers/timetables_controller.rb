@@ -43,6 +43,6 @@ class TimetablesController < ApplicationController
   protected
 
     def timetable_params
-      params.require(:timetable).permit(:day, :start_hour, :end_hour)
+      params.require(:timetable).permit(:event_id, :execution_date, :start_hour, :end_hour)
     end
 end

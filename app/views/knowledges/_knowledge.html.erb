@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(knowledge) %>" >
+
+  <% knowledge.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(knowledge.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(knowledge) %>
+    <%= link_to_edit(knowledge) %>
+<% if knowledge.try(:archived?) %>
+    <%= link_to_recover(knowledge) %>
+<% else %>
+    <%= link_to_destroy(knowledge) %>
+<% end %>
+  </td>
+</tr>

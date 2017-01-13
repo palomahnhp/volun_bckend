@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(tracking_type) %>" >
+
+  <% tracking_type.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(tracking_type.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(tracking_type) %>
+    <%= link_to_edit(tracking_type) %>
+<% if tracking_type.try(:archived?) %>
+    <%= link_to_recover(tracking_type) %>
+<% else %>
+    <%= link_to_destroy(tracking_type) %>
+<% end %>
+  </td>
+</tr>
