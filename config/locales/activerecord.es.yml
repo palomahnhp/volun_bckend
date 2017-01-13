@@ -83,6 +83,9 @@ es:
       activity:
         one:   Actividad
         other: Actividades
+      event:
+        one:   Evento
+        other: Eventos
       entity:
         one:   Entidad
         other: Entidades

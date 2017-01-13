@@ -20,6 +20,7 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :documents,  allow_destroy: true
   accepts_nested_attributes_for :pt_extendable
+  accepts_nested_attributes_for :events
 
   validates :name, uniqueness: true
   validates :name, :entity_id, :description, :execution_start_date, :contact_name,
@@ -27,6 +28,20 @@ class Project < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validate :pt_extendable_consistency
 
+  default_scope -> {
+    includes(
+      :pt_extendable,
+      :project_type,
+      :entity,
+      :areas,
+      :districts,
+      :collectives,
+      events: [
+        :address,
+        :timetables
+      ]
+    )
+  }
   scope :all_active,   ->(){ where(active: true) }
   scope :all_inactive, ->(){ where(active: false) }
   scope :with_status, ->(status){
