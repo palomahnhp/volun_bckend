@@ -26,7 +26,6 @@ class Project < ActiveRecord::Base
   validates :name, :entity_id, :description, :execution_start_date, :contact_name,
             :phone_number, :email, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
-  validate :pt_extendable_consistency
 
   default_scope -> {
     includes(
@@ -74,18 +73,6 @@ class Project < ActiveRecord::Base
 
   def pt_extendable_class
     pt_extendable.try(:class) || project_type.kind.classify.sub(/\APt/, 'Pt::').constantize
-  end
-
-  def pt_extendable_consistency
-    pt_consistent =
-      project_type_id == ProjectType.kinds[:pt_social]     && pt_extendable_type.nil? ||
-      project_type_id == ProjectType.kinds[:pt_centre]     && pt_extendable_type.nil? ||
-      project_type_id == ProjectType.kinds[:pt_permanent]  && pt_extendable_type.nil? ||
-      project_type_id == ProjectType.kinds[:pt_punctual]   && pt_extendable_type.nil? ||
-      project_type_id == ProjectType.kinds[:pt_other]      && pt_extendable_type.nil? ||
-      project_type_id == ProjectType.kinds[:pt_subvention] && pt_extendable_type == Pt::Subvention.name ||
-      project_type_id == ProjectType.kinds[:pt_entity]     && pt_extendable_type == Pt::Entity.name
-    errors.add(:pt_extendable_type, :pt_extendable_inconsistency) unless pt_consistent
   end
 
 end
