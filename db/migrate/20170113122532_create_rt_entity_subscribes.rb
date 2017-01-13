@@ -17,8 +17,9 @@ class CreateRtEntitySubscribes < ActiveRecord::Migration
       t.string :number_type
       t.string :road_number
       t.string :postal_code
+      t.string :borough
       t.string :town
-      t.string :province
+      t.references :province, index: true, foreign_key: true
       t.references :request_reason, index: true, foreign_key: true
 
       t.timestamps null: false

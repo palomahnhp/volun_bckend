@@ -9,7 +9,7 @@ MODELS_AND_ATTRS = {
   'RoadType'      => 'name:string:uniq code:string:uniq',
   'EntityType'    => 'kind:integer:uniq description:text active:boolean',
   'Entity'        => 'name:string:uniq description:text active:boolean entity_type:references',
-  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code town province:references country ndp_code local_code class_name latitude longitude',
+  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough town province:references country ndp_code local_code class_name latitude longitude',
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
   'Coordination'  => 'name:string:uniq description:text active:boolean',
@@ -54,8 +54,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  # TODO Add missing tables
-  # --------------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------------
   # Volunteer Tables
   # --------------------------------------------------------------------------------------------------
 
@@ -73,7 +72,7 @@ MODELS_AND_ATTRS = {
 
   'UnsubscribeReason' => 'name:string:uniq active:boolean',
 
-  'Technician' => 'name profile_id:integer active:boolean',
+  'Technician' => 'name profile_id:integer phone_number active:boolean',
 
   'Profile' => 'name:string:uniq active:boolean',
 
@@ -93,6 +92,16 @@ MODELS_AND_ATTRS = {
 
   'Trait' => 'name:string:uniq active:boolean',
 
+  'Borough'     => 'name active district:references',
+
+  'ContactType' => 'name active',
+
+  'DegreeType'  => 'name educational_type',
+
+  'Motivation'  => 'name active',
+
+  'Sector'      => 'name active',
+
 
   'Volunteer' => 'name:string first_surname second_surname document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
 
@@ -102,7 +111,7 @@ MODELS_AND_ATTRS = {
 
   # N:N
   'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references technician:references tracking_date:datetime comments:text',
-  'Volun::Contact'       => 'volunteer:references contact_result:references project:references technician:references contact_date:datetime  comments:text',
+  'Volun::Contact'       => 'volunteer:references contact_result:references project:references technician:references contact_type:references contact_date:datetime  comments:text',
   'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string assessment:boolean comments:text',
 
   # --------------------------------------------------------------------------------------------------
@@ -118,7 +127,7 @@ MODELS_AND_ATTRS = {
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'address:references phone_number phone_number_alt',
   'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code town province request_reason:references',
+  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code borough town province:references request_reason:references',
   'Rt::EntityUnsubscribe'     => 'reason:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
   'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',
@@ -129,6 +138,7 @@ MODELS_AND_ATTRS = {
   'Rt::Other'                 => 'description:text',
 
 
+  ## TODO Would not the following Rt's be necessary for consistency?
   ## 'Rt::ProjectSubscribe'     => 'name:string:uniq description:text active:boolean',
   ## 'Rt::ActivitySubscribe'    => 'name:string:uniq description:text active:boolean',
   ## 'Rt::ProjectUnsubscribe'   => 'name:string:uniq description:text active:boolean',

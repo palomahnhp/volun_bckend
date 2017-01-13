@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(motivation) %>" >
+
+  <% motivation.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(motivation.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(motivation) %>
+    <%= link_to_edit(motivation) %>
+<% if motivation.try(:archived?) %>
+    <%= link_to_recover(motivation) %>
+<% else %>
+    <%= link_to_destroy(motivation) %>
+<% end %>
+  </td>
+</tr>

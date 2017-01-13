@@ -10,6 +10,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :floor
       t.string :door
       t.string :postal_code
+      t.string :borough
       t.string :town
       t.references :province, index: true, foreign_key: true
       t.string :country

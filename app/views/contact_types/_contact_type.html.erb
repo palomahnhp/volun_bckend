@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(contact_type) %>" >
+
+  <% contact_type.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(contact_type.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(contact_type) %>
+    <%= link_to_edit(contact_type) %>
+<% if contact_type.try(:archived?) %>
+    <%= link_to_recover(contact_type) %>
+<% else %>
+    <%= link_to_destroy(contact_type) %>
+<% end %>
+  </td>
+</tr>
