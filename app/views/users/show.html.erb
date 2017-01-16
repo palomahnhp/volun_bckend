@@ -6,8 +6,8 @@
   <dd><%= @user.id %></dd>
   <dt><%= User.human_attribute_name(:locale) %>:</dt>
   <dd><%= @user.locale %></dd>
-  <dt><%= User.human_attribute_name(:profileable_id) %>:</dt>
-  <dd><%= @user.profileable %></dd>
+  <dt><%= User.human_attribute_name(:loggable_id) %>:</dt>
+  <dd><%= @user.loggable %></dd>
   <dt><%= User.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@user.created_at) %></dd>
 

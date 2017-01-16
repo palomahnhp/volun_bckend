@@ -43,6 +43,6 @@ class UsersController < ApplicationController
   protected
 
     def user_params
-      params.require(:user).permit(:locale, :profileable_id)
+      params.require(:user).permit(:locale, :loggable_id)
     end
 end

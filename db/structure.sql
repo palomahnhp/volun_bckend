@@ -2266,8 +2266,8 @@ ALTER SEQUENCE unsubscribe_reasons_id_seq OWNED BY unsubscribe_reasons.id;
 CREATE TABLE users (
     id integer NOT NULL,
     locale character varying,
-    profileable_id integer,
-    profileable_type character varying,
+    loggable_id integer,
+    loggable_type character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
@@ -4158,10 +4158,10 @@ CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_profileable_type_and_profileable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_loggable_type_and_loggable_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_profileable_type_and_profileable_id ON users USING btree (profileable_type, profileable_id);
+CREATE INDEX index_users_on_loggable_type_and_loggable_id ON users USING btree (loggable_type, loggable_id);
 
 
 --

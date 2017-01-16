@@ -418,7 +418,7 @@ namespace :scaffold do
   desc 'Builds the user model'
   task create_user: :environment do
     # Generate scaffold for User model
-    sh 'bundle exec rails generate scaffold User locale profileable:references{polymorphic}'
+    sh 'bundle exec rails generate scaffold User locale loggable:references{polymorphic}'
 
     # Add devise attrs to User model
     sh 'bundle exec rails generate devise User --skip'
