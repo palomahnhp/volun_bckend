@@ -8,8 +8,8 @@ class CreateProjects < ActiveRecord::Migration
       t.date :execution_start_date
       t.date :execution_end_date
       t.string :contact_name
-      t.string :contact_first_surname
-      t.string :contact_second_surname
+      t.string :contact_last_name
+      t.string :contact_last_name_alt
       t.string :phone_number
       t.string :email
       t.text :comments

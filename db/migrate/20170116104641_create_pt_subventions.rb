@@ -2,8 +2,8 @@ class CreatePtSubventions < ActiveRecord::Migration
   def change
     create_table :pt_subventions do |t|
       t.string :representative_name
-      t.string :representative_first_surname
-      t.string :representative_second_surname
+      t.string :representative_last_name
+      t.string :representative_last_name_alt
       t.string :id_num
       t.string :vat_num
       t.boolean :entity_registry, default: false

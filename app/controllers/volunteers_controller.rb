@@ -43,6 +43,6 @@ class VolunteersController < ApplicationController
   protected
 
     def volunteer_params
-      params.require(:volunteer).permit(:name, :first_surname, :second_surname, :age, :id_number)
+      params.require(:volunteer).permit(:name, :last_name, :last_name_alt, :age, :id_number)
     end
 end

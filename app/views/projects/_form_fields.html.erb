@@ -32,8 +32,8 @@
     <%= content_tag :h1, t('contact_person'), class: 'form-subtitle' %>
     <div class="col-md-6">
       <%= f.input :contact_name %>
-      <%= f.input :contact_first_surname %>
-      <%= f.input :contact_second_surname %>
+      <%= f.input :contact_last_name %>
+      <%= f.input :contact_last_name_alt %>
     </div>
     <div class="col-md-6">
       <%= f.input :email, placeholder: 'email@email.com', input_html: {class: 'm-width250'} %>

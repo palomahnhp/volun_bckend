@@ -52,8 +52,8 @@ class Pt::SubventionsController < ApplicationController
         .require(:pt_subvention)
         .permit(
           :representative_name,
-          :representative_first_surname,
-          :representative_second_surname,
+          :representative_last_name,
+          :representative_last_name_alt,
           :id_num,
           :vat_num,
           :cost,

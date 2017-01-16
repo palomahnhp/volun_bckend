@@ -164,8 +164,8 @@ es:
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
         contact_name:           Nombre
-        contact_first_surname:  Primer Apellido
-        contact_second_surname: Segundo Apellido
+        contact_last_name:  Primer Apellido
+        contact_last_name_alt: Segundo Apellido
         phone_number:           Teléfono
         email:                  E-mail
         comments:               Observaciones
@@ -184,8 +184,8 @@ es:
       pt/subvention:
         id:                            ID
         representative_name:           Nombre
-        representative_first_surname:  Primer Apellido
-        representative_second_surname: Segundo Apellido
+        representative_last_name:  Primer Apellido
+        representative_last_name_alt: Segundo Apellido
         entity_registry:               Registro Entidades ciudadanas Ayto
         cost:                          Coste total del proyecto
         requested_amount:              Cantidad solicitada

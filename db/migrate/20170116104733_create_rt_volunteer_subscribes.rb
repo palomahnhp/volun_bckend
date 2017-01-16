@@ -2,8 +2,8 @@ class CreateRtVolunteerSubscribes < ActiveRecord::Migration
   def change
     create_table :rt_volunteer_subscribes do |t|
       t.string :name
-      t.string :first_surname
-      t.string :second_surname
+      t.string :last_name
+      t.string :last_name_alt
       t.string :phone_number
       t.string :phone_number_alt
       t.string :email

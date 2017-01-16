@@ -33,7 +33,7 @@ class UwebAuthenticator
         uweb_id:           user_data['CLAVE_IND'],
         name:              user_data['NOMBRE_USUARIO'],
         surname:           user_data['APELLIDO1_USUARIO'],
-        second_surname:    user_data['APELLIDO2_USUARIO'],
+        last_name_alt:    user_data['APELLIDO2_USUARIO'],
         document:          user_data['DNI'],
         phone:             user_data['TELEFONO'],
         email:             user_data['MAIL'],

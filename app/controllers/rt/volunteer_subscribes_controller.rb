@@ -52,8 +52,8 @@ class Rt::VolunteerSubscribesController < ApplicationController
         .require(:rt_volunteer_subscribe)
         .permit(
           :name,
-          :first_surname,
-          :second_surname,
+          :last_name,
+          :last_name_alt,
           :phone_number,
           :phone_number_alt,
           :email,

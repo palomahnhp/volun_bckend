@@ -2,8 +2,8 @@ class CreateVolunteers < ActiveRecord::Migration
   def change
     create_table :volunteers do |t|
       t.string :name
-      t.string :first_surname
-      t.string :second_surname
+      t.string :last_name
+      t.string :last_name_alt
       t.references :document, index: true, foreign_key: true
       t.string :id_number
       t.integer :gender

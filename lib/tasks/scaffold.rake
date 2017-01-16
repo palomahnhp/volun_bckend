@@ -24,7 +24,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_first_surname contact_second_surname phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
+  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
   'Tracking'  => 'comments:text start_date:datetime project:references',
@@ -46,7 +46,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Pt::Subvention' => 'representative_name representative_first_surname representative_second_surname id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
+  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
 
   # -------------------------------------------------
 
@@ -103,7 +103,7 @@ MODELS_AND_ATTRS = {
   'Sector'      => 'name active',
 
 
-  'Volunteer' => 'name:string first_surname second_surname document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
 
 
   # 1:N
@@ -123,11 +123,11 @@ MODELS_AND_ATTRS = {
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
   'RequestReason'             => 'kind:integer:uniq description:text active:boolean',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name first_surname second_surname phone_number phone_number_alt email',
+  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email',
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'address:references phone_number phone_number_alt',
   'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_first_surname contact_second_surname representative_name representative_first_surname representative_second_surname phone_number phone_number_alt road_type road_name number_type road_number postal_code borough town province:references request_reason:references',
+  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_last_name contact_last_name_alt representative_name representative_last_name representative_last_name_alt phone_number phone_number_alt road_type road_name number_type road_number postal_code borough town province:references request_reason:references',
   'Rt::EntityUnsubscribe'     => 'reason:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
   'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code town province',

@@ -5,11 +5,11 @@ class CreateRtEntitySubscribes < ActiveRecord::Migration
       t.string :vat_num
       t.string :email
       t.string :contact_name
-      t.string :contact_first_surname
-      t.string :contact_second_surname
+      t.string :contact_last_name
+      t.string :contact_last_name_alt
       t.string :representative_name
-      t.string :representative_first_surname
-      t.string :representative_second_surname
+      t.string :representative_last_name
+      t.string :representative_last_name_alt
       t.string :phone_number
       t.string :phone_number_alt
       t.string :road_type
