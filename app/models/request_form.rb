@@ -20,22 +20,4 @@ class RequestForm < ActiveRecord::Base
     rt_extendable.try(:class) || request_type.kind.classify.sub(/\ARt/, 'Rt::').constantize
   end
 
-  def rt_extendable_consistency
-    rt_consistent =
-      request_type_id == RequestType.kinds[:rt_volunteer_subscribe]   && rt_extendable_type == Rt::VolunteerSubscribe.name   ||
-      request_type_id == RequestType.kinds[:rt_volunteer_unsubscribe] && rt_extendable_type == Rt::VolunteerUnsubscribe.name ||
-      request_type_id == RequestType.kinds[:rt_volunteer_amendment]   && rt_extendable_type == Rt::VolunteerAmendment.name   ||
-      request_type_id == RequestType.kinds[:rt_volunteer_appointment] && rt_extendable_type == Rt::VolunteerAppointment.name ||
-      request_type_id == RequestType.kinds[:rt_entity_subscribe]      && rt_extendable_type == Rt::EntitySubscribe.name      ||
-      request_type_id == RequestType.kinds[:rt_entity_unsubscribe]    && rt_extendable_type == Rt::EntityUnsubscribe.name    ||
-      request_type_id == RequestType.kinds[:rt_volunteers_demand]     && rt_extendable_type == Rt::VolunteersDemand.name     ||
-      request_type_id == RequestType.kinds[:rt_project_publishing]    && rt_extendable_type == Rt::ProjectPublishing.name    ||
-      request_type_id == RequestType.kinds[:rt_project_unpublishing]  && rt_extendable_type == Rt::ProjectUnpublishing.name  ||
-      request_type_id == RequestType.kinds[:rt_project_unsubscribe]   && rt_extendable_type == Rt::ProjectUnsubscribe.name   ||
-      request_type_id == RequestType.kinds[:rt_activity_publishing]   && rt_extendable_type == Rt::ActivityPublishing.name   ||
-      request_type_id == RequestType.kinds[:rt_activity_unpublishing] && rt_extendable_type == Rt::ActivityUnpublishing.name ||
-      request_type_id == RequestType.kinds[:rt_other]                 && rt_extendable_type == Rt::Other.name
-    errors.add(:rt_extendable_type, :rt_extendable_inconsistency) unless rt_consistent
-  end
-
 end

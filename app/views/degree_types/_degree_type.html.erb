@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(degree_type) %>" >
+
+  <% degree_type.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(degree_type.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(degree_type) %>
+    <%= link_to_edit(degree_type) %>
+<% if degree_type.try(:archived?) %>
+    <%= link_to_recover(degree_type) %>
+<% else %>
+    <%= link_to_destroy(degree_type) %>
+<% end %>
+  </td>
+</tr>

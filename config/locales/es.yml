@@ -46,6 +46,10 @@ es:
   active:   Activo
   inactive: Inactivo
   all:      Todos
+  of: de
   contact_person: Persona de contacto
   common_fields: 'Campos comunes'
   specific_fields:  'Campos específicos'
+  administration: Admistración
+  diary: Agenda
+  pending: Pendientes

@@ -1,27 +1,56 @@
 Rails.application.routes.draw do
 
-
-
   resources :request_forms
   resources :request_reasons
   resources :request_types
   resources :rejection_types
   resources :volunteers
-  resources :record_histories
-  resources :addresses
+  resources :traits
+  resources :contact_results
+  resources :tracking_types
+  resources :language_levels
+  resources :languages
+  resources :professions
+  resources :skills
+  resources :knowledges
+  resources :profiles
+  resources :technicians
+  resources :unsubscribe_reasons
+  resources :academic_levels
+  resources :degrees
+  resources :employment_statuses
+  resources :statuses
+  resources :nationalities
+  resources :id_number_types
   resources :proposals
   resources :links
   resources :activities
   resources :timetables
   resources :events
+  resources :event_types
   resources :documents
   resources :issues
   resources :trackings
+  resources :districts
   resources :entities
   resources :entity_types
   resources :road_types
   resources :provinces
+  resources :record_histories
   devise_for :users
+
+  namespace :volun do
+    resources :assessments
+    resources :availabilities
+    resources :contacts
+    resources :trackings
+  end
+
+  namespace :pt do
+    resources :entities
+    resources :subventions
+  end
+
   namespace :rt do
     resources :others
     resources :activity_unpublishings
@@ -37,24 +66,25 @@ Rails.application.routes.draw do
     resources :volunteer_unsubscribes
     resources :volunteer_subscribes
   end
-  namespace :pt do
-    resources :entities
-    resources :subventions
-  end
+
   resources :addresses do
     get 'bdc_search_towns', on: :collection
     get 'bdc_search_roads', on: :collection
     get 'bdc_search_road_numbers', on: :collection
   end
+
   concern :recoverable do
     post :recover, on: :member
   end
+
   resources :projects, concerns: :recoverable do
     get 'pt_extensions_menu', on: :collection
   end
+
   resources :request_forms, concerns: :recoverable do
     get 'rt_extensions_menu', on: :collection
   end
+
   resources :project_types, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable

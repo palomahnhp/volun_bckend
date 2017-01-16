@@ -1,0 +1,20 @@
+<%= main_title(t("action.show", model: AcademicLevel.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= AcademicLevel.human_attribute_name(:id) %>:</dt>
+  <dd><%= @academic_level.id %></dd>
+  <dt><%= AcademicLevel.human_attribute_name(:name) %>:</dt>
+  <dd><%= @academic_level.name %></dd>
+  <dt><%= AcademicLevel.human_attribute_name(:educational_type) %>:</dt>
+  <dd><%= @academic_level.educational_type %></dd>
+  <dt><%= AcademicLevel.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@academic_level.active}") %></dd>
+  <dt><%= AcademicLevel.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@academic_level.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@academic_level) %>
+<% end %>

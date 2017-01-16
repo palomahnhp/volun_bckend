@@ -1,0 +1,15 @@
+<div class="well">
+  <%= simple_form_for(@volun_availability, default_form_options) do |f| %>
+
+  <div class="form-inputs">
+          <%= f.association :volunteer %>
+          <%= f.input :day %>
+          <%= f.input :start_hour %>
+          <%= f.input :end_hour %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>

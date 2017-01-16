@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   def index
     params[:q] ||= Project.ransack_default
     @projects = @projects.with_status(params[:status])
-    @search_q = @projects.includes(:districts, :areas, :collectives, :project_type).search(params[:q])
+    @search_q = @projects.unscoped.includes(:pt_extendable, :project_type, :entity, :areas, :districts, :collectives).search(params[:q])
     @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@projects)
@@ -21,6 +21,7 @@ class ProjectsController < ApplicationController
   end
 
   def new
+    @project.project_type = ProjectType.where(kind: ProjectType.kinds[@pt_extension]).take
     respond_with(@project)
   end
 
@@ -54,7 +55,6 @@ class ProjectsController < ApplicationController
 
     def set_pt_extension
       @pt_extension = params[:pt_extension]
-      @project.project_type = ProjectType.where(kind: ProjectType.kinds[@pt_extension]).take
     end
 
     def project_params
@@ -84,40 +84,50 @@ class ProjectsController < ApplicationController
           :entity_id,
           :execution_start_date,
           :execution_end_date,
-          area_ids:         [],
-          collective_ids:   [],
-          coordination_ids: [],
-          district_ids:     [],
-          documents_attributes: [
-            :id,
-            :name,
-            :_destroy
-          ]
-      # TODO Pending of adapting addresses and timetables form to the new model design
-          # addresses_attributes: [
-          #   :id,
-          #   :road_type_id,
-          #   :road_name,
-          #   :road_number_type,
-          #   :road_number,
-          #   :grader,
-          #   :stairs,
-          #   :floor,
-          #   :door,
-          #   :postal_code,
-          #   :town,
-          #   :province_id,
-          #   :country,
-          #   :_destroy
-          # ],
-      # TODO Pending of adapting addresses and timetables form to the new model design
-      #     timetables_attributes: [
-      #       :id,
-      #       :day,
-      #       :start_hour,
-      #       :end_hour,
-      #       :_destroy
-      #     ],
+          { area_ids:         [] },
+          { collective_ids:   [] },
+          { coordination_ids: [] },
+          { district_ids:     [] },
+          {
+            documents_attributes: [
+              :id,
+              :name,
+              :_destroy
+            ]
+          },
+          {
+            events_attributes: [
+              :id,
+              {
+                address_attributes: [
+                  :id,
+                  :road_type_id,
+                  :road_name,
+                  :road_number_type,
+                  :road_number,
+                  :grader,
+                  :stairs,
+                  :floor,
+                  :door,
+                  :postal_code,
+                  :town,
+                  :province_id,
+                  :country,
+                  :_destroy
+                ]
+              },
+              {
+                timetables_attributes: [
+                  :id,
+                  :execution_date,
+                  :start_hour,
+                  :end_hour,
+                  :_destroy
+                ]
+              },
+              :_destroy
+            ]
+          }
         )
     end
 end

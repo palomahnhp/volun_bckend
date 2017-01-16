@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(trait) %>" >
+
+  <% trait.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(trait.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(trait) %>
+    <%= link_to_edit(trait) %>
+<% if trait.try(:archived?) %>
+    <%= link_to_recover(trait) %>
+<% else %>
+    <%= link_to_destroy(trait) %>
+<% end %>
+  </td>
+</tr>

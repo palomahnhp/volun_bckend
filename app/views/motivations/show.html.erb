@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: Motivation.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Motivation.human_attribute_name(:id) %>:</dt>
+  <dd><%= @motivation.id %></dd>
+  <dt><%= Motivation.human_attribute_name(:name) %>:</dt>
+  <dd><%= @motivation.name %></dd>
+  <dt><%= Motivation.human_attribute_name(:active) %>:</dt>
+  <dd><%= @motivation.active %></dd>
+  <dt><%= Motivation.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@motivation.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@motivation) %>
+<% end %>

@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: UnsubscribeReason.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= UnsubscribeReason.human_attribute_name(:id) %>:</dt>
+  <dd><%= @unsubscribe_reason.id %></dd>
+  <dt><%= UnsubscribeReason.human_attribute_name(:name) %>:</dt>
+  <dd><%= @unsubscribe_reason.name %></dd>
+  <dt><%= UnsubscribeReason.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@unsubscribe_reason.active}") %></dd>
+  <dt><%= UnsubscribeReason.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@unsubscribe_reason.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@unsubscribe_reason) %>
+<% end %>
