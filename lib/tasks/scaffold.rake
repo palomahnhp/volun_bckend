@@ -6,14 +6,14 @@ MODELS_AND_ATTRS = {
 
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
   'Province'      => 'name:string:uniq code:string:uniq',
+  'District'      => 'name:string:uniq code:string:uniq active:boolean',
   'RoadType'      => 'name:string:uniq code:string:uniq',
   'EntityType'    => 'kind:integer:uniq description:text active:boolean',
   'Entity'        => 'name:string:uniq description:text active:boolean entity_type:references',
-  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough town province:references country ndp_code local_code class_name latitude longitude',
+  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough district:references town province:references country ndp_code local_code class_name latitude longitude',
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
   'Coordination'  => 'name:string:uniq description:text active:boolean',
-  'District'      => 'name:string:uniq code:string:uniq active:boolean',
 
 
   # --------------------------------------------------------------------------------------------------
@@ -127,13 +127,13 @@ MODELS_AND_ATTRS = {
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'address:references phone_number phone_number_alt',
   'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_last_name contact_last_name_alt representative_name representative_last_name representative_last_name_alt phone_number phone_number_alt road_type:references road_name number_type road_number postal_code borough town province:references request_reason:references',
+  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_last_name contact_last_name_alt representative_name representative_last_name representative_last_name_alt phone_number phone_number_alt road_type:references road_name number_type road_number postal_code borough district:references town province:references request_reason:references',
   'Rt::EntityUnsubscribe'     => 'reason:text',
-  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
-  'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code borough town province:references',
+  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code district:references town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
+  'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code borough district:references town province:references',
   'Rt::ProjectUnpublishing'   => 'reason:text',
   'Rt::ProjectUnsubscribe'    => 'project:references reason:text',
-  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type:references road_name number_type road_number postal_code borough town province:references',
+  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type:references road_name number_type road_number postal_code borough district:references town province:references',
   'Rt::ActivityUnpublishing'  => 'reason:text',
   'Rt::Other'                 => 'description:text',
 

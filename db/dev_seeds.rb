@@ -310,7 +310,7 @@ ProjectType.all.each do |project_type|
 
     project.save!
 
-    [Area, Collective, Coordination, District].each do |model|
+    [Area, Collective, Coordination].each do |model|
       model.first(5).each do |record|
         unless project.public_send("#{model.model_name.singular}_ids").include? record.id
           project.public_send(model.model_name.plural) << record

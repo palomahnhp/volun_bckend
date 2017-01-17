@@ -12,6 +12,7 @@ class CreateRtActivityPublishings < ActiveRecord::Migration
       t.string :road_number
       t.string :postal_code
       t.string :borough
+      t.references :district, index: true, foreign_key: true
       t.string :town
       t.references :province, index: true, foreign_key: true
 
