@@ -157,7 +157,6 @@ ADVANCED_JOINED_TABLES = {
 JOINED_TABLES = [
     %w(area         project),
     %w(collective   project),
-    %w(district     project),
     %w(coordination project),
 
     %w(address volunteer),
