@@ -2487,7 +2487,7 @@ CREATE TABLE volunteers (
     name character varying,
     last_name character varying,
     last_name_alt character varying,
-    document_id integer,
+    id_number_type_id integer,
     id_number character varying,
     gender integer,
     birth_date date,
@@ -4363,17 +4363,17 @@ CREATE INDEX index_volunteers_on_address_id ON volunteers USING btree (address_i
 
 
 --
--- Name: index_volunteers_on_document_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX index_volunteers_on_document_id ON volunteers USING btree (document_id);
-
-
---
 -- Name: index_volunteers_on_employment_status_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_volunteers_on_employment_status_id ON volunteers USING btree (employment_status_id);
+
+
+--
+-- Name: index_volunteers_on_id_number_type_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX index_volunteers_on_id_number_type_id ON volunteers USING btree (id_number_type_id);
 
 
 --
@@ -4777,14 +4777,6 @@ ALTER TABLE ONLY trackings
 
 
 --
--- Name: fk_rails_c06d3f8c88; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY volunteers
-    ADD CONSTRAINT fk_rails_c06d3f8c88 FOREIGN KEY (document_id) REFERENCES documents(id);
-
-
---
 -- Name: fk_rails_c5cc40e3a0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4798,6 +4790,14 @@ ALTER TABLE ONLY volun_assessments
 
 ALTER TABLE ONLY volun_trackings
     ADD CONSTRAINT fk_rails_c6094089f7 FOREIGN KEY (volunteer_id) REFERENCES volunteers(id);
+
+
+--
+-- Name: fk_rails_c722c76bbe; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY volunteers
+    ADD CONSTRAINT fk_rails_c722c76bbe FOREIGN KEY (id_number_type_id) REFERENCES id_number_types(id);
 
 
 --

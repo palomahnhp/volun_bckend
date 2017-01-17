@@ -4,7 +4,7 @@ class CreateVolunteers < ActiveRecord::Migration
       t.string :name
       t.string :last_name
       t.string :last_name_alt
-      t.references :document, index: true, foreign_key: true
+      t.references :id_number_type, index: true, foreign_key: true
       t.string :id_number
       t.integer :gender
       t.date :birth_date
