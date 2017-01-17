@@ -12,7 +12,7 @@ class CreateRtEntitySubscribes < ActiveRecord::Migration
       t.string :representative_last_name_alt
       t.string :phone_number
       t.string :phone_number_alt
-      t.string :road_type
+      t.references :road_type, index: true, foreign_key: true
       t.string :road_name
       t.string :number_type
       t.string :road_number

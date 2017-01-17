@@ -6,13 +6,14 @@ class CreateRtActivityPublishings < ActiveRecord::Migration
       t.text :description
       t.date :execution_date
       t.string :execution_hour
-      t.string :road_type
+      t.references :road_type, index: true, foreign_key: true
       t.string :road_name
       t.string :number_type
       t.string :road_number
       t.string :postal_code
+      t.string :borough
       t.string :town
-      t.string :province
+      t.references :province, index: true, foreign_key: true
 
       t.timestamps null: false
     end

@@ -10,7 +10,7 @@ class CreateRtVolunteersDemands < ActiveRecord::Migration
       t.string :road_number
       t.string :postal_code
       t.string :town
-      t.string :province
+      t.references :province, index: true, foreign_key: true
       t.string :requested_volunteers_num
       t.text :volunteers_profile
       t.text :volunteer_functions_1
