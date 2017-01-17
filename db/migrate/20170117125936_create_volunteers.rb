@@ -29,6 +29,8 @@ class CreateVolunteers < ActiveRecord::Migration
       t.boolean :search_authorization, default: false
       t.boolean :representative_statement, default: false
       t.boolean :has_driving_license, default: false
+      t.boolean :public_pictures, default: false
+      t.boolean :annual_survey, default: false
       t.references :technician, index: true, foreign_key: true
       t.references :knowledge, index: true, foreign_key: true
       t.text :other_academic_info

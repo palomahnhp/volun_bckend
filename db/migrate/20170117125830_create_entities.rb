@@ -4,6 +4,8 @@ class CreateEntities < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.boolean :active, default: true
+      t.boolean :public_pictures, default: false
+      t.boolean :annual_survey, default: false
       t.references :entity_type, index: true, foreign_key: true
 
       t.timestamps null: false

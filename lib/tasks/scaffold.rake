@@ -9,7 +9,7 @@ MODELS_AND_ATTRS = {
   'District'      => 'name:string:uniq code:string:uniq active:boolean',
   'RoadType'      => 'name:string:uniq code:string:uniq',
   'EntityType'    => 'kind:integer:uniq description:text active:boolean',
-  'Entity'        => 'name:string:uniq description:text active:boolean entity_type:references',
+  'Entity'        => 'name:string:uniq description:text active:boolean public_pictures:boolean annual_survey:boolean entity_type:references',
   'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough district:references town province:references country ndp_code local_code class_name latitude longitude',
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
@@ -103,7 +103,7 @@ MODELS_AND_ATTRS = {
   'Sector'      => 'name active',
 
 
-  'Volunteer' => 'name:string last_name last_name_alt document:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt document:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean public_pictures:boolean annual_survey:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
 
 
   # 1:N
@@ -123,11 +123,11 @@ MODELS_AND_ATTRS = {
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
   'RequestReason'             => 'kind:integer:uniq description:text active:boolean',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email',
+  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email public_pictures:boolean annual_survey:boolean',
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'address:references phone_number phone_number_alt',
   'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_last_name contact_last_name_alt representative_name representative_last_name representative_last_name_alt phone_number phone_number_alt road_type:references road_name number_type road_number postal_code borough district:references town province:references request_reason:references',
+  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_last_name contact_last_name_alt representative_name representative_last_name representative_last_name_alt phone_number phone_number_alt public_pictures:boolean annual_survey:boolean road_type:references road_name number_type road_number postal_code borough district:references town province:references request_reason:references',
   'Rt::EntityUnsubscribe'     => 'reason:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type road_name number_type road_number postal_code district:references town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
   'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code borough district:references town province:references',
