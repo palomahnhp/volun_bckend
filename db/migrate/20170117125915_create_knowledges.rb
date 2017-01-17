@@ -2,7 +2,7 @@ class CreateKnowledges < ActiveRecord::Migration
   def change
     create_table :knowledges do |t|
       t.string :name
-      t.boolean :active, default: true
+      t.boolean :active, default: true, default: true
 
       t.timestamps null: false
     end
