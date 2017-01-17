@@ -9,8 +9,8 @@ class CreateVolunteers < ActiveRecord::Migration
       t.integer :gender
       t.date :birth_date
       t.references :nationality, index: true, foreign_key: true
-      t.string :mobile_number
       t.string :phone_number
+      t.string :phone_number_alt
       t.string :email
       t.references :address, index: true, foreign_key: true
       t.references :status, index: true, foreign_key: true

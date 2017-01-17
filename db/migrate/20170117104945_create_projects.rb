@@ -11,6 +11,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string :contact_last_name
       t.string :contact_last_name_alt
       t.string :phone_number
+      t.string :phone_number_alt
       t.string :email
       t.text :comments
       t.integer :beneficiaries_num

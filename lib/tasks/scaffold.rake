@@ -24,7 +24,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
+  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
   'Tracking'  => 'comments:text start_date:datetime project:references',
@@ -103,7 +103,7 @@ MODELS_AND_ATTRS = {
   'Sector'      => 'name active',
 
 
-  'Volunteer' => 'name:string last_name last_name_alt document:references id_number gender:integer birth_date:date nationality:references mobile_number phone_number email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt document:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean technician:references knowledge:references other_academic_info:text skill:references profession:references',
 
 
   # 1:N
