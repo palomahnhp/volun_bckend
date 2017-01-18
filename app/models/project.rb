@@ -28,18 +28,6 @@ class Project < ActiveRecord::Base
             :phone_number, :email, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
-  default_scope -> {
-    includes(
-      :pt_extendable,
-      :project_type,
-      :entity,
-      :areas,
-      :collectives,
-      :addresses,
-      :districts,
-      events: [:timetables]
-    )
-  }
   scope :list, ->(){
     includes(
       :pt_extendable,

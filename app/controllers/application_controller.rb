@@ -87,36 +87,72 @@ class ApplicationController < ActionController::Base
     [
       :id,
       :name,
-      :project_type_id,
-      :volunteers_allowed,
-      :public,
-      :active,
-      :outstanding,
       :description,
+      :volunteers_allowed,
+      :publish,
+      :outstanding,
+      :project_type_id,
+      :active,
       :comments,
-      :volunteers_num,
       :beneficiaries_num,
+      :volunteers_num,
       :functions,
+      :insured,
+      :insurance_date,
       :contact_name,
       :contact_last_name,
       :contact_last_name_alt,
       :email,
       :phone_number,
+      :phone_number_alt,
       :entity_id,
       :execution_start_date,
       :execution_end_date,
-      :insured,
-      :insurance_date,
-      area_ids:         [],
-      collective_ids:   [],
-      coordination_ids: [],
-      district_ids:     [],
-    # TODO Pending of adapting addresses and timetables form to the new model design
-      # documents_attributes: [
-      #   :id,
-      #   :name,
-      #   :_destroy
-      # ]
+      { area_ids:         [] },
+      { collective_ids:   [] },
+      { coordination_ids: [] },
+      {
+        documents_attributes: [
+          :id,
+          :name,
+          :_destroy
+        ]
+      },
+      {
+        events_attributes: [
+          :id,
+          {
+            address_attributes: [
+              :id,
+              :road_type_id,
+              :road_name,
+              :road_number_type,
+              :road_number,
+              :grader,
+              :stairs,
+              :floor,
+              :door,
+              :postal_code,
+              :borough,
+              :district_id,
+              :town,
+              :province_id,
+              :country,
+              :_destroy
+            ]
+          },
+          {
+            timetables_attributes: [
+              :id,
+              :execution_date,
+              :start_hour,
+              :end_hour,
+              :_destroy
+            ]
+          },
+          :_destroy
+        ]
+      }
     ]
   end
 

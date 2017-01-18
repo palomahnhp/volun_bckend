@@ -168,12 +168,6 @@
       <%= f.association :coordinations, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
     </div>
   </div>
-  <div class="row">
-    <div class="well col-md-12">
-      <%= content_tag :h3, District.model_name.human(count: 2), class: 'form-subtitle' %>
-      <%= f.association :districts, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-    </div>
-  </div>
 </div>
 
 

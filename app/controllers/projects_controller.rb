@@ -65,7 +65,7 @@ class ProjectsController < ApplicationController
           :name,
           :description,
           :volunteers_allowed,
-          :public,
+          :publish,
           :outstanding,
           :pt_subvention,
           :project_type_id,
@@ -87,7 +87,6 @@ class ProjectsController < ApplicationController
           { area_ids:         [] },
           { collective_ids:   [] },
           { coordination_ids: [] },
-          { district_ids:     [] },
           {
             documents_attributes: [
               :id,
@@ -110,6 +109,8 @@ class ProjectsController < ApplicationController
                   :floor,
                   :door,
                   :postal_code,
+                  :borough,
+                  :district_id,
                   :town,
                   :province_id,
                   :country,
