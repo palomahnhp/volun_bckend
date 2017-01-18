@@ -95,6 +95,12 @@ es:
       volunteer:
         one:   Voluntario
         other: Voluntarios
+      skill:
+        one:   Habilidad/afición
+        other: Habilidades/aficiones
+      status:
+        one:   Situación
+        other: Situaciones
     attributes:
       address:
         postal_code:      Código postal
@@ -221,6 +227,52 @@ es:
         end_hour:                 Hora fin
         created_at:               Fecha de creación
         project_id:               ID del proyecto
+      volunteer:
+        name:                     Nombre
+        last_name:                Apellido 1
+        last_name_alt:            Apellido 2
+        id_number_type_id:        Tipo de documento
+        id_number_type:           Tipo de documento
+        id_number:                Número de documento
+        gender:                   Sexo
+        birth_date:               Fecha de nacimiento
+        nationality_id:           Nacionalidad
+        nationality:              Nacionalidad
+        phone_number:             Teléfono móvil
+        phone_number_alt:         Teléfono fijo
+        email:                    Email
+        address_id:               Dirección
+        status_id:                Situación
+        status:                   Situación
+        employment_status_id:     Situación laboral
+        employment_status:        Situación laboral
+        vocne:                    VOCNE
+        available:                Disponible
+        availability_date:        Fecha de disponibilidad
+        academic_level_id:        Nivel Académico
+        academic_level:           Nivel Académico
+        subscribe_date:           Fecha de alta
+        unsubscribe_date:         Fecha de baja
+        unsubscribe_reason_id:    Motivo de baja
+        unsubscribe_reason:       Motivo de baja
+        comments:                 Observaciones
+        expectations:             Expectativas
+        agreement:                Acuerdo de colaboración
+        agreement_date:           Fecha de acuerdo
+        search_authorization:     Autorización consulta certificado de penales
+        representative_statement: Declaración responsable
+        has_driving_license:      Carnet de conducir
+        technician_id:            Técnico
+        technician:               Técnico
+        info_source_id:           Cómo conoció Voluntarios por Madrid
+        info_source:              Cómo conoció Voluntarios por Madrid
+        other_academic_info:      Otra formación
+        profession_id:            Profesión
+        profession:               Profesión
+        public_pictures:          Permitir publicación de fotos
+        skills:                   Habilidades/aficiones
+      skill:
+        name: Nombre
     errors:
       models:
         pt/entity:

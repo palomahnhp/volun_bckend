@@ -288,29 +288,36 @@ form {
     min-height: 268px;
   }
 
-  .row-4{
+  .address-block {
 
-    .address {
+    label {
+      padding-right: 0;
+    }
 
-      label {
-        padding-right: 0;
+    .row-4-2, .row-4-3 {
+      input {
+        max-width: 80px;
       }
+    }
 
-      .row-4-1 {
-        .col-md-9 {
-          .col-sm-5 {
-            width: 23%;
-          }
-          .col-sm-7 {
-            width: 77%;
-          }
-        }
+    .road_name {
+      .col-sm-5 {
+        width: 23%;
       }
+      .col-sm-7 {
+        width: 73%;
+      }
+    }
 
-      .row-4-2, .row-4-3 {
-        input {
-          max-width: 80px;
-        }
+    .postal_code {
+      input {
+        max-width: none;
+      }
+      .col-sm-5 {
+        width: 40%;
+      }
+      .col-sm-7 {
+        width: 60%;
       }
     }
   }
