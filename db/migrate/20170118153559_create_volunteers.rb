@@ -34,7 +34,6 @@ class CreateVolunteers < ActiveRecord::Migration
       t.references :technician, index: true, foreign_key: true
       t.references :info_source, index: true, foreign_key: true
       t.text :other_academic_info
-      t.references :skill, index: true, foreign_key: true
       t.references :profession, index: true, foreign_key: true
 
       t.timestamps null: false
