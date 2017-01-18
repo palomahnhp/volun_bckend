@@ -805,38 +805,6 @@ ALTER SEQUENCE issues_id_seq OWNED BY issues.id;
 
 
 --
--- Name: knowledges; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE knowledges (
-    id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: knowledges_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE knowledges_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: knowledges_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE knowledges_id_seq OWNED BY knowledges.id;
-
-
---
 -- Name: language_levels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1120,7 +1088,7 @@ CREATE TABLE projects (
     volunteers_num integer,
     insured boolean DEFAULT false,
     volunteers_allowed boolean DEFAULT true,
-    public boolean DEFAULT false,
+    publish boolean DEFAULT false,
     outstanding boolean DEFAULT false,
     insurance_date date,
     project_type_id integer,
@@ -2737,13 +2705,6 @@ ALTER TABLE ONLY issues ALTER COLUMN id SET DEFAULT nextval('issues_id_seq'::reg
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY knowledges ALTER COLUMN id SET DEFAULT nextval('knowledges_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY language_levels ALTER COLUMN id SET DEFAULT nextval('language_levels_id_seq'::regclass);
 
 
@@ -3242,14 +3203,6 @@ ALTER TABLE ONLY info_sources
 
 ALTER TABLE ONLY issues
     ADD CONSTRAINT issues_pkey PRIMARY KEY (id);
-
-
---
--- Name: knowledges_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY knowledges
-    ADD CONSTRAINT knowledges_pkey PRIMARY KEY (id);
 
 
 --
@@ -3921,13 +3874,6 @@ CREATE UNIQUE INDEX index_info_sources_on_name ON info_sources USING btree (name
 --
 
 CREATE INDEX index_issues_on_project_id ON issues USING btree (project_id);
-
-
---
--- Name: index_knowledges_on_name; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE UNIQUE INDEX index_knowledges_on_name ON knowledges USING btree (name);
 
 
 --
@@ -5058,8 +5004,6 @@ ALTER TABLE ONLY projects
 --
 
 SET search_path TO "$user",public;
-
-INSERT INTO schema_migrations (version) VALUES ('20170117125915');
 
 INSERT INTO schema_migrations (version) VALUES ('20170118112437');
 

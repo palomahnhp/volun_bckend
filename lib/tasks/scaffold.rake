@@ -24,7 +24,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean public:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
+  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
   'Tracking'  => 'comments:text start_date:datetime project:references',

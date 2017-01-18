@@ -277,7 +277,8 @@ puts "Creando Direcciones"
     door:                  rand(10).to_s,
     province:              Province.all.sample,
     country:               "España",
-    town:                  "Madrid"
+    town:                  "Madrid",
+    district:              District.all.sample
   )
 end
 
