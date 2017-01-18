@@ -12,6 +12,7 @@ class Project < ActiveRecord::Base
   has_many :documents
   has_many :activities
   has_many :events, as: :eventable
+  has_many :links, as: :linkable
   has_many :addresses, through: :events
   has_many :districts, through: :addresses
   has_many :trackings
