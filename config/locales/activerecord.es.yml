@@ -157,7 +157,7 @@ es:
         description:            Descripción
         active:                 Activo
         volunteers_allowed:     Admite voluntarios
-        public:                 Publicitar
+        publish:                Publicitar
         outstanding:            Destacado
         created_at:             Fecha creación
         functions:              Funciones del voluntario
@@ -216,7 +216,7 @@ es:
         project_id:               Proyecto
       timetable:
         id:                       ID
-        day:                      Día de la semana
+        execution_date:           Día de la semana
         start_hour:               Hora inicio
         end_hour:                 Hora fin
         created_at:               Fecha de creación
