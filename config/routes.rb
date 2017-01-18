@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   resources :languages
   resources :professions
   resources :skills
-  resources :knowledges
   resources :profiles
   resources :technicians
   resources :unsubscribe_reasons

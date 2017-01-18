@@ -15,6 +15,7 @@ class CreateRtActivityPublishings < ActiveRecord::Migration
       t.references :district, index: true, foreign_key: true
       t.string :town
       t.references :province, index: true, foreign_key: true
+      t.references :project, index: true, foreign_key: true
 
       t.timestamps null: false
     end
