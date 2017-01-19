@@ -10,5 +10,6 @@ class Address < ActiveRecord::Base
   belongs_to :province
 
   validates :road_type_id, :road_name, :road_number, :postal_code, :province, :country, :town, presence: true
+  validates :postal_code, format: { with: /\d{5}/ }
 
 end
