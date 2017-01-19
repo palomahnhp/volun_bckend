@@ -2528,7 +2528,7 @@ CREATE TABLE volunteers (
     comments text,
     expectations text,
     agreement boolean DEFAULT false,
-    agreement_date boolean DEFAULT false,
+    agreement_date timestamp without time zone,
     search_authorization boolean DEFAULT false,
     representative_statement boolean DEFAULT false,
     has_driving_license boolean DEFAULT false,

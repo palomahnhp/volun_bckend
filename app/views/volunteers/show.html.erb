@@ -51,7 +51,7 @@
   <dt><%= Volunteer.human_attribute_name(:agreement) %>:</dt>
   <dd><%= t("humanize.#{@volunteer.agreement}") %></dd>
   <dt><%= Volunteer.human_attribute_name(:agreement_date) %>:</dt>
-  <dd><%= t("humanize.#{@volunteer.agreement_date}") %></dd>
+  <dd><%= show_simple_date(@volunteer.agreement_date) %></dd>
   <dt><%= Volunteer.human_attribute_name(:search_authorization) %>:</dt>
   <dd><%= t("humanize.#{@volunteer.search_authorization}") %></dd>
   <dt><%= Volunteer.human_attribute_name(:representative_statement) %>:</dt>

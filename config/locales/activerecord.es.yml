@@ -18,6 +18,10 @@ es:
         friday:     Viernes
         saturday:   Sábado
         sunday:     Domingo
+    volunteer:
+      gender:
+        male:     Hombre
+        female:   Mujer
   activerecord:
     models:
       project:

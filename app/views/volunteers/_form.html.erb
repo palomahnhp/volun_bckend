@@ -22,8 +22,8 @@
     </div>
     <div class="row well">
       <%= f.input :email, wrapper_html: { class: 'col-md-4' } %>
-      <%= f.input :phone_number, wrapper_html: { class: 'col-md-4' } %>
-      <%= f.input :phone_number_alt, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.input :phone_number, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.input :phone_number_alt, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-4' } %>
     </div>
     <div class="row well">
       <%= f.association :status, wrapper_html: { class: 'col-md-6' } %>

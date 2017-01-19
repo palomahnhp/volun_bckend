@@ -39,7 +39,7 @@
     </div>
     <div class="col-md-6">
       <%= f.input :email, placeholder: 'email@email.com', input_html: {class: 'm-width250'} %>
-      <%= f.input :phone_number, input_html: { class: 'm-width150' }  %>
+      <%= f.input :phone_number, input_html: { class: 'm-width150', data: { mask: '999999999'} }  %>
       <%= f.association :entity, input_html: { class: 'm-width200' } %>
     </div>
   </div>

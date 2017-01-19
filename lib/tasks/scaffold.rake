@@ -34,7 +34,7 @@ MODELS_AND_ATTRS = {
   # -------------------------------------------------
 
   'EventType' => 'kind:integer:uniq description:text',
-  'Event'     => 'eventable:references{polymorphic} event_type:references address:references',
+  'Event'     => 'publish:boolean eventable:references{polymorphic} event_type:references address:references',
   'Timetable' => 'event:references execution_date:date start_hour end_hour',
 
   # 1:N tables
@@ -72,7 +72,7 @@ MODELS_AND_ATTRS = {
 
   'UnsubscribeReason' => 'name:string:uniq active:boolean',
 
-  'Technician' => 'name profile_id:integer phone_number active:boolean',
+  'Manager' => 'name profile_id:integer phone_number active:boolean',
 
   'Profile' => 'name:string:uniq active:boolean',
 
@@ -103,7 +103,7 @@ MODELS_AND_ATTRS = {
   'Sector'      => 'name active',
 
 
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean public_pictures:boolean annual_survey:boolean subscribed_at:datetime technician:references info_source:references other_academic_info:text profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean public_pictures:boolean annual_survey:boolean subscribed_at:datetime technician:references info_source:references other_academic_info:text profession:references',
 
 
   # 1:N
@@ -386,7 +386,7 @@ namespace :scaffold do
       File.open(rb_file, 'r').each do |l|
         line = l
         if line.chomp =~ /boolean.*/
-          default_value = /(active|volunteers_allowed).*/ === line.chomp
+          default_value = /(active|volunteers_allowed|publish).*/ === line.chomp
           line  = line.sub("\n", '')
           line += ", default: #{default_value}\n"
         end

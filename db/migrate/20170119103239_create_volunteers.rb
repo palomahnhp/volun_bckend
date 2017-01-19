@@ -25,7 +25,7 @@ class CreateVolunteers < ActiveRecord::Migration
       t.text :comments
       t.text :expectations
       t.boolean :agreement, default: false
-      t.boolean :agreement_date, default: false
+      t.datetime :agreement_date
       t.boolean :search_authorization, default: false
       t.boolean :representative_statement, default: false
       t.boolean :has_driving_license, default: false
