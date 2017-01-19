@@ -85,7 +85,9 @@ class BdcValidator
   end
 
   def road_name_unique?
-    town_unique? && address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :estadovial) == '0'
+    town_unique? &&
+      (address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :estadovial) == '0' ||
+        address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :viales, :@numero_viales) == '1')
   end
 
   def road_number_unique?
@@ -188,10 +190,11 @@ class BdcValidator
     self.clean_bdc_fields = deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return])
     self.address_data = clean_bdc_fields[:bloquedireccion][:datosdireccion]
     if road_name_unique?
-      [road_name]
+      road_name.present? ? [road_name] : [road_names]
     elsif town_unique?
-      road_names.select! { |road| road[:nomclase] == bdc_fields[:road_type] } if bdc_fields[:road_type].present?
-      road_names.sort_by { |road| road[:nomvial] }
+      _road_names = road_names
+      _road_names.select! { |road| road[:nomclase] == bdc_fields[:road_type] } if bdc_fields[:road_type].present?
+      _road_names.sort_by { |road| road[:nomvial] }
     else
       []
     end
