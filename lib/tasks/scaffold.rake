@@ -103,7 +103,7 @@ MODELS_AND_ATTRS = {
   'Sector'      => 'name active',
 
 
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean public_pictures:boolean annual_survey:boolean technician:references info_source:references other_academic_info:text profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:boolean search_authorization:boolean representative_statement:boolean has_driving_license:boolean public_pictures:boolean annual_survey:boolean subscribed_at:datetime technician:references info_source:references other_academic_info:text profession:references',
 
 
   # 1:N
@@ -122,7 +122,7 @@ MODELS_AND_ATTRS = {
 
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
   'RequestReason'             => 'kind:integer:uniq description:text active:boolean',
-  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references sent_at:datetime status:integer status_date:datetime rejection_type:references comments:text',
+  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references status:integer status_date:datetime rejection_type:references comments:text',
   'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email public_pictures:boolean annual_survey:boolean',
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough district:references town province:references phone_number phone_number_alt email',
@@ -400,6 +400,30 @@ namespace :scaffold do
     end
   end
 
+  desc 'Add null: false to some migrations'
+  task add_null_false: :environment do
+    require 'fileutils'
+    require 'tempfile'
+
+    Dir.glob('db/migrate/*.rb') do |rb_file|
+      tmp = Tempfile.new('extract')
+
+      File.open(rb_file, 'r').each do |l|
+        line = l
+        if line.chomp =~ /references :address.*/
+          line  = line.sub("\n", '')
+          line += ", null: false\n"
+        end
+        tmp  << line
+      end
+
+      tmp.close
+
+      # Move temp file to origin
+      FileUtils.mv(tmp.path, rb_file)
+    end
+  end
+
   desc 'Builds manual migrations'
   task build_manual_migrations: :environment do
     MANUAL_MIGRATIONS.each do |name, content|
@@ -502,6 +526,7 @@ namespace :scaffold do
     Rake::Task['scaffold:build'].invoke
     Rake::Task['scaffold:build_manual_migrations'].invoke
     Rake::Task['scaffold:add_default_true'].invoke
+    Rake::Task['scaffold:add_null_false'].invoke
     Rake::Task['scaffold:gco_files'].invoke
   end
 

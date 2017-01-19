@@ -17,6 +17,7 @@ ACTIVITIES_NUM    = 5
 TIMETABLE_NUM     = 5
 EVENTS_NUM        = 5
 DOCUMENT_NUM      = 5
+SKILLS_NUM        = 5
 
 REQUEST_TYPES = {
   1  => 'rt_volunteer_subscribe',
@@ -238,12 +239,22 @@ PROJECT_TYPES.each do |kind , name|
   ProjectType.create!(kind: kind)
 end
 
-puts "Creando entidades"
+puts "Creando Entidades"
 (1..ENTITIES_NUM).each do |n|
   Entity.create!(name: "#{Entity.model_name.human} #{n}")
 end
 
-puts "Creando coordinaciones"
+puts "Creando Tipo documento"
+(1..2).each do |n|
+  IdNumberType.create!(name: "#{IdNumberType.model_name.human} #{n}")
+end
+
+puts "Creando Habilidades"
+(1..SKILLS_NUM).each do |n|
+  Skill.create!(name: "#{Skill.model_name.human} #{n}")
+end
+
+puts "Creando Coordinaciones"
 (1..COORDINATIONS_NUM).each do |n|
   Coordination.create!(name: "#{Coordination.model_name.human} #{n}")
 end
@@ -380,7 +391,6 @@ RequestType.all.each do |request_type|
   (1..REQUEST_FORMS_NUM).each do |n|
     request_form = RequestForm.new(
       request_type: request_type,
-      sent_at: DateTime.now,
       status: RequestForm.statuses[:pending],
       status_date: DateTime.now,
       comments: "#{n} #{Faker::Lorem.sentence}",

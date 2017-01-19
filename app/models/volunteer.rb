@@ -1,8 +1,8 @@
 class Volunteer < ActiveRecord::Base
 
   belongs_to :academic_level
-  belongs_to :address
-  belongs_to :id_number_type
+  belongs_to :address, required: true
+  belongs_to :id_number_type, required: true
   belongs_to :employment_status
   belongs_to :info_source
   belongs_to :nationality
@@ -20,6 +20,9 @@ class Volunteer < ActiveRecord::Base
   has_many :languages, :through => :known_languages
   has_many :traits,    :through => :assessments
   accepts_nested_attributes_for :address
+
+  validates :name, :last_name, :id_number, :id_number, presence: true
+  validates :id_number, length: { minimum: 9 }
 
 
   def self.main_columns

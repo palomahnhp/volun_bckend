@@ -101,6 +101,9 @@ es:
       status:
         one:   Situación
         other: Situaciones
+      id_number_type:
+        one:   Tipo de documento
+        other: Tipo de documentos
     attributes:
       address:
         postal_code:      Código postal
@@ -272,6 +275,8 @@ es:
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
       skill:
+        name: Nombre
+      id_number_type:
         name: Nombre
     errors:
       models:

@@ -38,10 +38,6 @@
       <%= f.input :availability_date, as: :datepicker, wrapper_html: { class: 'col-md-6' } %>
     </div>
     <div class="row well">
-      <%= f.input :comments, wrapper_html: { class: 'col-md-6' } %>
-      <%= f.input :expectations, wrapper_html: { class: 'col-md-6' } %>
-    </div>
-    <div class="row well">
       <%= f.input :agreement, wrapper_html: { class: 'col-md-6' } %>
       <%= f.input :agreement_date, as: :datepicker, wrapper_html: { class: 'col-md-6' } %>
     </div>
@@ -57,12 +53,15 @@
     </div>
     <% unless f.object.new_record? %>
         <div class="row well">
-          <%= f.input :subscribe_date, as: :datepicker %>
-          <%= f.input :unsubscribe_date, as: :datepicker %>
-          <%= f.association :unsubscribe_reason %>
+          <%= f.input :subscribe_date, as: :datepicker, wrapper_html: { class: 'col-md-4' } %>
+          <%= f.input :unsubscribe_date, as: :datepicker, wrapper_html: { class: 'col-md-4' } %>
+          <%= f.association :unsubscribe_reason, wrapper_html: { class: 'col-md-4' } %>
         </div>
     <% end %>
-
+    <div class="row well">
+      <%= f.input :comments, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :expectations, wrapper_html: { class: 'col-md-6' } %>
+    </div>
     <div class="row">
       <div class="well col-md-12">
         <%= content_tag :h3, Skill.model_name.human(count: 2), class: 'form-subtitle' %>
