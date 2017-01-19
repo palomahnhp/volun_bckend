@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :professions
   resources :skills
   resources :profiles
-  resources :technicians
+  resources :managers
   resources :unsubscribe_reasons
   resources :academic_levels
   resources :degrees

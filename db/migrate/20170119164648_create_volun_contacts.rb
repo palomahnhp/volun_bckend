@@ -4,7 +4,7 @@ class CreateVolunContacts < ActiveRecord::Migration
       t.references :volunteer, index: true, foreign_key: true
       t.references :contact_result, index: true, foreign_key: true
       t.references :project, index: true, foreign_key: true
-      t.references :technician, index: true, foreign_key: true
+      t.references :manager, index: true, foreign_key: true
       t.references :contact_type, index: true, foreign_key: true
       t.datetime :contact_date
       t.text :comments

@@ -103,15 +103,15 @@ MODELS_AND_ATTRS = {
   'Sector'      => 'name active',
 
 
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean public_pictures:boolean annual_survey:boolean subscribed_at:datetime technician:references info_source:references other_academic_info:text profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean public_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references',
 
 
   # 1:N
   'Volun::Availability' => 'volunteer:references day:string start_hour:string end_hour:string',
 
   # N:N
-  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references technician:references tracking_date:datetime comments:text',
-  'Volun::Contact'       => 'volunteer:references contact_result:references project:references technician:references contact_type:references contact_date:datetime  comments:text',
+  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references manager:references tracking_date:datetime comments:text',
+  'Volun::Contact'       => 'volunteer:references contact_result:references project:references manager:references contact_type:references contact_date:datetime  comments:text',
   'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string assessment:boolean comments:text',
 
   # --------------------------------------------------------------------------------------------------
