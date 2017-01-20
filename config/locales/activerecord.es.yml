@@ -224,6 +224,18 @@ es:
         districts:              Distritos      # N:N Association (for simple_form)
         collectives:            Colectivos     # N:N Association (for simple_form)
         coordinations:          Coordinaciones # N:N Association (for simple_form)
+      activity:
+        id:                     ID
+        name:                   Denominación de la actividad
+        description:            Descripción detallada de la actividad
+        start_date:             Fecha desde
+        end_date:               Fecha hasta
+        transport:              Medios de transporte
+        pdf_url:                Url del folleto PDF
+        entity:                 Organizador de la actividad
+        area:                   Tipo de actividad
+        project:                Código de proyecto asociado
+        share:                  Compartir actividad con redes sociales
       pt/subvention:
         id:                            ID
         representative_name:           Nombre
