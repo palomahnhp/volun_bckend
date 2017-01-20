@@ -53,3 +53,13 @@ es:
   administration: Admistración
   diary: Agenda
   pending: Pendientes
+  administration_title_text: Aquí se administran las tablas de la aplicación
+  areas_text: Ámbitos a los que pertenece un proyecto
+  project_types_text: Tipos de proyecto a los que un proyecto puede ser
+  collectives_text: Colectivos a los que pertenece un proyecto
+  coordinations_text: Coordinaciones asociadas a un proyecto
+  nationalities_text: Nacionalidades
+  degrees_text: Titulaciones
+  unsubscribe_reason_text: Motivo de baja
+  traits_text: Cualidades
+  tracking_types_text: Tipos de seguimiento
