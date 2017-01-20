@@ -4,16 +4,19 @@ MODELS_AND_ATTRS = {
   # Tables
   # --------------------------------------------------------------------------------------------------
 
-  'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
-  'Province'      => 'name:string:uniq code:string:uniq',
-  'District'      => 'name:string:uniq code:string:uniq active:boolean',
-  'RoadType'      => 'name:string:uniq code:string:uniq',
-  'EntityType'    => 'kind:integer:uniq description:text active:boolean',
-  'Entity'        => 'name:string:uniq description:text active:boolean public_pictures:boolean annual_survey:boolean entity_type:references',
-  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough district:references town province:references country ndp_code local_code class_name latitude longitude',
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
   'Coordination'  => 'name:string:uniq description:text active:boolean',
+  'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
+
+  'Province'      => 'name:string:uniq code:string:uniq',
+  'District'      => 'name:string:uniq code:string:uniq active:boolean',
+  'RoadType'      => 'name:string:uniq code:string:uniq',
+  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough district:references town province:references country ndp_code local_code class_name latitude longitude',
+
+  'EntityType'    => 'kind:integer:uniq description:text active:boolean',
+  'Entity'        => 'name:string:uniq description:text email active:boolean representative_name representative_last_name representative_last_name_alt contact_name contact_last_name_alt contact_last_name public_pictures:boolean annual_survey:boolean entity_type:references address:references',
+
 
 
   # --------------------------------------------------------------------------------------------------
@@ -46,7 +49,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_num entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
+  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
 
   # -------------------------------------------------
 
@@ -127,7 +130,7 @@ MODELS_AND_ATTRS = {
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough district:references town province:references phone_number phone_number_alt email',
   'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name vat_num email contact_name contact_last_name contact_last_name_alt representative_name representative_last_name representative_last_name_alt phone_number phone_number_alt public_pictures:boolean annual_survey:boolean road_type:references road_name number_type road_number postal_code borough district:references town province:references request_reason:references',
+  'Rt::EntitySubscribe'       => 'name vat_number email contact_name contact_last_name contact_last_name_alt representative_name representative_last_name representative_last_name_alt phone_number phone_number_alt public_pictures:boolean annual_survey:boolean road_type:references road_name number_type road_number postal_code borough district:references town province:references request_reason:references',
   'Rt::EntityUnsubscribe'     => 'reason:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type:references road_name number_type road_number postal_code borough district:references town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
   'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code borough district:references town province:references',

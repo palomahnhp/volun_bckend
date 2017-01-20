@@ -1280,7 +1280,7 @@ CREATE TABLE pt_subventions (
     representative_last_name character varying,
     representative_last_name_alt character varying,
     id_num character varying,
-    vat_num character varying,
+    vat_number character varying,
     entity_registry boolean DEFAULT false,
     cost double precision,
     requested_amount double precision,
@@ -1601,7 +1601,7 @@ ALTER SEQUENCE rt_activity_unpublishings_id_seq OWNED BY rt_activity_unpublishin
 CREATE TABLE rt_entity_subscribes (
     id integer NOT NULL,
     name character varying,
-    vat_num character varying,
+    vat_number character varying,
     email character varying,
     contact_name character varying,
     contact_last_name character varying,
