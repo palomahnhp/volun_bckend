@@ -48,7 +48,7 @@
       <%= f.input :has_driving_license, wrapper_html: { class: 'col-md-3' } %>
     </div>
     <div class="row well">
-      <%= f.association  :technician, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.association  :manager, wrapper_html: { class: 'col-md-6' } %>
       <%= f.association :profession, wrapper_html: { class: 'col-md-6' } %>
     </div>
     <% unless f.object.new_record? %>

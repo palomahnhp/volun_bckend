@@ -10,7 +10,7 @@ class Volunteer < ActiveRecord::Base
   belongs_to :nationality
   belongs_to :profession
   belongs_to :status
-  belongs_to :technician
+  belongs_to :manager
   belongs_to :unsubscribe_reason
   has_and_belongs_to_many :projects
   has_and_belongs_to_many :skills
