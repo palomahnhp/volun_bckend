@@ -239,11 +239,6 @@ PROJECT_TYPES.each do |kind , name|
   ProjectType.create!(kind: kind)
 end
 
-puts "Creando Entidades"
-(1..ENTITIES_NUM).each do |n|
-  Entity.create!(name: "#{Entity.model_name.human} #{n}")
-end
-
 puts "Creando Tipo documento"
 (1..2).each do |n|
   IdNumberType.create!(name: "#{IdNumberType.model_name.human} #{n}")
@@ -290,6 +285,14 @@ puts "Creando Direcciones"
     country:               "España",
     town:                  "Madrid",
     district:              District.all.sample
+  )
+end
+
+puts "Creando Entidades"
+(1..ENTITIES_NUM).each do |n|
+  Entity.create!(
+    name: "#{Entity.model_name.human} #{n}",
+    address: Address.all.sample
   )
 end
 
