@@ -33,7 +33,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          <%= t('nationalities_text') %>
+          <%= Nationality.model_name.human(count: 2) %>
         </div>
       </div>
       <div class="panel panel-info" onclick="window.location='<%= unsubscribe_reasons_url %>';">
@@ -43,7 +43,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          <%= t('unsubscribe_reason_text') %>
+          <%= UnsubscribeReason.model_name.human(count: 2) %>
         </div>
       </div>
       <div class="panel panel-info" onclick="window.location='<%= tracking_types_url %>';">
@@ -53,7 +53,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          <%= t('tracking_types_text') %>
+          <%= TrackingType.model_name.human(count: 2) %>
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          <%= t('degrees_text') %>
+          <%= Degree.model_name.human(count: 2) %>
         </div>
       </div>
       <div class="panel panel-info" onclick="window.location='<%= traits_url %>';">
@@ -95,7 +95,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          <%= t('traits_text') %>
+          <%= Trait.model_name.human(count: 2) %>
         </div>
       </div>
       <div class="panel panel-info" onclick="window.location='<%= rejection_types_url %>';">
@@ -105,7 +105,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          <%= t('rejection_types_text') %>
+          <%= RejectionType.model_name.human(count: 2) %>
         </div>
       </div>
       <!--<div class="panel panel-info" onclick="window.location='<%#= record_histories_url %>';">-->
