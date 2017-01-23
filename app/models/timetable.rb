@@ -1,10 +1,8 @@
 class Timetable < ActiveRecord::Base
 
-  enum day: [:monday, :tuesday, :wednesday, :thursday, :friday, :saturday, :sunday]
+  belongs_to :event
 
-  has_and_belongs_to_many :projects
-
-  validates :day, :start_hour, :end_hour, presence: true
+  validates :execution_date, :start_hour, :end_hour, presence: true
   validates :start_hour, :end_hour, format: { with: /\A(?:(([01][0-9])|(2[0-4])):([0-5][0-9]))\z/ }
   validate :start_hour_less_than_end_hour
 

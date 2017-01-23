@@ -1,0 +1,74 @@
+<div class="new-project-type">
+  <div class="jumbotron scale">
+    <h2>Elegir el tipo de proyecto a crear</h2>
+    <br/>
+    <br/>
+    <br/>
+    <div class="panel-list row">
+      <div class="col-md-6">
+          <div class="panel panel-<%= ProjectType.active?(:pt_subvention) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_subvention_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= ProjectType.kinds_i18n[:pt_subvention] %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              Asociados a una subvención
+            </div>
+          </div>
+        <div class="panel panel-<%= ProjectType.active?(:pt_entity) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_entity_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= ProjectType.kinds_i18n[:pt_entity] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una entidad
+          </div>
+        </div>
+        <div class="panel panel-<%= ProjectType.active?(:pt_permanent) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_permanent) %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= ProjectType.kinds_i18n[:pt_permanent] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Permanentes
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-<%= ProjectType.active?(:pt_centre) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_centre) %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= ProjectType.kinds_i18n[:pt_centre] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            De centros de mayores
+          </div>
+        </div>
+        <div class="panel panel-<%= ProjectType.active?(:pt_social) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_social) %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= ProjectType.kinds_i18n[:pt_social] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            De servicios sociales
+          </div>
+        </div>
+        <div class="panel panel-<%= ProjectType.active?(:pt_other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_other) %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= ProjectType.kinds_i18n[:pt_other] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            De otros ámbitos
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

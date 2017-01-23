@@ -43,6 +43,6 @@ class LinksController < ApplicationController
   protected
 
     def link_params
-      params.require(:link).permit(:name, :url, :project_id)
+      params.require(:link).permit(:url, :description, :kind, :linkable_id)
     end
 end

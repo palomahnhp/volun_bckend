@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: InfoSource.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= InfoSource.human_attribute_name(:id) %>:</dt>
+  <dd><%= @info_source.id %></dd>
+  <dt><%= InfoSource.human_attribute_name(:name) %>:</dt>
+  <dd><%= @info_source.name %></dd>
+  <dt><%= InfoSource.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@info_source.active}") %></dd>
+  <dt><%= InfoSource.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@info_source.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@info_source) %>
+<% end %>

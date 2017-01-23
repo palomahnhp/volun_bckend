@@ -1,10 +1,11 @@
-<div id="project" class="form">
+<div id="project" class="well well-form">
   <%= simple_nested_form_for(@project, default_form_options) do |f| %>
-
       <%= render partial: 'form_fields', locals: { f: f } %>
+      <%= hidden_field_tag :pt_extension, @pt_extension %>
 
       <div class="form-actions">
-        <%= f.button :submit, class: 'btn btn-primary' %>
+        <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+        <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
       </div>
   <% end %>
 </div>

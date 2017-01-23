@@ -2,13 +2,13 @@ es:
   enums:
     project_type:
       kind:
-        centre:     Centro de mayores
-        entity:     Entidad
-        permanent:  Permanente
-        punctual:   Puntual
-        social:     Sociales
-        subvention: Subvencionado
-        other:      Otros
+        pt_centre:     Centro de mayores
+        pt_entity:     Entidad
+        pt_permanent:  Permanente
+        pt_punctual:   Puntual
+        pt_social:     Sociales
+        pt_subvention: Subvencionado
+        pt_other:      Otros
     timetable:
       day:
         monday:     Lunes
@@ -18,6 +18,10 @@ es:
         friday:     Viernes
         saturday:   Sábado
         sunday:     Domingo
+    volunteer:
+      gender:
+        male:     Hombre
+        female:   Mujer
   activerecord:
     models:
       project:
@@ -50,47 +54,94 @@ es:
       coordination:
         one:   Coordinación
         other: Coordinaciones
+      nationality:
+        one:   Nacionalidad
+        other: Nacionalidades
+      degree:
+        one:   Titulación
+        other: Titulaciones
+      trait:
+        one:   Cualidad
+        other: Cualidades
+      unsubscribe_reason:
+        one:   Motivo de baja
+        other: Motivos de baja
+      tracking_type:
+        one:   Tipo de seguimiento
+        other: Tipos de seguimiento
+      rejection_type:
+        one:   Motivo de rechazo
+        other: Motivos de rechazo
       collective:
         one:   Colectivo
         other: Colectivos
       record_history:
         one:   Historial de registro
         other: Historial de registros
-      pt_subvention:
+      pt/subvention:
         one:   Proyecto subvencionado
         other: Proyectos subvencionados
-      pt_entity:
+      pt/entity:
         one:   Proyecto de entidad
         other: Proyectos de entidades
-      pt_permanent:
+      pt/permanent:
         one:   Proyecto permanente
         other: Proyectos permanentes
-      pt_punctual:
+      pt/punctual:
         one:   Proyecto puntual
         other: Proyectos puntuales
-      pt_centre:
+      pt/centre:
         one:   Proyecto de centro de mayores
         other: Proyectos de centros de mayores
-      pt_social:
+      pt/social:
         one:   Proyecto de servicios sociales
         other: Proyectos de servicios sociales
-      pt_other:
+      pt/other:
         one:   Proyecto "Otros"
         other: Proyectos "Otros"
       timetable:
         one:   Horario
         other: Horarios
+      activity:
+        one:   Actividad
+        other: Actividades
+      event:
+        one:   Evento
+        other: Eventos
+      entity:
+        one:   Entidad
+        other: Entidades
+      request_form:
+        one:   Solicitud
+        other: Solicitudes
+      volunteer:
+        one:   Voluntario
+        other: Voluntarios
+      skill:
+        one:   Habilidad/afición
+        other: Habilidades/aficiones
+      status:
+        one:   Situación
+        other: Situaciones
+      id_number_type:
+        one:   Tipo de documento
+        other: Tipo de documentos
     attributes:
       address:
         postal_code:      Código postal
         road_type:        Tipo de vía
         road_name:        Nombre de la vía
-        road_number_type: Tipo de número
+        road_number_type: Tipo de numeración
         road_number:      Número
         grader:           Calificador
         stairs:           Escalera
         floor:            Planta
         door:             Puerta
+        town:             Población
+        province:         Provincia
+        country:          País
+        latitude:         Latitud
+        longitude:        Longitud
       district:
         code:        Código
         name:        Nombre
@@ -113,6 +164,31 @@ es:
         description: Descripción
         active:      Activo
         created_at : Fecha de creación
+      nationality:
+        id:          ID
+        name:        Nacionalidad
+        active:      Activo
+      degree:
+        id:          ID
+        name:        Nombre Titulación
+        active:      Activo
+      unsubscribe_reason:
+        id:          ID
+        name:        Motivo Baja
+        active:      Activo
+      trait:
+        id:          ID
+        name:        Cualidad
+        active:      Activo
+      tracking_type:
+        id:          ID
+        name:        Tipo Seguimiento
+        active:      Activo
+      rejection_type:
+        id:          ID
+        kind:        Tipo
+        description: Motivo de rechazo
+        active:      Activo
       collective:
         id:          ID
         name:        Denominación
@@ -136,13 +212,16 @@ es:
         name:                   Nombre
         description:            Descripción
         active:                 Activo
+        volunteers_allowed:     Admite voluntarios
+        publish:                Publicitar
+        outstanding:            Destacado
         created_at:             Fecha creación
         functions:              Funciones del voluntario
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
         contact_name:           Nombre
-        contact_first_surname:  Primer Apellido
-        contact_second_surname: Segundo Apellido
+        contact_last_name:  Primer Apellido
+        contact_last_name_alt: Segundo Apellido
         phone_number:           Teléfono
         email:                  E-mail
         comments:               Observaciones
@@ -158,11 +237,23 @@ es:
         districts:              Distritos      # N:N Association (for simple_form)
         collectives:            Colectivos     # N:N Association (for simple_form)
         coordinations:          Coordinaciones # N:N Association (for simple_form)
-      pt_subvention:
+      activity:
+        id:                     ID
+        name:                   Denominación de la actividad
+        description:            Descripción detallada de la actividad
+        start_date:             Fecha desde
+        end_date:               Fecha hasta
+        transport:              Medios de transporte
+        pdf_url:                Url del folleto PDF
+        entity:                 Organizador de la actividad
+        area:                   Tipo de actividad
+        project:                Código de proyecto asociado
+        share:                  Compartir actividad con redes sociales
+      pt/subvention:
         id:                            ID
         representative_name:           Nombre
-        representative_first_surname:  Primer Apellido
-        representative_second_surname: Segundo Apellido
+        representative_last_name:  Primer Apellido
+        representative_last_name_alt: Segundo Apellido
         entity_registry:               Registro Entidades ciudadanas Ayto
         cost:                          Coste total del proyecto
         requested_amount:              Cantidad solicitada
@@ -171,14 +262,12 @@ es:
         participants_num:              Nº de voluntarios participantes
         has_quality_evaluation:        Posee sistema de evaluación de calidad
         id_num:                        NIF
-        vat_num:                       CIF de la entidad
+        vat_number:                       CIF de la entidad
         project_id:                    Proyecto
         project:                       Proyecto
-        project_type_id:               Tipo de proyecto
-        project_type:                  Tipo de proyecto
         proposal_id:                   Propuesta
         proposal:                      Propuesta
-      pt_entity:
+      pt/entity:
         id:                       ID
         request_date:             Fecha recepción demanda
         request_description:      Descripción demanda
@@ -193,46 +282,77 @@ es:
         prevailing:               Vigencia
         project:                  Proyecto
         project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_punctual:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_permanent:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_centre:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_social:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
-      pt_other:
-        id:                       ID
-        project:                  Proyecto
-        project_id:               Proyecto
-        project_type:             Tipo de proyecto
-        project_type_id:          Tipo de proyecto
       timetable:
         id:                       ID
-        day:                      Día de la semana
+        execution_date:           Día de la semana
         start_hour:               Hora inicio
         end_hour:                 Hora fin
         created_at:               Fecha de creación
         project_id:               ID del proyecto
+      volunteer:
+        name:                     Nombre
+        last_name:                Apellido 1
+        last_name_alt:            Apellido 2
+        id_number_type_id:        Tipo de documento
+        id_number_type:           Tipo de documento
+        id_number:                Número de documento
+        gender:                   Sexo
+        birth_date:               Fecha de nacimiento
+        nationality_id:           Nacionalidad
+        nationality:              Nacionalidad
+        phone_number:             Teléfono móvil
+        phone_number_alt:         Teléfono fijo
+        email:                    Email
+        address_id:               Dirección
+        status_id:                Situación
+        status:                   Situación
+        employment_status_id:     Situación laboral
+        employment_status:        Situación laboral
+        vocne:                    VOCNE
+        available:                Disponible
+        availability_date:        Fecha de disponibilidad
+        academic_level_id:        Nivel Académico
+        academic_level:           Nivel Académico
+        subscribe_date:           Fecha de alta
+        unsubscribe_date:         Fecha de baja
+        unsubscribe_reason_id:    Motivo de baja
+        unsubscribe_reason:       Motivo de baja
+        comments:                 Observaciones
+        expectations:             Expectativas
+        agreement:                Acuerdo de colaboración
+        agreement_date:           Fecha de acuerdo
+        search_authorization:     Autorización consulta certificado de penales
+        representative_statement: Declaración responsable
+        has_driving_license:      Carnet de conducir
+        technician_id:            Técnico
+        technician:               Técnico
+        info_source_id:           Cómo conoció Voluntarios por Madrid
+        info_source:              Cómo conoció Voluntarios por Madrid
+        other_academic_info:      Otra formación
+        profession_id:            Profesión
+        profession:               Profesión
+        public_pictures:          Permitir publicación de fotos
+        skills:                   Habilidades/aficiones
+      skill:
+        name: Nombre
+      id_number_type:
+        name: Nombre
     errors:
+      models:
+        pt/entity:
+          attributes:
+            base:
+              invalid_project_type: "Tipo de proyecto inválido"
+        pt/subvention:
+          attributes:
+            base:
+              invalid_project_type: "Tipo de proyecto inválido"
+        rt/activity_publishing:
+          attributes:
+            base:
+              invalid_request_type: "Tipo de solicitud inválida"
       messages:
         invalid_project_type: El tipo de proyecto es inválido
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
+        pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
+        rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"

@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(unsubscribe_reason) %>" >
+
+  <% unsubscribe_reason.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(unsubscribe_reason.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(unsubscribe_reason) %>
+    <%= link_to_edit(unsubscribe_reason) %>
+<% if unsubscribe_reason.try(:archived?) %>
+    <%= link_to_recover(unsubscribe_reason) %>
+<% else %>
+    <%= link_to_destroy(unsubscribe_reason) %>
+<% end %>
+  </td>
+</tr>

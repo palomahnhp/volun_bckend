@@ -1,15 +1,21 @@
 class ProjectType < ActiveRecord::Base
+
   include Archivable
 
-  enum kind: %i(
-          social
-          centre
-          permanent
-          punctual
-          entity
-          subvention
-          other
-       )
+
+  # These values are used to set database constraints, so whether they change
+  # or are removed or a new one is added, a new migration must be created
+  # in order to ensure the pt_extendable consistency for the projects table
+
+  enum kind: {
+    pt_social:     1,
+    pt_centre:     2,
+    pt_permanent:  3,
+    pt_punctual:   4,
+    pt_entity:     5,
+    pt_subvention: 6,
+    pt_other:      7
+  }
 
   validates :kind, presence: true
 
@@ -17,8 +23,8 @@ class ProjectType < ActiveRecord::Base
     send(kind).take.try(:active?)
   end
 
-  def self.get_project_type(kind)
-    send(kind).take
+  def extendable?
+    kind.classify.sub(/\APt/, 'Pt::').safe_constantize.present?
   end
 
   def to_s

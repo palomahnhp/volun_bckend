@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(info_source) %>" >
+
+  <% info_source.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(info_source.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(info_source) %>
+    <%= link_to_edit(info_source) %>
+<% if info_source.try(:archived?) %>
+    <%= link_to_recover(info_source) %>
+<% else %>
+    <%= link_to_destroy(info_source) %>
+<% end %>
+  </td>
+</tr>

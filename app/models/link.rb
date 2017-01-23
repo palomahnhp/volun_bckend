@@ -1,9 +1,6 @@
 class Link < ActiveRecord::Base
 
-  belongs_to :project
+  belongs_to :linkable, polymorphic: true
 
-  def to_s
-    name
-  end
 
 end

@@ -29,11 +29,11 @@ class ApplicationController < ActionController::Base
   end
 
   def recordable?
-    model.included_modules.map(&:to_s).include?('Recordable')
+    model && model.included_modules.map(&:to_s).include?('Recordable')
   end
 
   def model
-    @model ||= controller_name.classify.constantize
+    @model ||= controller_name.classify.safe_constantize
   end
 
   def authenticate!
@@ -79,63 +79,93 @@ class ApplicationController < ActionController::Base
     User.new if uweb_authenticated?
   end
 
-  def permitted_project_attrs
-    {
-      project_attributes: [
-        :id,
-        :name,
-        :description,
-        :project_type_id,
-        :active,
-        :comments,
-        :beneficiaries_num,
-        :volunteers_num,
-        :functions,
-        :insured,
-        :insurance_date,
-        :contact_name,
-        :contact_first_surname,
-        :contact_second_surname,
-        :email,
-        :phone_number,
-        :entity_id,
-        :execution_start_date,
-        :execution_end_date,
-        area_ids:         [],
-        collective_ids:   [],
-        coordination_ids: [],
-        district_ids:     [],
-        addresses_attributes: [
-          :id,
-          :postal_code,
-          :road_type,
-          :road_name,
-          :road_number_type,
-          :road_number,
-          :grader,
-          :stairs,
-          :floor,
-          :door,
-          :_destroy
-        ],
-        timetables_attributes: [
-          :id,
-          :day,
-          :start_hour,
-          :end_hour,
-          :_destroy
-        ],
+  def fields_for_options(collection)
+    collection.build if collection.empty?
+  end
+
+  def project_attributes
+    [
+      :id,
+      :name,
+      :description,
+      :volunteers_allowed,
+      :publish,
+      :outstanding,
+      :project_type_id,
+      :active,
+      :comments,
+      :beneficiaries_num,
+      :volunteers_num,
+      :functions,
+      :insured,
+      :insurance_date,
+      :contact_name,
+      :contact_last_name,
+      :contact_last_name_alt,
+      :email,
+      :phone_number,
+      :phone_number_alt,
+      :entity_id,
+      :execution_start_date,
+      :execution_end_date,
+      { area_ids:         [] },
+      { collective_ids:   [] },
+      { coordination_ids: [] },
+      {
         documents_attributes: [
           :id,
           :name,
           :_destroy
         ]
-      ]
-    }
+      },
+      {
+        events_attributes: [
+          :id,
+          {
+            address_attributes: [
+              :id,
+              :road_type_id,
+              :road_name,
+              :road_number_type,
+              :road_number,
+              :grader,
+              :stairs,
+              :floor,
+              :door,
+              :postal_code,
+              :borough,
+              :district_id,
+              :town,
+              :province_id,
+              :country,
+              :_destroy
+            ]
+          },
+          {
+            timetables_attributes: [
+              :id,
+              :execution_date,
+              :start_hour,
+              :end_hour,
+              :_destroy
+            ]
+          },
+          :_destroy
+        ]
+      }
+    ]
   end
 
-  def fields_for_options(collection)
-    collection.build if collection.empty?
+  def request_form_attributes
+    [
+      :request_type_id,
+      :user_id,
+      :sent_at,
+      :status,
+      :status_date,
+      :rejection_type_id,
+      :comments
+    ]
   end
 
 end

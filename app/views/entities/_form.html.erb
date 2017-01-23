@@ -4,8 +4,26 @@
   <div class="form-inputs">
           <%= f.input :name %>
           <%= f.input :description %>
-          <%= f.input :active %>
+          <%= f.input :vat_number %>
+          <%= f.input :email %>
+          <%= f.input :representative_name %>
+          <%= f.input :representative_last_name %>
+          <%= f.input :representative_last_name_alt %>
+          <%= f.input :contact_name %>
+          <%= f.input :contact_last_name %>
+          <%= f.input :contact_last_name_alt %>
+          <%= f.input :phone_number %>
+          <%= f.input :phone_number_alt %>
+          <%= f.input :publish_pictures %>
+          <%= f.input :annual_survey %>
+          <%= f.association :request_reason %>
           <%= f.association :entity_type %>
+          <%= f.input :comments %>
+          <%= f.input :other_subscribe_reason %>
+          <%= f.association :address %>
+          <%= f.input :active %>
+          <%= f.input :subscribed_at %>
+          <%= f.input :unsubscribed_at %>
   </div>
 
   <div class="form-actions">

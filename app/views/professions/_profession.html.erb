@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(profession) %>" >
+
+  <% profession.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(profession.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(profession) %>
+    <%= link_to_edit(profession) %>
+<% if profession.try(:archived?) %>
+    <%= link_to_recover(profession) %>
+<% else %>
+    <%= link_to_destroy(profession) %>
+<% end %>
+  </td>
+</tr>

@@ -46,4 +46,17 @@ es:
   active:   Activo
   inactive: Inactivo
   all:      Todos
+  of: de
+  and: y
   contact_person: Persona de contacto
+  common_fields: 'Campos comunes'
+  specific_fields:  'Campos específicos'
+  administration: Admistración
+  diary: Agenda
+  pending: Pendientes
+  block: Bloque
+  administration_title_text: Aquí se administran las tablas de la aplicación
+  areas_text: Ámbitos a los que pertenece un proyecto
+  project_types_text: Tipos de proyecto a los que un proyecto puede ser
+  collectives_text: Colectivos a los que pertenece un proyecto
+  coordinations_text: Coordinaciones asociadas a un proyecto

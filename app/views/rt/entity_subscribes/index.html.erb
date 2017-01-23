@@ -1,0 +1,35 @@
+<% model_class = RtEntitySubscribe %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= model_title(model_class) %>
+  </div>
+</div>
+<div class="index-panel row well">
+  <div class="col-md-6">
+    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+  </div>
+  <div class="col-md-6">
+    <%= content_tag(:div, search_collection(@search_q, :name_or_description_or_vat_number_or_email_or_representative_name_or_representative_last_name_or_representative_last_name_alt_or_contact_name_or_contact_last_name_or_contact_last_name_alt_or_phone_number_or_phone_number_alt_or_comments_or_other_subscribe_reason_or_road_name_or_number_type_or_road_number_or_postal_code_or_borough_or_town_cont), class: 'col-md-6 pull-right') %>
+  </div>
+</div>
+
+<table class="index-table">
+  <thead>
+    <tr>
+    <% model_class.main_columns.each do |column| -%>
+      <th><%= sort_link(@search_q, column) %></th>
+    <% end -%>
+
+      <th class="actions index_table-actions">
+        <%= t('actions') %>
+      </th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <%= render(partial: 'rt_entity_subscribe', collection: @rt_entity_subscribes)%>
+  </tbody>
+</table>
+
+<%= render partial: "shared/pagination", locals: {collection: @rt_entity_subscribes} %>

@@ -7,7 +7,7 @@
 </div>
 <div class="index-panel row well" id="projects">
   <div class="col-md-4">
-    <%= content_tag(:div, link_to_new(model_class, path: 'new_options_projects_path'), class: 'col-md-6 pull-left') %>
+    <%= content_tag(:div, link_to_new(model_class, path: 'pt_extensions_menu_projects_path'), class: 'col-md-6 pull-left') %>
   </div>
   <div class="status-filter col-md-4 form-group select">
     <div class="row">
@@ -47,4 +47,4 @@
   </tbody>
 </table>
 
-<%= render partial: "shared/pagination", locals: {collection: @projects} %>
+<%= render partial: 'shared/pagination', locals: {collection: @projects} %>

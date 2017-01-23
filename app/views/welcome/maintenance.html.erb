@@ -1,7 +1,7 @@
 <div class="jumbotron scale">
-  <h1>Catálogo</h1>
+  <h1><%= t('administration') %></h1>
   <br/>
-  <p>Aquí se administran las tablas de la aplicación</p>
+  <p><%= t('administration_title_text') %></p>
   <br/>
   <br/>
   <div class="panel-list row">
@@ -13,7 +13,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          Ámbitos a los que pertenece un proyecto
+          <%= t('areas_text') %>
         </div>
       </div>
       <div class="panel panel-info" onclick="window.location='<%= project_types_url %>';">
@@ -23,7 +23,37 @@
           </h3>
         </div>
         <div class="panel-body">
-          Tipos de proyecto a los que un proyecto puede ser
+          <%= t('project_types_text') %>
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= nationalities_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Nationality.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= Nationality.model_name.human(count: 2) %>
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= unsubscribe_reasons_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= UnsubscribeReason.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= UnsubscribeReason.model_name.human(count: 2) %>
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= tracking_types_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= TrackingType.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= TrackingType.model_name.human(count: 2) %>
         </div>
       </div>
     </div>
@@ -35,7 +65,7 @@
           </h3>
         </div>
         <div class="panel-body">
-          Colectivos a los que pertenece un proyecto
+          <%= t('collectives_text') %>
         </div>
       </div>
       <div class="panel panel-info" onclick="window.location='<%= coordinations_url %>';">
@@ -45,7 +75,37 @@
           </h3>
         </div>
         <div class="panel-body">
-          Coordinaciones asociadas a un proyecto
+          <%= t('coordinations_text') %>
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= degrees_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Degree.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= Degree.model_name.human(count: 2) %>
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= traits_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Trait.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= Trait.model_name.human(count: 2) %>
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= rejection_types_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= RejectionType.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= RejectionType.model_name.human(count: 2) %>
         </div>
       </div>
       <!--<div class="panel panel-info" onclick="window.location='<%#= record_histories_url %>';">-->

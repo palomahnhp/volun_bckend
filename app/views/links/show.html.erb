@@ -4,12 +4,14 @@
 
   <dt><%= Link.human_attribute_name(:id) %>:</dt>
   <dd><%= @link.id %></dd>
-  <dt><%= Link.human_attribute_name(:name) %>:</dt>
-  <dd><%= @link.name %></dd>
   <dt><%= Link.human_attribute_name(:url) %>:</dt>
   <dd><%= @link.url %></dd>
-  <dt><%= Link.human_attribute_name(:project_id) %>:</dt>
-  <dd><%= @link.project %></dd>
+  <dt><%= Link.human_attribute_name(:description) %>:</dt>
+  <dd><%= @link.description %></dd>
+  <dt><%= Link.human_attribute_name(:kind) %>:</dt>
+  <dd><%= @link.kind %></dd>
+  <dt><%= Link.human_attribute_name(:linkable_id) %>:</dt>
+  <dd><%= @link.linkable %></dd>
   <dt><%= Link.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@link.created_at) %></dd>
 

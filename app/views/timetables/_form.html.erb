@@ -2,7 +2,8 @@
   <%= simple_form_for(@timetable, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.input :day %>
+          <%= f.input :event_id %>
+          <%= f.input :execution_date, as: :datepicker %>
           <%= f.input :start_hour %>
           <%= f.input :end_hour %>
   </div>

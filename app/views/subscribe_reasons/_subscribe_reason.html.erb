@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(subscribe_reason) %>" >
+
+  <% subscribe_reason.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(subscribe_reason.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(subscribe_reason) %>
+    <%= link_to_edit(subscribe_reason) %>
+<% if subscribe_reason.try(:archived?) %>
+    <%= link_to_recover(subscribe_reason) %>
+<% else %>
+    <%= link_to_destroy(subscribe_reason) %>
+<% end %>
+  </td>
+</tr>

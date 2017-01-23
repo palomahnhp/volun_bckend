@@ -43,6 +43,64 @@ class VolunteersController < ApplicationController
   protected
 
     def volunteer_params
-      params.require(:volunteer).permit(:name, :first_surname, :second_surname, :age, :id_number)
+      params
+        .require(:volunteer)
+        .permit(
+          :id,
+          :name,
+          :last_name,
+          :last_name_alt,
+          :id_number_type_id,
+          :id_number,
+          :gender,
+          :birth_date,
+          :nationality_id,
+          :phone_number,
+          :phone_number_alt,
+          :email,
+          :status_id,
+          :employment_status_id,
+          :vocne,
+          :available,
+          :availability_date,
+          :academic_level_id,
+          :subscribe_date,
+          :unsubscribe_date,
+          :unsubscribe_reason_id,
+          :comments,
+          :expectations,
+          :agreement,
+          :agreement_date,
+          :search_authorization,
+          :representative_statement,
+          :has_driving_license,
+          :public_pictures,
+          :annual_survey,
+          :technician_id,
+          :info_source_id,
+          :other_academic_info,
+          :profession_id,
+          { skill_ids: [] },
+          {
+            address_attributes: [
+              :id,
+              :road_type_id,
+              :road_name,
+              :road_number_type,
+              :road_number,
+              :grader,
+              :stairs,
+              :floor,
+              :door,
+              :postal_code,
+              :borough,
+              :district_id,
+              :town,
+              :province_id,
+              :country,
+              :_destroy
+            ]
+          }
+        )
     end
 end

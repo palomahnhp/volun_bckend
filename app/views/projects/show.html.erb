@@ -1,49 +1,11 @@
-<%= main_title(t("action.show", model: Project.model_name.human)) %>
+<%= main_title(t('action.show', model:"#{Project.model_name.human} #{ProjectType.kinds_i18n[@pt_extension]}" )) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-12">
+    <%= render partial: 'show', locals: { project: @project } %>p
+  </div>
+</div>
 
-  <dt><%= Project.human_attribute_name(:id) %>:</dt>
-  <dd><%= @project.id %></dd>
-  <dt><%= Project.human_attribute_name(:name) %>:</dt>
-  <dd><%= @project.name %></dd>
-  <dt><%= Project.human_attribute_name(:active) %>:</dt>
-  <dd><%= t("humanize.#{@project.active}") %></dd>
-  <dt><%= Project.human_attribute_name(:description) %>:</dt>
-  <dd><%= @project.description %></dd>
-  <dt><%= Project.human_attribute_name(:functions) %>:</dt>
-  <dd><%= @project.functions %></dd>
-  <dt><%= Project.human_attribute_name(:execution_start_date) %>:</dt>
-  <dd><%= show_simple_date(@project.execution_start_date) %></dd>
-  <dt><%= Project.human_attribute_name(:execution_end_date) %>:</dt>
-  <dd><%= show_simple_date(@project.execution_end_date) %></dd>
-  <dt><%= Project.human_attribute_name(:contact_name) %>:</dt>
-  <dd><%= @project.contact_name %></dd>
-  <dt><%= Project.human_attribute_name(:contact_first_surname) %>:</dt>
-  <dd><%= @project.contact_first_surname %></dd>
-  <dt><%= Project.human_attribute_name(:contact_second_surname) %>:</dt>
-  <dd><%= @project.contact_second_surname %></dd>
-  <dt><%= Project.human_attribute_name(:phone_number) %>:</dt>
-  <dd><%= @project.phone_number %></dd>
-  <dt><%= Project.human_attribute_name(:email) %>:</dt>
-  <dd><%= @project.email %></dd>
-  <dt><%= Project.human_attribute_name(:comments) %>:</dt>
-  <dd><%= @project.comments %></dd>
-  <dt><%= Project.human_attribute_name(:beneficiaries_num) %>:</dt>
-  <dd><%= @project.beneficiaries_num %></dd>
-  <dt><%= Project.human_attribute_name(:volunteers_num) %>:</dt>
-  <dd><%= @project.volunteers_num %></dd>
-  <dt><%= Project.human_attribute_name(:insured) %>:</dt>
-  <dd><%= t("humanize.#{@project.insured}") %></dd>
-  <dt><%= Project.human_attribute_name(:insurance_date) %>:</dt>
-  <dd><%= show_simple_date(@project.insurance_date) %></dd>
-  <dt><%= Project.human_attribute_name(:project_type_id) %>:</dt>
-  <dd><%= @project.project_type %></dd>
-  <dt><%= Project.human_attribute_name(:entity_id) %>:</dt>
-  <dd><%= @project.entity %></dd>
-  <dt><%= Project.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@project.created_at) %></dd>
-
-</dl>
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@project) %>

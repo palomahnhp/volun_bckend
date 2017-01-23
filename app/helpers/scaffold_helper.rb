@@ -1,7 +1,7 @@
 module ScaffoldHelper
 
   def model_title(model_class, opts = {})
-    main_title(I18n.t('.title', default: model_class.model_name.human(count: 2).capitalize), opts)
+    main_title(model_class.model_name.human(count: 2).capitalize, opts)
   end
 
   def main_title(title, opts = {})

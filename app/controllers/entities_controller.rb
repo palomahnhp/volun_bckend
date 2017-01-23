@@ -43,6 +43,6 @@ class EntitiesController < ApplicationController
   protected
 
     def entity_params
-      params.require(:entity).permit(:name, :description, :active, :entity_type_id)
+      params.require(:entity).permit(:name, :description, :vat_number, :email, :representative_name, :representative_last_name, :representative_last_name_alt, :contact_name, :contact_last_name, :contact_last_name_alt, :phone_number, :phone_number_alt, :publish_pictures, :annual_survey, :request_reason_id, :entity_type_id, :comments, :other_subscribe_reason, :address_id, :active, :subscribed_at, :unsubscribed_at)
     end
 end
