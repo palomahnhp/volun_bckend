@@ -2004,22 +2004,30 @@ CREATE TABLE rt_volunteer_subscribes (
     phone_number character varying,
     phone_number_alt character varying,
     email character varying,
-    address_id integer NOT NULL,
+    road_type_id integer,
+    road_name character varying,
+    number_type character varying,
+    road_number character varying,
+    postal_code character varying,
+    borough character varying,
+    district_id integer,
+    town character varying,
+    province_id integer,
     status_id integer,
     employment_status_id integer,
-    vocne boolean DEFAULT false,
-    available boolean DEFAULT false,
+    vocne boolean,
+    available boolean,
     availability_date date,
     academic_level_id integer,
     comments text,
     expectations text,
-    agreement boolean DEFAULT false,
+    agreement boolean,
     agreement_date timestamp without time zone,
-    search_authorization boolean DEFAULT false,
-    representative_statement boolean DEFAULT false,
-    has_driving_license boolean DEFAULT false,
-    publish_pictures boolean DEFAULT true,
-    annual_survey boolean DEFAULT false,
+    search_authorization boolean,
+    representative_statement boolean,
+    has_driving_license boolean,
+    publish_pictures boolean,
+    annual_survey boolean,
     info_source_id integer,
     other_academic_info text,
     profession_id integer,
@@ -4418,10 +4426,10 @@ CREATE INDEX index_rt_volunteer_subscribes_on_academic_level_id ON rt_volunteer_
 
 
 --
--- Name: index_rt_volunteer_subscribes_on_address_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_volunteer_subscribes_on_district_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_rt_volunteer_subscribes_on_address_id ON rt_volunteer_subscribes USING btree (address_id);
+CREATE INDEX index_rt_volunteer_subscribes_on_district_id ON rt_volunteer_subscribes USING btree (district_id);
 
 
 --
@@ -4457,6 +4465,20 @@ CREATE INDEX index_rt_volunteer_subscribes_on_nationality_id ON rt_volunteer_sub
 --
 
 CREATE INDEX index_rt_volunteer_subscribes_on_profession_id ON rt_volunteer_subscribes USING btree (profession_id);
+
+
+--
+-- Name: index_rt_volunteer_subscribes_on_province_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rt_volunteer_subscribes_on_province_id ON rt_volunteer_subscribes USING btree (province_id);
+
+
+--
+-- Name: index_rt_volunteer_subscribes_on_road_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rt_volunteer_subscribes_on_road_type_id ON rt_volunteer_subscribes USING btree (road_type_id);
 
 
 --
@@ -4833,6 +4855,14 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
+-- Name: fk_rails_23bbf24b49; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_volunteer_subscribes
+    ADD CONSTRAINT fk_rails_23bbf24b49 FOREIGN KEY (road_type_id) REFERENCES road_types(id);
+
+
+--
 -- Name: fk_rails_2a2c9250e8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5097,6 +5127,14 @@ ALTER TABLE ONLY rt_volunteers_demands
 
 
 --
+-- Name: fk_rails_914a67db4a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_volunteer_subscribes
+    ADD CONSTRAINT fk_rails_914a67db4a FOREIGN KEY (province_id) REFERENCES provinces(id);
+
+
+--
 -- Name: fk_rails_931c3c76ef; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5297,11 +5335,11 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_e3296b9eb5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_e4656aa818; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_e3296b9eb5 FOREIGN KEY (address_id) REFERENCES addresses(id);
+    ADD CONSTRAINT fk_rails_e4656aa818 FOREIGN KEY (district_id) REFERENCES districts(id);
 
 
 --

@@ -12,22 +12,30 @@ class CreateRtVolunteerSubscribes < ActiveRecord::Migration
       t.string :phone_number
       t.string :phone_number_alt
       t.string :email
-      t.references :address, index: true, foreign_key: true, null: false
+      t.references :road_type, index: true, foreign_key: true
+      t.string :road_name
+      t.string :number_type
+      t.string :road_number
+      t.string :postal_code
+      t.string :borough
+      t.references :district, index: true, foreign_key: true
+      t.string :town
+      t.references :province, index: true, foreign_key: true
       t.references :status, index: true, foreign_key: true
       t.references :employment_status, index: true, foreign_key: true
-      t.boolean :vocne, default: false
-      t.boolean :available, default: false
+      t.boolean :vocne
+      t.boolean :available
       t.date :availability_date
       t.references :academic_level, index: true, foreign_key: true
       t.text :comments
       t.text :expectations
-      t.boolean :agreement, default: false
+      t.boolean :agreement
       t.datetime :agreement_date
-      t.boolean :search_authorization, default: false
-      t.boolean :representative_statement, default: false
-      t.boolean :has_driving_license, default: false
-      t.boolean :publish_pictures, default: true
-      t.boolean :annual_survey, default: false
+      t.boolean :search_authorization
+      t.boolean :representative_statement
+      t.boolean :has_driving_license
+      t.boolean :publish_pictures
+      t.boolean :annual_survey
       t.references :info_source, index: true, foreign_key: true
       t.text :other_academic_info
       t.references :profession, index: true, foreign_key: true
