@@ -4104,13 +4104,6 @@ CREATE UNIQUE INDEX index_languages_on_name ON languages USING btree (name);
 
 
 --
--- Name: index_links_on_kind; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_links_on_kind ON links USING btree (kind);
-
-
---
 -- Name: index_links_on_linkable_type_and_linkable_id; Type: INDEX; Schema: public; Owner: -
 --
 

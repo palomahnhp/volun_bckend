@@ -51,7 +51,7 @@ MODELS_AND_ATTRS = {
   # 1:N tables
 
   'Activity' => 'name:string:uniq description:text start_date:datetime end_date:datetime transport:text pdf_url entity:references area:references project:references share:boolean ',
-  'Link'     => 'url description:text kind:integer:uniq linkable:references{polymorphic}',
+  'Link'     => 'url description:text kind:integer linkable:references{polymorphic}',
 
   'Proposal' => 'name:string:uniq description:text active:boolean',
 
