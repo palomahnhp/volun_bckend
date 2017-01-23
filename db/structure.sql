@@ -1120,7 +1120,7 @@ CREATE TABLE projects (
     volunteers_num integer,
     insured boolean DEFAULT false,
     volunteers_allowed boolean DEFAULT true,
-    public boolean DEFAULT false,
+    publish boolean DEFAULT false,
     outstanding boolean DEFAULT false,
     insurance_date date,
     project_type_id integer,
