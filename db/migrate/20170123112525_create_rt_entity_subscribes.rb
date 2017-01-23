@@ -2,18 +2,22 @@ class CreateRtEntitySubscribes < ActiveRecord::Migration
   def change
     create_table :rt_entity_subscribes do |t|
       t.string :name
+      t.text :description
       t.string :vat_number
       t.string :email
-      t.string :contact_name
-      t.string :contact_last_name
-      t.string :contact_last_name_alt
       t.string :representative_name
       t.string :representative_last_name
       t.string :representative_last_name_alt
+      t.string :contact_name
+      t.string :contact_last_name
+      t.string :contact_last_name_alt
       t.string :phone_number
       t.string :phone_number_alt
-      t.boolean :public_pictures, default: false
+      t.boolean :publish_pictures, default: true
       t.boolean :annual_survey, default: false
+      t.references :entity_type, index: true, foreign_key: true
+      t.text :comments
+      t.text :other_subscribe_reason
       t.references :road_type, index: true, foreign_key: true
       t.string :road_name
       t.string :number_type
@@ -23,7 +27,6 @@ class CreateRtEntitySubscribes < ActiveRecord::Migration
       t.references :district, index: true, foreign_key: true
       t.string :town
       t.references :province, index: true, foreign_key: true
-      t.references :request_reason, index: true, foreign_key: true
 
       t.timestamps null: false
     end

@@ -1,0 +1,58 @@
+<%= main_title(t("action.show", model: Entity.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Entity.human_attribute_name(:id) %>:</dt>
+  <dd><%= @entity.id %></dd>
+  <dt><%= Entity.human_attribute_name(:name) %>:</dt>
+  <dd><%= @entity.name %></dd>
+  <dt><%= Entity.human_attribute_name(:description) %>:</dt>
+  <dd><%= @entity.description %></dd>
+  <dt><%= Entity.human_attribute_name(:vat_number) %>:</dt>
+  <dd><%= @entity.vat_number %></dd>
+  <dt><%= Entity.human_attribute_name(:email) %>:</dt>
+  <dd><%= @entity.email %></dd>
+  <dt><%= Entity.human_attribute_name(:representative_name) %>:</dt>
+  <dd><%= @entity.representative_name %></dd>
+  <dt><%= Entity.human_attribute_name(:representative_last_name) %>:</dt>
+  <dd><%= @entity.representative_last_name %></dd>
+  <dt><%= Entity.human_attribute_name(:representative_last_name_alt) %>:</dt>
+  <dd><%= @entity.representative_last_name_alt %></dd>
+  <dt><%= Entity.human_attribute_name(:contact_name) %>:</dt>
+  <dd><%= @entity.contact_name %></dd>
+  <dt><%= Entity.human_attribute_name(:contact_last_name) %>:</dt>
+  <dd><%= @entity.contact_last_name %></dd>
+  <dt><%= Entity.human_attribute_name(:contact_last_name_alt) %>:</dt>
+  <dd><%= @entity.contact_last_name_alt %></dd>
+  <dt><%= Entity.human_attribute_name(:phone_number) %>:</dt>
+  <dd><%= @entity.phone_number %></dd>
+  <dt><%= Entity.human_attribute_name(:phone_number_alt) %>:</dt>
+  <dd><%= @entity.phone_number_alt %></dd>
+  <dt><%= Entity.human_attribute_name(:publish_pictures) %>:</dt>
+  <dd><%= t("humanize.#{@entity.publish_pictures}") %></dd>
+  <dt><%= Entity.human_attribute_name(:annual_survey) %>:</dt>
+  <dd><%= t("humanize.#{@entity.annual_survey}") %></dd>
+  <dt><%= Entity.human_attribute_name(:request_reason_id) %>:</dt>
+  <dd><%= @entity.request_reason %></dd>
+  <dt><%= Entity.human_attribute_name(:entity_type_id) %>:</dt>
+  <dd><%= @entity.entity_type %></dd>
+  <dt><%= Entity.human_attribute_name(:comments) %>:</dt>
+  <dd><%= @entity.comments %></dd>
+  <dt><%= Entity.human_attribute_name(:other_subscribe_reason) %>:</dt>
+  <dd><%= @entity.other_subscribe_reason %></dd>
+  <dt><%= Entity.human_attribute_name(:address_id) %>:</dt>
+  <dd><%= @entity.address %></dd>
+  <dt><%= Entity.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@entity.active}") %></dd>
+  <dt><%= Entity.human_attribute_name(:subscribed_at) %>:</dt>
+  <dd><%= @entity.subscribed_at %></dd>
+  <dt><%= Entity.human_attribute_name(:unsubscribed_at) %>:</dt>
+  <dd><%= @entity.unsubscribed_at %></dd>
+  <dt><%= Entity.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@entity.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@entity) %>
+<% end %>

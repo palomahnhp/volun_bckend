@@ -1,6 +1,6 @@
-class CreateVolunteers < ActiveRecord::Migration
+class CreateRtVolunteerSubscribes < ActiveRecord::Migration
   def change
-    create_table :volunteers do |t|
+    create_table :rt_volunteer_subscribes do |t|
       t.string :name
       t.string :last_name
       t.string :last_name_alt
@@ -19,9 +19,6 @@ class CreateVolunteers < ActiveRecord::Migration
       t.boolean :available, default: false
       t.date :availability_date
       t.references :academic_level, index: true, foreign_key: true
-      t.date :subscribe_date
-      t.date :unsubscribe_date
-      t.references :unsubscribe_reason, index: true, foreign_key: true
       t.text :comments
       t.text :expectations
       t.boolean :agreement, default: false
@@ -29,10 +26,8 @@ class CreateVolunteers < ActiveRecord::Migration
       t.boolean :search_authorization, default: false
       t.boolean :representative_statement, default: false
       t.boolean :has_driving_license, default: false
-      t.boolean :public_pictures, default: false
+      t.boolean :publish_pictures, default: true
       t.boolean :annual_survey, default: false
-      t.datetime :subscribed_at
-      t.references :manager, index: true, foreign_key: true
       t.references :info_source, index: true, foreign_key: true
       t.text :other_academic_info
       t.references :profession, index: true, foreign_key: true

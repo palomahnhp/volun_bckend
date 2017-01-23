@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  resources :request_forms
-  resources :request_reasons
-  resources :request_types
-  resources :rejection_types
-  resources :volunteers
+  concern :recoverable do
+    post :recover, on: :member
+  end
+
+  devise_for :users
   resources :traits
   resources :contact_results
   resources :tracking_types
@@ -31,13 +31,28 @@ Rails.application.routes.draw do
   resources :issues
   resources :trackings
   resources :districts
-  resources :entities
-  resources :entity_types
   resources :road_types
   resources :provinces
   resources :record_histories
-  devise_for :users
+  resources :coordinations, concerns: :recoverable
+  resources :collectives  , concerns: :recoverable
+  resources :areas        , concerns: :recoverable
 
+  resources :addresses do
+    get 'bdc_search_towns', on: :collection
+    get 'bdc_search_roads', on: :collection
+    get 'bdc_search_road_numbers', on: :collection
+  end
+
+  # Entity related routes
+  resources :entity_types
+  resources :entities
+  namespace :ent do
+    resources :trackings
+  end
+
+  # Volunteer related routes
+  resources :volunteers
   namespace :volun do
     resources :assessments
     resources :availabilities
@@ -45,11 +60,13 @@ Rails.application.routes.draw do
     resources :trackings
   end
 
-  namespace :pt do
-    resources :entities
-    resources :subventions
+  # RequestForm related routes
+  resources :request_reasons
+  resources :rejection_types
+  resources :request_types
+  resources :request_forms, concerns: :recoverable do
+    get 'rt_extensions_menu', on: :collection
   end
-
   namespace :rt do
     resources :others
     resources :activity_unpublishings
@@ -66,28 +83,19 @@ Rails.application.routes.draw do
     resources :volunteer_subscribes
   end
 
-  resources :addresses do
-    get 'bdc_search_towns', on: :collection
-    get 'bdc_search_roads', on: :collection
-    get 'bdc_search_road_numbers', on: :collection
-  end
-
-  concern :recoverable do
-    post :recover, on: :member
-  end
-
+  # Project related routes
+  resources :project_types, concerns: :recoverable
   resources :projects, concerns: :recoverable do
     get 'pt_extensions_menu', on: :collection
   end
-
-  resources :request_forms, concerns: :recoverable do
-    get 'rt_extensions_menu', on: :collection
+  namespace :pro do
+    resources :issues
+    resources :trackings
   end
-
-  resources :project_types, concerns: :recoverable
-  resources :coordinations, concerns: :recoverable
-  resources :collectives  , concerns: :recoverable
-  resources :areas        , concerns: :recoverable
+  namespace :pt do
+    resources :entities
+    resources :subventions
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

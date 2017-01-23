@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(entity) %>" >
+
+  <% entity.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(entity.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(entity) %>
+    <%= link_to_edit(entity) %>
+<% if entity.try(:archived?) %>
+    <%= link_to_recover(entity) %>
+<% else %>
+    <%= link_to_destroy(entity) %>
+<% end %>
+  </td>
+</tr>

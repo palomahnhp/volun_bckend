@@ -14,8 +14,15 @@ MODELS_AND_ATTRS = {
   'RoadType'      => 'name:string:uniq code:string:uniq',
   'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough district:references town province:references country ndp_code local_code class_name latitude longitude',
 
-  'EntityType'    => 'kind:integer:uniq description:text active:boolean',
-  'Entity'        => 'name:string:uniq description:text email active:boolean representative_name representative_last_name representative_last_name_alt contact_name contact_last_name_alt contact_last_name public_pictures:boolean annual_survey:boolean entity_type:references address:references',
+  'Manager'       => 'name profile_id:integer phone_number active:boolean',
+  'TrackingType'  => 'name:string:uniq active:boolean',
+  'RequestReason' => 'kind:integer:uniq description:text active:boolean',
+
+  'SubscribeReason' => 'name:string:uniq active:boolean',
+
+  'EntityType'     => 'kind:integer:uniq description:text active:boolean',
+  'Entity'         => 'name:string:uniq description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean request_reason:references entity_type:references comments:text other_subscribe_reason:text address:references active:boolean subscribed_at:datetime unsubscribed_at:datetime',
+  'Ent::Tracking'  => 'tracking_type:references entity:references manager:references tracked_at:datetime comments:text',
 
 
 
@@ -30,9 +37,10 @@ MODELS_AND_ATTRS = {
   'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
-  'Tracking'  => 'comments:text start_date:datetime project:references',
-  'Issue'     => 'comments:text start_date:datetime project:references',
-  'Document'  => 'name:string:uniq description:text documentum_id:string project:references',
+  'Pro::Tracking'  => 'comments:text start_date:datetime project:references',
+  'Pro::Issue'     => 'comments:text start_date:datetime project:references',
+
+  'Document'      => 'name:string:uniq description:text documentum_id:string project:references',
 
   # -------------------------------------------------
 
@@ -57,7 +65,7 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-# --------------------------------------------------------------------------------------------------
+  # --------------------------------------------------------------------------------------------------
   # Volunteer Tables
   # --------------------------------------------------------------------------------------------------
 
@@ -75,8 +83,6 @@ MODELS_AND_ATTRS = {
 
   'UnsubscribeReason' => 'name:string:uniq active:boolean',
 
-  'Manager' => 'name profile_id:integer phone_number active:boolean',
-
   'Profile' => 'name:string:uniq active:boolean',
 
   'InfoSource' => 'name:string:uniq active:boolean',
@@ -88,8 +94,6 @@ MODELS_AND_ATTRS = {
   'Language' => 'name:string:uniq active:boolean',
 
   'LanguageLevel' => 'name:string:uniq active:boolean',
-
-  'TrackingType' => 'name:string:uniq active:boolean',
 
   'ContactResult' => 'name:string:uniq active:boolean',
 
@@ -105,8 +109,7 @@ MODELS_AND_ATTRS = {
 
   'Sector'      => 'name active',
 
-
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean public_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references',
 
 
   # 1:N
@@ -124,13 +127,12 @@ MODELS_AND_ATTRS = {
   'RejectionType' => 'kind:integer:uniq description:text active:boolean',
 
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
-  'RequestReason'             => 'kind:integer:uniq description:text active:boolean',
-  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references status:integer status_date:datetime rejection_type:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email public_pictures:boolean annual_survey:boolean',
+  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references status:integer status_date:datetime rejection_type:references request_reason:references comments:text',
+  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean info_source:references other_academic_info:text profession:references',
   'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
   'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough district:references town province:references phone_number phone_number_alt email',
   'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name vat_number email contact_name contact_last_name contact_last_name_alt representative_name representative_last_name representative_last_name_alt phone_number phone_number_alt public_pictures:boolean annual_survey:boolean road_type:references road_name number_type road_number postal_code borough district:references town province:references request_reason:references',
+  'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean entity_type:references comments:text other_subscribe_reason:text road_type:references road_name number_type road_number postal_code borough district:references town province:references',
   'Rt::EntityUnsubscribe'     => 'reason:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type:references road_name number_type road_number postal_code borough district:references town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
   'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code borough district:references town province:references',
@@ -156,22 +158,23 @@ ADVANCED_JOINED_TABLES = {
   'Volun::KnownLanguage' => 'volunteer:references language:references language_level:references',
 }
 
- # N:N (simple)
+# N:N (simple)
 JOINED_TABLES = [
-    %w(area         project),
-    %w(collective   project),
-    %w(coordination project),
+  %w(area         project),
+  %w(collective   project),
+  %w(coordination project),
+  %w(entity       project),
 
-    %w(address volunteer),
-    %w(area    volunteer),
-    %w(degree  volunteer),
-    %w(project volunteer),
-    %w(skill   volunteer),
+  %w(address volunteer),
+  %w(area    volunteer),
+  %w(degree  volunteer),
+  %w(project volunteer),
+  %w(skill   volunteer),
 ]
 
 MANUAL_MIGRATIONS = {
   # Projects and ProjectTypes
-    :add_kind_constraint_to_project_types => %q(
+  :add_kind_constraint_to_project_types => %q(
 class AddKindConstraintToProjectTypes < ActiveRecord::Migration
   def up
     execute %{
@@ -201,7 +204,7 @@ class AddKindConstraintToProjectTypes < ActiveRecord::Migration
   end
 end
 ),
-    :add_pt_extendable_constraint_to_projects => %q(
+  :add_pt_extendable_constraint_to_projects => %q(
 class AddPtExtendableConstraintToProjects < ActiveRecord::Migration
   def up
     execute %{
@@ -231,7 +234,7 @@ class AddPtExtendableConstraintToProjects < ActiveRecord::Migration
   end
 end
 ),
-    :add_kind_constraint_to_request_types => %q(
+  :add_kind_constraint_to_request_types => %q(
 class AddKindConstraintToRequestTypes < ActiveRecord::Migration
   def up
     execute %{
@@ -267,7 +270,7 @@ class AddKindConstraintToRequestTypes < ActiveRecord::Migration
   end
 end
 ),
-    :add_rt_extendable_constraint_to_request_forms => %q(
+  :add_rt_extendable_constraint_to_request_forms => %q(
 class AddRtExtendableConstraintToRequestForms < ActiveRecord::Migration
   def up
     execute %{
