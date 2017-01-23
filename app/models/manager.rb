@@ -1,4 +1,4 @@
-class Knowledge < ActiveRecord::Base
+class Manager < ActiveRecord::Base
   include Archivable
 
 

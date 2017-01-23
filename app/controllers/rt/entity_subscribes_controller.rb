@@ -53,7 +53,7 @@ class Rt::EntitySubscribesController < ApplicationController
         .require(:rt_entity_subscribe)
         .permit(
           :name,
-          :vat_num,
+          :vat_number,
           :email,
           :contact_name,
           :contact_last_name,

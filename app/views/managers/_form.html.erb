@@ -1,8 +1,10 @@
 <div class="well">
-  <%= simple_form_for(@knowledge, default_form_options) do |f| %>
+  <%= simple_form_for(@manager, default_form_options) do |f| %>
 
   <div class="form-inputs">
           <%= f.input :name %>
+          <%= f.input :profile_id %>
+          <%= f.input :phone_number %>
           <%= f.input :active %>
   </div>
 

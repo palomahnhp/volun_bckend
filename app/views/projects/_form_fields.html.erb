@@ -1,21 +1,23 @@
 <div class="form-inputs">
   <div class="row well">
-    <%= content_tag :h1, Project.model_name.human, class: 'form-subtitle' %>
-    <div class="col-md-6">
-      <%= f.input :name  %>
-    </div>
-    <div class="col-md-6">
-      <%= f.input :project_type_id, as: :hidden %>
-      <%= f.input :active unless f.object.new_record? %>
-      <%= f.input :volunteers_allowed %>
-      <%= f.input :publish %>
-      <%= f.input :outstanding %>
-    </div>
-    <div class="col-md-6">
-      <%= f.input :description %>
-    </div>
-    <div class="col-md-6">
-      <%= f.input :comments %>
+    <div class="col-md-12">
+      <%= content_tag :h1, Project.model_name.human, class: 'form-subtitle' %>
+      <div class="row">
+        <%= f.input :project_type_id, as: :hidden %>
+        <div class="col-md-6">
+          <%= f.input :name %>
+        </div>
+        <div class="col-md-6">
+          <%= f.input :active unless f.object.new_record? %>
+          <%= f.input :volunteers_allowed %>
+          <%= f.input :publish %>
+          <%= f.input :outstanding %>
+        </div>
+      </div>
+      <div class="row">
+        <%= f.input :description, wrapper_html: { class: 'col-md-6' } %>
+        <%= f.input :comments, wrapper_html: { class: 'col-md-6' } %>
+      </div>
     </div>
   </div>
   <div class="row well row-2">
@@ -37,87 +39,54 @@
     </div>
     <div class="col-md-6">
       <%= f.input :email, placeholder: 'email@email.com', input_html: {class: 'm-width250'} %>
-      <%= f.input :phone_number, input_html: { class: 'm-width150' }  %>
+      <%= f.input :phone_number, input_html: { class: 'm-width150', data: { mask: '999999999'} }  %>
       <%= f.association :entity, input_html: { class: 'm-width200' } %>
     </div>
   </div>
   <div class="row well row-3">
       <%= content_tag :h1, 'Fechas de ejecución', class: 'form-subtitle' %>
-    <div class="col-md-6">
-      <%= f.input :execution_start_date, as: :datepicker %>
-    </div>
-    <div class="col-md-6">
-      <%= f.input :execution_end_date, as: :datepicker %>
-    </div>
+      <%= f.input :execution_start_date, as: :datepicker, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :execution_end_date, as: :datepicker, wrapper_html: { class: 'col-md-6' } %>
   </div>
   <div class="row well row-3">
     <%= content_tag :h1, 'Datos del seguro', class: 'form-subtitle' %>
-    <div class="col-md-6">
-      <%= f.input :insured %>
-    </div>
-    <div class="col-md-6">
-      <%= f.input :insurance_date, as: :datepicker %>
+      <%= f.input :insured, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :insurance_date, as: :datepicker, wrapper_html: { class: 'col-md-6' } %>
       <%= f.simple_fields_for :documents do |f_document|  %>
           <%= f_document.input :name, label: Document.model_name.human %>
       <% end %>
-    </div>
   </div>
-  <%# TODO Pending of adapting addresses and timetables form to the new model design  %>
   <div class="events-block row row-4 well">
-    <%= content_tag :h1, Event.model_name.human(count: 2), class: 'form-subtitle' %>
+    <%= content_tag :h1, "#{Address.model_name.human(count: 2)} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
 
       <%= f.simple_fields_for :events, (f.object.events.build if f.object.events.empty?) do |f_event|  %>
         <div class="event-fields well col-md-12">
-        <%= content_tag :h2, Event.model_name.human, class: 'form-subtitle' %>
+        <%= content_tag :h2, "#{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
 
           <div class="address-block row well">
             <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
             <%= f_event.simple_fields_for :address, (f_event.object.build_address if f_event.object.address.blank?) do |f_address|  %>
               <div class="address-fields col-md-12">
                 <div class="row row-4-1">
-                  <div class="col-md-3">
                     <%#= TODO replace "España" with Setting.default_country %>
-                    <%= f_address.input :country, selected: 1, collection: ["España"], input_html: { class: 'm-width250 js-country' } %>
-                  </div>
-                  <div class="col-md-5">
-                    <%= f_address.association :province, selected: 28, input_html: { class: 'm-width250 js-province' } %>
-                  </div>
-                  <div class="col-md-4">
-                    <%= f_address.input :town, input_html: { class: 'm-width250 js-town' } %>
-                  </div>
+                    <%= f_address.input :country, selected: 1, collection: ["España"], input_html: { class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.association :province, selected: 28, input_html: { class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
+                    <%= f_address.input :town, input_html: { class: 'js-town' }, wrapper_html: { class: 'col-md-5' } %>
                 </div>
                 <div class="row row-4-1">
-                  <div class="col-md-3">
-                    <%= f_address.association :road_type, input_html: { class: 'js-road_type' } %>
-                  </div>
-                  <div class="col-md-9">
-                    <%= f_address.input :road_name, input_html: { class: 'm-width250 js-road_name' } %>
-                  </div>
+                    <%= f_address.association :road_type, input_html: { class: 'js-road_type' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :road_name, input_html: { class: 'js-road_name' }, wrapper_html: { class: 'road_name col-md-9' } %>
                 </div>
                 <div class="row row-4-2">
-                  <div class="col-md-3">
-                    <%= f_address.input :road_number_type, collection:  Address::ROAD_NUMBER_TYPES, input_html: { class: 'm-width250 js-road_number_type' } %>
-                  </div>
-                  <div class="col-md-3">
-                    <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number' } %>
-                  </div>
-                  <div class="col-md-3">
-                    <%= f_address.input :grader, collection: Address::GRADERS, input_html: { class: 'm-width80 js-grader' } %>
-                  </div>
-                  <div class="col-md-3">
-                    <%= f_address.input :postal_code, input_html: { class: 'js-postal_code' } %>
-                  </div>
+                    <%= f_address.input :road_number_type, collection:  Address::ROAD_NUMBER_TYPES, input_html: { class: 'm-width250 js-road_number_type' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :grader, collection: Address::GRADERS, input_html: { class: 'm-width80 js-grader' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :postal_code, input_html: { class: 'js-postal_code', data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
                 </div>
                 <div class="row row-4-3">
-                  <div class="col-md-3">
-                    <%= f_address.input :stairs, input_html: { class: 'm-width250 js-stairs' } %>
-                  </div>
-                  <div class="col-md-3">
-                    <%= f_address.input :floor, input_html: { class: 'm-width250 js-floor' } %>
-                  </div>
-                  <div class="col-md-3">
-                    <%= f_address.input :door, input_html: { class: 'm-width250 js-door' } %>
-                  </div>
+                    <%= f_address.input :stairs, input_html: { class: 'm-width250 js-stairs' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :floor, input_html: { class: 'm-width250 js-floor' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :door, input_html: { class: 'm-width250 js-door' }, wrapper_html: { class: 'col-md-3' } %>
                 </div>
               </div> <!-- address-fields -->
             <% end %>
@@ -128,16 +97,10 @@
               <%= f_event.simple_fields_for :timetables, (f_event.object.timetables.build if f_event.object.timetables.empty?) do |f_timetable|  %>
                 <div class="timetable-fields well col-md-12">
                   <div class="row">
-                    <div class="col-md-4">
-                      <%= f_timetable.input :execution_date, as: :datepicker %>
-                    </div>
-                    <div class="col-md-4">
-                      <%= f_timetable.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} } %>
-                    </div>
-                    <div class="col-md-4">
-                      <%= f_timetable.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} } %>
-                    </div>
-                    <%= f_timetable.link_to_remove build_icon('trash-o', text: "#{Timetable.model_name.human}"), class: 'pull-right' %>
+                      <%= f_timetable.input :execution_date, as: :datepicker, wrapper_html: { class: 'col-md-4' } %>
+                      <%= f_timetable.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+                      <%= f_timetable.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+                      <%= f_timetable.link_to_remove build_icon('trash-o', text: "#{Timetable.model_name.human}"), class: 'pull-right' %>
                   </div> <!-- timetable-fields -->
                 </div>
               <% end %>
@@ -147,7 +110,7 @@
           <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Event.model_name.human}"), class: 'pull-right' %></p>
         </div> <!-- event-fields -->
       <% end %>
-    <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Event.model_name.human}"), :events, class: 'btn' %></p>
+    <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn' %></p>
   </div> <!-- events-block -->
 
   <div class="row">
@@ -166,12 +129,6 @@
     <div class="well col-md-12">
       <%= content_tag :h3, Coordination.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :coordinations, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="well col-md-12">
-      <%= content_tag :h3, District.model_name.human(count: 2), class: 'form-subtitle' %>
-      <%= f.association :districts, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
     </div>
   </div>
 </div>

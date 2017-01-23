@@ -19,6 +19,7 @@
 //= require jquery_nested_form
 //= require turbolinks
 //= require bootstrap-sprockets
+//= require inputmask
 //= require_tree .
 
 

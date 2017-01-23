@@ -5,7 +5,7 @@ class CreatePtSubventions < ActiveRecord::Migration
       t.string :representative_last_name
       t.string :representative_last_name_alt
       t.string :id_num
-      t.string :vat_num
+      t.string :vat_number
       t.boolean :entity_registry, default: false
       t.float :cost
       t.float :requested_amount

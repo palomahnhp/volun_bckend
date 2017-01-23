@@ -1,4 +1,4 @@
-<% model_class = Knowledge %>
+<% model_class = Manager %>
 
 <div class="row">
   <div class="col-md-12">
@@ -10,7 +10,7 @@
     <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :name_cont), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :name_or_phone_number_cont), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 
@@ -28,8 +28,8 @@
   </thead>
   
   <tbody>
-    <%= render(partial: 'knowledge', collection: @knowledges)%>
+    <%= render(partial: 'manager', collection: @managers)%>
   </tbody>
 </table>
 
-<%= render partial: "shared/pagination", locals: {collection: @knowledges} %>
+<%= render partial: "shared/pagination", locals: {collection: @managers} %>

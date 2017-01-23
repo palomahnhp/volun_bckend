@@ -9,10 +9,12 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :areas, -> { order('areas.name asc') }
   has_and_belongs_to_many :collectives, -> { order('collectives.name asc') }
   has_and_belongs_to_many :coordinations, -> { order('coordinations.name asc') }
-  has_and_belongs_to_many :districts, -> { order('districts.name asc') }
   has_many :documents
   has_many :activities
   has_many :events, as: :eventable
+  has_many :links, as: :linkable
+  has_many :addresses, through: :events
+  has_many :districts, through: :addresses
   has_many :trackings
   has_many :volun_trackings,   :class_name => 'Volun::Tracking'
   has_many :volun_contacts,    :class_name => 'Volun::Contact'
@@ -27,18 +29,15 @@ class Project < ActiveRecord::Base
             :phone_number, :email, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
-  default_scope -> {
+  scope :list, ->(){
     includes(
       :pt_extendable,
       :project_type,
       :entity,
       :areas,
-      :districts,
       :collectives,
-      events: [
-        :address,
-        :timetables
-      ]
+      :addresses,
+      :districts
     )
   }
   scope :all_active,   ->(){ where(active: true) }

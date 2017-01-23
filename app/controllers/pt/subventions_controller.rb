@@ -55,7 +55,7 @@ class Pt::SubventionsController < ApplicationController
           :representative_last_name,
           :representative_last_name_alt,
           :id_num,
-          :vat_num,
+          :vat_number,
           :cost,
           :requested_amount,
           :subsidized_amount,

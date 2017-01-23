@@ -8,7 +8,7 @@ class ProjectsController < ApplicationController
   def index
     params[:q] ||= Project.ransack_default
     @projects = @projects.with_status(params[:status])
-    @search_q = @projects.unscoped.includes(:pt_extendable, :project_type, :entity, :areas, :districts, :collectives).search(params[:q])
+    @search_q = @projects.unscoped.list.search(params[:q])
     @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@projects)
@@ -65,7 +65,7 @@ class ProjectsController < ApplicationController
           :name,
           :description,
           :volunteers_allowed,
-          :public,
+          :publish,
           :outstanding,
           :pt_subvention,
           :project_type_id,
@@ -87,7 +87,6 @@ class ProjectsController < ApplicationController
           { area_ids:         [] },
           { collective_ids:   [] },
           { coordination_ids: [] },
-          { district_ids:     [] },
           {
             documents_attributes: [
               :id,
@@ -110,6 +109,8 @@ class ProjectsController < ApplicationController
                   :floor,
                   :door,
                   :postal_code,
+                  :borough,
+                  :district_id,
                   :town,
                   :province_id,
                   :country,
