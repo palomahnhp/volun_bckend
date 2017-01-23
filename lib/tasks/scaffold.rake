@@ -18,8 +18,6 @@ MODELS_AND_ATTRS = {
   'TrackingType'  => 'name:string:uniq active:boolean',
   'RequestReason' => 'kind:integer:uniq description:text active:boolean',
 
-  'SubscribeReason' => 'name:string:uniq active:boolean',
-
   'EntityType'     => 'kind:integer:uniq description:text active:boolean',
   'Entity'         => 'name:string:uniq description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean request_reason:references entity_type:references comments:text other_subscribe_reason:text address:references active:boolean subscribed_at:datetime unsubscribed_at:datetime',
   'Ent::Tracking'  => 'tracking_type:references entity:references manager:references tracked_at:datetime comments:text',

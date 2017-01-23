@@ -2250,38 +2250,6 @@ ALTER SEQUENCE statuses_id_seq OWNED BY statuses.id;
 
 
 --
--- Name: subscribe_reasons; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE subscribe_reasons (
-    id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: subscribe_reasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE subscribe_reasons_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: subscribe_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE subscribe_reasons_id_seq OWNED BY subscribe_reasons.id;
-
-
---
 -- Name: timetables; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3112,13 +3080,6 @@ ALTER TABLE ONLY statuses ALTER COLUMN id SET DEFAULT nextval('statuses_id_seq':
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY subscribe_reasons ALTER COLUMN id SET DEFAULT nextval('subscribe_reasons_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY timetables ALTER COLUMN id SET DEFAULT nextval('timetables_id_seq'::regclass);
 
 
@@ -3662,14 +3623,6 @@ ALTER TABLE ONLY skills
 
 ALTER TABLE ONLY statuses
     ADD CONSTRAINT statuses_pkey PRIMARY KEY (id);
-
-
---
--- Name: subscribe_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY subscribe_reasons
-    ADD CONSTRAINT subscribe_reasons_pkey PRIMARY KEY (id);
 
 
 --
@@ -4528,13 +4481,6 @@ CREATE INDEX index_skills_volunteers_on_volunteer_id_and_skill_id ON skills_volu
 --
 
 CREATE UNIQUE INDEX index_statuses_on_name ON statuses USING btree (name);
-
-
---
--- Name: index_subscribe_reasons_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_subscribe_reasons_on_name ON subscribe_reasons USING btree (name);
 
 
 --
@@ -5454,8 +5400,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170123112406');
 INSERT INTO schema_migrations (version) VALUES ('20170123112408');
 
 INSERT INTO schema_migrations (version) VALUES ('20170123112409');
-
-INSERT INTO schema_migrations (version) VALUES ('20170123112411');
 
 INSERT INTO schema_migrations (version) VALUES ('20170123112412');
 
