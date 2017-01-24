@@ -6,6 +6,9 @@ class Activity < ActiveRecord::Base
   belongs_to :area
   belongs_to :project
 
+  validates :name, uniqueness: true
+  validates :name, :description, :start_date, :transport, presence: true
+
   def to_s
     name
   end
