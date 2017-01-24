@@ -39,9 +39,9 @@ SET default_with_oids = false;
 
 CREATE TABLE academic_levels (
     id integer NOT NULL,
-    name character varying,
-    educational_type character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    educational_type character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -72,11 +72,11 @@ ALTER SEQUENCE academic_levels_id_seq OWNED BY academic_levels.id;
 
 CREATE TABLE activities (
     id integer NOT NULL,
-    name character varying,
-    description text,
-    start_date timestamp without time zone,
+    name character varying NOT NULL,
+    description text NOT NULL,
+    start_date timestamp without time zone NOT NULL,
     end_date timestamp without time zone,
-    transport text,
+    transport text NOT NULL,
     pdf_url character varying,
     entity_id integer,
     area_id integer,
@@ -300,8 +300,8 @@ CREATE TABLE collectives_projects (
 
 CREATE TABLE contact_results (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -439,8 +439,8 @@ ALTER SEQUENCE degree_types_id_seq OWNED BY degree_types.id;
 
 CREATE TABLE degrees (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -548,8 +548,8 @@ ALTER SEQUENCE documents_id_seq OWNED BY documents.id;
 
 CREATE TABLE employment_statuses (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -580,10 +580,10 @@ ALTER SEQUENCE employment_statuses_id_seq OWNED BY employment_statuses.id;
 
 CREATE TABLE ent_trackings (
     id integer NOT NULL,
-    tracking_type_id integer,
-    entity_id integer,
+    tracking_type_id integer NOT NULL,
+    entity_id integer NOT NULL,
     manager_id integer,
-    tracked_at timestamp without time zone,
+    tracked_at timestamp without time zone NOT NULL,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -615,22 +615,22 @@ ALTER SEQUENCE ent_trackings_id_seq OWNED BY ent_trackings.id;
 
 CREATE TABLE entities (
     id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     description text,
     vat_number character varying,
-    email character varying,
-    representative_name character varying,
-    representative_last_name character varying,
+    email character varying NOT NULL,
+    representative_name character varying NOT NULL,
+    representative_last_name character varying NOT NULL,
     representative_last_name_alt character varying,
-    contact_name character varying,
-    contact_last_name character varying,
+    contact_name character varying NOT NULL,
+    contact_last_name character varying NOT NULL,
     contact_last_name_alt character varying,
     phone_number character varying,
     phone_number_alt character varying,
     publish_pictures boolean DEFAULT true,
     annual_survey boolean DEFAULT false,
     request_reason_id integer,
-    entity_type_id integer,
+    entity_type_id integer NOT NULL,
     comments text,
     other_subscribe_reason text,
     address_id integer NOT NULL,
@@ -710,7 +710,7 @@ ALTER SEQUENCE entity_types_id_seq OWNED BY entity_types.id;
 
 CREATE TABLE event_types (
     id integer NOT NULL,
-    kind integer,
+    kind integer NOT NULL,
     description text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -744,8 +744,8 @@ ALTER SEQUENCE event_types_id_seq OWNED BY event_types.id;
 CREATE TABLE events (
     id integer NOT NULL,
     publish boolean DEFAULT true,
-    eventable_id integer,
-    eventable_type character varying,
+    eventable_id integer NOT NULL,
+    eventable_type character varying NOT NULL,
     event_type_id integer,
     address_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
@@ -779,8 +779,8 @@ ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 CREATE TABLE id_number_types (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -811,8 +811,8 @@ ALTER SEQUENCE id_number_types_id_seq OWNED BY id_number_types.id;
 
 CREATE TABLE info_sources (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -843,8 +843,8 @@ ALTER SEQUENCE info_sources_id_seq OWNED BY info_sources.id;
 
 CREATE TABLE language_levels (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -875,8 +875,8 @@ ALTER SEQUENCE language_levels_id_seq OWNED BY language_levels.id;
 
 CREATE TABLE languages (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -942,10 +942,10 @@ ALTER SEQUENCE links_id_seq OWNED BY links.id;
 
 CREATE TABLE managers (
     id integer NOT NULL,
-    name character varying,
+    name character varying NOT NULL,
     profile_id integer,
     phone_number character varying,
-    active boolean DEFAULT true,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1008,8 +1008,8 @@ ALTER SEQUENCE motivations_id_seq OWNED BY motivations.id;
 
 CREATE TABLE nationalities (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1138,8 +1138,8 @@ ALTER SEQUENCE pro_trackings_id_seq OWNED BY pro_trackings.id;
 
 CREATE TABLE professions (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1170,8 +1170,8 @@ ALTER SEQUENCE professions_id_seq OWNED BY professions.id;
 
 CREATE TABLE profiles (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1202,9 +1202,9 @@ ALTER SEQUENCE profiles_id_seq OWNED BY profiles.id;
 
 CREATE TABLE project_types (
     id integer NOT NULL,
-    kind integer,
-    description text,
-    active boolean DEFAULT true,
+    kind integer NOT NULL,
+    description text NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     CONSTRAINT kind_and_id_must_be_equal CHECK ((((id = 1) AND (kind = 1)) OR ((id = 2) AND (kind = 2)) OR ((id = 3) AND (kind = 3)) OR ((id = 4) AND (kind = 4)) OR ((id = 5) AND (kind = 5)) OR ((id = 6) AND (kind = 6)) OR ((id = 7) AND (kind = 7))))
@@ -1236,18 +1236,18 @@ ALTER SEQUENCE project_types_id_seq OWNED BY project_types.id;
 
 CREATE TABLE projects (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
-    description text,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
+    description text NOT NULL,
     functions character varying,
-    execution_start_date date,
+    execution_start_date date NOT NULL,
     execution_end_date date,
-    contact_name character varying,
-    contact_last_name character varying,
+    contact_name character varying NOT NULL,
+    contact_last_name character varying NOT NULL,
     contact_last_name_alt character varying,
-    phone_number character varying,
+    phone_number character varying NOT NULL,
     phone_number_alt character varying,
-    email character varying,
+    email character varying NOT NULL,
     comments text,
     beneficiaries_num integer,
     volunteers_num integer,
@@ -1256,10 +1256,10 @@ CREATE TABLE projects (
     publish boolean DEFAULT true,
     outstanding boolean DEFAULT false,
     insurance_date date,
-    project_type_id integer,
+    project_type_id integer NOT NULL,
     pt_extendable_id integer,
     pt_extendable_type character varying,
-    entity_id integer,
+    entity_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     CONSTRAINT pt_extendable_must_be_consistent CHECK ((((project_type_id = 1) AND (pt_extendable_type IS NULL)) OR ((project_type_id = 2) AND (pt_extendable_type IS NULL)) OR ((project_type_id = 3) AND (pt_extendable_type IS NULL)) OR ((project_type_id = 4) AND (pt_extendable_type IS NULL)) OR ((project_type_id = 5) AND ((pt_extendable_type)::text = 'Pt::Entity'::text)) OR ((project_type_id = 6) AND ((pt_extendable_type)::text = 'Pt::Subvention'::text)) OR ((project_type_id = 7) AND (pt_extendable_type IS NULL))))
@@ -2213,8 +2213,8 @@ ALTER SEQUENCE sectors_id_seq OWNED BY sectors.id;
 
 CREATE TABLE skills (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2255,8 +2255,8 @@ CREATE TABLE skills_volunteers (
 
 CREATE TABLE statuses (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2287,10 +2287,10 @@ ALTER SEQUENCE statuses_id_seq OWNED BY statuses.id;
 
 CREATE TABLE timetables (
     id integer NOT NULL,
-    event_id integer,
-    execution_date date,
-    start_hour character varying,
-    end_hour character varying,
+    event_id integer NOT NULL,
+    execution_date date NOT NULL,
+    start_hour character varying NOT NULL,
+    end_hour character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2321,8 +2321,8 @@ ALTER SEQUENCE timetables_id_seq OWNED BY timetables.id;
 
 CREATE TABLE tracking_types (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2353,8 +2353,8 @@ ALTER SEQUENCE tracking_types_id_seq OWNED BY tracking_types.id;
 
 CREATE TABLE traits (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2385,8 +2385,8 @@ ALTER SEQUENCE traits_id_seq OWNED BY traits.id;
 
 CREATE TABLE unsubscribe_reasons (
     id integer NOT NULL,
-    name character varying,
-    active boolean DEFAULT true,
+    name character varying NOT NULL,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2419,7 +2419,7 @@ CREATE TABLE users (
     id integer NOT NULL,
     login character varying,
     locale character varying,
-    notice_type_id integer,
+    notice_type_id integer NOT NULL,
     loggable_id integer,
     loggable_type character varying,
     active boolean DEFAULT true,
@@ -2463,11 +2463,11 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 CREATE TABLE volun_assessments (
     id integer NOT NULL,
-    volunteer_id integer,
-    trait_id integer,
-    project_id integer,
+    volunteer_id integer NOT NULL,
+    trait_id integer NOT NULL,
+    project_id integer NOT NULL,
     trait_other character varying,
-    assessment boolean DEFAULT false,
+    assessment boolean DEFAULT false NOT NULL,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2499,8 +2499,8 @@ ALTER SEQUENCE volun_assessments_id_seq OWNED BY volun_assessments.id;
 
 CREATE TABLE volun_availabilities (
     id integer NOT NULL,
-    volunteer_id integer,
-    day character varying,
+    volunteer_id integer NOT NULL,
+    day character varying NOT NULL,
     start_hour character varying,
     end_hour character varying,
     created_at timestamp without time zone NOT NULL,
@@ -2533,12 +2533,12 @@ ALTER SEQUENCE volun_availabilities_id_seq OWNED BY volun_availabilities.id;
 
 CREATE TABLE volun_contacts (
     id integer NOT NULL,
-    volunteer_id integer,
-    contact_result_id integer,
-    project_id integer,
-    manager_id integer,
+    volunteer_id integer NOT NULL,
+    contact_result_id integer NOT NULL,
+    project_id integer NOT NULL,
+    manager_id integer NOT NULL,
     contact_type_id integer,
-    contact_date timestamp without time zone,
+    contact_date timestamp without time zone NOT NULL,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2570,9 +2570,9 @@ ALTER SEQUENCE volun_contacts_id_seq OWNED BY volun_contacts.id;
 
 CREATE TABLE volun_known_languages (
     id integer NOT NULL,
-    volunteer_id integer,
-    language_id integer,
-    language_level_id integer,
+    volunteer_id integer NOT NULL,
+    language_id integer NOT NULL,
+    language_level_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2603,11 +2603,11 @@ ALTER SEQUENCE volun_known_languages_id_seq OWNED BY volun_known_languages.id;
 
 CREATE TABLE volun_trackings (
     id integer NOT NULL,
-    volunteer_id integer,
-    tracking_type_id integer,
+    volunteer_id integer NOT NULL,
+    tracking_type_id integer NOT NULL,
     project_id integer,
     manager_id integer,
-    tracking_date timestamp without time zone,
+    tracking_date timestamp without time zone NOT NULL,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2639,8 +2639,8 @@ ALTER SEQUENCE volun_trackings_id_seq OWNED BY volun_trackings.id;
 
 CREATE TABLE volunteers (
     id integer NOT NULL,
-    name character varying,
-    last_name character varying,
+    name character varying NOT NULL,
+    last_name character varying NOT NULL,
     last_name_alt character varying,
     id_number_type_id integer,
     id_number character varying,
@@ -5449,175 +5449,177 @@ SET search_path TO "$user", public;
 
 INSERT INTO schema_migrations (version) VALUES ('20170124075736');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080241');
+INSERT INTO schema_migrations (version) VALUES ('20170124180402');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080242');
+INSERT INTO schema_migrations (version) VALUES ('20170124180403');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080243');
+INSERT INTO schema_migrations (version) VALUES ('20170124180405');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080245');
+INSERT INTO schema_migrations (version) VALUES ('20170124180406');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080246');
+INSERT INTO schema_migrations (version) VALUES ('20170124180407');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080247');
+INSERT INTO schema_migrations (version) VALUES ('20170124180409');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080249');
+INSERT INTO schema_migrations (version) VALUES ('20170124180410');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080250');
+INSERT INTO schema_migrations (version) VALUES ('20170124180412');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080252');
+INSERT INTO schema_migrations (version) VALUES ('20170124180413');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080253');
+INSERT INTO schema_migrations (version) VALUES ('20170124180415');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080254');
+INSERT INTO schema_migrations (version) VALUES ('20170124180416');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080256');
+INSERT INTO schema_migrations (version) VALUES ('20170124180418');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080257');
+INSERT INTO schema_migrations (version) VALUES ('20170124180419');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080259');
+INSERT INTO schema_migrations (version) VALUES ('20170124180420');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080300');
+INSERT INTO schema_migrations (version) VALUES ('20170124180422');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080301');
+INSERT INTO schema_migrations (version) VALUES ('20170124180423');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080303');
+INSERT INTO schema_migrations (version) VALUES ('20170124180425');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080304');
+INSERT INTO schema_migrations (version) VALUES ('20170124180426');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080306');
+INSERT INTO schema_migrations (version) VALUES ('20170124180428');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080307');
+INSERT INTO schema_migrations (version) VALUES ('20170124180429');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080309');
+INSERT INTO schema_migrations (version) VALUES ('20170124180431');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080310');
+INSERT INTO schema_migrations (version) VALUES ('20170124180432');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080312');
+INSERT INTO schema_migrations (version) VALUES ('20170124180434');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080313');
+INSERT INTO schema_migrations (version) VALUES ('20170124180435');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080315');
+INSERT INTO schema_migrations (version) VALUES ('20170124180437');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080316');
+INSERT INTO schema_migrations (version) VALUES ('20170124180438');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080317');
+INSERT INTO schema_migrations (version) VALUES ('20170124180440');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080319');
+INSERT INTO schema_migrations (version) VALUES ('20170124180441');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080320');
+INSERT INTO schema_migrations (version) VALUES ('20170124180443');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080322');
+INSERT INTO schema_migrations (version) VALUES ('20170124180444');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080323');
+INSERT INTO schema_migrations (version) VALUES ('20170124180446');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080325');
+INSERT INTO schema_migrations (version) VALUES ('20170124180447');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080326');
+INSERT INTO schema_migrations (version) VALUES ('20170124180449');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080328');
+INSERT INTO schema_migrations (version) VALUES ('20170124180450');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080329');
+INSERT INTO schema_migrations (version) VALUES ('20170124180452');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080331');
+INSERT INTO schema_migrations (version) VALUES ('20170124180453');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080332');
+INSERT INTO schema_migrations (version) VALUES ('20170124180455');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080334');
+INSERT INTO schema_migrations (version) VALUES ('20170124180456');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080335');
+INSERT INTO schema_migrations (version) VALUES ('20170124180458');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080336');
+INSERT INTO schema_migrations (version) VALUES ('20170124180459');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080338');
+INSERT INTO schema_migrations (version) VALUES ('20170124180501');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080340');
+INSERT INTO schema_migrations (version) VALUES ('20170124180502');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080341');
+INSERT INTO schema_migrations (version) VALUES ('20170124180504');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080343');
+INSERT INTO schema_migrations (version) VALUES ('20170124180506');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080344');
+INSERT INTO schema_migrations (version) VALUES ('20170124180507');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080346');
+INSERT INTO schema_migrations (version) VALUES ('20170124180508');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080347');
+INSERT INTO schema_migrations (version) VALUES ('20170124180510');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080349');
+INSERT INTO schema_migrations (version) VALUES ('20170124180512');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080350');
+INSERT INTO schema_migrations (version) VALUES ('20170124180513');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080352');
+INSERT INTO schema_migrations (version) VALUES ('20170124180515');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080353');
+INSERT INTO schema_migrations (version) VALUES ('20170124180517');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080355');
+INSERT INTO schema_migrations (version) VALUES ('20170124180518');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080357');
+INSERT INTO schema_migrations (version) VALUES ('20170124180520');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080358');
+INSERT INTO schema_migrations (version) VALUES ('20170124180522');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080400');
+INSERT INTO schema_migrations (version) VALUES ('20170124180523');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080401');
+INSERT INTO schema_migrations (version) VALUES ('20170124180525');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080403');
+INSERT INTO schema_migrations (version) VALUES ('20170124180526');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080405');
+INSERT INTO schema_migrations (version) VALUES ('20170124180528');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080406');
+INSERT INTO schema_migrations (version) VALUES ('20170124180530');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080408');
+INSERT INTO schema_migrations (version) VALUES ('20170124180531');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080409');
+INSERT INTO schema_migrations (version) VALUES ('20170124180533');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080411');
+INSERT INTO schema_migrations (version) VALUES ('20170124180535');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080412');
+INSERT INTO schema_migrations (version) VALUES ('20170124180536');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080414');
+INSERT INTO schema_migrations (version) VALUES ('20170124180538');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080416');
+INSERT INTO schema_migrations (version) VALUES ('20170124180539');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080417');
+INSERT INTO schema_migrations (version) VALUES ('20170124180541');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080419');
+INSERT INTO schema_migrations (version) VALUES ('20170124180543');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080420');
+INSERT INTO schema_migrations (version) VALUES ('20170124180544');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080422');
+INSERT INTO schema_migrations (version) VALUES ('20170124180546');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080424');
+INSERT INTO schema_migrations (version) VALUES ('20170124180548');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080425');
+INSERT INTO schema_migrations (version) VALUES ('20170124180550');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080427');
+INSERT INTO schema_migrations (version) VALUES ('20170124180551');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080428');
+INSERT INTO schema_migrations (version) VALUES ('20170124180552');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080429');
+INSERT INTO schema_migrations (version) VALUES ('20170124180554');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080430');
+INSERT INTO schema_migrations (version) VALUES ('20170124180555');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080431');
+INSERT INTO schema_migrations (version) VALUES ('20170124180556');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080433');
+INSERT INTO schema_migrations (version) VALUES ('20170124180557');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080434');
+INSERT INTO schema_migrations (version) VALUES ('20170124180559');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080435');
+INSERT INTO schema_migrations (version) VALUES ('20170124180600');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080436');
+INSERT INTO schema_migrations (version) VALUES ('20170124180601');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080437');
+INSERT INTO schema_migrations (version) VALUES ('20170124180602');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080439');
+INSERT INTO schema_migrations (version) VALUES ('20170124180603');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080440');
+INSERT INTO schema_migrations (version) VALUES ('20170124180605');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080441');
+INSERT INTO schema_migrations (version) VALUES ('20170124180606');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080442');
+INSERT INTO schema_migrations (version) VALUES ('20170124180607');
 
-INSERT INTO schema_migrations (version) VALUES ('20170124080444');
+INSERT INTO schema_migrations (version) VALUES ('20170124180608');
+
+INSERT INTO schema_migrations (version) VALUES ('20170124180609');
 
