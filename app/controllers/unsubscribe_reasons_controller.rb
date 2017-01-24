@@ -40,6 +40,11 @@ class UnsubscribeReasonsController < ApplicationController
     respond_with(@unsubscribe_reason)
   end
 
+  def recover
+    @unsubscribe_reason.recover
+    respond_with(@unsubscribe_reason)
+  end
+
   protected
 
     def unsubscribe_reason_params

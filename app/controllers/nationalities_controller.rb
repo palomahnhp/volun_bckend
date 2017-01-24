@@ -40,6 +40,11 @@ class NationalitiesController < ApplicationController
     respond_with(@nationality)
   end
 
+  def recover
+    @nationality.recover
+    respond_with(@nationality)
+  end
+
   protected
 
     def nationality_params

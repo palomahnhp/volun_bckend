@@ -40,6 +40,11 @@ class ProjectTypesController < ApplicationController
     respond_with(@project_type)
   end
 
+  def recover
+    @project_type.recover
+    respond_with(@project_type)
+  end
+
   protected
 
     def project_type_params

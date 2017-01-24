@@ -40,6 +40,11 @@ class RejectionTypesController < ApplicationController
     respond_with(@rejection_type)
   end
 
+  def recover
+    @rejection_type.recover
+    respond_with(@rejection_type)
+  end
+
   protected
 
     def rejection_type_params

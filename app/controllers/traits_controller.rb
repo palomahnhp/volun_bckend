@@ -40,6 +40,11 @@ class TraitsController < ApplicationController
     respond_with(@trait)
   end
 
+  def recover
+    @trait.recover
+    respond_with(@trait)
+  end
+
   protected
 
     def trait_params

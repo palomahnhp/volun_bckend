@@ -40,6 +40,11 @@ class TrackingTypesController < ApplicationController
     respond_with(@tracking_type)
   end
 
+  def recover
+    @tracking_type.recover
+    respond_with(@tracking_type)
+  end
+
   protected
 
     def tracking_type_params
