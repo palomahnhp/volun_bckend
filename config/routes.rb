@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :road_types
   resources :provinces
   resources :record_histories
+  resources :notice_types
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable
