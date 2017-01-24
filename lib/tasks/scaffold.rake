@@ -18,8 +18,6 @@ MODELS_AND_ATTRS = {
   'TrackingType'  => 'name:string:uniq active:boolean',
   'RequestReason' => 'kind:integer:uniq description:text active:boolean',
 
-  'SubscribeReason' => 'name:string:uniq active:boolean',
-
   'EntityType'     => 'kind:integer:uniq description:text active:boolean',
   'Entity'         => 'name:string:uniq description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean request_reason:references entity_type:references comments:text other_subscribe_reason:text address:references active:boolean subscribed_at:datetime unsubscribed_at:datetime',
   'Ent::Tracking'  => 'tracking_type:references entity:references manager:references tracked_at:datetime comments:text',
@@ -430,7 +428,7 @@ namespace :scaffold do
     end
   end
 
-  desc 'Builds manual migrations'
+  desc 'Build manual migrations'
   task build_manual_migrations: :environment do
     MANUAL_MIGRATIONS.each do |name, content|
       sh "bundle exec rails generate migration #{name}"
@@ -445,10 +443,11 @@ namespace :scaffold do
     end
   end
 
-  desc 'Builds the user model'
+  desc 'Build the user model and their dependant models'
   task create_user: :environment do
     # Generate scaffold for User model
-    sh 'bundle exec rails generate scaffold User locale loggable:references{polymorphic}'
+    sh 'bundle exec rails generate scaffold NoticeType kind:integer:uniq description:text active:boolean'
+    sh 'bundle exec rails generate scaffold User login locale notice_type:references loggable:references{polymorphic} active:boolean'
 
     # Add devise attrs to User model
     sh 'bundle exec rails generate devise User --skip'
@@ -465,7 +464,7 @@ namespace :scaffold do
     sh 'rm -f db/migrate/*_devise_*.rb'
   end
 
-  desc 'Builds the application data model basement by scaffolding the models'
+  desc 'Build the application data model basement by scaffolding the models'
   task build: :environment do
     # Generate the scaffolds for all models
     MODELS_AND_ATTRS.each do |model_name, attrs_list|
@@ -513,19 +512,19 @@ namespace :scaffold do
     Rake::Task['scaffold:destroy_manual_migrations'].invoke
   end
 
-  desc 'Builds the application data model basement by scaffolding the models'
+  desc 'Build the application data model basement by scaffolding the models'
   task gco_files: :environment do
     sh 'git checkout -- app'
   end
 
-  desc 'Builds the application data model basement by scaffolding the models'
+  desc 'Build the application data model basement by scaffolding the models'
   task destroy_all: :environment do
     puts "Destroying scaffolds"
     Rake::Task['scaffold:destroy'].invoke
     Rake::Task['scaffold:destroy_user'].invoke
   end
 
-  desc 'Builds the application data model basement by scaffolding the models'
+  desc 'Build the application data model basement by scaffolding the models'
   task generate_all: :environment do
     puts "Generating scaffolds"
     Rake::Task['scaffold:create_user'].invoke
@@ -536,7 +535,7 @@ namespace :scaffold do
     Rake::Task['scaffold:gco_files'].invoke
   end
 
-  desc 'Builds the application data model basement by scaffolding the models'
+  desc 'Build the application data model basement by scaffolding the models'
   task recreate_db: :environment do
     puts "Recreating DB and seeding"
     Rake::Task['db:drop'].invoke
@@ -545,7 +544,7 @@ namespace :scaffold do
     Rake::Task['db:dev_seed'].invoke
   end
 
-  desc 'Builds/Rebuilds the application data base by scaffolding the models'
+  desc 'Build/Rebuilds the application data base by scaffolding the models'
   task reset: :environment do
     puts "You are going to drop/create the whole DB. Proceed? (y/n) "
     continue = STDIN.gets.chomp.to_s

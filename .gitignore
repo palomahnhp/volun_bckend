@@ -16,9 +16,15 @@
 !/log/.keep
 /tmp
 
+.byebug_history
+
 # Rubymine hidden files
 .idea/
 
 /config/database.yml
-.byebug_history
+/config/deploy_secrets.yml
+/config/secrets.yml
 db/schema.rb
+.byebug_history
+/coverage
+/spec/examples.txt

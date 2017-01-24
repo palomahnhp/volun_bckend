@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(notice_type) %>" >
+
+  <% notice_type.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(notice_type.public_send attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(notice_type) %>
+    <%= link_to_edit(notice_type) %>
+<% if notice_type.try(:archived?) %>
+    <%= link_to_recover(notice_type) %>
+<% else %>
+    <%= link_to_destroy(notice_type) %>
+<% end %>
+  </td>
+</tr>

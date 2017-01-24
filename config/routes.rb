@@ -28,12 +28,11 @@ Rails.application.routes.draw do
   resources :events
   resources :event_types
   resources :documents
-  resources :issues
-  resources :trackings
   resources :districts
   resources :road_types
   resources :provinces
   resources :record_histories
+  resources :notice_types
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable
@@ -61,6 +60,7 @@ Rails.application.routes.draw do
   end
 
   # RequestForm related routes
+  resources :request_reasons
   resources :request_reasons
   resources :rejection_types
   resources :request_types
