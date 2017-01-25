@@ -40,6 +40,11 @@ class CoordinationsController < ApplicationController
     respond_with(@coordination)
   end
 
+  def recover
+    @coordination.recover
+    respond_with(@coordination)
+  end
+
   protected
 
     def coordination_params

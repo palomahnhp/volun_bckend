@@ -107,7 +107,7 @@
             <p><%= f_event.link_to_add icon_new(text: "#{Timetable.model_name.human}"), :timetables, class: 'btn' %></p>
           </div> <!-- timetables_block -->
 
-          <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Event.model_name.human}"), class: 'pull-right' %></p>
+          <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), class: 'pull-right' %></p>
         </div> <!-- event-fields -->
       <% end %>
     <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn' %></p>

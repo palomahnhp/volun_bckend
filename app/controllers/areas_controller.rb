@@ -40,6 +40,11 @@ class AreasController < ApplicationController
     respond_with(@area)
   end
 
+  def recover
+    @area.recover
+    respond_with(@area)
+  end
+
   protected
 
     def area_params

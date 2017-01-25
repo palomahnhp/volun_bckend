@@ -5,6 +5,8 @@ class ContactResult < ActiveRecord::Base
   has_many :contacts, :class_name => 'Volun::Contact'
   has_many :volunteers, :through => :contacts
 
+  validates :name, uniqueness: true
+  validates :name, :active, presence: true
 
   def to_s
     name

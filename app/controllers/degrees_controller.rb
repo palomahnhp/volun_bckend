@@ -40,6 +40,11 @@ class DegreesController < ApplicationController
     respond_with(@degree)
   end
 
+  def recover
+    @degree.recover
+    respond_with(@degree)
+  end
+
   protected
 
     def degree_params

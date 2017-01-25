@@ -40,6 +40,11 @@ class CollectivesController < ApplicationController
     respond_with(@collective)
   end
 
+  def recover
+    @collective.recover
+    respond_with(@collective)
+  end
+
   protected
 
     def collective_params

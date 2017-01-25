@@ -209,10 +209,29 @@ ROAD_TYPES = {
 
 PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
+ENTITY_TYPES = {
+  0 => 'Organización',
+  1 => 'Empresa',
+  2 => 'Asociación'
+}
+
+NOTICE_TYPES = {
+  0 => 'email',
+  1 => 'sms',
+  2 => 'papel'
+}
+
+
+puts "Creando Medios de comunicación"
+NOTICE_TYPES.each do |kind , name|
+  NoticeType.create!(kind: kind, description: name)
+end
+
 puts "Creando usuario administrador..."
 User.first_or_initialize(email: 'admin@madrid.es',
                          password: 'Wordpass1',
-                         password_confirmation: 'Wordpass1').save!
+                         password_confirmation: 'Wordpass1',
+                         notice_type: NoticeType.all.sample).save!
 
 puts "Creando Colectivos"
 AREA_NAMES.each do |name|
@@ -234,9 +253,14 @@ REQUEST_TYPES.each do |kind , name|
   RequestType.create!(kind: kind)
 end
 
+puts "Creando Tipos de solicitudes"
+ENTITY_TYPES.each do |kind , name|
+  EntityType.create!(kind: kind, description: name)
+end
+
 puts "Creando Tipos de proyectos"
 PROJECT_TYPES.each do |kind , name|
-  ProjectType.create!(kind: kind)
+  ProjectType.create!(kind: kind, description: name)
 end
 
 puts "Creando Tipo documento"
@@ -281,6 +305,7 @@ puts "Creando Direcciones"
     stairs:                rand(300).to_s,
     floor:                 rand(9).to_s,
     door:                  rand(10).to_s,
+    borough:               nil,
     province:              Province.all.sample,
     country:               "España",
     town:                  "Madrid",
@@ -291,8 +316,14 @@ end
 puts "Creando Entidades"
 (1..ENTITIES_NUM).each do |n|
   Entity.create!(
-    name: "#{Entity.model_name.human} #{n}",
-    address: Address.all.sample
+    name:                     "#{Entity.model_name.human} #{n}",
+    email:                    Faker::Internet.email,
+    representative_name:      Faker::Name.name,
+    representative_last_name: Faker::Name.last_name,
+    contact_name:             Faker::Name.name,
+    contact_last_name:        Faker::Name.last_name,
+    entity_type:              EntityType.all.sample,
+    address:                  Address.all.sample
   )
 end
 
@@ -314,11 +345,13 @@ ProjectType.all.each do |project_type|
       execution_start_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),
       execution_end_date:    Faker::Time.between(DateTime.tomorrow - 10, DateTime.tomorrow),
       contact_name:          Faker::Name.name,
+      contact_last_name:     Faker::Name.last_name,
       phone_number:          Faker::PhoneNumber.phone_number,
       email:                 Faker::Internet.email,
       beneficiaries_num:     10,
       volunteers_num:        rand(100),
-      project_type:          project_type
+      project_type:          project_type,
+      entity:                Entity.all.sample
     )
 
     project.build_pt_extendable
