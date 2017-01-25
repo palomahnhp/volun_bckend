@@ -178,9 +178,26 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :users                 => [:notice_type_id],
     :ent_trackings         => [:tracking_type_id, :entity_id, :tracked_at],
     :project_types         => [:kind, :description, :active],
-    :projects              => [:name, :description, :execution_start_date, :contact_name, :contact_last_name, :phone_number, :email, :project_type_id, :entity_id, :active],
+    :projects              => [:name,
+                               :description,
+                               :execution_start_date,
+                               :contact_name,
+                               :contact_last_name,
+                               :phone_number,
+                               :email,
+                               :project_type_id,
+                               :entity_id,
+                               :active],
+    :entities              => [:name,
+                               :email,
+                               :representative_name,
+                               :representative_last_name,
+                               :contact_name,
+                               :contact_last_name,
+                               :entity_type_id,
+                               :address_id],
     :activities            => [:name, :description, :start_date, :transport],
-    :entities              => [:name, :email, :representative_name, :representative_last_name, :contact_name, :contact_last_name, :entity_type_id, :address_id],
+    :record_histories      => [:user_id, :recordable_id, :recordable_type, :recordable_changed_at],
     :events                => [:address_id, :eventable_id, :eventable_type],
     :event_types           => [:kind],
     :timetables            => [:event_id, :execution_date, :start_hour, :end_hour],
@@ -188,7 +205,11 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :volun_availabilities  => [:volunteer_id, :day],
     :volun_known_languages => [:volunteer_id, :language_id, :language_level_id],
     :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracking_date],
-    :volun_contacts        => [:volunteer_id, :contact_result_id, :project_id, :manager_id, :contact_date],
+    :volun_contacts        => [:volunteer_id,
+                               :contact_result_id,
+                               :project_id,
+                               :manager_id,
+                               :contact_date],
     :volun_assessments     => [:volunteer_id, :trait_id, :project_id, :assessment],
     :academic_levels       => [:name, :active, :educational_type],
     :id_number_types       => [:name, :active],
@@ -207,6 +228,10 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :tracking_types        => [:name, :active],
     :contact_results       => [:name, :active],
     :traits                => [:name, :active],
+    :areas                 => [:name, :active],
+    :collectives           => [:name, :active],
+    :coordinations         => [:name, :active],
+    :rejection_types       => [:kind, :active]
   }
 
   def up
@@ -514,7 +539,7 @@ namespace :scaffold do
 
     # Destroy scaffold for user
     sh 'bundle exec rails destroy scaffold User --skip'
-    sh 'bundle exec rails generate scaffold NoticeType'
+    sh 'bundle exec rails destroy scaffold NoticeType'
 
     # Destroy devise scaffold for user
     sh 'rm -f db/migrate/*_devise_*.rb'
