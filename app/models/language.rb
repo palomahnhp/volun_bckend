@@ -6,7 +6,7 @@ class Language < ActiveRecord::Base
   has_many :volunteers, :through => :known_languages
 
   validates :name, uniqueness: true
-  validates :name, :active, presence: true
+  validates :name, presence: true
 
   def to_s
     name

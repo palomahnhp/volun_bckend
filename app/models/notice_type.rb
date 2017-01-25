@@ -2,6 +2,6 @@ class NoticeType < ActiveRecord::Base
 
   has_many :users
 
-  validates :kind, :active, presence: true
+  validates :kind, presence: true
 
 end
