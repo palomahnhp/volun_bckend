@@ -2,7 +2,7 @@ class Entity < ActiveRecord::Base
 
   include Archivable
 
-  belongs_to :request_reason, required: true
+  belongs_to :request_reason
   belongs_to :entity_type, required: true
   belongs_to :address, required: true
 
