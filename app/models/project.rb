@@ -22,7 +22,7 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :documents,  allow_destroy: true
   accepts_nested_attributes_for :pt_extendable
-  accepts_nested_attributes_for :events
+  accepts_nested_attributes_for :events, reject_if: :all_blank
 
   validates :name, uniqueness: true
   validates :name, :description, :execution_start_date, :contact_name, :contact_last_name,
