@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  belongs_to :notice_type
 
+  validates :notice_type_id, presence: true
 
 end

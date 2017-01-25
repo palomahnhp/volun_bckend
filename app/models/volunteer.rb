@@ -23,7 +23,7 @@ class Volunteer < ActiveRecord::Base
   has_many :traits,    :through => :assessments
   accepts_nested_attributes_for :address
 
-  validates :name, :last_name, :id_number, :id_number, presence: true
+  validates :name, :last_name, :id_number, :address_id, presence: true
   validates :id_number, :phone_number, :phone_number_alt, length: { minimum: 9, maximum: 9 }
   validates :phone_number, :phone_number_alt, format: { with: /\d{9}/ }
   validates :id_number, format: { with: /[\w\d]{9}/i }
