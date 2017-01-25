@@ -1,4 +1,5 @@
 class Entity < ActiveRecord::Base
+
   include Archivable
 
   belongs_to :request_reason

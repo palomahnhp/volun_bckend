@@ -1,3 +1,4 @@
+
 class AddNotNullConstraintToColumns < ActiveRecord::Migration
 
   NOT_NULL_COLUMNS = {
@@ -76,3 +77,4 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     end
   end
 end
+

@@ -2423,7 +2423,6 @@ CREATE TABLE users (
     notice_type_id integer NOT NULL,
     loggable_id integer,
     loggable_type character varying,
-    active boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
@@ -2675,6 +2674,7 @@ CREATE TABLE volunteers (
     info_source_id integer,
     other_academic_info text,
     profession_id integer,
+    active boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -5448,179 +5448,179 @@ ALTER TABLE ONLY projects
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091004');
+INSERT INTO schema_migrations (version) VALUES ('20170125101634');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091005');
+INSERT INTO schema_migrations (version) VALUES ('20170125101636');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091007');
+INSERT INTO schema_migrations (version) VALUES ('20170125101637');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091008');
+INSERT INTO schema_migrations (version) VALUES ('20170125101639');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091009');
+INSERT INTO schema_migrations (version) VALUES ('20170125101640');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091011');
+INSERT INTO schema_migrations (version) VALUES ('20170125101642');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091013');
+INSERT INTO schema_migrations (version) VALUES ('20170125101644');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091014');
+INSERT INTO schema_migrations (version) VALUES ('20170125101645');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091016');
+INSERT INTO schema_migrations (version) VALUES ('20170125101647');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091017');
+INSERT INTO schema_migrations (version) VALUES ('20170125101648');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091019');
+INSERT INTO schema_migrations (version) VALUES ('20170125101650');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091020');
+INSERT INTO schema_migrations (version) VALUES ('20170125101652');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091022');
+INSERT INTO schema_migrations (version) VALUES ('20170125101653');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091023');
+INSERT INTO schema_migrations (version) VALUES ('20170125101655');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091025');
+INSERT INTO schema_migrations (version) VALUES ('20170125101656');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091026');
+INSERT INTO schema_migrations (version) VALUES ('20170125101658');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091028');
+INSERT INTO schema_migrations (version) VALUES ('20170125101700');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091029');
+INSERT INTO schema_migrations (version) VALUES ('20170125101701');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091031');
+INSERT INTO schema_migrations (version) VALUES ('20170125101703');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091032');
+INSERT INTO schema_migrations (version) VALUES ('20170125101704');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091034');
+INSERT INTO schema_migrations (version) VALUES ('20170125101706');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091035');
+INSERT INTO schema_migrations (version) VALUES ('20170125101708');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091037');
+INSERT INTO schema_migrations (version) VALUES ('20170125101709');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091040');
+INSERT INTO schema_migrations (version) VALUES ('20170125101711');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091042');
+INSERT INTO schema_migrations (version) VALUES ('20170125101713');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091043');
+INSERT INTO schema_migrations (version) VALUES ('20170125101714');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091045');
+INSERT INTO schema_migrations (version) VALUES ('20170125101716');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091047');
+INSERT INTO schema_migrations (version) VALUES ('20170125101717');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091048');
+INSERT INTO schema_migrations (version) VALUES ('20170125101719');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091050');
+INSERT INTO schema_migrations (version) VALUES ('20170125101721');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091051');
+INSERT INTO schema_migrations (version) VALUES ('20170125101722');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091053');
+INSERT INTO schema_migrations (version) VALUES ('20170125101724');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091054');
+INSERT INTO schema_migrations (version) VALUES ('20170125101726');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091056');
+INSERT INTO schema_migrations (version) VALUES ('20170125101727');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091057');
+INSERT INTO schema_migrations (version) VALUES ('20170125101729');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091059');
+INSERT INTO schema_migrations (version) VALUES ('20170125101731');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091101');
+INSERT INTO schema_migrations (version) VALUES ('20170125101732');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091102');
+INSERT INTO schema_migrations (version) VALUES ('20170125101734');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091104');
+INSERT INTO schema_migrations (version) VALUES ('20170125101736');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091106');
+INSERT INTO schema_migrations (version) VALUES ('20170125101737');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091107');
+INSERT INTO schema_migrations (version) VALUES ('20170125101739');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091109');
+INSERT INTO schema_migrations (version) VALUES ('20170125101741');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091111');
+INSERT INTO schema_migrations (version) VALUES ('20170125101743');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091112');
+INSERT INTO schema_migrations (version) VALUES ('20170125101744');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091114');
+INSERT INTO schema_migrations (version) VALUES ('20170125101746');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091116');
+INSERT INTO schema_migrations (version) VALUES ('20170125101748');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091118');
+INSERT INTO schema_migrations (version) VALUES ('20170125101749');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091120');
+INSERT INTO schema_migrations (version) VALUES ('20170125101751');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091121');
+INSERT INTO schema_migrations (version) VALUES ('20170125101752');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091123');
+INSERT INTO schema_migrations (version) VALUES ('20170125101754');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091125');
+INSERT INTO schema_migrations (version) VALUES ('20170125101756');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091127');
+INSERT INTO schema_migrations (version) VALUES ('20170125101758');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091128');
+INSERT INTO schema_migrations (version) VALUES ('20170125101759');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091130');
+INSERT INTO schema_migrations (version) VALUES ('20170125101801');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091132');
+INSERT INTO schema_migrations (version) VALUES ('20170125101803');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091133');
+INSERT INTO schema_migrations (version) VALUES ('20170125101804');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091135');
+INSERT INTO schema_migrations (version) VALUES ('20170125101806');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091137');
+INSERT INTO schema_migrations (version) VALUES ('20170125101808');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091139');
+INSERT INTO schema_migrations (version) VALUES ('20170125101810');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091140');
+INSERT INTO schema_migrations (version) VALUES ('20170125101811');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091142');
+INSERT INTO schema_migrations (version) VALUES ('20170125101813');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091144');
+INSERT INTO schema_migrations (version) VALUES ('20170125101815');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091146');
+INSERT INTO schema_migrations (version) VALUES ('20170125101817');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091147');
+INSERT INTO schema_migrations (version) VALUES ('20170125101818');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091149');
+INSERT INTO schema_migrations (version) VALUES ('20170125101820');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091151');
+INSERT INTO schema_migrations (version) VALUES ('20170125101822');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091153');
+INSERT INTO schema_migrations (version) VALUES ('20170125101824');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091155');
+INSERT INTO schema_migrations (version) VALUES ('20170125101825');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091156');
+INSERT INTO schema_migrations (version) VALUES ('20170125101827');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091158');
+INSERT INTO schema_migrations (version) VALUES ('20170125101829');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091200');
+INSERT INTO schema_migrations (version) VALUES ('20170125101831');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091202');
+INSERT INTO schema_migrations (version) VALUES ('20170125101832');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091204');
+INSERT INTO schema_migrations (version) VALUES ('20170125101834');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091205');
+INSERT INTO schema_migrations (version) VALUES ('20170125101836');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091207');
+INSERT INTO schema_migrations (version) VALUES ('20170125101837');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091208');
+INSERT INTO schema_migrations (version) VALUES ('20170125101838');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091210');
+INSERT INTO schema_migrations (version) VALUES ('20170125101839');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091212');
+INSERT INTO schema_migrations (version) VALUES ('20170125101841');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091214');
+INSERT INTO schema_migrations (version) VALUES ('20170125101842');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091216');
+INSERT INTO schema_migrations (version) VALUES ('20170125101843');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091217');
+INSERT INTO schema_migrations (version) VALUES ('20170125101845');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091219');
+INSERT INTO schema_migrations (version) VALUES ('20170125101847');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091220');
+INSERT INTO schema_migrations (version) VALUES ('20170125101849');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091221');
+INSERT INTO schema_migrations (version) VALUES ('20170125101851');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091223');
+INSERT INTO schema_migrations (version) VALUES ('20170125101852');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091224');
+INSERT INTO schema_migrations (version) VALUES ('20170125101853');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091225');
+INSERT INTO schema_migrations (version) VALUES ('20170125101854');
 
-INSERT INTO schema_migrations (version) VALUES ('20170125091226');
+INSERT INTO schema_migrations (version) VALUES ('20170125101856');
 

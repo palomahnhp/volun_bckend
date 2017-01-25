@@ -107,7 +107,7 @@ MODELS_AND_ATTRS = {
 
   'Sector'      => 'name active',
 
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references active:boolean',
 
 
   # 1:N
@@ -527,7 +527,7 @@ namespace :scaffold do
   task create_user: :environment do
     # Generate scaffold for User model
     sh 'bundle exec rails generate scaffold NoticeType kind:integer:uniq description:text active:boolean'
-    sh 'bundle exec rails generate scaffold User login locale notice_type:references loggable:references{polymorphic} active:boolean'
+    sh 'bundle exec rails generate scaffold User login locale notice_type:references loggable:references{polymorphic}'
 
     # Add devise attrs to User model
     sh 'bundle exec rails generate devise User --skip'

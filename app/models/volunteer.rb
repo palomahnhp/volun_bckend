@@ -1,5 +1,7 @@
 class Volunteer < ActiveRecord::Base
 
+  include Archivable
+
   enum gender: [:male, :female]
 
   belongs_to :academic_level
