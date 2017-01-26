@@ -4,7 +4,7 @@ class Collective < ActiveRecord::Base
   has_and_belongs_to_many :projects
 
   validates :name, uniqueness: true
-  validates :name, :active, presence: true
+  validates :name, presence: true
 
 
   def to_s

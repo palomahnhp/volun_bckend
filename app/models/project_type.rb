@@ -17,7 +17,7 @@ class ProjectType < ActiveRecord::Base
     pt_other:      7
   }
 
-  validates :kind, :description, :active, presence: true
+  validates :kind, :description, presence: true
 
   def self.active?(kind)
     send(kind).take.try(:active?)
