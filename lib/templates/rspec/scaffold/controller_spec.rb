@@ -7,11 +7,11 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   end
 
   let(:valid_attributes) {
-    build(:<%= file_name %>).attributes.except(:created_at, :updated_at)
+    attributes_for :<%= file_name %>
   }
 
   let(:invalid_attributes) {
-    build(:<%= file_name %>, :invalid).attributes.except(:created_at, :updated_at)
+    attributes_for :<%= file_name %>, :invalid
   }
 
 <% unless options[:singleton] -%>
