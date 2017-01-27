@@ -57,9 +57,9 @@
         <%= f.input :availability_date, as: :string, input_html: {
                                                         class: "datepicker",
                                                         placeholder: "dd/mm/aaaa",
-                                                        value: localize(f.object.availability_date),
+                                                        value: f.object.availability_date.strftime('%d/%m/%Y'),
                                                         data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-6' } %>  
+                                                  wrapper_html: { class: 'col-md-6' } %>
       <% end %>
     </div>
     <div class="row well">
