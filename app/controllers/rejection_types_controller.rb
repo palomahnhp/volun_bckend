@@ -14,6 +14,7 @@ class RejectionTypesController < ApplicationController
   def show
     respond_with(@rejection_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

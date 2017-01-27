@@ -14,6 +14,7 @@ class MotivationsController < ApplicationController
   def show
     respond_with(@motivation) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

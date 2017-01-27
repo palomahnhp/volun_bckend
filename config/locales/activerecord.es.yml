@@ -324,8 +324,8 @@ es:
         search_authorization:     Autorización consulta certificado de penales
         representative_statement: Declaración responsable
         has_driving_license:      Carnet de conducir
-        technician_id:            Técnico
-        technician:               Técnico
+        manager_id:            Técnico
+        manager:               Técnico
         info_source_id:           Cómo conoció Voluntarios por Madrid
         info_source:              Cómo conoció Voluntarios por Madrid
         other_academic_info:      Otra formación

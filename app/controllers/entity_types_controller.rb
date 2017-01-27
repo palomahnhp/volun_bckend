@@ -14,6 +14,7 @@ class EntityTypesController < ApplicationController
   def show
     respond_with(@entity_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

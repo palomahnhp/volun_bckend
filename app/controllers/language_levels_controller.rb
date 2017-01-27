@@ -14,6 +14,7 @@ class LanguageLevelsController < ApplicationController
   def show
     respond_with(@language_level) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

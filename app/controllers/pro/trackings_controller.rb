@@ -14,6 +14,7 @@ class Pro::TrackingsController < ApplicationController
   def show
     respond_with(@pro_tracking) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

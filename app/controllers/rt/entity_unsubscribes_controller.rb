@@ -14,6 +14,7 @@ class Rt::EntityUnsubscribesController < ApplicationController
   def show
     respond_with(@rt_entity_unsubscribe) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

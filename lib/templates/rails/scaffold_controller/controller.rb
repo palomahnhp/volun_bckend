@@ -6,7 +6,7 @@ require_dependency "<%= namespaced_file_path %>/application_controller"
 class <%= controller_class_name %>Controller < ApplicationController
 
   load_and_authorize_resource
-  respond_to :html, :js, :json
+  respond_to :html, :js
 
   def index
     params[:q] ||= <%= singular_table_name.camelize %>.ransack_default
@@ -19,6 +19,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def show
     respond_with(@<%= singular_table_name %>) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

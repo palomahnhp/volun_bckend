@@ -14,6 +14,7 @@ class BoroughsController < ApplicationController
   def show
     respond_with(@borough) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

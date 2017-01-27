@@ -14,6 +14,7 @@ class IdNumberTypesController < ApplicationController
   def show
     respond_with(@id_number_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

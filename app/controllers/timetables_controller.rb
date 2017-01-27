@@ -14,6 +14,7 @@ class TimetablesController < ApplicationController
   def show
     respond_with(@timetable) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

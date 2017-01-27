@@ -14,6 +14,7 @@ class ManagersController < ApplicationController
   def show
     respond_with(@manager) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

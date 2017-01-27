@@ -14,6 +14,7 @@ class CoordinationsController < ApplicationController
   def show
     respond_with(@coordination) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

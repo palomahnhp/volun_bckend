@@ -14,6 +14,7 @@ class AcademicLevelsController < ApplicationController
   def show
     respond_with(@academic_level) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

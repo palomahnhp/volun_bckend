@@ -14,6 +14,7 @@ class EmploymentStatusesController < ApplicationController
   def show
     respond_with(@employment_status) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
