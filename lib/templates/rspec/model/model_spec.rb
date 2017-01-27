@@ -5,7 +5,7 @@ RSpec.describe <%= class_name %>, <%= type_metatag(:model) %> do
   let(:<%= file_name %>) { build(:<%= file_name %>) }
 
   it 'is valid' do
-    expect(:<%= file_name %>).to be_valid
+    expect(<%= file_name %>).to be_valid
   end
 end
 <% end -%>
