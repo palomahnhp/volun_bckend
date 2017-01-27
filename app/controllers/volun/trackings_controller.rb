@@ -14,6 +14,7 @@ class Volun::TrackingsController < ApplicationController
   def show
     respond_with(@volun_tracking) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

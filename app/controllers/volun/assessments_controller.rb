@@ -14,6 +14,7 @@ class Volun::AssessmentsController < ApplicationController
   def show
     respond_with(@volun_assessment) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

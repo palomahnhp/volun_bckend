@@ -14,6 +14,7 @@ class VolunteersController < ApplicationController
   def show
     respond_with(@volunteer) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

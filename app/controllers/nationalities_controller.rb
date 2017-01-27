@@ -14,6 +14,7 @@ class NationalitiesController < ApplicationController
   def show
     respond_with(@nationality) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

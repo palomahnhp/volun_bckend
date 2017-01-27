@@ -14,6 +14,7 @@ class ProfessionsController < ApplicationController
   def show
     respond_with(@profession) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

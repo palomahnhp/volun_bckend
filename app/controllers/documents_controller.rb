@@ -14,6 +14,7 @@ class DocumentsController < ApplicationController
   def show
     respond_with(@document) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

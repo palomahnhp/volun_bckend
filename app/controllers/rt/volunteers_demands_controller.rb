@@ -14,6 +14,7 @@ class Rt::VolunteersDemandsController < ApplicationController
   def show
     respond_with(@rt_volunteers_demand) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

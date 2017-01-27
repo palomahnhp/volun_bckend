@@ -14,6 +14,7 @@ class ContactResultsController < ApplicationController
   def show
     respond_with(@contact_result) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

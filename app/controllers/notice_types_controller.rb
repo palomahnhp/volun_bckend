@@ -14,6 +14,7 @@ class NoticeTypesController < ApplicationController
   def show
     respond_with(@notice_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

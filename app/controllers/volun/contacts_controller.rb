@@ -14,6 +14,7 @@ class Volun::ContactsController < ApplicationController
   def show
     respond_with(@volun_contact) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

@@ -14,6 +14,7 @@ class RequestTypesController < ApplicationController
   def show
     respond_with(@request_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

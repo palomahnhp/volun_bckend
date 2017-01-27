@@ -14,6 +14,7 @@ class UsersController < ApplicationController
   def show
     respond_with(@user) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

@@ -14,6 +14,7 @@ class TrackingTypesController < ApplicationController
   def show
     respond_with(@tracking_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

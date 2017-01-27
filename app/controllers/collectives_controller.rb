@@ -14,6 +14,7 @@ class CollectivesController < ApplicationController
   def show
     respond_with(@collective) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

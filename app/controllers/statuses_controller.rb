@@ -14,6 +14,7 @@ class StatusesController < ApplicationController
   def show
     respond_with(@status) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

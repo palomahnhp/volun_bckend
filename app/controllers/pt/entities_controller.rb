@@ -14,6 +14,7 @@ class Pt::EntitiesController < ApplicationController
   def show
     respond_with(@pt_entity) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

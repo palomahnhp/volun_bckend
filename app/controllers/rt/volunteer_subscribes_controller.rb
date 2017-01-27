@@ -14,6 +14,7 @@ class Rt::VolunteerSubscribesController < ApplicationController
   def show
     respond_with(@rt_volunteer_subscribe) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
