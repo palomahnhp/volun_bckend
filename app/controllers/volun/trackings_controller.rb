@@ -48,7 +48,7 @@ class Volun::TrackingsController < ApplicationController
           :volunteer_id,
           :tracking_type_id,
           :project_id,
-          :technician_id,
+          :manager_id,
           :tracking_date,
           :comments
         )

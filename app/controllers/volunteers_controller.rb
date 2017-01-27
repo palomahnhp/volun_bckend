@@ -76,7 +76,7 @@ class VolunteersController < ApplicationController
           :has_driving_license,
           :public_pictures,
           :annual_survey,
-          :technician_id,
+          :manager_id,
           :info_source_id,
           :other_academic_info,
           :profession_id,
