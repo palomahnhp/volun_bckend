@@ -60,10 +60,6 @@ es:
   project_types_text: Tipos de proyecto a los que un proyecto puede ser
   collectives_text: Colectivos a los que pertenece un proyecto
   coordinations_text: Coordinaciones asociadas a un proyecto
-  volun_availability_date_error: El formato de fecha debe ser válido y la fecha de disponibilidad debe ser posterior a la actual, en caso contrario, marque la casilla "Disponible"
-  volun_agreement_date_error: El formato de fecha debe ser válido y debe especificar una fecha de acuerdo si esta marcada la casilla "Acuerdo de colaboración"
-  volun_subscribe_date_error: El formato de fecha debe ser válido
-  volun_unsubscribe_date_error: El formato de fecha debe ser válido
   date:
     datepicker:
       default: "dd/mm/yyyy"

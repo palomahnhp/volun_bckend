@@ -34,10 +34,16 @@ class Volunteer < ActiveRecord::Base
   validates :birth_date, inclusion: { in: (150.years.ago..Date.today-1),
                                       message: I18n.t('activerecord.errors.messages.invalid_volun_birth_date'),
                                       allow_blank: true }
-  validates :availability_date, inclusion: { in: (Date.today+1..Date.today+150.years), message: I18n.t('volun_availability_date_error'), allow_blank: true }, unless: 'available?'
-  validates :agreement_date, presence: {message: I18n.t('volun_agreement_date_error')}, if: 'agreement?'
-  validates :subscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years), message: I18n.t('volun_subscribe_date_error'), allow_blank: true }
-  validates :unsubscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years), message: I18n.t('volun_unsubscribe_date_error'), allow_blank: true }
+  validates :availability_date, inclusion: { in: (Date.today+1..Date.today+150.years),
+                                             message: I18n.t('activerecord.errors.messages.invalid_volun_availability_date'),
+                                             allow_blank: true }, unless: 'available?'
+  validates :agreement_date, presence: {message: I18n.t('activerecord.errors.messages.invalid_volun_agreement_date')}, if: 'agreement?'
+  validates :subscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years),
+                                          message: I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
+                                          allow_blank: true }
+  validates :unsubscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years),
+                                            message: I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
+                                            allow_blank: true }
 
   def self.main_columns
     %i(name last_name last_name_alt email gender)
