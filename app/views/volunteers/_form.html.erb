@@ -35,37 +35,11 @@
     </div>
     <div class="row well">
       <%= f.input :available, input_html: {onClick: 'setAvailDate()'}, wrapper_html: { class: 'col-md-6' } %>
-      <% if f.object.new_record? || f.object.availability_date.nil? %>
-        <%= f.input :availability_date, as: :string, input_html: {
-                                                        class: "datepicker",
-                                                        placeholder: "dd/mm/aaaa",
-                                                        data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-6' } %>
-      <% else %>
-        <%= f.input :availability_date, as: :string, input_html: {
-                                                        class: "datepicker",
-                                                        placeholder: "dd/mm/aaaa",
-                                                        value: f.object.availability_date.strftime('%d/%m/%Y'),
-                                                        data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-6' } %>
-      <% end %>
+      <%= f.input :availability_date, as: :string, input_html: date_input_html(f.object.availability_date), wrapper_html: { class: 'col-md-6' } %>
     </div>
     <div class="row well">
       <%= f.input :agreement, input_html: {onClick: 'setAgrmtDate()'}, wrapper_html: { class: 'col-md-6' } %>
-      <% if f.object.new_record? || f.object.agreement_date.nil? %>
-        <%= f.input :agreement_date, as: :string, input_html: {
-                                                        class: "datepicker",
-                                                        placeholder: "dd/mm/aaaa",
-                                                        data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-6' } %>
-      <% else %>
-        <%= f.input :agreement_date, as: :string, input_html: {
-                                                        class: "datepicker",
-                                                        placeholder: "dd/mm/aaaa",
-                                                        value: f.object.agreement_date.strftime('%d/%m/%Y'),
-                                                        data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-6' } %>
-      <% end %>
+      <%= f.input :agreement_date, as: :string, input_html: date_input_html(f.object.agreement_date), wrapper_html: { class: 'col-md-6' } %>
     </div>
     <div class="row well">
       <%= f.input :vocne, wrapper_html: { class: 'col-md-3' } %>
@@ -79,34 +53,8 @@
     </div>
     <% unless f.object.new_record? %>
         <div class="row well">
-          <% if f.object.subscribe_date.nil? %>
-            <%= f.input :subscribe_date, as: :string, input_html: {
-                                                        class: "datepicker",
-                                                        placeholder: "dd/mm/aaaa",
-                                                        data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-4' } %>
-          <% else %>
-            <%= f.input :subscribe_date, as: :string, input_html: {
-                                                        class: "datepicker",
-                                                        placeholder: "dd/mm/aaaa",
-                                                        value: localize(f.object.subscribe_date),
-                                                        data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-4' } %>
-          <% end %>
-          <% if f.object.unsubscribe_date.nil? %>
-            <%= f.input :unsubscribe_date, as: :string, input_html: {
-                                                        class: "datepicker",
-                                                        placeholder: "dd/mm/aaaa",
-                                                        data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-4' } %>
-          <% else %>
-            <%= f.input :unsubscribe_date, as: :string, input_html: {
-                                                        class: "datepicker",
-                                                        placeholder: "dd/mm/aaaa",
-                                                        value: localize(f.object.unsubscribe_date),
-                                                        data: {mask: '99/99/9999'} },
-                                                  wrapper_html: { class: 'col-md-4' } %>
-          <% end %>
+          <%= f.input :subscribe_date, as: :string, input_html: date_input_html(f.object.subscribe_date), wrapper_html: { class: 'col-md-4' } %>
+          <%= f.input :unsubscribe_date, as: :string, input_html: date_input_html(f.object.unsubscribe_date), wrapper_html: { class: 'col-md-4' } %>
           <%= f.association :unsubscribe_reason, wrapper_html: { class: 'col-md-4' } %>
         </div>
     <% end %>
