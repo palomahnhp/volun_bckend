@@ -1828,6 +1828,7 @@ CREATE TABLE rt_activity_publishings (
     town character varying,
     province_id integer,
     project_id integer,
+    notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1978,6 +1979,7 @@ ALTER SEQUENCE rt_entity_unsubscribes_id_seq OWNED BY rt_entity_unsubscribes.id;
 CREATE TABLE rt_others (
     id integer NOT NULL,
     description text,
+    notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2018,6 +2020,7 @@ CREATE TABLE rt_project_publishings (
     district_id integer,
     town character varying,
     province_id integer,
+    notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2123,6 +2126,7 @@ CREATE TABLE rt_volunteer_amendments (
     phone_number character varying,
     phone_number_alt character varying,
     email character varying,
+    notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

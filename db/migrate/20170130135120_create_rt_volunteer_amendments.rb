@@ -13,6 +13,7 @@ class CreateRtVolunteerAmendments < ActiveRecord::Migration
       t.string :phone_number
       t.string :phone_number_alt
       t.string :email
+      t.text :notes
 
       t.timestamps null: false
     end
