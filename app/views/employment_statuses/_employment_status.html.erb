@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(employment_status) %>" >
 
   <% employment_status.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(employment_status.public_send attr_name) %></td>
+  <td><%= show_attr(employment_status, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

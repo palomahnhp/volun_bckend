@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(pt_entity) %>" >
 
   <% pt_entity.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(pt_entity.public_send attr_name) %></td>
+  <td><%= show_attr(pt_entity, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

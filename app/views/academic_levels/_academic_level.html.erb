@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(academic_level) %>" >
 
   <% academic_level.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(academic_level.public_send attr_name) %></td>
+  <td><%= show_attr(academic_level, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

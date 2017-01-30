@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(event) %>" >
 
   <% event.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(event.public_send attr_name) %></td>
+  <td><%= show_attr(event, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

@@ -60,3 +60,10 @@ es:
   project_types_text: Tipos de proyecto a los que un proyecto puede ser
   collectives_text: Colectivos a los que pertenece un proyecto
   coordinations_text: Coordinaciones asociadas a un proyecto
+  date:
+    datepicker:
+      default: "dd/mm/yyyy"
+    formats:
+      default: ! '%d/%m/%Y'
+  male: Hombre
+  female: Mujer

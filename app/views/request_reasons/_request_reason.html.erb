@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(request_reason) %>" >
 
   <% request_reason.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(request_reason.public_send attr_name) %></td>
+  <td><%= show_attr(request_reason, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">
