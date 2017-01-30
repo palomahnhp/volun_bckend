@@ -157,13 +157,13 @@ es:
         name:        Denominación
         description: Descripción
         active:      Activo
-        created_at : Fecha de creación
+        created_at : *created_at
       coordination:
         id:          ID
         name:        Denominación
         description: Descripción
         active:      Activo
-        created_at : Fecha de creación
+        created_at : *created_at
       nationality:
         id:          ID
         name:        Nacionalidad
@@ -194,11 +194,11 @@ es:
         name:        Denominación
         description: Descripción
         active:      Activo
-        created_at : Fecha de creación
+        created_at : *created_at
       issue:
         name:        Título
         description: Descripción
-        created_at : Fecha de creación
+        created_at : *created_at
         project_id:  Proyecto
       record_history:
         id:                    ID
@@ -215,7 +215,7 @@ es:
         volunteers_allowed:     Admite voluntarios
         publish:                Publicitar
         outstanding:            Destacado
-        created_at:             Fecha creación
+        created_at:             *created_at
         functions:              Funciones del voluntario
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
@@ -287,7 +287,7 @@ es:
         execution_date:           Día de la semana
         start_hour:               Hora inicio
         end_hour:                 Hora fin
-        created_at:               Fecha de creación
+        created_at:               *created_at
         project_id:               ID del proyecto
       volunteer:
         name:                     Nombre
@@ -333,7 +333,7 @@ es:
         profession:               Profesión
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
-        created_at:               Creado
+        created_at:               *created_at
         updated_at:               Actualizado
       skill:
         name: Nombre
