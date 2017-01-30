@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(volun_contact) %>" >
 
   <% volun_contact.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(volun_contact.public_send attr_name) %></td>
+  <td><%= show_attr(volun_contact, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

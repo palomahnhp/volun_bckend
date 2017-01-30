@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(trait) %>" >
 
   <% trait.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(trait.public_send attr_name) %></td>
+  <td><%= show_attr(trait, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

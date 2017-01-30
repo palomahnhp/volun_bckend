@@ -131,14 +131,17 @@ module ScaffoldHelper
     l(date, { format: format }.merge(options))
   end
 
-  def show_attr(attr, date_opts = {})
-    if attr.is_a?(TrueClass) || attr.is_a?(FalseClass)
-      t("humanize.#{attr}")
-    elsif attr.is_a?(Date)
-      show_simple_date(attr, date_opts)
-    else
-      attr
-    end
+  def show_attr(record, attr, date_opts = {})
+    attribute = if attr.is_a?(TrueClass) || attr.is_a?(FalseClass)
+                  t("humanize.#{attr}")
+                elsif attr.is_a?(Date)
+                  show_simple_date(attr, date_opts)
+                elsif record.respond_to? "#{attr}_i18n"
+                  "#{attr}_i18n"
+                else
+                  attr
+                end
+    record.public_send attribute
   end
 
 end

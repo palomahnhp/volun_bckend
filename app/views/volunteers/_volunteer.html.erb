@@ -1,11 +1,7 @@
 <tr id="<%= dom_id(volunteer) %>" >
 
   <% volunteer.main_attributes.each do |attr_name| %>
-    <% if attr_name.to_s.eql? "gender" %>
-      <td><%= t(show_attr(volunteer.public_send attr_name)) %></td>
-    <% else %>
-      <td><%= show_attr(volunteer.public_send attr_name) %></td>
-    <% end %>
+      <td><%= show_attr(volunteer, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

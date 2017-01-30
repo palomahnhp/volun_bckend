@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(coordination) %>" >
 
   <% coordination.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(coordination.public_send attr_name) %></td>
+  <td><%= show_attr(coordination, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">
