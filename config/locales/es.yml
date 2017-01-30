@@ -70,3 +70,5 @@ es:
       default: "dd/mm/yyyy"
     formats:
       default: ! '%d/%m/%Y'
+  male: Hombre
+  female: Mujer

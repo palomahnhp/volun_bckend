@@ -13,7 +13,7 @@
   <dt><%= Volunteer.human_attribute_name(:id_number) %>:</dt>
   <dd><%= @volunteer.id_number %></dd>
   <dt><%= Volunteer.human_attribute_name(:gender) %>:</dt>
-  <dd><%= @volunteer.gender %></dd>
+  <dd><%= t(@volunteer.gender) %></dd>
   <dt><%= Volunteer.human_attribute_name(:birth_date) %>:</dt>
   <dd><%= show_simple_date(@volunteer.birth_date) %></dd>
   <dt><%= Volunteer.human_attribute_name(:nationality_id) %>:</dt>
@@ -25,7 +25,7 @@
   <dt><%= Volunteer.human_attribute_name(:email) %>:</dt>
   <dd><%= @volunteer.email %></dd>
   <dt><%= Volunteer.human_attribute_name(:address_id) %>:</dt>
-  <dd><%= @volunteer.address %></dd>
+  <dd><%= @volunteer.address.road_name %> - <%= @volunteer.address.road_number %></dd>
   <dt><%= Volunteer.human_attribute_name(:status_id) %>:</dt>
   <dd><%= @volunteer.status %></dd>
   <dt><%= Volunteer.human_attribute_name(:employment_status_id) %>:</dt>
