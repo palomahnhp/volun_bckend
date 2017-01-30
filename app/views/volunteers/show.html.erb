@@ -25,7 +25,7 @@
   <dt><%= Volunteer.human_attribute_name(:email) %>:</dt>
   <dd><%= @volunteer.email %></dd>
   <dt><%= Volunteer.human_attribute_name(:address_id) %>:</dt>
-  <dd><%= @volunteer.address.road_name %> - <%=@volunteer.address.road_number %></dd>
+  <dd><%= @volunteer.address %></dd>
   <dt><%= Volunteer.human_attribute_name(:status_id) %>:</dt>
   <dd><%= @volunteer.status %></dd>
   <dt><%= Volunteer.human_attribute_name(:employment_status_id) %>:</dt>
