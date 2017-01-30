@@ -15,6 +15,15 @@ module ApplicationHelper
     ar_collection.pluck(attr).join(" <strong>-</strong> ").html_safe
   end
 
+  def date_input_html(date)
+    {
+      class: 'datepicker',
+      placeholder: 'dd/mm/aaaa',
+      value: date ? date.strftime('%d/%m/%Y') : nil,
+      data: {mask: '99/99/9999'}
+    }
+  end
+
 end
 
 module ActionView::Helpers::FormHelper

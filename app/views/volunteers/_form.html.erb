@@ -12,19 +12,7 @@
         <div class="row">
           <%= f.association :nationality, wrapper_html: { class: 'col-md-4' } %>
           <%= f.input :gender, wrapper_html: { class: 'col-md-4' } %>
-          <% if f.object.new_record? || f.object.birth_date.nil? %>
-            
-              <%= f.input :birth_date, as: :string, input_html: {class: "datepicker",
-                                                          placeholder: "dd/mm/aaaa",
-                                                          data: {mask: '99/99/9999'} },
-                                                    wrapper_html: { class: 'col-md-4' } %>
-          <% else %>
-              <%= f.input :birth_date, as: :string, input_html: {class: "datepicker",
-                                                          placeholder: "dd/mm/aaaa",
-                                                          value: f.object.birth_date.strftime('%d/%m/%Y'),
-                                                          data: {mask: '99/99/9999'} },
-                                                    wrapper_html: { class: 'col-md-4' } %>
-          <% end %>
+          <%= f.input :birth_date, as: :string, input_html: date_input_html(f.object.birth_date), wrapper_html: { class: 'col-md-4' } %>
         </div>
       </div>
     </div>
