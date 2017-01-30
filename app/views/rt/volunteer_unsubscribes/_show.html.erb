@@ -26,6 +26,8 @@
   <dd><%= @rt_activity_publishing.town %></dd>
   <dt><%= Rt::ActivityPublishing.human_attribute_name(:province) %>:</dt>
   <dd><%= @rt_activity_publishing.province %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:notes) %>:</dt>
+  <dd><%= @rt_activity_publishing.notes %></dd>
   <dt><%= Rt::ActivityPublishing.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@rt_activity_publishing.created_at) %></dd>
 
