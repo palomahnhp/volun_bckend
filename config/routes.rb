@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :provinces
   resources :record_histories, concerns: :recoverable
   resources :notice_types
+  resources :unsubscribe_levels
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable

@@ -27,6 +27,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :record_histories      => [:user_id, :recordable_id, :recordable_type, :recordable_changed_at],
     :events                => [:address_id, :eventable_id, :eventable_type],
     :event_types           => [:kind],
+    :unsubscribe_levels    => [:kind],
     :timetables            => [:event_id, :execution_date, :start_hour, :end_hour],
     :volunteers            => [:name, :last_name, :address_id],
     :volun_availabilities  => [:volunteer_id, :day],

@@ -105,7 +105,7 @@ MODELS_AND_ATTRS = {
 
   'Motivation'  => 'name active',
 
-  'Sector'      => 'name active',
+  'Sepor eso te digo que no se deben dejar crear tipos de proyecto, ctor'      => 'name active',
 
   'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references active:boolean',
 
@@ -122,12 +122,12 @@ MODELS_AND_ATTRS = {
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
+  'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
   'RejectionType'             => 'name:string:uniq description:text active:boolean',
-
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references status:integer status_date:datetime rejection_type:references request_reason:references comments:text',
   'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email road_type:references road_name number_type road_number postal_code borough district:references town province:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean info_source:references other_academic_info:text profession:references notes:text',
-  'Rt::VolunteerUnsubscribe'  => 'level:integer notes:text',
+  'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
   'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough district:references town province:references phone_number phone_number_alt email notes:text',
   'Rt::VolunteerAppointment'  => 'notes:text',
   'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean entity_type:references comments:text other_subscribe_reason:text road_type:references road_name number_type road_number postal_code borough district:references town province:references notes:text',
@@ -200,6 +200,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :record_histories      => [:user_id, :recordable_id, :recordable_type, :recordable_changed_at],
     :events                => [:address_id, :eventable_id, :eventable_type],
     :event_types           => [:kind],
+    :unsubscribe_levels    => [:kind],
     :timetables            => [:event_id, :execution_date, :start_hour, :end_hour],
     :volunteers            => [:name, :last_name, :address_id],
     :volun_availabilities  => [:volunteer_id, :day],
