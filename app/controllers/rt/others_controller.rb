@@ -14,6 +14,7 @@ class Rt::OthersController < ApplicationController
   def show
     respond_with(@rt_other) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

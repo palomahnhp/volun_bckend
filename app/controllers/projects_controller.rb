@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
   def show
     respond_with(@project) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

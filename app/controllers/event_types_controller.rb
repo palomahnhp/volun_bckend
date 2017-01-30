@@ -14,6 +14,7 @@ class EventTypesController < ApplicationController
   def show
     respond_with(@event_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

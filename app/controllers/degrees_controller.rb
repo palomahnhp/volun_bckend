@@ -14,6 +14,7 @@ class DegreesController < ApplicationController
   def show
     respond_with(@degree) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class DegreesController < ApplicationController
 
   def destroy
     @degree.destroy
+    respond_with(@degree)
+  end
+
+  def recover
+    @degree.recover
     respond_with(@degree)
   end
 

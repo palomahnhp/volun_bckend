@@ -14,6 +14,7 @@ class DegreeTypesController < ApplicationController
   def show
     respond_with(@degree_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

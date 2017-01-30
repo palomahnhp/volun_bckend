@@ -5,21 +5,21 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  resources :traits
+  resources :traits, concerns: :recoverable
   resources :contact_results
-  resources :tracking_types
+  resources :tracking_types, concerns: :recoverable
   resources :language_levels
   resources :languages
   resources :professions
   resources :skills
   resources :profiles
   resources :managers
-  resources :unsubscribe_reasons
+  resources :unsubscribe_reasons, concerns: :recoverable
   resources :academic_levels
-  resources :degrees
+  resources :degrees, concerns: :recoverable
   resources :employment_statuses
   resources :statuses
-  resources :nationalities
+  resources :nationalities, concerns: :recoverable
   resources :id_number_types
   resources :proposals
   resources :links
@@ -31,7 +31,7 @@ Rails.application.routes.draw do
   resources :districts
   resources :road_types
   resources :provinces
-  resources :record_histories
+  resources :record_histories, concerns: :recoverable
   resources :notice_types
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
@@ -62,7 +62,7 @@ Rails.application.routes.draw do
   # RequestForm related routes
   resources :request_reasons
   resources :request_reasons
-  resources :rejection_types
+  resources :rejection_types, concerns: :recoverable
   resources :request_types
   resources :request_forms, concerns: :recoverable do
     get 'rt_extensions_menu', on: :collection

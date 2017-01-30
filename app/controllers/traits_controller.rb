@@ -14,6 +14,7 @@ class TraitsController < ApplicationController
   def show
     respond_with(@trait) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class TraitsController < ApplicationController
 
   def destroy
     @trait.destroy
+    respond_with(@trait)
+  end
+
+  def recover
+    @trait.recover
     respond_with(@trait)
   end
 

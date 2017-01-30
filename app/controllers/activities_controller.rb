@@ -14,6 +14,7 @@ class ActivitiesController < ApplicationController
   def show
     respond_with(@activity) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

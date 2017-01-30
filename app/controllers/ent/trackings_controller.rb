@@ -14,6 +14,7 @@ class Ent::TrackingsController < ApplicationController
   def show
     respond_with(@ent_tracking) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

@@ -14,6 +14,7 @@ class CoordinationsController < ApplicationController
   def show
     respond_with(@coordination) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class CoordinationsController < ApplicationController
 
   def destroy
     @coordination.destroy
+    respond_with(@coordination)
+  end
+
+  def recover
+    @coordination.recover
     respond_with(@coordination)
   end
 

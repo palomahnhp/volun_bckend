@@ -14,6 +14,7 @@ class Rt::ActivityPublishingsController < ApplicationController
   def show
     respond_with(@rt_activity_publishing) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

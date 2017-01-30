@@ -14,6 +14,7 @@ class ProvincesController < ApplicationController
   def show
     respond_with(@province) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

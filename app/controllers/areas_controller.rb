@@ -14,6 +14,7 @@ class AreasController < ApplicationController
   def show
     respond_with(@area) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class AreasController < ApplicationController
 
   def destroy
     @area.destroy
+    respond_with(@area)
+  end
+
+  def recover
+    @area.recover
     respond_with(@area)
   end
 

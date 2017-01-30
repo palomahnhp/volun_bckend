@@ -107,7 +107,7 @@ MODELS_AND_ATTRS = {
 
   'Sector'      => 'name active',
 
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references',
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references active:boolean',
 
 
   # 1:N
@@ -171,6 +171,86 @@ JOINED_TABLES = [
 ]
 
 MANUAL_MIGRATIONS = {
+  :add_not_null_constraint_to_columns => %q(
+class AddNotNullConstraintToColumns < ActiveRecord::Migration
+
+  NOT_NULL_COLUMNS = {
+    :users                 => [:notice_type_id],
+    :ent_trackings         => [:tracking_type_id, :entity_id, :tracked_at],
+    :project_types         => [:kind, :description, :active],
+    :projects              => [:name,
+                               :description,
+                               :execution_start_date,
+                               :contact_name,
+                               :contact_last_name,
+                               :phone_number,
+                               :email,
+                               :project_type_id,
+                               :entity_id,
+                               :active],
+    :entities              => [:name,
+                               :email,
+                               :representative_name,
+                               :representative_last_name,
+                               :contact_name,
+                               :contact_last_name,
+                               :entity_type_id,
+                               :address_id],
+    :activities            => [:name, :description, :start_date, :transport],
+    :record_histories      => [:user_id, :recordable_id, :recordable_type, :recordable_changed_at],
+    :events                => [:address_id, :eventable_id, :eventable_type],
+    :event_types           => [:kind],
+    :timetables            => [:event_id, :execution_date, :start_hour, :end_hour],
+    :volunteers            => [:name, :last_name, :address_id],
+    :volun_availabilities  => [:volunteer_id, :day],
+    :volun_known_languages => [:volunteer_id, :language_id, :language_level_id],
+    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracking_date],
+    :volun_contacts        => [:volunteer_id,
+                               :contact_result_id,
+                               :project_id,
+                               :manager_id,
+                               :contact_date],
+    :volun_assessments     => [:volunteer_id, :trait_id, :project_id, :assessment],
+    :academic_levels       => [:name, :active, :educational_type],
+    :id_number_types       => [:name, :active],
+    :nationalities         => [:name, :active],
+    :statuses              => [:name, :active],
+    :employment_statuses   => [:name, :active],
+    :degrees               => [:name, :active],
+    :unsubscribe_reasons   => [:name, :active],
+    :managers              => [:name, :active],
+    :profiles              => [:name, :active],
+    :info_sources          => [:name, :active],
+    :skills                => [:name, :active],
+    :professions           => [:name, :active],
+    :languages             => [:name, :active],
+    :language_levels       => [:name, :active],
+    :tracking_types        => [:name, :active],
+    :contact_results       => [:name, :active],
+    :traits                => [:name, :active],
+    :areas                 => [:name, :active],
+    :collectives           => [:name, :active],
+    :coordinations         => [:name, :active],
+    :rejection_types       => [:kind, :active]
+  }
+
+  def up
+    NOT_NULL_COLUMNS.each do |table, columns|
+      columns.each do |column|
+        change_column_null table, column, false
+      end
+    end
+  end
+
+  def down
+    NOT_NULL_COLUMNS.each do |table, columns|
+      columns.each do |column|
+        change_column_null table, column, true
+      end
+    end
+  end
+end
+),
   # Projects and ProjectTypes
   :add_kind_constraint_to_project_types => %q(
 class AddKindConstraintToProjectTypes < ActiveRecord::Migration
@@ -447,7 +527,7 @@ namespace :scaffold do
   task create_user: :environment do
     # Generate scaffold for User model
     sh 'bundle exec rails generate scaffold NoticeType kind:integer:uniq description:text active:boolean'
-    sh 'bundle exec rails generate scaffold User login locale notice_type:references loggable:references{polymorphic} active:boolean'
+    sh 'bundle exec rails generate scaffold User login locale notice_type:references loggable:references{polymorphic}'
 
     # Add devise attrs to User model
     sh 'bundle exec rails generate devise User --skip'
@@ -459,6 +539,7 @@ namespace :scaffold do
 
     # Destroy scaffold for user
     sh 'bundle exec rails destroy scaffold User --skip'
+    sh 'bundle exec rails destroy scaffold NoticeType'
 
     # Destroy devise scaffold for user
     sh 'rm -f db/migrate/*_devise_*.rb'

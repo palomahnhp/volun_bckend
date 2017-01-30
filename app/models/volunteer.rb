@@ -1,5 +1,7 @@
 class Volunteer < ActiveRecord::Base
 
+  include Archivable
+
   enum gender: [:male, :female]
 
   belongs_to :academic_level
@@ -24,16 +26,11 @@ class Volunteer < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   validates :name, :last_name, :id_number, presence: true
-  validates :id_number, length: { minimum: 9, maximum: 9 }
-  validates :phone_number, format: { with: /[6|7]\d{8}/ }, allow_blank: true
-  validates :phone_number_alt, format: { with: /[8|9]\d{8}/ }, allow_blank: true
+  validates :id_number, :phone_number, :phone_number_alt, length: { minimum: 9, maximum: 9 }
+  validates :phone_number, :phone_number_alt, format: { with: /\d{9}/ }
   validates :id_number, format: { with: /[\w\d]{9}/i }
-  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_blank: true
-  validates :birth_date, inclusion: { in: (150.years.ago..Date.today-1), message: I18n.t('volun_birth_date_error'), allow_blank: true }
-  validates :availability_date, inclusion: { in: (Date.today+1..Date.today+150.years), message: I18n.t('volun_availability_date_error'), allow_blank: true }, unless: ->(o) { o.available == true }
-  validates :agreement_date, presence: {message: I18n.t('volun_agreement_date_error')}, if: ->(o) { o.agreement == true }
-  validates :subscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years), message: I18n.t('volun_subscribe_date_error'), allow_blank: true }
-  validates :unsubscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years), message: I18n.t('volun_unsubscribe_date_error'), allow_blank: true }
+  validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+
 
   def self.main_columns
     %i(name last_name last_name_alt email gender)

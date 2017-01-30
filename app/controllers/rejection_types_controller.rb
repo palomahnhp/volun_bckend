@@ -14,6 +14,7 @@ class RejectionTypesController < ApplicationController
   def show
     respond_with(@rejection_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class RejectionTypesController < ApplicationController
 
   def destroy
     @rejection_type.destroy
+    respond_with(@rejection_type)
+  end
+
+  def recover
+    @rejection_type.recover
     respond_with(@rejection_type)
   end
 

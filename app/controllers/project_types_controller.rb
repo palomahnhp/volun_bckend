@@ -14,6 +14,7 @@ class ProjectTypesController < ApplicationController
   def show
     respond_with(@project_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class ProjectTypesController < ApplicationController
 
   def destroy
     @project_type.destroy
+    respond_with(@project_type)
+  end
+
+  def recover
+    @project_type.recover
     respond_with(@project_type)
   end
 

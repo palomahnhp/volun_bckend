@@ -14,6 +14,7 @@ class AddressesController < ApplicationController
   def show
     respond_with(@address) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

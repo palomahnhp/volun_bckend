@@ -14,6 +14,7 @@ class Volun::ContactsController < ApplicationController
   def show
     respond_with(@volun_contact) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -48,7 +49,7 @@ class Volun::ContactsController < ApplicationController
           :volunteer_id,
           :contact_result_id,
           :project_id,
-          :technician_id,
+          :manager_id,
           :contact_date,
           :comments
         )

@@ -14,6 +14,7 @@ class CollectivesController < ApplicationController
   def show
     respond_with(@collective) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class CollectivesController < ApplicationController
 
   def destroy
     @collective.destroy
+    respond_with(@collective)
+  end
+
+  def recover
+    @collective.recover
     respond_with(@collective)
   end
 

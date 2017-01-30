@@ -14,6 +14,7 @@ class InfoSourcesController < ApplicationController
   def show
     respond_with(@info_source) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

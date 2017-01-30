@@ -14,6 +14,7 @@ class RequestReasonsController < ApplicationController
   def show
     respond_with(@request_reason) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

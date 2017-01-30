@@ -5,6 +5,7 @@ class Area < ActiveRecord::Base
   has_many :activities
 
   validates :name, uniqueness: true
+  validates :name, presence: true
 
   def self.main_columns
     [:id, :name, :active]

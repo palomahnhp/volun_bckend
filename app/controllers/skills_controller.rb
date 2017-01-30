@@ -14,6 +14,7 @@ class SkillsController < ApplicationController
   def show
     respond_with(@skill) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

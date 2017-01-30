@@ -6,6 +6,7 @@ class Coordination < ActiveRecord::Base
   has_and_belongs_to_many :projects
 
   validates :name, uniqueness: true
+  validates :name, presence: true
 
   def self.main_columns
     [:id, :name, :active]

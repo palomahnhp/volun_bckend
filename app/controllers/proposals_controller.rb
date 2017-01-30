@@ -14,6 +14,7 @@ class ProposalsController < ApplicationController
   def show
     respond_with(@proposal) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

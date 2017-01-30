@@ -14,6 +14,7 @@ class Pt::SubventionsController < ApplicationController
   def show
     respond_with(@pt_subvention) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

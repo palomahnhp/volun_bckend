@@ -14,6 +14,7 @@ class TrackingTypesController < ApplicationController
   def show
     respond_with(@tracking_type) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class TrackingTypesController < ApplicationController
 
   def destroy
     @tracking_type.destroy
+    respond_with(@tracking_type)
+  end
+
+  def recover
+    @tracking_type.recover
     respond_with(@tracking_type)
   end
 

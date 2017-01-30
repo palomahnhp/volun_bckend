@@ -14,6 +14,7 @@ class Volun::AvailabilitiesController < ApplicationController
   def show
     respond_with(@volun_availability) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

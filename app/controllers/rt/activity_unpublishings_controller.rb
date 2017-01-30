@@ -14,6 +14,7 @@ class Rt::ActivityUnpublishingsController < ApplicationController
   def show
     respond_with(@rt_activity_unpublishing) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

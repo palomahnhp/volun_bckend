@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
 
   belongs_to :pt_extendable, polymorphic: true
   belongs_to :project_type, required: true
-  belongs_to :entity
+  belongs_to :entity, required: true
   has_and_belongs_to_many :volunteers
   has_and_belongs_to_many :areas, -> { order('areas.name asc') }
   has_and_belongs_to_many :collectives, -> { order('collectives.name asc') }
@@ -22,11 +22,11 @@ class Project < ActiveRecord::Base
 
   accepts_nested_attributes_for :documents,  allow_destroy: true
   accepts_nested_attributes_for :pt_extendable
-  accepts_nested_attributes_for :events
+  accepts_nested_attributes_for :events, reject_if: :all_blank
 
   validates :name, uniqueness: true
-  validates :name, :entity_id, :description, :execution_start_date, :contact_name,
-            :phone_number, :email, presence: true
+  validates :name, :description, :execution_start_date, :contact_name, :contact_last_name,
+            :phone_number, :email, :active, :project_type_id, :entity_id, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
 
   scope :list, ->(){

@@ -14,6 +14,7 @@ class RequestFormsController < ApplicationController
   def show
     respond_with(@request_form) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 

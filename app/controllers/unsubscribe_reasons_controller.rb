@@ -14,6 +14,7 @@ class UnsubscribeReasonsController < ApplicationController
   def show
     respond_with(@unsubscribe_reason) do |format|
       format.js { render 'shared/popup' }
+      format.html
     end
   end
 
@@ -37,6 +38,11 @@ class UnsubscribeReasonsController < ApplicationController
 
   def destroy
     @unsubscribe_reason.destroy
+    respond_with(@unsubscribe_reason)
+  end
+
+  def recover
+    @unsubscribe_reason.recover
     respond_with(@unsubscribe_reason)
   end
 
