@@ -18,6 +18,7 @@ class CreateRtVolunteersDemands < ActiveRecord::Migration
       t.text :volunteer_functions_1
       t.text :volunteer_functions_2
       t.text :volunteer_functions_3
+      t.text :notes
 
       t.timestamps null: false
     end

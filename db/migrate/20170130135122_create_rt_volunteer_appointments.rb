@@ -1,7 +1,7 @@
 class CreateRtVolunteerAppointments < ActiveRecord::Migration
   def change
     create_table :rt_volunteer_appointments do |t|
-      t.text :reason
+      t.text :notes
 
       t.timestamps null: false
     end

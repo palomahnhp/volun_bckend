@@ -11,6 +11,7 @@ class CreatePtEntities < ActiveRecord::Migration
       t.boolean :agreement_signed, default: false
       t.date :agreement_date
       t.boolean :prevailing, default: false
+      t.text :notes
 
       t.timestamps null: false
     end

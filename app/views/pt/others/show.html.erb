@@ -1,0 +1,16 @@
+<%= main_title(t("action.show", model: PtOther.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= PtOther.human_attribute_name(:id) %>:</dt>
+  <dd><%= @pt_other.id %></dd>
+  <dt><%= PtOther.human_attribute_name(:notes) %>:</dt>
+  <dd><%= @pt_other.notes %></dd>
+  <dt><%= PtOther.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@pt_other.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@pt_other) %>
+<% end %>

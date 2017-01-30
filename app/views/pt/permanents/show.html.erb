@@ -1,0 +1,16 @@
+<%= main_title(t("action.show", model: PtPermanent.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= PtPermanent.human_attribute_name(:id) %>:</dt>
+  <dd><%= @pt_permanent.id %></dd>
+  <dt><%= PtPermanent.human_attribute_name(:notes) %>:</dt>
+  <dd><%= @pt_permanent.notes %></dd>
+  <dt><%= PtPermanent.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@pt_permanent.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@pt_permanent) %>
+<% end %>

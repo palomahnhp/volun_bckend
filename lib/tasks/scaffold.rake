@@ -55,13 +55,13 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references',
-
-  # -------------------------------------------------
-
-  'Pt::Entity' => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean',
-
-  # -------------------------------------------------
+  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references notes:text',
+  'Pt::Entity'     => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean notes:text',
+  'Pt::Punctual'   => 'notes:text',
+  'Pt::Permanent'  => 'notes:text',
+  'Pt::Centre'     => 'notes:text',
+  'Pt::Social'     => 'notes:text',
+  'Pt::Other'      => 'notes:text',
 
   # --------------------------------------------------------------------------------------------------
   # Volunteer Tables
@@ -111,7 +111,7 @@ MODELS_AND_ATTRS = {
 
 
   # 1:N
-  'Volun::Availability' => 'volunteer:references day:string start_hour:string end_hour:string',
+  'Volun::Availability' => 'volunteer:references day:integer start_hour:string end_hour:string',
 
   # N:N
   'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references manager:references tracking_date:datetime comments:text',
@@ -122,22 +122,22 @@ MODELS_AND_ATTRS = {
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
-  'RejectionType' => 'kind:integer:uniq description:text active:boolean',
+  'RejectionType'             => 'name:string:uniq description:text active:boolean',
 
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references status:integer status_date:datetime rejection_type:references request_reason:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email road_type:references road_name number_type road_number postal_code borough district:references town province:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean info_source:references other_academic_info:text profession:references',
-  'Rt::VolunteerUnsubscribe'  => 'level:integer reason:text',
+  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email road_type:references road_name number_type road_number postal_code borough district:references town province:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean info_source:references other_academic_info:text profession:references notes:text',
+  'Rt::VolunteerUnsubscribe'  => 'level:integer notes:text',
   'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough district:references town province:references phone_number phone_number_alt email',
-  'Rt::VolunteerAppointment'  => 'reason:text',
-  'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean entity_type:references comments:text other_subscribe_reason:text road_type:references road_name number_type road_number postal_code borough district:references town province:references',
-  'Rt::EntityUnsubscribe'     => 'reason:text',
-  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type:references road_name number_type road_number postal_code borough district:references town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text',
+  'Rt::VolunteerAppointment'  => 'notes:text',
+  'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean entity_type:references comments:text other_subscribe_reason:text road_type:references road_name number_type road_number postal_code borough district:references town province:references notes:text',
+  'Rt::EntityUnsubscribe'     => 'notes:text',
+  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type:references road_name number_type road_number postal_code borough district:references town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text notes:text',
   'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code borough district:references town province:references',
-  'Rt::ProjectUnpublishing'   => 'reason:text',
-  'Rt::ProjectUnsubscribe'    => 'project:references reason:text',
+  'Rt::ProjectUnpublishing'   => 'notes:text',
+  'Rt::ProjectUnsubscribe'    => 'project:references notes:text',
   'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type:references road_name number_type road_number postal_code borough district:references town province:references project:references',
-  'Rt::ActivityUnpublishing'  => 'reason:text',
+  'Rt::ActivityUnpublishing'  => 'notes:text',
   'Rt::Other'                 => 'description:text',
 
 
@@ -231,7 +231,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :areas                 => [:name, :active],
     :collectives           => [:name, :active],
     :coordinations         => [:name, :active],
-    :rejection_types       => [:kind, :active]
+    :rejection_types       => [:name, :active]
   }
 
   def up
@@ -291,13 +291,13 @@ class AddPtExtendableConstraintToProjects < ActiveRecord::Migration
       ADD CONSTRAINT
         pt_extendable_must_be_consistent
         CHECK (
-          (project_type_id = #{ProjectType.kinds[:pt_social]}     AND pt_extendable_type IS NULL) OR
-          (project_type_id = #{ProjectType.kinds[:pt_centre]}     AND pt_extendable_type IS NULL) OR
-          (project_type_id = #{ProjectType.kinds[:pt_permanent]}  AND pt_extendable_type IS NULL) OR
-          (project_type_id = #{ProjectType.kinds[:pt_punctual]}   AND pt_extendable_type IS NULL) OR
-          (project_type_id = #{ProjectType.kinds[:pt_entity]}     AND pt_extendable_type = '#{Pt::Entity.name}') OR
+          (project_type_id = #{ProjectType.kinds[:pt_social]}     AND pt_extendable_type = '#{Pt::Social.name}')     OR
+          (project_type_id = #{ProjectType.kinds[:pt_centre]}     AND pt_extendable_type = '#{Pt::Centre.name}')     OR
+          (project_type_id = #{ProjectType.kinds[:pt_permanent]}  AND pt_extendable_type = '#{Pt::Permanent.name}')  OR
+          (project_type_id = #{ProjectType.kinds[:pt_punctual]}   AND pt_extendable_type = '#{Pt::Punctual.name}')   OR
+          (project_type_id = #{ProjectType.kinds[:pt_entity]}     AND pt_extendable_type = '#{Pt::Entity.name}')     OR
           (project_type_id = #{ProjectType.kinds[:pt_subvention]} AND pt_extendable_type = '#{Pt::Subvention.name}') OR
-          (project_type_id = #{ProjectType.kinds[:pt_other]}      AND pt_extendable_type IS NULL)
+          (project_type_id = #{ProjectType.kinds[:pt_other]}      AND pt_extendable_type = '#{Pt::Other.name}')
         )
     }
   end

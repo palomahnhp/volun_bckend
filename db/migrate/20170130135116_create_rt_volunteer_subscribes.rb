@@ -39,6 +39,7 @@ class CreateRtVolunteerSubscribes < ActiveRecord::Migration
       t.references :info_source, index: true, foreign_key: true
       t.text :other_academic_info
       t.references :profession, index: true, foreign_key: true
+      t.text :notes
 
       t.timestamps null: false
     end

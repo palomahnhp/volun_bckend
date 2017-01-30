@@ -58,7 +58,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :areas                 => [:name, :active],
     :collectives           => [:name, :active],
     :coordinations         => [:name, :active],
-    :rejection_types       => [:kind, :active]
+    :rejection_types       => [:name, :active]
   }
 
   def up

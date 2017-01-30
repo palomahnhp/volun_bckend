@@ -14,6 +14,7 @@ class CreatePtSubventions < ActiveRecord::Migration
       t.integer :participants_num
       t.boolean :has_quality_evaluation, default: false
       t.references :proposal, index: true, foreign_key: true
+      t.text :notes
 
       t.timestamps null: false
     end

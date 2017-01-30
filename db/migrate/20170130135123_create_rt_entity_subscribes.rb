@@ -27,6 +27,7 @@ class CreateRtEntitySubscribes < ActiveRecord::Migration
       t.references :district, index: true, foreign_key: true
       t.string :town
       t.references :province, index: true, foreign_key: true
+      t.text :notes
 
       t.timestamps null: false
     end

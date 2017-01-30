@@ -93,8 +93,13 @@ Rails.application.routes.draw do
     resources :trackings
   end
   namespace :pt do
+    resources :socials
+    resources :centres
+    resources :permanents
+    resources :punctuals
     resources :entities
     resources :subventions
+    resources :others
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
