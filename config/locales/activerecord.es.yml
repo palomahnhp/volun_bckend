@@ -358,3 +358,4 @@ es:
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
         pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
         rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"
+        invalid_volun_birth_date: "no puede ser posterior a la fecha actual"

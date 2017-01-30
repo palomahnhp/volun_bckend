@@ -31,7 +31,9 @@ class Volunteer < ActiveRecord::Base
   validates :phone_number_alt, format: { with: /[8|9]\d{8}/ }, allow_blank: true
   validates :id_number, format: { with: /[\w\d]{9}/i }
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_blank: true
-  validates :birth_date, inclusion: { in: (150.years.ago..Date.today-1), message: I18n.t('volun_birth_date_error'), allow_blank: true }
+  validates :birth_date, inclusion: { in: (150.years.ago..Date.today-1),
+                                      message: I18n.t('activerecord.errors.messages.invalid_volun_birth_date'),
+                                      allow_blank: true }
   validates :availability_date, inclusion: { in: (Date.today+1..Date.today+150.years), message: I18n.t('volun_availability_date_error'), allow_blank: true }, unless: 'available?'
   validates :agreement_date, presence: {message: I18n.t('volun_agreement_date_error')}, if: 'agreement?'
   validates :subscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years), message: I18n.t('volun_subscribe_date_error'), allow_blank: true }
