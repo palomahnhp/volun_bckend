@@ -145,13 +145,13 @@ es:
       district:
         code:        Código
         name:        Nombre
-        created_at : Fecha de creación
+        created_at : &created_at Fecha de creación
       project_type:
         id:          ID
         kind:        Nombre
         description: Descripción
         active:      Activo
-        created_at : Fecha de creación
+        created_at : *created_at
       area:
         id:          ID
         name:        Denominación
