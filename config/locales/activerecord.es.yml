@@ -362,3 +362,4 @@ es:
         invalid_volun_availability_date: El formato de fecha debe ser válido y la fecha de disponibilidad debe ser posterior a la actual, en caso contrario, marque la casilla "Disponible"
         invalid_volun_agreement_date: El formato de fecha debe ser válido y debe especificar una fecha de acuerdo si esta marcada la casilla "Acuerdo de colaboración"
         invalid_volun_subscribe_dates: El formato de fecha debe ser válido
+        unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
