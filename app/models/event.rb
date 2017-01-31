@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
 
-  belongs_to :eventable, polymorphic: true, required: true
+  belongs_to :eventable, polymorphic: true #, required: true
   belongs_to :address, required: true
   has_many :timetables
 
