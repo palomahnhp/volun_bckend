@@ -8,4 +8,8 @@ class User < ActiveRecord::Base
 
   validates :notice_type_id, presence: true
 
+  def to_s
+    login || email
+  end
+
 end

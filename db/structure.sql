@@ -2214,7 +2214,6 @@ CREATE TABLE rt_volunteer_subscribes (
     available boolean DEFAULT false,
     availability_date date,
     academic_level_id integer,
-    comments text,
     expectations text,
     agreement boolean DEFAULT false,
     agreement_date timestamp without time zone,

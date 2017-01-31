@@ -27,7 +27,6 @@ class CreateRtVolunteerSubscribes < ActiveRecord::Migration
       t.boolean :available, default: false
       t.date :availability_date
       t.references :academic_level, index: true, foreign_key: true
-      t.text :comments
       t.text :expectations
       t.boolean :agreement, default: false
       t.datetime :agreement_date
