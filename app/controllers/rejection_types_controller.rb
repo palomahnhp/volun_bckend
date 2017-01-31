@@ -49,6 +49,6 @@ class RejectionTypesController < ApplicationController
   protected
 
     def rejection_type_params
-      params.require(:rejection_type).permit(:kind, :description, :active)
+      params.require(:rejection_type).permit(:name, :description, :active)
     end
 end
