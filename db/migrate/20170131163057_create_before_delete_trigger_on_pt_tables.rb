@@ -14,9 +14,9 @@ class CreateBeforeDeleteTriggerOnPtTables < ActiveRecord::Migration
   def up
     execute %{
       CREATE FUNCTION check_project_references() RETURNS trigger AS $check_project_references$
-      DECLARE
-          total integer;
-          pt_model_name text;
+          DECLARE
+              total integer;
+              pt_model_name text;
           BEGIN
               total:= 0;
               pt_model_name := TG_ARGV[0];
