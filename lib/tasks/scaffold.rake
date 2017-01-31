@@ -105,7 +105,7 @@ MODELS_AND_ATTRS = {
 
   'Motivation'  => 'name active',
 
-  'Sepor eso te digo que no se deben dejar crear tipos de proyecto, ctor'      => 'name active',
+  'Sector'      => 'name active',
 
   'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references active:boolean',
 
@@ -389,34 +389,34 @@ end
   # Events and EventTypes
 
   :add_kind_constraint_to_event_types => %q(
-  class AddKindConstraintToEventTypes < ActiveRecord::Migration
-    def up
-      execute %{
-      ALTER TABLE
-        event_types
-      ADD CONSTRAINT
-        kind_and_id_must_be_equal
-        CHECK (
-          (id = #{EventType.kinds[:activity]} AND kind = #{EventType.kinds[:activity]}) OR
-          (id = #{EventType.kinds[:project]}  AND kind = #{EventType.kinds[:project]})
-        )
-    }
-    end
-
-    def down
-      execute %{
-      ALTER TABLE
-        event_types
-      DROP CONSTRAINT
-        kind_and_id_must_be_equal
-    }
-    end
+class AddKindConstraintToEventTypes < ActiveRecord::Migration
+  def up
+    execute %{
+    ALTER TABLE
+      event_types
+    ADD CONSTRAINT
+      kind_and_id_must_be_equal
+      CHECK (
+        (id = #{EventType.kinds[:activity]} AND kind = #{EventType.kinds[:activity]}) OR
+        (id = #{EventType.kinds[:project]}  AND kind = #{EventType.kinds[:project]})
+      )
+  }
   end
+
+  def down
+    execute %{
+    ALTER TABLE
+      event_types
+    DROP CONSTRAINT
+      kind_and_id_must_be_equal
+  }
+  end
+end
 ),
   :add_eventable_constraint_to_events => %q(
-    class AddEventableConstraintToEvents < ActiveRecord::Migration
-      def up
-        execute %{
+class AddEventableConstraintToEvents < ActiveRecord::Migration
+  def up
+    execute %{
       ALTER TABLE
         events
       ADD CONSTRAINT
@@ -426,17 +426,137 @@ end
           (event_type_id = #{EventType.kinds[:project]}  AND eventable_type = '#{Project.name}')
         )
     }
-      end
+  end
 
-      def down
-        execute %{
+  def down
+    execute %{
       ALTER TABLE
         events
       DROP CONSTRAINT
         eventable_must_be_consistent
     }
-      end
+  end
+end
+),
+  :create_before_delete_trigger_on_pt_tables => %q(
+class CreateBeforeDeleteTriggerOnPtTables < ActiveRecord::Migration
+
+  PT_MODELS = [
+    Pt::Social,
+    Pt::Centre,
+    Pt::Permanent,
+    Pt::Punctual,
+    Pt::Subvention,
+    Pt::Entity,
+    Pt::Other
+  ]
+
+  def up
+    execute %{
+      CREATE FUNCTION check_project_references() RETURNS trigger AS $check_project_references$
+      DECLARE
+          total integer;
+          pt_model_name text;
+          BEGIN
+              total:= 0;
+              pt_model_name := TG_ARGV[0];
+
+              -- If any reference exists then total is set to 1
+              SELECT 1 into total
+              FROM projects
+              WHERE pt_extendable_type = pt_model_name AND pt_extendable_id = OLD.id;
+
+              IF total > 0 THEN
+                  RAISE EXCEPTION 'cannot delete a referenced extendable record';
+              END IF;
+              RETURN NULL;
+          END;
+      $check_project_references$ LANGUAGE plpgsql;
+    }
+
+    PT_MODELS.each do |pt_model|
+      execute %{
+        CREATE TRIGGER check_project_references BEFORE DELETE ON #{pt_model.table_name}
+        FOR EACH ROW EXECUTE PROCEDURE check_project_references("#{pt_model.name}");
+      }
     end
+  end
+
+  def down
+    PT_MODELS.each do |pt_model|
+      execute %{
+        DROP TRIGGER check_project_references ON #{pt_model.table_name};
+      }
+    end
+
+    execute %{
+      DROP FUNCTION check_project_references();
+    }
+  end
+end
+),
+  :create_before_delete_trigger_on_rt_tables => %q(
+class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
+
+  RT_MODELS = [
+    Rt::VolunteerSubscribe,
+    Rt::VolunteerUnsubscribe,
+    Rt::VolunteerAmendment,
+    Rt::VolunteerAppointment,
+    Rt::EntitySubscribe,
+    Rt::EntityUnsubscribe,
+    Rt::VolunteersDemand,
+    Rt::ProjectPublishing,
+    Rt::ProjectUnpublishing,
+    Rt::ProjectUnsubscribe,
+    Rt::ActivityPublishing,
+    Rt::ActivityUnpublishing,
+    Rt::Other
+  ]
+
+  def up
+    execute %{
+      CREATE FUNCTION check_request_form_references() RETURNS trigger AS $check_request_form_references$
+      DECLARE
+          total integer;
+          rt_model_name text;
+          BEGIN
+              total:= 0;
+              rt_model_name := TG_ARGV[0];
+
+              -- If any reference exists then total is set to 1
+              SELECT 1 into total
+              FROM projects
+              WHERE rt_extendable_type = rt_model_name AND rt_extendable_id = OLD.id;
+
+              IF total > 0 THEN
+                  RAISE EXCEPTION 'cannot delete a referenced extendable record';
+              END IF;
+              RETURN NULL;
+          END;
+      $check_request_form_references$ LANGUAGE plpgsql;
+    }
+
+    RT_MODELS.each do |rt_model|
+      execute %{
+        CREATE TRIGGER check_request_form_references BEFORE DELETE ON #{rt_model.table_name}
+        FOR EACH ROW EXECUTE PROCEDURE check_request_form_references("#{rt_model.name}");
+      }
+    end
+  end
+
+  def down
+    RT_MODELS.each do |rt_model|
+      execute %{
+        DROP TRIGGER check_request_form_references ON #{rt_model.table_name};
+      }
+    end
+
+    execute %{
+      DROP FUNCTION check_request_form_references();
+    }
+  end
+end
 )
 }
 
@@ -513,7 +633,7 @@ namespace :scaffold do
   task build_manual_migrations: :environment do
     MANUAL_MIGRATIONS.each do |name, content|
       sh "bundle exec rails generate migration #{name}"
-      sh "echo \"#{content}\" > $(ls db/migrate/*#{name}.rb)"
+      sh "echo \"#{content.gsub('$','\$')}\" > $(ls db/migrate/*#{name}.rb)"
     end
   end
 
