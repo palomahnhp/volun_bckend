@@ -186,7 +186,7 @@ es:
         active:      Activo
       rejection_type:
         id:          ID
-        kind:        Tipo
+        name:        Nombre
         description: Motivo de rechazo
         active:      Activo
       collective:
