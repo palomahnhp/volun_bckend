@@ -145,25 +145,25 @@ es:
       district:
         code:        Código
         name:        Nombre
-        created_at : Fecha de creación
+        created_at : &created_at Fecha de creación
       project_type:
         id:          ID
         kind:        Nombre
         description: Descripción
         active:      Activo
-        created_at : Fecha de creación
+        created_at : *created_at
       area:
         id:          ID
         name:        Denominación
         description: Descripción
         active:      Activo
-        created_at : Fecha de creación
+        created_at : *created_at
       coordination:
         id:          ID
         name:        Denominación
         description: Descripción
         active:      Activo
-        created_at : Fecha de creación
+        created_at : *created_at
       nationality:
         id:          ID
         name:        Nacionalidad
@@ -186,7 +186,7 @@ es:
         active:      Activo
       rejection_type:
         id:          ID
-        kind:        Tipo
+        name:        Nombre
         description: Motivo de rechazo
         active:      Activo
       collective:
@@ -194,11 +194,11 @@ es:
         name:        Denominación
         description: Descripción
         active:      Activo
-        created_at : Fecha de creación
+        created_at : *created_at
       issue:
         name:        Título
         description: Descripción
-        created_at : Fecha de creación
+        created_at : *created_at
         project_id:  Proyecto
       record_history:
         id:                    ID
@@ -215,7 +215,7 @@ es:
         volunteers_allowed:     Admite voluntarios
         publish:                Publicitar
         outstanding:            Destacado
-        created_at:             Fecha creación
+        created_at:             *created_at
         functions:              Funciones del voluntario
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
@@ -287,7 +287,7 @@ es:
         execution_date:           Día de la semana
         start_hour:               Hora inicio
         end_hour:                 Hora fin
-        created_at:               Fecha de creación
+        created_at:               *created_at
         project_id:               ID del proyecto
       volunteer:
         name:                     Nombre
@@ -324,8 +324,8 @@ es:
         search_authorization:     Autorización consulta certificado de penales
         representative_statement: Declaración responsable
         has_driving_license:      Carnet de conducir
-        manager_id:            Técnico
-        manager:               Técnico
+        manager_id:               Técnico
+        manager:                  Técnico
         info_source_id:           Cómo conoció Voluntarios por Madrid
         info_source:              Cómo conoció Voluntarios por Madrid
         other_academic_info:      Otra formación
@@ -333,6 +333,8 @@ es:
         profession:               Profesión
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
+        created_at:               *created_at
+        updated_at:               Actualizado
       skill:
         name: Nombre
       id_number_type:
@@ -356,3 +358,8 @@ es:
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
         pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
         rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"
+        invalid_volun_birth_date: "La fecha debe tener un formato válido y no puede ser posterior a la fecha actual"
+        invalid_volun_availability_date: El formato de fecha debe ser válido y la fecha de disponibilidad debe ser posterior a la actual, en caso contrario, marque la casilla "Disponible"
+        invalid_volun_agreement_date: El formato de fecha debe ser válido y debe especificar una fecha de acuerdo si esta marcada la casilla "Acuerdo de colaboración"
+        invalid_volun_subscribe_dates: El formato de fecha debe ser válido
+        unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos

@@ -2,8 +2,8 @@ class RejectionType < ActiveRecord::Base
 
   include Archivable
 
-  validates :kind, uniqueness: true
-  validates :kind, presence: true
+  validates :name, uniqueness: true
+  validates :name, presence: true
 
 
 end

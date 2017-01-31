@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :provinces
   resources :record_histories, concerns: :recoverable
   resources :notice_types
+  resources :unsubscribe_levels
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable
@@ -93,8 +94,13 @@ Rails.application.routes.draw do
     resources :trackings
   end
   namespace :pt do
+    resources :socials
+    resources :centres
+    resources :permanents
+    resources :punctuals
     resources :entities
     resources :subventions
+    resources :others
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

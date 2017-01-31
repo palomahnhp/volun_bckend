@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(contact_result) %>" >
 
   <% contact_result.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(contact_result.public_send attr_name) %></td>
+  <td><%= show_attr(contact_result, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

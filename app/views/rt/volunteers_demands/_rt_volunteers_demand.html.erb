@@ -1,7 +1,7 @@
 <tr id="<%= dom_id(rt_volunteers_demand) %>" >
 
   <% rt_volunteers_demand.main_attributes.each do |attr_name| %>
-  <td><%= show_attr(rt_volunteers_demand.public_send attr_name) %></td>
+  <td><%= show_attr(rt_volunteers_demand, attr_name) %></td>
   <% end %>
 
   <td class="index_table-actions">

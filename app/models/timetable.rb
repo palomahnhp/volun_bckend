@@ -1,6 +1,6 @@
 class Timetable < ActiveRecord::Base
 
-  belongs_to :event, required: true
+  belongs_to :event #, required: true
 
   validates :execution_date, :start_hour, :end_hour, presence: true
   validates :start_hour, :end_hour, format: { with: /\A(?:(([01][0-9])|(2[0-4])):([0-5][0-9]))\z/ }
