@@ -1,12 +1,12 @@
-<%= main_title(t("action.show", model: PtPunctual.model_name.human)) %>
+<%= main_title(t("action.show", model: Pt::Punctual.model_name.human)) %>
 
 <dl class="dl-horizontal">
 
-  <dt><%= PtPunctual.human_attribute_name(:id) %>:</dt>
+  <dt><%= Pt::Punctual.human_attribute_name(:id) %>:</dt>
   <dd><%= @pt_punctual.id %></dd>
-  <dt><%= PtPunctual.human_attribute_name(:notes) %>:</dt>
+  <dt><%= Pt::Punctual.human_attribute_name(:notes) %>:</dt>
   <dd><%= @pt_punctual.notes %></dd>
-  <dt><%= PtPunctual.human_attribute_name(:created_at) %>:</dt>
+  <dt><%= Pt::Punctual.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@pt_punctual.created_at) %></dd>
 
 </dl>
