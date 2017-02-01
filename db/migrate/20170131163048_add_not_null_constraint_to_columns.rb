@@ -13,8 +13,11 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
                                :phone_number,
                                :email,
                                :project_type_id,
+                               :pt_extendable_id,
+                               :pt_extendable_type,
                                :entity_id,
                                :active],
+    :request_forms         => [:rt_extendable_id, :rt_extendable_type],
     :entities              => [:name,
                                :email,
                                :representative_name,
@@ -24,7 +27,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
                                :entity_type_id,
                                :address_id],
     :activities            => [:name, :description, :start_date, :transport],
-    :record_histories      => [:user_id, :recordable_id, :recordable_type, :recordable_changed_at],
+    :record_histories      => [:user_id, :recordable_id, :recordable_type],
     :events                => [:address_id, :eventable_id, :eventable_type],
     :event_types           => [:kind],
     :unsubscribe_levels    => [:kind],
@@ -78,4 +81,3 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     end
   end
 end
-
