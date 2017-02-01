@@ -36,14 +36,14 @@ SET search_path = public, pg_catalog;
 CREATE FUNCTION check_project_references() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-      DECLARE
-          total integer;
-          pt_model_name text;
+          DECLARE
+              total integer;
+              pt_model_name text;
           BEGIN
               total:= 0;
               pt_model_name := TG_ARGV[0];
 
-              -- If exists any reference then total is set to 1
+              -- If any reference exists then total is set to 1
               SELECT 1 into total
               FROM projects
               WHERE pt_extendable_type = pt_model_name AND pt_extendable_id = OLD.id;
@@ -63,14 +63,14 @@ CREATE FUNCTION check_project_references() RETURNS trigger
 CREATE FUNCTION check_request_form_references() RETURNS trigger
     LANGUAGE plpgsql
     AS $$
-      DECLARE
-          total integer;
-          rt_model_name text;
+          DECLARE
+              total integer;
+              rt_model_name text;
           BEGIN
               total:= 0;
               rt_model_name := TG_ARGV[0];
 
-              -- If exists any reference then total is set to 1
+              -- If any reference exists then total is set to 1
               SELECT 1 into total
               FROM projects
               WHERE rt_extendable_type = rt_model_name AND rt_extendable_id = OLD.id;
@@ -1312,8 +1312,8 @@ CREATE TABLE projects (
     outstanding boolean DEFAULT false,
     insurance_date date,
     project_type_id integer NOT NULL,
-    pt_extendable_id integer,
-    pt_extendable_type character varying,
+    pt_extendable_id integer NOT NULL,
+    pt_extendable_type character varying NOT NULL,
     entity_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -1664,7 +1664,7 @@ CREATE TABLE record_histories (
     user_id integer NOT NULL,
     recordable_id integer NOT NULL,
     recordable_type character varying NOT NULL,
-    recordable_changed_at timestamp without time zone NOT NULL,
+    recordable_changed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1729,8 +1729,8 @@ ALTER SEQUENCE rejection_types_id_seq OWNED BY rejection_types.id;
 CREATE TABLE request_forms (
     id integer NOT NULL,
     request_type_id integer,
-    rt_extendable_id integer,
-    rt_extendable_type character varying,
+    rt_extendable_id integer NOT NULL,
+    rt_extendable_type character varying NOT NULL,
     user_id integer,
     status integer,
     status_date timestamp without time zone,
