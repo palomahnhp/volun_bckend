@@ -1,15 +1,16 @@
 <%= main_title(t("action.show", model: Pt::Centre.model_name.human)) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'projects/show', locals: { project: @pt_centre.project } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { pt_centre: @pt_centre } %>
+  </div>
+</div>
 
-  <dt><%= Pt::Centre.human_attribute_name(:id) %>:</dt>
-  <dd><%= @pt_centre.id %></dd>
-  <dt><%= Pt::Centre.human_attribute_name(:notes) %>:</dt>
-  <dd><%= @pt_centre.notes %></dd>
-  <dt><%= Pt::Centre.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@pt_centre.created_at) %></dd>
-
-</dl>
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@pt_centre) %>

@@ -9,7 +9,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   respond_to :html, :js
 
   def index
-    params[:q] ||= <%= singular_table_name.camelize %>.ransack_default
+    params[:q] ||= <%= class_name %>.ransack_default
     @search_q = @<%= plural_table_name %>.search(params[:q])
     @<%= plural_table_name %> = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
@@ -24,7 +24,6 @@ class <%= controller_class_name %>Controller < ApplicationController
   end
 
   def new
-    @<%= singular_table_name %> = <%= orm_class.build(class_name) %>
     respond_with(@<%= singular_table_name %>)
   end
 

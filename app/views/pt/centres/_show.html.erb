@@ -1,0 +1,10 @@
+<dl class="dl-horizontal">
+
+  <dt><%= Pt::Centre.human_attribute_name(:id) %>:</dt>
+  <dd><%= @pt_centre.id %></dd>
+  <dt><%= Pt::Centre.human_attribute_name(:notes) %>:</dt>
+  <dd><%= @pt_centre.notes %></dd>
+  <dt><%= Pt::Centre.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@pt_centre.created_at) %></dd>
+
+</dl>

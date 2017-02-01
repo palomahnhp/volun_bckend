@@ -276,6 +276,7 @@ es:
         project:                       Proyecto
         proposal_id:                   Propuesta
         proposal:                      Propuesta
+        notes:                         &notes Notas
       pt/entity:
         id:                       ID
         request_date:             Fecha recepción demanda
@@ -291,6 +292,17 @@ es:
         prevailing:               Vigencia
         project:                  Proyecto
         project_id:               Proyecto
+        notes:                    *notes
+      pt/permanent:
+        notes:                    *notes
+      pt/punctual:
+        notes:                    *notes
+      pt/centre:
+        notes:                    *notes
+      pt/social:
+        notes:                    *notes
+      pt/other:
+        notes:                    *notes
       timetable:
         id:                       ID
         execution_date:           Día de la semana
