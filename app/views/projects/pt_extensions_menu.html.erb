@@ -26,7 +26,7 @@
             Asociados a una entidad
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:pt_permanent) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_permanent) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_permanent) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_permanent_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectType.kinds_i18n[:pt_permanent] %>
@@ -36,9 +36,19 @@
             Permanentes
           </div>
         </div>
+        <div class="panel panel-<%= ProjectType.active?(:pt_punctual) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_punctual_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= ProjectType.kinds_i18n[:pt_punctual] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Puntuales
+          </div>
+        </div>
       </div>
       <div class="col-md-6">
-        <div class="panel panel-<%= ProjectType.active?(:pt_centre) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_centre) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_centre) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_centre_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectType.kinds_i18n[:pt_centre] %>
@@ -48,7 +58,7 @@
             De centros de mayores
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:pt_social) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_social) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_social) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_social_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectType.kinds_i18n[:pt_social] %>
@@ -58,7 +68,7 @@
             De servicios sociales
           </div>
         </div>
-        <div class="panel panel-<%= ProjectType.active?(:pt_other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_project_url(pt_extension: :pt_other) %>';">
+        <div class="panel panel-<%= ProjectType.active?(:pt_other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_pt_other_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= ProjectType.kinds_i18n[:pt_other] %>
