@@ -1,6 +1,6 @@
 class Pt::SocialsController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :pt_social
   respond_to :html, :js
 
   def index
@@ -19,7 +19,6 @@ class Pt::SocialsController < ApplicationController
   end
 
   def new
-    @pt_social = Pt::Social.new
     respond_with(@pt_social)
   end
 
@@ -27,13 +26,19 @@ class Pt::SocialsController < ApplicationController
   end
 
   def create
-    @pt_social.save
-    respond_with(@pt_social)
+    if @pt_social.save
+      redirect_to projects_path
+    else
+      render :new
+    end
   end
 
   def update
-    @pt_social.update_attributes(pt_social_params)
-    respond_with(@pt_social)
+    if @pt_social.update(pt_social_params)
+      redirect_to projects_path
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -44,6 +49,13 @@ class Pt::SocialsController < ApplicationController
   protected
 
     def pt_social_params
-      params.require(:pt_social).permit(:notes)
+      params
+        .require(:pt_social)
+        .permit(
+          :notes,
+          project_attributes: project_attributes
+        )
     end
+
+  alias_method :create_params, :pt_social_params
 end
