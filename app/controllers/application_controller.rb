@@ -53,7 +53,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_authenticated?
-    session.fetch(:user_authenticated, false)
+    current_user || session.fetch(:user_authenticated, false)
   end
 
   # TODO Create Setting model for app configuration

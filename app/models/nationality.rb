@@ -1,5 +1,6 @@
 class Nationality < ActiveRecord::Base
 
+  include Recordable
   include Archivable
 
   validates :name, uniqueness: true
