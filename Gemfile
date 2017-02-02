@@ -57,6 +57,7 @@ group :preproduction, :development, :test do
   gem 'quiet_assets'
   gem 'bullet'
   gem 'faker'
+  gem 'database_cleaner'
   gem 'capybara' # integration testing tool for rack based web applications.
   gem 'fuubar'   # RSpec progress bar formatter
   gem 'i18n-tasks' #  helps you find and manage missing and unused translations.
@@ -68,7 +69,6 @@ group :development do
   gem 'poltergeist'
   gem 'coveralls', require: false
   gem 'email_spec'
-  gem 'database_cleaner'
   #  utility and framework for executing commands in parallel on multiple remote machines, via SSH.
   gem 'capistrano',         '3.5.0', require: false
   gem 'capistrano-rails',   '1.1.6', require: false
