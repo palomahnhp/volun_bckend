@@ -354,7 +354,12 @@ ProjectType.all.each do |project_type|
       entity:                Entity.all.sample
     )
 
-    project.build_pt_extendable
+    pt_attributes = case project_type.kind
+                    when 'pt_subvention' then { representative_name: Faker::Name.name }
+                    when 'pt_entity'     then { request_description: Faker::Lorem.sentence }
+                    else {}  
+                    end
+    project.build_pt_extendable(pt_attributes)
 
     project.save!
 
