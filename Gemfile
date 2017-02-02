@@ -26,13 +26,10 @@ gem 'cancancan'
 gem 'devise'
 gem 'simple_form'
 gem 'nested_form'
-gem 'rspec-rails'
-gem 'capybara'
-gem 'factory_girl_rails'
 gem 'font-awesome-rails'
 gem 'responders'
-gem 'rails-i18n', '~> 4.0.0'
 gem 'enum_help'
+gem 'rails-i18n', '~> 4.0.0'
 gem 'savon'
 
 
@@ -61,9 +58,17 @@ group :preproduction, :development, :test do
   gem 'bullet'
   gem 'faker'
   gem 'database_cleaner'
+  gem 'capybara' # integration testing tool for rack based web applications.
+  gem 'fuubar'   # RSpec progress bar formatter
+  gem 'i18n-tasks' #  helps you find and manage missing and unused translations.
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
 end
 
 group :development do
+  gem 'poltergeist'
+  gem 'coveralls', require: false
+  gem 'email_spec'
   #  utility and framework for executing commands in parallel on multiple remote machines, via SSH.
   gem 'capistrano',         '3.5.0', require: false
   gem 'capistrano-rails',   '1.1.6', require: false
@@ -77,4 +82,3 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
-

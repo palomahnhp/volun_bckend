@@ -456,7 +456,7 @@ class CreateBeforeDeleteTriggerOnPtTables < ActiveRecord::Migration
 
   def up
     execute %{
-      CREATE FUNCTION check_project_references() RETURNS trigger AS $check_project_references$
+      CREATE OR REPLACE FUNCTION check_project_references() RETURNS trigger AS $check_project_references$
           DECLARE
               total integer;
               pt_model_name text;
@@ -519,7 +519,7 @@ class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
 
   def up
     execute %{
-      CREATE FUNCTION check_request_form_references() RETURNS trigger AS $check_request_form_references$
+      CREATE OR REPLACE FUNCTION check_request_form_references() RETURNS trigger AS $check_request_form_references$
           DECLARE
               total integer;
               rt_model_name text;
@@ -608,30 +608,6 @@ namespace :scaffold do
     end
   end
 
-  desc 'Add null: false to some migrations'
-  task add_null_false: :environment do
-    require 'fileutils'
-    require 'tempfile'
-
-    Dir.glob('db/migrate/*.rb') do |rb_file|
-      tmp = Tempfile.new('extract')
-
-      File.open(rb_file, 'r').each do |l|
-        line = l
-        if line.chomp =~ /references :address.*/
-          line  = line.sub("\n", '')
-          line += ", null: false\n"
-        end
-        tmp  << line
-      end
-
-      tmp.close
-
-      # Move temp file to origin
-      FileUtils.mv(tmp.path, rb_file)
-    end
-  end
-
   desc 'Build manual migrations'
   task build_manual_migrations: :environment do
     MANUAL_MIGRATIONS.each do |name, content|
@@ -670,15 +646,17 @@ namespace :scaffold do
   end
 
   desc 'Build the application data model basement by scaffolding the models'
-  task build: :environment do
+  task :build, [:options] => :environment do |t, args|
+    options = args[:options] || '-f'
+
     # Generate the scaffolds for all models
     MODELS_AND_ATTRS.each do |model_name, attrs_list|
-      sh "bundle exec rails generate scaffold #{model_name} #{attrs_list} -f"
+      sh "bundle exec rails generate scaffold #{model_name} #{attrs_list} #{options}"
     end
 
     # Generate the models for advanced join tables
     ADVANCED_JOINED_TABLES.each do |model_name, attrs_list|
-      sh "bundle exec rails generate model #{model_name} #{attrs_list} -f"
+      sh "bundle exec rails generate model #{model_name} #{attrs_list} #{options}"
     end
 
     # Generate simple intermediate models
@@ -688,7 +666,7 @@ namespace :scaffold do
         table1  = table2
         table2  = _table1
       end
-      sh "bundle exec rails generate migration create_join_table_#{table1}_#{table2} #{table1}:index #{table2}:index -f"
+      sh "bundle exec rails generate migration create_join_table_#{table1}_#{table2} #{table1}:index #{table2}:index #{options}"
     end
   end
 
@@ -736,7 +714,6 @@ namespace :scaffold do
     Rake::Task['scaffold:build'].invoke
     Rake::Task['scaffold:build_manual_migrations'].invoke
     Rake::Task['scaffold:add_default_true'].invoke
-    Rake::Task['scaffold:add_null_false'].invoke
     Rake::Task['scaffold:gco_files'].invoke
   end
 
