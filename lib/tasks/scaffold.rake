@@ -456,7 +456,7 @@ class CreateBeforeDeleteTriggerOnPtTables < ActiveRecord::Migration
 
   def up
     execute %{
-      CREATE FUNCTION check_project_references() RETURNS trigger AS $check_project_references$
+      CREATE OR REPLACE FUNCTION check_project_references() RETURNS trigger AS $check_project_references$
           DECLARE
               total integer;
               pt_model_name text;
@@ -519,7 +519,7 @@ class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
 
   def up
     execute %{
-      CREATE FUNCTION check_request_form_references() RETURNS trigger AS $check_request_form_references$
+      CREATE OR REPLACE FUNCTION check_request_form_references() RETURNS trigger AS $check_request_form_references$
           DECLARE
               total integer;
               rt_model_name text;

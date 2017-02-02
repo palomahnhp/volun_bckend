@@ -19,7 +19,7 @@ class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
 
   def up
     execute %{
-      CREATE FUNCTION check_request_form_references() RETURNS trigger AS $check_request_form_references$
+      CREATE OR REPLACE FUNCTION check_request_form_references() RETURNS trigger AS $check_request_form_references$
           DECLARE
               total integer;
               rt_model_name text;
