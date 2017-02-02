@@ -1,5 +1,6 @@
 class TrackingType < ActiveRecord::Base
 
+  include Recordable
   include Archivable
 
   has_many :trackings, :class_name => 'Volun::Tracking'

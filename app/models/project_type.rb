@@ -1,5 +1,6 @@
 class ProjectType < ActiveRecord::Base
 
+  include Recordable
   include Archivable
 
 

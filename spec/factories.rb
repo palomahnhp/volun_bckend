@@ -241,12 +241,12 @@ FactoryGirl.define do
     end
   end
   factory :rejection_type do
-    kind 1
+    name "MyRejectionType"
     description "MyText"
     active true
 
     trait :invalid do
-      association :kind
+      name nil 
     end
   end
   factory :assessment, class: 'Volun::Assessment' do
@@ -335,7 +335,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :sector do
@@ -343,7 +343,7 @@ FactoryGirl.define do
     active "MyString"
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :motivation do
@@ -351,7 +351,7 @@ FactoryGirl.define do
     active "MyString"
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :degree_type do
@@ -359,7 +359,7 @@ FactoryGirl.define do
     educational_type "MyString"
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :contact_type do
@@ -367,7 +367,7 @@ FactoryGirl.define do
     active "MyString"
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :borough do
@@ -376,7 +376,7 @@ FactoryGirl.define do
     association :district
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :trait do
@@ -384,7 +384,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :contact_result do
@@ -392,7 +392,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :language_level do
@@ -400,7 +400,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :language do
@@ -408,7 +408,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :profession do
@@ -416,7 +416,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :skill do
@@ -424,7 +424,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :info_source do
@@ -432,7 +432,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :profile do
@@ -440,7 +440,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :unsubscribe_reason do
@@ -448,7 +448,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :academic_level do
@@ -457,7 +457,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :degree do
@@ -465,7 +465,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :employment_status do
@@ -473,7 +473,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :status do
@@ -481,7 +481,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :nationality do
@@ -489,7 +489,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :id_number_type do
@@ -497,7 +497,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :pt_entity, class: 'Pt::Entity' do
@@ -541,7 +541,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :link do
@@ -568,7 +568,7 @@ FactoryGirl.define do
     share false
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :timetable do
@@ -607,7 +607,7 @@ FactoryGirl.define do
     association :project
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :pro_issue, class: 'Pro::Issue' do
@@ -655,16 +655,18 @@ FactoryGirl.define do
     association :entity
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :project_type do
-    kind 1
+    id ProjectType.kinds[:pt_social]
+    kind "pt_social"
     description "MyText"
     active true
 
     trait :invalid do
-      association :kind
+      kind nil
+      description nil
     end
   end
   factory :ent_tracking, class: 'Ent::Tracking' do
@@ -703,7 +705,7 @@ FactoryGirl.define do
     unsubscribed_at "2017-01-27 10:40:48"
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :entity_type do
@@ -729,7 +731,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :manager do
@@ -739,7 +741,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :address do
@@ -772,7 +774,7 @@ FactoryGirl.define do
     code "MyString"
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :district do
@@ -781,7 +783,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :province do
@@ -789,7 +791,7 @@ FactoryGirl.define do
     code "MyString"
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :record_history do
@@ -807,7 +809,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :collective do
@@ -816,7 +818,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
   factory :area do
@@ -825,7 +827,7 @@ FactoryGirl.define do
     active true
 
     trait :invalid do
-      association :name
+      name nil
     end
   end
 end

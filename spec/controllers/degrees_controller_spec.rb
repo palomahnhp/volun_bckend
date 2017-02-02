@@ -132,5 +132,20 @@ RSpec.describe DegreesController, type: :controller do
       expect(response).to redirect_to(degrees_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested degree' do
+      degree = Degree.create! valid_attributes
+      delete :destroy, id: degree.to_param
+      post :recover, id: degree.to_param
+      expect(degree.active).to eq(true)
+    end
+
+    it 'redirects to the degrees list' do
+      degree = Degree.create! valid_attributes
+      post :recover, id: degree.to_param
+      expect(response).to redirect_to(degrees_url)
+    end
+  end
 
 end

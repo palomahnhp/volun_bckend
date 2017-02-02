@@ -1,5 +1,6 @@
 class Trait < ActiveRecord::Base
 
+  include Recordable
   include Archivable
 
   has_many :assessments, :class_name => 'Volun::Assessment'

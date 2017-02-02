@@ -132,5 +132,20 @@ RSpec.describe TrackingTypesController, type: :controller do
       expect(response).to redirect_to(tracking_types_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested tracking type' do
+      tracking_type = TrackingType.create! valid_attributes
+      delete :destroy, id: tracking_type.to_param
+      post :recover, id: tracking_type.to_param
+      expect(tracking_type.active).to eq(true)
+    end
+
+    it 'redirects to the tracking_types list' do
+      tracking_type = TrackingType.create! valid_attributes
+      post :recover, id: tracking_type.to_param
+      expect(response).to redirect_to(tracking_types_url)
+    end
+  end
 
 end

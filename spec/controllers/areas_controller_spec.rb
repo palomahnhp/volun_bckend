@@ -132,5 +132,20 @@ RSpec.describe AreasController, type: :controller do
       expect(response).to redirect_to(areas_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested area' do
+      area = Area.create! valid_attributes
+      delete :destroy, id: area.to_param
+      post :recover, id: area.to_param
+      expect(area.active).to eq(true)
+    end
+
+    it 'redirects to the areas list' do
+      area = Area.create! valid_attributes
+      post :recover, id: area.to_param
+      expect(response).to redirect_to(areas_url)
+    end
+  end
 
 end

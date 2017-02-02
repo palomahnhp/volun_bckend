@@ -132,5 +132,20 @@ RSpec.describe UnsubscribeReasonsController, type: :controller do
       expect(response).to redirect_to(unsubscribe_reasons_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested unsubscribe reason' do
+      unsubscribe_reason = UnsubscribeReason.create! valid_attributes
+      delete :destroy, id: unsubscribe_reason.to_param
+      post :recover, id: unsubscribe_reason.to_param
+      expect(unsubscribe_reason.active).to eq(true)
+    end
+
+    it 'redirects to the unsubscribe_reasons list' do
+      unsubscribe_reason = UnsubscribeReason.create! valid_attributes
+      post :recover, id: unsubscribe_reason.to_param
+      expect(response).to redirect_to(unsubscribe_reasons_url)
+    end
+  end
 
 end

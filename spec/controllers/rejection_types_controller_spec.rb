@@ -132,5 +132,20 @@ RSpec.describe RejectionTypesController, type: :controller do
       expect(response).to redirect_to(rejection_types_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested rejection_type' do
+      rejection_type = RejectionType.create! valid_attributes
+      delete :destroy, id: rejection_type.to_param
+      post :recover, id: rejection_type.to_param
+      expect(rejection_type.active).to eq(true)
+    end
+
+    it 'redirects to the rejection_types list' do
+      rejection_type = RejectionType.create! valid_attributes
+      post :recover, id: rejection_type.to_param
+      expect(response).to redirect_to(rejection_types_url)
+    end
+  end
 
 end

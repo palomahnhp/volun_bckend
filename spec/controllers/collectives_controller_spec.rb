@@ -132,5 +132,20 @@ RSpec.describe CollectivesController, type: :controller do
       expect(response).to redirect_to(collectives_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested collective' do
+      collective = Collective.create! valid_attributes
+      delete :destroy, id: collective.to_param
+      post :recover, id: collective.to_param
+      expect(collective.active).to eq(true)
+    end
+
+    it 'redirects to the collectives list' do
+      collective = Collective.create! valid_attributes
+      post :recover, id: collective.to_param
+      expect(response).to redirect_to(collectives_url)
+    end
+  end
 
 end
