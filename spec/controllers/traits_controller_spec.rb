@@ -132,5 +132,20 @@ RSpec.describe TraitsController, type: :controller do
       expect(response).to redirect_to(traits_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested trait' do
+      trait = Trait.create! valid_attributes
+      delete :destroy, id: trait.to_param
+      post :recover, id: trait.to_param
+      expect(trait.active).to eq(true)
+    end
+
+    it 'redirects to the traits list' do
+      trait = Trait.create! valid_attributes
+      post :recover, id: trait.to_param
+      expect(response).to redirect_to(traits_url)
+    end
+  end
 
 end

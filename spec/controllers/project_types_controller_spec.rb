@@ -134,5 +134,20 @@ RSpec.describe ProjectTypesController, type: :controller do
       expect(response).to redirect_to(project_types_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested project type' do
+      project_type = ProjectType.create! valid_attributes
+      delete :destroy, id: project_type.to_param
+      post :recover, id: project_type.to_param
+      expect(project_type.active).to eq(true)
+    end
+
+    it 'redirects to the project_types list' do
+      project_type = ProjectType.create! valid_attributes
+      post :recover, id: project_type.to_param
+      expect(response).to redirect_to(project_types_url)
+    end
+  end
 
 end

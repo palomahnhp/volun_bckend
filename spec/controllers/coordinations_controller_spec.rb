@@ -132,5 +132,20 @@ RSpec.describe CoordinationsController, type: :controller do
       expect(response).to redirect_to(coordinations_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested coordination' do
+      coordination = Coordination.create! valid_attributes
+      delete :destroy, id: coordination.to_param
+      post :recover, id: coordination.to_param
+      expect(coordination.active).to eq(true)
+    end
+
+    it 'redirects to the coordinations list' do
+      coordination = Coordination.create! valid_attributes
+      post :recover, id: coordination.to_param
+      expect(response).to redirect_to(coordinations_url)
+    end
+  end
 
 end

@@ -132,5 +132,20 @@ RSpec.describe NationalitiesController, type: :controller do
       expect(response).to redirect_to(nationalities_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested nationality' do
+      nationality = Nationality.create! valid_attributes
+      delete :destroy, id: nationality.to_param
+      post :recover, id: nationality.to_param
+      expect(nationality.active).to eq(true)
+    end
+
+    it 'redirects to the nationalities list' do
+      nationality = Nationality.create! valid_attributes
+      post :recover, id: nationality.to_param
+      expect(response).to redirect_to(nationalities_url)
+    end
+  end
 
 end
