@@ -31,11 +31,8 @@ class Rt::ProjectPublishingsController < ApplicationController
   end
 
   def update
-    if @rt_project_publishing.update(rt_project_publishing_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_project_publishing.update(rt_project_publishing_params)
+    respond_with(@rt_project_publishing, location: projects_path)
   end
 
   def destroy

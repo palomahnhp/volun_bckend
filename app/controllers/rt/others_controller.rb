@@ -31,11 +31,8 @@ class Rt::OthersController < ApplicationController
   end
 
   def update
-    if @rt_other.update(rt_other_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_other.update(rt_other_params)
+    respond_with(@rt_other, location: projects_path)
   end
 
   def destroy

@@ -31,11 +31,8 @@ class Rt::EntityUnsubscribesController < ApplicationController
   end
 
   def update
-    if @rt_entity_unsubscribe.update(rt_entity_unsubscribe_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_entity_unsubscribe.update(rt_entity_unsubscribe_params)
+    respond_with(@rt_entity_unsubscribe, location: projects_path)
   end
 
   def destroy
