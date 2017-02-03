@@ -26,11 +26,8 @@ class Pt::PunctualsController < ApplicationController
   end
 
   def create
-    if @pt_punctual.save
-      redirect_to projects_path
-    else
-      render :new
-    end
+    @pt_punctual.save
+    respond_with(@pt_punctual, location: projects_path)
   end
 
   def update

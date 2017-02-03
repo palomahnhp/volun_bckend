@@ -4,7 +4,7 @@ class CreateEvents < ActiveRecord::Migration
       t.boolean :publish, default: true
       t.references :eventable, polymorphic: true, index: true
       t.references :event_type, index: true, foreign_key: true
-      t.references :address, index: true, foreign_key: true, null: false
+      t.references :address, index: true, foreign_key: true
 
       t.timestamps null: false
     end
