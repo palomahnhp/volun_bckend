@@ -31,11 +31,8 @@ class Pt::PunctualsController < ApplicationController
   end
 
   def update
-    if @pt_punctual.update(pt_punctual_params)
-      redirect_to projects_path
-    else
-      render :edit
-    end
+    @pt_punctual.update(pt_punctual_params)
+    respond_with(@pt_punctual, location: projects_path)
   end
 
   def destroy

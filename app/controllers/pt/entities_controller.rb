@@ -31,11 +31,8 @@ class Pt::EntitiesController < ApplicationController
   end
 
   def update
-    if @pt_entity.update(pt_entity_params)
-      redirect_to projects_path
-    else
-      render :edit
-    end
+    @pt_entity.update(pt_entity_params)
+    respond_with(@pt_entity, location: projects_path)
   end
 
   def destroy

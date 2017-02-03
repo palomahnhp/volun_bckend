@@ -7,9 +7,8 @@ class ProjectsController < ApplicationController
 
   def index
     params[:q] ||= Project.ransack_default
-    @projects = @projects.with_status(params[:status])
     @search_q = @projects.unscoped.list.search(params[:q])
-    @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
 
     respond_with(@projects)
   end

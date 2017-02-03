@@ -31,11 +31,8 @@ class Rt::VolunteerAmendmentsController < ApplicationController
   end
 
   def update
-    if @rt_volunteer_amendment.update(rt_volunteer_amendment_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_volunteer_amendment.update(rt_volunteer_amendment_params)
+    respond_with(@rt_volunteer_amendment, location: projects_path)
   end
 
   def destroy

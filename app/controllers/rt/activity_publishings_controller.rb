@@ -31,11 +31,8 @@ class Rt::ActivityPublishingsController < ApplicationController
   end
 
   def update
-    if @rt_activity_publishing.update(rt_activity_publishing_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_activity_publishing.update(rt_activity_publishing_params)
+    respond_with(@rt_activity_publishing, location: projects_path)
   end
 
   def destroy
