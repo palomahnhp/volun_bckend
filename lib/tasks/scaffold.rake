@@ -75,7 +75,9 @@ MODELS_AND_ATTRS = {
 
   'EmploymentStatus' => 'name:string:uniq active:boolean',
 
-  'Degree' => 'name:string:uniq active:boolean',
+  'DegreeType'  => 'name:string:uniq educational_type active',
+
+  'Degree' => 'name:string:uniq active:boolean degree_type:references',
 
   'AcademicLevel' => 'name:string:uniq educational_type active:boolean',
 
@@ -97,17 +99,15 @@ MODELS_AND_ATTRS = {
 
   'Trait' => 'name:string:uniq active:boolean',
 
-  'Borough'     => 'name active district:references',
+  'Borough'     => 'name:string:uniq active district:references',
 
-  'ContactType' => 'name active',
-
-  'DegreeType'  => 'name educational_type',
+  'ContactType' => 'name:string:uniq active',
 
   'Motivation'  => 'name active',
 
   'Sector'      => 'name active',
 
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references active:boolean',
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text error_address:text error_other:text review:integer profession:references active:boolean',
 
 
   # 1:N
@@ -612,7 +612,7 @@ namespace :scaffold do
   task build_manual_migrations: :environment do
     MANUAL_MIGRATIONS.each do |name, content|
       sh "bundle exec rails generate migration #{name}"
-      sh "echo \"#{content.gsub('$','\$')}\" > $(ls db/migrate/*#{name}.rb)"
+      sh "echo \"#{content.gsub('"','\"').gsub('$','\$')}\" > $(ls db/migrate/*#{name}.rb)"
     end
   end
 

@@ -12,7 +12,7 @@ class CreateVolunteers < ActiveRecord::Migration
       t.string :phone_number
       t.string :phone_number_alt
       t.string :email
-      t.references :address, index: true, foreign_key: true, null: false
+      t.references :address, index: true, foreign_key: true
       t.references :status, index: true, foreign_key: true
       t.references :employment_status, index: true, foreign_key: true
       t.boolean :vocne, default: false
@@ -35,6 +35,9 @@ class CreateVolunteers < ActiveRecord::Migration
       t.references :manager, index: true, foreign_key: true
       t.references :info_source, index: true, foreign_key: true
       t.text :other_academic_info
+      t.text :error_address
+      t.text :error_other
+      t.integer :review
       t.references :profession, index: true, foreign_key: true
       t.boolean :active, default: true
 

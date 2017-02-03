@@ -81,3 +81,4 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     end
   end
 end
+

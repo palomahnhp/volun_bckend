@@ -6,5 +6,6 @@ class CreateContactTypes < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+    add_index :contact_types, :name, unique: true
   end
 end

@@ -19,7 +19,7 @@ class CreateEntities < ActiveRecord::Migration
       t.references :entity_type, index: true, foreign_key: true
       t.text :comments
       t.text :other_subscribe_reason
-      t.references :address, index: true, foreign_key: true, null: false
+      t.references :address, index: true, foreign_key: true
       t.boolean :active, default: true
       t.datetime :subscribed_at
       t.datetime :unsubscribed_at
