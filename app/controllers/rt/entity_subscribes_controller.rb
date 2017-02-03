@@ -27,11 +27,8 @@ class Rt::EntitySubscribesController < ApplicationController
   end
 
   def create
-    if @rt_entity_subscribe.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_entity_subscribe.save
+    respond_with(@rt_entity_subscribe, location: projects_path)
   end
 
   def update

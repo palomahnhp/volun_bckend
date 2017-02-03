@@ -26,11 +26,8 @@ class Rt::VolunteerAmendmentsController < ApplicationController
   end
 
   def create
-    if @rt_volunteer_amendment.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_volunteer_amendment.save
+    respond_with(@rt_volunteer_amendment, location: projects_path)
   end
 
   def update

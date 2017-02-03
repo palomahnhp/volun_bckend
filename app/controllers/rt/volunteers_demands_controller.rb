@@ -26,11 +26,8 @@ class Rt::VolunteersDemandsController < ApplicationController
   end
 
   def create
-    if @rt_volunteers_demand.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_volunteers_demand.save
+    respond_with(@rt_volunteers_demand, location: projects_path)
   end
 
   def update

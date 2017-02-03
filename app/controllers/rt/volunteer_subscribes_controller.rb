@@ -26,11 +26,8 @@ class Rt::VolunteerSubscribesController < ApplicationController
   end
 
   def create
-    if @rt_volunteer_subscribe.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_volunteer_subscribe.save
+    respond_with(@rt_volunteer_subscribe, location: projects_path)
   end
 
   def update
