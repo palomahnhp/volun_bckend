@@ -297,15 +297,25 @@ es:
         project_id:               Proyecto
         notes:                    *notes
       pt/permanent:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       pt/punctual:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       pt/centre:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       pt/social:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       pt/other:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       timetable:
         id:                       ID
         execution_date:           Día de la semana
