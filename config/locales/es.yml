@@ -6,6 +6,7 @@ es:
   actions:   Acciones
   action:
     new:     'Nuevo %{model}'
+    newFem:  'Nueva %{model}'
     edit:    'Editar %{model}'
     show:    'Ver %{model}'
     destroy: 'Eliminar'

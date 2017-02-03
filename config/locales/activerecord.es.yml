@@ -252,9 +252,12 @@ es:
         start_date:             Fecha desde
         end_date:               Fecha hasta
         transport:              Medios de transporte
-        pdf_url:                Url del folleto PDF
+        pdf_url:                Url del folleto PDF     
+        entity_id:              Organizador de la actividad
         entity:                 Organizador de la actividad
+        area_id:                Tipo de actividad
         area:                   Tipo de actividad
+        project_id:             Código de proyecto asociado
         project:                Código de proyecto asociado
         share:                  Compartir actividad con redes sociales
         created_at:             *created_at
