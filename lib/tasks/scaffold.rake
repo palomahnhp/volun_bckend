@@ -647,7 +647,7 @@ namespace :scaffold do
 
   desc 'Build the application data model basement by scaffolding the models'
   task :build, [:options] => :environment do |t, args|
-    options = args[:options] || '-f'
+    options = args[:options] || '-f --no-controller-specs --no-model-specs'
 
     # Generate the scaffolds for all models
     MODELS_AND_ATTRS.each do |model_name, attrs_list|
