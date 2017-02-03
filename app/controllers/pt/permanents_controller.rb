@@ -26,7 +26,7 @@ class Pt::PermanentsController < ApplicationController
   end
 
   def create
-    if @pt_other.save
+    if @pt_permanent.save
       redirect_to projects_path
     else
       render :new
@@ -34,7 +34,7 @@ class Pt::PermanentsController < ApplicationController
   end
 
   def update
-    if @pt_other.update(pt_permanent_params)
+    if @pt_permanent.update(pt_permanent_params)
       redirect_to projects_path
     else
       render :edit

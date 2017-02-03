@@ -274,12 +274,13 @@ es:
         participants_num:              Nº de voluntarios participantes
         has_quality_evaluation:        Posee sistema de evaluación de calidad
         id_num:                        NIF
-        vat_number:                       CIF de la entidad
+        vat_number:                    CIF de la entidad
         project_id:                    Proyecto
         project:                       Proyecto
         proposal_id:                   Propuesta
         proposal:                      Propuesta
         notes:                         &notes Notas
+        created_at:               *created_at
       pt/entity:
         id:                       ID
         request_date:             Fecha recepción demanda
@@ -296,6 +297,7 @@ es:
         project:                  Proyecto
         project_id:               Proyecto
         notes:                    *notes
+        created_at:               *created_at
       pt/permanent:
         id:                       ID
         notes:                    *notes
