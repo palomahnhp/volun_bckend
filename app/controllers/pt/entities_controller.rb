@@ -26,11 +26,8 @@ class Pt::EntitiesController < ApplicationController
   end
 
   def create
-    if @pt_entity.save
-      redirect_to projects_path
-    else
-      render :new
-    end
+    @pt_entity.save
+    respond_with(@pt_entity, location: projects_path)
   end
 
   def update

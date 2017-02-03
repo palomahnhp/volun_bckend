@@ -26,19 +26,13 @@ class Pt::SubventionsController < ApplicationController
   end
 
   def create
-    if @pt_subvention.save
-      redirect_to projects_path
-    else
-      render :new
-    end
+    @pt_subvention.save
+    respond_with(@pt_subvention, location: projects_path)
   end
 
   def update
-    if @pt_subvention.update(pt_subvention_params)
-      redirect_to projects_path
-    else
-      render :edit
-    end
+    @pt_subvention.update(pt_subvention_params)
+    respond_with(@pt_subvention, location: projects_path)
   end
 
   def destroy

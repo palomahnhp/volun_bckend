@@ -26,11 +26,8 @@ class Pt::OthersController < ApplicationController
   end
 
   def create
-    if @pt_other.save
-      redirect_to projects_path
-    else
-      render :new
-    end
+    @pt_other.save
+    respond_with(@pt_other, location: projects_path)
   end
 
   def update

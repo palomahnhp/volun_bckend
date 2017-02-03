@@ -26,11 +26,8 @@ class Pt::SocialsController < ApplicationController
   end
 
   def create
-    if @pt_social.save
-      redirect_to projects_path
-    else
-      render :new
-    end
+    @pt_social.save
+    respond_with(@pt_social, location: projects_path)
   end
 
   def update
