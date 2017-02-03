@@ -13,7 +13,7 @@
     <div class="row">
      <%= content_tag :label, 'Seleccionar estado:', for: 'status-select', class: 'col-sm-6 control-label' %>
      <div class="col-sm-6">
-        <%= select_tag :status, options_for_select({ t('active') => :active, t('inactive') => :inactive, t('all') => :all }, params[:status] || :active),
+        <%= select_tag :status, options_for_select({ t('active') => :active, t('inactive') => :inactive, t('all') => :all }, params[:status] || :all),
                        onchange:  "if(this.value){$('#status').prop('value',this.value)}; $('.search-form').submit()",
                        class:     'form-control',
                        id:        'pages-select' %>
