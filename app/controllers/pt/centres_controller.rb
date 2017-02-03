@@ -32,11 +32,8 @@ class Pt::CentresController < ApplicationController
   end
 
   def update
-    if @pt_centre.update(pt_centre_params)
-      redirect_to projects_path
-    else
-      render :edit
-    end
+    @pt_centre.update(pt_centre_params)
+    respond_with(@pt_centre, location: projects_path)
   end
 
   def destroy

@@ -26,11 +26,8 @@ class Rt::EntityUnsubscribesController < ApplicationController
   end
 
   def create
-    if @rt_entity_unsubscribe.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_entity_unsubscribe.save
+    respond_with(@rt_entity_unsubscribe, location: projects_path)
   end
 
   def update

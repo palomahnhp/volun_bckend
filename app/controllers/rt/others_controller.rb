@@ -26,11 +26,8 @@ class Rt::OthersController < ApplicationController
   end
 
   def create
-    if @rt_other.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_other.save
+    respond_with(@rt_other, location: projects_path)
   end
 
   def update

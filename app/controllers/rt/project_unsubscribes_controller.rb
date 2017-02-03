@@ -26,11 +26,8 @@ class Rt::ProjectUnsubscribesController < ApplicationController
   end
 
   def create
-    if @rt_project_unsubscribe.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_project_unsubscribe.save
+    respond_with(@rt_project_unsubscribe, location: projects_path)
   end
 
   def update
