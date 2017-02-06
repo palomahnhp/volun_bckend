@@ -8,7 +8,7 @@
           <%= f.association :id_number_type %>
           <%= f.input :id_number %>
           <%= f.input :gender %>
-          <%= f.input :birth_date, as: :datepicker %>
+          <%= f.input :birth_date, as: :string, input_html: date_input_html(f.object.birth_date) %>
           <%= f.association :nationality %>
           <%= f.input :phone_number %>
           <%= f.input :phone_number_alt %>
@@ -18,12 +18,12 @@
           <%= f.association :employment_status %>
           <%= f.input :vocne %>
           <%= f.input :available %>
-          <%= f.input :availability_date, as: :datepicker %>
+          <%= f.input :availability_date, as: :string, input_html: date_input_html(f.object.availability_date) %>
           <%= f.association :academic_level %>
           <%= f.input :comments %>
           <%= f.input :expectations %>
           <%= f.input :agreement %>
-          <%= f.input :agreement_date, as: :datepicker %>
+          <%= f.input :agreement_date, as: :string, input_html: date_input_html(f.object.agreement_date) %>
           <%= f.input :search_authorization %>
           <%= f.input :representative_statement %>
           <%= f.input :has_driving_license %>
