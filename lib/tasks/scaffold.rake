@@ -163,7 +163,6 @@ JOINED_TABLES = [
   %w(coordination project),
   %w(entity       project),
 
-  %w(address volunteer),
   %w(area    volunteer),
   %w(degree  volunteer),
   %w(project volunteer),
