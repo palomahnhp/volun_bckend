@@ -210,16 +210,6 @@ ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
--- Name: addresses_volunteers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE addresses_volunteers (
-    address_id integer NOT NULL,
-    volunteer_id integer NOT NULL
-);
-
-
---
 -- Name: areas; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4165,20 +4155,6 @@ CREATE INDEX index_addresses_on_road_type_id ON addresses USING btree (road_type
 
 
 --
--- Name: index_addresses_volunteers_on_address_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_addresses_volunteers_on_address_id_and_volunteer_id ON addresses_volunteers USING btree (address_id, volunteer_id);
-
-
---
--- Name: index_addresses_volunteers_on_volunteer_id_and_address_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_addresses_volunteers_on_volunteer_id_and_address_id ON addresses_volunteers USING btree (volunteer_id, address_id);
-
-
---
 -- Name: index_areas_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6153,8 +6129,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170203104536');
 INSERT INTO schema_migrations (version) VALUES ('20170203104537');
 
 INSERT INTO schema_migrations (version) VALUES ('20170203104539');
-
-INSERT INTO schema_migrations (version) VALUES ('20170203104540');
 
 INSERT INTO schema_migrations (version) VALUES ('20170203104542');
 
