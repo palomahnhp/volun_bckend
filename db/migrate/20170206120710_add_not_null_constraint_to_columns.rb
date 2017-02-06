@@ -42,6 +42,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
                                :manager_id,
                                :contact_date],
     :volun_assessments     => [:volunteer_id, :trait_id, :project_id, :assessment],
+    :frontpage_elements    => [:created_by, :created_by, :active, :frontpage_position_id],
     :academic_levels       => [:name, :active, :educational_type],
     :id_number_types       => [:name, :active],
     :nationalities         => [:name, :active],
