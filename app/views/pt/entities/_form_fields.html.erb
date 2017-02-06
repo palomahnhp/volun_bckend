@@ -10,10 +10,10 @@
     </div>
     <div class="well col-md-6">
       <%= content_tag :h4, 'Otros datos de interes', class: 'form-subtitle' %>
-      <%= f.input :request_date, as: :datepicker %>
+      <%= f.input :request_date, as: :string, input_html: date_input_html(f.object.request_date) %>
       <%= f.input :request_description %>
-      <%= f.input :agreement_date, as: :datepicker %>
-      <%= f.input :sav_date, as: :datepicker %>
+      <%= f.input :agreement_date, as: :string, input_html: date_input_html(f.object.agreement_date) %>
+      <%= f.input :sav_date, as: :string, input_html: date_input_html(f.object.sav_date) %>
       <%= f.input :agreement_signed %>
       <%= f.input :prevailing %>
     </div>

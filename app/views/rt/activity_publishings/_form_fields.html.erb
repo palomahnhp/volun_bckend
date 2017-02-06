@@ -2,7 +2,7 @@
   <%= f.input :name %>
   <%= f.input :organizer %>
   <%= f.input :description %>
-  <%= f.input :execution_date, as: :datepicker %>
+	<%= f.input :execution_date, as: :string, input_html: date_input_html(f.object.execution_date) %>
   <%= f.input :execution_hour %>
   <%= f.input :road_type %>
   <%= f.input :road_name %>
