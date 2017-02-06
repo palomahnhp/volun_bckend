@@ -4,6 +4,10 @@ MODELS_AND_ATTRS = {
   # Tables
   # --------------------------------------------------------------------------------------------------
 
+
+  'FrontpagePosition' => 'position:integer:uniq description:text active:boolean',
+  'FrontpageElement'  => 'frontpage_position:references text_panel:text text_button:text image_url:text ' \
+                         'link_url:text logo_url:text active:boolean',
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
   'Coordination'  => 'name:string:uniq description:text active:boolean',
@@ -12,14 +16,21 @@ MODELS_AND_ATTRS = {
   'Province'      => 'name:string:uniq code:string:uniq',
   'District'      => 'name:string:uniq code:string:uniq active:boolean',
   'RoadType'      => 'name:string:uniq code:string:uniq',
-  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough district:references town province:references country ndp_code local_code class_name latitude longitude',
+  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code '\
+                     'borough district:references town province:references country ndp_code local_code class_name '\
+                     'latitude longitude',
 
   'Manager'       => 'name profile_id:integer phone_number active:boolean',
   'TrackingType'  => 'name:string:uniq active:boolean',
   'RequestReason' => 'kind:integer:uniq description:text active:boolean',
 
   'EntityType'     => 'kind:integer:uniq description:text active:boolean',
-  'Entity'         => 'name:string:uniq description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean request_reason:references entity_type:references comments:text other_subscribe_reason:text address:references active:boolean subscribed_at:datetime unsubscribed_at:datetime',
+  'Entity'         => 'name:string:uniq description:text vat_number email ' \
+                      'representative_name representative_last_name representative_last_name_alt ' \
+                      'contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt ' \
+                      'publish_pictures:boolean annual_survey:boolean request_reason:references entity_type:references ' \
+                      'comments:text other_subscribe_reason:text address:references active:boolean ' \
+                      'subscribed_at:datetime unsubscribed_at:datetime',
   'Ent::Tracking'  => 'tracking_type:references entity:references manager:references tracked_at:datetime comments:text',
 
 
@@ -32,7 +43,11 @@ MODELS_AND_ATTRS = {
 
   # -------------------------------------------------
 
-  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
+  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date ' \
+               'execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number ' \
+               'phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean ' \
+               'volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date ' \
+               'project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
   'Pro::Tracking'  => 'comments:text start_date:datetime project:references',
@@ -48,15 +63,21 @@ MODELS_AND_ATTRS = {
 
   # 1:N tables
 
-  'Activity' => 'name:string:uniq description:text start_date:datetime end_date:datetime transport:text pdf_url entity:references area:references project:references share:boolean ',
+  'Activity' => 'name:string:uniq description:text start_date:datetime end_date:datetime transport:text pdf_url ' \
+                'entity:references area:references project:references share:boolean ',
   'Link'     => 'url description:text kind:integer linkable:references{polymorphic}',
 
   'Proposal' => 'name:string:uniq description:text active:boolean',
 
   # -------------------------------------------------
 
-  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references notes:text',
-  'Pt::Entity'     => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean notes:text',
+  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number ' \
+                      'entity_registry:boolean cost:float requested_amount:float subsidized_amount:float ' \
+                      'initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean ' \
+                      'proposal:references notes:text',
+  'Pt::Entity'     => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date ' \
+                      'derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean ' \
+                      'agreement_date:date prevailing:boolean notes:text',
   'Pt::Punctual'   => 'notes:text',
   'Pt::Permanent'  => 'notes:text',
   'Pt::Centre'     => 'notes:text',
@@ -107,16 +128,27 @@ MODELS_AND_ATTRS = {
 
   'Sector'      => 'name active',
 
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text error_address:text error_other:text review:integer profession:references active:boolean',
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer  ' \
+                 'birth_date:date nationality:references phone_number phone_number_alt email address:references ' \
+                 'status:references employment_status:references vocne:boolean available:boolean ' \
+                 'availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date ' \
+                 'unsubscribe_reason:references comments:text expectations:text agreement:boolean ' \
+                 'agreement_date:datetime search_authorization:boolean representative_statement:boolean ' \
+                 'has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime ' \
+                 'manager:references info_source:references other_academic_info:text error_address:text ' \
+                 'error_other:text review:integer profession:references active:boolean',
 
 
   # 1:N
   'Volun::Availability' => 'volunteer:references day:integer start_hour:string end_hour:string',
 
   # N:N
-  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references manager:references tracking_date:datetime comments:text',
-  'Volun::Contact'       => 'volunteer:references contact_result:references project:references manager:references contact_type:references contact_date:datetime  comments:text',
-  'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string assessment:boolean comments:text',
+  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references manager:references ' \
+                            'tracking_date:datetime comments:text',
+  'Volun::Contact'       => 'volunteer:references contact_result:references project:references manager:references ' \
+                            'contact_type:references contact_date:datetime  comments:text',
+  'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string ' \
+                            'assessment:boolean comments:text',
 
   # --------------------------------------------------------------------------------------------------
   # Request Form Tables
@@ -125,18 +157,43 @@ MODELS_AND_ATTRS = {
   'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
   'RejectionType'             => 'name:string:uniq description:text active:boolean',
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
-  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references status:integer status_date:datetime rejection_type:references request_reason:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email road_type:references road_name number_type road_number postal_code borough district:references town province:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean info_source:references other_academic_info:text profession:references notes:text',
+  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references ' \
+                                 'status:integer status_date:datetime rejection_type:references ' \
+                                 'request_reason:references comments:text',
+  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt id_number_type:references id_number gender:integer ' \
+                                 'birth_date:date nationality:references phone_number phone_number_alt email ' \
+                                 'road_type:references road_name number_type road_number postal_code borough ' \
+                                 'district:references town province:references status:references ' \
+                                 'employment_status:references vocne:boolean available:boolean availability_date:date ' \
+                                 'academic_level:references expectations:text agreement:boolean ' \
+                                 'agreement_date:datetime search_authorization:boolean ' \
+                                 'representative_statement:boolean has_driving_license:boolean ' \
+                                 'publish_pictures:boolean annual_survey:boolean info_source:references ' \
+                                 'other_academic_info:text profession:references notes:text',
   'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
-  'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough district:references town province:references phone_number phone_number_alt email notes:text',
+  'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough ' \
+                                 'district:references town province:references phone_number phone_number_alt ' \
+                                 'email notes:text',
   'Rt::VolunteerAppointment'  => 'notes:text',
-  'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean entity_type:references comments:text other_subscribe_reason:text road_type:references road_name number_type road_number postal_code borough district:references town province:references notes:text',
+  'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name ' \
+                                 'representative_last_name_alt contact_name contact_last_name contact_last_name_alt ' \
+                                 'phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean ' \
+                                 'entity_type:references comments:text other_subscribe_reason:text ' \
+                                 'road_type:references road_name number_type road_number postal_code borough ' \
+                                 'district:references town province:references notes:text',
   'Rt::EntityUnsubscribe'     => 'notes:text',
-  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type:references road_name number_type road_number postal_code borough district:references town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text notes:text',
-  'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code borough district:references town province:references notes:text',
+  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date ' \
+                                 'road_type:references road_name number_type road_number postal_code borough ' \
+                                 'district:references town province:references requested_volunteers_num ' \
+                                 'volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text ' \
+                                 'volunteer_functions_3:text notes:text',
+  'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code ' \
+                                 'borough district:references town province:references notes:text',
   'Rt::ProjectUnpublishing'   => 'notes:text',
   'Rt::ProjectUnsubscribe'    => 'project:references notes:text',
-  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type:references road_name number_type road_number postal_code borough district:references town province:references project:references notes:text',
+  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour ' \
+                                 'road_type:references road_name number_type road_number postal_code ' \
+                                 'borough district:references town province:references project:references notes:text',
   'Rt::ActivityUnpublishing'  => 'notes:text',
   'Rt::Other'                 => 'description:text notes:text',
 
@@ -170,6 +227,21 @@ JOINED_TABLES = [
 ]
 
 MANUAL_MIGRATIONS = {
+  :add_created_by_and_updated_by_to_frontpage_positions => %q{
+class AddCreatedByAndUpdatedByToFrontpagePositions < ActiveRecord::Migration
+  def up
+    add_column :frontpage_elements, :created_by, :integer
+    add_column :frontpage_elements, :updated_by, :integer
+    add_foreign_key :frontpage_elements, :users, column: :created_by
+    add_foreign_key :frontpage_elements, :users, column: :updated_by
+  end
+
+  def down
+    remove_column :frontpage_elements, :created_by
+    remove_column :frontpage_elements, :updated_by
+  end
+end
+},
   :add_not_null_constraint_to_columns => %q(
 class AddNotNullConstraintToColumns < ActiveRecord::Migration
 
@@ -214,6 +286,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
                                :manager_id,
                                :contact_date],
     :volun_assessments     => [:volunteer_id, :trait_id, :project_id, :assessment],
+    :frontpage_elements    => [:created_by, :created_by, :active, :frontpage_position_id],
     :academic_levels       => [:name, :active, :educational_type],
     :id_number_types       => [:name, :active],
     :nationalities         => [:name, :active],
@@ -671,6 +744,10 @@ namespace :scaffold do
 
   desc 'Destroy the models and the files generated by the scaffolding'
   task destroy: :environment do
+    # spec folder is destroyed for speeding up the destroy scaffold,
+    # and recovered later with the "git checkout -- spec" command within the "gco_files" task
+    sh 'rm -rf spec/*'
+
     # Destroy the scaffolds of all models
     MODELS_AND_ATTRS.keys.each do |model_name|
       sh "bundle exec rails destroy scaffold #{model_name}"
@@ -697,6 +774,7 @@ namespace :scaffold do
   desc 'Build the application data model basement by scaffolding the models'
   task gco_files: :environment do
     sh 'git checkout -- app'
+    sh 'git checkout -- spec'
   end
 
   desc 'Build the application data model basement by scaffolding the models'
