@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :events, reject_if: :all_blank
 
   validates :name, uniqueness: true
-  validates :name, :description, :contact_name, :contact_last_name,
+  validates :name, :description, :contact_name, :contact_last_name, :execution_start_date,
             :phone_number, :email, :active, :project_type_id, :entity_id, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validate  :execution_start_date_less_than_execution_end_date

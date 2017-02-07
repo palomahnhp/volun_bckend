@@ -45,8 +45,8 @@
   </div>
   <div class="row well row-3">
       <%= content_tag :h1, 'Fechas de ejecución', class: 'form-subtitle' %>
-      <%= f.input :execution_start_date, as: :string, input_html: date_input_html(f.object.execution_start_date), wrapper_html: { class: 'col-md-6' } %>
-      <%= f.input :execution_end_date, as: :string, input_html: date_input_html(f.object.execution_end_date), wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :execution_start_date, as: :string, input_html: date_input_html_default_values(f.object.execution_start_date), wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :execution_end_date, as: :string, input_html: date_input_html_default_values(f.object.execution_end_date), wrapper_html: { class: 'col-md-6' } %>
   </div>
   <div class="row well row-3">
     <%= content_tag :h1, 'Datos del seguro', class: 'form-subtitle' %>
@@ -97,7 +97,7 @@
               <%= f_event.simple_fields_for :timetables, (f_event.object.timetables.build if f_event.object.timetables.empty?) do |f_timetable|  %>
                 <div class="timetable-fields well col-md-12">
                   <div class="row">
-                      <%= f_timetable.input :execution_date, as: :string, input_html: date_input_html(f_timetable.object.execution_date), wrapper_html: { class: 'col-md-4' } %>
+                      <%= f_timetable.input :execution_date, as: :string, input_html: date_input_html_default_values(f_timetable.object.execution_date), wrapper_html: { class: 'col-md-4' } %>
                       <%= f_timetable.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
                       <%= f_timetable.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
                       <%= f_timetable.link_to_remove build_icon('trash-o', text: "#{Timetable.model_name.human}"), class: 'pull-right' %>
