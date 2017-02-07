@@ -1904,7 +1904,7 @@ CREATE TABLE request_types (
     active boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    CONSTRAINT kind_and_id_must_be_equal CHECK ((((id = 1) AND (kind = 1)) OR ((id = 2) AND (kind = 2)) OR ((id = 3) AND (kind = 3)) OR ((id = 4) AND (kind = 4)) OR ((id = 5) AND (kind = 5)) OR ((id = 6) AND (kind = 6)) OR ((id = 7) AND (kind = 7)) OR ((id = 8) AND (kind = 8)) OR ((id = 9) AND (kind = 9)) OR ((id = 10) AND (kind = 10)) OR ((id = 11) AND (kind = 11)) OR ((id = 12) AND (kind = 12)) OR ((id = 13) AND (kind = 13))))
+    CONSTRAINT kind_and_id_must_be_equal CHECK ((((id = 1) AND (kind = 1)) OR ((id = 2) AND (kind = 2)) OR ((id = 3) AND (kind = 3)) OR ((id = 4) AND (kind = 4)) OR ((id = 5) AND (kind = 5)) OR ((id = 6) AND (kind = 6)) OR ((id = 7) AND (kind = 7)) OR ((id = 8) AND (kind = 8)) OR ((id = 9) AND (kind = 9)) OR ((id = 10) AND (kind = 10)) OR ((id = 11) AND (kind = 11)) OR ((id = 12) AND (kind = 12))))
 );
 
 
@@ -2315,40 +2315,11 @@ CREATE TABLE rt_volunteer_subscribes (
     name character varying,
     last_name character varying,
     last_name_alt character varying,
-    id_number_type_id integer,
-    id_number character varying,
-    gender integer,
-    birth_date date,
-    nationality_id integer,
     phone_number character varying,
     phone_number_alt character varying,
     email character varying,
-    road_type_id integer,
-    road_name character varying,
-    number_type character varying,
-    road_number character varying,
-    postal_code character varying,
-    borough character varying,
-    district_id integer,
-    town character varying,
-    province_id integer,
-    status_id integer,
-    employment_status_id integer,
-    vocne boolean DEFAULT false,
-    available boolean DEFAULT false,
-    availability_date date,
-    academic_level_id integer,
-    expectations text,
-    agreement boolean DEFAULT false,
-    agreement_date timestamp without time zone,
-    search_authorization boolean DEFAULT false,
-    representative_statement boolean DEFAULT false,
-    has_driving_license boolean DEFAULT false,
-    publish_pictures boolean DEFAULT true,
-    annual_survey boolean DEFAULT false,
-    info_source_id integer,
-    other_academic_info text,
-    profession_id integer,
+    publish_pictures boolean,
+    annual_survey boolean,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -4921,76 +4892,6 @@ CREATE INDEX index_rt_volunteer_amendments_on_road_type_id ON rt_volunteer_amend
 
 
 --
--- Name: index_rt_volunteer_subscribes_on_academic_level_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_academic_level_id ON rt_volunteer_subscribes USING btree (academic_level_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_district_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_district_id ON rt_volunteer_subscribes USING btree (district_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_employment_status_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_employment_status_id ON rt_volunteer_subscribes USING btree (employment_status_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_id_number_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_id_number_type_id ON rt_volunteer_subscribes USING btree (id_number_type_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_info_source_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_info_source_id ON rt_volunteer_subscribes USING btree (info_source_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_nationality_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_nationality_id ON rt_volunteer_subscribes USING btree (nationality_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_profession_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_profession_id ON rt_volunteer_subscribes USING btree (profession_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_province_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_province_id ON rt_volunteer_subscribes USING btree (province_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_road_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_road_type_id ON rt_volunteer_subscribes USING btree (road_type_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_status_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_status_id ON rt_volunteer_subscribes USING btree (status_id);
-
-
---
 -- Name: index_rt_volunteer_unsubscribes_on_unsubscribe_level_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5504,14 +5405,6 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: fk_rails_23bbf24b49; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_23bbf24b49 FOREIGN KEY (road_type_id) REFERENCES road_types(id);
-
-
---
 -- Name: fk_rails_28acb7a7fa; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5581,14 +5474,6 @@ ALTER TABLE ONLY activities
 
 ALTER TABLE ONLY volunteers
     ADD CONSTRAINT fk_rails_34e98e56ba FOREIGN KEY (academic_level_id) REFERENCES academic_levels(id);
-
-
---
--- Name: fk_rails_41e220275b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_41e220275b FOREIGN KEY (employment_status_id) REFERENCES employment_statuses(id);
 
 
 --
@@ -5688,14 +5573,6 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_5c67115a6e; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_5c67115a6e FOREIGN KEY (academic_level_id) REFERENCES academic_levels(id);
-
-
---
 -- Name: fk_rails_5e29a4093f; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5768,14 +5645,6 @@ ALTER TABLE ONLY rt_activity_subscribes
 
 
 --
--- Name: fk_rails_70ffe8fd78; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_70ffe8fd78 FOREIGN KEY (id_number_type_id) REFERENCES id_number_types(id);
-
-
---
 -- Name: fk_rails_752e02b6ad; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5832,14 +5701,6 @@ ALTER TABLE ONLY rt_volunteers_demands
 
 
 --
--- Name: fk_rails_914a67db4a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_914a67db4a FOREIGN KEY (province_id) REFERENCES provinces(id);
-
-
---
 -- Name: fk_rails_931c3c76ef; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5880,14 +5741,6 @@ ALTER TABLE ONLY boroughs
 
 
 --
--- Name: fk_rails_a756e0883f; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_a756e0883f FOREIGN KEY (info_source_id) REFERENCES info_sources(id);
-
-
---
 -- Name: fk_rails_a7af8553e5; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5909,14 +5762,6 @@ ALTER TABLE ONLY rt_project_actions
 
 ALTER TABLE ONLY rt_volunteers_demands
     ADD CONSTRAINT fk_rails_abaca6d161 FOREIGN KEY (district_id) REFERENCES districts(id);
-
-
---
--- Name: fk_rails_af6823b0e6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_af6823b0e6 FOREIGN KEY (profession_id) REFERENCES professions(id);
 
 
 --
@@ -6056,14 +5901,6 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_e4656aa818; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_e4656aa818 FOREIGN KEY (district_id) REFERENCES districts(id);
-
-
---
 -- Name: fk_rails_e9ec8bdda4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6077,14 +5914,6 @@ ALTER TABLE ONLY entities
 
 ALTER TABLE ONLY rt_entity_subscribes
     ADD CONSTRAINT fk_rails_ed2268fc5c FOREIGN KEY (province_id) REFERENCES provinces(id);
-
-
---
--- Name: fk_rails_ee71ed6a44; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_ee71ed6a44 FOREIGN KEY (status_id) REFERENCES statuses(id);
 
 
 --
@@ -6125,14 +5954,6 @@ ALTER TABLE ONLY volunteers
 
 ALTER TABLE ONLY entities
     ADD CONSTRAINT fk_rails_f8a44fe9bf FOREIGN KEY (entity_type_id) REFERENCES entity_types(id);
-
-
---
--- Name: fk_rails_fd28fedc25; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_fd28fedc25 FOREIGN KEY (nationality_id) REFERENCES nationalities(id);
 
 
 --

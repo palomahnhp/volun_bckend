@@ -14,11 +14,10 @@ class AddKindConstraintToRequestTypes < ActiveRecord::Migration
           (id = #{RequestType.kinds[:rt_entity_subscribe]}      AND kind = #{RequestType.kinds[:rt_entity_subscribe]})      OR
           (id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND kind = #{RequestType.kinds[:rt_entity_unsubscribe]})    OR
           (id = #{RequestType.kinds[:rt_volunteers_demand]}     AND kind = #{RequestType.kinds[:rt_volunteers_demand]})     OR
-          (id = #{RequestType.kinds[:rt_project_publishing]}    AND kind = #{RequestType.kinds[:rt_project_publishing]})    OR
-          (id = #{RequestType.kinds[:rt_project_unpublishing]}  AND kind = #{RequestType.kinds[:rt_project_unpublishing]})  OR
-          (id = #{RequestType.kinds[:rt_project_unsubscribe]}   AND kind = #{RequestType.kinds[:rt_project_unsubscribe]})   OR
-          (id = #{RequestType.kinds[:rt_activity_publishing]}   AND kind = #{RequestType.kinds[:rt_activity_publishing]})   OR
-          (id = #{RequestType.kinds[:rt_activity_unpublishing]} AND kind = #{RequestType.kinds[:rt_activity_unpublishing]}) OR
+          (id = #{RequestType.kinds[:rt_project_subscribe]}     AND kind = #{RequestType.kinds[:rt_project_subscribe]})     OR
+          (id = #{RequestType.kinds[:rt_project_action]}        AND kind = #{RequestType.kinds[:rt_project_action]})        OR
+          (id = #{RequestType.kinds[:rt_activity_subscribe]}    AND kind = #{RequestType.kinds[:rt_activity_subscribe]})    OR
+          (id = #{RequestType.kinds[:rt_activity_action]}       AND kind = #{RequestType.kinds[:rt_activity_action]})       OR
           (id = #{RequestType.kinds[:rt_other]}                 AND kind = #{RequestType.kinds[:rt_other]})
         )
     }

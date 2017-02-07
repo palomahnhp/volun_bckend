@@ -154,23 +154,15 @@ MODELS_AND_ATTRS = {
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
-  'ActionType'             => 'kind:integer:uniq description:text', # Publishing, Unpublishing, Unsubscribe
+  'ActionType'                => 'kind:integer:uniq description:text', # Publishing, Unpublishing, Unsubscribe
   'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
   'RejectionType'             => 'name:string:uniq description:text active:boolean',
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references ' \
                                  'status:integer status_date:datetime rejection_type:references ' \
                                  'request_reason:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt id_number_type:references id_number gender:integer ' \
-                                 'birth_date:date nationality:references phone_number phone_number_alt email ' \
-                                 'road_type:references road_name number_type road_number postal_code borough ' \
-                                 'district:references town province:references status:references ' \
-                                 'employment_status:references vocne:boolean available:boolean availability_date:date ' \
-                                 'academic_level:references expectations:text agreement:boolean ' \
-                                 'agreement_date:datetime search_authorization:boolean ' \
-                                 'representative_statement:boolean has_driving_license:boolean ' \
-                                 'publish_pictures:boolean annual_survey:boolean info_source:references ' \
-                                 'other_academic_info:text profession:references notes:text',
+  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email ' \
+                                 'publish_pictures:boolean annual_survey:boolean notes:text',
   'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
   'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough ' \
                                  'district:references town province:references phone_number phone_number_alt ' \
@@ -397,11 +389,10 @@ class AddKindConstraintToRequestTypes < ActiveRecord::Migration
           (id = #{RequestType.kinds[:rt_entity_subscribe]}      AND kind = #{RequestType.kinds[:rt_entity_subscribe]})      OR
           (id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND kind = #{RequestType.kinds[:rt_entity_unsubscribe]})    OR
           (id = #{RequestType.kinds[:rt_volunteers_demand]}     AND kind = #{RequestType.kinds[:rt_volunteers_demand]})     OR
-          (id = #{RequestType.kinds[:rt_project_publishing]}    AND kind = #{RequestType.kinds[:rt_project_publishing]})    OR
-          (id = #{RequestType.kinds[:rt_project_unpublishing]}  AND kind = #{RequestType.kinds[:rt_project_unpublishing]})  OR
-          (id = #{RequestType.kinds[:rt_project_unsubscribe]}   AND kind = #{RequestType.kinds[:rt_project_unsubscribe]})   OR
-          (id = #{RequestType.kinds[:rt_activity_publishing]}   AND kind = #{RequestType.kinds[:rt_activity_publishing]})   OR
-          (id = #{RequestType.kinds[:rt_activity_unpublishing]} AND kind = #{RequestType.kinds[:rt_activity_unpublishing]}) OR
+          (id = #{RequestType.kinds[:rt_project_subscribe]}     AND kind = #{RequestType.kinds[:rt_project_subscribe]})     OR
+          (id = #{RequestType.kinds[:rt_project_action]}        AND kind = #{RequestType.kinds[:rt_project_action]})        OR
+          (id = #{RequestType.kinds[:rt_activity_subscribe]}    AND kind = #{RequestType.kinds[:rt_activity_subscribe]})    OR
+          (id = #{RequestType.kinds[:rt_activity_action]}       AND kind = #{RequestType.kinds[:rt_activity_action]})       OR
           (id = #{RequestType.kinds[:rt_other]}                 AND kind = #{RequestType.kinds[:rt_other]})
         )
     }
