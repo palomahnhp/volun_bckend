@@ -18,6 +18,31 @@ TIMETABLE_NUM     = 5
 EVENTS_NUM        = 5
 DOCUMENT_NUM      = 5
 SKILLS_NUM        = 5
+ACADEMIC_LEVELS   = 5
+CONTACT_RESULTS   = 5
+CONTACT_TYPES     = 5
+DEGREES           = 5
+DEGREE_TYPES      = 5
+EMPLOYMENT_STATUS = 5
+EVENT_TYPES       = 5
+FRONTPAGE_ELEMS   = 5
+FRONTPAGE_POSTN   = 5
+INFO_SOURCES      = 5
+LANGUAGES         = 5
+LANGUAGE_LEVELS   = 5
+LINKS             = 5
+MANAGERS          = 5
+MOTIVATIONS       = 5
+PROFESSIONS       = 5
+PROFILES          = 5
+REJECTION_TYPES   = 5
+SECTORS           = 5
+STATUSES          = 5
+TRACKING_TYPES    = 5
+TRAITS            = 5
+UNSUBS_LEVELS     = 5
+UNSUBS_REASONS    = 5
+VOLUNTEERS        = 10
 
 REQUEST_TYPES = {
   1  => 'rt_volunteer_subscribe',
@@ -221,6 +246,13 @@ NOTICE_TYPES = {
   2 => 'papel'
 }
 
+NATIONALITIES = {
+	0 => 'Español',
+	1 => 'Inglés',
+	2 => 'Alemán',
+	3 => 'Francés',
+	4 => 'Italiano'
+}
 
 puts "Creando Medios de comunicación"
 NOTICE_TYPES.each do |kind , name|
@@ -327,11 +359,10 @@ puts "Creando Entidades"
   )
 end
 
-
-# puts "Creando Motivos de solicitud"
-# REQUEST_REASONS.each do |kind , name|
-#   RequestReason.create!(kind: kind)
-# end
+puts "Creando Motivos de solicitud"
+REQUEST_REASONS.each do |kind , name|
+  RequestReason.create!(kind: kind)
+end
 
 puts "Creando Proyectos"
 ProjectType.all.each do |project_type|
@@ -443,4 +474,139 @@ RequestType.all.each do |request_type|
 
     request_form.save!
   end
+end
+
+puts "Creando Niveles Académicos"
+(1..ACADEMIC_LEVELS).each do |n|
+  AcademicLevel.create!(name: "AcademicLevel_#{n}", educational_type: "EdType_#{n}")
+end
+
+puts "Creando Contact Results"
+(1..CONTACT_RESULTS).each do |n|
+  ContactResult.create!(name: "ContactResult_#{n}")
+end
+
+puts "Creando Contact Types"
+(1..CONTACT_TYPES).each do |n|
+  ContactType.create!(name: "ContactTypes_#{n}")
+end
+
+puts "Creando Tipos de titulaciones"
+(1..DEGREE_TYPES).each do |n|
+  DegreeType.create!(name: "DegreeTypes_#{n}", educational_type: "EdType_#{n}")
+end
+
+puts "Creando Titulaciones"
+(1..DEGREES).each do |n|
+  Degree.create!(name: "Degrees_#{n}", degree_type_id: n)
+end
+
+puts "Creando Employment Statuses"
+(1..EMPLOYMENT_STATUS).each do |n|
+  EmploymentStatus.create!(name: "EmploymentStatus_#{n}")
+end
+
+puts "Creando Event Types"
+(1..EVENT_TYPES).each do |n|
+  EventType.create!(id: n, kind: n, description: "Event type #{n} description.")
+end
+
+puts "Creando Frontpage Positions"
+(1..FRONTPAGE_POSTN).each do |n|
+  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
+end
+
+puts "Creando Frontpage Elements"
+(1..FRONTPAGE_ELEMS).each do |n|
+  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
+end
+
+puts "Creando Info Sources"
+(1..INFO_SOURCES).each do |n|
+  InfoSource.create!(name: "InfoSource_#{n}")
+end
+
+puts "Creando Language Levels"
+(1..LANGUAGE_LEVELS).each do |n|
+  LanguageLevel.create!(name: "LanguageLevel_#{n}")
+end
+
+puts "Creando Languages"
+(1..LANGUAGES).each do |n|
+  Language.create!(name: "Language_#{n}")
+end
+
+puts "Creando Links"
+(1..LINKS).each do |n|
+  Link.create!(url: "http://url#{n}.com", description: "Link #{n} description.")
+end
+
+puts "Creando Managers"
+(1..MANAGERS).each do |n|
+  Manager.create!(name: "Manager_#{n}")
+end
+
+puts "Creando Motivations"
+(1..MOTIVATIONS).each do |n|
+  Motivation.create!(name: "Motivation_#{n}", active: true)
+end
+
+puts "Creando Nacionalidades"
+NATIONALITIES.each do |id, name|
+  Nationality.create!(name: name)
+end
+
+puts "Creando Professions"
+(1..PROFESSIONS).each do |n|
+  Profession.create!(name: "Profession_#{n}")
+end
+
+puts "Creando Profiles"
+(1..PROFILES).each do |n|
+  Profile.create!(name: "Profile_#{n}")
+end
+
+puts "Creando Motivos de rechazo"
+(1..REJECTION_TYPES).each do |n|
+  RejectionType.create!(name: "RejectionType_#{n}", description: "Rejection type #{n} description.")
+end
+
+puts "Creando Sectors"
+(1..SECTORS).each do |n|
+  Sector.create!(name: "Sector_#{n}", active: true)
+end
+
+puts "Creando Statuses"
+(1..STATUSES).each do |n|
+  Status.create!(name: "Status_#{n}")
+end
+
+puts "Creando Tipos de Seguimiento"
+(1..TRACKING_TYPES).each do |n|
+  TrackingType.create!(name: "TrackingType_#{n}")
+end
+
+puts "Creando Cualidades"
+(1..TRAITS).each do |n|
+  Trait.create!(name: "Trait_#{n}")
+end
+
+puts "Creando Niveles de Baja"
+(1..UNSUBS_LEVELS).each do |n|
+  UnsubscribeLevel.create!(kind: n, description: "Trait #{n} description.")
+end
+
+puts "Creando Motivos de Baja"
+(1..UNSUBS_REASONS).each do |n|
+  UnsubscribeReason.create!(name: "UnsubscribeReason_#{n}")
+end
+
+puts "Creando Voluntarios"
+(1..VOLUNTEERS).each do |n|
+  Volunteer.create!(name: Faker::Name.first_name,
+                    last_name: Faker::Name.last_name,
+                    id_number_type_id: IdNumberType.last.id,
+                    id_number: "#{n}0000000A",
+                    email: Faker::Internet.email,
+                    address_id: Address.last.id)
 end
