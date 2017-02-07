@@ -71,19 +71,18 @@ Rails.application.routes.draw do
     get 'rt_extensions_menu', on: :collection
   end
   namespace :rt do
-    resources :others
-    resources :activity_unpublishings
-    resources :activity_publishings
-    resources :project_unsubscribes
-    resources :project_unpublishings
-    resources :project_publishings
-    resources :volunteers_demands
-    resources :entity_unsubscribes
-    resources :entity_subscribes
-    resources :volunteer_appointments
-    resources :volunteer_amendments
-    resources :volunteer_unsubscribes
     resources :volunteer_subscribes
+    resources :volunteer_unsubscribes
+    resources :volunteer_amendments
+    resources :volunteer_appointments
+    resources :entity_subscribes
+    resources :entity_unsubscribes
+    resources :volunteers_demands
+    resources :activity_actions
+    resources :activity_subscribes
+    resources :project_actions
+    resources :project_subscribes
+    resources :others
   end
 
   # Project related routes

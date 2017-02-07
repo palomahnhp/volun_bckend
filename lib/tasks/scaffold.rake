@@ -154,6 +154,7 @@ MODELS_AND_ATTRS = {
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
+  'ActionType'             => 'kind:integer:uniq description:text', # Publishing, Unpublishing, Unsubscribe
   'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
   'RejectionType'             => 'name:string:uniq description:text active:boolean',
   'RequestType'               => 'kind:integer:uniq description:text active:boolean',
@@ -187,22 +188,14 @@ MODELS_AND_ATTRS = {
                                  'district:references town province:references requested_volunteers_num ' \
                                  'volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text ' \
                                  'volunteer_functions_3:text notes:text',
-  'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code ' \
+  'Rt::ProjectSubscribe'      => 'description:text road_type:references road_name number_type road_number postal_code ' \
                                  'borough district:references town province:references notes:text',
-  'Rt::ProjectUnpublishing'   => 'notes:text',
-  'Rt::ProjectUnsubscribe'    => 'project:references notes:text',
-  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour ' \
+  'Rt::ProjectAction'         => 'project:references operation_type:references notes:text',
+  'Rt::ActivitySubscribe'     => 'name organizer description:text execution_date:date execution_hour ' \
                                  'road_type:references road_name number_type road_number postal_code ' \
                                  'borough district:references town province:references project:references notes:text',
-  'Rt::ActivityUnpublishing'  => 'notes:text',
+  'Rt::ActivityAction'        => 'activity:references action_type:references notes:text',
   'Rt::Other'                 => 'description:text notes:text',
-
-
-  ## TODO Would not the following Rt's be necessary for consistency?
-  ## 'Rt::ProjectSubscribe'     => 'name:string:uniq description:text active:boolean',
-  ## 'Rt::ActivitySubscribe'    => 'name:string:uniq description:text active:boolean',
-  ## 'Rt::ProjectUnsubscribe'   => 'name:string:uniq description:text active:boolean',
-  ## 'Rt::ActivityUnsubscribe'  => 'name:string:uniq description:text active:boolean',
 
   # -------------------------------------------------
 
@@ -440,11 +433,10 @@ class AddRtExtendableConstraintToRequestForms < ActiveRecord::Migration
           (request_type_id = #{RequestType.kinds[:rt_entity_subscribe]}      AND rt_extendable_type = '#{Rt::EntitySubscribe.name}')      OR
           (request_type_id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND rt_extendable_type = '#{Rt::EntityUnsubscribe.name}')    OR
           (request_type_id = #{RequestType.kinds[:rt_volunteers_demand]}     AND rt_extendable_type = '#{Rt::VolunteersDemand.name}')     OR
-          (request_type_id = #{RequestType.kinds[:rt_project_publishing]}    AND rt_extendable_type = '#{Rt::ProjectPublishing.name}')    OR
-          (request_type_id = #{RequestType.kinds[:rt_project_unpublishing]}  AND rt_extendable_type = '#{Rt::ProjectUnpublishing.name}')  OR
-          (request_type_id = #{RequestType.kinds[:rt_project_unsubscribe]}   AND rt_extendable_type = '#{Rt::ProjectUnsubscribe.name}')   OR
-          (request_type_id = #{RequestType.kinds[:rt_activity_publishing]}   AND rt_extendable_type = '#{Rt::ActivityPublishing.name}')   OR
-          (request_type_id = #{RequestType.kinds[:rt_activity_unpublishing]} AND rt_extendable_type = '#{Rt::ActivityUnpublishing.name}') OR
+          (request_type_id = #{RequestType.kinds[:rt_project_subscribe]}     AND rt_extendable_type = '#{Rt::ProjectSubscribe.name}')     OR
+          (request_type_id = #{RequestType.kinds[:rt_project_action]}        AND rt_extendable_type = '#{Rt::ProjectAction.name}')        OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_subscribe]}    AND rt_extendable_type = '#{Rt::ActivitySubscribe.name}')    OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_action]}       AND rt_extendable_type = '#{Rt::ActivityAction.name}')       OR
           (request_type_id = #{RequestType.kinds[:rt_other]}                 AND rt_extendable_type = '#{Rt::Other.name}')
         )
     }
@@ -581,11 +573,10 @@ class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
     Rt::EntitySubscribe,
     Rt::EntityUnsubscribe,
     Rt::VolunteersDemand,
-    Rt::ProjectPublishing,
-    Rt::ProjectUnpublishing,
-    Rt::ProjectUnsubscribe,
-    Rt::ActivityPublishing,
-    Rt::ActivityUnpublishing,
+    Rt::ProjectSubscribe,
+    Rt::ProjectAction,
+    Rt::ActivitySubscribe,
+    Rt::ActivityAction,
     Rt::Other
   ]
 

@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(action_type) %>" >
+
+  <% action_type.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(action_type, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(action_type) %>
+    <%= link_to_edit(action_type) %>
+<% if action_type.try(:archived?) %>
+    <%= link_to_recover(action_type) %>
+<% else %>
+    <%= link_to_destroy(action_type) %>
+<% end %>
+  </td>
+</tr>

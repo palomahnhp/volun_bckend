@@ -13,62 +13,35 @@ PROPOSAL_NUM      = 10
 ENTITY_NUM        = 10
 RACKING_NUM       = 10
 ISSUE_NUM         = 10
-ACTIVITIES_NUM    = 5
-TIMETABLE_NUM     = 5
-EVENTS_NUM        = 5
-DOCUMENT_NUM      = 5
-SKILLS_NUM        = 5
-ACADEMIC_LEVELS   = 5
-CONTACT_RESULTS   = 5
-CONTACT_TYPES     = 5
-DEGREES           = 5
-DEGREE_TYPES      = 5
-EMPLOYMENT_STATUS = 5
-EVENT_TYPES       = 5
-FRONTPAGE_ELEMS   = 5
-FRONTPAGE_POSTN   = 5
-INFO_SOURCES      = 5
-LANGUAGES         = 5
-LANGUAGE_LEVELS   = 5
-LINKS             = 5
-MANAGERS          = 5
-MOTIVATIONS       = 5
-PROFESSIONS       = 5
-PROFILES          = 5
-REJECTION_TYPES   = 5
-SECTORS           = 5
-STATUSES          = 5
-TRACKING_TYPES    = 5
-TRAITS            = 5
-UNSUBS_LEVELS     = 5
-UNSUBS_REASONS    = 5
 VOLUNTEERS        = 10
-
-REQUEST_TYPES = {
-  1  => 'rt_volunteer_subscribe',
-  2  => 'rt_volunteer_unsubscribe',
-  3  => 'rt_volunteer_amendment',
-  4  => 'rt_volunteer_appointment',
-  5  => 'rt_entity_subscribe',
-  6  => 'rt_entity_unsubscribe',
-  7  => 'rt_volunteers_demand',
-  8  => 'rt_project_publishing',
-  9  => 'rt_project_unpublishing',
-  10 => 'rt_project_unsubscribe',
-  11 => 'rt_activity_publishing',
-  12 => 'rt_activity_unpublishing',
-  13 => 'rt_other'
-}
-
-PROJECT_TYPES = {
-  1 => 'Servicios Sociales',
-  2 => 'Centros de mayores',
-  3 => 'Permanentes',
-  4 => 'Puntuales',
-  5 => 'Entidades',
-  6 => 'Subvencionados',
-  7 => 'Otros'
-}
+ACTIVITIES_NUM    = 3
+TIMETABLE_NUM     = 3
+EVENTS_NUM        = 3
+DOCUMENT_NUM      = 3
+SKILLS_NUM        = 3
+ACADEMIC_LEVELS   = 3
+CONTACT_RESULTS   = 3
+CONTACT_TYPES     = 3
+DEGREES           = 3
+DEGREE_TYPES      = 3
+EMPLOYMENT_STATUS = 3
+FRONTPAGE_ELEMS   = 3
+FRONTPAGE_POSTN   = 3
+INFO_SOURCES      = 3
+LANGUAGES         = 3
+LANGUAGE_LEVELS   = 3
+LINKS             = 3
+MANAGERS          = 3
+MOTIVATIONS       = 3
+PROFESSIONS       = 3
+PROFILES          = 3
+REJECTION_TYPES   = 3
+SECTORS           = 3
+STATUSES          = 3
+TRACKING_TYPES    = 3
+TRAITS            = 3
+UNSUBS_LEVELS     = 3
+UNSUBS_REASONS    = 3
 
 REQUEST_REASONS = {
   0 => 'Difusión de proyectos',
@@ -281,8 +254,8 @@ PROPOSALS.each do |name|
 end
 
 puts "Creando Tipos de solicitudes"
-REQUEST_TYPES.each do |kind , name|
-  RequestType.create!(kind: kind)
+RequestType.kinds.each do |kind_name , kind_num|
+  RequestType.create!(id: kind_num, kind: kind_num, description: kind_name)
 end
 
 puts "Creando Tipos de solicitudes"
@@ -291,8 +264,8 @@ ENTITY_TYPES.each do |kind , name|
 end
 
 puts "Creando Tipos de proyectos"
-PROJECT_TYPES.each do |kind , name|
-  ProjectType.create!(kind: kind, description: name)
+ProjectType.kinds.each do |kind_name , kind_num|
+  ProjectType.create!(id: kind_num, kind: kind_num, description: kind_name)
 end
 
 puts "Creando Tipo documento"
@@ -362,6 +335,24 @@ end
 puts "Creando Motivos de solicitud"
 REQUEST_REASONS.each do |kind , name|
   RequestReason.create!(kind: kind)
+end
+
+puts "Creando Solicitudes"
+RequestType.all.each do |request_type|
+  (1..REQUEST_FORMS_NUM).each do |n|
+    request_form = RequestForm.new(
+      request_type: request_type,
+      status: RequestForm.statuses[:pending],
+      status_date: DateTime.now,
+      comments: "#{n} #{Faker::Lorem.sentence}",
+    # rejection_type_id: integer,
+    # user: User.all.sample,
+    )
+
+    request_form.build_rt_extendable
+
+    request_form.save!
+  end
 end
 
 puts "Creando Proyectos"
@@ -457,25 +448,6 @@ puts "Creando Actividades"
   end
 end
 
-
-puts "Creando Solicitudes"
-RequestType.all.each do |request_type|
-  (1..REQUEST_FORMS_NUM).each do |n|
-    request_form = RequestForm.new(
-      request_type: request_type,
-      status: RequestForm.statuses[:pending],
-      status_date: DateTime.now,
-      comments: "#{n} #{Faker::Lorem.sentence}",
-      # rejection_type_id: integer,
-      # user: User.all.sample,
-    )
-
-    request_form.build_rt_extendable
-
-    request_form.save!
-  end
-end
-
 puts "Creando Niveles Académicos"
 (1..ACADEMIC_LEVELS).each do |n|
   AcademicLevel.create!(name: "AcademicLevel_#{n}", educational_type: "EdType_#{n}")
@@ -507,8 +479,8 @@ puts "Creando Employment Statuses"
 end
 
 puts "Creando Event Types"
-(1..EVENT_TYPES).each do |n|
-  EventType.create!(id: n, kind: n, description: "Event type #{n} description.")
+EventType.kinds.each do |kind_name, kind_num|
+  EventType.create!(id: kind_num, kind: kind_num, description: kind_name)
 end
 
 puts "Creando Frontpage Positions"
@@ -606,7 +578,7 @@ puts "Creando Voluntarios"
   Volunteer.create!(name: Faker::Name.first_name,
                     last_name: Faker::Name.last_name,
                     id_number_type_id: IdNumberType.last.id,
-                    id_number: "#{n}0000000A",
+                    id_number: "%09d" % n,
                     email: Faker::Internet.email,
                     address_id: Address.last.id)
 end
