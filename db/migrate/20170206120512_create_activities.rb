@@ -7,6 +7,8 @@ class CreateActivities < ActiveRecord::Migration
       t.datetime :end_date
       t.text :transport
       t.string :pdf_url
+      t.boolean :publish, default: true
+      t.boolean :active, default: true
       t.references :entity, index: true, foreign_key: true
       t.references :area, index: true, foreign_key: true
       t.references :project, index: true, foreign_key: true
