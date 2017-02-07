@@ -21,7 +21,14 @@ class BdcValidator
   end
 
   def bloquevial
-    road_name || {}
+    response_data.dig(
+      :bloquedireccion,
+      :datosdireccion,
+      :bloquepais,
+      :bloqueprovincia,
+      :bloquepoblacion,
+      :bloquevial
+    ) || {}
   end
 
   def bloquenumero
