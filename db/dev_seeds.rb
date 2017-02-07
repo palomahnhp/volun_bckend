@@ -604,9 +604,9 @@ end
 puts "Creando Voluntarios"
 (1..VOLUNTEERS).each do |n|
   Volunteer.create!(name: Faker::Name.first_name,
-										last_name: Faker::Name.last_name,
-										id_number_type_id: IdNumberType.last.id,
-										id_number: "#{n}0000000A",
-										email: Faker::Internet.email,
-										address_id: Address.last.id)
+                    last_name: Faker::Name.last_name,
+                    id_number_type_id: IdNumberType.last.id,
+                    id_number: "#{n}0000000A",
+                    email: Faker::Internet.email,
+                    address_id: Address.last.id)
 end
