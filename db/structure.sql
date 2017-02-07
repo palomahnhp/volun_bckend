@@ -132,6 +132,8 @@ CREATE TABLE activities (
     end_date timestamp without time zone,
     transport text NOT NULL,
     pdf_url character varying,
+    publish boolean DEFAULT true,
+    active boolean DEFAULT true,
     entity_id integer,
     area_id integer,
     project_id integer,
