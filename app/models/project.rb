@@ -25,9 +25,12 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :events, reject_if: :all_blank
 
   validates :name, uniqueness: true
-  validates :name, :description, :execution_start_date, :contact_name, :contact_last_name,
+  validates :name, :description, :contact_name, :contact_last_name,
             :phone_number, :email, :active, :project_type_id, :entity_id, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validate  :execution_start_date_less_than_execution_end_date
+  validates :execution_start_date, inclusion: { in: (11.months.ago..11.months.since),
+                                                message: I18n.t('activerecord.errors.messages.invalid_proj_birth_date')}
 
   scope :list, ->(){
     includes(
@@ -69,6 +72,14 @@ class Project < ActiveRecord::Base
   end
 
   private
+
+  def execution_start_date_less_than_execution_end_date
+    return unless execution_start_date && execution_end_date
+
+    unless execution_start_date < execution_end_date
+      errors.add(:execution_start_date, :execution_start_date_must_be_less_than_execution_end_date)
+    end
+  end
 
   def pt_extendable_class
     pt_extendable.try(:class) || project_type.kind.classify.sub(/\APt/, 'Pt::').constantize
