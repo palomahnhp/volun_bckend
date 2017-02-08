@@ -47,15 +47,15 @@ class Rt::ProjectSubscribesController < ApplicationController
         .require(:rt_project_subscribe)
         .permit(
           :description,
-          :road_type_id,
+          :road_type,
           :road_name,
           :number_type,
           :road_number,
           :postal_code,
           :borough,
-          :district_id,
+          :district,
           :town,
-          :province_id,
+          :province,
           :notes)
     end
 

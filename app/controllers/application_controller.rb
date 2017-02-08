@@ -124,7 +124,7 @@ class ApplicationController < ActionController::Base
           {
             address_attributes: [
               :id,
-              :road_type_id,
+              :road_type,
               :road_name,
               :road_number_type,
               :road_number,
@@ -134,9 +134,9 @@ class ApplicationController < ActionController::Base
               :door,
               :postal_code,
               :borough,
-              :district_id,
+              :district,
               :town,
-              :province_id,
+              :province,
               :country,
               :_destroy
             ]

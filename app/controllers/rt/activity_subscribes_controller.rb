@@ -51,15 +51,15 @@ class Rt::ActivitySubscribesController < ApplicationController
           :description,
           :execution_date,
           :execution_hour,
-          :road_type_id,
+          :road_type,
           :road_name,
           :number_type,
           :road_number,
           :postal_code,
           :borough,
-          :district_id,
+          :district,
           :town,
-          :province_id,
+          :province,
           :project_id,
           :notes
         )

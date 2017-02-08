@@ -6,7 +6,6 @@ Faker::Config.locale = I18n.locale
 ADDRESSES_NUM     = 20
 PROJECTS_NUM      = 10
 REQUEST_FORMS_NUM = 10
-DISTRICTS_NUM     = 10
 ENTITIES_NUM      = 10
 COORDINATIONS_NUM = 10
 PROPOSAL_NUM      = 10
@@ -88,122 +87,118 @@ COLLECTIVE_NAMES = [
   'Otros'
 ]
 
-DISTRICTS = {
+DISTRICTS = [
+  'CENTRO',
+  'ARGANZUELA',
+  'RETIRO',
+  'SALAMANCA',
+  'CHAMARTIN',
+  'TETUAN',
+  'CHAMBERI',
+  'FUENCARRAL-EL PARDO',
+  'MONCLOA-ARAVACA',
+  'LATINA',
+  'CARABANCHEL',
+  'USERA',
+  'PUENTE VALLECAS',
+  'MORATALAZ',
+  'CIUDAD LINEAL',
+  'HORTALEZA',
+  'VILLAVERDE',
+  'VILLA DE VALLECAS',
+  'VICÁLAVARO',
+  'SAN BLAS',
+  'BARAJAS',
+  'OTRO MUNICIPIO',
+  'OTROS'
+]
 
-  '01' => 'CENTRO',
-  '02' => 'ARGANZUELA',
-  '03' => 'RETIRO',
-  '04' => 'SALAMANCA',
-  '05' => 'CHAMARTIN',
-  '06' => 'TETUAN',
-  '07' => 'CHAMBERI',
-  '08' => 'FUENCARRAL-EL PARDO',
-  '09' => 'MONCLOA-ARAVACA',
-  '10' => 'LATINA',
-  '11' => 'CARABANCHEL',
-  '12' => 'USERA',
-  '13' => 'PUENTE VALLECAS',
-  '14' => 'MORATALAZ',
-  '15' => 'CIUDAD LINEAL',
-  '16' => 'HORTALEZA',
-  '17' => 'VILLAVERDE',
-  '18' => 'VILLA DE VALLECAS',
-  '19' => 'VICÁLAVARO',
-  '20' => 'SAN BLAS',
-  '21' => 'BARAJAS',
-  '22' => 'OTRO MUNICIPIO',
-  '99' => 'OTROS'
+PROVINCES = [
+  'ARABA-ALAVA',
+  'ALBACETE',
+  'ALICANTE-ALACANT',
+  'ALMERIA',
+  'AVILA',
+  'BADAJOZ',
+  'ILLES BALEARS',
+  'BARCELONA',
+  'BURGOS',
+  'CACERES',
+  'CADIZ',
+  'CASTELLON-CASTELLO',
+  'CIUDAD REAL',
+  'CORDOBA',
+  'A CORUÑA',
+  'CUENCA',
+  'GIRONA',
+  'GRANADA',
+  'GUADALAJARA',
+  'GIPUZKOA',
+  'HUELVA',
+  'HUESCA',
+  'JAEN',
+  'LEON',
+  'LLEIDA',
+  'LA RIOJA',
+  'LUGO',
+  'MADRID',
+  'MALAGA',
+  'MURCIA',
+  'NAVARRA',
+  'OURENSE',
+  'ASTURIAS',
+  'PALENCIA',
+  'LAS PALMAS',
+  'PONTEVEDRA',
+  'SALAMANCA',
+  'SANTA CRUZ DE TENERIFE',
+  'CANTABRIA',
+  'SEGOVIA',
+  'SEVILLA',
+  'SORIA',
+  'TARRAGONA',
+  'TERUEL',
+  'TOLEDO',
+  'VALENCIA',
+  'VALLADOLID',
+  'BIZKAIA',
+  'ZAMORA',
+  'ZARAGOZA',
+  'CEUTA',
+  'MELILLA'
+]
 
-}
-
-PROVINCES = {
-
-  '1'  => 'ARABA-ALAVA',
-  '2'  => 'ALBACETE',
-  '3'  => 'ALICANTE-ALACANT',
-  '4'  => 'ALMERIA',
-  '5'  => 'AVILA',
-  '6'  => 'BADAJOZ',
-  '7'  => 'ILLES BALEARS',
-  '8'  => 'BARCELONA',
-  '9'  => 'BURGOS',
-  '10' => 'CACERES',
-  '11' => 'CADIZ',
-  '12' => 'CASTELLON-CASTELLO',
-  '13' => 'CIUDAD REAL',
-  '14' => 'CORDOBA',
-  '15' => 'A CORUÑA',
-  '16' => 'CUENCA',
-  '17' => 'GIRONA',
-  '18' => 'GRANADA',
-  '19' => 'GUADALAJARA',
-  '20' => 'GIPUZKOA',
-  '21' => 'HUELVA',
-  '22' => 'HUESCA',
-  '23' => 'JAEN',
-  '24' => 'LEON',
-  '25' => 'LLEIDA',
-  '26' => 'LA RIOJA',
-  '27' => 'LUGO',
-  '28' => 'MADRID',
-  '29' => 'MALAGA',
-  '30' => 'MURCIA',
-  '31' => 'NAVARRA',
-  '32' => 'OURENSE',
-  '33' => 'ASTURIAS',
-  '34' => 'PALENCIA',
-  '35' => 'LAS PALMAS',
-  '36' => 'PONTEVEDRA',
-  '37' => 'SALAMANCA',
-  '38' => 'SANTA CRUZ DE TENERIFE',
-  '39' => 'CANTABRIA',
-  '40' => 'SEGOVIA',
-  '41' => 'SEVILLA',
-  '42' => 'SORIA',
-  '43' => 'TARRAGONA',
-  '44' => 'TERUEL',
-  '45' => 'TOLEDO',
-  '46' => 'VALENCIA',
-  '47' => 'VALLADOLID',
-  '48' => 'BIZKAIA',
-  '49' => 'ZAMORA',
-  '50' => 'ZARAGOZA',
-  '51' => 'CEUTA',
-  '52' => 'MELILLA'
-
-}
-
-ROAD_TYPES = {
-    'ACCESO'     => '13',
-    'ARROYO'     => '1',
-    'AUTOPISTA'  => '10',
-    'AUTOVIA'    => '364',
-    'AVENIDA'    => '13063',
-    'BULEVAR'    => '199',
-    'CALLE'      => '176374',
-    'CALLEJON'   => '159',
-    'CAMINO'     => '1604',
-    'CAMINOALTO' => '28',
-    'CARRERA'    => '50',
-    'CARRETERA'  => '831',
-    'CAÑADA'     => '107',
-    'COLONIA'    => '364 ',
-    'COSTANILLA' => '107 ',
-    'CUESTA'     => '113',
-    'GALERIA'    => '10 ',
-    'GLORIETA'   => '288',
-    'PARQUE'     => '30',
-    'PARTICULAR' => '21',
-    'PASADIZO'   => '6',
-    'PASAJE'     => '',
-    'PASEO'      => '4239',
-    'PISTA'      => '4',
-    'PLAZA'      => '3478',
-    'PLAZUELA'   => '16',
-    'PUENTE'     => '1 ',
-    'RONDA'      => ' ',
-    'TRAVESIA'   => '1007',
-}
+ROAD_TYPES = [
+  'ACCESO',
+  'ARROYO',
+  'AUTOPISTA',
+  'AUTOVIA',
+  'AVENIDA',
+  'BULEVAR',
+  'CALLE',
+  'CALLEJON',
+  'CAMINO',
+  'CAMINOALTO',
+  'CARRERA',
+  'CARRETERA',
+  'CAÑADA',
+  'COLONIA',
+  'COSTANILLA',
+  'CUESTA',
+  'GALERIA',
+  'GLORIETA',
+  'PARQUE',
+  'PARTICULAR',
+  'PASADIZO',
+  'PASAJE',
+  'PASEO',
+  'PISTA',
+  'PLAZA',
+  'PLAZUELA',
+  'PUENTE',
+  'RONDA',
+  'TRAVESIA',
+]
 
 PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
@@ -283,26 +278,11 @@ puts "Creando Coordinaciones"
   Coordination.create!(name: "#{Coordination.model_name.human} #{n}")
 end
 
-puts "Creando Distritos"
-DISTRICTS.each do |code, name|
-  District.create!(code: code, name: name)
-end
-
-puts "Creando Provincias"
-PROVINCES.each do |code, name|
-  Province.create!(code: code, name: name)
-end
-
-puts "Creando Tipos de vías"
-ROAD_TYPES.each do |name, code|
-  RoadType.create!(name: name, code: code)
-end
-
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
   Address.create!(
     postal_code:           Faker::Address.postcode,
-    road_type:             RoadType.all.sample,
+    road_type:             ROAD_TYPES.sample,
     road_name:             Faker::Address.street_name,
     road_number_type:      Address::ROAD_NUMBER_TYPES.sample,
     road_number:           rand(100).to_s,
@@ -311,10 +291,10 @@ puts "Creando Direcciones"
     floor:                 rand(9).to_s,
     door:                  rand(10).to_s,
     borough:               nil,
-    province:              Province.all.sample,
+    province:              PROVINCES.sample,
     country:               "España",
     town:                  "Madrid",
-    district:              District.all.sample
+    district:              DISTRICTS.sample
   )
 end
 

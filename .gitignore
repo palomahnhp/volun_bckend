@@ -18,6 +18,9 @@
 
 .byebug_history
 
+# Database files
+*.dump
+
 # Rubymine hidden files
 .idea/
 

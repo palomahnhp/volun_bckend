@@ -17,7 +17,6 @@ class Project < ActiveRecord::Base
   has_many :events, as: :eventable
   has_many :links, as: :linkable
   has_many :addresses, through: :events
-  has_many :districts, through: :addresses
   has_many :trackings
   has_many :volun_trackings,   :class_name => 'Volun::Tracking'
   has_many :volun_contacts,    :class_name => 'Volun::Contact'
@@ -42,8 +41,7 @@ class Project < ActiveRecord::Base
       :entity,
       :areas,
       :collectives,
-      :addresses,
-      :districts
+      :addresses
     )
   }
   scope :all_active,   ->(){ where(active: true) }

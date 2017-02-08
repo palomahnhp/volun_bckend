@@ -138,6 +138,7 @@ es:
         floor:            Planta
         door:             Puerta
         town:             Población
+        district:         Distrito
         province:         Provincia
         country:          País
         latitude:         Latitud
@@ -241,7 +242,6 @@ es:
         entity:                 Entidad
         entity_id:              Entidad
         areas:                  Ámbitos        # N:N Association (for simple_form)
-        districts:              Distritos      # N:N Association (for simple_form)
         collectives:            Colectivos     # N:N Association (for simple_form)
         coordinations:          Coordinaciones # N:N Association (for simple_form)
         created_at:             *created_at
