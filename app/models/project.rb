@@ -8,9 +8,9 @@ class Project < ActiveRecord::Base
   has_and_belongs_to_many :volunteers
   has_and_belongs_to_many :areas, -> { where(active: true).order('areas.name asc') }
   has_and_belongs_to_many :inactive_areas, -> { where(active: false).order('areas.name asc') }, class_name: 'Area'
-  has_and_belongs_to_many :collectives, -> { where('active = true').order('collectives.name asc') }
+  has_and_belongs_to_many :collectives, -> { where(active: true).order('collectives.name asc') }
   has_and_belongs_to_many :inactive_collectives, -> { where(active: false).order('collectives.name asc') }, class_name: 'Collective'
-  has_and_belongs_to_many :coordinations, -> { where('active = true').order('coordinations.name asc') }
+  has_and_belongs_to_many :coordinations, -> { where(active: true).order('coordinations.name asc') }
   has_and_belongs_to_many :inactive_coordinations, -> { where(active: false).order('coordinations.name asc') }, class_name: 'Coordination'
   has_many :documents
   has_many :activities

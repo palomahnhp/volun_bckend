@@ -117,30 +117,48 @@
     <div class="well col-md-12">
       <%= content_tag :h3, Area.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :areas, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-      <%= f.association :inactive_areas, as: :check_boxes,
-                                label: false,
-                                item_wrapper_class: 'checkbox-inline checkbox-custom',
-                                :disabled => true %>
+      <div class='col-sm-12'>
+        <% f.object.inactive_areas.each do |area| %>
+          <span class='checkbox-inline checkbox-custom'>
+            <%= check_box_tag(area.name, value = "1", checked = true, options = { :disabled => true }) %>
+            <label style='font-weight: normal;'>
+              <%= area.name %>
+            </label>
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="well col-md-12">
       <%= content_tag :h3, Collective.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :collectives, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-      <%= f.association :inactive_collectives, as: :check_boxes,
-                                label: false,
-                                item_wrapper_class: 'checkbox-inline checkbox-custom',
-                                :disabled => true %>
+      <div class='col-sm-12'>
+        <% f.object.inactive_collectives.each do |collective| %>
+          <span class='checkbox-inline checkbox-custom'>
+            <%= check_box_tag(collective.name, value = "1", checked = true, options = { :disabled => true }) %>
+            <label style='font-weight: normal;'>
+              <%= collective.name %>
+            </label>
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="well col-md-12">
       <%= content_tag :h3, Coordination.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :coordinations, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-      <%= f.association :inactive_coordinations, as: :check_boxes,
-                                label: false,
-                                item_wrapper_class: 'checkbox-inline checkbox-custom',
-                                :disabled => true %>
+      <div class='col-sm-12'>
+        <% f.object.inactive_coordinations.each do |coordination| %>
+          <span class='checkbox-inline checkbox-custom'>
+            <%= check_box_tag(coordination.name, value = "1", checked = true, options = { :disabled => true }) %>
+            <label style='font-weight: normal;'>
+              <%= coordination.name %>
+            </label>
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
