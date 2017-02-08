@@ -1,35 +1,16 @@
-<%= main_title(t("action.show", model: RtProjectSubscribe.model_name.human)) %>
+<%= main_title(t("action.show", model: Rt::ProjectSubscribe.model_name.human)) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'request_forms/show', locals: { request_form: @rt_project_subscribe.request_form } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { rt_project_subscribe: @rt_project_subscribe } %>
+  </div>
+</div>
 
-  <dt><%= RtProjectSubscribe.human_attribute_name(:id) %>:</dt>
-  <dd><%= @rt_project_subscribe.id %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:description) %>:</dt>
-  <dd><%= @rt_project_subscribe.description %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:road_type_id) %>:</dt>
-  <dd><%= @rt_project_subscribe.road_type %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:road_name) %>:</dt>
-  <dd><%= @rt_project_subscribe.road_name %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:number_type) %>:</dt>
-  <dd><%= @rt_project_subscribe.number_type %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:road_number) %>:</dt>
-  <dd><%= @rt_project_subscribe.road_number %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:postal_code) %>:</dt>
-  <dd><%= @rt_project_subscribe.postal_code %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:borough) %>:</dt>
-  <dd><%= @rt_project_subscribe.borough %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:district_id) %>:</dt>
-  <dd><%= @rt_project_subscribe.district %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:town) %>:</dt>
-  <dd><%= @rt_project_subscribe.town %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:province_id) %>:</dt>
-  <dd><%= @rt_project_subscribe.province %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:notes) %>:</dt>
-  <dd><%= @rt_project_subscribe.notes %></dd>
-  <dt><%= RtProjectSubscribe.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@rt_project_subscribe.created_at) %></dd>
-
-</dl>
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@rt_project_subscribe) %>

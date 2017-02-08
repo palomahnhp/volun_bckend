@@ -1,45 +1,16 @@
-<%= main_title(t("action.show", model: RtActivitySubscribe.model_name.human)) %>
+<%= main_title(t("action.show", model: Rt::ActivitySubscribe.model_name.human)) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'request_forms/show', locals: { request_form: @rt_activity_subscribe.request_form } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { rt_activity_subscribe: @rt_activity_subscribe } %>
+  </div>
+</div>
 
-  <dt><%= RtActivitySubscribe.human_attribute_name(:id) %>:</dt>
-  <dd><%= @rt_activity_subscribe.id %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:name) %>:</dt>
-  <dd><%= @rt_activity_subscribe.name %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:organizer) %>:</dt>
-  <dd><%= @rt_activity_subscribe.organizer %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:description) %>:</dt>
-  <dd><%= @rt_activity_subscribe.description %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:execution_date) %>:</dt>
-  <dd><%= show_simple_date(@rt_activity_subscribe.execution_date) %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:execution_hour) %>:</dt>
-  <dd><%= @rt_activity_subscribe.execution_hour %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:road_type_id) %>:</dt>
-  <dd><%= @rt_activity_subscribe.road_type %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:road_name) %>:</dt>
-  <dd><%= @rt_activity_subscribe.road_name %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:number_type) %>:</dt>
-  <dd><%= @rt_activity_subscribe.number_type %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:road_number) %>:</dt>
-  <dd><%= @rt_activity_subscribe.road_number %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:postal_code) %>:</dt>
-  <dd><%= @rt_activity_subscribe.postal_code %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:borough) %>:</dt>
-  <dd><%= @rt_activity_subscribe.borough %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:district_id) %>:</dt>
-  <dd><%= @rt_activity_subscribe.district %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:town) %>:</dt>
-  <dd><%= @rt_activity_subscribe.town %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:province_id) %>:</dt>
-  <dd><%= @rt_activity_subscribe.province %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:project_id) %>:</dt>
-  <dd><%= @rt_activity_subscribe.project %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:notes) %>:</dt>
-  <dd><%= @rt_activity_subscribe.notes %></dd>
-  <dt><%= RtActivitySubscribe.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@rt_activity_subscribe.created_at) %></dd>
-
-</dl>
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@rt_activity_subscribe) %>

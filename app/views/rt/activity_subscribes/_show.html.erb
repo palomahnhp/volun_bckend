@@ -1,0 +1,40 @@
+<dl class="dl-horizontal">
+
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:id) %>:</dt>
+  <dd><%= rt_activity_subscribe.id %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:name) %>:</dt>
+  <dd><%= rt_activity_subscribe.name %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:organizer) %>:</dt>
+  <dd><%= rt_activity_subscribe.organizer %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:description) %>:</dt>
+  <dd><%= rt_activity_subscribe.description %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:execution_date) %>:</dt>
+  <dd><%= show_simple_date(rt_activity_subscribe.execution_date) %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:execution_hour) %>:</dt>
+  <dd><%= rt_activity_subscribe.execution_hour %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:road_type_id) %>:</dt>
+  <dd><%= rt_activity_subscribe.road_type %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:road_name) %>:</dt>
+  <dd><%= rt_activity_subscribe.road_name %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:number_type) %>:</dt>
+  <dd><%= rt_activity_subscribe.number_type %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:road_number) %>:</dt>
+  <dd><%= rt_activity_subscribe.road_number %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:postal_code) %>:</dt>
+  <dd><%= rt_activity_subscribe.postal_code %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:borough) %>:</dt>
+  <dd><%= rt_activity_subscribe.borough %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:district_id) %>:</dt>
+  <dd><%= rt_activity_subscribe.district %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:town) %>:</dt>
+  <dd><%= rt_activity_subscribe.town %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:province_id) %>:</dt>
+  <dd><%= rt_activity_subscribe.province %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:project_id) %>:</dt>
+  <dd><%= rt_activity_subscribe.project %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:notes) %>:</dt>
+  <dd><%= rt_activity_subscribe.notes %></dd>
+  <dt><%= Rt::ActivitySubscribe.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(rt_activity_subscribe.created_at) %></dd>
+
+</dl>
