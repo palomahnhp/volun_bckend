@@ -117,18 +117,36 @@
     <div class="well col-md-12">
       <%= content_tag :h3, Area.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :areas, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      <%= f.association :areas, as: :check_boxes,
+                                collection: f.object.areas.unscoped.where(active: false),
+                                label: false,
+                                item_wrapper_class: 'checkbox-inline checkbox-custom',
+                                input_html: { checked: true },
+                                :disabled => true %>
     </div>
   </div>
   <div class="row">
     <div class="well col-md-12">
       <%= content_tag :h3, Collective.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :collectives, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      <%= f.association :collectives, as: :check_boxes,
+                                collection: f.object.collectives.unscoped.where(active: false),
+                                label: false,
+                                item_wrapper_class: 'checkbox-inline checkbox-custom',
+                                input_html: { checked: true },
+                                :disabled => true %>
     </div>
   </div>
   <div class="row">
     <div class="well col-md-12">
       <%= content_tag :h3, Coordination.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :coordinations, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      <%= f.association :coordinations, as: :check_boxes,
+                                collection: f.object.coordinations.unscoped.where(active: false),
+                                label: false,
+                                item_wrapper_class: 'checkbox-inline checkbox-custom',
+                                input_html: { checked: true },
+                                :disabled => true %>
     </div>
   </div>
 </div>
