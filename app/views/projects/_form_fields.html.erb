@@ -70,7 +70,8 @@
                 <div class="row row-4-1">
                     <%#= TODO replace "España" with Setting.default_country %>
                     <%= f_address.input :country, selected: 1, collection: ["España"], input_html: { class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :province, selected: 28, input_html: { class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
+                    <%#= TODO replace "Madrid" with Setting.default_province %>
+                    <%= f_address.input :province, selected: 28, input_html: { value: f_address.object.province || 'Madrid', class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
                     <%= f_address.input :town, input_html: { class: 'js-town' }, wrapper_html: { class: 'col-md-5' } %>
                 </div>
                 <div class="row row-4-1">
@@ -157,17 +158,17 @@
                             dataType: "json",
                             data: {
                                 address: {
-                                    country:             $address.find(".js-country").val(),
+                                    country:          $address.find(".js-country").val(),
                                     province:         $address.find(".js-province").val(),
-                                    town:                $address.find(".js-town").val(),
+                                    town:             $address.find(".js-town").val(),
                                     road_type:        $address.find(".js-road_type").val(),
-                                    road_name:           $address.find(".js-road_name").val(),
-                                    road_number_type:    $address.find(".js-road_number_type").val(),
-                                    road_number:         $address.find(".js-road_number").val(),
-                                    grader:              $address.find(".js-grader").val(),
-                                    stairs:              $address.find(".js-stairs").val(),
-                                    floor:               $address.find(".js-floor").val(),
-                                    door:                $address.find(".js-door").val()
+                                    road_name:        $address.find(".js-road_name").val(),
+                                    road_number_type: $address.find(".js-road_number_type").val(),
+                                    road_number:      $address.find(".js-road_number").val(),
+                                    grader:           $address.find(".js-grader").val(),
+                                    stairs:           $address.find(".js-stairs").val(),
+                                    floor:            $address.find(".js-floor").val(),
+                                    door:             $address.find(".js-door").val()
                                 },
                             },
                             success: function(data) {
@@ -185,7 +186,7 @@
                 close: function() {
                     $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
                     $address = $(this).closest(".address-block");
-                    $address.find(".js-road_type").prop('selectedIndex',0);
+                    $address.find(".js-road_type").val('');
                     $address.find(".js-road_name").val('');
                     $address.find(".js-road_number_type").prop('selectedIndex',0);
                     $address.find(".js-grader").prop('selectedIndex',0);
@@ -201,17 +202,13 @@
         var roads;
         function log2($roadNameInput, message) {
             $roadNameInput.scrollTop(0);
+            var $roadTypeNameInput = $roadNameInput.closest(".address-block").find(".js-road_type");
             var roadName = message.split(" (")[0];
             var roadTypeName = message.split(" (")[1].replace(/\)/, "");
             var selectedRoad = roads.filter(function(road) {
                 return ( road.nomvial == roadName && road.nomclase == roadTypeName );
             })[0];
-
-            if (typeof selectedRoad !== 'undefined') {
-                $roadNameInput.closest(".address-block").find(".js-road_type option").filter(function() {
-                    return $(this).text() == selectedRoad.nomclase;
-                }).prop('selected', true);
-            }
+            $roadTypeNameInput.val(selectedRoad.nomclase);
         }
 
         $.each($(".address-block"), function(i, address){
@@ -408,9 +405,9 @@
                                 data: {
                                     address: {
                                         country:             $address.find(".js-country").val(),
-                                        province:         $address.find(".js-province").val(),
+                                        province:            $address.find(".js-province").val(),
                                         town:                $address.find(".js-town").val(),
-                                        road_type:        $address.find(".js-road_type").val(),
+                                        road_type:           $address.find(".js-road_type").val(),
                                         road_name:           $address.find(".js-road_name").val(),
                                         road_number_type:    $address.find(".js-road_number_type").val(),
                                         road_number:         $address.find(".js-road_number").val(),
@@ -434,7 +431,7 @@
                     },
                     close: function() {
                         $address = $(this).closest(".address-block");
-                        $address.find(".js-road_type").prop('selectedIndex',0);
+                        $address.find(".js-road_type").val('');
                         $address.find(".js-road_name").val('');
                         $address.find(".js-road_number_type").prop('selectedIndex',0);
                         $address.find(".js-grader").prop('selectedIndex',0);
@@ -450,17 +447,13 @@
             var roads;
             function log2($roadNameInput, message) {
                 $roadNameInput.scrollTop(0);
+                var $roadTypeNameInput = $roadNameInput.closest(".address-block").find(".js-road_type");
                 var roadName = message.split(" (")[0];
                 var roadTypeName = message.split(" (")[1].replace(/\)/, "");
                 var selectedRoad = roads.filter(function(road) {
                     return ( road.nomvial == roadName && road.nomclase == roadTypeName );
                 })[0];
-
-                if (typeof selectedRoad !== 'undefined') {
-                    $roadNameInput.closest(".address-block").find(".js-road_type option").filter(function() {
-                        return $(this).text() == selectedRoad.nomclase;
-                    }).prop('selected', true);
-                }
+                $roadTypeNameInput.val(selectedRoad.nomclase);
             }
 
             $.each($(".address-block"), function(i, address){
