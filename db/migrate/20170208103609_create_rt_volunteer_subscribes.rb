@@ -7,8 +7,8 @@ class CreateRtVolunteerSubscribes < ActiveRecord::Migration
       t.string :phone_number
       t.string :phone_number_alt
       t.string :email
-      t.boolean :publish_pictures
-      t.boolean :annual_survey
+      t.boolean :publish_pictures, default: true
+      t.boolean :annual_survey, default: false
       t.text :notes
 
       t.timestamps null: false

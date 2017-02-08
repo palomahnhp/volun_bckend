@@ -13,11 +13,8 @@ MODELS_AND_ATTRS = {
   'Coordination'  => 'name:string:uniq description:text active:boolean',
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
 
-  'Province'      => 'name:string:uniq code:string:uniq',
-  'District'      => 'name:string:uniq code:string:uniq active:boolean',
-  'RoadType'      => 'name:string:uniq code:string:uniq',
-  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code '\
-                     'borough district:references town province:references country ndp_code local_code class_name '\
+  'Address'       => 'road_type road_name road_number_type road_number grader stairs floor door postal_code '\
+                     'borough district town province country ndp_code local_code class_name '\
                      'latitude longitude',
 
   'Manager'       => 'name profile_id:integer phone_number active:boolean',
@@ -120,8 +117,6 @@ MODELS_AND_ATTRS = {
 
   'Trait' => 'name:string:uniq active:boolean',
 
-  'Borough'     => 'name:string:uniq active district:references',
-
   'ContactType' => 'name:string:uniq active',
 
   'Motivation'  => 'name active',
@@ -164,28 +159,28 @@ MODELS_AND_ATTRS = {
   'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email ' \
                                  'publish_pictures:boolean annual_survey:boolean notes:text',
   'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
-  'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough ' \
-                                 'district:references town province:references phone_number phone_number_alt ' \
+  'Rt::VolunteerAmendment'    => 'road_type road_name number_type road_number postal_code borough ' \
+                                 'district town province phone_number phone_number_alt ' \
                                  'email notes:text',
   'Rt::VolunteerAppointment'  => 'notes:text',
   'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name ' \
                                  'representative_last_name_alt contact_name contact_last_name contact_last_name_alt ' \
                                  'phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean ' \
                                  'entity_type:references comments:text other_subscribe_reason:text ' \
-                                 'road_type:references road_name number_type road_number postal_code borough ' \
-                                 'district:references town province:references notes:text',
+                                 'road_type road_name number_type road_number postal_code borough ' \
+                                 'district town province notes:text',
   'Rt::EntityUnsubscribe'     => 'notes:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date ' \
-                                 'road_type:references road_name number_type road_number postal_code borough ' \
-                                 'district:references town province:references requested_volunteers_num ' \
+                                 'road_type road_name number_type road_number postal_code borough ' \
+                                 'district town province requested_volunteers_num ' \
                                  'volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text ' \
                                  'volunteer_functions_3:text notes:text',
-  'Rt::ProjectSubscribe'      => 'description:text road_type:references road_name number_type road_number postal_code ' \
-                                 'borough district:references town province:references notes:text',
-  'Rt::ProjectAction'         => 'project:references operation_type:references notes:text',
+  'Rt::ProjectSubscribe'      => 'description:text road_type road_name number_type road_number postal_code ' \
+                                 'borough district town province notes:text',
+  'Rt::ProjectAction'         => 'project:references action_type:references notes:text',
   'Rt::ActivitySubscribe'     => 'name organizer description:text execution_date:date execution_hour ' \
-                                 'road_type:references road_name number_type road_number postal_code ' \
-                                 'borough district:references town province:references project:references notes:text',
+                                 'road_type road_name number_type road_number postal_code ' \
+                                 'borough district town province project:references notes:text',
   'Rt::ActivityAction'        => 'activity:references action_type:references notes:text',
   'Rt::Other'                 => 'description:text notes:text',
 

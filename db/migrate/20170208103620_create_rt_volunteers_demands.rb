@@ -4,15 +4,15 @@ class CreateRtVolunteersDemands < ActiveRecord::Migration
       t.text :description
       t.date :execution_start_date
       t.date :execution_end_date
-      t.references :road_type, index: true, foreign_key: true
+      t.string :road_type
       t.string :road_name
       t.string :number_type
       t.string :road_number
       t.string :postal_code
       t.string :borough
-      t.references :district, index: true, foreign_key: true
+      t.string :district
       t.string :town
-      t.references :province, index: true, foreign_key: true
+      t.string :province
       t.string :requested_volunteers_num
       t.text :volunteers_profile
       t.text :volunteer_functions_1

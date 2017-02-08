@@ -28,9 +28,6 @@ Rails.application.routes.draw do
   resources :events
   resources :event_types
   resources :documents
-  resources :districts
-  resources :road_types
-  resources :provinces
   resources :record_histories, concerns: :recoverable
   resources :notice_types
   resources :unsubscribe_levels

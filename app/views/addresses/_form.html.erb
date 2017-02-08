@@ -7,7 +7,7 @@
           <%= f_address.input :country, selected: 1, collection: [ "España"] %>
         </div>
         <div class="col-md-5">
-          <%= f_address.association :province, selected: 28, input_html: { class: 'm-width250'} %>
+          <%= f_address.input :province, input_html: { class: 'm-width250'} %>
         </div>
         <div class="col-md-4">
           <%= f_address.input :town, input_html: { class: 'm-width250'} %>
@@ -15,7 +15,7 @@
       </div>
       <div class="row row-4-1">
         <div class="col-md-3">
-          <%= f_address.association :road_type %>
+          <%= f_address.input :road_type %>
         </div>
         <div class="col-md-9">
           <%= f_address.input :road_name %>
@@ -72,9 +72,9 @@
                     data: {
                         address: {
                             country:             $("#address_country").val(),
-                            province_id:         $("#address_province_id").val(),
+                            province:         $("#address_province").val(),
                             town:                $("#address_town").val(),
-                            road_type_id:        $("#address_road_type_id").val(),
+                            road_type:        $("#address_road_type").val(),
                             road_name:           $("#address_road_name").val(),
                             road_number_type:    $("#address_road_number_type").val(),
                             road_number:         $("#address_road_number").val(),
@@ -123,9 +123,9 @@
                     data: {
                         address: {
                             country:             $("#address_country").val(),
-                            province_id:         $("#address_province_id").val(),
+                            province:         $("#address_province").val(),
                             town:                $("#address_town").val(),
-                            road_type_id:        $("#address_road_type_id").val(),
+                            road_type:        $("#address_road_type").val(),
                             road_name:           $("#address_road_name").val(),
                             road_number_type:    $("#address_road_number_type").val(),
                             road_number:         $("#address_road_number").val(),

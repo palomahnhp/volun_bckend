@@ -70,11 +70,11 @@
                 <div class="row row-4-1">
                     <%#= TODO replace "España" with Setting.default_country %>
                     <%= f_address.input :country, selected: 1, collection: ["España"], input_html: { class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.association :province, selected: 28, input_html: { class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
+                    <%= f_address.input :province, selected: 28, input_html: { class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
                     <%= f_address.input :town, input_html: { class: 'js-town' }, wrapper_html: { class: 'col-md-5' } %>
                 </div>
                 <div class="row row-4-1">
-                    <%= f_address.association :road_type, input_html: { class: 'js-road_type' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :road_type, input_html: { class: 'js-road_type' }, wrapper_html: { class: 'col-md-3' } %>
                     <%= f_address.input :road_name, input_html: { class: 'js-road_name' }, wrapper_html: { class: 'road_name col-md-9' } %>
                 </div>
                 <div class="row row-4-2">
@@ -158,9 +158,9 @@
                             data: {
                                 address: {
                                     country:             $address.find(".js-country").val(),
-                                    province_id:         $address.find(".js-province").val(),
+                                    province:         $address.find(".js-province").val(),
                                     town:                $address.find(".js-town").val(),
-                                    road_type_id:        $address.find(".js-road_type").val(),
+                                    road_type:        $address.find(".js-road_type").val(),
                                     road_name:           $address.find(".js-road_name").val(),
                                     road_number_type:    $address.find(".js-road_number_type").val(),
                                     road_number:         $address.find(".js-road_number").val(),
@@ -226,9 +226,9 @@
                             data: {
                                 address: {
                                     country: $address.find(".js-country").val(),
-                                    province_id: $address.find(".js-province").val(),
+                                    province: $address.find(".js-province").val(),
                                     town: $address.find(".js-town").val(),
-                                    road_type_id: $address.find(".js-road_type").val(),
+                                    road_type: $address.find(".js-road_type").val(),
                                     road_name: $address.find(".js-road_name").val(),
                                     road_number_type: $address.find(".js-road_number_type").val(),
                                     road_number: $address.find(".js-road_number").val(),
@@ -338,9 +338,9 @@
                             data: {
                                 address: {
                                     country: $address.find(".js-country").val(),
-                                    province_id: $address.find(".js-province").val(),
+                                    province: $address.find(".js-province").val(),
                                     town: $address.find(".js-town").val(),
-                                    road_type_id: $address.find(".js-road_type").val(),
+                                    road_type: $address.find(".js-road_type").val(),
                                     road_name: $address.find(".js-road_name").val(),
                                     road_number_type: $address.find(".js-road_number_type").val(),
                                     road_number: $address.find(".js-road_number").val(),
@@ -408,9 +408,9 @@
                                 data: {
                                     address: {
                                         country:             $address.find(".js-country").val(),
-                                        province_id:         $address.find(".js-province").val(),
+                                        province:         $address.find(".js-province").val(),
                                         town:                $address.find(".js-town").val(),
-                                        road_type_id:        $address.find(".js-road_type").val(),
+                                        road_type:        $address.find(".js-road_type").val(),
                                         road_name:           $address.find(".js-road_name").val(),
                                         road_number_type:    $address.find(".js-road_number_type").val(),
                                         road_number:         $address.find(".js-road_number").val(),
@@ -475,9 +475,9 @@
                                 data: {
                                     address: {
                                         country: $address.find(".js-country").val(),
-                                        province_id: $address.find(".js-province").val(),
+                                        province: $address.find(".js-province").val(),
                                         town: $address.find(".js-town").val(),
-                                        road_type_id: $address.find(".js-road_type").val(),
+                                        road_type: $address.find(".js-road_type").val(),
                                         road_name: $address.find(".js-road_name").val(),
                                         road_number_type: $address.find(".js-road_number_type").val(),
                                         road_number: $address.find(".js-road_number").val(),
@@ -586,9 +586,9 @@
                                 data: {
                                     address: {
                                         country: $address.find(".js-country").val(),
-                                        province_id: $address.find(".js-province").val(),
+                                        province: $address.find(".js-province").val(),
                                         town: $address.find(".js-town").val(),
-                                        road_type_id: $address.find(".js-road_type").val(),
+                                        road_type: $address.find(".js-road_type").val(),
                                         road_name: $address.find(".js-road_name").val(),
                                         road_number_type: $address.find(".js-road_number_type").val(),
                                         road_number: $address.find(".js-road_number").val(),
