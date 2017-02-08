@@ -27,12 +27,12 @@ class Rt::EntityUnsubscribesController < ApplicationController
 
   def create
     @rt_entity_unsubscribe.save
-    respond_with(@rt_entity_unsubscribe, location: projects_path)
+    respond_with(@rt_entity_unsubscribe, location: request_forms_path)
   end
 
   def update
     @rt_entity_unsubscribe.update(rt_entity_unsubscribe_params)
-    respond_with(@rt_entity_unsubscribe, location: projects_path)
+    respond_with(@rt_entity_unsubscribe, location: request_forms_path)
   end
 
   def destroy

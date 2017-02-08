@@ -27,12 +27,12 @@ class Rt::OthersController < ApplicationController
 
   def create
     @rt_other.save
-    respond_with(@rt_other, location: projects_path)
+    respond_with(@rt_other, location: request_forms_path)
   end
 
   def update
     @rt_other.update(rt_other_params)
-    respond_with(@rt_other, location: projects_path)
+    respond_with(@rt_other, location: request_forms_path)
   end
 
   def destroy

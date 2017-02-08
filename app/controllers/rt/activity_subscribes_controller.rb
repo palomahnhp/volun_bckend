@@ -1,6 +1,6 @@
 class Rt::ActivitySubscribesController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :rt_activity_subscribe
   respond_to :html, :js
 
   def index
@@ -43,6 +43,28 @@ class Rt::ActivitySubscribesController < ApplicationController
   protected
 
     def rt_activity_subscribe_params
-      params.require(:rt_activity_subscribe).permit(:name, :organizer, :description, :execution_date, :execution_hour, :road_type_id, :road_name, :number_type, :road_number, :postal_code, :borough, :district_id, :town, :province_id, :project_id, :notes)
+      params
+        .require(:rt_activity_subscribe)
+        .permit(
+          :name,
+          :organizer,
+          :description,
+          :execution_date,
+          :execution_hour,
+          :road_type_id,
+          :road_name,
+          :number_type,
+          :road_number,
+          :postal_code,
+          :borough,
+          :district_id,
+          :town,
+          :province_id,
+          :project_id,
+          :notes
+        )
     end
+
+    alias_method :create_params, :rt_activity_subscribe_params
+
 end

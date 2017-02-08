@@ -1,6 +1,6 @@
 class Rt::ProjectActionsController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :rt_project_action
   respond_to :html, :js
 
   def index
@@ -27,12 +27,12 @@ class Rt::ProjectActionsController < ApplicationController
 
   def create
     @rt_project_action.save
-    respond_with(@rt_project_action)
+    respond_with(@rt_project_action, location: request_forms_path)
   end
 
   def update
     @rt_project_action.update_attributes(rt_project_action_params)
-    respond_with(@rt_project_action)
+    respond_with(@rt_project_action, location: request_forms_path)
   end
 
   def destroy
@@ -43,6 +43,14 @@ class Rt::ProjectActionsController < ApplicationController
   protected
 
     def rt_project_action_params
-      params.require(:rt_project_action).permit(:project_id, :operation_type_id, :notes)
+      params
+        .require(:rt_project_action)
+        .permit(
+          :project_id,
+          :operation_type_id,
+          :notes
+        )
     end
+
+    alias_method :create_params, :rt_project_action_params
 end

@@ -27,12 +27,12 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
 
   def create
     @rt_volunteer_unsubscribe.save
-    respond_with(@rt_volunteer_unsubscribe, location: projects_path)
+    respond_with(@rt_volunteer_unsubscribe, location: request_forms_path)
   end
 
   def update
     @rt_volunteer_unsubscribe.update(rt_volunteer_unsubscribe_params)
-    respond_with(@rt_volunteer_unsubscribe, location: projects_path)
+    respond_with(@rt_volunteer_unsubscribe, location: request_forms_path)
   end
 
   def destroy

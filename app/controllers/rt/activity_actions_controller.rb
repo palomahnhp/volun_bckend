@@ -1,6 +1,6 @@
 class Rt::ActivityActionsController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :rt_activity_action
   respond_to :html, :js
 
   def index
@@ -27,12 +27,12 @@ class Rt::ActivityActionsController < ApplicationController
 
   def create
     @rt_activity_action.save
-    respond_with(@rt_activity_action)
+    respond_with(@rt_activity_action, location: request_forms_path)
   end
 
   def update
     @rt_activity_action.update_attributes(rt_activity_action_params)
-    respond_with(@rt_activity_action)
+    respond_with(@rt_activity_action, location: request_forms_path)
   end
 
   def destroy
@@ -43,6 +43,14 @@ class Rt::ActivityActionsController < ApplicationController
   protected
 
     def rt_activity_action_params
-      params.require(:rt_activity_action).permit(:activity_id, :operation_type_id, :notes)
+      params
+        .require(:rt_activity_action)
+        .permit(
+          :activity_id,
+          :operation_type_id,
+          :notes
+        )
     end
+
+  alias_method :create_params, :rt_activity_action_params
 end
