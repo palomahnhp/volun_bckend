@@ -6,9 +6,12 @@ class Project < ActiveRecord::Base
   belongs_to :project_type, required: true
   belongs_to :entity, required: true
   has_and_belongs_to_many :volunteers
-  has_and_belongs_to_many :areas, -> { order('areas.name asc') }
-  has_and_belongs_to_many :collectives, -> { order('collectives.name asc') }
-  has_and_belongs_to_many :coordinations, -> { order('coordinations.name asc') }
+  has_and_belongs_to_many :areas, -> { where(active: true).order('areas.name asc') }
+  has_and_belongs_to_many :inactive_areas, -> { where(active: false).order('areas.name asc') }, class_name: 'Area'
+  has_and_belongs_to_many :collectives, -> { where(active: true).order('collectives.name asc') }
+  has_and_belongs_to_many :inactive_collectives, -> { where(active: false).order('collectives.name asc') }, class_name: 'Collective'
+  has_and_belongs_to_many :coordinations, -> { where(active: true).order('coordinations.name asc') }
+  has_and_belongs_to_many :inactive_coordinations, -> { where(active: false).order('coordinations.name asc') }, class_name: 'Coordination'
   has_many :documents
   has_many :activities
   has_many :events, as: :eventable
@@ -24,9 +27,12 @@ class Project < ActiveRecord::Base
   accepts_nested_attributes_for :events, reject_if: :all_blank
 
   validates :name, uniqueness: true
-  validates :name, :description, :execution_start_date, :contact_name, :contact_last_name,
+  validates :name, :description, :contact_name, :contact_last_name, :execution_start_date,
             :phone_number, :email, :active, :project_type_id, :entity_id, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validate  :execution_start_date_less_than_execution_end_date
+  validates :execution_start_date, inclusion: { in: (11.months.ago..11.months.since),
+                                                message: I18n.t('activerecord.errors.messages.invalid_proj_birth_date')}
 
   scope :list, ->(){
     includes(
@@ -67,6 +73,14 @@ class Project < ActiveRecord::Base
   end
 
   private
+
+  def execution_start_date_less_than_execution_end_date
+    return unless execution_start_date && execution_end_date
+
+    unless execution_start_date <= execution_end_date
+      errors.add(:execution_start_date, :execution_start_date_must_be_less_than_execution_end_date)
+    end
+  end
 
   def pt_extendable_class
     pt_extendable.try(:class) || project_type.kind.classify.sub(/\APt/, 'Pt::').constantize
