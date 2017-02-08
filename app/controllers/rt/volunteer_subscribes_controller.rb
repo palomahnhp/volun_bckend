@@ -27,12 +27,12 @@ class Rt::VolunteerSubscribesController < ApplicationController
 
   def create
     @rt_volunteer_subscribe.save
-    respond_with(@rt_volunteer_subscribe, location: projects_path)
+    respond_with(@rt_volunteer_subscribe, location: request_forms_path)
   end
 
   def update
     @rt_volunteer_subscribe.update(rt_volunteer_subscribe_params)
-    respond_with(@rt_volunteer_subscribe, location: projects_path)
+    respond_with(@rt_volunteer_subscribe, location: request_forms_path)
   end
 
   def destroy

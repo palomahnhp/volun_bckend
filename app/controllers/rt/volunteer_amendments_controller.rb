@@ -27,12 +27,12 @@ class Rt::VolunteerAmendmentsController < ApplicationController
 
   def create
     @rt_volunteer_amendment.save
-    respond_with(@rt_volunteer_amendment, location: projects_path)
+    respond_with(@rt_volunteer_amendment, location: request_forms_path)
   end
 
   def update
     @rt_volunteer_amendment.update(rt_volunteer_amendment_params)
-    respond_with(@rt_volunteer_amendment, location: projects_path)
+    respond_with(@rt_volunteer_amendment, location: request_forms_path)
   end
 
   def destroy

@@ -28,12 +28,12 @@ class Rt::EntitySubscribesController < ApplicationController
 
   def create
     @rt_entity_subscribe.save
-    respond_with(@rt_entity_subscribe, location: projects_path)
+    respond_with(@rt_entity_subscribe, location: request_forms_path)
   end
 
   def update
     @rt_entity_subscribe.update(rt_entity_subscribe_params)
-    respond_with(@rt_entity_subscribe, location: projects_path)
+    respond_with(@rt_entity_subscribe, location: request_forms_path)
   end
 
   def destroy

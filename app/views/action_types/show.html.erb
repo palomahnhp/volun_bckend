@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: ActionType.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= ActionType.human_attribute_name(:id) %>:</dt>
+  <dd><%= @action_type.id %></dd>
+  <dt><%= ActionType.human_attribute_name(:kind) %>:</dt>
+  <dd><%= @action_type.kind %></dd>
+  <dt><%= ActionType.human_attribute_name(:description) %>:</dt>
+  <dd><%= @action_type.description %></dd>
+  <dt><%= ActionType.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@action_type.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@action_type) %>
+<% end %>
