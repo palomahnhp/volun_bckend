@@ -9,6 +9,12 @@ es:
         pt_social:     Sociales
         pt_subvention: Subvencionado
         pt_other:      Otros
+    request_form:
+      status:
+        pending:    Pendiente
+        processing: En trámite
+        approved:   Aceptada
+        rejected:   Rechazada
     timetable:
       day:
         monday:     Lunes
@@ -69,7 +75,7 @@ es:
       tracking_type:
         one:   Tipo de seguimiento
         other: Tipos de seguimiento
-      rejection_type:
+      req/rejection_type:
         one:   Motivo de rechazo
         other: Motivos de rechazo
       collective:
@@ -138,7 +144,6 @@ es:
         floor:            Planta
         door:             Puerta
         town:             Población
-        district:         Distrito
         province:         Provincia
         country:          País
         latitude:         Latitud
@@ -190,12 +195,44 @@ es:
         name:        Tipo Seguimiento
         active:      Activo
         created_at : *created_at
-      rejection_type:
+      request_form:
+        request_type_id:        Tipo de solicitud
+        request_type:           Tipo de solicitud
+        user_id:                Usuario
+        user:                   Usuario
+        status:                 Estado
+        status_date:            Fecha de último estado
+        req_rejection_type_id:  Tipo de rechazo
+        req_rejection_type:     Tipo de rechazo
+        req_request_reason_id:  Motivo de solicitud
+        req_request_reason:     Motivo de solicitud
+        comments:               Comentarios
+      req/rejection_type:
         id:          ID
         name:        Nombre
         description: Motivo de rechazo
         active:      Activo
         created_at : *created_at
+      req/request_reason:
+        id:          ID
+        name:        Nombre
+        description: Motivo de rechazo
+        active:      Activo
+        created_at : *created_at
+      req/status:
+        id:          ID
+        kind:        Tipo
+        description: Descripción
+        created_at : *created_at
+      req/status_trace:
+        id:              ID
+        req_status:      Estado
+        req_status_id:   Estado
+        request_form:    Solicitud
+        request_form_id: Solicitud
+        manager_id:      Gestor
+        manager:         Gestor
+        created_at :     Fecha de estado
       collective:
         id:          ID
         name:        Denominación
@@ -252,7 +289,7 @@ es:
         start_date:             Fecha desde
         end_date:               Fecha hasta
         transport:              Medios de transporte
-        pdf_url:                Url del folleto PDF     
+        pdf_url:                Url del folleto PDF
         entity_id:              Organizador de la actividad
         entity:                 Organizador de la actividad
         area_id:                Tipo de actividad

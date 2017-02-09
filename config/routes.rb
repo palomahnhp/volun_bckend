@@ -60,12 +60,15 @@ Rails.application.routes.draw do
   end
 
   # RequestForm related routes
-  resources :request_reasons
-  resources :request_reasons
-  resources :rejection_types, concerns: :recoverable
   resources :request_types
   resources :request_forms, concerns: :recoverable do
     get 'rt_extensions_menu', on: :collection
+  end
+  namespace :req do
+    resources :statuses
+    resources :status_traces
+    resources :reasons
+    resources :rejection_types, concerns: :recoverable
   end
   namespace :rt do
     resources :volunteer_subscribes

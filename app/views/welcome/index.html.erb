@@ -55,7 +55,7 @@
           </div>
           <div class="caption">
             <h3><%= RequestForm.model_name.human(count: 2) %></h3>
-            <p class="count">(<%= RequestForm.pending.count %> <%= t('pending').downcase %>)</p>
+            <p class="count">(<%= RequestForm.where(req_status: Req::Status.pending.take).count %> <%= t('pending').downcase %>)</p>
           </div>
         </div>
       </div>

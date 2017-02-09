@@ -1,13 +1,13 @@
 class RequestForm < ActiveRecord::Base
 
-  enum status: [:pending, :processing, :approved, :rejected]
-
   belongs_to :rt_extendable, polymorphic: true
   belongs_to :request_type, required: true
   belongs_to :rejection_type
-  belongs_to :request_reason
+  belongs_to :req_reason, :class_name => 'Req::Reason'
+  belongs_to :req_status, :class_name => 'Req::Status'
   belongs_to :user
   has_many :events, as: :eventable
+  has_many :req_status_traces, :class_name => 'Req::StatusTrace'
 
   accepts_nested_attributes_for :rt_extendable
 
