@@ -345,7 +345,7 @@ ProjectType.all.each do |project_type|
       comments:              Faker::Lorem.sentence,
       entity_id:             Entity.all.sample.id,
       execution_start_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),
-      execution_end_date:    Faker::Time.between(DateTime.tomorrow - 10, DateTime.tomorrow),
+      execution_end_date:    Faker::Time.between(DateTime.tomorrow, DateTime.tomorrow + 10),
       contact_name:          Faker::Name.name,
       contact_last_name:     Faker::Name.last_name,
       phone_number:          Faker::PhoneNumber.phone_number,
