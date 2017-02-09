@@ -331,7 +331,7 @@ REQUEST_REASONS.each do |kind , name|
   Req::Reason.create!(kind: kind)
 end
 
-puts "Creando Motivos de solicitud"
+puts "Creando estados de solicitud"
 Req::Status.kinds.each do |kind_name, kind_num|
   Req::Status.create!(kind: kind_num, description: kind_name)
 end
@@ -341,7 +341,7 @@ RequestType.all.each do |request_type|
   (1..REQUEST_FORMS_NUM).each do |n|
     request_form = RequestForm.new(
       request_type: request_type,
-      req_status: Req::Status.pending.take,
+      status: Req::Status.pending.take,
       status_date: DateTime.now,
       comments: "#{n} #{Faker::Lorem.sentence}",
       user: manager
@@ -539,7 +539,6 @@ end
 
 puts "Creando Motivos de rechazo"
 (1..REJECTION_TYPES).each do |n|
-  Req::RejectionType.create!(name: "Rejection Type #{n}", description: "Rejection type #{n} description.")
   Req::RejectionType.create!(name: "Rejection Type #{n}", description: "Rejection type #{n} description.")
 end
 

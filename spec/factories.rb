@@ -241,7 +241,7 @@ FactoryGirl.define do
     end
   end
   factory :rejection_type do
-    name "MyReq::RejectionType"
+    name "MyRejectionType"
     description "MyText"
     active true
 

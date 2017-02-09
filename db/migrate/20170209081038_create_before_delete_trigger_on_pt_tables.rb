@@ -27,7 +27,7 @@ class CreateBeforeDeleteTriggerOnPtTables < ActiveRecord::Migration
               WHERE pt_extendable_type = pt_model_name AND pt_extendable_id = OLD.id;
 
               IF total > 0 THEN
-                  RAISE EXCEPTION 'cannot delete a referenced extendable record';
+                  RAISE EXCEPTION 'Key (id)=(%) is still referenced from table "projects"', OLD.id;
               END IF;
               RETURN NULL;
           END;

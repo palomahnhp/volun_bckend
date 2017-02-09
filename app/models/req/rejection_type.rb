@@ -1,4 +1,4 @@
-class ReqRejectionType < ActiveRecord::Base
+class Req::RejectionType < ActiveRecord::Base
 
   include Recordable
   include Archivable
