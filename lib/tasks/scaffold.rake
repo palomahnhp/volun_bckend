@@ -19,13 +19,13 @@ MODELS_AND_ATTRS = {
 
   'Manager'       => 'name profile_id:integer phone_number active:boolean',
   'TrackingType'  => 'name:string:uniq active:boolean',
-  'RequestReason' => 'kind:integer:uniq description:text active:boolean',
+  'Req::Reason'   => 'kind:integer:uniq description:text active:boolean',
 
   'EntityType'     => 'kind:integer:uniq description:text active:boolean',
   'Entity'         => 'name:string:uniq description:text vat_number email ' \
                       'representative_name representative_last_name representative_last_name_alt ' \
                       'contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt ' \
-                      'publish_pictures:boolean annual_survey:boolean request_reason:references entity_type:references ' \
+                      'publish_pictures:boolean annual_survey:boolean req_reason:references entity_type:references ' \
                       'comments:text other_subscribe_reason:text address:references active:boolean ' \
                       'subscribed_at:datetime unsubscribed_at:datetime',
   'Ent::Tracking'  => 'tracking_type:references entity:references manager:references tracked_at:datetime comments:text',
@@ -36,7 +36,7 @@ MODELS_AND_ATTRS = {
   # Project Tables
   # --------------------------------------------------------------------------------------------------
 
-  'ProjectType' => 'kind:integer:uniq description:text active:boolean',
+  'ProjectType' => 'kind:integer:uniq description:text',
 
   # -------------------------------------------------
 
@@ -135,7 +135,7 @@ MODELS_AND_ATTRS = {
 
 
   # 1:N
-  'Volun::Availability' => 'volunteer:references day:integer start_hour:string end_hour:string',
+  'Volun::Availability'  => 'volunteer:references day:integer start_hour:string end_hour:string',
 
   # N:N
   'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references manager:references ' \
@@ -151,11 +151,13 @@ MODELS_AND_ATTRS = {
 
   'ActionType'                => 'kind:integer:uniq description:text', # Publishing, Unpublishing, Unsubscribe
   'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
-  'RejectionType'             => 'name:string:uniq description:text active:boolean',
-  'RequestType'               => 'kind:integer:uniq description:text active:boolean',
+  'Req::RejectionType'        => 'name:string:uniq description:text active:boolean',
+  'RequestType'               => 'kind:integer:uniq description:text',
+  'Req::Status'               => 'kind:integer:uniq description:text ',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references ' \
-                                 'status:integer status_date:datetime rejection_type:references ' \
-                                 'request_reason:references comments:text',
+                                 'req_status:references status_date:datetime req_rejection_type:references ' \
+                                 'req_reason:references comments:text',
+  'Req::StatusTrace'          => 'req_status:references request_form:references manager:references',
   'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email ' \
                                  'publish_pictures:boolean annual_survey:boolean notes:text',
   'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
@@ -228,7 +230,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
   NOT_NULL_COLUMNS = {
     :users                 => [:notice_type_id],
     :ent_trackings         => [:tracking_type_id, :entity_id, :tracked_at],
-    :project_types         => [:kind, :description, :active],
+    :project_types         => [:kind, :description],
     :projects              => [:name,
                                :description,
                                :execution_start_date,
@@ -241,7 +243,11 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
                                :pt_extendable_type,
                                :entity_id,
                                :active],
-    :request_forms         => [:rt_extendable_id, :rt_extendable_type],
+    :req_rejection_types   => [:name, :active],
+    :req_statuses          => [:kind, :description],
+    :request_types         => [:kind, :description],
+    :req_status_traces     => [:req_status_id, :request_form_id, :manager_id],
+    :request_forms         => [:user_id, :req_status_id, :status_date, :rt_extendable_id, :rt_extendable_type],
     :entities              => [:name,
                                :email,
                                :representative_name,
@@ -253,8 +259,8 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :activities            => [:name, :description, :start_date, :transport],
     :record_histories      => [:user_id, :recordable_id, :recordable_type],
     :events                => [:address_id, :eventable_id, :eventable_type],
-    :event_types           => [:kind],
-    :unsubscribe_levels    => [:kind],
+    :event_types           => [:kind, :description],
+    :unsubscribe_levels    => [:kind, :description],
     :timetables            => [:event_id, :execution_date, :start_hour, :end_hour],
     :volunteers            => [:name, :last_name, :address_id],
     :volun_availabilities  => [:volunteer_id, :day],
@@ -286,8 +292,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :traits                => [:name, :active],
     :areas                 => [:name, :active],
     :collectives           => [:name, :active],
-    :coordinations         => [:name, :active],
-    :rejection_types       => [:name, :active]
+    :coordinations         => [:name, :active]
   }
 
   def up
@@ -520,7 +525,7 @@ class CreateBeforeDeleteTriggerOnPtTables < ActiveRecord::Migration
               WHERE pt_extendable_type = pt_model_name AND pt_extendable_id = OLD.id;
 
               IF total > 0 THEN
-                  RAISE EXCEPTION 'cannot delete a referenced extendable record';
+                  RAISE EXCEPTION 'Key (id)=(%) is still referenced from table "projects"', OLD.id;
               END IF;
               RETURN NULL;
           END;
@@ -582,7 +587,7 @@ class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
               WHERE rt_extendable_type = rt_model_name AND rt_extendable_id = OLD.id;
 
               IF total > 0 THEN
-                  RAISE EXCEPTION 'cannot delete a referenced extendable record';
+                  RAISE EXCEPTION 'Key (id)=(%) is still referenced from table "request_forms"', OLD.id;
               END IF;
               RETURN NULL;
           END;

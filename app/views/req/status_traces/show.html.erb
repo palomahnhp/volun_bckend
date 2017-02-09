@@ -1,0 +1,20 @@
+<%= main_title(t("action.show", model: ReqStatusTrace.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= ReqStatusTrace.human_attribute_name(:id) %>:</dt>
+  <dd><%= @req_status_trace.id %></dd>
+  <dt><%= ReqStatusTrace.human_attribute_name(:req_status_id) %>:</dt>
+  <dd><%= @req_status_trace.req_status %></dd>
+  <dt><%= ReqStatusTrace.human_attribute_name(:request_form_id) %>:</dt>
+  <dd><%= @req_status_trace.request_form %></dd>
+  <dt><%= ReqStatusTrace.human_attribute_name(:manager_id) %>:</dt>
+  <dd><%= @req_status_trace.manager %></dd>
+  <dt><%= ReqStatusTrace.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@req_status_trace.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@req_status_trace) %>
+<% end %>

@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(req_status) %>" >
+
+  <% req_status.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(req_status, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(req_status) %>
+    <%= link_to_edit(req_status) %>
+<% if req_status.try(:archived?) %>
+    <%= link_to_recover(req_status) %>
+<% else %>
+    <%= link_to_destroy(req_status) %>
+<% end %>
+  </td>
+</tr>

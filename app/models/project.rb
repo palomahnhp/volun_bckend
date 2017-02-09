@@ -59,8 +59,16 @@ class Project < ActiveRecord::Base
   }
 
   def self.main_columns
-    %i(id name project_type entity execution_start_date
-       execution_end_date volunteers_num beneficiaries_num)
+    %i(
+      id
+      name
+      project_type
+      entity
+      execution_start_date
+      execution_end_date
+      volunteers_num
+      beneficiaries_num
+    )
   end
 
   def self.ransack_default

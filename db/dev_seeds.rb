@@ -49,6 +49,13 @@ REQUEST_REASONS = {
   3 => 'Otros'
 }
 
+REQUEST_STATUSES = {
+  0 => 'Pendiente',
+  1 => 'En trámite',
+  2 => 'Aceptado',
+  3 => 'Rechazado'
+}
+
 AREA_NAMES = [
   'Derechos Sociales',
   'Ambiental',
@@ -222,16 +229,23 @@ NATIONALITIES = {
 	4 => 'Italiano'
 }
 
-puts "Creando Medios de comunicación"
+puts "Creando Medios de notificación"
 NOTICE_TYPES.each do |kind , name|
   NoticeType.create!(kind: kind, description: name)
 end
 
 puts "Creando usuario administrador..."
-User.first_or_initialize(email: 'admin@madrid.es',
-                         password: 'Wordpass1',
-                         password_confirmation: 'Wordpass1',
-                         notice_type: NoticeType.all.sample).save!
+User.create!(email: 'admin@madrid.es',
+             password: 'Wordpass1',
+             password_confirmation: 'Wordpass1',
+             notice_type: NoticeType.all.sample).save!
+
+puts "Creando usuario gestor..."
+manager = User.new(email: 'mangager@madrid.es',
+                   password: 'Wordpass1',
+                   password_confirmation: 'Wordpass1',
+                   notice_type: NoticeType.all.sample)
+manager.save!
 
 puts "Creando Colectivos"
 AREA_NAMES.each do |name|
@@ -314,7 +328,12 @@ end
 
 puts "Creando Motivos de solicitud"
 REQUEST_REASONS.each do |kind , name|
-  RequestReason.create!(kind: kind)
+  Req::Reason.create!(kind: kind)
+end
+
+puts "Creando estados de solicitud"
+Req::Status.kinds.each do |kind_name, kind_num|
+  Req::Status.create!(kind: kind_num, description: kind_name)
 end
 
 puts "Creando Solicitudes"
@@ -322,11 +341,11 @@ RequestType.all.each do |request_type|
   (1..REQUEST_FORMS_NUM).each do |n|
     request_form = RequestForm.new(
       request_type: request_type,
-      status: RequestForm.statuses[:pending],
+      status: Req::Status.pending.take,
       status_date: DateTime.now,
       comments: "#{n} #{Faker::Lorem.sentence}",
+      user: manager
     # rejection_type_id: integer,
-    # user: User.all.sample,
     )
 
     request_form.build_rt_extendable
@@ -520,7 +539,7 @@ end
 
 puts "Creando Motivos de rechazo"
 (1..REJECTION_TYPES).each do |n|
-  RejectionType.create!(name: "RejectionType_#{n}", description: "Rejection type #{n} description.")
+  Req::RejectionType.create!(name: "Rejection Type #{n}", description: "Rejection type #{n} description.")
 end
 
 puts "Creando Sectors"

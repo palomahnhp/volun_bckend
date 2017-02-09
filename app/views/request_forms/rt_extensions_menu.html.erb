@@ -1,0 +1,134 @@
+<div class="new-project-type">
+  <div class="jumbotron scale">
+    <h2>Elegir el tipo de proyecto a crear</h2>
+    <br/>
+    <br/>
+    <br/>
+    <div class="panel-list row">
+      <div class="col-md-6">
+        <div class="panel panel-<%= RequestType.active?(:rt_volunteer_subscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteer_subscribe_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_volunteer_subscribe] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_volunteer_unsubscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteer_unsubscribe_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_volunteer_unsubscribe] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_volunteer_amendment) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteer_amendment_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_volunteer_amendment] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_volunteer_appointment) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteer_appointment_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_volunteer_appointment] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_entity_subscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_entity_subscribe_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_entity_subscribe] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_entity_unsubscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_entity_unsubscribe_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_entity_unsubscribe] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_volunteers_demand) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteers_demand_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_volunteers_demand] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_project_subscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_project_subscribe_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_project_subscribe] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_project_action) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_project_action_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_project_action] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_activity_subscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_activity_subscribe_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_activity_subscribe] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_activity_action) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_activity_action_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_activity_action] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= RequestType.active?(:rt_other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_other_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= RequestType.kinds_i18n[:rt_other] %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+      </div>
+    </div>
+  </div>
+</div>
