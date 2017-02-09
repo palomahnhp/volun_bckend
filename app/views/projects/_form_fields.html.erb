@@ -23,8 +23,8 @@
   <div class="row well row-2">
     <%= content_tag :h1, Volunteer.model_name.human(count: 2), class: 'form-subtitle' %>
     <div class="col-md-6">
-      <%= f.input :volunteers_num, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
-      <%= f.input :beneficiaries_num, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
+      <%= f.input :volunteers_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
+      <%= f.input :beneficiaries_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
     </div>
     <div class="col-md-6">
       <%= f.input :functions, as: :text %>
@@ -107,11 +107,12 @@
               <% end %>
             <p><%= f_event.link_to_add icon_new(text: "#{Timetable.model_name.human}"), :timetables, class: 'btn' %></p>
           </div> <!-- timetables_block -->
-
+          
           <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), class: 'pull-right' %></p>
         </div> <!-- event-fields -->
       <% end %>
     <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn' %></p>
+    
   </div> <!-- events-block -->
 
   <div class="row">
