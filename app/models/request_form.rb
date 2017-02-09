@@ -28,6 +28,16 @@ class RequestForm < ActiveRecord::Base
     def statuses
       kinds
     end
+
+    def main_columns
+      %i(
+        request_type
+        user
+        status
+        status_date
+        reason
+      )
+    end
   end
 
   def pending!

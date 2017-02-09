@@ -126,18 +126,23 @@ module ScaffoldHelper
   end
 
   def show_simple_date(date, options = {})
-    return unless date
-    format = date.is_a?(DateTime) ? '%d/%m/%Y %H:%M' : '%d/%m/%Y'
-    l(date, { format: format }.merge(options))
+    format =  case date
+              when Date
+                '%d/%m/%Y'
+              when DateTime, ActiveSupport::TimeWithZone
+                '%d/%m/%Y %H:%M'
+              end
+    l(date, { format: format }.merge(options)) if format
   end
 
   def show_attr(record, attr_name, date_opts = {})
     return record.public_send "#{attr_name}_i18n" if record.respond_to? "#{attr_name}_i18n"
 
     attr_value = record.public_send attr_name
-    if attr_value.is_a?(TrueClass) || attr_value.is_a?(FalseClass)
+    case attr_value
+    when TrueClass, FalseClass
       t("humanize.#{attr_value}")
-    elsif attr_value.is_a?(Date)
+    when Date, DateTime, ActiveSupport::TimeWithZone
       show_simple_date(attr_value, date_opts)
     else
       attr_value

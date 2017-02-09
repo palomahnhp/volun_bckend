@@ -9,12 +9,27 @@ es:
         pt_social:     Sociales
         pt_subvention: Subvencionado
         pt_other:      Otros
-    request_form:
+    request_type:
+      kind:
+        rt_volunteer_subscribe:   Alta de voluntario
+        rt_volunteer_unsubscribe: Baja de voluntario
+        rt_volunteer_amendment:   Modificación de voluntario
+        rt_volunteer_appointment: Cita para voluntario
+        rt_entity_subscribe:      Alta de entidad
+        rt_entity_unsubscribe:    Baja de entidad
+        rt_volunteers_demand:     Demanda de voluntarios
+        rt_project_subscribe:     Publicación de projecto
+        rt_project_action:        Acción sobre proyecto
+        rt_activity_subscribe:    Publicación de actividad
+        rt_activity_action:       Acción sobre actividad
+        rt_other:                 '"Otros"'
+    req:
       status:
-        pending:    Pendiente
-        processing: En trámite
-        approved:   Aceptada
-        rejected:   Rechazada
+        kind:
+          pending:    Pendiente
+          processing: En trámite
+          approved:   Aceptada
+          rejected:   Rechazada
     timetable:
       day:
         monday:     Lunes
@@ -195,17 +210,20 @@ es:
         name:        Tipo Seguimiento
         active:      Activo
         created_at : *created_at
+      request_types:
+        kind:        Tipo
+        description: Descripción
       request_form:
         request_type_id:        Tipo de solicitud
         request_type:           Tipo de solicitud
         user_id:                Usuario
         user:                   Usuario
         status:                 Estado
-        status_date:            Fecha de último estado
-        req_rejection_type_id:  Tipo de rechazo
-        req_rejection_type:     Tipo de rechazo
-        req_request_reason_id:  Motivo de solicitud
-        req_request_reason:     Motivo de solicitud
+        status_date:            Fecha estado
+        rejection_type_id:      Tipo de rechazo
+        rejection_type:         Tipo de rechazo
+        reason_id:              Motivo
+        reason:                 Motivo
         comments:               Comentarios
       req/rejection_type:
         id:          ID

@@ -7,4 +7,8 @@ class Req::Status < ActiveRecord::Base
     rejected:   4
   }
 
+  def to_s
+    kind_i18n
+  end
+
 end
