@@ -11,18 +11,18 @@ es:
         pt_other:      Otros
     request_type:
       kind:
-        rt_volunteer_subscribe:   Alta de voluntario
-        rt_volunteer_unsubscribe: Baja de voluntario
-        rt_volunteer_amendment:   Modificación de voluntario
-        rt_volunteer_appointment: Cita para voluntario
-        rt_entity_subscribe:      Alta de entidad
-        rt_entity_unsubscribe:    Baja de entidad
-        rt_volunteers_demand:     Demanda de voluntarios
-        rt_project_subscribe:     Publicación de projecto
-        rt_project_action:        Acción sobre proyecto
-        rt_activity_subscribe:    Publicación de actividad
-        rt_activity_action:       Acción sobre actividad
-        rt_other:                 '"Otros"'
+        rt_volunteer_subscribe:   &rt_volunteer_subscribe   Alta de voluntario
+        rt_volunteer_unsubscribe: &rt_volunteer_unsubscribe Baja de voluntario
+        rt_volunteer_amendment:   &rt_volunteer_amendment   Modificación de voluntario
+        rt_volunteer_appointment: &rt_volunteer_appointment Cita para voluntario
+        rt_entity_subscribe:      &rt_entity_subscribe      Alta de entidad
+        rt_entity_unsubscribe:    &rt_entity_unsubscribe    Baja de entidad
+        rt_volunteers_demand:     &rt_volunteers_demand     Demanda de voluntarios
+        rt_project_subscribe:     &rt_project_subscribe     Publicación de projecto
+        rt_project_action:        &rt_project_action        Acción sobre proyecto
+        rt_activity_subscribe:    &rt_activity_subscribe    Publicación de actividad
+        rt_activity_action:       &rt_activity_action       Acción sobre actividad
+        rt_other:                 &rt_other                 '"Otros"'
     req:
       status:
         kind:
@@ -156,6 +156,42 @@ es:
       id_number_type:
         one:   Tipo de documento
         other: Tipo de documentos
+      rt/volunteer_subscribe:
+        one:    *rt_volunteer_subscribe
+        other:   Altas de voluntarios
+      rt/volunteer_unsubscribe:
+        one:    *rt_volunteer_unsubscribe
+        other:   Bajas de voluntarios
+      rt/volunteer_amendment:
+        one:    *rt_volunteer_amendment
+        other:   Modificaciones de voluntarios
+      rt/volunteer_appointment:
+        one:    *rt_volunteer_appointment
+        other:   Citas para voluntarios
+      rt/entity_subscribe:
+        one:    *rt_entity_subscribe
+        other:   Altas de entidades
+      rt/entity_unsubscribe:
+        one:    *rt_entity_unsubscribe
+        other:   Bajas de entidades
+      rt/volunteers_demand:
+        one:    *rt_volunteers_demand
+        other:   Demandas de voluntarios
+      rt/project_subscribe:
+        one:    *rt_project_subscribe
+        other:   Publicaciones de projectos
+      rt/project_action:
+        one:    *rt_project_action
+        other:   Acciones sobre proyecto
+      rt/activity_subscribe:
+        one:    *rt_activity_subscribe
+        other:   Publicaciones de actividades
+      rt/activity_action:
+        one:    *rt_activity_action
+        other:   Acciones sobre actividades
+      rt/other:
+        one:    *rt_other
+        other:   '"Otros"'
     attributes:
       address:
         postal_code:      Código postal
@@ -248,17 +284,17 @@ es:
         kind:        Tipo
         description: Descripción
       request_form:
-        request_type_id:        Tipo de solicitud
-        request_type:           Tipo de solicitud
-        user_id:                Usuario
-        user:                   Usuario
-        status:                 Estado
-        status_date:            Fecha estado
-        rejection_type_id:      Tipo de rechazo
-        rejection_type:         Tipo de rechazo
-        reason_id:              Motivo
-        reason:                 Motivo
-        comments:               Comentarios
+        request_type_id:   Tipo de solicitud
+        request_type:      Tipo de solicitud
+        user_id:           Usuario
+        user:              Usuario
+        status:            Estado
+        status_date:       Fecha estado
+        rejection_type_id: Tipo de rechazo
+        rejection_type:    Tipo de rechazo
+        reason_id:         Motivo
+        reason:            Motivo
+        comments:          Comentarios
       req/rejection_type:
         id:          ID
         name:        Nombre
