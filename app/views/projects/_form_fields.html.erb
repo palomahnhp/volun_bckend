@@ -58,7 +58,8 @@
   </div>
   <div class="events-block row row-4 well">
     <%= content_tag :h1, "#{Address.model_name.human(count: 2)} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
-
+      
+      <input type="hidden" value="<%= f.object.events.count %>" id="eventsNum" />
       <%= f.simple_fields_for :events, (f.object.events.build if f.object.events.empty?) do |f_event|  %>
         <div class="event-fields well col-md-12">
         <%= content_tag :h2, "#{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
@@ -108,10 +109,10 @@
             <p><%= f_event.link_to_add icon_new(text: "#{Timetable.model_name.human}"), :timetables, class: 'btn' %></p>
           </div> <!-- timetables_block -->
           
-          <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), class: 'pull-right' %></p>
+          <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), class: 'pull-right', id: 'rmEvent', onclick: 'rmEvent();' %></p>
         </div> <!-- event-fields -->
       <% end %>
-    <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn' %></p>
+    <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn', id: 'addEvent', onclick: 'addEvent();' %></p>
     
   </div> <!-- events-block -->
 
@@ -169,6 +170,25 @@
 
 <!-- TODO Pending of refactoring and adapting addresses and timetables form to the new model design  -->
 <script>
+
+// Preventing destroy events when only one
+    var eventsNum = $("#eventsNum").val();
+    
+    if (eventsNum < 2) {
+      $("#rmEvent").hide();
+    }
+    
+    function addEvent() {
+      eventsNum++;
+      $("#rmEvent").show();
+    }
+    
+    function rmEvent() {
+      eventsNum--;
+      if (eventsNum < 2) {
+        $("#rmEvent").hide();
+      }
+    }
 
 // AUTOCOMPLETE TOWN
     $(function() {

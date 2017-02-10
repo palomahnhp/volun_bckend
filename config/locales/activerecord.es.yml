@@ -454,3 +454,4 @@ es:
         invalid_volun_subscribe_dates: El formato de fecha debe ser válido
         unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
         invalid_proj_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses anteriores o posteriores
+        one_event_at_least: El proyecto debe contener al menos una dirección y un horario
