@@ -96,6 +96,7 @@
 
           <div class="timetables_block row well">
             <%= content_tag :h3, Timetable.model_name.human(count: 2), class: 'form-subtitle' %>
+              <%= f_event.error :base, class: 'alert alert-danger alert-dismissable' %>
               <%= f_event.simple_fields_for :timetables, (f_event.object.timetables.build if f_event.object.timetables.empty?) do |f_timetable|  %>
                 <div class="timetable-fields well col-md-12">
                   <div class="row">
