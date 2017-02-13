@@ -1833,6 +1833,7 @@ CREATE TABLE request_forms (
     status_date timestamp without time zone NOT NULL,
     req_rejection_type_id integer,
     req_reason_id integer,
+    manager_id integer,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -4578,6 +4579,13 @@ CREATE UNIQUE INDEX index_req_statuses_on_kind ON req_statuses USING btree (kind
 
 
 --
+-- Name: index_request_forms_on_manager_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_request_forms_on_manager_id ON request_forms USING btree (manager_id);
+
+
+--
 -- Name: index_request_forms_on_req_reason_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5470,6 +5478,14 @@ ALTER TABLE ONLY req_status_traces
 
 ALTER TABLE ONLY users
     ADD CONSTRAINT fk_rails_b6d9e93c75 FOREIGN KEY (notice_type_id) REFERENCES notice_types(id);
+
+
+--
+-- Name: fk_rails_b7b1b87a80; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY request_forms
+    ADD CONSTRAINT fk_rails_b7b1b87a80 FOREIGN KEY (manager_id) REFERENCES managers(id);
 
 
 --

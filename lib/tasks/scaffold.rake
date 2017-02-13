@@ -155,7 +155,7 @@ MODELS_AND_ATTRS = {
   'Req::Status'               => 'kind:integer:uniq description:text ',
   'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references ' \
                                  'req_status:references status_date:datetime req_rejection_type:references ' \
-                                 'req_reason:references comments:text',
+                                 'req_reason:references manager:references comments:text',
   'Req::StatusTrace'          => 'req_status:references request_form:references manager:references',
   'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email ' \
                                  'publish_pictures:boolean annual_survey:boolean notes:text',
