@@ -11,12 +11,12 @@ class Event < ActiveRecord::Base
 
 	private
 
-	def at_least_one_timetable
-		unless timetables.reject(&:marked_for_destruction?).count >= 1
+  def at_least_one_timetable
+    unless timetables.reject(&:marked_for_destruction?).count >= 1
       errors.add(:base, :one_timetable_at_least)
       if timetables.any?
-				timetables.first.reload if timetables.first.marked_for_destruction?
-			end
+        timetables.first.reload if timetables.first.marked_for_destruction?
+      end
     end
   end
 
