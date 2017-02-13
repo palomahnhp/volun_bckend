@@ -4,8 +4,8 @@
     <div class="well col-md-6">
       <%= content_tag :h4, 'Datos de voluntariado', class: 'form-subtitle' %>
       <%= f.input :volunteers_profile %>
-      <%= f.input :derived_volunteers_num %>
-      <%= f.input :added_volunteers_num %>
+      <%= f.input :derived_volunteers_num, as: :string %>
+      <%= f.input :added_volunteers_num, as: :string %>
       <%= f.input :activities %>
     </div>
     <div class="well col-md-6">

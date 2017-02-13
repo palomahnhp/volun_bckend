@@ -445,7 +445,7 @@ es:
       messages:
         invalid_project_type: El tipo de proyecto es inválido
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
-        execution_start_date_must_be_less_than_execution_end_date: La fecha de inicio debe ser menor que la fecha de fin
+        execution_start_date_must_be_less_than_execution_end_date: La fecha de inicio debe ser menor o igual que la fecha de fin
         pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
         rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"
         invalid_volun_birth_date: "La fecha debe tener un formato válido y no puede ser posterior a la fecha actual"
@@ -453,4 +453,5 @@ es:
         invalid_volun_agreement_date: El formato de fecha debe ser válido y debe especificar una fecha de acuerdo si esta marcada la casilla "Acuerdo de colaboración"
         invalid_volun_subscribe_dates: El formato de fecha debe ser válido
         unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
-        invalid_proj_birth_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses atrás o alante
+        invalid_proj_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses anteriores o posteriores
+        one_timetable_at_least: Cada dirección debe tener al menos un horario
