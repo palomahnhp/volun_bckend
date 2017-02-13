@@ -7,9 +7,9 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :timetables, reject_if: :all_blank, allow_destroy: true
 
-	validate :at_least_one_timetable
+  validate :at_least_one_timetable
 
-	private
+  private
 
   def at_least_one_timetable
     unless timetables.reject(&:marked_for_destruction?).count >= 1
