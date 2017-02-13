@@ -6,6 +6,7 @@ class RequestForm < ActiveRecord::Base
   belongs_to :reason, class_name: 'Req::Reason', foreign_key: 'req_reason_id'
   belongs_to :status, class_name: 'Req::Status', foreign_key: 'req_status_id'
   belongs_to :user
+  belongs_to :manager
   has_many :events, as: :eventable
   has_many :status_traces, :class_name => 'Req::StatusTrace'
 
@@ -13,10 +14,10 @@ class RequestForm < ActiveRecord::Base
 
   delegate :pending?, :processing?, :approved?, :rejected?, :kind_i18n, to: :status, allow_blank: true
 
-  scope :pending,    ->(){ where(req_status_id: Req::Status.pending.take.id) }
-  scope :processing, ->(){ where(req_status_id: Req::Status.processing.take.id) }
-  scope :approved,   ->(){ where(req_status_id: Req::Status.approved.take.id) }
-  scope :rejected,   ->(){ where(req_status_id: Req::Status.rejected.take.id) }
+  scope :pending,    ->(){ where(req_status_id: get_status_id_by_kind(:pending)) }
+  scope :processing, ->(){ where(req_status_id: get_status_id_by_kind(:processing)) }
+  scope :approved,   ->(){ where(req_status_id: get_status_id_by_kind(:approved)) }
+  scope :rejected,   ->(){ where(req_status_id: get_status_id_by_kind(:rejected)) }
 
   class << self
     delegate :kinds, :kinds_i18n, to: Req::Status
@@ -37,6 +38,10 @@ class RequestForm < ActiveRecord::Base
         status_date
         reason
       )
+    end
+
+    def get_status_id_by_kind(status)
+      Req::Status.send(status).take.id
     end
   end
 

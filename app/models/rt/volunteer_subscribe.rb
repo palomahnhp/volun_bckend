@@ -2,14 +2,15 @@ class Rt::VolunteerSubscribe < ActiveRecord::Base
 
   include RtCommons
 
-  def self.main_attributes
+  validates :name, :last_name, :last_name_alt, :phone_number, :email, presence: true
+
+  def self.main_columns
     %i(
       name
       last_name
       last_name_alt
       phone_number
       email
-      notes
     )
   end
 

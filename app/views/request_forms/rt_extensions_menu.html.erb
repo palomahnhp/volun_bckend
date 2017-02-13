@@ -6,7 +6,7 @@
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-        <div class="panel panel-<%= Rt::VolunteerSubscribe.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_subscribes_url %>';">
+        <div class="panel panel-<%= Rt::VolunteerSubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_subscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::VolunteerSubscribe.model_name.human %>
@@ -16,7 +16,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::VolunteerUnsubscribe.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_unsubscribes_url %>';">
+        <div class="panel panel-<%= Rt::VolunteerUnsubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_unsubscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::VolunteerUnsubscribe.model_name.human %>
@@ -26,7 +26,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::VolunteerAmendment.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_amendments_url %>';">
+        <div class="panel panel-<%= Rt::VolunteerAmendment.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_amendments_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::VolunteerAmendment.model_name.human %>
@@ -36,7 +36,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::VolunteerAppointment.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_appointments_url %>';">
+        <div class="panel panel-<%= Rt::VolunteerAppointment.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_appointments_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::VolunteerAppointment.model_name.human %>
@@ -46,7 +46,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::EntitySubscribe.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_entity_subscribes_url %>';">
+        <div class="panel panel-<%= Rt::EntitySubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_entity_subscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::EntitySubscribe.model_name.human %>
@@ -56,7 +56,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::EntityUnsubscribe.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_entity_unsubscribes_url %>';">
+        <div class="panel panel-<%= Rt::EntityUnsubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_entity_unsubscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::EntityUnsubscribe.model_name.human %>
@@ -68,7 +68,7 @@
         </div>
       </div>
       <div class="col-md-6">
-        <div class="panel panel-<%= Rt::VolunteersDemand.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteers_demands_url %>';">
+        <div class="panel panel-<%= Rt::VolunteersDemand.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteers_demands_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::VolunteersDemand.model_name.human %>
@@ -78,7 +78,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::ProjectSubscribe.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_subscribes_url %>';">
+        <div class="panel panel-<%= Rt::ProjectSubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_subscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::ProjectSubscribe.model_name.human %>
@@ -88,7 +88,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::ProjectAction.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_actions_url %>';">
+        <div class="panel panel-<%= Rt::ProjectAction.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_actions_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::ProjectAction.model_name.human %>
@@ -98,7 +98,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::ActivitySubscribe.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_subscribes_url %>';">
+        <div class="panel panel-<%= Rt::ActivitySubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_subscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::ActivitySubscribe.model_name.human %>
@@ -108,7 +108,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::ActivityAction.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_actions_url %>';">
+        <div class="panel panel-<%= Rt::ActivityAction.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_actions_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::ActivityAction.model_name.human %>
@@ -118,7 +118,7 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::Other.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_others_url %>';">
+        <div class="panel panel-<%= Rt::Other.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_others_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
               <%= Rt::Other.model_name.human %>

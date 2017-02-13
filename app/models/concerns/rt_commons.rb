@@ -9,6 +9,19 @@ module RtCommons
     validate :check_request_type
     after_initialize :build_new_request_form
 
+    default_scope -> { includes(request_form: [:status, :manager]) }
+    scope :with_statuses, ->(statuses = []){
+      statuses = [statuses].flatten.compact.select{ |status| status.to_s.in? RequestForm.statuses.keys }
+      return none unless statuses.any?
+      where('request_forms.rt_extendable_type' => name,
+            'request_forms.req_status_id' => statuses.map{ |status| RequestForm.get_status_id_by_kind(status) })
+    }
+    scope :with_status, ->(status){ with_statuses status }
+    scope :pending,     ->(){ with_status(:pending) }
+    scope :processing,  ->(){ with_status(:processing) }
+    scope :approved,    ->(){ with_status(:approved) }
+    scope :rejected,    ->(){ with_status(:rejected) }
+
     private
 
     def request_type_valid?

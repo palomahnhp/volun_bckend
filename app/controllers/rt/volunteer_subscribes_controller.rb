@@ -1,11 +1,16 @@
 class Rt::VolunteerSubscribesController < ApplicationController
 
   load_and_authorize_resource instance_name: :rt_volunteer_subscribe
-  respond_to :html, :js, :json
+
+  before_action :set_default_statuses, only: :index
+
+  respond_to :html, :js
 
   def index
     params[:q] ||= Rt::VolunteerSubscribe.ransack_default
-    @search_q = @rt_volunteer_subscribes.search(params[:q])
+    @search_q = @rt_volunteer_subscribes
+                  .with_statuses(RequestForm.statuses.keys.select{|status| cast_as_boolean params[status]})
+                  .search(params[:q])
     @rt_volunteer_subscribes = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@rt_volunteer_subscribes)
@@ -27,12 +32,12 @@ class Rt::VolunteerSubscribesController < ApplicationController
 
   def create
     @rt_volunteer_subscribe.save
-    respond_with(@rt_volunteer_subscribe, location: request_forms_path)
+    respond_with(@rt_volunteer_subscribe)
   end
 
   def update
     @rt_volunteer_subscribe.update(rt_volunteer_subscribe_params)
-    respond_with(@rt_volunteer_subscribe, location: request_forms_path)
+    respond_with(@rt_volunteer_subscribe)
   end
 
   def destroy
@@ -56,5 +61,10 @@ class Rt::VolunteerSubscribesController < ApplicationController
         )
     end
 
-  alias_method :create_params, :rt_volunteer_subscribe_params
+    alias_method :create_params, :rt_volunteer_subscribe_params
+
+    def set_default_statuses
+      params[:pending]    ||= true
+      params[:processing] ||= true
+    end
 end

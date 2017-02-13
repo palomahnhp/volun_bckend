@@ -545,3 +545,17 @@ form .well {
     width: 75%;
   }
 }
+
+#statuses {
+  ul {
+    margin: 0;
+    list-style-type: none;
+  }
+ .status-list {
+   label {
+     min-width: 80px;
+     margin: 0;
+     font-size: 12px;
+   }
+ }
+}

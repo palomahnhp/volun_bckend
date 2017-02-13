@@ -141,6 +141,9 @@ es:
       entity:
         one:   Entidad
         other: Entidades
+      manager:
+        one:   Gestor
+        other: Gestores
       request_form:
         one:   Solicitud
         other: Solicitudes
@@ -156,6 +159,9 @@ es:
       id_number_type:
         one:   Tipo de documento
         other: Tipo de documentos
+      req/status:
+        one:   Estado
+        other: Estados
       rt/volunteer_subscribe:
         one:    *rt_volunteer_subscribe
         other:   Altas de voluntarios
@@ -289,11 +295,13 @@ es:
         user_id:           Usuario
         user:              Usuario
         status:            Estado
-        status_date:       Fecha estado
+        status_date:       Fecha de estado
         rejection_type_id: Tipo de rechazo
         rejection_type:    Tipo de rechazo
         reason_id:         Motivo
         reason:            Motivo
+        manager:           Gestor
+        manager_id:        Gestor
         comments:          Comentarios
       req/rejection_type:
         id:          ID
@@ -321,6 +329,16 @@ es:
         manager_id:      Gestor
         manager:         Gestor
         created_at :     Fecha de estado
+      rt/volunteer_subscribe:
+        name:             Nombre
+        last_name:        Primer Apellido
+        last_name_alt:    Segundo Apellido
+        phone_number:     Teléfono
+        phone_number_alt: Otro teléfono
+        email:            Email
+        publish_pictures: Publicar fotos
+        annual_survey:    Recibir encuesta
+        notes:            Notas
       collective:
         id:          ID
         name:        Denominación
@@ -353,9 +371,10 @@ es:
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
         contact_name:           Nombre
-        contact_last_name:  Primer Apellido
-        contact_last_name_alt: Segundo Apellido
-        phone_number:           Teléfono
+        contact_last_name:      Primer Apellido
+        contact_last_name_alt:  Segundo Apellido
+        phone_number:           Teléfono 1
+        phone_number_alt:       Teléfono 2
         email:                  E-mail
         comments:               Observaciones
         beneficiaries_num:      Nº de beneficiarios
