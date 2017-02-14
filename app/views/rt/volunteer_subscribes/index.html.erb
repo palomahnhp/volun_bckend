@@ -8,15 +8,16 @@
 </div>
 <div class="index-panel row well">
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q,
-                                            :name_or_last_name_or_last_name_alt_or_phone_number_or_email_or_notes_cont,
-                                            hidden_fields: {
-                                                group_name => {
-                                                    all:        cast_as_boolean(params[:all]),
-                                                    pending:    cast_as_boolean(params[:pending]),
-                                                    processing: cast_as_boolean(params[:processing]),
-                                                    approved:   cast_as_boolean(params[:approved]),
-                                                    rejected:   cast_as_boolean(params[:rejected])}}),
+    <%= content_tag(:div,
+                    search_collection(@search_q,
+                                      :name_or_last_name_or_last_name_alt_or_phone_number_or_email_or_notes_cont,
+                                      hidden_fields: {
+                                          group_name => {
+                                              all:        cast_as_boolean(params[:all]),
+                                              pending:    cast_as_boolean(params[:pending]),
+                                              processing: cast_as_boolean(params[:processing]),
+                                              approved:   cast_as_boolean(params[:approved]),
+                                              rejected:   cast_as_boolean(params[:rejected])}}),
                     class: 'pull-left') %>
   </div>
   <div id="statuses" class="col-md-6 pull-right">
@@ -24,18 +25,12 @@
       <% RequestForm.statuses.keys.each do |status| %>
         <%= content_tag :li, class: 'status-list' do %>
           <%= label_tag status, RequestForm.statuses_i18n[status] %>
-          <%= check_box_tag "q[#{status}]",
-                            cast_as_boolean(params[status]),
-                            cast_as_boolean(params[status]),
-                            onchange: "if(this.value){$('##{status}').prop('value', this.checked)}; $('.search-form').submit()" %>
+          <%= check_box_filter_for(status) %>
         <% end %>
       <% end %>
       <%= content_tag :li, class: 'status-list' do %>
         <%= label_tag :all_statuses, t('all_statuses') %>
-        <%= check_box_tag 'q[all]',
-                          cast_as_boolean(params[:all]),
-                          cast_as_boolean(params[:all]),
-                          onchange: "if(this.value){$('##{group_name} > input').prop('value', this.checked)}; $('.search-form').submit()" %>
+        <%= check_box_filter_for(:all, "##{group_name} > input") %>
       <% end %>
     <% end %>
   </div>
