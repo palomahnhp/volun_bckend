@@ -20,7 +20,7 @@ class Project < ActiveRecord::Base
   has_many :trackings
   has_many :volun_trackings,   :class_name => 'Volun::Tracking'
   has_many :volun_contacts,    :class_name => 'Volun::Contact'
-  has_many :volun_assessments, :class_name => 'Volun::Tracking'
+  has_many :volun_assessments, :class_name => 'Volun::Assessments'
 
   accepts_nested_attributes_for :documents,  allow_destroy: true
   accepts_nested_attributes_for :pt_extendable

@@ -68,6 +68,8 @@ class ProjectsController < ApplicationController
           :publish,
           :outstanding,
           :pt_subvention,
+          :pt_extendable_id,
+          :pt_extendable_type,
           :project_type_id,
           :active,
           :comments,
