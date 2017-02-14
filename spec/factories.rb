@@ -240,7 +240,7 @@ FactoryGirl.define do
       association :kind
     end
   end
-  factory :rejection_type do
+  factory :rejection_type, class: 'Req::RejectionType' do
     name "MyRejectionType"
     description "MyText"
     active true

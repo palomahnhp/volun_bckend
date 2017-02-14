@@ -1,5 +1,6 @@
 class Language < ActiveRecord::Base
 
+  include Recordable
   include Archivable
 
   has_many :known_languages, :class_name => 'Volun::KnownLanguage'
@@ -7,6 +8,10 @@ class Language < ActiveRecord::Base
 
   validates :name, uniqueness: true
   validates :name, presence: true
+
+  def self.main_columns
+    [:id, :name, :active]
+  end
 
   def to_s
     name
