@@ -78,6 +78,6 @@ class Rt::VolunteerSubscribesController < ApplicationController
     end
 
     def statuses
-      @statuses ||= RequestForm.statuses.keys << :all
+      @statuses ||= RequestForm.statuses.keys
     end
 end
