@@ -111,6 +111,7 @@ RSpec.describe EntityTypesController, type: :controller do
       end
 
       it 're-renders the "edit" template' do
+        skip("No posibility of invalid arguments, any of them is not null")
         entity_type = EntityType.create! valid_attributes
         put :update, id: entity_type.to_param, entity_type: invalid_attributes
         expect(response).to render_template('edit')
