@@ -768,31 +768,6 @@ FactoryGirl.define do
       association :road_type
     end
   end
-#  factory :road_type do
-#    name "MyString"
-#    code "MyString"
-
-#    trait :invalid do
-#      name nil
-#    end
-#  end
-#  factory :district do
-#    name "MyString"
-#    code "MyString"
-#    active true
-
-#    trait :invalid do
-#      name nil
-#    end
-#  end
-#  factory :province do
-#    name "MyString"
-#    code "MyString"
-
-#    trait :invalid do
-#      name nil
-#    end
-#  end
   factory :record_history do
     association :user
     recordable_id 1
