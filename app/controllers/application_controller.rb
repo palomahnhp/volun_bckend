@@ -167,7 +167,7 @@ class ApplicationController < ActionController::Base
       :sent_at,
       :status,
       :status_date,
-      :rejection_type_id,
+      :req_rejection_type_id,
       :comments
     ]
   end

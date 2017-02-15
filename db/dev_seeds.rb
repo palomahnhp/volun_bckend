@@ -241,11 +241,12 @@ User.create!(email: 'admin@madrid.es',
              notice_type: NoticeType.all.sample).save!
 
 puts "Creando usuario gestor..."
-manager = User.new(email: 'mangager@madrid.es',
+user = User.create!(login: 'manager',
+                   email: 'manager@madrid.es',
                    password: 'Wordpass1',
                    password_confirmation: 'Wordpass1',
                    notice_type: NoticeType.all.sample)
-manager.save!
+Manager.create!(name: user.login, user: user)
 
 puts "Creando Colectivos"
 AREA_NAMES.each do |name|

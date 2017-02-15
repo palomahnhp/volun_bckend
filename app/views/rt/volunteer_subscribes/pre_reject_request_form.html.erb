@@ -1,0 +1,18 @@
+<%= main_title(t("action.show", model: Rt::VolunteerSubscribe.model_name.human)) %>
+<div class="row">
+  <div class="col-md-6">
+
+      <%= simple_form_for(@rt_volunteer_subscribe, default_form_options.merge(url: reject_request_form_rt_volunteer_subscribe_path)) do |f| %>
+          <div class="form-inputs well">
+            <%= f.simple_fields_for :request_form_attributes, @rt_volunteer_subscribe.request_form do |f_request_form| %>
+              <%= f_request_form.association :rejection_type %>
+            <% end %>
+          </div>
+          <div class="form-actions">
+            <%= f.button :submit, "#{t('action.reject')} #{RequestForm.model_name.human}", class: 'js-confirmable btn btn-danger' %>
+            <%= button_to_back %>
+          </div>
+      <% end %>
+
+  </div>
+</div>

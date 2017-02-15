@@ -43,6 +43,10 @@ class RequestForm < ActiveRecord::Base
     def get_status_id_by_kind(status)
       Req::Status.send(status).take.id
     end
+
+    def status_names
+      statuses.keys
+    end
   end
 
   def pending!
@@ -68,6 +72,19 @@ class RequestForm < ActiveRecord::Base
   def build_rt_extendable(attributes = {})
     return unless request_type.extendable?
     self.rt_extendable = rt_extendable_class.new(attributes.merge(request_form: self))
+  end
+
+  def update_and_trace(status_name, attributes = {})
+    if status_name.to_s.in? RequestForm.status_names
+      update_columns(attributes.merge(req_status_id: Req::Status.public_send(status_name).take.id))
+      reload
+      create_status_trace
+    end
+  end
+
+  def create_status_trace
+    status_trace = Req::StatusTrace.new(status: status, request_form: self, manager: manager)
+    status_trace.save(validate: false)
   end
 
   private

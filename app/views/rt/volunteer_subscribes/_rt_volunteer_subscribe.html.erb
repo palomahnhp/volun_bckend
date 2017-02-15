@@ -1,20 +1,23 @@
+<% request_form = rt_volunteer_subscribe.request_form %>
+<% status       = request_form.status %>
+
 <tr id="<%= dom_id(rt_volunteer_subscribe) %>" >
 
   <% rt_volunteer_subscribe.main_attributes.each do |attr_name| %>
   <td><%= show_attr(rt_volunteer_subscribe, attr_name) %></td>
   <% end %>
 
-  <td><%= show_attr(rt_volunteer_subscribe.request_form.status, :kind) %></td>
-  <td><%= show_attr(rt_volunteer_subscribe.request_form, :status_date) %></td>
-  <td><%= show_attr(rt_volunteer_subscribe.request_form, :manager) %></td>
+  <td><%= show_attr(request_form, :manager) %></td>
+  <td><%= show_attr(request_form, :status_date) %></td>
+  <td class="<%= status.kind %>">
+    <%= show_attr(status, :kind) %>
+  </td>
 
   <td class="index_table-actions">
-    <%= link_to_show(rt_volunteer_subscribe) %>
-    <%= link_to_edit(rt_volunteer_subscribe) %>
-<% if rt_volunteer_subscribe.try(:archived?) %>
-    <%= link_to_recover(rt_volunteer_subscribe) %>
-<% else %>
-    <%= link_to_destroy(rt_volunteer_subscribe) %>
-<% end %>
+    <% if request_form.approved? || request_form.rejected? %>
+      <%= link_to_show(rt_volunteer_subscribe) %>
+    <% else %>
+      <%= link_to_process(rt_volunteer_subscribe) %>
+    <% end %>
   </td>
 </tr>

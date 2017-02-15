@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :notice_type
+  belongs_to :loggable, polymorphic: true, required: true
 
   validates :notice_type_id, presence: true
 

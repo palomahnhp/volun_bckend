@@ -23,6 +23,7 @@ class Volunteer < ActiveRecord::Base
   has_many :trackings,       :class_name => 'Volun::Tracking'
   has_many :languages, :through => :known_languages
   has_many :traits,    :through => :assessments
+  has_one :user, as: :loggable
   accepts_nested_attributes_for :address
 
   validates :name, :last_name, :id_number, presence: true

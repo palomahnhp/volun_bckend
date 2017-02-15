@@ -19,7 +19,6 @@ class VolunteersController < ApplicationController
   end
 
   def new
-    @volunteer = Volunteer.new
     respond_with(@volunteer)
   end
 
@@ -27,8 +26,21 @@ class VolunteersController < ApplicationController
   end
 
   def create
-    @volunteer.save
-    respond_with(@volunteer)
+    request_form = Rt::VolunteerSubscribe.find_by(id: session[:rt_volunteer_subscribe_id]).try :request_form
+    if request_form
+      if @volunteer.save
+        user = User.new(login: "user#{'%09d' % @volunteer.id}",
+                        loggable: @volunteer,
+                        notice_type: NoticeType.email.take)
+        # TODO Remove this line after removing email column from users
+        user.email = "#{user.login}@voluntario_por_madrid.es"
+        user.save(validate: false)
+        request_form.update_and_trace(:approved, manager_id: current_user.loggable.id, user_id: user.id)
+      end
+      respond_with(@volunteer, lolcation: rt_volunteer_subscribes_path)
+    else
+      redirect_to rt_volunteer_subscribes_path, alert: 'La solicitud de alta de voluntario ya no existe'
+    end
   end
 
   def update

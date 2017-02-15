@@ -15,13 +15,16 @@ es:
     close:   'Cerrar'
     add:     'Añadir'
     remove:  'Eliminar'
+    approve: 'Aprobar'
+    reject: 'Rechazar'
+    mark_as_pending: 'Marcar como pendiente'
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
   messages:
     are_you_sure: ¿Está seguro?
     access_denied: "Accesso denegado"
     select_a_model: Seleccionar %{model}
-    confirm_modification: Se van a modificar los datos. ¿Está seguro de que desea continuar?
+    confirm_action: Se van a efectuar los cambios. ¿Está seguro de que desea continuar?
     confirm_undo: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
     undo_changes: Deshacer cambios
   will_paginate:

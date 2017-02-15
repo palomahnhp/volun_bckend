@@ -71,7 +71,13 @@ Rails.application.routes.draw do
     resources :rejection_types, concerns: :recoverable
   end
   namespace :rt do
-    resources :volunteer_subscribes
+    resources :volunteer_subscribes do
+      get :process_request_form, on: :member
+      get :pre_approve_request_form, on: :member
+      get :pre_reject_request_form, on: :member
+      patch :reject_request_form, on: :member
+      get :mark_request_form_as_pending, on: :member
+    end
     resources :volunteer_unsubscribes
     resources :volunteer_amendments
     resources :volunteer_appointments

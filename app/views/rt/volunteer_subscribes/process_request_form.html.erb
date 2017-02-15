@@ -1,0 +1,35 @@
+<%= main_title(t("action.show", model: Rt::VolunteerSubscribe.model_name.human)) %>
+<div class="row">
+  <div class="col-md-6">
+
+    <% request_form = @rt_volunteer_subscribe.request_form %>
+    <dl class="dl-horizontal well">
+      <dt><%= RequestForm.human_attribute_name(:status) %>:</dt>
+      <dd>
+        <span class="<%= request_form.status.kind %>">
+          <%= request_form.status %>
+        </span>
+      </dd>
+      <dt><%= RequestForm.human_attribute_name(:user_id) %>:</dt>
+      <dd><%= request_form.user %></dd>
+      <dt><%= RequestForm.human_attribute_name(:reason) %>:</dt>
+      <dd><%= request_form.reason %></dd>
+      <dt><%= RequestForm.human_attribute_name(:comments) %>:</dt>
+      <dd><%= request_form.comments %></dd>
+      <dt><%= Rt::VolunteerSubscribe.human_attribute_name(:publish_pictures) %>:</dt>
+      <dd><%= t("humanize.#{@rt_volunteer_subscribe.publish_pictures}") %></dd>
+      <dt><%= Rt::VolunteerSubscribe.human_attribute_name(:annual_survey) %>:</dt>
+      <dd><%= t("humanize.#{@rt_volunteer_subscribe.annual_survey}") %></dd>
+      <dt><%= Rt::VolunteerSubscribe.human_attribute_name(:notes) %>:</dt>
+      <dd><%= @rt_volunteer_subscribe.notes %></dd>
+    </dl>
+
+  </div>
+</div>
+
+<%= link_to( t('action.approve'), pre_approve_request_form_rt_volunteer_subscribe_path, class: 'btn btn-success') %>
+<%= link_to( t('action.reject'), pre_reject_request_form_rt_volunteer_subscribe_path, class: 'btn btn-danger') %>
+<%= link_to( t('action.mark_as_pending'), mark_request_form_as_pending_rt_volunteer_subscribe_path, class: 'btn btn-default') %>
+
+
+
