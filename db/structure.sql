@@ -1762,7 +1762,7 @@ CREATE TABLE req_status_traces (
     id integer NOT NULL,
     req_status_id integer NOT NULL,
     request_form_id integer NOT NULL,
-    manager_id integer NOT NULL,
+    manager_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

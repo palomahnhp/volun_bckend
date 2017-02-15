@@ -245,7 +245,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :req_rejection_types   => [:name, :active],
     :req_statuses          => [:kind, :description],
     :request_types         => [:kind, :description],
-    :req_status_traces     => [:req_status_id, :request_form_id, :manager_id],
+    :req_status_traces     => [:req_status_id, :request_form_id],
     :request_forms         => [:req_status_id, :status_date, :rt_extendable_id, :rt_extendable_type],
     :entities              => [:name,
                                :email,
