@@ -84,6 +84,9 @@ es:
       trait:
         one:   Cualidad
         other: Cualidades
+      language:
+        one:   Idioma
+        other: Idiomas
       unsubscribe_reason:
         one:   Motivo de baja
         other: Motivos de baja
@@ -203,6 +206,11 @@ es:
       trait:
         id:          ID
         name:        Cualidad
+        active:      Activo
+        created_at : *created_at
+      language:
+        id:          ID
+        name:        Idioma
         active:      Activo
         created_at : *created_at
       tracking_type:

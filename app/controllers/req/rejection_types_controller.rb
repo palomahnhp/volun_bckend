@@ -39,6 +39,11 @@ class Req::RejectionTypesController < ApplicationController
     @req_rejection_type.destroy
     respond_with(@req_rejection_type)
   end
+  
+  def recover
+    @req_rejection_type.recover
+    respond_with(@req_rejection_type)
+  end
 
   protected
 

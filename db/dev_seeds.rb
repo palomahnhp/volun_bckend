@@ -396,9 +396,15 @@ ProjectType.all.each do |project_type|
     puts "Creando Eventos"
     EVENTS_NUM.times do
       event = Event.create!(
-        address:    Address.all.sample,
-        eventable:  project,
-      )
+      address:    Address.all.sample,
+      eventable:  activity,
+	    timetables: [Timetable.create!(
+        event: Event.last,
+        execution_date:  rand(100).days.since.to_date,
+        start_hour: '11:11',
+        end_hour:   '12:12'
+      )]
+    )
 
       puts "Creando Horarios para evento #{event.id}"
       TIMETABLE_NUM.times do
@@ -433,6 +439,12 @@ puts "Creando Actividades"
     event = Event.create!(
       address:    Address.all.sample,
       eventable:  activity,
+      timetables: [Timetable.create!(
+        event: Event.last,
+        execution_date:  rand(100).days.since.to_date,
+        start_hour: '11:11',
+        end_hour:   '12:12'
+      )]
     )
 
     puts "Creando Horarios para evento #{event.id}"
