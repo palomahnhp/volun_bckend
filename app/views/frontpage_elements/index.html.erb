@@ -7,7 +7,7 @@
 </div>
 <div class="index-panel row well">
   <div class="col-md-6">
-    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+    <%= link_to 'Vista previa', 'frontpage', class: 'btn btn-primary pull-left' %>
   </div>
   <div class="col-md-6">
     <%= content_tag(:div, search_collection(@search_q, :text_panel_or_text_button_or_image_url_or_link_url_or_logo_url_cont), class: 'col-md-6 pull-right') %>

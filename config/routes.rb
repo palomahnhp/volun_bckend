@@ -109,7 +109,6 @@ Rails.application.routes.draw do
 
   get 'maintenance' => 'welcome#maintenance', as: 'maintenance'
   get 'frontpage' => 'frontpage_elements#_index_demo', as: 'frontpage'
-  get 'frontadmin' => 'frontpage_elements#admin_frontpage', as: 'frontadmin'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'

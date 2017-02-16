@@ -2,13 +2,15 @@
   <%= simple_form_for(@frontpage_element, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.association :frontpage_position %>
           <%= f.input :text_panel %>
           <%= f.input :text_button %>
           <%= f.input :image_url %>
           <%= f.input :link_url %>
           <%= f.input :logo_url %>
           <%= f.input :active %>
+          <%= f.simple_fields_for :frontpage_position do |f_pos|  %>
+            <%= f_pos.input :position %>
+          <% end %>
   </div>
 
   <div class="form-actions">
