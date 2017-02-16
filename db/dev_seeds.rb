@@ -398,6 +398,11 @@ ProjectType.all.each do |project_type|
       event = Event.create!(
         address:    Address.all.sample,
         eventable:  project,
+        timetables_attributes: [{
+          execution_date:  rand(100).days.since.to_date,
+          start_hour: '11:11',
+          end_hour:   '12:12'
+        }]
       )
 
       puts "Creando Horarios para evento #{event.id}"
@@ -433,6 +438,11 @@ puts "Creando Actividades"
     event = Event.create!(
       address:    Address.all.sample,
       eventable:  activity,
+      timetables_attributes: [{
+        execution_date:  rand(100).days.since.to_date,
+        start_hour: '11:11',
+        end_hour:   '12:12'
+      }]
     )
 
     puts "Creando Horarios para evento #{event.id}"

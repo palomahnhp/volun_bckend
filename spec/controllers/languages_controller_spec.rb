@@ -132,5 +132,20 @@ RSpec.describe LanguagesController, type: :controller do
       expect(response).to redirect_to(languages_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested language' do
+      language = Language.create! valid_attributes
+      delete :destroy, id: language.to_param
+      post :recover, id: language.to_param
+      expect(language.active).to eq(true)
+    end
+
+    it 'redirects to the languages list' do
+      language = Language.create! valid_attributes
+      post :recover, id: language.to_param
+      expect(response).to redirect_to(languages_url)
+    end
+  end
 
 end

@@ -240,7 +240,7 @@ FactoryGirl.define do
       association :kind
     end
   end
-  factory :rejection_type do
+  factory :rejection_type, class: 'Req::RejectionType' do
     name "MyRejectionType"
     description "MyText"
     active true
@@ -640,7 +640,7 @@ FactoryGirl.define do
     contact_last_name_alt "MyString"
     phone_number "MyString"
     phone_number_alt "MyString"
-    email "MyString"
+    email "MyString@a.com"
     comments "MyText"
     beneficiaries_num 1
     volunteers_num 1
@@ -650,8 +650,8 @@ FactoryGirl.define do
     outstanding false
     insurance_date "2017-01-27"
     association :project_type
-    pt_extendable_id 1
-    pt_extendable_type 'Pt::Entity'
+    pt_extendable_id ProjectType.kinds[:pt_social]
+    pt_extendable_type 'Pt::Social'
     association :entity
 
     trait :invalid do
@@ -662,7 +662,6 @@ FactoryGirl.define do
     id ProjectType.kinds[:pt_social]
     kind "pt_social"
     description "MyText"
-    active true
 
     trait :invalid do
       kind nil
@@ -684,7 +683,7 @@ FactoryGirl.define do
     name "MyString"
     description "MyText"
     vat_number "MyString"
-    email "MyString"
+    email "MyString@a.com"
     representative_name "MyString"
     representative_last_name "MyString"
     representative_last_name_alt "MyString"
@@ -695,7 +694,7 @@ FactoryGirl.define do
     phone_number_alt "MyString"
     publish_pictures false
     annual_survey false
-    association :request_reason
+    association :req_reason
     association :entity_type
     comments "MyText"
     other_subscribe_reason "MyText"
@@ -717,7 +716,7 @@ FactoryGirl.define do
       association :kind
     end
   end
-  factory :request_reason do
+  factory :req_reason, class: 'Req::Reason' do
     kind 1
     description "MyText"
     active true
@@ -745,7 +744,7 @@ FactoryGirl.define do
     end
   end
   factory :address do
-    association :road_type
+    road_type "MyString"
     road_name "MyString"
     road_number_type "MyString"
     road_number "MyString"
@@ -755,9 +754,9 @@ FactoryGirl.define do
     door "MyString"
     postal_code "28047"
     borough "MyString"
-    association :district
+    district "MyString"
     town "MyString"
-    association :province
+    province "MyString"
     country "MyString"
     ndp_code "MyString"
     local_code "MyString"
@@ -767,31 +766,6 @@ FactoryGirl.define do
 
     trait :invalid do
       association :road_type
-    end
-  end
-  factory :road_type do
-    name "MyString"
-    code "MyString"
-
-    trait :invalid do
-      name nil
-    end
-  end
-  factory :district do
-    name "MyString"
-    code "MyString"
-    active true
-
-    trait :invalid do
-      name nil
-    end
-  end
-  factory :province do
-    name "MyString"
-    code "MyString"
-
-    trait :invalid do
-      name nil
     end
   end
   factory :record_history do

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :contact_results
   resources :tracking_types, concerns: :recoverable
   resources :language_levels
-  resources :languages
+  resources :languages, concerns: :recoverable
   resources :professions
   resources :skills
   resources :profiles

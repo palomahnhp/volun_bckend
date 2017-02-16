@@ -133,7 +133,6 @@ MODELS_AND_ATTRS = {
                  'manager:references info_source:references other_academic_info:text error_address:text ' \
                  'error_other:text review:integer profession:references active:boolean',
 
-
   # 1:N
   'Volun::Availability'  => 'volunteer:references day:integer start_hour:string end_hour:string',
 
@@ -246,8 +245,8 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :req_rejection_types   => [:name, :active],
     :req_statuses          => [:kind, :description],
     :request_types         => [:kind, :description],
-    :req_status_traces     => [:req_status_id, :request_form_id, :manager_id],
-    :request_forms         => [:user_id, :req_status_id, :status_date, :rt_extendable_id, :rt_extendable_type],
+    :req_status_traces     => [:req_status_id, :request_form_id],
+    :request_forms         => [:req_status_id, :status_date, :rt_extendable_id, :rt_extendable_type],
     :entities              => [:name,
                                :email,
                                :representative_name,
@@ -262,7 +261,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :event_types           => [:kind, :description],
     :unsubscribe_levels    => [:kind, :description],
     :timetables            => [:event_id, :execution_date, :start_hour, :end_hour],
-    :volunteers            => [:name, :last_name, :address_id],
+    :volunteers            => [:name, :last_name],
     :volun_availabilities  => [:volunteer_id, :day],
     :volun_known_languages => [:volunteer_id, :language_id, :language_level_id],
     :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracking_date],

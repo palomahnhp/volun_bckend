@@ -1762,7 +1762,7 @@ CREATE TABLE req_status_traces (
     id integer NOT NULL,
     req_status_id integer NOT NULL,
     request_form_id integer NOT NULL,
-    manager_id integer NOT NULL,
+    manager_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1828,7 +1828,7 @@ CREATE TABLE request_forms (
     request_type_id integer,
     rt_extendable_id integer NOT NULL,
     rt_extendable_type character varying NOT NULL,
-    user_id integer NOT NULL,
+    user_id integer,
     req_status_id integer NOT NULL,
     status_date timestamp without time zone NOT NULL,
     req_rejection_type_id integer,
@@ -2873,7 +2873,7 @@ CREATE TABLE volunteers (
     phone_number character varying,
     phone_number_alt character varying,
     email character varying,
-    address_id integer NOT NULL,
+    address_id integer,
     status_id integer,
     employment_status_id integer,
     vocne boolean DEFAULT false,
