@@ -2,15 +2,51 @@
   <%= simple_form_for(@frontpage_element, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.input :text_panel %>
-          <%= f.input :text_button %>
-          <%= f.input :image_url %>
-          <%= f.input :link_url %>
-          <%= f.input :logo_url %>
-          <%= f.input :active %>
-          <%= f.simple_fields_for :frontpage_position do |f_pos|  %>
-            <%= f_pos.input :position %>
-          <% end %>
+    <div style="margin-bottom: 20px;">
+      <div class="row">
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'panel' %>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'button' %>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'image' %>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'link' %>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'logo', true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Panel</label>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Botón</label>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Imagen</label>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Enlace</label>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Logo</label>
+        </div>
+      </div>
+    </div>
+    <%= f.input :text_panel, id: 'panel' %>
+    <%= f.input :text_button, id: 'button' %>
+    <%= f.input :image_url, id: 'image' %>
+    <%= f.input :link_url, id: 'link' %>
+    <%= f.input :logo_url, id: 'logo' %>
+    <%= f.input :active %>
+    <%= f.simple_fields_for :frontpage_position do |f_pos|  %>
+      <%= f_pos.input :position %>
+    <% end %>
   </div>
 
   <div class="form-actions">
@@ -18,3 +54,8 @@
   </div>
   <% end %>
 </div>
+
+<script>
+  // Disable fields depending on selected radio button
+  
+</script>
