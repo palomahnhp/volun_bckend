@@ -1,6 +1,6 @@
 class Rt::VolunteerSubscribe < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
   validates :name, :last_name, :phone_number, :email, presence: true
 

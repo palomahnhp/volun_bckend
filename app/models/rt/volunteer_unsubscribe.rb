@@ -1,6 +1,6 @@
 class Rt::VolunteerUnsubscribe < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
   belongs_to :volunteer
 

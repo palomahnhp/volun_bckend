@@ -1,4 +1,4 @@
-module RtCommons
+module RtModel
   extend ActiveSupport::Concern
 
   included do

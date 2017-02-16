@@ -1,6 +1,6 @@
 class Rt::ActivityAction < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
   belongs_to :activity
   belongs_to :action_type
