@@ -1,5 +1,5 @@
 class Pt::Centre < ActiveRecord::Base
 
-  include PtCommons
+  include PtModel
 
 end

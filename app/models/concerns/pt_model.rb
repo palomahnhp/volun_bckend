@@ -1,4 +1,4 @@
-module PtCommons
+module PtModel
   extend ActiveSupport::Concern
 
   included do
