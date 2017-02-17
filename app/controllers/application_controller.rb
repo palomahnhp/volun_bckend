@@ -162,6 +162,7 @@ class ApplicationController < ActionController::Base
 
   def request_form_attributes
     [
+      :id,
       :request_type_id,
       :user_id,
       :sent_at,

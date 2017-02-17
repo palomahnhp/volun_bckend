@@ -4,6 +4,27 @@ class Volunteer < ActiveRecord::Base
 
   enum gender: [:male, :female]
 
+  # Virtual predicate to search text in three columns as they were only one column named :full_name
+  ransacker :full_name, formatter: proc { |v| v.squeeze(' ') }  do |parent|
+    Arel::Nodes::InfixOperation.new(
+      '||',
+      Arel::Nodes::InfixOperation.new(
+        '||',
+        Arel::Nodes::InfixOperation.new(
+          '||',
+          Arel::Nodes::InfixOperation.new(
+            '||',
+            parent.table[:name],
+            Arel::Nodes.build_quoted(' ')
+          ),
+          parent.table[:last_name]
+        ),
+        Arel::Nodes.build_quoted(' ')
+      ),
+      parent.table[:last_name_alt]
+    )
+  end
+
   belongs_to :academic_level
   belongs_to :address, required: true
   belongs_to :id_number_type, required: true

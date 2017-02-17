@@ -19,27 +19,27 @@ class VolunteersController < ApplicationController
   end
 
   def new
-    respond_with(@volunteer)
+    volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id])
+    if volunteer_manager.valid?
+      @volunteer = volunteer_manager.build_volunteer
+      respond_with(@volunteer)
+    else
+      redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
+    end
   end
 
   def edit
   end
 
   def create
-    request_form = Rt::VolunteerSubscribe.find_by(id: session[:rt_volunteer_subscribe_id]).try :request_form
-    if request_form
-      if @volunteer.save
-        user = User.new(login: "user#{'%09d' % @volunteer.id}",
-                        loggable: @volunteer,
-                        notice_type: NoticeType.email.take)
-        # TODO Remove this line after removing email column from users
-        user.email = "#{user.login}@voluntario_por_madrid.es"
-        user.save(validate: false)
-        request_form.update_and_trace(:approved, manager_id: current_user.loggable.id, user_id: user.id)
-      end
+    volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id],
+                                             volunteer_attributes: volunteer_params)
+    if volunteer_manager.valid?
+      volunteer_manager.create_volunteer(manager_id: current_user.loggable_id)
+      @volunteer = volunteer_manager.volunteer
       respond_with(@volunteer, lolcation: rt_volunteer_subscribes_path)
     else
-      redirect_to rt_volunteer_subscribes_path, alert: 'La solicitud de alta de voluntario ya no existe'
+      redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
     end
   end
 

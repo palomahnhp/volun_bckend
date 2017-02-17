@@ -27,6 +27,8 @@ es:
     confirm_action: Se van a efectuar los cambios. ¿Está seguro de que desea continuar?
     confirm_undo: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
     undo_changes: Deshacer cambios
+    request_form_successfully_rejected: Solicitud rechazada con éxito
+    request_form_successfully_marked_as_pending: Solicitud marcada como pendiente
   will_paginate:
     next_label: ❱
     page_entries_info:
@@ -65,6 +67,9 @@ es:
   collectives_text: Colectivos a los que pertenece un proyecto
   coordinations_text: Coordinaciones asociadas a un proyecto
   all_statuses: Todos los estados
+  errors:
+    request_form_no_longer_exists: 'La %{request_type} ya no existe'
+    a_rejection_type_must_be_selected: Debe seleccionar un motivo de rechazo
   date:
     datepicker:
       default: "dd/mm/yyyy"

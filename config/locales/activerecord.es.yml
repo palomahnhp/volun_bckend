@@ -545,3 +545,4 @@ es:
         unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
         invalid_proj_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses anteriores o posteriores
         one_timetable_at_least: Cada dirección debe tener al menos un horario
+        cannot_be_present_if_is_not_rejected: No puede estar presente si no está rechazada

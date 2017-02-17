@@ -19,6 +19,9 @@ class RequestForm < ActiveRecord::Base
   scope :approved,   ->(){ where(req_status_id: get_status_id_by_kind(:approved)) }
   scope :rejected,   ->(){ where(req_status_id: get_status_id_by_kind(:rejected)) }
 
+  validates :req_rejection_type_id, presence: true, if: 'req_status_id_changed? && rejected?'
+  validate :req_rejection_type_no_presence
+
   class << self
     delegate :kinds, :kinds_i18n, to: Req::Status
 
@@ -74,23 +77,32 @@ class RequestForm < ActiveRecord::Base
     self.rt_extendable = rt_extendable_class.new(attributes.merge(request_form: self))
   end
 
-  def update_and_trace(status_name, attributes = {})
+  def update_and_trace_status!(status_name, attributes = {})
+    return if reload.status.kind == status_name.to_s
     if status_name.to_s.in? RequestForm.status_names
-      update_columns(attributes.merge(req_status_id: Req::Status.public_send(status_name).take.id))
-      reload
+      update_columns(attributes.merge!(req_status_id: Req::Status.public_send(status_name).take.id))
       create_status_trace
+    else
+      raise "Status name must be in #{RequestForm.status_names}"
     end
+    true
   end
 
-  def create_status_trace
+  def create_status_trace(validate = false)
     status_trace = Req::StatusTrace.new(status: status, request_form: self, manager: manager)
-    status_trace.save(validate: false)
+    status_trace.save(validate: validate)
   end
 
   private
 
   def rt_extendable_class
     rt_extendable.try(:class) || request_type.kind.classify.sub(/\ARt/, 'Rt::').constantize
+  end
+
+  def req_rejection_type_no_presence
+    unless rejected?
+      errors.add :rejection_type_id, :cannot_be_present_if_is_not_rejected
+    end
   end
 
 end

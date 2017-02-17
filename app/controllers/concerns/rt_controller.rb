@@ -20,9 +20,34 @@ module RtController
         @statuses ||= RequestForm.status_names
       end
 
-      def update_request_form_status(status_name, request_form, attributes = {})
-        request_form.update_and_trace(status_name, attributes.merge(manager_id: current_user.loggable.id))
+  end
+
+  class RejectionManager
+
+    attr_accessor :rejection_type, :request_form
+
+    def initialize(request_form_params = {})
+      @req_rejection_type_id = request_form_params[:req_rejection_type_id]
+      @request_form_id       = request_form_params[:id]
+    end
+
+    def rejection_type
+      @rejection_type ||= Req::RejectionType.find_by(id: @req_rejection_type_id.to_i)
+    end
+
+    def request_form
+      @request_form ||= RequestForm.find_by(id: @request_form_id.to_i)
+    end
+
+    def reject_request_form(options = {})
+      request_form.status = Req::Status.public_send(:rejected).take
+      request_form.rejection_type = rejection_type
+      if request_form.valid?
+        request_form.update_and_trace_status!(:rejected,
+                                              manager_id: options[:manager_id],
+                                              req_rejection_type_id: rejection_type.id)
       end
+    end
 
   end
 

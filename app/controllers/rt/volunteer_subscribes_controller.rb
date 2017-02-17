@@ -45,36 +45,34 @@ class Rt::VolunteerSubscribesController < ApplicationController
   end
 
   def process_request_form
-    update_request_form_status(:processing, @rt_volunteer_subscribe.request_form)
+    @rt_volunteer_subscribe
+      .request_form
+      .update_and_trace_status!(:processing, manager_id: current_user.loggable.id)
   end
 
   def pre_approve_request_form
-    session[:rt_volunteer_subscribe_id] = @rt_volunteer_subscribe.id
-    redirect_to new_volunteer_path(volunteer: @rt_volunteer_subscribe.volunteer_attributes)
+    redirect_to new_volunteer_path(rt_volunteer_subscribe_id: @rt_volunteer_subscribe.id)
   end
 
   def pre_reject_request_form
+    @request_form = @rt_volunteer_subscribe.request_form
   end
 
   def reject_request_form
-    rejection_type = Req::RejectionType.find_by(id: rt_volunteer_subscribe_params.dig(:request_form_attributes, :req_rejection_type_id).to_i)
-    if rejection_type
-      update_request_form_status(
-        :rejected,
-        @rt_volunteer_subscribe.request_form,
-        req_rejection_type_id: rejection_type.id
-      )
-      flash[:notice] = "Solicitud rechazada con éxito"
-      redirect_to rt_volunteer_subscribes_path
+    rejection_manager = RtController::RejectionManager.new(params[:request_form])
+    if rejection_manager.reject_request_form(manager_id: current_user.loggable_id)
+      redirect_to rt_volunteer_subscribes_path, notice: I18n.t('messages.request_form_successfully_rejected')
     else
-      flash[:error] = "Debe seleccionar un motivo de rechazo"
+      @request_form = rejection_manager.request_form
       render :pre_reject_request_form
     end
   end
 
   def mark_request_form_as_pending
-    update_request_form_status(:pending, @rt_volunteer_subscribe.request_form)
-    redirect_to rt_volunteer_subscribes_path
+    @rt_volunteer_subscribe
+      .request_form
+      .update_and_trace_status!(:pending, manager_id: current_user.loggable.id)
+    redirect_to rt_volunteer_subscribes_path, notice: I18n.t('messages.request_form_successfully_marked_as_pending')
   end
 
   protected
