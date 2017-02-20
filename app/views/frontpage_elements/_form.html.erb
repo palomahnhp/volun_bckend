@@ -44,9 +44,7 @@
     <%= f.input :text_button, input_html: { id: 'button' } %>
     <%= f.input :text_panel, input_html: { id: 'panel' } %>
     <%= f.input :active %>
-    <%= f.simple_fields_for :frontpage_position do |f_pos|  %>
-      <%= f_pos.input :position %>
-    <% end %>
+    <%= f.association :frontpage_position, input_html: { id: 'position' } %>
   </div>
 
   <div class="form-actions">

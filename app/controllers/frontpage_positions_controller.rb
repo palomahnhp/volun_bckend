@@ -39,6 +39,11 @@ class FrontpagePositionsController < ApplicationController
     @frontpage_position.destroy
     respond_with(@frontpage_position)
   end
+  
+  def recover
+    @frontpage_position.recover
+    respond_with(@frontpage_position)
+  end
 
   protected
 

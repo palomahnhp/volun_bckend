@@ -31,8 +31,8 @@ Rails.application.routes.draw do
   resources :record_histories, concerns: :recoverable
   resources :notice_types
   resources :unsubscribe_levels
-  resources :frontpage_elements
-  resources :frontpage_positions
+  resources :frontpage_elements, concerns: :recoverable
+  resources :frontpage_positions, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable
@@ -108,7 +108,6 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get 'maintenance' => 'welcome#maintenance', as: 'maintenance'
-  get 'frontpage' => 'frontpage_elements#_index_demo', as: 'frontpage'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'

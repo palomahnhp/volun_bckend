@@ -39,6 +39,11 @@ class FrontpageElementsController < ApplicationController
     @frontpage_element.destroy
     respond_with(@frontpage_element)
   end
+  
+  def recover
+    @frontpage_element.recover
+    respond_with(@frontpage_element)
+  end
 
   protected
 

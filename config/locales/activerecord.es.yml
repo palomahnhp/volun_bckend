@@ -135,6 +135,9 @@ es:
       frontpage_element:
         one:   Elemento de página
         other: Elementos de página
+      frontpage_position:
+        one:   Posición en página
+        other: Posiciones en página
       entity:
         one:   Entidad
         other: Entidades
@@ -192,6 +195,12 @@ es:
         created_at:            *created_at
         created_by:            Creado por
         updated_by:            Actualizado por
+      frontpage_position:
+        id:          ID
+        position:    Posición
+        description: Descripción
+        active:      Activo
+        created_at:  *created_at
       area:
         id:          ID
         name:        Denominación
