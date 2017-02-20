@@ -1,0 +1,17 @@
+<%= main_title(t("action.show", model: Pt::Centre.model_name.human)) %>
+
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'projects/show', locals: { project: @pt_centre.project } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { pt_centre: @pt_centre } %>
+  </div>
+</div>
+
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@pt_centre) %>
+<% end %>

@@ -26,19 +26,13 @@ class Rt::VolunteerSubscribesController < ApplicationController
   end
 
   def create
-    if @rt_volunteer_subscribe.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_volunteer_subscribe.save
+    respond_with(@rt_volunteer_subscribe, location: request_forms_path)
   end
 
   def update
-    if @rt_volunteer_subscribe.update(rt_volunteer_subscribe_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_volunteer_subscribe.update(rt_volunteer_subscribe_params)
+    respond_with(@rt_volunteer_subscribe, location: request_forms_path)
   end
 
   def destroy

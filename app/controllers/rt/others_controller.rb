@@ -26,19 +26,13 @@ class Rt::OthersController < ApplicationController
   end
 
   def create
-    if @rt_other.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_other.save
+    respond_with(@rt_other, location: request_forms_path)
   end
 
   def update
-    if @rt_other.update(rt_other_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_other.update(rt_other_params)
+    respond_with(@rt_other, location: request_forms_path)
   end
 
   def destroy

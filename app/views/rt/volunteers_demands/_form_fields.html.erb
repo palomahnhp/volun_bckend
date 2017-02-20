@@ -1,7 +1,7 @@
 <div class="form-inputs">
   <%= f.input :description %>
-  <%= f.input :execution_start_date, as: :datepicker %>
-  <%= f.input :execution_end_date, as: :datepicker %>
+	<%= f.input :execution_start_date, as: :string, input_html: date_input_html(f.object.execution_start_date) %>
+	<%= f.input :execution_end_date, as: :string, input_html: date_input_html(f.object.execution_end_date) %>
   <%= f.input :road_type %>
   <%= f.input :road_name %>
   <%= f.input :number_type %>
@@ -14,4 +14,5 @@
   <%= f.input :volunteer_functions_1 %>
   <%= f.input :volunteer_functions_2 %>
   <%= f.input :volunteer_functions_3 %>
+  <%= f.input :notes %>
 </div>

@@ -72,7 +72,7 @@ class AddressesController < ApplicationController
       params
         .require(:address)
         .permit(
-          :road_type_id,
+          :road_type,
           :road_name,
           :road_number_type,
           :road_number,
@@ -82,7 +82,7 @@ class AddressesController < ApplicationController
           :door,
           :postal_code,
           :town,
-          :province_id,
+          :province,
           :country,
           :ndp_code,
           :local_code,

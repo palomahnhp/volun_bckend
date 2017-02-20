@@ -27,5 +27,16 @@ module RtCommons
       build_request_form(attributes)
     end
 
+    def check_request_form_references
+      if has_request_form_references?
+        errors.add :base, :unable_to_delete_due_to_request_form_references
+        false
+      end
+    end
+
+    def has_request_form_references?
+      RequestForm.where(rt_extendable_id: id, rt_extendable_type: self.class.name).exists?
+    end
+
   end
 end

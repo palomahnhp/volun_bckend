@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(rt_activity_action) %>" >
+
+  <% rt_activity_action.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(rt_activity_action, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(rt_activity_action) %>
+    <%= link_to_edit(rt_activity_action) %>
+<% if rt_activity_action.try(:archived?) %>
+    <%= link_to_recover(rt_activity_action) %>
+<% else %>
+    <%= link_to_destroy(rt_activity_action) %>
+<% end %>
+  </td>
+</tr>

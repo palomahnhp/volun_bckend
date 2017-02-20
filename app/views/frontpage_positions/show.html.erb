@@ -1,0 +1,20 @@
+<%= main_title(t("action.show", model: FrontpagePosition.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= FrontpagePosition.human_attribute_name(:id) %>:</dt>
+  <dd><%= @frontpage_position.id %></dd>
+  <dt><%= FrontpagePosition.human_attribute_name(:position) %>:</dt>
+  <dd><%= @frontpage_position.position %></dd>
+  <dt><%= FrontpagePosition.human_attribute_name(:description) %>:</dt>
+  <dd><%= @frontpage_position.description %></dd>
+  <dt><%= FrontpagePosition.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@frontpage_position.active}") %></dd>
+  <dt><%= FrontpagePosition.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@frontpage_position.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@frontpage_position) %>
+<% end %>

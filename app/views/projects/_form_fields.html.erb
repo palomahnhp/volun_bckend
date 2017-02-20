@@ -23,8 +23,8 @@
   <div class="row well row-2">
     <%= content_tag :h1, Volunteer.model_name.human(count: 2), class: 'form-subtitle' %>
     <div class="col-md-6">
-      <%= f.input :volunteers_num, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
-      <%= f.input :beneficiaries_num, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
+      <%= f.input :volunteers_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
+      <%= f.input :beneficiaries_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
     </div>
     <div class="col-md-6">
       <%= f.input :functions, as: :text %>
@@ -45,20 +45,21 @@
   </div>
   <div class="row well row-3">
       <%= content_tag :h1, 'Fechas de ejecución', class: 'form-subtitle' %>
-      <%= f.input :execution_start_date, as: :datepicker, wrapper_html: { class: 'col-md-6' } %>
-      <%= f.input :execution_end_date, as: :datepicker, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :execution_start_date, as: :string, input_html: date_input_html_default_values(f.object.execution_start_date), wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :execution_end_date, as: :string, input_html: date_input_html_default_values(f.object.execution_end_date), wrapper_html: { class: 'col-md-6' } %>
   </div>
   <div class="row well row-3">
     <%= content_tag :h1, 'Datos del seguro', class: 'form-subtitle' %>
       <%= f.input :insured, wrapper_html: { class: 'col-md-6' } %>
-      <%= f.input :insurance_date, as: :datepicker, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :insurance_date, as: :string, input_html: date_input_html(f.object.insurance_date), wrapper_html: { class: 'col-md-6' } %>
       <%= f.simple_fields_for :documents do |f_document|  %>
           <%= f_document.input :name, label: Document.model_name.human %>
       <% end %>
   </div>
   <div class="events-block row row-4 well">
     <%= content_tag :h1, "#{Address.model_name.human(count: 2)} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
-
+      
+      <input type="hidden" value="<%= f.object.events.count %>" id="eventsNum" />
       <%= f.simple_fields_for :events, (f.object.events.build if f.object.events.empty?) do |f_event|  %>
         <div class="event-fields well col-md-12">
         <%= content_tag :h2, "#{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
@@ -70,11 +71,12 @@
                 <div class="row row-4-1">
                     <%#= TODO replace "España" with Setting.default_country %>
                     <%= f_address.input :country, selected: 1, collection: ["España"], input_html: { class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.association :province, selected: 28, input_html: { class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
+                    <%#= TODO replace "Madrid" with Setting.default_province %>
+                    <%= f_address.input :province, selected: 28, input_html: { value: f_address.object.province || 'Madrid', class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
                     <%= f_address.input :town, input_html: { class: 'js-town' }, wrapper_html: { class: 'col-md-5' } %>
                 </div>
                 <div class="row row-4-1">
-                    <%= f_address.association :road_type, input_html: { class: 'js-road_type' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :road_type, input_html: { class: 'js-road_type' }, wrapper_html: { class: 'col-md-3' } %>
                     <%= f_address.input :road_name, input_html: { class: 'js-road_name' }, wrapper_html: { class: 'road_name col-md-9' } %>
                 </div>
                 <div class="row row-4-2">
@@ -94,10 +96,11 @@
 
           <div class="timetables_block row well">
             <%= content_tag :h3, Timetable.model_name.human(count: 2), class: 'form-subtitle' %>
+              <%= f_event.error :base, class: 'alert alert-danger alert-dismissable' %>
               <%= f_event.simple_fields_for :timetables, (f_event.object.timetables.build if f_event.object.timetables.empty?) do |f_timetable|  %>
                 <div class="timetable-fields well col-md-12">
                   <div class="row">
-                      <%= f_timetable.input :execution_date, as: :datepicker, wrapper_html: { class: 'col-md-4' } %>
+                      <%= f_timetable.input :execution_date, as: :string, input_html: date_input_html_default_values(f_timetable.object.execution_date), wrapper_html: { class: 'col-md-4' } %>
                       <%= f_timetable.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
                       <%= f_timetable.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
                       <%= f_timetable.link_to_remove build_icon('trash-o', text: "#{Timetable.model_name.human}"), class: 'pull-right' %>
@@ -106,29 +109,60 @@
               <% end %>
             <p><%= f_event.link_to_add icon_new(text: "#{Timetable.model_name.human}"), :timetables, class: 'btn' %></p>
           </div> <!-- timetables_block -->
-
-          <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), class: 'pull-right' %></p>
+          
+          <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), class: 'pull-right', id: 'rmEvent', onclick: 'rmEvent();' %></p>
         </div> <!-- event-fields -->
       <% end %>
-    <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn' %></p>
+    <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn', id: 'addEvent', onclick: 'addEvent();' %></p>
+    
   </div> <!-- events-block -->
 
   <div class="row">
     <div class="well col-md-12">
       <%= content_tag :h3, Area.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :areas, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      <div class='col-sm-12'>
+        <% f.object.inactive_areas.each do |area| %>
+          <span class='checkbox-inline checkbox-custom'>
+            <%= check_box_tag(area.name, value = "1", checked = true, options = { :disabled => true }) %>
+            <label style='font-weight: normal;'>
+              <%= area.name %>
+            </label>
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="well col-md-12">
       <%= content_tag :h3, Collective.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :collectives, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      <div class='col-sm-12'>
+        <% f.object.inactive_collectives.each do |collective| %>
+          <span class='checkbox-inline checkbox-custom'>
+            <%= check_box_tag(collective.name, value = "1", checked = true, options = { :disabled => true }) %>
+            <label style='font-weight: normal;'>
+              <%= collective.name %>
+            </label>
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
   <div class="row">
     <div class="well col-md-12">
       <%= content_tag :h3, Coordination.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.association :coordinations, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      <div class='col-sm-12'>
+        <% f.object.inactive_coordinations.each do |coordination| %>
+          <span class='checkbox-inline checkbox-custom'>
+            <%= check_box_tag(coordination.name, value = "1", checked = true, options = { :disabled => true }) %>
+            <label style='font-weight: normal;'>
+              <%= coordination.name %>
+            </label>
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
@@ -137,6 +171,25 @@
 
 <!-- TODO Pending of refactoring and adapting addresses and timetables form to the new model design  -->
 <script>
+
+// Preventing destroy events when only one
+    var eventsNum = $("#eventsNum").val();
+    
+    if (eventsNum < 2) {
+      $("#rmEvent").hide();
+    }
+    
+    function addEvent() {
+      eventsNum++;
+      $("#rmEvent").show();
+    }
+    
+    function rmEvent() {
+      eventsNum--;
+      if (eventsNum < 2) {
+        $("#rmEvent").hide();
+      }
+    }
 
 // AUTOCOMPLETE TOWN
     $(function() {
@@ -157,17 +210,17 @@
                             dataType: "json",
                             data: {
                                 address: {
-                                    country:             $address.find(".js-country").val(),
-                                    province_id:         $address.find(".js-province").val(),
-                                    town:                $address.find(".js-town").val(),
-                                    road_type_id:        $address.find(".js-road_type").val(),
-                                    road_name:           $address.find(".js-road_name").val(),
-                                    road_number_type:    $address.find(".js-road_number_type").val(),
-                                    road_number:         $address.find(".js-road_number").val(),
-                                    grader:              $address.find(".js-grader").val(),
-                                    stairs:              $address.find(".js-stairs").val(),
-                                    floor:               $address.find(".js-floor").val(),
-                                    door:                $address.find(".js-door").val()
+                                    country:          $address.find(".js-country").val(),
+                                    province:         $address.find(".js-province").val(),
+                                    town:             $address.find(".js-town").val(),
+                                    road_type:        $address.find(".js-road_type").val(),
+                                    road_name:        $address.find(".js-road_name").val(),
+                                    road_number_type: $address.find(".js-road_number_type").val(),
+                                    road_number:      $address.find(".js-road_number").val(),
+                                    grader:           $address.find(".js-grader").val(),
+                                    stairs:           $address.find(".js-stairs").val(),
+                                    floor:            $address.find(".js-floor").val(),
+                                    door:             $address.find(".js-door").val()
                                 },
                             },
                             success: function(data) {
@@ -185,7 +238,7 @@
                 close: function() {
                     $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
                     $address = $(this).closest(".address-block");
-                    $address.find(".js-road_type").prop('selectedIndex',0);
+                    $address.find(".js-road_type").val('');
                     $address.find(".js-road_name").val('');
                     $address.find(".js-road_number_type").prop('selectedIndex',0);
                     $address.find(".js-grader").prop('selectedIndex',0);
@@ -201,17 +254,13 @@
         var roads;
         function log2($roadNameInput, message) {
             $roadNameInput.scrollTop(0);
+            var $roadTypeNameInput = $roadNameInput.closest(".address-block").find(".js-road_type");
             var roadName = message.split(" (")[0];
             var roadTypeName = message.split(" (")[1].replace(/\)/, "");
             var selectedRoad = roads.filter(function(road) {
                 return ( road.nomvial == roadName && road.nomclase == roadTypeName );
             })[0];
-
-            if (typeof selectedRoad !== 'undefined') {
-                $roadNameInput.closest(".address-block").find(".js-road_type option").filter(function() {
-                    return $(this).text() == selectedRoad.nomclase;
-                }).prop('selected', true);
-            }
+            $roadTypeNameInput.val(selectedRoad.nomclase);
         }
 
         $.each($(".address-block"), function(i, address){
@@ -226,9 +275,9 @@
                             data: {
                                 address: {
                                     country: $address.find(".js-country").val(),
-                                    province_id: $address.find(".js-province").val(),
+                                    province: $address.find(".js-province").val(),
                                     town: $address.find(".js-town").val(),
-                                    road_type_id: $address.find(".js-road_type").val(),
+                                    road_type: $address.find(".js-road_type").val(),
                                     road_name: $address.find(".js-road_name").val(),
                                     road_number_type: $address.find(".js-road_number_type").val(),
                                     road_number: $address.find(".js-road_number").val(),
@@ -338,9 +387,9 @@
                             data: {
                                 address: {
                                     country: $address.find(".js-country").val(),
-                                    province_id: $address.find(".js-province").val(),
+                                    province: $address.find(".js-province").val(),
                                     town: $address.find(".js-town").val(),
-                                    road_type_id: $address.find(".js-road_type").val(),
+                                    road_type: $address.find(".js-road_type").val(),
                                     road_name: $address.find(".js-road_name").val(),
                                     road_number_type: $address.find(".js-road_number_type").val(),
                                     road_number: $address.find(".js-road_number").val(),
@@ -408,9 +457,9 @@
                                 data: {
                                     address: {
                                         country:             $address.find(".js-country").val(),
-                                        province_id:         $address.find(".js-province").val(),
+                                        province:            $address.find(".js-province").val(),
                                         town:                $address.find(".js-town").val(),
-                                        road_type_id:        $address.find(".js-road_type").val(),
+                                        road_type:           $address.find(".js-road_type").val(),
                                         road_name:           $address.find(".js-road_name").val(),
                                         road_number_type:    $address.find(".js-road_number_type").val(),
                                         road_number:         $address.find(".js-road_number").val(),
@@ -434,7 +483,7 @@
                     },
                     close: function() {
                         $address = $(this).closest(".address-block");
-                        $address.find(".js-road_type").prop('selectedIndex',0);
+                        $address.find(".js-road_type").val('');
                         $address.find(".js-road_name").val('');
                         $address.find(".js-road_number_type").prop('selectedIndex',0);
                         $address.find(".js-grader").prop('selectedIndex',0);
@@ -450,17 +499,13 @@
             var roads;
             function log2($roadNameInput, message) {
                 $roadNameInput.scrollTop(0);
+                var $roadTypeNameInput = $roadNameInput.closest(".address-block").find(".js-road_type");
                 var roadName = message.split(" (")[0];
                 var roadTypeName = message.split(" (")[1].replace(/\)/, "");
                 var selectedRoad = roads.filter(function(road) {
                     return ( road.nomvial == roadName && road.nomclase == roadTypeName );
                 })[0];
-
-                if (typeof selectedRoad !== 'undefined') {
-                    $roadNameInput.closest(".address-block").find(".js-road_type option").filter(function() {
-                        return $(this).text() == selectedRoad.nomclase;
-                    }).prop('selected', true);
-                }
+                $roadTypeNameInput.val(selectedRoad.nomclase);
             }
 
             $.each($(".address-block"), function(i, address){
@@ -475,9 +520,9 @@
                                 data: {
                                     address: {
                                         country: $address.find(".js-country").val(),
-                                        province_id: $address.find(".js-province").val(),
+                                        province: $address.find(".js-province").val(),
                                         town: $address.find(".js-town").val(),
-                                        road_type_id: $address.find(".js-road_type").val(),
+                                        road_type: $address.find(".js-road_type").val(),
                                         road_name: $address.find(".js-road_name").val(),
                                         road_number_type: $address.find(".js-road_number_type").val(),
                                         road_number: $address.find(".js-road_number").val(),
@@ -586,9 +631,9 @@
                                 data: {
                                     address: {
                                         country: $address.find(".js-country").val(),
-                                        province_id: $address.find(".js-province").val(),
+                                        province: $address.find(".js-province").val(),
                                         town: $address.find(".js-town").val(),
-                                        road_type_id: $address.find(".js-road_type").val(),
+                                        road_type: $address.find(".js-road_type").val(),
                                         road_name: $address.find(".js-road_name").val(),
                                         road_number_type: $address.find(".js-road_number_type").val(),
                                         road_number: $address.find(".js-road_number").val(),

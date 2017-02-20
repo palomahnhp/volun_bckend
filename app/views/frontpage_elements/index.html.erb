@@ -1,0 +1,35 @@
+<% model_class = FrontpageElement %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= model_title(model_class) %>
+  </div>
+</div>
+<div class="index-panel row well">
+  <div class="col-md-6">
+    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+  </div>
+  <div class="col-md-6">
+    <%= content_tag(:div, search_collection(@search_q, :text_panel_or_text_button_or_image_url_or_link_url_or_logo_url_cont), class: 'col-md-6 pull-right') %>
+  </div>
+</div>
+
+<table class="index-table">
+  <thead>
+    <tr>
+    <% model_class.main_columns.each do |column| -%>
+      <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
+    <% end -%>
+
+      <th class="actions index_table-actions">
+        <%= t('actions') %>
+      </th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <%= render(partial: 'frontpage_element', collection: @frontpage_elements)%>
+  </tbody>
+</table>
+
+<%= render partial: "shared/pagination", locals: {collection: @frontpage_elements} %>

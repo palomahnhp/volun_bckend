@@ -4,7 +4,7 @@
   <td><%= show_attr(project, attr_name) %></td>
   <% end %>
 
-  <td><%= project.districts.to_sentence %></td>
+  <td><%= project.addresses.pluck(:district).to_sentence %></td>
   <td><%= project.areas.to_sentence %></td>
   <td><%= project.collectives.to_sentence %></td>
 

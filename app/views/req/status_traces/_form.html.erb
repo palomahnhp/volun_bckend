@@ -1,0 +1,14 @@
+<div class="well">
+  <%= simple_form_for(@req_status_trace, default_form_options) do |f| %>
+
+  <div class="form-inputs">
+          <%= f.association :req_status %>
+          <%= f.association :request_form %>
+          <%= f.association :manager %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+  <% end %>
+</div>

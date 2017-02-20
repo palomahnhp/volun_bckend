@@ -9,6 +9,27 @@ es:
         pt_social:     Sociales
         pt_subvention: Subvencionado
         pt_other:      Otros
+    request_type:
+      kind:
+        rt_volunteer_subscribe:   Alta de voluntario
+        rt_volunteer_unsubscribe: Baja de voluntario
+        rt_volunteer_amendment:   Modificación de voluntario
+        rt_volunteer_appointment: Cita para voluntario
+        rt_entity_subscribe:      Alta de entidad
+        rt_entity_unsubscribe:    Baja de entidad
+        rt_volunteers_demand:     Demanda de voluntarios
+        rt_project_subscribe:     Publicación de projecto
+        rt_project_action:        Acción sobre proyecto
+        rt_activity_subscribe:    Publicación de actividad
+        rt_activity_action:       Acción sobre actividad
+        rt_other:                 '"Otros"'
+    req:
+      status:
+        kind:
+          pending:    Pendiente
+          processing: En trámite
+          approved:   Aceptada
+          rejected:   Rechazada
     timetable:
       day:
         monday:     Lunes
@@ -63,13 +84,16 @@ es:
       trait:
         one:   Cualidad
         other: Cualidades
+      language:
+        one:   Idioma
+        other: Idiomas
       unsubscribe_reason:
         one:   Motivo de baja
         other: Motivos de baja
       tracking_type:
         one:   Tipo de seguimiento
         other: Tipos de seguimiento
-      rejection_type:
+      req/rejection_type:
         one:   Motivo de rechazo
         other: Motivos de rechazo
       collective:
@@ -168,27 +192,73 @@ es:
         id:          ID
         name:        Nacionalidad
         active:      Activo
+        created_at : *created_at
       degree:
         id:          ID
         name:        Nombre Titulación
         active:      Activo
+        created_at : *created_at
       unsubscribe_reason:
         id:          ID
         name:        Motivo Baja
         active:      Activo
+        created_at : *created_at
       trait:
         id:          ID
         name:        Cualidad
         active:      Activo
+        created_at : *created_at
+      language:
+        id:          ID
+        name:        Idioma
+        active:      Activo
+        created_at : *created_at
       tracking_type:
         id:          ID
         name:        Tipo Seguimiento
         active:      Activo
-      rejection_type:
-        id:          ID
+        created_at : *created_at
+      request_types:
         kind:        Tipo
+        description: Descripción
+      request_form:
+        request_type_id:        Tipo de solicitud
+        request_type:           Tipo de solicitud
+        user_id:                Usuario
+        user:                   Usuario
+        status:                 Estado
+        status_date:            Fecha estado
+        rejection_type_id:      Tipo de rechazo
+        rejection_type:         Tipo de rechazo
+        reason_id:              Motivo
+        reason:                 Motivo
+        comments:               Comentarios
+      req/rejection_type:
+        id:          ID
+        name:        Nombre
         description: Motivo de rechazo
         active:      Activo
+        created_at : *created_at
+      req/request_reason:
+        id:          ID
+        name:        Nombre
+        description: Motivo de rechazo
+        active:      Activo
+        created_at : *created_at
+      req/status:
+        id:          ID
+        kind:        Tipo
+        description: Descripción
+        created_at : *created_at
+      req/status_trace:
+        id:              ID
+        req_status:      Estado
+        req_status_id:   Estado
+        request_form:    Solicitud
+        request_form_id: Solicitud
+        manager_id:      Gestor
+        manager:         Gestor
+        created_at :     Fecha de estado
       collective:
         id:          ID
         name:        Denominación
@@ -200,6 +270,7 @@ es:
         description: Descripción
         created_at : *created_at
         project_id:  Proyecto
+        created_at : *created_at
       record_history:
         id:                    ID
         user_id:               Usuario
@@ -207,6 +278,7 @@ es:
         recordable_id:         Id de registro
         recordable_type:       Tipo de registro
         recordable_changed_at: Fecha de modificación
+        created_at :          *created_at
       project:
         id:                     ID
         name:                   Nombre
@@ -215,7 +287,6 @@ es:
         volunteers_allowed:     Admite voluntarios
         publish:                Publicitar
         outstanding:            Destacado
-        created_at:             *created_at
         functions:              Funciones del voluntario
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
@@ -234,9 +305,9 @@ es:
         entity:                 Entidad
         entity_id:              Entidad
         areas:                  Ámbitos        # N:N Association (for simple_form)
-        districts:              Distritos      # N:N Association (for simple_form)
         collectives:            Colectivos     # N:N Association (for simple_form)
         coordinations:          Coordinaciones # N:N Association (for simple_form)
+        created_at:             *created_at
       activity:
         id:                     ID
         name:                   Denominación de la actividad
@@ -245,10 +316,14 @@ es:
         end_date:               Fecha hasta
         transport:              Medios de transporte
         pdf_url:                Url del folleto PDF
+        entity_id:              Organizador de la actividad
         entity:                 Organizador de la actividad
+        area_id:                Tipo de actividad
         area:                   Tipo de actividad
+        project_id:             Código de proyecto asociado
         project:                Código de proyecto asociado
         share:                  Compartir actividad con redes sociales
+        created_at:             *created_at
       pt/subvention:
         id:                            ID
         representative_name:           Nombre
@@ -262,11 +337,13 @@ es:
         participants_num:              Nº de voluntarios participantes
         has_quality_evaluation:        Posee sistema de evaluación de calidad
         id_num:                        NIF
-        vat_number:                       CIF de la entidad
+        vat_number:                    CIF de la entidad
         project_id:                    Proyecto
         project:                       Proyecto
         proposal_id:                   Propuesta
         proposal:                      Propuesta
+        notes:                         &notes Notas
+        created_at:               *created_at
       pt/entity:
         id:                       ID
         request_date:             Fecha recepción demanda
@@ -282,12 +359,33 @@ es:
         prevailing:               Vigencia
         project:                  Proyecto
         project_id:               Proyecto
+        notes:                    *notes
+        created_at:               *created_at
+      pt/permanent:
+        id:                       ID
+        notes:                    *notes
+        created_at:               *created_at
+      pt/punctual:
+        id:                       ID
+        notes:                    *notes
+        created_at:               *created_at
+      pt/centre:
+        id:                       ID
+        notes:                    *notes
+        created_at:               *created_at
+      pt/social:
+        id:                       ID
+        notes:                    *notes
+        created_at:               *created_at
+      pt/other:
+        id:                       ID
+        notes:                    *notes
+        created_at:               *created_at
       timetable:
         id:                       ID
-        execution_date:           Día de la semana
+        execution_date:           Fecha inicio
         start_hour:               Hora inicio
         end_hour:                 Hora fin
-        created_at:               *created_at
         project_id:               ID del proyecto
       volunteer:
         name:                     Nombre
@@ -334,7 +432,6 @@ es:
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
         created_at:               *created_at
-        updated_at:               Actualizado
       skill:
         name: Nombre
       id_number_type:
@@ -356,9 +453,13 @@ es:
       messages:
         invalid_project_type: El tipo de proyecto es inválido
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
+        execution_start_date_must_be_less_than_execution_end_date: La fecha de inicio debe ser menor o igual que la fecha de fin
         pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
         rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"
         invalid_volun_birth_date: "La fecha debe tener un formato válido y no puede ser posterior a la fecha actual"
         invalid_volun_availability_date: El formato de fecha debe ser válido y la fecha de disponibilidad debe ser posterior a la actual, en caso contrario, marque la casilla "Disponible"
         invalid_volun_agreement_date: El formato de fecha debe ser válido y debe especificar una fecha de acuerdo si esta marcada la casilla "Acuerdo de colaboración"
         invalid_volun_subscribe_dates: El formato de fecha debe ser válido
+        unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
+        invalid_proj_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses anteriores o posteriores
+        one_timetable_at_least: Cada dirección debe tener al menos un horario

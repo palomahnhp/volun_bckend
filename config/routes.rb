@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :contact_results
   resources :tracking_types, concerns: :recoverable
   resources :language_levels
-  resources :languages
+  resources :languages, concerns: :recoverable
   resources :professions
   resources :skills
   resources :profiles
@@ -28,11 +28,11 @@ Rails.application.routes.draw do
   resources :events
   resources :event_types
   resources :documents
-  resources :districts
-  resources :road_types
-  resources :provinces
   resources :record_histories, concerns: :recoverable
   resources :notice_types
+  resources :unsubscribe_levels
+  resources :frontpage_elements
+  resources :frontpage_positions
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable
@@ -60,27 +60,29 @@ Rails.application.routes.draw do
   end
 
   # RequestForm related routes
-  resources :request_reasons
-  resources :request_reasons
-  resources :rejection_types, concerns: :recoverable
   resources :request_types
   resources :request_forms, concerns: :recoverable do
     get 'rt_extensions_menu', on: :collection
   end
+  namespace :req do
+    resources :statuses
+    resources :status_traces
+    resources :reasons
+    resources :rejection_types, concerns: :recoverable
+  end
   namespace :rt do
-    resources :others
-    resources :activity_unpublishings
-    resources :activity_publishings
-    resources :project_unsubscribes
-    resources :project_unpublishings
-    resources :project_publishings
-    resources :volunteers_demands
-    resources :entity_unsubscribes
-    resources :entity_subscribes
-    resources :volunteer_appointments
-    resources :volunteer_amendments
-    resources :volunteer_unsubscribes
     resources :volunteer_subscribes
+    resources :volunteer_unsubscribes
+    resources :volunteer_amendments
+    resources :volunteer_appointments
+    resources :entity_subscribes
+    resources :entity_unsubscribes
+    resources :volunteers_demands
+    resources :activity_actions
+    resources :activity_subscribes
+    resources :project_actions
+    resources :project_subscribes
+    resources :others
   end
 
   # Project related routes
@@ -93,8 +95,13 @@ Rails.application.routes.draw do
     resources :trackings
   end
   namespace :pt do
+    resources :socials
+    resources :centres
+    resources :permanents
+    resources :punctuals
     resources :entities
     resources :subventions
+    resources :others
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
