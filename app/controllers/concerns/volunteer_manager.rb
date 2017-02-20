@@ -2,10 +2,11 @@ class VolunteerManager
 
   attr_accessor :errors, :rt_volunteer_subscribe, :request_form, :volunteer
 
-  def initialize(args = {})
-    @rt_volunteer_subscribe_id = args[:rt_volunteer_subscribe_id]
-    @volunteer_attributes = args[:volunteer_attributes] || {}
-    @errors = []
+  def initialize(options = {})
+    @rt_volunteer_subscribe_id = options[:rt_volunteer_subscribe_id]
+    @volunteer_attributes      = options[:volunteer_attributes] || {}
+    @manager_id                = options[:manager_id]
+    @errors                    = []
   end
 
   def valid?
@@ -21,12 +22,12 @@ class VolunteerManager
     @rt_volunteer_subscribe_id.present?
   end
 
-  def create_volunteer(options)
+  def create_volunteer
     self.volunteer = build_volunteer(@volunteer_attributes)
     ActiveRecord::Base.transaction do
       if volunteer.save
         assign_user_to_volunteer
-        approve_request_form(options[:manager_id]) if creation_through_request_form?
+        approve_request_form if creation_through_request_form?
       end
     end
     volunteer.persisted?
@@ -52,8 +53,8 @@ class VolunteerManager
     user
   end
 
-  def approve_request_form(manager_id)
-    request_form.update_and_trace_status!(:approved, manager_id: manager_id, user_id: volunteer.user.id)
+  def approve_request_form
+    request_form.update_and_trace_status!(:approved, manager_id: @manager_id, user_id: volunteer.user.id)
   end
 
   private

@@ -45,13 +45,21 @@ class Rt::VolunteerSubscribesController < ApplicationController
   end
 
   def process_request_form
-    @rt_volunteer_subscribe
-      .request_form
-      .update_and_trace_status!(:processing, manager_id: current_user.loggable.id)
+    status_manager = RtController::StatusManager.new(request_form: @rt_volunteer_subscribe.request_form,
+                                                     manager_id: current_user.loggable_id)
+    @request_form = @rt_volunteer_subscribe.request_form
+    unless status_manager.process_request_form
+      redirect_to rt_volunteer_subscribes_path, alert: status_manager.show_errors
+    end
   end
 
   def pre_approve_request_form
-    redirect_to new_volunteer_path(rt_volunteer_subscribe_id: @rt_volunteer_subscribe.id)
+    if @rt_volunteer_subscribe.request_form.processing?
+      redirect_to new_volunteer_path(rt_volunteer_subscribe_id: @rt_volunteer_subscribe.id)
+    else
+      flash[:alert] = 'status_manager.show_errors'
+      redirect_to :back
+    end
   end
 
   def pre_reject_request_form
@@ -59,20 +67,25 @@ class Rt::VolunteerSubscribesController < ApplicationController
   end
 
   def reject_request_form
-    rejection_manager = RtController::RejectionManager.new(params[:request_form])
-    if rejection_manager.reject_request_form(manager_id: current_user.loggable_id)
+    status_manager = RtController::StatusManager.new((params[:request_form]).merge(manager_id: current_user.loggable_id))
+    if status_manager.reject_request_form
       redirect_to rt_volunteer_subscribes_path, notice: I18n.t('messages.request_form_successfully_rejected')
     else
-      @request_form = rejection_manager.request_form
+      @request_form = status_manager.request_form
+      flash[:alert] = status_manager.show_errors
       render :pre_reject_request_form
     end
   end
 
   def mark_request_form_as_pending
-    @rt_volunteer_subscribe
-      .request_form
-      .update_and_trace_status!(:pending, manager_id: current_user.loggable.id)
-    redirect_to rt_volunteer_subscribes_path, notice: I18n.t('messages.request_form_successfully_marked_as_pending')
+    status_manager = RtController::StatusManager.new(request_form: @rt_volunteer_subscribe.request_form,
+                                                     manager_id: current_user.loggable_id)
+    if status_manager.mark_request_form_as_pending
+      redirect_to rt_volunteer_subscribes_path, notice: I18n.t('messages.request_form_successfully_marked_as_pending')
+    else
+      flash[:alert] = status_manager.show_errors
+      redirect_to :back
+    end
   end
 
   protected

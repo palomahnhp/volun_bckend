@@ -15,9 +15,12 @@
 
   <td class="index_table-actions">
     <% if request_form.approved? || request_form.rejected? %>
-      <%= link_to_show(rt_volunteer_subscribe) %>
+        <%= link_to_show(rt_volunteer_subscribe) %>
+        <% if request_form.rejected? %>
+            <%= link_to_undo_rejection(rt_volunteer_subscribe) %>
+        <% end %>
     <% else %>
-      <%= link_to_process(rt_volunteer_subscribe) %>
+        <%= link_to_process(rt_volunteer_subscribe) %>
     <% end %>
   </td>
 </tr>

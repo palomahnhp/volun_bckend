@@ -290,20 +290,21 @@ es:
         kind:        Tipo
         description: Descripción
       request_form:
-        request_type_id:   Tipo de solicitud
-        request_type:      Tipo de solicitud
-        user_id:           Usuario
-        user:              Usuario
-        status:            Estado
-        status_date:       Fecha de estado
-        rejection_type_id: Motivo de rechazo
-        rejection_type:    Motivo de rechazo
-        reason_id:         Motivo
-        reason:            Motivo
-        manager:           Gestor
-        manager_id:        Gestor
-        comments:          Comentarios
-        created_at : *created_at
+        request_type_id:       Tipo de solicitud
+        request_type:          Tipo de solicitud
+        user_id:               Usuario
+        user:                  Usuario
+        status:                Estado
+        req_status_id:         Estado
+        status_date:           Fecha de estado
+        req_rejection_type_id: Motivo de rechazo
+        rejection_type:        Motivo de rechazo
+        reason_id:             Motivo
+        reason:                Motivo
+        manager:               Gestor
+        manager_id:            Gestor
+        comments:              Comentarios
+        created_at :           *created_at
       req/rejection_type:
         id:          ID
         name:        Nombre
@@ -545,4 +546,9 @@ es:
         unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
         invalid_proj_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses anteriores o posteriores
         one_timetable_at_least: Cada dirección debe tener al menos un horario
-        cannot_be_present_if_is_not_rejected: No puede estar presente si no está rechazada
+        cannot_be_present_if_is_not_rejected: no puede estar presente si no está rechazada
+        cannot_change_from_approved: no se puede cambiar el estado de una solicitud aprobada
+        cannot_change_to_pending: no puede cambiar a pendiente
+        cannot_change_to_processing: no puede cambiar a 'en trámite'
+        cannot_change_to_approved: no puede cambiar a aprobada
+        cannot_change_to_rejected: no puede cambiar a rechazada

@@ -345,7 +345,7 @@ RequestType.all.each do |request_type|
       status: Req::Status.pending.take,
       status_date: DateTime.now,
       comments: "#{n} #{Faker::Lorem.sentence}",
-      user: manager
+      user: user
     # rejection_type_id: integer,
     )
 

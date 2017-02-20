@@ -73,6 +73,9 @@ Rails.application.routes.draw do
   namespace :rt do
     resources :volunteer_subscribes do
       get :process_request_form, on: :member
+      get :undo_rejection_request_form,
+          to: 'volunteer_subscribes#mark_request_form_as_pending',
+          on: :member
       get :pre_approve_request_form, on: :member
       get :pre_reject_request_form, on: :member
       patch :reject_request_form, on: :member

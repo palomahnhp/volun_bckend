@@ -29,6 +29,8 @@ es:
     undo_changes: Deshacer cambios
     request_form_successfully_rejected: Solicitud rechazada con éxito
     request_form_successfully_marked_as_pending: Solicitud marcada como pendiente
+    request_form_cannot_be_processed: 'La solicitud no puede ser procesada porque ya está %{status_name}'
+    errors_found_in_request_form: "Se han encontrado errores al procesar la solicitud:"
   will_paginate:
     next_label: ❱
     page_entries_info:
