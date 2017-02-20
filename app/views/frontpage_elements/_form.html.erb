@@ -50,7 +50,7 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, onclick: "enableToSaveBlanks();" %>
   </div>
   <% end %>
 </div>
@@ -84,16 +84,24 @@
     selLogo();
   });
   
+  function enableToSaveBlanks() {
+    $("#logo").attr("disabled", false);
+    $("#link").attr("disabled", false);
+    $("#image").attr("disabled", false);
+    $("#button").attr("disabled", false);
+    $("#panel").attr("disabled", false);
+  }
+  
   function selLogo() {
     $("#logo").attr("disabled", false);
     $("#link").attr("disabled", true);
-    $("#link").val('');
+    $("#link").val("");
     $("#image").attr("disabled", true);
-    $("#image").val('');
+    $("#image").val("");
     $("#button").attr("disabled", true);
-    $("#button").val('');
+    $("#button").val("");
     $("#panel").attr("disabled", true);
-    $("#panel").val('');
+    $("#panel").val("");
   }
   
   $("#kind_link").on("click", function() {
@@ -102,14 +110,14 @@
   
   function selLink() {
     $("#logo").attr("disabled", true);
-    $("#logo").val('');
+    $("#logo").val("");
     $("#link").attr("disabled", false);
     $("#image").attr("disabled", true);
-    $("#image").val('');
+    $("#image").val("");
     $("#button").attr("disabled", true);
-    $("#button").val('');
+    $("#button").val("");
     $("#panel").attr("disabled", true);
-    $("#panel").val('');
+    $("#panel").val("");
   }
   
   $("#kind_image").on("click", function() {
@@ -118,14 +126,14 @@
   
   function selImage() {
     $("#logo").attr("disabled", true);
-    $("#logo").val('');
+    $("#logo").val("");
     $("#link").attr("disabled", true);
-    $("#link").val('');
+    $("#link").val("");
     $("#image").attr("disabled", false);
     $("#button").attr("disabled", true);
-    $("#button").val('');
+    $("#button").val("");
     $("#panel").attr("disabled", true);
-    $("#panel").val('');
+    $("#panel").val("");
   }
   
   $("#kind_button").on("click", function() {
@@ -134,14 +142,14 @@
   
   function selButton() {
     $("#logo").attr("disabled", true);
-    $("#logo").val('');
+    $("#logo").val("");
     $("#link").attr("disabled", true);
-    $("#link").val('');
+    $("#link").val("");
     $("#image").attr("disabled", true);
-    $("#image").val('');
+    $("#image").val("");
     $("#button").attr("disabled", false);
     $("#panel").attr("disabled", true);
-    $("#panel").val('');
+    $("#panel").val("");
   }
   
   $("#kind_panel").on("click", function() {
@@ -150,13 +158,13 @@
   
   function selPanel() {
     $("#logo").attr("disabled", true);
-    $("#logo").val('');
+    $("#logo").val("");
     $("#link").attr("disabled", true);
-    $("#link").val('');
+    $("#link").val("");
     $("#image").attr("disabled", true);
-    $("#image").val('');
+    $("#image").val("");
     $("#button").attr("disabled", true);
-    $("#button").val('');
+    $("#button").val("");
     $("#panel").attr("disabled", false);
   }
 </script>

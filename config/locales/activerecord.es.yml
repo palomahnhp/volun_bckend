@@ -132,6 +132,9 @@ es:
       event:
         one:   Evento
         other: Eventos
+      frontpage_element:
+        one:   Elemento de página
+        other: Elementos de página
       entity:
         one:   Entidad
         other: Entidades
@@ -176,6 +179,19 @@ es:
         description: Descripción
         active:      Activo
         created_at : *created_at
+      frontpage_element:
+        id:                    ID
+        text_panel:            Panel de texto
+        text_button:           Botón
+        image_url:             Imagen (url)
+        link_url:              Enlace (url)
+        logo_url:              Logo (url)
+        active:                Activo
+        frontpage_position_id: Posición
+        frontpage_position:    Posición
+        created_at:            *created_at
+        created_by:            Creado por
+        updated_by:            Actualizado por
       area:
         id:          ID
         name:        Denominación
