@@ -91,7 +91,7 @@ class RequestForm < ActiveRecord::Base
   end
 
   def update_and_trace_status(status_name, attributes = {})
-    return true if status.kind == status_name.to_s
+    return true if status.kind == status_name.to_s && manager_id != attributes[:manager_id]
 
     if status_name.to_s.in? self.class.status_names
       attributes.merge!(
@@ -128,7 +128,7 @@ class RequestForm < ActiveRecord::Base
 
     case self
     when ->(rf){ rf.pending? }
-      add_status_error :cannot_change_to_pending    unless status_was?(:processing) || status_was?(:rejected)
+      add_status_error :cannot_change_to_pending    unless can_change_to_pending?
     when ->(rf){ rf.processing? }
       add_status_error :cannot_change_to_processing unless status_was?(:pending)
     when ->(rf){ rf.approved? }
@@ -145,6 +145,10 @@ class RequestForm < ActiveRecord::Base
 
   def status_was?(status_name)
     req_status_id_was == self.class.get_status_id_by_kind(status_name)
+  end
+
+  def can_change_to_pending?
+    status_was?(:processing) || status_was?(:rejected) || req_status_id_was == nil
   end
 
 end

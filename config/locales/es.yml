@@ -5,21 +5,27 @@ es:
   app_name: 'Voluntariado'
   actions:   Acciones
   action:
-    new:     'Nuevo %{model}'
-    newFem:  'Nueva %{model}'
-    edit:    'Editar %{model}'
-    show:    'Ver %{model}'
-    destroy: 'Eliminar'
-    search:  'Buscar'
-    back:    'Volver'
-    close:   'Cerrar'
-    add:     'Añadir'
-    remove:  'Eliminar'
-    approve: 'Aprobar'
-    reject: 'Rechazar'
-    mark_as_pending: 'Marcar como pendiente'
+    new:      'Nuevo %{model}'
+    newFem:   'Nueva %{model}'
+    edit:     'Editar %{model}'
+    show:     'Ver %{model}'
+    destroy:  'Eliminar'
+    delete:   'Eliminar'
+    archive:  'Archivar'
+    search:   'Buscar'
+    back:     'Volver'
+    close:    'Cerrar'
+    add:      'Añadir'
+    remove:   'Eliminar'
+    approve:  'Aprobar'
+    reject:   'Rechazar'
+    recover:  'Restablecer'
+    undo_rejection: 'Deshacer rechazo'
+    process:  'Procesar'
+  details: Detalles
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
+  mark_as_pending: Marcar como pendiente
   messages:
     are_you_sure: ¿Está seguro?
     access_denied: "Accesso denegado"
@@ -34,6 +40,7 @@ es:
     request_form_successfully_marked_as_pending: Solicitud marcada como pendiente
     request_form_cannot_be_processed: 'La solicitud no puede ser procesada porque ya está %{status_name}'
     errors_found_in_request_form: "Se han encontrado errores al procesar la solicitud:"
+    another_manager_is_processing_this_request_form: 'El gestor %{manager} está tratando esta solicitud'
   will_paginate:
     next_label: ❱
     page_entries_info:

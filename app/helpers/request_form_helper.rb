@@ -7,7 +7,7 @@ module RequestFormHelper
     return unless can?(:process, record)
     options = {
       id:     "#{dom_id(record)}_process",
-      text:   build_icon(:play),
+      text:   build_icon(:process, icon_name: :play),
       path:   "process_request_form_#{record.class.model_name.singular}_path",
       remote: false,
       method: :get,
@@ -22,7 +22,7 @@ module RequestFormHelper
     return unless can?(:process, record)
     options = {
       id:     "#{dom_id(record)}_process",
-      text:   build_icon(:undo),
+      text:   build_icon(:undo_rejection, icon_name: :undo),
       path:   "undo_rejection_request_form_#{record.class.model_name.singular}_path",
       remote: false,
       method: :get,

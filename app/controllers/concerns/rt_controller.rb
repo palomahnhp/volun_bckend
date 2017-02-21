@@ -47,7 +47,23 @@ module RtController
     end
 
     def process_request_form
+      return if recently_processed_by_different_manager?
+
       update_and_trace_status(:processing, manager_id: @manager_id)
+    end
+
+    def recently_processed_by_different_manager?
+      if request_form.processing? && recently_processed? && different_manager?
+        self.errors << I18n.t('messages.another_manager_is_processing_this_request_form', manager: request_form.manager)
+      end
+    end
+
+    def different_manager?
+      request_form.manager.id != @manager_id
+    end
+
+    def recently_processed?
+      ((Time.now - request_form.status_date.to_time) / 1.hour).hours < 3.hours
     end
 
     def mark_request_form_as_pending

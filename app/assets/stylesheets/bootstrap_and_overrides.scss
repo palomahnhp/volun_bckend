@@ -562,6 +562,7 @@ form .well {
  }
 }
 
+// Request Forms status classes
 .pending {
   background-color: #efefef;
 }
@@ -573,4 +574,12 @@ form .well {
 }
 .rejected {
   background-color: #ea9999;
+}
+
+.archive {
+  color: darkred;
+}
+.recover {
+  color: green;
+  font-weight: bold;
 }

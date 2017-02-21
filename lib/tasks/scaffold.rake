@@ -28,7 +28,6 @@ MODELS_AND_ATTRS = {
                       'publish_pictures:boolean annual_survey:boolean req_reason:references entity_type:references ' \
                       'comments:text other_subscribe_reason:text address:references active:boolean ' \
                       'subscribed_at:datetime unsubscribed_at:datetime',
-  'Ent::Tracking'  => 'tracking_type:references entity:references manager:references tracked_at:datetime comments:text',
 
 
 
@@ -47,7 +46,6 @@ MODELS_AND_ATTRS = {
                'project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
-  'Pro::Tracking'  => 'comments:text start_date:datetime project:references',
   'Pro::Issue'     => 'comments:text start_date:datetime project:references',
 
   'Document'      => 'name:string:uniq description:text documentum_id:string project:references',
@@ -137,8 +135,6 @@ MODELS_AND_ATTRS = {
   'Volun::Availability'  => 'volunteer:references day:integer start_hour:string end_hour:string',
 
   # N:N
-  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references manager:references ' \
-                            'tracking_date:datetime comments:text',
   'Volun::Contact'       => 'volunteer:references contact_result:references project:references manager:references ' \
                             'contact_type:references contact_date:datetime  comments:text',
   'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string ' \
@@ -186,6 +182,12 @@ MODELS_AND_ATTRS = {
   'Rt::Other'                 => 'description:text notes:text',
 
   # -------------------------------------------------
+
+  'Volun::Tracking' => 'volunteer:references tracking_type:references project:references manager:references ' \
+                       'request_form:references tracked_at:datetime comments:text',
+  'Ent::Tracking'   => 'tracking_type:references entity:references manager:references request_form:references ' \
+                       'tracked_at:datetime comments:text',
+  'Pro::Tracking'   => 'project:references request_form:references tracked_at:datetime comments:text',
 
 }
 
@@ -264,7 +266,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :volunteers            => [:name, :last_name],
     :volun_availabilities  => [:volunteer_id, :day],
     :volun_known_languages => [:volunteer_id, :language_id, :language_level_id],
-    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracking_date],
+    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracked_at],
     :volun_contacts        => [:volunteer_id,
                                :contact_result_id,
                                :project_id,

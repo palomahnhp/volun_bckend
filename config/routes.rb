@@ -51,7 +51,7 @@ Rails.application.routes.draw do
   end
 
   # Volunteer related routes
-  resources :volunteers
+  resources :volunteers, concerns: :recoverable
   namespace :volun do
     resources :assessments
     resources :availabilities
