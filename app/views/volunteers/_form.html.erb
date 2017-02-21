@@ -69,12 +69,6 @@
         <%= f.association :skills, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
       </div>
     </div>
-    <div class="row">
-      <div class="well col-md-12">
-        <%= content_tag :h3, Trait.model_name.human(count: 2), class: 'form-subtitle' %>
-        <%= f.association :traits, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-      </div>
-    </div>
 
     <div class="address-block row well">
       <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
@@ -105,7 +99,7 @@
       <% end %>
     </div> <!-- address-block -->
     
-    <% if f.object.review? %>
+    <% if f.object.review? && !@volunteer.new_record? %>
       <%= f.input :review, as: :hidden, input_html: { id: 'review' } %>
       <div class="row well">
         <%= content_tag :h3, t('errors_title_volun'), class: 'form-subtitle' %>
@@ -136,12 +130,14 @@
   </div>
 
   <div class="form-actions">
-    <input type="hidden" value="<%= t('messages.confirm_revised_all_volunteer') %>" id="reviseAllMsg" />
-    <input type="hidden" value="<%= t('messages.confirm_revised_volunteer') %>" id="reviseMsg" />
+    <% if f.object.review? && !@volunteer.new_record? %>
+      <input type="hidden" value="<%= t('messages.confirm_revised_all_volunteer') %>" id="reviseAllMsg" />
+      <input type="hidden" value="<%= t('messages.confirm_revised_volunteer') %>" id="reviseMsg" />
+    <% end %>
     <%= f.button :submit, class: 'btn btn-success js-confirmable', id: 'submit' %>
     <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
-    <% if f.object.review? %>
+    <% if f.object.review? && !@volunteer.new_record? %>
       <script>
         // These validations have effect only if review is 1
         // Submit check specific revisions
