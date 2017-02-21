@@ -39,7 +39,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :volunteers            => [:name, :last_name],
     :volun_availabilities  => [:volunteer_id, :day],
     :volun_known_languages => [:volunteer_id, :language_id, :language_level_id],
-    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracking_date],
+    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracked_at],
     :volun_contacts        => [:volunteer_id,
                                :contact_result_id,
                                :project_id,

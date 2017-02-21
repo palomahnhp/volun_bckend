@@ -5,7 +5,8 @@ class CreateVolunTrackings < ActiveRecord::Migration
       t.references :tracking_type, index: true, foreign_key: true
       t.references :project, index: true, foreign_key: true
       t.references :manager, index: true, foreign_key: true
-      t.datetime :tracking_date
+      t.references :request_form, index: true, foreign_key: true
+      t.datetime :tracked_at
       t.text :comments
 
       t.timestamps null: false

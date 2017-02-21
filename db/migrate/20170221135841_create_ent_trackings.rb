@@ -4,6 +4,7 @@ class CreateEntTrackings < ActiveRecord::Migration
       t.references :tracking_type, index: true, foreign_key: true
       t.references :entity, index: true, foreign_key: true
       t.references :manager, index: true, foreign_key: true
+      t.references :request_form, index: true, foreign_key: true
       t.datetime :tracked_at
       t.text :comments
 

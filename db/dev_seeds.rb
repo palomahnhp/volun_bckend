@@ -238,15 +238,16 @@ puts "Creando usuario administrador..."
 User.create!(email: 'admin@madrid.es',
              password: 'Wordpass1',
              password_confirmation: 'Wordpass1',
+             loggable: Manager.create!(name: 'admin'),
              notice_type: NoticeType.all.sample).save!
 
 puts "Creando usuario gestor..."
 user = User.create!(login: 'manager',
-                   email: 'manager@madrid.es',
-                   password: 'Wordpass1',
-                   password_confirmation: 'Wordpass1',
-                   notice_type: NoticeType.all.sample)
-Manager.create!(name: user.login, user: user)
+                    email: 'manager@madrid.es',
+                    password: 'Wordpass1',
+                    password_confirmation: 'Wordpass1',
+                    loggable: Manager.create!(name: 'manager'),
+                    notice_type: NoticeType.all.sample)
 
 puts "Creando Colectivos"
 AREA_NAMES.each do |name|
@@ -349,7 +350,17 @@ RequestType.all.each do |request_type|
     # rejection_type_id: integer,
     )
 
-    request_form.build_rt_extendable
+    rt_attributes = case request_type.kind
+                      when 'rt_volunteer_subscribe'
+                        {
+                          name: Faker::Name.name,
+                          last_name: Faker::Name.last_name,
+                          phone_number: Faker::PhoneNumber.phone_number,
+                          email: Faker::Internet.email
+                        }
+                      else {}
+                    end
+    request_form.build_rt_extendable(rt_attributes)
 
     request_form.save!
   end
