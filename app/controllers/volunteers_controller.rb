@@ -93,6 +93,9 @@ class VolunteersController < ApplicationController
           :info_source_id,
           :other_academic_info,
           :profession_id,
+          :review,
+          :error_address,
+          :error_other,
           { skill_ids: [] },
           {
             address_attributes: [

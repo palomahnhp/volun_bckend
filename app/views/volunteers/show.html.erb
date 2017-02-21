@@ -73,6 +73,8 @@
 			<dd><%= @volunteer.profession %></dd>
 			<dt><%= Volunteer.human_attribute_name(:skills) %>:</dt>
 			<dd><%= @volunteer.skills.map(&:name).to_sentence %></dd>
+			<dt><%= Volunteer.human_attribute_name(:traits) %>:</dt>
+			<dd><%= @volunteer.traits.map(&:name).to_sentence %></dd>
 			<dt><%= Volunteer.human_attribute_name(:created_at) %>:</dt>
 			<dd><%= show_simple_date(@volunteer.created_at) %></dd>
 		</dl>

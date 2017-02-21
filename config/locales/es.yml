@@ -27,7 +27,8 @@ es:
     confirm_action: Se van a efectuar los cambios. ¿Está seguro de que desea continuar?
     confirm_undo: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
     confirm_mark_as_pending: Se marcará la solicitud como pendiente. ¿Está seguro de que desea continuar?
-    confirm_revised_volunteer: Los campos de errores del voluntario han sido marcados como revisados. ¿Está seguro de que quiere continuar?
+    confirm_revised_all_volunteer: Los campos de errores del voluntario han sido marcados como revisados. ¿Está seguro de que quiere continuar?
+    confirm_revised_volunteer: Este voluntario tiene campos de errores pendientes de revisar. ¿Está seguro de que quiere continuar?
     undo_changes: Deshacer cambios
     request_form_successfully_rejected: Solicitud rechazada con éxito
     request_form_successfully_marked_as_pending: Solicitud marcada como pendiente
@@ -71,7 +72,7 @@ es:
   collectives_text: Colectivos a los que pertenece un proyecto
   coordinations_text: Coordinaciones asociadas a un proyecto
   all_statuses: Todos los estados
-  errors: Errores u observaciones
+  errors_title_volun: Errores u observaciones
   revised: Revisado
   errors:
     request_form_no_longer_exists: 'La %{request_type} ya no existe'
