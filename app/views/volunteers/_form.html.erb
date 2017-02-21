@@ -19,7 +19,7 @@
     </div>
     <div class="row well">
       <%= f.association :id_number_type, wrapper_html: { class: 'col-md-4' } %>
-      <%= f.input :id_number, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :id_number, input_html: { data: { mask: 'wwwwwwwww'} }, wrapper_html: { class: 'col-md-6' } %>
     </div>
     <div class="row well">
       <%= f.input :email, wrapper_html: { class: 'col-md-4' } %>

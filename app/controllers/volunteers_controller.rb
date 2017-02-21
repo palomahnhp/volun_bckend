@@ -53,6 +53,11 @@ class VolunteersController < ApplicationController
     respond_with(@volunteer)
   end
 
+  def recover
+    @volunteer.recover
+    respond_with(@volunteer)
+  end
+
   protected
 
     def volunteer_params
