@@ -22,6 +22,7 @@ es:
     access_denied: "Accesso denegado"
     select_a_model: Seleccionar %{model}
     confirm_modification: Se van a modificar los datos. ¿Está seguro de que desea continuar?
+    confirm_revised_volunteer: Los campos de errores del voluntario han sido marcados como revisados. ¿Está seguro de que quiere continuar?
     confirm_undo: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
     undo_changes: Deshacer cambios
   will_paginate:

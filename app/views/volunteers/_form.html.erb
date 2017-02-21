@@ -99,6 +99,7 @@
     </div> <!-- address-block -->
     
     <% if f.object.review? %>
+      <%= f.input :review, as: :hidden, input_html: { id: 'review' } %>
       <div class="row well">
         <%= content_tag :h3, t('errors'), class: 'form-subtitle' %>
         <% if f.object.error_address %>
@@ -128,7 +129,7 @@
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+    <%= f.button :submit, class: 'btn btn-success js-confirmable', name: t('messages.confirm_revised_volunteer'), id: 'submit' %>
     <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
   <% end %>
@@ -141,6 +142,19 @@
     // Check date fields one time at rendering;
     setAvailDate();
     setAgrmtDate();
+    
+    // Submit
+    /*$("#submit").on("click", function() {
+      alert("A ver cuál salta antes.");
+    });*/
+    var reviseMsg = $("#submit").attr("name");
+    var confirm_submit = function (reviseMsg) {
+      $('.js-confirmable').closest('form').submit(function() {
+          alert("pepa");
+          var c = confirm("pepe");
+          return c;
+      });
+    };
   
     // Disable availability_date if available check is checked
     function setAvailDate() {
