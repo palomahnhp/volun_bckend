@@ -91,7 +91,7 @@ class RequestForm < ActiveRecord::Base
   end
 
   def update_and_trace_status(status_name, attributes = {})
-    return true if status.kind == status_name.to_s
+    return true if status.kind == status_name.to_s && manager_id != attributes[:manager_id]
 
     if status_name.to_s.in? self.class.status_names
       attributes.merge!(
