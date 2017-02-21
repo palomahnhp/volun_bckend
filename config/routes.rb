@@ -31,8 +31,8 @@ Rails.application.routes.draw do
   resources :record_histories, concerns: :recoverable
   resources :notice_types
   resources :unsubscribe_levels
-  resources :frontpage_elements
-  resources :frontpage_positions
+  resources :frontpage_elements, concerns: :recoverable
+  resources :frontpage_positions, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable

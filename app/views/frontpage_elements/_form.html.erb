@@ -2,17 +2,167 @@
   <%= simple_form_for(@frontpage_element, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.association :frontpage_position %>
-          <%= f.input :text_panel %>
-          <%= f.input :text_button %>
-          <%= f.input :image_url %>
-          <%= f.input :link_url %>
-          <%= f.input :logo_url %>
-          <%= f.input :active %>
+    <div style="margin-bottom: 20px;">
+      <div class="row">
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'panel' %>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'button' %>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'image' %>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'link' %>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <%= radio_button_tag 'kind', 'logo', true %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Panel</label>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Botón</label>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Imagen</label>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Enlace</label>
+        </div>
+        <div class="col-md-2 pull-right" style="text-align: center;">
+          <label>Logo</label>
+        </div>
+      </div>
+    </div>
+    <%= f.input :logo_url, input_html: { id: 'logo' } %>
+    <%= f.input :link_url, input_html: { id: 'link' } %>
+    <%= f.input :image_url, input_html: { id: 'image' } %>
+    <%= f.input :text_button, input_html: { id: 'button' } %>
+    <%= f.input :text_panel, input_html: { id: 'panel' } %>
+    <%= f.input :active %>
+    <%= f.association :frontpage_position, input_html: { id: 'position' } %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, onclick: "enableToSaveBlanks();" %>
   </div>
   <% end %>
 </div>
+
+<script>
+  // Disable fields depending on selected radio button
+  if ($("#link").val() != "") {
+    $("#kind_link").attr("checked", true);
+    selLink();
+  } else {
+    if ($("#image").val() != "") {
+      $("#kind_image").attr("checked", true);
+      selImage();
+    } else {
+      if ($("#button").val() != "") {
+        $("#kind_button").attr("checked", true);
+        selButton();
+      } else {
+        if ($("#panel").val() != "") {
+          $("#kind_panel").attr("checked", true);
+          selPanel();
+        } else {
+          $("#kind_logo").attr("checked", true);
+          selLogo();
+        }
+      }
+    }
+  }
+  
+  $("#kind_logo").on("click", function() {
+    selLogo();
+  });
+  
+  function enableToSaveBlanks() {
+    $("#logo").attr("disabled", false);
+    $("#link").attr("disabled", false);
+    $("#image").attr("disabled", false);
+    $("#button").attr("disabled", false);
+    $("#panel").attr("disabled", false);
+  }
+  
+  function selLogo() {
+    $("#logo").attr("disabled", false);
+    $("#link").attr("disabled", true);
+    $("#link").val("");
+    $("#image").attr("disabled", true);
+    $("#image").val("");
+    $("#button").attr("disabled", true);
+    $("#button").val("");
+    $("#panel").attr("disabled", true);
+    $("#panel").val("");
+  }
+  
+  $("#kind_link").on("click", function() {
+    selLink();
+  });
+  
+  function selLink() {
+    $("#logo").attr("disabled", true);
+    $("#logo").val("");
+    $("#link").attr("disabled", false);
+    $("#image").attr("disabled", true);
+    $("#image").val("");
+    $("#button").attr("disabled", true);
+    $("#button").val("");
+    $("#panel").attr("disabled", true);
+    $("#panel").val("");
+  }
+  
+  $("#kind_image").on("click", function() {
+    selImage();  
+  });
+  
+  function selImage() {
+    $("#logo").attr("disabled", true);
+    $("#logo").val("");
+    $("#link").attr("disabled", true);
+    $("#link").val("");
+    $("#image").attr("disabled", false);
+    $("#button").attr("disabled", true);
+    $("#button").val("");
+    $("#panel").attr("disabled", true);
+    $("#panel").val("");
+  }
+  
+  $("#kind_button").on("click", function() {
+    selButton();
+  });
+  
+  function selButton() {
+    $("#logo").attr("disabled", true);
+    $("#logo").val("");
+    $("#link").attr("disabled", true);
+    $("#link").val("");
+    $("#image").attr("disabled", true);
+    $("#image").val("");
+    $("#button").attr("disabled", false);
+    $("#panel").attr("disabled", true);
+    $("#panel").val("");
+  }
+  
+  $("#kind_panel").on("click", function() {
+    selPanel();
+  });
+  
+  function selPanel() {
+    $("#logo").attr("disabled", true);
+    $("#logo").val("");
+    $("#link").attr("disabled", true);
+    $("#link").val("");
+    $("#image").attr("disabled", true);
+    $("#image").val("");
+    $("#button").attr("disabled", true);
+    $("#button").val("");
+    $("#panel").attr("disabled", false);
+  }
+</script>
