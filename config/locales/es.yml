@@ -20,7 +20,8 @@ es:
     approve:  'Aprobar'
     reject:   'Rechazar'
     recover:  'Restablecer'
-    mark_as_pending: 'Marcar como pendiente'
+    undo_rejection: 'Deshacer rechazo'
+    process:  'Procesar'
   details: Detalles
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'

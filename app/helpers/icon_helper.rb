@@ -20,11 +20,11 @@ module IconHelper
       action    = :delete
       icon_name = :times
     end
-    build_icon(action, opts.merge(icon_name: icon_name, class: 'danger'))
+    build_icon(action, opts.merge(icon_name: icon_name, class: action))
   end
 
   def icon_recover(opts = {})
-    build_icon(:recover, opts.merge(icon_name: 'bolt', class: 'danger'))
+    build_icon(:recover, opts.merge(icon_name: 'bolt', class: :recover))
   end
 
   def icon_search(opts = {})
