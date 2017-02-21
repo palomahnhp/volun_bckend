@@ -1,6 +1,6 @@
 class Rt::ProjectAction < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
   belongs_to :project
   belongs_to :action_type

@@ -1,4 +1,4 @@
-module RtCommons
+module RtModel
   extend ActiveSupport::Concern
 
   included do
@@ -8,6 +8,23 @@ module RtCommons
 
     validate :check_request_type
     after_initialize :build_new_request_form
+
+    default_scope -> { includes(request_form: [:status, :manager]).order('request_forms.status_date desc') }
+    scope :with_statuses, ->(statuses = []){
+      statuses = [statuses].flatten.compact.select{ |status_name| status_name.to_s.in? status_names }
+      return none unless statuses.any?
+      where('request_forms.rt_extendable_type' => name,
+            'request_forms.req_status_id' => statuses.map{ |status| get_status_id_by_kind(status) })
+    }
+    scope :with_status, ->(status){ with_statuses status }
+    scope :pending,     ->(){ with_status(:pending) }
+    scope :processing,  ->(){ with_status(:processing) }
+    scope :approved,    ->(){ with_status(:approved) }
+    scope :rejected,    ->(){ with_status(:rejected) }
+
+    class << self
+      delegate :status_names, :get_status_id_by_kind, to: RequestForm
+    end
 
     private
 

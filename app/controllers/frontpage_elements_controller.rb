@@ -39,10 +39,15 @@ class FrontpageElementsController < ApplicationController
     @frontpage_element.destroy
     respond_with(@frontpage_element)
   end
+  
+  def recover
+    @frontpage_element.recover
+    respond_with(@frontpage_element)
+  end
 
   protected
 
     def frontpage_element_params
-      params.require(:frontpage_element).permit(:frontpage_position_id, :text_panel, :text_button, :image_url, :link_url, :logo_url, :active)
+      params.require(:frontpage_element).permit(:frontpage_position_id, :created_by, :text_panel, :text_button, :image_url, :link_url, :logo_url, :active)
     end
 end

@@ -31,8 +31,8 @@ Rails.application.routes.draw do
   resources :record_histories, concerns: :recoverable
   resources :notice_types
   resources :unsubscribe_levels
-  resources :frontpage_elements
-  resources :frontpage_positions
+  resources :frontpage_elements, concerns: :recoverable
+  resources :frontpage_positions, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable
@@ -71,7 +71,16 @@ Rails.application.routes.draw do
     resources :rejection_types, concerns: :recoverable
   end
   namespace :rt do
-    resources :volunteer_subscribes
+    resources :volunteer_subscribes do
+      get :process_request_form, on: :member
+      get :undo_rejection_request_form,
+          to: 'volunteer_subscribes#mark_request_form_as_pending',
+          on: :member
+      get :pre_approve_request_form, on: :member
+      get :pre_reject_request_form, on: :member
+      patch :reject_request_form, on: :member
+      get :mark_request_form_as_pending, on: :member
+    end
     resources :volunteer_unsubscribes
     resources :volunteer_amendments
     resources :volunteer_appointments

@@ -804,4 +804,21 @@ FactoryGirl.define do
       name nil
     end
   end
+  factory :frontpage_position do
+    position 1
+    description "MyText"
+    active true
+
+    trait :invalid do
+      position nil
+    end
+  end
+  factory :frontpage_element do
+    association :frontpage_position
+    active true
+
+    trait :invalid do
+      frontpage_position_id nil
+    end
+  end
 end

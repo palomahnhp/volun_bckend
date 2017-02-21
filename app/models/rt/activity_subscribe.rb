@@ -1,6 +1,6 @@
 class Rt::ActivitySubscribe < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
   belongs_to :project
 

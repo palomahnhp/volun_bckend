@@ -19,16 +19,28 @@ class VolunteersController < ApplicationController
   end
 
   def new
-    @volunteer = Volunteer.new
-    respond_with(@volunteer)
+    volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id])
+    if volunteer_manager.valid?
+      @volunteer = volunteer_manager.build_volunteer
+      respond_with(@volunteer)
+    else
+      redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
+    end
   end
 
   def edit
   end
 
   def create
-    @volunteer.save
-    respond_with(@volunteer)
+    volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id],
+                                             volunteer_attributes: volunteer_params,
+                                             manager_id: current_user.loggable_id)
+    if volunteer_manager.create_volunteer
+      @volunteer = volunteer_manager.volunteer
+      respond_with(@volunteer, lolcation: rt_volunteer_subscribes_path)
+    else
+      redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
+    end
   end
 
   def update

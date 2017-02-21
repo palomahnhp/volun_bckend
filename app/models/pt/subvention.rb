@@ -1,6 +1,6 @@
 class Pt::Subvention < ActiveRecord::Base
 
-  include PtCommons
+  include PtModel
 
   belongs_to :proposal
 

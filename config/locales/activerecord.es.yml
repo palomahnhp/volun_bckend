@@ -11,18 +11,18 @@ es:
         pt_other:      Otros
     request_type:
       kind:
-        rt_volunteer_subscribe:   Alta de voluntario
-        rt_volunteer_unsubscribe: Baja de voluntario
-        rt_volunteer_amendment:   Modificación de voluntario
-        rt_volunteer_appointment: Cita para voluntario
-        rt_entity_subscribe:      Alta de entidad
-        rt_entity_unsubscribe:    Baja de entidad
-        rt_volunteers_demand:     Demanda de voluntarios
-        rt_project_subscribe:     Publicación de projecto
-        rt_project_action:        Acción sobre proyecto
-        rt_activity_subscribe:    Publicación de actividad
-        rt_activity_action:       Acción sobre actividad
-        rt_other:                 '"Otros"'
+        rt_volunteer_subscribe:   &rt_volunteer_subscribe   Alta de voluntario
+        rt_volunteer_unsubscribe: &rt_volunteer_unsubscribe Baja de voluntario
+        rt_volunteer_amendment:   &rt_volunteer_amendment   Modificación de voluntario
+        rt_volunteer_appointment: &rt_volunteer_appointment Cita para voluntario
+        rt_entity_subscribe:      &rt_entity_subscribe      Alta de entidad
+        rt_entity_unsubscribe:    &rt_entity_unsubscribe    Baja de entidad
+        rt_volunteers_demand:     &rt_volunteers_demand     Demanda de voluntarios
+        rt_project_subscribe:     &rt_project_subscribe     Publicación de projecto
+        rt_project_action:        &rt_project_action        Acción sobre proyecto
+        rt_activity_subscribe:    &rt_activity_subscribe    Publicación de actividad
+        rt_activity_action:       &rt_activity_action       Acción sobre actividad
+        rt_other:                 &rt_other                 '"Otros"'
     req:
       status:
         kind:
@@ -132,9 +132,18 @@ es:
       event:
         one:   Evento
         other: Eventos
+      frontpage_element:
+        one:   Elemento de página
+        other: Elementos de página
+      frontpage_position:
+        one:   Posición en página
+        other: Posiciones en página
       entity:
         one:   Entidad
         other: Entidades
+      manager:
+        one:   Gestor
+        other: Gestores
       request_form:
         one:   Solicitud
         other: Solicitudes
@@ -150,6 +159,45 @@ es:
       id_number_type:
         one:   Tipo de documento
         other: Tipo de documentos
+      req/status:
+        one:   Estado
+        other: Estados
+      rt/volunteer_subscribe:
+        one:    Solicitud de Alta de Voluntario
+        other:  Solicitudes de Alta de Voluntario
+      rt/volunteer_unsubscribe:
+        one:    Solicitud de Baja de Voluntario
+        other:  Solicitudes de Baja de Voluntario
+      rt/volunteer_amendment:
+        one:    Solicitud de Modificacion de Voluntario
+        other:  Solicitudes de Modificacion de Voluntario
+      rt/volunteer_appointment:
+        one:    Solicitud de Cita para Voluntario
+        other:  Solicitudes de Cita para Voluntario
+      rt/entity_subscribe:
+        one:    Solicitud de Alta de Entidad
+        other:  Solicitudes de Alta de Entidad
+      rt/entity_unsubscribe:
+        one:    Solicitud de Baja de Entidades
+        other:  Solicitudes de Baja de Entidades
+      rt/volunteers_demand:
+        one:    Solicitud de Demanda de Voluntario
+        other:  Solicitudes de Demanda de Voluntario
+      rt/project_subscribe:
+        one:    Solicitud de Publicacion de Proyecto
+        other:  Solicitudes de Publicacion de Proyecto
+      rt/project_action:
+        one:    Solicitud de Accion sobre Proyecto
+        other:  Solicitudes de Accion sobre Proyecto
+      rt/activity_subscribe:
+        one:    Solicitud de Publicacion de Actividad
+        other:  Solicitudes de Publicacion de Actividad
+      rt/activity_action:
+        one:    Solicitud de Accion sobre Actividad
+        other:  Solicitudes de Accion sobre Actividad
+      rt/other:
+        one:    Solicitud de "Otros"'
+        other:  Solicitudes de"Otros"'
     attributes:
       address:
         postal_code:      Código postal
@@ -166,6 +214,7 @@ es:
         country:          País
         latitude:         Latitud
         longitude:        Longitud
+        district:         Distrito
       district:
         code:        Código
         name:        Nombre
@@ -176,6 +225,25 @@ es:
         description: Descripción
         active:      Activo
         created_at : *created_at
+      frontpage_element:
+        id:                    ID
+        text_panel:            Panel de texto
+        text_button:           Botón
+        image_url:             Imagen (url)
+        link_url:              Enlace (url)
+        logo_url:              Logo (url)
+        active:                Activo
+        frontpage_position_id: Posición
+        frontpage_position:    Posición
+        created_at:            *created_at
+        created_by:            Creado por
+        updated_by:            Actualizado por
+      frontpage_position:
+        id:          ID
+        position:    Posición
+        description: Descripción
+        active:      Activo
+        created_at:  *created_at
       area:
         id:          ID
         name:        Denominación
@@ -222,17 +290,21 @@ es:
         kind:        Tipo
         description: Descripción
       request_form:
-        request_type_id:        Tipo de solicitud
-        request_type:           Tipo de solicitud
-        user_id:                Usuario
-        user:                   Usuario
-        status:                 Estado
-        status_date:            Fecha estado
-        rejection_type_id:      Tipo de rechazo
-        rejection_type:         Tipo de rechazo
-        reason_id:              Motivo
-        reason:                 Motivo
-        comments:               Comentarios
+        request_type_id:       Tipo de solicitud
+        request_type:          Tipo de solicitud
+        user_id:               Usuario
+        user:                  Usuario
+        status:                Estado
+        req_status_id:         Estado
+        status_date:           Fecha de estado
+        req_rejection_type_id: Motivo de rechazo
+        rejection_type:        Motivo de rechazo
+        reason_id:             Motivo
+        reason:                Motivo
+        manager:               Gestor
+        manager_id:            Gestor
+        comments:              Comentarios
+        created_at :           *created_at
       req/rejection_type:
         id:          ID
         name:        Nombre
@@ -259,6 +331,16 @@ es:
         manager_id:      Gestor
         manager:         Gestor
         created_at :     Fecha de estado
+      rt/volunteer_subscribe:
+        name:             Nombre
+        last_name:        Primer Apellido
+        last_name_alt:    Segundo Apellido
+        phone_number:     Teléfono
+        phone_number_alt: Otro teléfono
+        email:            Email
+        publish_pictures: Publicar fotos
+        annual_survey:    Recibir encuesta
+        notes:            Notas
       collective:
         id:          ID
         name:        Denominación
@@ -291,9 +373,10 @@ es:
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
         contact_name:           Nombre
-        contact_last_name:  Primer Apellido
-        contact_last_name_alt: Segundo Apellido
-        phone_number:           Teléfono
+        contact_last_name:      Primer Apellido
+        contact_last_name_alt:  Segundo Apellido
+        phone_number:           Teléfono 1
+        phone_number_alt:       Teléfono 2
         email:                  E-mail
         comments:               Observaciones
         beneficiaries_num:      Nº de beneficiarios
@@ -394,7 +477,7 @@ es:
         id_number_type_id:        Tipo de documento
         id_number_type:           Tipo de documento
         id_number:                Número de documento
-        gender:                   Sexo
+        gender:                   Género
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad
         nationality:              Nacionalidad
@@ -465,3 +548,9 @@ es:
         unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
         invalid_proj_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses anteriores o posteriores
         one_timetable_at_least: Cada dirección debe tener al menos un horario
+        cannot_be_present_if_is_not_rejected: no puede estar presente si no está rechazada
+        cannot_change_from_approved: no se puede cambiar el estado de una solicitud aprobada
+        cannot_change_to_pending: no puede cambiar a pendiente
+        cannot_change_to_processing: no puede cambiar a 'en trámite'
+        cannot_change_to_approved: no puede cambiar a aprobada
+        cannot_change_to_rejected: no puede cambiar a rechazada
