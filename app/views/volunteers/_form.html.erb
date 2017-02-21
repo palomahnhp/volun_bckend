@@ -1,5 +1,6 @@
 <div class="well">
   <%= simple_form_for(@volunteer, default_form_options) do |f| %>
+      <%= hidden_field_tag :rt_volunteer_subscribe_id, params[:rt_volunteer_subscribe_id] %>
 
   <div class="form-inputs">
     <div class="row well">

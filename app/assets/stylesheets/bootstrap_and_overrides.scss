@@ -545,3 +545,32 @@ form .well {
     width: 75%;
   }
 }
+
+#statuses {
+  ul {
+    padding-left: 65px;
+    list-style-type: none;
+  }
+ .status-list {
+   label {
+     min-width: 80px;
+     margin-bottom: 0;
+     font-weight: normal;
+     cursor: pointer;
+     font-size: 12px;
+   }
+ }
+}
+
+.pending {
+  background-color: #efefef;
+}
+.processing {
+  background-color: #ffe599;
+}
+.approved {
+  background-color: #b6d7a8;
+}
+.rejected {
+  background-color: #ea9999;
+}

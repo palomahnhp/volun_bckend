@@ -1,5 +1,5 @@
 class Rt::Other < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
 end

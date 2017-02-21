@@ -8,6 +8,7 @@ class CreateRequestForms < ActiveRecord::Migration
       t.datetime :status_date
       t.references :req_rejection_type, index: true, foreign_key: true
       t.references :req_reason, index: true, foreign_key: true
+      t.references :manager, index: true, foreign_key: true
       t.text :comments
 
       t.timestamps null: false

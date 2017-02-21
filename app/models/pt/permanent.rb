@@ -1,5 +1,5 @@
 class Pt::Permanent < ActiveRecord::Base
 
-  include PtCommons
+  include PtModel
 
 end

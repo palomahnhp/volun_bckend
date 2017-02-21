@@ -1,125 +1,65 @@
 <div class="new-project-type">
   <div class="jumbotron scale">
-    <h2>Elegir el tipo de proyecto a crear</h2>
+    <h2>Elegir tipo de solicitud a gestionar</h2>
     <br/>
     <br/>
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-        <div class="panel panel-<%= RequestType.active?(:rt_volunteer_subscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteer_subscribe_url %>';">
+        <div class="panel panel-<%= Rt::VolunteerSubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_subscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_volunteer_subscribe] %>
+              <%= Rt::VolunteerSubscribe.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_volunteer_unsubscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteer_unsubscribe_url %>';">
+        <div class="panel panel-<%= Rt::VolunteerUnsubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_unsubscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_volunteer_unsubscribe] %>
+              <%= Rt::VolunteerUnsubscribe.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_volunteer_amendment) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteer_amendment_url %>';">
+        <div class="panel panel-<%= Rt::VolunteerAmendment.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_amendments_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_volunteer_amendment] %>
+              <%= Rt::VolunteerAmendment.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_volunteer_appointment) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteer_appointment_url %>';">
+        <div class="panel panel-<%= Rt::VolunteerAppointment.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_appointments_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_volunteer_appointment] %>
+              <%= Rt::VolunteerAppointment.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_entity_subscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_entity_subscribe_url %>';">
+        <div class="panel panel-<%= Rt::EntitySubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_entity_subscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_entity_subscribe] %>
+              <%= Rt::EntitySubscribe.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_entity_unsubscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_entity_unsubscribe_url %>';">
+        <div class="panel panel-<%= Rt::EntityUnsubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_entity_unsubscribes_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_entity_unsubscribe] %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Asociados a una subvención
-          </div>
-        </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_volunteers_demand) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_volunteers_demand_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_volunteers_demand] %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Asociados a una subvención
-          </div>
-        </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_project_subscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_project_subscribe_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_project_subscribe] %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Asociados a una subvención
-          </div>
-        </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_project_action) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_project_action_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_project_action] %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Asociados a una subvención
-          </div>
-        </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_activity_subscribe) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_activity_subscribe_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_activity_subscribe] %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Asociados a una subvención
-          </div>
-        </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_activity_action) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_activity_action_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_activity_action] %>
-            </h3>
-          </div>
-          <div class="panel-body">
-            Asociados a una subvención
-          </div>
-        </div>
-        <div class="panel panel-<%= RequestType.active?(:rt_other) ? 'warning' : 'danger' %>" onclick="window.location='<%= new_rt_other_url %>';">
-          <div class="panel-heading">
-            <h3 class="panel-title">
-              <%= RequestType.kinds_i18n[:rt_other] %>
+              <%= Rt::EntityUnsubscribe.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
@@ -128,6 +68,66 @@
         </div>
       </div>
       <div class="col-md-6">
+        <div class="panel panel-<%= Rt::VolunteersDemand.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteers_demands_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::VolunteersDemand.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= Rt::ProjectSubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_subscribes_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::ProjectSubscribe.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= Rt::ProjectAction.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_actions_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::ProjectAction.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= Rt::ActivitySubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_subscribes_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::ActivitySubscribe.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= Rt::ActivityAction.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_actions_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::ActivityAction.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
+        <div class="panel panel-<%= Rt::Other.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_others_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::Other.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            Asociados a una subvención
+          </div>
+        </div>
       </div>
     </div>
   </div>

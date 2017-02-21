@@ -1,7 +1,7 @@
 module ScaffoldHelper
 
   def model_title(model_class, opts = {})
-    main_title(model_class.model_name.human(count: 2).capitalize, opts)
+    main_title(model_class.model_name.human(count: 2), opts)
   end
 
   def main_title(title, opts = {})
@@ -22,11 +22,22 @@ module ScaffoldHelper
   end
 
   def get_hidden_fields(hidden_fields)
-    hfs = ''
-    hidden_fields.each do |k,v|
-      hfs += hidden_field_tag k, v
+    html_tag = ''
+    grouped_hidden_fields = hidden_fields.select{ |_k, v| v.is_a? Hash }
+    grouped_hidden_fields.each do |group_name, _hidden_fields|
+      html_tag += content_tag(:div, id: group_name) do
+                    build_hidden_fields(_hidden_fields)
+                  end
     end
-    hfs.html_safe
+    independent_hidden_fields = hidden_fields.reject{ |_k, v| v.is_a? Hash }
+    html_tag += build_hidden_fields independent_hidden_fields
+    html_tag.html_safe
+  end
+
+  def build_hidden_fields(hidden_fields)
+    hidden_fields.inject('') do |hf_tags, (name, value)|
+      hf_tags + hidden_field_tag(name, value)
+    end.html_safe
   end
 
   def link_to_new(model, opts = {})

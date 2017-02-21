@@ -57,7 +57,7 @@
         <li><%= link_to Project.model_name.human(count: 2), projects_path %></li>
         <li><%= link_to Volunteer.model_name.human(count: 2), volunteers_path %></li>
         <li><%= link_to Entity.model_name.human(count: 2), entities_path %></li>
-        <li><%= link_to RequestForm.model_name.human(count: 2), request_forms_path %></li>
+        <li><%= link_to RequestForm.model_name.human(count: 2), rt_extensions_menu_request_forms_path %></li>
         <li><%= link_to t('administration'), maintenance_path %></li>
       </ul>
 
@@ -85,6 +85,6 @@
 
 
 <script type="text/javascript">
-  confirm_submit("<%= t('messages.confirm_modification') %>");
+  confirm_submit("<%= t('messages.confirm_action') %>");
   confirm_undo("<%= t('messages.confirm_undo') %>");
 </script>
