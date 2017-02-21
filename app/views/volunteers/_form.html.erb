@@ -97,6 +97,34 @@
           </div> <!-- address-fields -->
       <% end %>
     </div> <!-- address-block -->
+    
+    <% if f.object.review? %>
+      <div class="row well">
+        <%= content_tag :h3, t('errors'), class: 'form-subtitle' %>
+        <% if f.object.error_address %>
+          <div class='row'>
+            <%= f.input :error_address, wrapper_html: { class: 'col-md-6' } %>
+            <div class='col-md-6'>
+              <%= check_box_tag(t('revised'), value = "1", checked = false) %>
+              <label style='font-weight: normal;'>
+                <%= t('revised') %>
+              </label>
+            </div>
+          </div>
+        <% end %>
+        <% if f.object.error_other %>
+          <div class='row'>
+          <%= f.input :error_other, wrapper_html: { class: 'col-md-6' } %>
+            <div class='col-md-6'>
+              <%= check_box_tag(t('revised'), value = "1", checked = false) %>
+              <label style='font-weight: normal;'>
+                <%= t('revised') %>
+              </label>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 
   <div class="form-actions">
