@@ -26,6 +26,7 @@ es:
     select_a_model: Seleccionar %{model}
     confirm_action: Se van a efectuar los cambios. ¿Está seguro de que desea continuar?
     confirm_undo: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
+    confirm_mark_as_pending: Se marcará la solicitud como pendiente. ¿Está seguro de que desea continuar?
     undo_changes: Deshacer cambios
     request_form_successfully_rejected: Solicitud rechazada con éxito
     request_form_successfully_marked_as_pending: Solicitud marcada como pendiente

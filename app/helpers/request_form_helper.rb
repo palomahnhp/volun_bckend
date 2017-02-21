@@ -26,6 +26,7 @@ module RequestFormHelper
       path:   "undo_rejection_request_form_#{record.class.model_name.singular}_path",
       remote: false,
       method: :get,
+      data:   { confirm: t('messages.confirm_mark_as_pending')}
     }.merge(opts)
     path = options.delete(:path)
     text = options.delete(:text)

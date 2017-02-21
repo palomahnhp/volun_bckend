@@ -43,37 +43,22 @@ module RtController
     end
 
     def reject_request_form
-      request_form.status = Req::Status.public_send(:rejected).take
-      request_form.rejection_type = rejection_type
-      if request_form.valid?
-        request_form.update_and_trace_status!(:rejected,
-                                              manager_id: @manager_id,
-                                              req_rejection_type_id: rejection_type.id)
-      else
-        self.errors += request_form.errors.full_messages
-        nil
-      end
+      update_and_trace_status(:rejected, manager_id: @manager_id, req_rejection_type_id: rejection_type.try(:id))
     end
 
     def process_request_form
-      request_form.status = Req::Status.public_send(:processing).take
-      if request_form.valid?
-        request_form.update_and_trace_status!(:processing, manager_id: @manager_id)
-      else
-        self.errors += request_form.errors.full_messages
-        nil
-      end
+      update_and_trace_status(:processing, manager_id: @manager_id)
     end
 
     def mark_request_form_as_pending
-      request_form.status = Req::Status.public_send(:pending).take
-      request_form.rejection_type = nil
-      if request_form.valid?
-        request_form.update_and_trace_status!(:pending, manager_id: @manager_id, req_rejection_type_id: nil)
-      else
+      update_and_trace_status(:pending, manager_id: @manager_id, req_rejection_type_id: nil)
+    end
+
+    def update_and_trace_status(status_name, options = {})
+      unless request_form.update_and_trace_status(status_name, options)
         self.errors += request_form.errors.full_messages
-        nil
       end
+      errors.blank?
     end
 
     def show_errors

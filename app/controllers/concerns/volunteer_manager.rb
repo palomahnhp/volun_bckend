@@ -23,14 +23,18 @@ class VolunteerManager
   end
 
   def create_volunteer
+    return unless valid?
+
     self.volunteer = build_volunteer(@volunteer_attributes)
     ActiveRecord::Base.transaction do
       if volunteer.save
-        assign_user_to_volunteer
-        approve_request_form if creation_through_request_form?
+        assign_user_to_volunteer!
+        approve_request_form! if creation_through_request_form?
+      else
+        copy_errors_from!(volunteer)
       end
     end
-    volunteer.persisted?
+    errors.blank?
   end
 
   def rt_volunteer_subscribe
@@ -41,20 +45,20 @@ class VolunteerManager
     @request_form ||= rt_volunteer_subscribe.try(:request_form)
   end
 
-  def assign_user_to_volunteer
-    user = User.new(login: "user#{'%09d' % volunteer.id}",
-                    loggable: volunteer,
-                    notice_type: NoticeType.email.take)
+  def assign_user_to_volunteer!
+    user = User.new(login: "user#{'%09d' % volunteer.id}", loggable: volunteer, notice_type: NoticeType.email.take)
+    user.password = generate_new_password(user)
+    user.password_confirmation = user.password
     # TODO Remove this line after removing email column from users
-    user.email = "#{user.login}@voluntario_por_madrid.es"
-
-    # User creation must be ensured after volunteer creation
-    user.save(validate: false)
+    user.email = "#{user.login}@volun.es"
+    copy_errors_from!(user) unless user.save
     user
   end
 
-  def approve_request_form
-    request_form.update_and_trace_status!(:approved, manager_id: @manager_id, user_id: volunteer.user.id)
+  def approve_request_form!
+    unless request_form.update_and_trace_status(:approved, manager_id: @manager_id, user_id: volunteer.user.id)
+      copy_errors_from!(request_form)
+    end
   end
 
   private
@@ -62,6 +66,20 @@ class VolunteerManager
   def add_request_form_no_longer_exists_error
     errors << I18n.t('errors.request_form_no_longer_exists', request_type: Rt::VolunteerSubscribe.model_name.human)
     nil
+  end
+
+  def copy_errors_from(record)
+    self.errors += record.errors.full_messages
+    nil
+  end
+
+  def copy_errors_from!(record)
+    copy_errors_from(record)
+    raise ActiveRecord::Rollback
+  end
+
+  def generate_new_password(user)
+    Digest::SHA1.hexdigest("#{volunteer.created_at.to_s}--#{user.login}")[0,8]
   end
 
 end

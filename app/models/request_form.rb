@@ -90,19 +90,19 @@ class RequestForm < ActiveRecord::Base
     self.rt_extendable = rt_extendable_class.new(attributes.merge(request_form: self))
   end
 
-  def update_and_trace_status!(status_name, attributes = {})
-    return true if reload.status.kind == status_name.to_s
+  def update_and_trace_status(status_name, attributes = {})
+    return true if status.kind == status_name.to_s
+
     if status_name.to_s.in? self.class.status_names
       attributes.merge!(
         status_date: DateTime.now,
-        req_status_id: Req::Status.public_send(status_name).take.id,
+        req_status_id: self.class.get_status_id_by_kind(status_name),
       )
-      update_columns(attributes)
-      reload.create_status_trace
+      create_status_trace if update_attributes(attributes)
     else
       raise "Status name must be in #{self.class.status_names}"
     end
-    true
+    errors.blank?
   end
 
   # Status traces creation must be ensured by default

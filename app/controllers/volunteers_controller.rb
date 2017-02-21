@@ -35,8 +35,7 @@ class VolunteersController < ApplicationController
     volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id],
                                              volunteer_attributes: volunteer_params,
                                              manager_id: current_user.loggable_id)
-    if volunteer_manager.valid?
-      volunteer_manager.create_volunteer
+    if volunteer_manager.create_volunteer
       @volunteer = volunteer_manager.volunteer
       respond_with(@volunteer, lolcation: rt_volunteer_subscribes_path)
     else
