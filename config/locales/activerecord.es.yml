@@ -166,6 +166,7 @@ es:
         country:          País
         latitude:         Latitud
         longitude:        Longitud
+        district:         Distrito
       district:
         code:        Código
         name:        Nombre
