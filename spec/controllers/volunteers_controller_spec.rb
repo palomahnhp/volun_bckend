@@ -79,11 +79,12 @@ RSpec.describe VolunteersController, type: :controller do
       end
 
       it 'redirects to the created volunteer' do
+        @trackingType = FactoryGirl.create(:tracking_type)
         @address = FactoryGirl.create(:address)
         @idNumerType = FactoryGirl.create(:id_number_type)
         valid_attributes[:address_id] = @address.id
         valid_attributes[:id_number_type_id] = @idNumerType.id
-        volunteer = Volunteer.create! valid_attributes
+        post :create, volunteer: valid_attributes
         expect(response).to redirect_to(volunteers_url)
       end
     end

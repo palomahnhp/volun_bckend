@@ -7,7 +7,7 @@ FactoryGirl.define do
     end
   end
   factory :notice_type do
-    kind 1
+    kind "email"
     description "MyText"
     active true
   end
