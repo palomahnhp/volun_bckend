@@ -515,17 +515,6 @@ es:
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
         created_at:               *created_at
-      manager:
-        id:                   ID
-        name:                 Nombre
-        last_name:            Apellido 1
-        last_name_alt:        Apellido 2
-        alias_name:           Alias
-        role:                 Rol
-        profile:              Perfil
-        phone_number:         Teléfono móvil
-        active:               Activo
-        created_at:           *created_at
       skill:
         name: Nombre
       id_number_type:
