@@ -1,18 +1,15 @@
 class BdcValidator
 
-  attr_accessor :bdc_fields, :response_data, :address_data
+  attr_accessor :bdc_fields, :response_data
 
   def initialize(bdc_fields = {})
     self.bdc_fields    = bdc_fields.with_indifferent_access
     self.response_data = {}
-    self.address_data  = {}
   end
 
   def validate_address(bdc_fields = self.bdc_fields)
     response           = client.call(:validar_direccion, message: bdc_fields)
-    self.response_data = deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return])
-    self.address_data  = response_data.present? ? response_data.dig(:bloquedireccion, :datosdireccion) : {}
-    response_data
+    self.response_data = Hash.deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return]) || {}
   rescue  Exception  => e
     Rails.logger.error('BdcValidator#validate_address') do
       "Error when calling BDC: \"validar_direccion\" - #{bdc_fields}: \n#{e}"
@@ -20,64 +17,89 @@ class BdcValidator
     {}
   end
 
-  def bloquevial
-    response_data.dig(
-      :bloquedireccion,
-      :datosdireccion,
-      :bloquepais,
-      :bloqueprovincia,
-      :bloquepoblacion,
-      :bloquevial
-    ) || {}
-  end
-
-  def bloquenumero
-    bloquevial[:bloquenumero] || {}
-  end
-
-  def bloquelocal
-    bloquenumero[:bloquelocal] || {}
-  end
-
-  def road_type
-    bloquevial[:nomclase]
-  end
-
-  def ndp_code
-    bloquenumero[:coddireccion]
-  end
-
-  def latitude
-    bloquenumero[:coordx]
-  end
-
-  def longitude
-    bloquenumero[:coordy]
-  end
-
-  def local_code
-    bloquelocal[:codlocal]
-  end
-
   def address_normalized?
     bdc_fields_msg = {
-        nom_pais:       bdc_fields[:country],
-        nom_provincia:  bdc_fields[:province],
-        nom_pueblo:     bdc_fields[:town],
-        nom_clase:      bdc_fields[:road_type],
-        nom_vial:       bdc_fields[:road_name],
-        nom_app:        bdc_fields[:road_number_type],
-        num_app:        bdc_fields[:road_number],
-        cal_app:        bdc_fields[:grader].present? ? bdc_fields[:grader] : '  ',
-        escalera:       bdc_fields[:stairs],
-        planta:         bdc_fields[:floor],
-        puerta:         bdc_fields[:door],
-        intercambioBDC: '',
-        aplicacion:     Rails.application.secrets.bdc_app_name
+      nom_pais:       bdc_fields[:country],
+      nom_provincia:  bdc_fields[:province],
+      nom_pueblo:     bdc_fields[:town],
+      nom_clase:      bdc_fields[:road_type],
+      nom_vial:       bdc_fields[:road_name],
+      nom_app:        bdc_fields[:road_number_type],
+      num_app:        bdc_fields[:road_number],
+      cal_app:        bdc_fields[:grader].present? ? bdc_fields[:grader] : '  ',
+      escalera:       bdc_fields[:stairs],
+      planta:         bdc_fields[:floor],
+      puerta:         bdc_fields[:door],
+      intercambioBDC: '',
+      aplicacion:     Rails.application.secrets.bdc_app_name
     }
 
     validate_address(bdc_fields_msg)
     ndp_code.present?
+  end
+
+  def address_block
+    response_data[:bloquedireccion] || {}
+  end
+
+  def address_data
+    address_block[:datosdireccion] || {}
+  end
+
+  def country_block
+    address_data[:bloquepais] || {}
+  end
+
+  def province_block
+    country_block[:bloqueprovincia] || {}
+  end
+
+  def town_block
+    province_block[:bloquepoblacion] || {}
+  end
+
+  def road_block
+    town_block[:bloquevial] || {}
+  end
+
+  def number_block
+    road_block[:bloquenumero] || {}
+  end
+
+  def local_block
+    number_block[:bloquelocal] || {}
+  end
+
+  def road_type
+    road_block[:nomclase]
+  end
+
+  def province_code
+    province_block[:codprovincia]
+  end
+
+  def town_code
+    town_block[:codpoblacion]
+  end
+
+  def district_code
+    number_block[:coddistrito]
+  end
+
+  def ndp_code
+    number_block[:coddireccion]
+  end
+
+  def latitude
+    number_block[:coordx]
+  end
+
+  def longitude
+    number_block[:coordy]
+  end
+
+  def local_code
+    local_block[:codlocal]
   end
 
   def road_number
@@ -146,6 +168,10 @@ class BdcValidator
 
   private
 
+    def client
+      @client ||= Savon.client(wsdl: Rails.application.secrets.bdc_wsdl, raise_errors: true)
+    end
+
     def bdc_fields_msg
       {
         nom_pais:       bdc_fields[:country],
@@ -162,30 +188,5 @@ class BdcValidator
         intercambioBDC: '',
         aplicacion:     Rails.application.secrets.bdc_app_name
       }
-    end
-
-    # TODO move strip methods to a module or a helper
-
-    def strip_hash_values(hash)
-      hash.each { |_key, value| deep_strip!(value) }
-    end
-
-    def strip_array_values(array)
-      array.each { |value| deep_strip!(value) }
-    end
-
-    def deep_strip!(value)
-      case value
-      when Hash   then strip_hash_values(value)
-      when Array  then strip_array_values(value)
-      when String then value.strip!
-      else value
-      end
-    end
-
-    # END TODO
-
-    def client
-      @client ||= Savon.client(wsdl: Rails.application.secrets.bdc_wsdl, raise_errors: true)
     end
 end 
