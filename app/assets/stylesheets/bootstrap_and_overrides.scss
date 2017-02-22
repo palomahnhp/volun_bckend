@@ -169,7 +169,7 @@ a:focus{
 
 @mixin elem-hover {
   background-color: #ebfdff;
-  font-size: 160px;
+  font-size: 130px;
   a {
     color: #3b5f79;
   }
@@ -180,9 +180,9 @@ a:focus{
 }
 .element {
   text-align: center;
-  font-size: 150px;
+  font-size: 120px;
   margin-top: 20px;
-  min-height: 350px;
+  min-height: 300px;
   .count {
     font-size: 16px;
     color: #3b5f79;

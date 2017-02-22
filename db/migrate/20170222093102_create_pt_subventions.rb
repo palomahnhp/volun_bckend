@@ -11,7 +11,6 @@ class CreatePtSubventions < ActiveRecord::Migration
       t.float :requested_amount
       t.float :subsidized_amount
       t.integer :initial_volunteers_num
-      t.integer :participants_num
       t.boolean :has_quality_evaluation, default: false
       t.references :proposal, index: true, foreign_key: true
       t.text :notes
