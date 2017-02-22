@@ -9,7 +9,7 @@ class BdcValidator
 
   def validate_address(bdc_fields = self.bdc_fields)
     response           = client.call(:validar_direccion, message: bdc_fields)
-    self.response_data = Hash.deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return]) || {}
+    self.response_data = Hash.deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return] || {})
   rescue  Exception  => e
     Rails.logger.error('BdcValidator#validate_address') do
       "Error when calling BDC: \"validar_direccion\" - #{bdc_fields}: \n#{e}"
@@ -102,40 +102,26 @@ class BdcValidator
     local_block[:codlocal]
   end
 
-  def road_number
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial, :bloquenumero)
-  end
-
-  def road_name
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial)
-  end
-
-  def road_town
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion)
-  end
-
-  def road_province
-    address_data.dig(:bloquepais, :bloqueprovincia)
-  end
-
-  def road_country
-    address_data.dig(:bloquepais)
-  end
+  alias_method :road_number  , :number_block
+  alias_method :road_name    , :road_block
+  alias_method :road_town    , :town_block
+  alias_method :road_province, :province_block
+  alias_method :road_country , :country_block
 
   def road_numbers
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial, :numeros, :numero) || [road_number].compact
+    road_block.dig(:numeros, :numero) || [road_number].compact
   end
 
   def road_names
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :viales, :vial) || [road_name].compact
+    town_block.dig(:viales, :vial) || [road_name].compact
   end
 
   def road_towns
-    address_data.dig(:bloquepais, :bloqueprovincia, :poblaciones, :poblacion) || [road_town].compact
+    province_block.dig(:poblaciones, :poblacion) || [road_town].compact
   end
 
   def road_provinces
-    address_data.dig(:bloquepais, :provincias, :provincia) || [road_province].compact
+    country_block.dig(:provincias, :provincia) || [road_province].compact
   end
 
   def road_countries
@@ -143,7 +129,7 @@ class BdcValidator
   end
 
   def valid?
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial, :bloquenumero).present?
+    number_block.present?
   end
 
   def search_towns
