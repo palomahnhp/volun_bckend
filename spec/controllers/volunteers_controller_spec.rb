@@ -15,6 +15,10 @@ RSpec.describe VolunteersController, type: :controller do
 
   describe "GET #index" do
     it 'assigns all volunteers as @volunteers' do
+      @address = FactoryGirl.create(:address)
+      @idNumerType = FactoryGirl.create(:id_number_type)
+      valid_attributes[:address_id] = @address.id
+      valid_attributes[:id_number_type_id] = @idNumerType.id
       volunteer = Volunteer.create! valid_attributes
       get :index
       expect(assigns(:volunteers)).to eq([volunteer])
@@ -23,6 +27,10 @@ RSpec.describe VolunteersController, type: :controller do
 
   describe "GET #show" do
     it 'assigns the requested volunteer as @volunteer' do
+      @address = FactoryGirl.create(:address)
+      @idNumerType = FactoryGirl.create(:id_number_type)
+      valid_attributes[:address_id] = @address.id
+      valid_attributes[:id_number_type_id] = @idNumerType.id
       volunteer = Volunteer.create! valid_attributes
       get :show, id: volunteer.to_param
       expect(assigns(:volunteer)).to eq(volunteer)
@@ -38,6 +46,10 @@ RSpec.describe VolunteersController, type: :controller do
 
   describe "GET #edit" do
     it 'assigns the requested volunteer as @volunteer' do
+      @address = FactoryGirl.create(:address)
+      @idNumerType = FactoryGirl.create(:id_number_type)
+      valid_attributes[:address_id] = @address.id
+      valid_attributes[:id_number_type_id] = @idNumerType.id
       volunteer = Volunteer.create! valid_attributes
       get :edit, id: volunteer.to_param
       expect(assigns(:volunteer)).to eq(volunteer)
@@ -48,17 +60,29 @@ RSpec.describe VolunteersController, type: :controller do
     context 'with valid params' do
       it 'creates a new Volunteer' do
         expect {
+          @address = FactoryGirl.create(:address)
+          @idNumerType = FactoryGirl.create(:id_number_type)
+          valid_attributes[:address_id] = @address.id
+          valid_attributes[:id_number_type_id] = @idNumerType.id
           post :create, volunteer: valid_attributes
         }.to change(Volunteer, :count).by(1)
       end
 
       it 'assigns a newly created volunteer as @volunteer' do
+        @address = FactoryGirl.create(:address)
+        @idNumerType = FactoryGirl.create(:id_number_type)
+        valid_attributes[:address_id] = @address.id
+        valid_attributes[:id_number_type_id] = @idNumerType.id
         post :create, volunteer: valid_attributes
         expect(assigns(:volunteer)).to be_a(Volunteer)
         expect(assigns(:volunteer)).to be_persisted
       end
 
       it 'redirects to the created volunteer' do
+        @address = FactoryGirl.create(:address)
+        @idNumerType = FactoryGirl.create(:id_number_type)
+        valid_attributes[:address_id] = @address.id
+        valid_attributes[:id_number_type_id] = @idNumerType.id
         post :create, volunteer: valid_attributes
         expect(response).to redirect_to(volunteers_url)
       end
@@ -66,6 +90,10 @@ RSpec.describe VolunteersController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved volunteer as @volunteer' do
+        @address = FactoryGirl.create(:address)
+        @idNumerType = FactoryGirl.create(:id_number_type)
+        valid_attributes[:address_id] = @address.id
+        valid_attributes[:id_number_type_id] = @idNumerType.id
         post :create, volunteer: invalid_attributes
         expect(assigns(:volunteer)).to be_a_new(Volunteer)
       end
@@ -84,6 +112,10 @@ RSpec.describe VolunteersController, type: :controller do
       }
 
       it 'updates the requested volunteer' do
+        @address = FactoryGirl.create(:address)
+        @idNumerType = FactoryGirl.create(:id_number_type)
+        valid_attributes[:address_id] = @address.id
+        valid_attributes[:id_number_type_id] = @idNumerType.id
         volunteer = Volunteer.create! valid_attributes
         put :update, id: volunteer.to_param, volunteer: new_attributes
         volunteer.reload
@@ -91,12 +123,20 @@ RSpec.describe VolunteersController, type: :controller do
       end
 
       it 'assigns the requested volunteer as @volunteer' do
+        @address = FactoryGirl.create(:address)
+        @idNumerType = FactoryGirl.create(:id_number_type)
+        valid_attributes[:address_id] = @address.id
+        valid_attributes[:id_number_type_id] = @idNumerType.id
         volunteer = Volunteer.create! valid_attributes
         put :update, id: volunteer.to_param, volunteer: valid_attributes
         expect(assigns(:volunteer)).to eq(volunteer)
       end
 
       it 'redirects to volunteers' do
+        @address = FactoryGirl.create(:address)
+        @idNumerType = FactoryGirl.create(:id_number_type)
+        valid_attributes[:address_id] = @address.id
+        valid_attributes[:id_number_type_id] = @idNumerType.id
         volunteer = Volunteer.create! valid_attributes
         put :update, id: volunteer.to_param, volunteer: valid_attributes
         expect(response).to redirect_to(volunteers_url)
@@ -105,12 +145,20 @@ RSpec.describe VolunteersController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns the volunteer as @volunteer' do
+        @address = FactoryGirl.create(:address)
+        @idNumerType = FactoryGirl.create(:id_number_type)
+        valid_attributes[:address_id] = @address.id
+        valid_attributes[:id_number_type_id] = @idNumerType.id
         volunteer = Volunteer.create! valid_attributes
         put :update, id: volunteer.to_param, volunteer: invalid_attributes
         expect(assigns(:volunteer)).to eq(volunteer)
       end
 
       it 're-renders the "edit" template' do
+        @address = FactoryGirl.create(:address)
+        @idNumerType = FactoryGirl.create(:id_number_type)
+        valid_attributes[:address_id] = @address.id
+        valid_attributes[:id_number_type_id] = @idNumerType.id
         volunteer = Volunteer.create! valid_attributes
         put :update, id: volunteer.to_param, volunteer: invalid_attributes
         expect(response).to render_template('edit')
@@ -120,6 +168,10 @@ RSpec.describe VolunteersController, type: :controller do
 
   describe "DELETE #destroy" do
     it 'destroys the requested volunteer' do
+      @address = FactoryGirl.create(:address)
+      @idNumerType = FactoryGirl.create(:id_number_type)
+      valid_attributes[:address_id] = @address.id
+      valid_attributes[:id_number_type_id] = @idNumerType.id
       volunteer = Volunteer.create! valid_attributes
       expect {
         delete :destroy, id: volunteer.to_param
@@ -127,8 +179,35 @@ RSpec.describe VolunteersController, type: :controller do
     end
 
     it 'redirects to the volunteers list' do
+      @address = FactoryGirl.create(:address)
+      @idNumerType = FactoryGirl.create(:id_number_type)
+      valid_attributes[:address_id] = @address.id
+      valid_attributes[:id_number_type_id] = @idNumerType.id
       volunteer = Volunteer.create! valid_attributes
       delete :destroy, id: volunteer.to_param
+      expect(response).to redirect_to(volunteers_url)
+    end
+  end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested volunteer' do
+      @address = FactoryGirl.create(:address)
+      @idNumerType = FactoryGirl.create(:id_number_type)
+      valid_attributes[:address_id] = @address.id
+      valid_attributes[:id_number_type_id] = @idNumerType.id
+      volunteer = Volunteer.create! valid_attributes
+      delete :destroy, id: volunteer.to_param
+      post :recover, id: volunteer.to_param
+      expect(volunteer.active).to eq(true)
+    end
+
+    it 'redirects to the volunteers list' do
+      @address = FactoryGirl.create(:address)
+      @idNumerType = FactoryGirl.create(:id_number_type)
+      valid_attributes[:address_id] = @address.id
+      valid_attributes[:id_number_type_id] = @idNumerType.id
+      volunteer = Volunteer.create! valid_attributes
+      post :recover, id: volunteer.to_param
       expect(response).to redirect_to(volunteers_url)
     end
   end
