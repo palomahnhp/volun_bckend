@@ -41,9 +41,9 @@ MODELS_AND_ATTRS = {
 
   'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date ' \
                'execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number ' \
-               'phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean ' \
-               'volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date ' \
-               'project_type:references pt_extendable:references{polymorphic} entity:references',
+               'phone_number_alt email participants_num:integer beneficiaries_num:integer volunteers_num:integer ' \
+               'volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date comments:text' \
+               'insured:boolean project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
   'Pro::Issue'     => 'comments:text start_date:datetime project:references',
@@ -68,8 +68,7 @@ MODELS_AND_ATTRS = {
 
   'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number ' \
                       'entity_registry:boolean cost:float requested_amount:float subsidized_amount:float ' \
-                      'initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean ' \
-                      'proposal:references notes:text',
+                      'initial_volunteers_num:integer has_quality_evaluation:boolean proposal:references notes:text',
   'Pt::Entity'     => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date ' \
                       'derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean ' \
                       'agreement_date:date prevailing:boolean notes:text',

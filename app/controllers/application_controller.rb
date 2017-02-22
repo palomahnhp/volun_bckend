@@ -98,6 +98,7 @@ class ApplicationController < ActionController::Base
       :project_type_id,
       :active,
       :comments,
+      :participants_num,
       :beneficiaries_num,
       :volunteers_num,
       :functions,

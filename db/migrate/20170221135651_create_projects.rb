@@ -13,14 +13,15 @@ class CreateProjects < ActiveRecord::Migration
       t.string :phone_number
       t.string :phone_number_alt
       t.string :email
-      t.text :comments
+      t.integer :participants_num
       t.integer :beneficiaries_num
       t.integer :volunteers_num
-      t.boolean :insured, default: false
       t.boolean :volunteers_allowed, default: true
       t.boolean :publish, default: true
       t.boolean :outstanding, default: false
       t.date :insurance_date
+      t.text :comments
+      t.boolean :insured, default: false
       t.references :project_type, index: true, foreign_key: true
       t.references :pt_extendable, polymorphic: true, index: true
       t.references :entity, index: true, foreign_key: true
