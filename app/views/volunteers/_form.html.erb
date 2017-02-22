@@ -99,7 +99,7 @@
       <% end %>
     </div> <!-- address-block -->
     
-    <% if f.object.review? && !@volunteer.new_record? %>
+    <% if f.object.review? && @volunteer.persisted? %>
       <%= f.input :review, as: :hidden, input_html: { id: 'review' } %>
       <div class="row well">
         <%= content_tag :h3, t('errors_title_volun'), class: 'form-subtitle' %>
@@ -107,7 +107,7 @@
           <div class='row'>
             <%= f.input :error_address, wrapper_html: { class: 'col-md-6' } %>
             <div class='col-md-6'>
-              <%= check_box_tag('rev_add', t('revised'), checked = false) %>
+              <%= check_box_tag('rev_add', t('revised'), checked: false) %>
               <label style='font-weight: normal;'>
                 <%= t('revised') %>
               </label>
@@ -118,7 +118,7 @@
           <div class='row'>
           <%= f.input :error_other, wrapper_html: { class: 'col-md-6' } %>
             <div class='col-md-6'>
-              <%= check_box_tag('rev_oth', t('revised'), checked = false) %>
+              <%= check_box_tag('rev_oth', t('revised'), checked: false) %>
               <label style='font-weight: normal;'>
                 <%= t('revised') %>
               </label>
@@ -130,14 +130,14 @@
   </div>
 
   <div class="form-actions">
-    <% if f.object.review? && !@volunteer.new_record? %>
+    <% if f.object.review? && @volunteer.persisted? %>
       <input type="hidden" value="<%= t('messages.confirm_revised_all_volunteer') %>" id="reviseAllMsg" />
       <input type="hidden" value="<%= t('messages.confirm_revised_volunteer') %>" id="reviseMsg" />
     <% end %>
     <%= f.button :submit, class: 'btn btn-success js-confirmable', id: 'submit' %>
     <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
-    <% if f.object.review? && !@volunteer.new_record? %>
+    <% if f.object.review? && @volunteer.persisted? %>
       <script>
         // These validations have effect only if review is 1
         // Submit check specific revisions
