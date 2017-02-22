@@ -1,0 +1,34 @@
+<dl class="dl-horizontal">
+
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:id) %>:</dt>
+  <dd><%= @rt_activity_publishing.id %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:name) %>:</dt>
+  <dd><%= @rt_activity_publishing.name %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:organizer) %>:</dt>
+  <dd><%= @rt_activity_publishing.organizer %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:description) %>:</dt>
+  <dd><%= @rt_activity_publishing.description %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:execution_date) %>:</dt>
+  <dd><%= show_simple_date(@rt_activity_publishing.execution_date) %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:execution_hour) %>:</dt>
+  <dd><%= @rt_activity_publishing.execution_hour %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:road_type) %>:</dt>
+  <dd><%= @rt_activity_publishing.road_type %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:road_name) %>:</dt>
+  <dd><%= @rt_activity_publishing.road_name %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:number_type) %>:</dt>
+  <dd><%= @rt_activity_publishing.number_type %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:road_number) %>:</dt>
+  <dd><%= @rt_activity_publishing.road_number %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:postal_code) %>:</dt>
+  <dd><%= @rt_activity_publishing.postal_code %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:town) %>:</dt>
+  <dd><%= @rt_activity_publishing.town %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:province) %>:</dt>
+  <dd><%= @rt_activity_publishing.province %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:notes) %>:</dt>
+  <dd><%= rt_activity_publishing.notes %></dd>
+  <dt><%= Rt::ActivityPublishing.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@rt_activity_publishing.created_at) %></dd>
+
+</dl>

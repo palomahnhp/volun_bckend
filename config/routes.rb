@@ -5,38 +5,39 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
-  resources :traits, concerns: :recoverable
-  resources :contact_results
-  resources :tracking_types, concerns: :recoverable
-  resources :language_levels
-  resources :languages, concerns: :recoverable
-  resources :professions
-  resources :skills
-  resources :profiles
-  resources :roles
-  resources :managers
-  resources :unsubscribe_reasons, concerns: :recoverable
   resources :academic_levels
-  resources :degrees, concerns: :recoverable
-  resources :employment_statuses
-  resources :statuses
-  resources :nationalities, concerns: :recoverable
-  resources :id_number_types
-  resources :proposals
-  resources :links
   resources :activities
-  resources :timetables
-  resources :events
-  resources :event_types
+  resources :areas        , concerns: :recoverable
+  resources :collectives  , concerns: :recoverable
+  resources :contact_results
+  resources :coordinations, concerns: :recoverable
+  resources :degrees, concerns: :recoverable
   resources :documents
-  resources :record_histories, concerns: :recoverable
-  resources :notice_types
-  resources :unsubscribe_levels
+  resources :employment_statuses
+  resources :event_types
+  resources :events
   resources :frontpage_elements, concerns: :recoverable
   resources :frontpage_positions, concerns: :recoverable
-  resources :coordinations, concerns: :recoverable
-  resources :collectives  , concerns: :recoverable
-  resources :areas        , concerns: :recoverable
+  resources :id_number_types
+  resources :language_levels
+  resources :languages, concerns: :recoverable
+  resources :links
+  resources :managers
+  resources :nationalities, concerns: :recoverable
+  resources :notice_types
+  resources :professions
+  resources :profiles
+  resources :proposals
+  resources :record_histories, concerns: :recoverable
+  resources :roles
+  resources :settings
+  resources :skills
+  resources :statuses
+  resources :timetables
+  resources :tracking_types, concerns: :recoverable
+  resources :traits, concerns: :recoverable
+  resources :unsubscribe_levels
+  resources :unsubscribe_reasons, concerns: :recoverable
 
   resources :addresses do
     get 'bdc_search_towns', on: :collection
@@ -88,10 +89,10 @@ Rails.application.routes.draw do
     resources :entity_subscribes
     resources :entity_unsubscribes
     resources :volunteers_demands
-    resources :activity_actions
-    resources :activity_subscribes
-    resources :project_actions
-    resources :project_subscribes
+    resources :activity_unpublishings
+    resources :activity_publishings
+    resources :project_unpublishings
+    resources :project_publishings
     resources :others
   end
 

@@ -4,7 +4,7 @@ MODELS_AND_ATTRS = {
   # Tables
   # --------------------------------------------------------------------------------------------------
 
-
+  'Setting' => 'key value',
   'FrontpagePosition' => 'position:integer:uniq description:text active:boolean',
   'FrontpageElement'  => 'frontpage_position:references text_panel:text text_button:text image_url:text ' \
                          'link_url:text logo_url:text active:boolean',
@@ -14,8 +14,8 @@ MODELS_AND_ATTRS = {
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
 
   'Address'       => 'road_type road_name road_number_type road_number grader stairs floor door postal_code '\
-                     'borough district town province country ndp_code local_code class_name '\
-                     'latitude longitude',
+                     'borough district town province country ndp_code local_code province_code town_code district_code '\
+                     'class_name latitude longitude',
 
   'Role'          => 'kind:integer:uniq description:text',
   'Manager'       => 'name last_name last_name_alt alias_name role:references profile_id:integer phone_number active:boolean',
@@ -49,7 +49,7 @@ MODELS_AND_ATTRS = {
   # 1:N tables for Project
   'Pro::Issue'     => 'comments:text start_date:datetime project:references',
 
-  'Document'      => 'name:string:uniq description:text documentum_id:string project:references',
+  'Document'      => 'name:string:uniq description:text extension csv doc_class documentum_id:string project:references',
 
   # -------------------------------------------------
 
@@ -144,7 +144,6 @@ MODELS_AND_ATTRS = {
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
-  'ActionType'                => 'kind:integer:uniq description:text', # Publishing, Unpublishing, Unsubscribe
   'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
   'Req::RejectionType'        => 'name:string:uniq description:text active:boolean',
   'RequestType'               => 'kind:integer:uniq description:text',
@@ -172,13 +171,13 @@ MODELS_AND_ATTRS = {
                                  'district town province requested_volunteers_num ' \
                                  'volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text ' \
                                  'volunteer_functions_3:text notes:text',
-  'Rt::ProjectSubscribe'      => 'description:text road_type road_name number_type road_number postal_code ' \
-                                 'borough district town province notes:text',
-  'Rt::ProjectAction'         => 'project:references action_type:references notes:text',
-  'Rt::ActivitySubscribe'     => 'name organizer description:text execution_date:date execution_hour ' \
+  'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code ' \
+                                 'borough district town province notes:text project:references',
+  'Rt::ProjectUnpublishing'   => 'project:references notes:text',
+  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour ' \
                                  'road_type road_name number_type road_number postal_code ' \
-                                 'borough district town province project:references notes:text',
-  'Rt::ActivityAction'        => 'activity:references action_type:references notes:text',
+                                 'borough district town province project:references notes:text activity:references',
+  'Rt::ActivityUnpublishing'  => 'activity:references notes:text',
   'Rt::Other'                 => 'description:text notes:text',
 
   # -------------------------------------------------
@@ -390,12 +389,11 @@ class AddKindConstraintToRequestTypes < ActiveRecord::Migration
           (id = #{RequestType.kinds[:rt_entity_subscribe]}      AND kind = #{RequestType.kinds[:rt_entity_subscribe]})      OR
           (id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND kind = #{RequestType.kinds[:rt_entity_unsubscribe]})    OR
           (id = #{RequestType.kinds[:rt_volunteers_demand]}     AND kind = #{RequestType.kinds[:rt_volunteers_demand]})     OR
-          (id = #{RequestType.kinds[:rt_project_subscribe]}     AND kind = #{RequestType.kinds[:rt_project_subscribe]})     OR
-          (id = #{RequestType.kinds[:rt_project_action]}        AND kind = #{RequestType.kinds[:rt_project_action]})        OR
-          (id = #{RequestType.kinds[:rt_activity_subscribe]}    AND kind = #{RequestType.kinds[:rt_activity_subscribe]})    OR
-          (id = #{RequestType.kinds[:rt_activity_action]}       AND kind = #{RequestType.kinds[:rt_activity_action]})       OR
-          (id = #{RequestType.kinds[:rt_other]}                 AND kind = #{RequestType.kinds[:rt_other]})
-        )
+          (id = #{RequestType.kinds[:rt_project_publishing]}    AND kind = #{RequestType.kinds[:rt_project_publishing]})    OR
+          (id = #{RequestType.kinds[:rt_project_unpublishing]}  AND kind = #{RequestType.kinds[:rt_project_unpublishing]})  OR
+          (id = #{RequestType.kinds[:rt_activity_publishing]}   AND kind = #{RequestType.kinds[:rt_activity_publishing]})   OR
+          (id = #{RequestType.kinds[:rt_activity_unpublishing]} AND kind = #{RequestType.kinds[:rt_activity_unpublishing]}) OR
+          (id = #{RequestType.kinds[:rt_other]}                 AND kind = #{RequestType.kinds[:rt_other]}))
     }
   end
 
@@ -425,10 +423,10 @@ class AddRtExtendableConstraintToRequestForms < ActiveRecord::Migration
           (request_type_id = #{RequestType.kinds[:rt_entity_subscribe]}      AND rt_extendable_type = '#{Rt::EntitySubscribe.name}')      OR
           (request_type_id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND rt_extendable_type = '#{Rt::EntityUnsubscribe.name}')    OR
           (request_type_id = #{RequestType.kinds[:rt_volunteers_demand]}     AND rt_extendable_type = '#{Rt::VolunteersDemand.name}')     OR
-          (request_type_id = #{RequestType.kinds[:rt_project_subscribe]}     AND rt_extendable_type = '#{Rt::ProjectSubscribe.name}')     OR
-          (request_type_id = #{RequestType.kinds[:rt_project_action]}        AND rt_extendable_type = '#{Rt::ProjectAction.name}')        OR
-          (request_type_id = #{RequestType.kinds[:rt_activity_subscribe]}    AND rt_extendable_type = '#{Rt::ActivitySubscribe.name}')    OR
-          (request_type_id = #{RequestType.kinds[:rt_activity_action]}       AND rt_extendable_type = '#{Rt::ActivityAction.name}')       OR
+          (request_type_id = #{RequestType.kinds[:rt_project_publishing]}    AND rt_extendable_type = '#{Rt::ProjectPublishing.name}')    OR
+          (request_type_id = #{RequestType.kinds[:rt_project_unpublishing]}  AND rt_extendable_type = '#{Rt::ProjectUnpublishing.name}')  OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_publishing]}   AND rt_extendable_type = '#{Rt::ActivityPublishing.name}')   OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_unpublishing]} AND rt_extendable_type = '#{Rt::ActivityUnpublishing.name}') OR
           (request_type_id = #{RequestType.kinds[:rt_other]}                 AND rt_extendable_type = '#{Rt::Other.name}')
         )
     }
@@ -565,10 +563,10 @@ class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
     Rt::EntitySubscribe,
     Rt::EntityUnsubscribe,
     Rt::VolunteersDemand,
-    Rt::ProjectSubscribe,
-    Rt::ProjectAction,
-    Rt::ActivitySubscribe,
-    Rt::ActivityAction,
+    Rt::ProjectPublishing,
+    Rt::ProjectUnpublishing,
+    Rt::ActivityPublishing,
+    Rt::ActivityUnpublishing,
     Rt::Other
   ]
 

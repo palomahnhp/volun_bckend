@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(setting) %>" >
+
+  <% setting.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(setting, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(setting) %>
+    <%= link_to_edit(setting) %>
+<% if setting.try(:archived?) %>
+    <%= link_to_recover(setting) %>
+<% else %>
+    <%= link_to_destroy(setting) %>
+<% end %>
+  </td>
+</tr>

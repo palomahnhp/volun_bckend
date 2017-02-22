@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(rt_project_unpublishing) %>" >
+
+  <% rt_project_unpublishing.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(rt_project_unpublishing, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(rt_project_unpublishing) %>
+    <%= link_to_edit(rt_project_unpublishing) %>
+<% if rt_project_unpublishing.try(:archived?) %>
+    <%= link_to_recover(rt_project_unpublishing) %>
+<% else %>
+    <%= link_to_destroy(rt_project_unpublishing) %>
+<% end %>
+  </td>
+</tr>

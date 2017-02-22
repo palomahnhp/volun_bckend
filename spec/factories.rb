@@ -1,4 +1,11 @@
 FactoryGirl.define do
+  factory :setting do
+    key "MyString"
+    value "MyString"
+
+    trait :invalid do
+    end
+  end
   factory :notice_type do
     kind 1
     description "MyText"
@@ -11,8 +18,9 @@ FactoryGirl.define do
     password 'Wordpass1'
     password_confirmation 'Wordpass1'
     association :notice_type
-    loggable_id nil
-    loggable_type nil
+    loggable Manager.create(name: 'manager1')
+    #loggable_id nil
+    #loggable_type nil
   end
   factory :known_language, class: 'Volun::KnownLanguage' do
     association :volunteer
@@ -302,7 +310,7 @@ FactoryGirl.define do
     last_name_alt "MyString"
     association :id_number_type
     id_number "123456789"
-    gender 1
+    gender "female" #Volunteer.genders[:female]
     birth_date "2017-01-27"
     association :nationality
     phone_number "632147896"
@@ -313,7 +321,7 @@ FactoryGirl.define do
     association :employment_status
     vocne false
     available false
-    availability_date "2017-01-27"
+    availability_date "2022-12-27"
     association :academic_level
     subscribe_date "2017-01-27"
     unsubscribe_date "2017-01-27"
@@ -332,6 +340,7 @@ FactoryGirl.define do
     association :info_source
     other_academic_info "MyText"
     association :profession
+    review 0
     active true
 
     trait :invalid do
