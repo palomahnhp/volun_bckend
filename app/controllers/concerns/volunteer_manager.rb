@@ -29,12 +29,29 @@ class VolunteerManager
     ActiveRecord::Base.transaction do
       if volunteer.save
         assign_user_to_volunteer!
+        register_tracking!
         approve_request_form! if creation_through_request_form?
       else
         copy_errors_from!(volunteer)
       end
     end
     errors.blank?
+  end
+
+  def register_tracking!
+    tracking = Volun::Tracking.new(
+                 volunteer: volunteer,
+                 request_form: request_form,
+                 manager_id: @manager_id,
+                 tracked_at: DateTime.now,
+                 project_id: nil,
+                 # TODO set the definitive tracking type
+                 tracking_type: TrackingType.get_volunteer_subscribe_type,
+                 # TODO fill with tracking type description?
+                 comments: '',
+               )
+    copy_errors_from!(tracking) unless tracking.save
+    tracking
   end
 
   def rt_volunteer_subscribe

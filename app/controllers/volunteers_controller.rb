@@ -35,9 +35,10 @@ class VolunteersController < ApplicationController
     volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id],
                                              volunteer_attributes: volunteer_params,
                                              manager_id: current_user.loggable_id)
-    if volunteer_manager.create_volunteer
-      @volunteer = volunteer_manager.volunteer
-      respond_with(@volunteer, lolcation: rt_volunteer_subscribes_path)
+    volunteer_manager.create_volunteer
+    @volunteer = volunteer_manager.volunteer
+    if @volunteer.persisted? || @volunteer.errors.present?
+      respond_with(@volunteer)
     else
       redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
     end

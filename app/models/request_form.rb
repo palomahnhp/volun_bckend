@@ -9,6 +9,9 @@ class RequestForm < ActiveRecord::Base
   belongs_to :manager
   has_many :events, as: :eventable
   has_many :status_traces, :class_name => 'Req::StatusTrace'
+  has_many :volun_trackings, :class_name => 'Volun::Tracking'
+  has_many :ent_trackings, :class_name => 'Ent::Tracking'
+  has_many :pro_trackings, :class_name => 'Pro::Tracking'
 
   accepts_nested_attributes_for :rt_extendable
 
