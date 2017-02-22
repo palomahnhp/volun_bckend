@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :professions
   resources :skills
   resources :profiles
+  resources :roles
   resources :managers
   resources :unsubscribe_reasons, concerns: :recoverable
   resources :academic_levels

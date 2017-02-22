@@ -17,7 +17,8 @@ MODELS_AND_ATTRS = {
                      'borough district town province country ndp_code local_code class_name '\
                      'latitude longitude',
 
-  'Manager'       => 'name profile_id:integer phone_number active:boolean',
+  'Role'          => 'kind:integer:uniq description:text',
+  'Manager'       => 'name last_name last_name_alt alias_name role:references profile_id:integer phone_number active:boolean',
   'TrackingType'  => 'name:string:uniq active:boolean',
   'Req::Reason'   => 'kind:integer:uniq description:text active:boolean',
 
@@ -42,7 +43,7 @@ MODELS_AND_ATTRS = {
   'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date ' \
                'execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number ' \
                'phone_number_alt email participants_num:integer beneficiaries_num:integer volunteers_num:integer ' \
-               'volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date comments:text' \
+               'volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date comments:text ' \
                'insured:boolean project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
