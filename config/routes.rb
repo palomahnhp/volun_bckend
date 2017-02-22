@@ -118,6 +118,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get 'maintenance' => 'welcome#maintenance', as: 'maintenance'
+  get 'administration' => 'welcome#administration', as: 'administration'
 
   # You can have the root of your site routed with "root"
   root 'welcome#index'

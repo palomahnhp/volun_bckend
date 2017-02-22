@@ -44,6 +44,6 @@ class ManagersController < ApplicationController
   protected
 
     def manager_params
-      params.require(:manager).permit(:name, :profile_id, :phone_number, :active)
+      params.require(:manager).permit(:name, :last_name, :last_name_alt, :alias_name, :profile_id, :role_id, :phone_number, :active)
     end
 end
