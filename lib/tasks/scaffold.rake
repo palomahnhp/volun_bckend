@@ -49,7 +49,7 @@ MODELS_AND_ATTRS = {
   # 1:N tables for Project
   'Pro::Issue'     => 'comments:text start_date:datetime project:references',
 
-  'Document'      => 'name:string:uniq description:text documentum_id:string project:references',
+  'Document'      => 'name:string:uniq description:text extension csv doc_class documentum_id:string project:references',
 
   # -------------------------------------------------
 
