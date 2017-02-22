@@ -14,8 +14,8 @@ MODELS_AND_ATTRS = {
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
 
   'Address'       => 'road_type road_name road_number_type road_number grader stairs floor door postal_code '\
-                     'borough district town province country ndp_code local_code class_name '\
-                     'latitude longitude',
+                     'borough district town province country ndp_code local_code province_code town_code district_code '\
+                     'class_name latitude longitude',
 
   'Role'          => 'kind:integer:uniq description:text',
   'Manager'       => 'name last_name last_name_alt alias_name role:references profile_id:integer phone_number active:boolean',

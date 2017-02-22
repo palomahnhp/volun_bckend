@@ -17,6 +17,9 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :country
       t.string :ndp_code
       t.string :local_code
+      t.string :province_code
+      t.string :town_code
+      t.string :district_code
       t.string :class_name
       t.string :latitude
       t.string :longitude
