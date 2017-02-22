@@ -13,7 +13,6 @@ FactoryGirl.define do
   end
   factory :manager do
     name "MyString"
-    profile_id 1
     phone_number "MyString"
     active true
 

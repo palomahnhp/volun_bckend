@@ -132,5 +132,20 @@ RSpec.describe ManagersController, type: :controller do
       expect(response).to redirect_to(managers_url)
     end
   end
+  
+  describe "RECOVER #recover" do
+    it 'recovers the requested manager' do
+      manager = Manager.create! valid_attributes
+      delete :destroy, id: manager.to_param
+      post :recover, id: manager.to_param
+      expect(manager.active).to eq(true)
+    end
+
+    it 'redirects to the managers list' do
+      manager = Manager.create! valid_attributes
+      post :recover, id: manager.to_param
+      expect(response).to redirect_to(managers_url)
+    end
+  end
 
 end
