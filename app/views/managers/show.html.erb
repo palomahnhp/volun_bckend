@@ -6,8 +6,12 @@
   <dd><%= @manager.id %></dd>
   <dt><%= Manager.human_attribute_name(:name) %>:</dt>
   <dd><%= @manager.name %></dd>
-  <dt><%= Manager.human_attribute_name(:profile_id) %>:</dt>
-  <dd><%= @manager.profile_id %></dd>
+  <dt><%= Manager.human_attribute_name(:profile) %>:</dt>
+  <dd><%= @manager.profile.name %></dd>
+  <dt><%= Manager.human_attribute_name(:role) %>:</dt>
+  <dd><%= @manager.role.description %></dd>
+  <dt><%= Manager.human_attribute_name(:alias_name) %>:</dt>
+  <dd><%= @manager.alias_name %></dd>
   <dt><%= Manager.human_attribute_name(:phone_number) %>:</dt>
   <dd><%= @manager.phone_number %></dd>
   <dt><%= Manager.human_attribute_name(:active) %>:</dt>
