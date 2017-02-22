@@ -3,6 +3,9 @@ class CreateDocuments < ActiveRecord::Migration
     create_table :documents do |t|
       t.string :name
       t.text :description
+      t.string :extension
+      t.string :csv
+      t.string :doc_class
       t.string :documentum_id
       t.references :project, index: true, foreign_key: true
 
