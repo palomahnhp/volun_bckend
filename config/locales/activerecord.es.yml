@@ -514,7 +514,10 @@ es:
         profession:               Profesión
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
+        traits:                   Cualidades
         created_at:               *created_at
+        error_address:            Error en dirección
+        error_other:              Otros errores
       skill:
         name: Nombre
       id_number_type:
