@@ -8,6 +8,11 @@ class TrackingType < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :name, presence: true
 
+  # TODO set the definitive tracking type
+  def self.get_volunteer_subscribe_type
+    first
+  end
+
   def to_s
     name
   end
