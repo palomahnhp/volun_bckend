@@ -1,6 +1,6 @@
 class Pt::CentresController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :pt_centre
   respond_to :html, :js
 
   def index
@@ -28,12 +28,12 @@ class Pt::CentresController < ApplicationController
 
   def create
     @pt_centre.save
-    respond_with(@pt_centre)
+    respond_with(@pt_centre, location: projects_path)
   end
 
   def update
-    @pt_centre.update_attributes(pt_centre_params)
-    respond_with(@pt_centre)
+    @pt_centre.update(pt_centre_params)
+    respond_with(@pt_centre, location: projects_path)
   end
 
   def destroy
@@ -44,6 +44,13 @@ class Pt::CentresController < ApplicationController
   protected
 
     def pt_centre_params
-      params.require(:pt_centre).permit(:notes)
+      params
+        .require(:pt_centre)
+        .permit(
+          :notes,
+          project_attributes: project_attributes
+        )
     end
+
+    alias_method :create_params, :pt_centre_params
 end

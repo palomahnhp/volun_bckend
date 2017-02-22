@@ -1,0 +1,17 @@
+<%= main_title(t("action.show", model: Rt::ProjectSubscribe.model_name.human)) %>
+
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'request_forms/show', locals: { request_form: @rt_project_subscribe.request_form } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { rt_project_subscribe: @rt_project_subscribe } %>
+  </div>
+</div>
+
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@rt_project_subscribe) %>
+<% end %>

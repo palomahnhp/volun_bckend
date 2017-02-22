@@ -1,5 +1,5 @@
 class Pt::Social < ActiveRecord::Base
 
-  include PtCommons
+  include PtModel
 
 end

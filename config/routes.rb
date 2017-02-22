@@ -9,10 +9,11 @@ Rails.application.routes.draw do
   resources :contact_results
   resources :tracking_types, concerns: :recoverable
   resources :language_levels
-  resources :languages
+  resources :languages, concerns: :recoverable
   resources :professions
   resources :skills
   resources :profiles
+  resources :roles
   resources :managers
   resources :unsubscribe_reasons, concerns: :recoverable
   resources :academic_levels
@@ -28,12 +29,11 @@ Rails.application.routes.draw do
   resources :events
   resources :event_types
   resources :documents
-  resources :districts
-  resources :road_types
-  resources :provinces
   resources :record_histories, concerns: :recoverable
   resources :notice_types
   resources :unsubscribe_levels
+  resources :frontpage_elements, concerns: :recoverable
+  resources :frontpage_positions, concerns: :recoverable
   resources :coordinations, concerns: :recoverable
   resources :collectives  , concerns: :recoverable
   resources :areas        , concerns: :recoverable
@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   end
 
   # Volunteer related routes
-  resources :volunteers
+  resources :volunteers, concerns: :recoverable
   namespace :volun do
     resources :assessments
     resources :availabilities
@@ -61,27 +61,38 @@ Rails.application.routes.draw do
   end
 
   # RequestForm related routes
-  resources :request_reasons
-  resources :request_reasons
-  resources :rejection_types, concerns: :recoverable
   resources :request_types
   resources :request_forms, concerns: :recoverable do
     get 'rt_extensions_menu', on: :collection
   end
+  namespace :req do
+    resources :statuses
+    resources :status_traces
+    resources :reasons
+    resources :rejection_types, concerns: :recoverable
+  end
   namespace :rt do
-    resources :others
-    resources :activity_unpublishings
-    resources :activity_publishings
-    resources :project_unsubscribes
-    resources :project_unpublishings
-    resources :project_publishings
-    resources :volunteers_demands
-    resources :entity_unsubscribes
-    resources :entity_subscribes
-    resources :volunteer_appointments
-    resources :volunteer_amendments
+    resources :volunteer_subscribes do
+      get :process_request_form, on: :member
+      get :undo_rejection_request_form,
+          to: 'volunteer_subscribes#mark_request_form_as_pending',
+          on: :member
+      get :pre_approve_request_form, on: :member
+      get :pre_reject_request_form, on: :member
+      patch :reject_request_form, on: :member
+      get :mark_request_form_as_pending, on: :member
+    end
     resources :volunteer_unsubscribes
-    resources :volunteer_subscribes
+    resources :volunteer_amendments
+    resources :volunteer_appointments
+    resources :entity_subscribes
+    resources :entity_unsubscribes
+    resources :volunteers_demands
+    resources :activity_actions
+    resources :activity_subscribes
+    resources :project_actions
+    resources :project_subscribes
+    resources :others
   end
 
   # Project related routes

@@ -1,10 +1,10 @@
 class Pt::OthersController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :pt_other
   respond_to :html, :js
 
   def index
-    params[:q] ||= PtOther.ransack_default
+    params[:q] ||= Pt::Other.ransack_default
     @search_q = @pt_others.search(params[:q])
     @pt_others = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
@@ -19,7 +19,6 @@ class Pt::OthersController < ApplicationController
   end
 
   def new
-    @pt_other = Pt::Other.new
     respond_with(@pt_other)
   end
 
@@ -28,12 +27,12 @@ class Pt::OthersController < ApplicationController
 
   def create
     @pt_other.save
-    respond_with(@pt_other)
+    respond_with(@pt_other, location: projects_path)
   end
 
   def update
-    @pt_other.update_attributes(pt_other_params)
-    respond_with(@pt_other)
+    @pt_other.update(pt_other_params)
+    respond_with(@pt_other, location: projects_path)
   end
 
   def destroy
@@ -44,6 +43,13 @@ class Pt::OthersController < ApplicationController
   protected
 
     def pt_other_params
-      params.require(:pt_other).permit(:notes)
+      params
+        .require(:pt_other)
+        .permit(
+          :notes,
+          project_attributes: project_attributes
+        )
     end
+
+    alias_method :create_params, :pt_other_params
 end

@@ -4,23 +4,31 @@ MODELS_AND_ATTRS = {
   # Tables
   # --------------------------------------------------------------------------------------------------
 
+
+  'FrontpagePosition' => 'position:integer:uniq description:text active:boolean',
+  'FrontpageElement'  => 'frontpage_position:references text_panel:text text_button:text image_url:text ' \
+                         'link_url:text logo_url:text active:boolean',
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
   'Coordination'  => 'name:string:uniq description:text active:boolean',
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
 
-  'Province'      => 'name:string:uniq code:string:uniq',
-  'District'      => 'name:string:uniq code:string:uniq active:boolean',
-  'RoadType'      => 'name:string:uniq code:string:uniq',
-  'Address'       => 'road_type:references road_name road_number_type road_number grader stairs floor door postal_code borough district:references town province:references country ndp_code local_code class_name latitude longitude',
+  'Address'       => 'road_type road_name road_number_type road_number grader stairs floor door postal_code '\
+                     'borough district town province country ndp_code local_code class_name '\
+                     'latitude longitude',
 
-  'Manager'       => 'name profile_id:integer phone_number active:boolean',
+  'Role'          => 'kind:integer:uniq description:text',
+  'Manager'       => 'name last_name last_name_alt alias_name role:references profile_id:integer phone_number active:boolean',
   'TrackingType'  => 'name:string:uniq active:boolean',
-  'RequestReason' => 'kind:integer:uniq description:text active:boolean',
+  'Req::Reason'   => 'kind:integer:uniq description:text active:boolean',
 
   'EntityType'     => 'kind:integer:uniq description:text active:boolean',
-  'Entity'         => 'name:string:uniq description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean request_reason:references entity_type:references comments:text other_subscribe_reason:text address:references active:boolean subscribed_at:datetime unsubscribed_at:datetime',
-  'Ent::Tracking'  => 'tracking_type:references entity:references manager:references tracked_at:datetime comments:text',
+  'Entity'         => 'name:string:uniq description:text vat_number email ' \
+                      'representative_name representative_last_name representative_last_name_alt ' \
+                      'contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt ' \
+                      'publish_pictures:boolean annual_survey:boolean req_reason:references entity_type:references ' \
+                      'comments:text other_subscribe_reason:text address:references active:boolean ' \
+                      'subscribed_at:datetime unsubscribed_at:datetime',
 
 
 
@@ -28,14 +36,17 @@ MODELS_AND_ATTRS = {
   # Project Tables
   # --------------------------------------------------------------------------------------------------
 
-  'ProjectType' => 'kind:integer:uniq description:text active:boolean',
+  'ProjectType' => 'kind:integer:uniq description:text',
 
   # -------------------------------------------------
 
-  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date project_type:references pt_extendable:references{polymorphic} entity:references',
+  'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date ' \
+               'execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number ' \
+               'phone_number_alt email participants_num:integer beneficiaries_num:integer volunteers_num:integer ' \
+               'volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date comments:text ' \
+               'insured:boolean project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
-  'Pro::Tracking'  => 'comments:text start_date:datetime project:references',
   'Pro::Issue'     => 'comments:text start_date:datetime project:references',
 
   'Document'      => 'name:string:uniq description:text documentum_id:string project:references',
@@ -48,15 +59,20 @@ MODELS_AND_ATTRS = {
 
   # 1:N tables
 
-  'Activity' => 'name:string:uniq description:text start_date:datetime end_date:datetime transport:text pdf_url entity:references area:references project:references share:boolean ',
+  'Activity' => 'name:string:uniq description:text start_date:datetime end_date:datetime transport:text pdf_url publish:boolean active:boolean ' \
+                'entity:references area:references project:references share:boolean ',
   'Link'     => 'url description:text kind:integer linkable:references{polymorphic}',
 
   'Proposal' => 'name:string:uniq description:text active:boolean',
 
   # -------------------------------------------------
 
-  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number entity_registry:boolean cost:float requested_amount:float subsidized_amount:float initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean proposal:references notes:text',
-  'Pt::Entity'     => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean agreement_date:date prevailing:boolean notes:text',
+  'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number ' \
+                      'entity_registry:boolean cost:float requested_amount:float subsidized_amount:float ' \
+                      'initial_volunteers_num:integer has_quality_evaluation:boolean proposal:references notes:text',
+  'Pt::Entity'     => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date ' \
+                      'derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean ' \
+                      'agreement_date:date prevailing:boolean notes:text',
   'Pt::Punctual'   => 'notes:text',
   'Pt::Permanent'  => 'notes:text',
   'Pt::Centre'     => 'notes:text',
@@ -75,7 +91,9 @@ MODELS_AND_ATTRS = {
 
   'EmploymentStatus' => 'name:string:uniq active:boolean',
 
-  'Degree' => 'name:string:uniq active:boolean',
+  'DegreeType'  => 'name:string:uniq educational_type active',
+
+  'Degree' => 'name:string:uniq active:boolean degree_type:references',
 
   'AcademicLevel' => 'name:string:uniq educational_type active:boolean',
 
@@ -97,57 +115,79 @@ MODELS_AND_ATTRS = {
 
   'Trait' => 'name:string:uniq active:boolean',
 
-  'Borough'     => 'name active district:references',
-
-  'ContactType' => 'name active',
-
-  'DegreeType'  => 'name educational_type',
+  'ContactType' => 'name:string:uniq active',
 
   'Motivation'  => 'name active',
 
-  'Sepor eso te digo que no se deben dejar crear tipos de proyecto, ctor'      => 'name active',
+  'Sector'      => 'name active',
 
-  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email address:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date unsubscribe_reason:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime manager:references info_source:references other_academic_info:text profession:references active:boolean',
-
+  'Volunteer' => 'name:string last_name last_name_alt id_number_type:references id_number gender:integer  ' \
+                 'birth_date:date nationality:references phone_number phone_number_alt email address:references ' \
+                 'status:references employment_status:references vocne:boolean available:boolean ' \
+                 'availability_date:date academic_level:references subscribe_date:date unsubscribe_date:date ' \
+                 'unsubscribe_reason:references comments:text expectations:text agreement:boolean ' \
+                 'agreement_date:datetime search_authorization:boolean representative_statement:boolean ' \
+                 'has_driving_license:boolean publish_pictures:boolean annual_survey:boolean subscribed_at:datetime ' \
+                 'manager:references info_source:references other_academic_info:text error_address:text ' \
+                 'error_other:text review:integer profession:references active:boolean',
 
   # 1:N
-  'Volun::Availability' => 'volunteer:references day:integer start_hour:string end_hour:string',
+  'Volun::Availability'  => 'volunteer:references day:integer start_hour:string end_hour:string',
 
   # N:N
-  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references manager:references tracking_date:datetime comments:text',
-  'Volun::Contact'       => 'volunteer:references contact_result:references project:references manager:references contact_type:references contact_date:datetime  comments:text',
-  'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string assessment:boolean comments:text',
+  'Volun::Contact'       => 'volunteer:references contact_result:references project:references manager:references ' \
+                            'contact_type:references contact_date:datetime  comments:text',
+  'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string ' \
+                            'assessment:boolean comments:text',
 
   # --------------------------------------------------------------------------------------------------
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
+  'ActionType'                => 'kind:integer:uniq description:text', # Publishing, Unpublishing, Unsubscribe
   'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
-  'RejectionType'             => 'name:string:uniq description:text active:boolean',
-  'RequestType'               => 'kind:integer:uniq description:text active:boolean',
-  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references status:integer status_date:datetime rejection_type:references request_reason:references comments:text',
-  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt id_number_type:references id_number gender:integer birth_date:date nationality:references phone_number phone_number_alt email road_type:references road_name number_type road_number postal_code borough district:references town province:references status:references employment_status:references vocne:boolean available:boolean availability_date:date academic_level:references comments:text expectations:text agreement:boolean agreement_date:datetime search_authorization:boolean representative_statement:boolean has_driving_license:boolean publish_pictures:boolean annual_survey:boolean info_source:references other_academic_info:text profession:references notes:text',
+  'Req::RejectionType'        => 'name:string:uniq description:text active:boolean',
+  'RequestType'               => 'kind:integer:uniq description:text',
+  'Req::Status'               => 'kind:integer:uniq description:text ',
+  'RequestForm'               => 'request_type:references rt_extendable:references{polymorphic} user:references ' \
+                                 'req_status:references status_date:datetime req_rejection_type:references ' \
+                                 'req_reason:references manager:references comments:text',
+  'Req::StatusTrace'          => 'req_status:references request_form:references manager:references',
+  'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email ' \
+                                 'publish_pictures:boolean annual_survey:boolean notes:text',
   'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
-  'Rt::VolunteerAmendment'    => 'road_type:references road_name number_type road_number postal_code borough district:references town province:references phone_number phone_number_alt email notes:text',
+  'Rt::VolunteerAmendment'    => 'road_type road_name number_type road_number postal_code borough ' \
+                                 'district town province phone_number phone_number_alt ' \
+                                 'email notes:text',
   'Rt::VolunteerAppointment'  => 'notes:text',
-  'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name representative_last_name_alt contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean entity_type:references comments:text other_subscribe_reason:text road_type:references road_name number_type road_number postal_code borough district:references town province:references notes:text',
+  'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name ' \
+                                 'representative_last_name_alt contact_name contact_last_name contact_last_name_alt ' \
+                                 'phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean ' \
+                                 'entity_type:references comments:text other_subscribe_reason:text ' \
+                                 'road_type road_name number_type road_number postal_code borough ' \
+                                 'district town province notes:text',
   'Rt::EntityUnsubscribe'     => 'notes:text',
-  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date road_type:references road_name number_type road_number postal_code borough district:references town province:references requested_volunteers_num volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text volunteer_functions_3:text notes:text',
-  'Rt::ProjectPublishing'     => 'description:text road_type:references road_name number_type road_number postal_code borough district:references town province:references notes:text',
-  'Rt::ProjectUnpublishing'   => 'notes:text',
-  'Rt::ProjectUnsubscribe'    => 'project:references notes:text',
-  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour road_type:references road_name number_type road_number postal_code borough district:references town province:references project:references notes:text',
-  'Rt::ActivityUnpublishing'  => 'notes:text',
+  'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date ' \
+                                 'road_type road_name number_type road_number postal_code borough ' \
+                                 'district town province requested_volunteers_num ' \
+                                 'volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text ' \
+                                 'volunteer_functions_3:text notes:text',
+  'Rt::ProjectSubscribe'      => 'description:text road_type road_name number_type road_number postal_code ' \
+                                 'borough district town province notes:text',
+  'Rt::ProjectAction'         => 'project:references action_type:references notes:text',
+  'Rt::ActivitySubscribe'     => 'name organizer description:text execution_date:date execution_hour ' \
+                                 'road_type road_name number_type road_number postal_code ' \
+                                 'borough district town province project:references notes:text',
+  'Rt::ActivityAction'        => 'activity:references action_type:references notes:text',
   'Rt::Other'                 => 'description:text notes:text',
 
-
-  ## TODO Would not the following Rt's be necessary for consistency?
-  ## 'Rt::ProjectSubscribe'     => 'name:string:uniq description:text active:boolean',
-  ## 'Rt::ActivitySubscribe'    => 'name:string:uniq description:text active:boolean',
-  ## 'Rt::ProjectUnsubscribe'   => 'name:string:uniq description:text active:boolean',
-  ## 'Rt::ActivityUnsubscribe'  => 'name:string:uniq description:text active:boolean',
-
   # -------------------------------------------------
+
+  'Volun::Tracking' => 'volunteer:references tracking_type:references project:references manager:references ' \
+                       'request_form:references tracked_at:datetime comments:text',
+  'Ent::Tracking'   => 'tracking_type:references entity:references manager:references request_form:references ' \
+                       'tracked_at:datetime comments:text',
+  'Pro::Tracking'   => 'project:references request_form:references tracked_at:datetime comments:text',
 
 }
 
@@ -163,7 +203,6 @@ JOINED_TABLES = [
   %w(coordination project),
   %w(entity       project),
 
-  %w(address volunteer),
   %w(area    volunteer),
   %w(degree  volunteer),
   %w(project volunteer),
@@ -171,13 +210,28 @@ JOINED_TABLES = [
 ]
 
 MANUAL_MIGRATIONS = {
+  :add_created_by_and_updated_by_to_frontpage_positions => %q{
+class AddCreatedByAndUpdatedByToFrontpagePositions < ActiveRecord::Migration
+  def up
+    add_column :frontpage_elements, :created_by, :integer
+    add_column :frontpage_elements, :updated_by, :integer
+    add_foreign_key :frontpage_elements, :users, column: :created_by
+    add_foreign_key :frontpage_elements, :users, column: :updated_by
+  end
+
+  def down
+    remove_column :frontpage_elements, :created_by
+    remove_column :frontpage_elements, :updated_by
+  end
+end
+},
   :add_not_null_constraint_to_columns => %q(
 class AddNotNullConstraintToColumns < ActiveRecord::Migration
 
   NOT_NULL_COLUMNS = {
     :users                 => [:notice_type_id],
     :ent_trackings         => [:tracking_type_id, :entity_id, :tracked_at],
-    :project_types         => [:kind, :description, :active],
+    :project_types         => [:kind, :description],
     :projects              => [:name,
                                :description,
                                :execution_start_date,
@@ -186,8 +240,15 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
                                :phone_number,
                                :email,
                                :project_type_id,
+                               :pt_extendable_id,
+                               :pt_extendable_type,
                                :entity_id,
                                :active],
+    :req_rejection_types   => [:name, :active],
+    :req_statuses          => [:kind, :description],
+    :request_types         => [:kind, :description],
+    :req_status_traces     => [:req_status_id, :request_form_id],
+    :request_forms         => [:req_status_id, :status_date, :rt_extendable_id, :rt_extendable_type],
     :entities              => [:name,
                                :email,
                                :representative_name,
@@ -197,21 +258,22 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
                                :entity_type_id,
                                :address_id],
     :activities            => [:name, :description, :start_date, :transport],
-    :record_histories      => [:user_id, :recordable_id, :recordable_type, :recordable_changed_at],
+    :record_histories      => [:user_id, :recordable_id, :recordable_type],
     :events                => [:address_id, :eventable_id, :eventable_type],
-    :event_types           => [:kind],
-    :unsubscribe_levels    => [:kind],
+    :event_types           => [:kind, :description],
+    :unsubscribe_levels    => [:kind, :description],
     :timetables            => [:event_id, :execution_date, :start_hour, :end_hour],
-    :volunteers            => [:name, :last_name, :address_id],
+    :volunteers            => [:name, :last_name],
     :volun_availabilities  => [:volunteer_id, :day],
     :volun_known_languages => [:volunteer_id, :language_id, :language_level_id],
-    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracking_date],
+    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracked_at],
     :volun_contacts        => [:volunteer_id,
                                :contact_result_id,
                                :project_id,
                                :manager_id,
                                :contact_date],
     :volun_assessments     => [:volunteer_id, :trait_id, :project_id, :assessment],
+    :frontpage_elements    => [:created_by, :created_by, :active, :frontpage_position_id],
     :academic_levels       => [:name, :active, :educational_type],
     :id_number_types       => [:name, :active],
     :nationalities         => [:name, :active],
@@ -231,8 +293,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :traits                => [:name, :active],
     :areas                 => [:name, :active],
     :collectives           => [:name, :active],
-    :coordinations         => [:name, :active],
-    :rejection_types       => [:name, :active]
+    :coordinations         => [:name, :active]
   }
 
   def up
@@ -329,11 +390,10 @@ class AddKindConstraintToRequestTypes < ActiveRecord::Migration
           (id = #{RequestType.kinds[:rt_entity_subscribe]}      AND kind = #{RequestType.kinds[:rt_entity_subscribe]})      OR
           (id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND kind = #{RequestType.kinds[:rt_entity_unsubscribe]})    OR
           (id = #{RequestType.kinds[:rt_volunteers_demand]}     AND kind = #{RequestType.kinds[:rt_volunteers_demand]})     OR
-          (id = #{RequestType.kinds[:rt_project_publishing]}    AND kind = #{RequestType.kinds[:rt_project_publishing]})    OR
-          (id = #{RequestType.kinds[:rt_project_unpublishing]}  AND kind = #{RequestType.kinds[:rt_project_unpublishing]})  OR
-          (id = #{RequestType.kinds[:rt_project_unsubscribe]}   AND kind = #{RequestType.kinds[:rt_project_unsubscribe]})   OR
-          (id = #{RequestType.kinds[:rt_activity_publishing]}   AND kind = #{RequestType.kinds[:rt_activity_publishing]})   OR
-          (id = #{RequestType.kinds[:rt_activity_unpublishing]} AND kind = #{RequestType.kinds[:rt_activity_unpublishing]}) OR
+          (id = #{RequestType.kinds[:rt_project_subscribe]}     AND kind = #{RequestType.kinds[:rt_project_subscribe]})     OR
+          (id = #{RequestType.kinds[:rt_project_action]}        AND kind = #{RequestType.kinds[:rt_project_action]})        OR
+          (id = #{RequestType.kinds[:rt_activity_subscribe]}    AND kind = #{RequestType.kinds[:rt_activity_subscribe]})    OR
+          (id = #{RequestType.kinds[:rt_activity_action]}       AND kind = #{RequestType.kinds[:rt_activity_action]})       OR
           (id = #{RequestType.kinds[:rt_other]}                 AND kind = #{RequestType.kinds[:rt_other]})
         )
     }
@@ -365,11 +425,10 @@ class AddRtExtendableConstraintToRequestForms < ActiveRecord::Migration
           (request_type_id = #{RequestType.kinds[:rt_entity_subscribe]}      AND rt_extendable_type = '#{Rt::EntitySubscribe.name}')      OR
           (request_type_id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND rt_extendable_type = '#{Rt::EntityUnsubscribe.name}')    OR
           (request_type_id = #{RequestType.kinds[:rt_volunteers_demand]}     AND rt_extendable_type = '#{Rt::VolunteersDemand.name}')     OR
-          (request_type_id = #{RequestType.kinds[:rt_project_publishing]}    AND rt_extendable_type = '#{Rt::ProjectPublishing.name}')    OR
-          (request_type_id = #{RequestType.kinds[:rt_project_unpublishing]}  AND rt_extendable_type = '#{Rt::ProjectUnpublishing.name}')  OR
-          (request_type_id = #{RequestType.kinds[:rt_project_unsubscribe]}   AND rt_extendable_type = '#{Rt::ProjectUnsubscribe.name}')   OR
-          (request_type_id = #{RequestType.kinds[:rt_activity_publishing]}   AND rt_extendable_type = '#{Rt::ActivityPublishing.name}')   OR
-          (request_type_id = #{RequestType.kinds[:rt_activity_unpublishing]} AND rt_extendable_type = '#{Rt::ActivityUnpublishing.name}') OR
+          (request_type_id = #{RequestType.kinds[:rt_project_subscribe]}     AND rt_extendable_type = '#{Rt::ProjectSubscribe.name}')     OR
+          (request_type_id = #{RequestType.kinds[:rt_project_action]}        AND rt_extendable_type = '#{Rt::ProjectAction.name}')        OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_subscribe]}    AND rt_extendable_type = '#{Rt::ActivitySubscribe.name}')    OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_action]}       AND rt_extendable_type = '#{Rt::ActivityAction.name}')       OR
           (request_type_id = #{RequestType.kinds[:rt_other]}                 AND rt_extendable_type = '#{Rt::Other.name}')
         )
     }
@@ -389,34 +448,34 @@ end
   # Events and EventTypes
 
   :add_kind_constraint_to_event_types => %q(
-  class AddKindConstraintToEventTypes < ActiveRecord::Migration
-    def up
-      execute %{
-      ALTER TABLE
-        event_types
-      ADD CONSTRAINT
-        kind_and_id_must_be_equal
-        CHECK (
-          (id = #{EventType.kinds[:activity]} AND kind = #{EventType.kinds[:activity]}) OR
-          (id = #{EventType.kinds[:project]}  AND kind = #{EventType.kinds[:project]})
-        )
-    }
-    end
-
-    def down
-      execute %{
-      ALTER TABLE
-        event_types
-      DROP CONSTRAINT
-        kind_and_id_must_be_equal
-    }
-    end
+class AddKindConstraintToEventTypes < ActiveRecord::Migration
+  def up
+    execute %{
+    ALTER TABLE
+      event_types
+    ADD CONSTRAINT
+      kind_and_id_must_be_equal
+      CHECK (
+        (id = #{EventType.kinds[:activity]} AND kind = #{EventType.kinds[:activity]}) OR
+        (id = #{EventType.kinds[:project]}  AND kind = #{EventType.kinds[:project]})
+      )
+  }
   end
+
+  def down
+    execute %{
+    ALTER TABLE
+      event_types
+    DROP CONSTRAINT
+      kind_and_id_must_be_equal
+  }
+  end
+end
 ),
   :add_eventable_constraint_to_events => %q(
-    class AddEventableConstraintToEvents < ActiveRecord::Migration
-      def up
-        execute %{
+class AddEventableConstraintToEvents < ActiveRecord::Migration
+  def up
+    execute %{
       ALTER TABLE
         events
       ADD CONSTRAINT
@@ -426,17 +485,136 @@ end
           (event_type_id = #{EventType.kinds[:project]}  AND eventable_type = '#{Project.name}')
         )
     }
-      end
+  end
 
-      def down
-        execute %{
+  def down
+    execute %{
       ALTER TABLE
         events
       DROP CONSTRAINT
         eventable_must_be_consistent
     }
-      end
+  end
+end
+),
+  :create_before_delete_trigger_on_pt_tables => %q(
+class CreateBeforeDeleteTriggerOnPtTables < ActiveRecord::Migration
+
+  PT_MODELS = [
+    Pt::Social,
+    Pt::Centre,
+    Pt::Permanent,
+    Pt::Punctual,
+    Pt::Subvention,
+    Pt::Entity,
+    Pt::Other
+  ]
+
+  def up
+    execute %{
+      CREATE OR REPLACE FUNCTION check_project_references() RETURNS trigger AS $check_project_references$
+          DECLARE
+              total integer;
+              pt_model_name text;
+          BEGIN
+              total:= 0;
+              pt_model_name := TG_ARGV[0];
+
+              -- If any reference exists then total is set to 1
+              SELECT 1 into total
+              FROM projects
+              WHERE pt_extendable_type = pt_model_name AND pt_extendable_id = OLD.id;
+
+              IF total > 0 THEN
+                  RAISE EXCEPTION 'Key (id)=(%) is still referenced from table "projects"', OLD.id;
+              END IF;
+              RETURN NULL;
+          END;
+      $check_project_references$ LANGUAGE plpgsql;
+    }
+
+    PT_MODELS.each do |pt_model|
+      execute %{
+        CREATE TRIGGER check_project_references BEFORE DELETE ON #{pt_model.table_name}
+        FOR EACH ROW EXECUTE PROCEDURE check_project_references("#{pt_model.name}");
+      }
     end
+  end
+
+  def down
+    PT_MODELS.each do |pt_model|
+      execute %{
+        DROP TRIGGER check_project_references ON #{pt_model.table_name};
+      }
+    end
+
+    execute %{
+      DROP FUNCTION check_project_references();
+    }
+  end
+end
+),
+  :create_before_delete_trigger_on_rt_tables => %q(
+class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
+
+  RT_MODELS = [
+    Rt::VolunteerSubscribe,
+    Rt::VolunteerUnsubscribe,
+    Rt::VolunteerAmendment,
+    Rt::VolunteerAppointment,
+    Rt::EntitySubscribe,
+    Rt::EntityUnsubscribe,
+    Rt::VolunteersDemand,
+    Rt::ProjectSubscribe,
+    Rt::ProjectAction,
+    Rt::ActivitySubscribe,
+    Rt::ActivityAction,
+    Rt::Other
+  ]
+
+  def up
+    execute %{
+      CREATE OR REPLACE FUNCTION check_request_form_references() RETURNS trigger AS $check_request_form_references$
+          DECLARE
+              total integer;
+              rt_model_name text;
+          BEGIN
+              total:= 0;
+              rt_model_name := TG_ARGV[0];
+
+              -- If any reference exists then total is set to 1
+              SELECT 1 into total
+              FROM projects
+              WHERE rt_extendable_type = rt_model_name AND rt_extendable_id = OLD.id;
+
+              IF total > 0 THEN
+                  RAISE EXCEPTION 'Key (id)=(%) is still referenced from table "request_forms"', OLD.id;
+              END IF;
+              RETURN NULL;
+          END;
+      $check_request_form_references$ LANGUAGE plpgsql;
+    }
+
+    RT_MODELS.each do |rt_model|
+      execute %{
+        CREATE TRIGGER check_request_form_references BEFORE DELETE ON #{rt_model.table_name}
+        FOR EACH ROW EXECUTE PROCEDURE check_request_form_references("#{rt_model.name}");
+      }
+    end
+  end
+
+  def down
+    RT_MODELS.each do |rt_model|
+      execute %{
+        DROP TRIGGER check_request_form_references ON #{rt_model.table_name};
+      }
+    end
+
+    execute %{
+      DROP FUNCTION check_request_form_references();
+    }
+  end
+end
 )
 }
 
@@ -485,35 +663,11 @@ namespace :scaffold do
     end
   end
 
-  desc 'Add null: false to some migrations'
-  task add_null_false: :environment do
-    require 'fileutils'
-    require 'tempfile'
-
-    Dir.glob('db/migrate/*.rb') do |rb_file|
-      tmp = Tempfile.new('extract')
-
-      File.open(rb_file, 'r').each do |l|
-        line = l
-        if line.chomp =~ /references :address.*/
-          line  = line.sub("\n", '')
-          line += ", null: false\n"
-        end
-        tmp  << line
-      end
-
-      tmp.close
-
-      # Move temp file to origin
-      FileUtils.mv(tmp.path, rb_file)
-    end
-  end
-
   desc 'Build manual migrations'
   task build_manual_migrations: :environment do
     MANUAL_MIGRATIONS.each do |name, content|
       sh "bundle exec rails generate migration #{name}"
-      sh "echo \"#{content}\" > $(ls db/migrate/*#{name}.rb)"
+      sh "echo \"#{content.gsub('"','\"').gsub('$','\$')}\" > $(ls db/migrate/*#{name}.rb)"
     end
   end
 
@@ -547,15 +701,17 @@ namespace :scaffold do
   end
 
   desc 'Build the application data model basement by scaffolding the models'
-  task build: :environment do
+  task :build, [:options] => :environment do |t, args|
+    options = args[:options] || '-f --no-controller-specs --no-model-specs'
+
     # Generate the scaffolds for all models
     MODELS_AND_ATTRS.each do |model_name, attrs_list|
-      sh "bundle exec rails generate scaffold #{model_name} #{attrs_list} -f"
+      sh "bundle exec rails generate scaffold #{model_name} #{attrs_list} #{options}"
     end
 
     # Generate the models for advanced join tables
     ADVANCED_JOINED_TABLES.each do |model_name, attrs_list|
-      sh "bundle exec rails generate model #{model_name} #{attrs_list} -f"
+      sh "bundle exec rails generate model #{model_name} #{attrs_list} #{options}"
     end
 
     # Generate simple intermediate models
@@ -565,12 +721,16 @@ namespace :scaffold do
         table1  = table2
         table2  = _table1
       end
-      sh "bundle exec rails generate migration create_join_table_#{table1}_#{table2} #{table1}:index #{table2}:index -f"
+      sh "bundle exec rails generate migration create_join_table_#{table1}_#{table2} #{table1}:index #{table2}:index #{options}"
     end
   end
 
   desc 'Destroy the models and the files generated by the scaffolding'
   task destroy: :environment do
+    # spec folder is destroyed for speeding up the destroy scaffold,
+    # and recovered later with the "git checkout -- spec" command within the "gco_files" task
+    sh 'rm -rf spec/*'
+
     # Destroy the scaffolds of all models
     MODELS_AND_ATTRS.keys.each do |model_name|
       sh "bundle exec rails destroy scaffold #{model_name}"
@@ -597,6 +757,7 @@ namespace :scaffold do
   desc 'Build the application data model basement by scaffolding the models'
   task gco_files: :environment do
     sh 'git checkout -- app'
+    sh 'git checkout -- spec'
   end
 
   desc 'Build the application data model basement by scaffolding the models'
@@ -613,7 +774,6 @@ namespace :scaffold do
     Rake::Task['scaffold:build'].invoke
     Rake::Task['scaffold:build_manual_migrations'].invoke
     Rake::Task['scaffold:add_default_true'].invoke
-    Rake::Task['scaffold:add_null_false'].invoke
     Rake::Task['scaffold:gco_files'].invoke
   end
 

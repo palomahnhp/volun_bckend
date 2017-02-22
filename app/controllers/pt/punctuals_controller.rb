@@ -1,6 +1,6 @@
 class Pt::PunctualsController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :pt_punctual
   respond_to :html, :js
 
   def index
@@ -19,7 +19,6 @@ class Pt::PunctualsController < ApplicationController
   end
 
   def new
-    @pt_punctual = Pt::Punctual.new
     respond_with(@pt_punctual)
   end
 
@@ -28,12 +27,12 @@ class Pt::PunctualsController < ApplicationController
 
   def create
     @pt_punctual.save
-    respond_with(@pt_punctual)
+    respond_with(@pt_punctual, location: projects_path)
   end
 
   def update
-    @pt_punctual.update_attributes(pt_punctual_params)
-    respond_with(@pt_punctual)
+    @pt_punctual.update(pt_punctual_params)
+    respond_with(@pt_punctual, location: projects_path)
   end
 
   def destroy
@@ -44,6 +43,13 @@ class Pt::PunctualsController < ApplicationController
   protected
 
     def pt_punctual_params
-      params.require(:pt_punctual).permit(:notes)
+      params
+        .require(:pt_punctual)
+        .permit(
+          :notes,
+          project_attributes: project_attributes
+        )
     end
+
+    alias_method :create_params, :pt_punctual_params
 end

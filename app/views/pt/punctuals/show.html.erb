@@ -1,15 +1,16 @@
-<%= main_title(t("action.show", model: PtPunctual.model_name.human)) %>
+<%= main_title(t("action.show", model: Pt::Punctual.model_name.human)) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'projects/show', locals: { project: @pt_punctual.project } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { pt_punctual: @pt_punctual } %>
+  </div>
+</div>
 
-  <dt><%= PtPunctual.human_attribute_name(:id) %>:</dt>
-  <dd><%= @pt_punctual.id %></dd>
-  <dt><%= PtPunctual.human_attribute_name(:notes) %>:</dt>
-  <dd><%= @pt_punctual.notes %></dd>
-  <dt><%= PtPunctual.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@pt_punctual.created_at) %></dd>
-
-</dl>
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@pt_punctual) %>

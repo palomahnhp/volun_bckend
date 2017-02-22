@@ -14,7 +14,7 @@
 			<dt><%= Volunteer.human_attribute_name(:id_number) %>:</dt>
 			<dd><%= @volunteer.id_number %></dd>
 			<dt><%= Volunteer.human_attribute_name(:gender) %>:</dt>
-			<dd><%= t(@volunteer.gender) %></dd>
+			<dd><%= @volunteer.gender_i18n %></dd>
 			<dt><%= Volunteer.human_attribute_name(:birth_date) %>:</dt>
 			<dd><%= show_simple_date(@volunteer.birth_date) %></dd>
 			<dt><%= Volunteer.human_attribute_name(:nationality_id) %>:</dt>

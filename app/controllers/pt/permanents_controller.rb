@@ -1,10 +1,10 @@
 class Pt::PermanentsController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :pt_permanent
   respond_to :html, :js
 
   def index
-    params[:q] ||= PtPermanent.ransack_default
+    params[:q] ||= Pt::Permanent.ransack_default
     @search_q = @pt_permanents.search(params[:q])
     @pt_permanents = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
@@ -19,7 +19,6 @@ class Pt::PermanentsController < ApplicationController
   end
 
   def new
-    @pt_permanent = Pt::Permanent.new
     respond_with(@pt_permanent)
   end
 
@@ -28,12 +27,12 @@ class Pt::PermanentsController < ApplicationController
 
   def create
     @pt_permanent.save
-    respond_with(@pt_permanent)
+    respond_with(@pt_permanent, location: projects_path)
   end
 
   def update
-    @pt_permanent.update_attributes(pt_permanent_params)
-    respond_with(@pt_permanent)
+    @pt_permanent.update(pt_permanent_params)
+    respond_with(@pt_permanent, location: projects_path)
   end
 
   def destroy
@@ -44,6 +43,13 @@ class Pt::PermanentsController < ApplicationController
   protected
 
     def pt_permanent_params
-      params.require(:pt_permanent).permit(:notes)
+      params
+        .require(:pt_permanent)
+        .permit(
+          :notes,
+          project_attributes: project_attributes
+        )
     end
+
+    alias_method :create_params, :pt_permanent_params
 end

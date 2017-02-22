@@ -1,7 +1,5 @@
 class Rt::EntityUnsubscribe < ActiveRecord::Base
 
-  include RtCommons
-
-
+  include RtModel
 
 end

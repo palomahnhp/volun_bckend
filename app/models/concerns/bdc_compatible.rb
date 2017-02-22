@@ -33,7 +33,6 @@ module BdcCompatible
         self.latitude      = bdc_validator.latitude
         self.longitude     = bdc_validator.longitude
         self.local_code    = bdc_validator.local_code
-        self.road_type_id  = RoadType.find_by(name: bdc_validator.road_type).try(:id)
       end
     end
 

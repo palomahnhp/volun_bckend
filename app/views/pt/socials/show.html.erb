@@ -1,15 +1,16 @@
-<%= main_title(t("action.show", model: PtSocial.model_name.human)) %>
+<%= main_title(t("action.show", model: Pt::Social.model_name.human)) %>
 
-<dl class="dl-horizontal">
+<div class="row">
+  <div class="col-md-6">
+    <h3><%= t('common_fields') %></h3>
+    <%= render partial: 'projects/show', locals: { project: @pt_social.project } %>
+  </div>
+  <div class="col-md-6">
+    <h3><%= t('specific_fields') %></h3>
+    <%= render partial: 'show', locals: { pt_social: @pt_social } %>
+  </div>
+</div>
 
-  <dt><%= PtSocial.human_attribute_name(:id) %>:</dt>
-  <dd><%= @pt_social.id %></dd>
-  <dt><%= PtSocial.human_attribute_name(:notes) %>:</dt>
-  <dd><%= @pt_social.notes %></dd>
-  <dt><%= PtSocial.human_attribute_name(:created_at) %>:</dt>
-  <dd><%= show_simple_date(@pt_social.created_at) %></dd>
-
-</dl>
 <% unless request.xhr? %>
 <%= button_to_back %>
 <%= button_to_edit(@pt_social) %>

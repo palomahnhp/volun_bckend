@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :set_page_params, only: [:index]
   after_action :update_record_history, only: [:create, :update, :destroy], unless: :devise_controller?
 
-  helper_method :use_devise_authentication?
+  helper_method :use_devise_authentication?, :cast_as_boolean
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = I18n.t('messages.access_denied')
@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
     rescue
       redirect_to root_path
     end
+  end
+
+  def cast_as_boolean(boolean_string)
+    ActiveRecord::Type::Boolean.new.type_cast_from_user boolean_string
   end
 
   private
@@ -53,7 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def user_authenticated?
-    session.fetch(:user_authenticated, false)
+    current_user || session.fetch(:user_authenticated, false)
   end
 
   # TODO Create Setting model for app configuration
@@ -94,6 +98,7 @@ class ApplicationController < ActionController::Base
       :project_type_id,
       :active,
       :comments,
+      :participants_num,
       :beneficiaries_num,
       :volunteers_num,
       :functions,
@@ -124,7 +129,7 @@ class ApplicationController < ActionController::Base
           {
             address_attributes: [
               :id,
-              :road_type_id,
+              :road_type,
               :road_name,
               :road_number_type,
               :road_number,
@@ -134,9 +139,9 @@ class ApplicationController < ActionController::Base
               :door,
               :postal_code,
               :borough,
-              :district_id,
+              :district,
               :town,
-              :province_id,
+              :province,
               :country,
               :_destroy
             ]
@@ -158,12 +163,13 @@ class ApplicationController < ActionController::Base
 
   def request_form_attributes
     [
+      :id,
       :request_type_id,
       :user_id,
       :sent_at,
       :status,
       :status_date,
-      :rejection_type_id,
+      :req_rejection_type_id,
       :comments
     ]
   end

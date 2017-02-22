@@ -1,5 +1,5 @@
 class Pt::Other < ActiveRecord::Base
 
-  include PtCommons
+  include PtModel
 
 end

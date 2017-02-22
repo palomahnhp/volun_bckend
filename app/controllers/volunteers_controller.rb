@@ -19,16 +19,29 @@ class VolunteersController < ApplicationController
   end
 
   def new
-    @volunteer = Volunteer.new
-    respond_with(@volunteer)
+    volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id])
+    if volunteer_manager.valid?
+      @volunteer = volunteer_manager.build_volunteer
+      respond_with(@volunteer)
+    else
+      redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
+    end
   end
 
   def edit
   end
 
   def create
-    @volunteer.save
-    respond_with(@volunteer)
+    volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id],
+                                             volunteer_attributes: volunteer_params,
+                                             manager_id: current_user.loggable_id)
+    volunteer_manager.create_volunteer
+    @volunteer = volunteer_manager.volunteer
+    if @volunteer.persisted? || @volunteer.errors.present?
+      respond_with(@volunteer)
+    else
+      redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
+    end
   end
 
   def update
@@ -38,6 +51,11 @@ class VolunteersController < ApplicationController
 
   def destroy
     @volunteer.destroy
+    respond_with(@volunteer)
+  end
+
+  def recover
+    @volunteer.recover
     respond_with(@volunteer)
   end
 
@@ -85,7 +103,7 @@ class VolunteersController < ApplicationController
           {
             address_attributes: [
               :id,
-              :road_type_id,
+              :road_type,
               :road_name,
               :road_number_type,
               :road_number,
@@ -95,9 +113,9 @@ class VolunteersController < ApplicationController
               :door,
               :postal_code,
               :borough,
-              :district_id,
+              :district,
               :town,
-              :province_id,
+              :province,
               :country,
               :_destroy
             ]

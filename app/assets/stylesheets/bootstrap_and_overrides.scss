@@ -40,7 +40,7 @@ body {
 .footer {
   //background:  no-repeat fixed center;
   height: 500px;
-  background-image: url("volunteer-work.jpg");
+  background-image: image_url("volunteer-work.jpg");
   background-color: white;
   background-position: center bottom;
   background-size: 70%;
@@ -169,7 +169,7 @@ a:focus{
 
 @mixin elem-hover {
   background-color: #ebfdff;
-  font-size: 160px;
+  font-size: 130px;
   a {
     color: #3b5f79;
   }
@@ -180,9 +180,9 @@ a:focus{
 }
 .element {
   text-align: center;
-  font-size: 150px;
+  font-size: 120px;
   margin-top: 20px;
-  min-height: 350px;
+  min-height: 300px;
   .count {
     font-size: 16px;
     color: #3b5f79;
@@ -544,4 +544,42 @@ form .well {
   select {
     width: 75%;
   }
+}
+
+#statuses {
+  ul {
+    padding-left: 65px;
+    list-style-type: none;
+  }
+ .status-list {
+   label {
+     min-width: 80px;
+     margin-bottom: 0;
+     font-weight: normal;
+     cursor: pointer;
+     font-size: 12px;
+   }
+ }
+}
+
+// Request Forms status classes
+.pending {
+  background-color: #efefef;
+}
+.processing {
+  background-color: #ffe599;
+}
+.approved {
+  background-color: #b6d7a8;
+}
+.rejected {
+  background-color: #ea9999;
+}
+
+.archive {
+  color: darkred;
+}
+.recover {
+  color: green;
+  font-weight: bold;
 }

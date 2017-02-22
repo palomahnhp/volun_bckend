@@ -16,16 +16,6 @@
           <%= t('areas_text') %>
         </div>
       </div>
-      <div class="panel panel-info" onclick="window.location='<%= project_types_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= ProjectType.model_name.human(count: 2)  %>
-          </h3>
-        </div>
-        <div class="panel-body">
-          <%= t('project_types_text') %>
-        </div>
-      </div>
       <div class="panel panel-info" onclick="window.location='<%= nationalities_url %>';">
         <div class="panel-heading">
           <h3 class="panel-title">
@@ -54,6 +44,16 @@
         </div>
         <div class="panel-body">
           <%= TrackingType.model_name.human(count: 2) %>
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= req_rejection_types_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Req::RejectionType.model_name.human(count: 2)  %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= Req::RejectionType.model_name.human(count: 2) %>
         </div>
       </div>
     </div>
@@ -98,14 +98,14 @@
           <%= Trait.model_name.human(count: 2) %>
         </div>
       </div>
-      <div class="panel panel-info" onclick="window.location='<%= rejection_types_url %>';">
+      <div class="panel panel-info" onclick="window.location='<%= languages_url %>';">
         <div class="panel-heading">
           <h3 class="panel-title">
-            <%= RejectionType.model_name.human(count: 2)  %>
+            <%= Language.model_name.human(count: 2) %>
           </h3>
         </div>
         <div class="panel-body">
-          <%= RejectionType.model_name.human(count: 2) %>
+          <%= Language.model_name.human(count: 2) %>
         </div>
       </div>
       <!--<div class="panel panel-info" onclick="window.location='<%#= record_histories_url %>';">-->

@@ -1,4 +1,4 @@
-<%% model_class = <%= singular_table_name.camelize %> %>
+<%% model_class = <%= class_name.camelize %> %>
 
 <div class="row">
   <div class="col-md-12">
@@ -18,7 +18,7 @@
   <thead>
     <tr>
     <%% model_class.main_columns.each do |column| -%>
-      <th><%%= sort_link(@search_q, column) %></th>
+      <th><%%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
     <%% end -%>
 
       <th class="actions index_table-actions">

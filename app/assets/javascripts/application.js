@@ -72,3 +72,9 @@ $( document ).ready(function() {
     });
 
 });
+
+var update_hidden_inputs = function(elem, selector){
+    if(elem.value)
+        $(selector).prop('value', elem.checked);
+    $('.search-form').submit();
+}

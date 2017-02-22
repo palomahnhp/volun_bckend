@@ -1,6 +1,6 @@
 class Rt::EntitySubscribe < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
 
   belongs_to :request_reason

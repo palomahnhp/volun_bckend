@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(frontpage_element) %>" >
+
+  <% frontpage_element.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(frontpage_element, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(frontpage_element) %>
+    <%= link_to_edit(frontpage_element) %>
+<% if frontpage_element.try(:archived?) %>
+    <%= link_to_recover(frontpage_element) %>
+<% else %>
+    <%= link_to_destroy(frontpage_element) %>
+<% end %>
+  </td>
+</tr>

@@ -4,6 +4,27 @@ class Volunteer < ActiveRecord::Base
 
   enum gender: [:male, :female]
 
+  # Virtual predicate to search text in three columns as they were only one column named :full_name
+  ransacker :full_name, formatter: proc { |v| v.squeeze(' ') }  do |parent|
+    Arel::Nodes::InfixOperation.new(
+      '||',
+      Arel::Nodes::InfixOperation.new(
+        '||',
+        Arel::Nodes::InfixOperation.new(
+          '||',
+          Arel::Nodes::InfixOperation.new(
+            '||',
+            parent.table[:name],
+            Arel::Nodes.build_quoted(' ')
+          ),
+          parent.table[:last_name]
+        ),
+        Arel::Nodes.build_quoted(' ')
+      ),
+      parent.table[:last_name_alt]
+    )
+  end
+
   belongs_to :academic_level
   belongs_to :address, required: true
   belongs_to :id_number_type, required: true
@@ -23,6 +44,7 @@ class Volunteer < ActiveRecord::Base
   has_many :trackings,       :class_name => 'Volun::Tracking'
   has_many :languages, :through => :known_languages
   has_many :traits,    :through => :assessments
+  has_one :user, as: :loggable
   accepts_nested_attributes_for :address
 
   validates :name, :last_name, :id_number, presence: true

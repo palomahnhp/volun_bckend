@@ -16,7 +16,7 @@ class ActiveRecord::Base
   end
 
   def self.main_columns
-    column_names.reject{ |column| column =~ /\b(created_at|updated_at)\b/ }
+    column_names.reject{ |column| column =~ /\b(id|created_at|updated_at)\b/ }
   end
 
   def main_attributes

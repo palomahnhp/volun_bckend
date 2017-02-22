@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
+-- Dumped from database version 9.5.5
+-- Dumped by pg_dump version 9.5.5
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -28,6 +28,60 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 SET search_path = public, pg_catalog;
+
+--
+-- Name: check_project_references(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION check_project_references() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+          DECLARE
+              total integer;
+              pt_model_name text;
+          BEGIN
+              total:= 0;
+              pt_model_name := TG_ARGV[0];
+
+              -- If any reference exists then total is set to 1
+              SELECT 1 into total
+              FROM projects
+              WHERE pt_extendable_type = pt_model_name AND pt_extendable_id = OLD.id;
+
+              IF total > 0 THEN
+                  RAISE EXCEPTION 'Key (id)=(%) is still referenced from table "projects"', OLD.id;
+              END IF;
+              RETURN NULL;
+          END;
+      $$;
+
+
+--
+-- Name: check_request_form_references(); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE FUNCTION check_request_form_references() RETURNS trigger
+    LANGUAGE plpgsql
+    AS $$
+          DECLARE
+              total integer;
+              rt_model_name text;
+          BEGIN
+              total:= 0;
+              rt_model_name := TG_ARGV[0];
+
+              -- If any reference exists then total is set to 1
+              SELECT 1 into total
+              FROM projects
+              WHERE rt_extendable_type = rt_model_name AND rt_extendable_id = OLD.id;
+
+              IF total > 0 THEN
+                  RAISE EXCEPTION 'Key (id)=(%) is still referenced from table "request_forms"', OLD.id;
+              END IF;
+              RETURN NULL;
+          END;
+      $$;
+
 
 SET default_tablespace = '';
 
@@ -67,6 +121,38 @@ ALTER SEQUENCE academic_levels_id_seq OWNED BY academic_levels.id;
 
 
 --
+-- Name: action_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE action_types (
+    id integer NOT NULL,
+    kind integer,
+    description text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: action_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE action_types_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: action_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE action_types_id_seq OWNED BY action_types.id;
+
+
+--
 -- Name: activities; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -78,6 +164,8 @@ CREATE TABLE activities (
     end_date timestamp without time zone,
     transport text NOT NULL,
     pdf_url character varying,
+    publish boolean DEFAULT true,
+    active boolean DEFAULT true,
     entity_id integer,
     area_id integer,
     project_id integer,
@@ -112,7 +200,7 @@ ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 CREATE TABLE addresses (
     id integer NOT NULL,
-    road_type_id integer,
+    road_type character varying,
     road_name character varying,
     road_number_type character varying,
     road_number character varying,
@@ -122,9 +210,9 @@ CREATE TABLE addresses (
     door character varying,
     postal_code character varying,
     borough character varying,
-    district_id integer,
+    district character varying,
     town character varying,
-    province_id integer,
+    province character varying,
     country character varying,
     ndp_code character varying,
     local_code character varying,
@@ -153,16 +241,6 @@ CREATE SEQUENCE addresses_id_seq
 --
 
 ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
-
-
---
--- Name: addresses_volunteers; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE addresses_volunteers (
-    address_id integer NOT NULL,
-    volunteer_id integer NOT NULL
-);
 
 
 --
@@ -216,39 +294,6 @@ CREATE TABLE areas_volunteers (
     area_id integer NOT NULL,
     volunteer_id integer NOT NULL
 );
-
-
---
--- Name: boroughs; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE boroughs (
-    id integer NOT NULL,
-    name character varying,
-    active character varying,
-    district_id integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: boroughs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE boroughs_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: boroughs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE boroughs_id_seq OWNED BY boroughs.id;
 
 
 --
@@ -409,6 +454,7 @@ CREATE TABLE degree_types (
     id integer NOT NULL,
     name character varying,
     educational_type character varying,
+    active character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -441,6 +487,7 @@ CREATE TABLE degrees (
     id integer NOT NULL,
     name character varying NOT NULL,
     active boolean DEFAULT true NOT NULL,
+    degree_type_id integer,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -473,39 +520,6 @@ CREATE TABLE degrees_volunteers (
     degree_id integer NOT NULL,
     volunteer_id integer NOT NULL
 );
-
-
---
--- Name: districts; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE districts (
-    id integer NOT NULL,
-    name character varying,
-    code character varying,
-    active boolean DEFAULT true,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: districts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE districts_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: districts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE districts_id_seq OWNED BY districts.id;
 
 
 --
@@ -583,6 +597,7 @@ CREATE TABLE ent_trackings (
     tracking_type_id integer NOT NULL,
     entity_id integer NOT NULL,
     manager_id integer,
+    request_form_id integer,
     tracked_at timestamp without time zone NOT NULL,
     comments text,
     created_at timestamp without time zone NOT NULL,
@@ -629,7 +644,7 @@ CREATE TABLE entities (
     phone_number_alt character varying,
     publish_pictures boolean DEFAULT true,
     annual_survey boolean DEFAULT false,
-    request_reason_id integer,
+    req_reason_id integer,
     entity_type_id integer NOT NULL,
     comments text,
     other_subscribe_reason text,
@@ -711,7 +726,7 @@ ALTER SEQUENCE entity_types_id_seq OWNED BY entity_types.id;
 CREATE TABLE event_types (
     id integer NOT NULL,
     kind integer NOT NULL,
-    description text,
+    description text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     CONSTRAINT kind_and_id_must_be_equal CHECK ((((id = 1) AND (kind = 1)) OR ((id = 2) AND (kind = 2))))
@@ -771,6 +786,78 @@ CREATE SEQUENCE events_id_seq
 --
 
 ALTER SEQUENCE events_id_seq OWNED BY events.id;
+
+
+--
+-- Name: frontpage_elements; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE frontpage_elements (
+    id integer NOT NULL,
+    frontpage_position_id integer NOT NULL,
+    text_panel text,
+    text_button text,
+    image_url text,
+    link_url text,
+    logo_url text,
+    active boolean DEFAULT true NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL,
+    created_by integer NOT NULL,
+    updated_by integer
+);
+
+
+--
+-- Name: frontpage_elements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE frontpage_elements_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: frontpage_elements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE frontpage_elements_id_seq OWNED BY frontpage_elements.id;
+
+
+--
+-- Name: frontpage_positions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE frontpage_positions (
+    id integer NOT NULL,
+    "position" integer,
+    description text,
+    active boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: frontpage_positions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE frontpage_positions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: frontpage_positions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE frontpage_positions_id_seq OWNED BY frontpage_positions.id;
 
 
 --
@@ -943,6 +1030,10 @@ ALTER SEQUENCE links_id_seq OWNED BY links.id;
 CREATE TABLE managers (
     id integer NOT NULL,
     name character varying NOT NULL,
+    last_name character varying,
+    last_name_alt character varying,
+    alias_name character varying,
+    role_id integer,
     profile_id integer,
     phone_number character varying,
     active boolean DEFAULT true NOT NULL,
@@ -1106,9 +1197,10 @@ ALTER SEQUENCE pro_issues_id_seq OWNED BY pro_issues.id;
 
 CREATE TABLE pro_trackings (
     id integer NOT NULL,
-    comments text,
-    start_date timestamp without time zone,
     project_id integer,
+    request_form_id integer,
+    tracked_at timestamp without time zone,
+    comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1205,7 +1297,6 @@ CREATE TABLE project_types (
     id integer NOT NULL,
     kind integer NOT NULL,
     description text NOT NULL,
-    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     CONSTRAINT kind_and_id_must_be_equal CHECK ((((id = 1) AND (kind = 1)) OR ((id = 2) AND (kind = 2)) OR ((id = 3) AND (kind = 3)) OR ((id = 4) AND (kind = 4)) OR ((id = 5) AND (kind = 5)) OR ((id = 6) AND (kind = 6)) OR ((id = 7) AND (kind = 7))))
@@ -1249,17 +1340,18 @@ CREATE TABLE projects (
     phone_number character varying NOT NULL,
     phone_number_alt character varying,
     email character varying NOT NULL,
-    comments text,
+    participants_num integer,
     beneficiaries_num integer,
     volunteers_num integer,
-    insured boolean DEFAULT false,
     volunteers_allowed boolean DEFAULT true,
     publish boolean DEFAULT true,
     outstanding boolean DEFAULT false,
     insurance_date date,
+    insured boolean DEFAULT false,
+    comments text,
     project_type_id integer NOT NULL,
-    pt_extendable_id integer,
-    pt_extendable_type character varying,
+    pt_extendable_id integer NOT NULL,
+    pt_extendable_type character varying NOT NULL,
     entity_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -1327,38 +1419,6 @@ CREATE SEQUENCE proposals_id_seq
 --
 
 ALTER SEQUENCE proposals_id_seq OWNED BY proposals.id;
-
-
---
--- Name: provinces; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE provinces (
-    id integer NOT NULL,
-    name character varying,
-    code character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: provinces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE provinces_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: provinces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE provinces_id_seq OWNED BY provinces.id;
 
 
 --
@@ -1573,7 +1633,6 @@ CREATE TABLE pt_subventions (
     requested_amount double precision,
     subsidized_amount double precision,
     initial_volunteers_num integer,
-    participants_num integer,
     has_quality_evaluation boolean DEFAULT false,
     proposal_id integer,
     notes text,
@@ -1610,7 +1669,7 @@ CREATE TABLE record_histories (
     user_id integer NOT NULL,
     recordable_id integer NOT NULL,
     recordable_type character varying NOT NULL,
-    recordable_changed_at timestamp without time zone NOT NULL,
+    recordable_changed_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -1636,10 +1695,43 @@ ALTER SEQUENCE record_histories_id_seq OWNED BY record_histories.id;
 
 
 --
--- Name: rejection_types; Type: TABLE; Schema: public; Owner: -
+-- Name: req_reasons; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE rejection_types (
+CREATE TABLE req_reasons (
+    id integer NOT NULL,
+    kind integer,
+    description text,
+    active boolean DEFAULT true,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: req_reasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE req_reasons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: req_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE req_reasons_id_seq OWNED BY req_reasons.id;
+
+
+--
+-- Name: req_rejection_types; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE req_rejection_types (
     id integer NOT NULL,
     name character varying NOT NULL,
     description text,
@@ -1650,10 +1742,10 @@ CREATE TABLE rejection_types (
 
 
 --
--- Name: rejection_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: req_rejection_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE rejection_types_id_seq
+CREATE SEQUENCE req_rejection_types_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1662,10 +1754,75 @@ CREATE SEQUENCE rejection_types_id_seq
 
 
 --
--- Name: rejection_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: req_rejection_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE rejection_types_id_seq OWNED BY rejection_types.id;
+ALTER SEQUENCE req_rejection_types_id_seq OWNED BY req_rejection_types.id;
+
+
+--
+-- Name: req_status_traces; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE req_status_traces (
+    id integer NOT NULL,
+    req_status_id integer NOT NULL,
+    request_form_id integer NOT NULL,
+    manager_id integer,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: req_status_traces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE req_status_traces_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: req_status_traces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE req_status_traces_id_seq OWNED BY req_status_traces.id;
+
+
+--
+-- Name: req_statuses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE req_statuses (
+    id integer NOT NULL,
+    kind integer NOT NULL,
+    description text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: req_statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE req_statuses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: req_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE req_statuses_id_seq OWNED BY req_statuses.id;
 
 
 --
@@ -1675,17 +1832,18 @@ ALTER SEQUENCE rejection_types_id_seq OWNED BY rejection_types.id;
 CREATE TABLE request_forms (
     id integer NOT NULL,
     request_type_id integer,
-    rt_extendable_id integer,
-    rt_extendable_type character varying,
+    rt_extendable_id integer NOT NULL,
+    rt_extendable_type character varying NOT NULL,
     user_id integer,
-    status integer,
-    status_date timestamp without time zone,
-    rejection_type_id integer,
-    request_reason_id integer,
+    req_status_id integer NOT NULL,
+    status_date timestamp without time zone NOT NULL,
+    req_rejection_type_id integer,
+    req_reason_id integer,
+    manager_id integer,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    CONSTRAINT rt_extendable_must_be_consistent CHECK ((((request_type_id = 1) AND ((rt_extendable_type)::text = 'Rt::VolunteerSubscribe'::text)) OR ((request_type_id = 2) AND ((rt_extendable_type)::text = 'Rt::VolunteerUnsubscribe'::text)) OR ((request_type_id = 3) AND ((rt_extendable_type)::text = 'Rt::VolunteerAmendment'::text)) OR ((request_type_id = 4) AND ((rt_extendable_type)::text = 'Rt::VolunteerAppointment'::text)) OR ((request_type_id = 5) AND ((rt_extendable_type)::text = 'Rt::EntitySubscribe'::text)) OR ((request_type_id = 6) AND ((rt_extendable_type)::text = 'Rt::EntityUnsubscribe'::text)) OR ((request_type_id = 7) AND ((rt_extendable_type)::text = 'Rt::VolunteersDemand'::text)) OR ((request_type_id = 8) AND ((rt_extendable_type)::text = 'Rt::ProjectPublishing'::text)) OR ((request_type_id = 9) AND ((rt_extendable_type)::text = 'Rt::ProjectUnpublishing'::text)) OR ((request_type_id = 10) AND ((rt_extendable_type)::text = 'Rt::ProjectUnsubscribe'::text)) OR ((request_type_id = 11) AND ((rt_extendable_type)::text = 'Rt::ActivityPublishing'::text)) OR ((request_type_id = 12) AND ((rt_extendable_type)::text = 'Rt::ActivityUnpublishing'::text)) OR ((request_type_id = 13) AND ((rt_extendable_type)::text = 'Rt::Other'::text))))
+    CONSTRAINT rt_extendable_must_be_consistent CHECK ((((request_type_id = 1) AND ((rt_extendable_type)::text = 'Rt::VolunteerSubscribe'::text)) OR ((request_type_id = 2) AND ((rt_extendable_type)::text = 'Rt::VolunteerUnsubscribe'::text)) OR ((request_type_id = 3) AND ((rt_extendable_type)::text = 'Rt::VolunteerAmendment'::text)) OR ((request_type_id = 4) AND ((rt_extendable_type)::text = 'Rt::VolunteerAppointment'::text)) OR ((request_type_id = 5) AND ((rt_extendable_type)::text = 'Rt::EntitySubscribe'::text)) OR ((request_type_id = 6) AND ((rt_extendable_type)::text = 'Rt::EntityUnsubscribe'::text)) OR ((request_type_id = 7) AND ((rt_extendable_type)::text = 'Rt::VolunteersDemand'::text)) OR ((request_type_id = 8) AND ((rt_extendable_type)::text = 'Rt::ProjectSubscribe'::text)) OR ((request_type_id = 9) AND ((rt_extendable_type)::text = 'Rt::ProjectAction'::text)) OR ((request_type_id = 10) AND ((rt_extendable_type)::text = 'Rt::ActivitySubscribe'::text)) OR ((request_type_id = 11) AND ((rt_extendable_type)::text = 'Rt::ActivityAction'::text)) OR ((request_type_id = 12) AND ((rt_extendable_type)::text = 'Rt::Other'::text))))
 );
 
 
@@ -1709,50 +1867,16 @@ ALTER SEQUENCE request_forms_id_seq OWNED BY request_forms.id;
 
 
 --
--- Name: request_reasons; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE request_reasons (
-    id integer NOT NULL,
-    kind integer,
-    description text,
-    active boolean DEFAULT true,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: request_reasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE request_reasons_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: request_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE request_reasons_id_seq OWNED BY request_reasons.id;
-
-
---
 -- Name: request_types; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE request_types (
     id integer NOT NULL,
-    kind integer,
-    description text,
-    active boolean DEFAULT true,
+    kind integer NOT NULL,
+    description text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    CONSTRAINT kind_and_id_must_be_equal CHECK ((((id = 1) AND (kind = 1)) OR ((id = 2) AND (kind = 2)) OR ((id = 3) AND (kind = 3)) OR ((id = 4) AND (kind = 4)) OR ((id = 5) AND (kind = 5)) OR ((id = 6) AND (kind = 6)) OR ((id = 7) AND (kind = 7)) OR ((id = 8) AND (kind = 8)) OR ((id = 9) AND (kind = 9)) OR ((id = 10) AND (kind = 10)) OR ((id = 11) AND (kind = 11)) OR ((id = 12) AND (kind = 12)) OR ((id = 13) AND (kind = 13))))
+    CONSTRAINT kind_and_id_must_be_equal CHECK ((((id = 1) AND (kind = 1)) OR ((id = 2) AND (kind = 2)) OR ((id = 3) AND (kind = 3)) OR ((id = 4) AND (kind = 4)) OR ((id = 5) AND (kind = 5)) OR ((id = 6) AND (kind = 6)) OR ((id = 7) AND (kind = 7)) OR ((id = 8) AND (kind = 8)) OR ((id = 9) AND (kind = 9)) OR ((id = 10) AND (kind = 10)) OR ((id = 11) AND (kind = 11)) OR ((id = 12) AND (kind = 12))))
 );
 
 
@@ -1776,23 +1900,23 @@ ALTER SEQUENCE request_types_id_seq OWNED BY request_types.id;
 
 
 --
--- Name: road_types; Type: TABLE; Schema: public; Owner: -
+-- Name: roles; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE road_types (
+CREATE TABLE roles (
     id integer NOT NULL,
-    name character varying,
-    code character varying,
+    kind integer,
+    description text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
 
 
 --
--- Name: road_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE road_types_id_seq
+CREATE SEQUENCE roles_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1801,32 +1925,65 @@ CREATE SEQUENCE road_types_id_seq
 
 
 --
--- Name: road_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE road_types_id_seq OWNED BY road_types.id;
+ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 
 
 --
--- Name: rt_activity_publishings; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_activity_actions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE rt_activity_publishings (
+CREATE TABLE rt_activity_actions (
+    id integer NOT NULL,
+    activity_id integer,
+    action_type_id integer,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: rt_activity_actions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE rt_activity_actions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rt_activity_actions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE rt_activity_actions_id_seq OWNED BY rt_activity_actions.id;
+
+
+--
+-- Name: rt_activity_subscribes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE rt_activity_subscribes (
     id integer NOT NULL,
     name character varying,
     organizer character varying,
     description text,
     execution_date date,
     execution_hour character varying,
-    road_type_id integer,
+    road_type character varying,
     road_name character varying,
     number_type character varying,
     road_number character varying,
     postal_code character varying,
     borough character varying,
-    district_id integer,
+    district character varying,
     town character varying,
-    province_id integer,
+    province character varying,
     project_id integer,
     notes text,
     created_at timestamp without time zone NOT NULL,
@@ -1835,10 +1992,10 @@ CREATE TABLE rt_activity_publishings (
 
 
 --
--- Name: rt_activity_publishings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_activity_subscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE rt_activity_publishings_id_seq
+CREATE SEQUENCE rt_activity_subscribes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -1847,41 +2004,10 @@ CREATE SEQUENCE rt_activity_publishings_id_seq
 
 
 --
--- Name: rt_activity_publishings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_activity_subscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE rt_activity_publishings_id_seq OWNED BY rt_activity_publishings.id;
-
-
---
--- Name: rt_activity_unpublishings; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE rt_activity_unpublishings (
-    id integer NOT NULL,
-    notes text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: rt_activity_unpublishings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE rt_activity_unpublishings_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rt_activity_unpublishings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE rt_activity_unpublishings_id_seq OWNED BY rt_activity_unpublishings.id;
+ALTER SEQUENCE rt_activity_subscribes_id_seq OWNED BY rt_activity_subscribes.id;
 
 
 --
@@ -1907,15 +2033,15 @@ CREATE TABLE rt_entity_subscribes (
     entity_type_id integer,
     comments text,
     other_subscribe_reason text,
-    road_type_id integer,
+    road_type character varying,
     road_name character varying,
     number_type character varying,
     road_number character varying,
     postal_code character varying,
     borough character varying,
-    district_id integer,
+    district character varying,
     town character varying,
-    province_id integer,
+    province character varying,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2005,21 +2131,54 @@ ALTER SEQUENCE rt_others_id_seq OWNED BY rt_others.id;
 
 
 --
--- Name: rt_project_publishings; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_project_actions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE rt_project_publishings (
+CREATE TABLE rt_project_actions (
+    id integer NOT NULL,
+    project_id integer,
+    action_type_id integer,
+    notes text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: rt_project_actions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE rt_project_actions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: rt_project_actions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE rt_project_actions_id_seq OWNED BY rt_project_actions.id;
+
+
+--
+-- Name: rt_project_subscribes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE rt_project_subscribes (
     id integer NOT NULL,
     description text,
-    road_type_id integer,
+    road_type character varying,
     road_name character varying,
     number_type character varying,
     road_number character varying,
     postal_code character varying,
     borough character varying,
-    district_id integer,
+    district character varying,
     town character varying,
-    province_id integer,
+    province character varying,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2027,10 +2186,10 @@ CREATE TABLE rt_project_publishings (
 
 
 --
--- Name: rt_project_publishings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_project_subscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE rt_project_publishings_id_seq
+CREATE SEQUENCE rt_project_subscribes_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -2039,73 +2198,10 @@ CREATE SEQUENCE rt_project_publishings_id_seq
 
 
 --
--- Name: rt_project_publishings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_project_subscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE rt_project_publishings_id_seq OWNED BY rt_project_publishings.id;
-
-
---
--- Name: rt_project_unpublishings; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE rt_project_unpublishings (
-    id integer NOT NULL,
-    notes text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: rt_project_unpublishings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE rt_project_unpublishings_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rt_project_unpublishings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE rt_project_unpublishings_id_seq OWNED BY rt_project_unpublishings.id;
-
-
---
--- Name: rt_project_unsubscribes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE rt_project_unsubscribes (
-    id integer NOT NULL,
-    project_id integer,
-    notes text,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: rt_project_unsubscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE rt_project_unsubscribes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: rt_project_unsubscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE rt_project_unsubscribes_id_seq OWNED BY rt_project_unsubscribes.id;
+ALTER SEQUENCE rt_project_subscribes_id_seq OWNED BY rt_project_subscribes.id;
 
 
 --
@@ -2114,15 +2210,15 @@ ALTER SEQUENCE rt_project_unsubscribes_id_seq OWNED BY rt_project_unsubscribes.i
 
 CREATE TABLE rt_volunteer_amendments (
     id integer NOT NULL,
-    road_type_id integer,
+    road_type character varying,
     road_name character varying,
     number_type character varying,
     road_number character varying,
     postal_code character varying,
     borough character varying,
-    district_id integer,
+    district character varying,
     town character varying,
-    province_id integer,
+    province character varying,
     phone_number character varying,
     phone_number_alt character varying,
     email character varying,
@@ -2191,41 +2287,11 @@ CREATE TABLE rt_volunteer_subscribes (
     name character varying,
     last_name character varying,
     last_name_alt character varying,
-    id_number_type_id integer,
-    id_number character varying,
-    gender integer,
-    birth_date date,
-    nationality_id integer,
     phone_number character varying,
     phone_number_alt character varying,
     email character varying,
-    road_type_id integer,
-    road_name character varying,
-    number_type character varying,
-    road_number character varying,
-    postal_code character varying,
-    borough character varying,
-    district_id integer,
-    town character varying,
-    province_id integer,
-    status_id integer,
-    employment_status_id integer,
-    vocne boolean DEFAULT false,
-    available boolean DEFAULT false,
-    availability_date date,
-    academic_level_id integer,
-    comments text,
-    expectations text,
-    agreement boolean DEFAULT false,
-    agreement_date timestamp without time zone,
-    search_authorization boolean DEFAULT false,
-    representative_statement boolean DEFAULT false,
-    has_driving_license boolean DEFAULT false,
     publish_pictures boolean DEFAULT true,
     annual_survey boolean DEFAULT false,
-    info_source_id integer,
-    other_academic_info text,
-    profession_id integer,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2292,15 +2358,15 @@ CREATE TABLE rt_volunteers_demands (
     description text,
     execution_start_date date,
     execution_end_date date,
-    road_type_id integer,
+    road_type character varying,
     road_name character varying,
     number_type character varying,
     road_number character varying,
     postal_code character varying,
     borough character varying,
-    district_id integer,
+    district character varying,
     town character varying,
-    province_id integer,
+    province character varying,
     requested_volunteers_num character varying,
     volunteers_profile text,
     volunteer_functions_1 text,
@@ -2551,7 +2617,7 @@ ALTER SEQUENCE traits_id_seq OWNED BY traits.id;
 CREATE TABLE unsubscribe_levels (
     id integer NOT NULL,
     kind integer NOT NULL,
-    description text,
+    description text NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2803,7 +2869,8 @@ CREATE TABLE volun_trackings (
     tracking_type_id integer NOT NULL,
     project_id integer,
     manager_id integer,
-    tracking_date timestamp without time zone NOT NULL,
+    request_form_id integer,
+    tracked_at timestamp without time zone NOT NULL,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2846,7 +2913,7 @@ CREATE TABLE volunteers (
     phone_number character varying,
     phone_number_alt character varying,
     email character varying,
-    address_id integer NOT NULL,
+    address_id integer,
     status_id integer,
     employment_status_id integer,
     vocne boolean DEFAULT false,
@@ -2869,6 +2936,9 @@ CREATE TABLE volunteers (
     manager_id integer,
     info_source_id integer,
     other_academic_info text,
+    error_address text,
+    error_other text,
+    review integer,
     profession_id integer,
     active boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
@@ -2906,6 +2976,13 @@ ALTER TABLE ONLY academic_levels ALTER COLUMN id SET DEFAULT nextval('academic_l
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY action_types ALTER COLUMN id SET DEFAULT nextval('action_types_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
 
 
@@ -2921,13 +2998,6 @@ ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq
 --
 
 ALTER TABLE ONLY areas ALTER COLUMN id SET DEFAULT nextval('areas_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY boroughs ALTER COLUMN id SET DEFAULT nextval('boroughs_id_seq'::regclass);
 
 
 --
@@ -2970,13 +3040,6 @@ ALTER TABLE ONLY degree_types ALTER COLUMN id SET DEFAULT nextval('degree_types_
 --
 
 ALTER TABLE ONLY degrees ALTER COLUMN id SET DEFAULT nextval('degrees_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY districts ALTER COLUMN id SET DEFAULT nextval('districts_id_seq'::regclass);
 
 
 --
@@ -3026,6 +3089,20 @@ ALTER TABLE ONLY event_types ALTER COLUMN id SET DEFAULT nextval('event_types_id
 --
 
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY frontpage_elements ALTER COLUMN id SET DEFAULT nextval('frontpage_elements_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY frontpage_positions ALTER COLUMN id SET DEFAULT nextval('frontpage_positions_id_seq'::regclass);
 
 
 --
@@ -3144,13 +3221,6 @@ ALTER TABLE ONLY proposals ALTER COLUMN id SET DEFAULT nextval('proposals_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY provinces ALTER COLUMN id SET DEFAULT nextval('provinces_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY pt_centres ALTER COLUMN id SET DEFAULT nextval('pt_centres_id_seq'::regclass);
 
 
@@ -3207,7 +3277,28 @@ ALTER TABLE ONLY record_histories ALTER COLUMN id SET DEFAULT nextval('record_hi
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rejection_types ALTER COLUMN id SET DEFAULT nextval('rejection_types_id_seq'::regclass);
+ALTER TABLE ONLY req_reasons ALTER COLUMN id SET DEFAULT nextval('req_reasons_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY req_rejection_types ALTER COLUMN id SET DEFAULT nextval('req_rejection_types_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY req_status_traces ALTER COLUMN id SET DEFAULT nextval('req_status_traces_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY req_statuses ALTER COLUMN id SET DEFAULT nextval('req_statuses_id_seq'::regclass);
 
 
 --
@@ -3221,13 +3312,6 @@ ALTER TABLE ONLY request_forms ALTER COLUMN id SET DEFAULT nextval('request_form
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY request_reasons ALTER COLUMN id SET DEFAULT nextval('request_reasons_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY request_types ALTER COLUMN id SET DEFAULT nextval('request_types_id_seq'::regclass);
 
 
@@ -3235,21 +3319,21 @@ ALTER TABLE ONLY request_types ALTER COLUMN id SET DEFAULT nextval('request_type
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY road_types ALTER COLUMN id SET DEFAULT nextval('road_types_id_seq'::regclass);
+ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_activity_publishings ALTER COLUMN id SET DEFAULT nextval('rt_activity_publishings_id_seq'::regclass);
+ALTER TABLE ONLY rt_activity_actions ALTER COLUMN id SET DEFAULT nextval('rt_activity_actions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_activity_unpublishings ALTER COLUMN id SET DEFAULT nextval('rt_activity_unpublishings_id_seq'::regclass);
+ALTER TABLE ONLY rt_activity_subscribes ALTER COLUMN id SET DEFAULT nextval('rt_activity_subscribes_id_seq'::regclass);
 
 
 --
@@ -3277,21 +3361,14 @@ ALTER TABLE ONLY rt_others ALTER COLUMN id SET DEFAULT nextval('rt_others_id_seq
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_project_publishings ALTER COLUMN id SET DEFAULT nextval('rt_project_publishings_id_seq'::regclass);
+ALTER TABLE ONLY rt_project_actions ALTER COLUMN id SET DEFAULT nextval('rt_project_actions_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_project_unpublishings ALTER COLUMN id SET DEFAULT nextval('rt_project_unpublishings_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_project_unsubscribes ALTER COLUMN id SET DEFAULT nextval('rt_project_unsubscribes_id_seq'::regclass);
+ALTER TABLE ONLY rt_project_subscribes ALTER COLUMN id SET DEFAULT nextval('rt_project_subscribes_id_seq'::regclass);
 
 
 --
@@ -3443,6 +3520,14 @@ ALTER TABLE ONLY academic_levels
 
 
 --
+-- Name: action_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY action_types
+    ADD CONSTRAINT action_types_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3464,14 +3549,6 @@ ALTER TABLE ONLY addresses
 
 ALTER TABLE ONLY areas
     ADD CONSTRAINT areas_pkey PRIMARY KEY (id);
-
-
---
--- Name: boroughs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY boroughs
-    ADD CONSTRAINT boroughs_pkey PRIMARY KEY (id);
 
 
 --
@@ -3520,14 +3597,6 @@ ALTER TABLE ONLY degree_types
 
 ALTER TABLE ONLY degrees
     ADD CONSTRAINT degrees_pkey PRIMARY KEY (id);
-
-
---
--- Name: districts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY districts
-    ADD CONSTRAINT districts_pkey PRIMARY KEY (id);
 
 
 --
@@ -3584,6 +3653,22 @@ ALTER TABLE ONLY event_types
 
 ALTER TABLE ONLY events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_elements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY frontpage_elements
+    ADD CONSTRAINT frontpage_elements_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: frontpage_positions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY frontpage_positions
+    ADD CONSTRAINT frontpage_positions_pkey PRIMARY KEY (id);
 
 
 --
@@ -3715,14 +3800,6 @@ ALTER TABLE ONLY proposals
 
 
 --
--- Name: provinces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY provinces
-    ADD CONSTRAINT provinces_pkey PRIMARY KEY (id);
-
-
---
 -- Name: pt_centres_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3787,11 +3864,35 @@ ALTER TABLE ONLY record_histories
 
 
 --
--- Name: rejection_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: req_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rejection_types
-    ADD CONSTRAINT rejection_types_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY req_reasons
+    ADD CONSTRAINT req_reasons_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: req_rejection_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY req_rejection_types
+    ADD CONSTRAINT req_rejection_types_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: req_status_traces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY req_status_traces
+    ADD CONSTRAINT req_status_traces_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: req_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY req_statuses
+    ADD CONSTRAINT req_statuses_pkey PRIMARY KEY (id);
 
 
 --
@@ -3803,14 +3904,6 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: request_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY request_reasons
-    ADD CONSTRAINT request_reasons_pkey PRIMARY KEY (id);
-
-
---
 -- Name: request_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -3819,27 +3912,27 @@ ALTER TABLE ONLY request_types
 
 
 --
--- Name: road_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY road_types
-    ADD CONSTRAINT road_types_pkey PRIMARY KEY (id);
-
-
---
--- Name: rt_activity_publishings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_activity_publishings
-    ADD CONSTRAINT rt_activity_publishings_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
 
 
 --
--- Name: rt_activity_unpublishings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_activity_actions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_activity_unpublishings
-    ADD CONSTRAINT rt_activity_unpublishings_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY rt_activity_actions
+    ADD CONSTRAINT rt_activity_actions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: rt_activity_subscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_activity_subscribes
+    ADD CONSTRAINT rt_activity_subscribes_pkey PRIMARY KEY (id);
 
 
 --
@@ -3867,27 +3960,19 @@ ALTER TABLE ONLY rt_others
 
 
 --
--- Name: rt_project_publishings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_project_actions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_project_publishings
-    ADD CONSTRAINT rt_project_publishings_pkey PRIMARY KEY (id);
-
-
---
--- Name: rt_project_unpublishings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_project_unpublishings
-    ADD CONSTRAINT rt_project_unpublishings_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY rt_project_actions
+    ADD CONSTRAINT rt_project_actions_pkey PRIMARY KEY (id);
 
 
 --
--- Name: rt_project_unsubscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_project_subscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_project_unsubscribes
-    ADD CONSTRAINT rt_project_unsubscribes_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY rt_project_subscribes
+    ADD CONSTRAINT rt_project_subscribes_pkey PRIMARY KEY (id);
 
 
 --
@@ -4058,6 +4143,13 @@ CREATE UNIQUE INDEX index_academic_levels_on_name ON academic_levels USING btree
 
 
 --
+-- Name: index_action_types_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_action_types_on_kind ON action_types USING btree (kind);
+
+
+--
 -- Name: index_activities_on_area_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4083,41 +4175,6 @@ CREATE UNIQUE INDEX index_activities_on_name ON activities USING btree (name);
 --
 
 CREATE INDEX index_activities_on_project_id ON activities USING btree (project_id);
-
-
---
--- Name: index_addresses_on_district_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_addresses_on_district_id ON addresses USING btree (district_id);
-
-
---
--- Name: index_addresses_on_province_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_addresses_on_province_id ON addresses USING btree (province_id);
-
-
---
--- Name: index_addresses_on_road_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_addresses_on_road_type_id ON addresses USING btree (road_type_id);
-
-
---
--- Name: index_addresses_volunteers_on_address_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_addresses_volunteers_on_address_id_and_volunteer_id ON addresses_volunteers USING btree (address_id, volunteer_id);
-
-
---
--- Name: index_addresses_volunteers_on_volunteer_id_and_address_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_addresses_volunteers_on_volunteer_id_and_address_id ON addresses_volunteers USING btree (volunteer_id, address_id);
 
 
 --
@@ -4156,13 +4213,6 @@ CREATE INDEX index_areas_volunteers_on_volunteer_id_and_area_id ON areas_volunte
 
 
 --
--- Name: index_boroughs_on_district_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_boroughs_on_district_id ON boroughs USING btree (district_id);
-
-
---
 -- Name: index_collectives_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4191,6 +4241,13 @@ CREATE UNIQUE INDEX index_contact_results_on_name ON contact_results USING btree
 
 
 --
+-- Name: index_contact_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_contact_types_on_name ON contact_types USING btree (name);
+
+
+--
 -- Name: index_coordinations_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4212,6 +4269,20 @@ CREATE INDEX index_coordinations_projects_on_project_id_and_coordination_id ON c
 
 
 --
+-- Name: index_degree_types_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_degree_types_on_name ON degree_types USING btree (name);
+
+
+--
+-- Name: index_degrees_on_degree_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_degrees_on_degree_type_id ON degrees USING btree (degree_type_id);
+
+
+--
 -- Name: index_degrees_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4230,20 +4301,6 @@ CREATE INDEX index_degrees_volunteers_on_degree_id_and_volunteer_id ON degrees_v
 --
 
 CREATE INDEX index_degrees_volunteers_on_volunteer_id_and_degree_id ON degrees_volunteers USING btree (volunteer_id, degree_id);
-
-
---
--- Name: index_districts_on_code; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_districts_on_code ON districts USING btree (code);
-
-
---
--- Name: index_districts_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_districts_on_name ON districts USING btree (name);
 
 
 --
@@ -4282,6 +4339,13 @@ CREATE INDEX index_ent_trackings_on_manager_id ON ent_trackings USING btree (man
 
 
 --
+-- Name: index_ent_trackings_on_request_form_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_ent_trackings_on_request_form_id ON ent_trackings USING btree (request_form_id);
+
+
+--
 -- Name: index_ent_trackings_on_tracking_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4310,10 +4374,10 @@ CREATE UNIQUE INDEX index_entities_on_name ON entities USING btree (name);
 
 
 --
--- Name: index_entities_on_request_reason_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entities_on_req_reason_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_entities_on_request_reason_id ON entities USING btree (request_reason_id);
+CREATE INDEX index_entities_on_req_reason_id ON entities USING btree (req_reason_id);
 
 
 --
@@ -4366,6 +4430,20 @@ CREATE INDEX index_events_on_eventable_type_and_eventable_id ON events USING btr
 
 
 --
+-- Name: index_frontpage_elements_on_frontpage_position_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_frontpage_elements_on_frontpage_position_id ON frontpage_elements USING btree (frontpage_position_id);
+
+
+--
+-- Name: index_frontpage_positions_on_position; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_frontpage_positions_on_position ON frontpage_positions USING btree ("position");
+
+
+--
 -- Name: index_id_number_types_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4401,6 +4479,13 @@ CREATE INDEX index_links_on_linkable_type_and_linkable_id ON links USING btree (
 
 
 --
+-- Name: index_managers_on_role_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_managers_on_role_id ON managers USING btree (role_id);
+
+
+--
 -- Name: index_nationalities_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4426,6 +4511,13 @@ CREATE INDEX index_pro_issues_on_project_id ON pro_issues USING btree (project_i
 --
 
 CREATE INDEX index_pro_trackings_on_project_id ON pro_trackings USING btree (project_id);
+
+
+--
+-- Name: index_pro_trackings_on_request_form_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pro_trackings_on_request_form_id ON pro_trackings USING btree (request_form_id);
 
 
 --
@@ -4499,20 +4591,6 @@ CREATE UNIQUE INDEX index_proposals_on_name ON proposals USING btree (name);
 
 
 --
--- Name: index_provinces_on_code; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_provinces_on_code ON provinces USING btree (code);
-
-
---
--- Name: index_provinces_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_provinces_on_name ON provinces USING btree (name);
-
-
---
 -- Name: index_pt_subventions_on_proposal_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4534,24 +4612,73 @@ CREATE INDEX index_record_histories_on_user_id ON record_histories USING btree (
 
 
 --
--- Name: index_rejection_types_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_req_reasons_on_kind; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_rejection_types_on_name ON rejection_types USING btree (name);
-
-
---
--- Name: index_request_forms_on_rejection_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_request_forms_on_rejection_type_id ON request_forms USING btree (rejection_type_id);
+CREATE UNIQUE INDEX index_req_reasons_on_kind ON req_reasons USING btree (kind);
 
 
 --
--- Name: index_request_forms_on_request_reason_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_req_rejection_types_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_request_forms_on_request_reason_id ON request_forms USING btree (request_reason_id);
+CREATE UNIQUE INDEX index_req_rejection_types_on_name ON req_rejection_types USING btree (name);
+
+
+--
+-- Name: index_req_status_traces_on_manager_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_req_status_traces_on_manager_id ON req_status_traces USING btree (manager_id);
+
+
+--
+-- Name: index_req_status_traces_on_req_status_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_req_status_traces_on_req_status_id ON req_status_traces USING btree (req_status_id);
+
+
+--
+-- Name: index_req_status_traces_on_request_form_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_req_status_traces_on_request_form_id ON req_status_traces USING btree (request_form_id);
+
+
+--
+-- Name: index_req_statuses_on_kind; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_req_statuses_on_kind ON req_statuses USING btree (kind);
+
+
+--
+-- Name: index_request_forms_on_manager_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_request_forms_on_manager_id ON request_forms USING btree (manager_id);
+
+
+--
+-- Name: index_request_forms_on_req_reason_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_request_forms_on_req_reason_id ON request_forms USING btree (req_reason_id);
+
+
+--
+-- Name: index_request_forms_on_req_rejection_type_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_request_forms_on_req_rejection_type_id ON request_forms USING btree (req_rejection_type_id);
+
+
+--
+-- Name: index_request_forms_on_req_status_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_request_forms_on_req_status_id ON request_forms USING btree (req_status_id);
 
 
 --
@@ -4576,13 +4703,6 @@ CREATE INDEX index_request_forms_on_user_id ON request_forms USING btree (user_i
 
 
 --
--- Name: index_request_reasons_on_kind; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_request_reasons_on_kind ON request_reasons USING btree (kind);
-
-
---
 -- Name: index_request_types_on_kind; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -4590,52 +4710,31 @@ CREATE UNIQUE INDEX index_request_types_on_kind ON request_types USING btree (ki
 
 
 --
--- Name: index_road_types_on_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_roles_on_kind; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_road_types_on_code ON road_types USING btree (code);
-
-
---
--- Name: index_road_types_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_road_types_on_name ON road_types USING btree (name);
+CREATE UNIQUE INDEX index_roles_on_kind ON roles USING btree (kind);
 
 
 --
--- Name: index_rt_activity_publishings_on_district_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_activity_actions_on_action_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_rt_activity_publishings_on_district_id ON rt_activity_publishings USING btree (district_id);
-
-
---
--- Name: index_rt_activity_publishings_on_project_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_activity_publishings_on_project_id ON rt_activity_publishings USING btree (project_id);
+CREATE INDEX index_rt_activity_actions_on_action_type_id ON rt_activity_actions USING btree (action_type_id);
 
 
 --
--- Name: index_rt_activity_publishings_on_province_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_activity_actions_on_activity_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_rt_activity_publishings_on_province_id ON rt_activity_publishings USING btree (province_id);
-
-
---
--- Name: index_rt_activity_publishings_on_road_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_activity_publishings_on_road_type_id ON rt_activity_publishings USING btree (road_type_id);
+CREATE INDEX index_rt_activity_actions_on_activity_id ON rt_activity_actions USING btree (activity_id);
 
 
 --
--- Name: index_rt_entity_subscribes_on_district_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_activity_subscribes_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_rt_entity_subscribes_on_district_id ON rt_entity_subscribes USING btree (district_id);
+CREATE INDEX index_rt_activity_subscribes_on_project_id ON rt_activity_subscribes USING btree (project_id);
 
 
 --
@@ -4646,136 +4745,17 @@ CREATE INDEX index_rt_entity_subscribes_on_entity_type_id ON rt_entity_subscribe
 
 
 --
--- Name: index_rt_entity_subscribes_on_province_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_project_actions_on_action_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_rt_entity_subscribes_on_province_id ON rt_entity_subscribes USING btree (province_id);
-
-
---
--- Name: index_rt_entity_subscribes_on_road_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_entity_subscribes_on_road_type_id ON rt_entity_subscribes USING btree (road_type_id);
+CREATE INDEX index_rt_project_actions_on_action_type_id ON rt_project_actions USING btree (action_type_id);
 
 
 --
--- Name: index_rt_project_publishings_on_district_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_project_actions_on_project_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_rt_project_publishings_on_district_id ON rt_project_publishings USING btree (district_id);
-
-
---
--- Name: index_rt_project_publishings_on_province_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_project_publishings_on_province_id ON rt_project_publishings USING btree (province_id);
-
-
---
--- Name: index_rt_project_publishings_on_road_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_project_publishings_on_road_type_id ON rt_project_publishings USING btree (road_type_id);
-
-
---
--- Name: index_rt_project_unsubscribes_on_project_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_project_unsubscribes_on_project_id ON rt_project_unsubscribes USING btree (project_id);
-
-
---
--- Name: index_rt_volunteer_amendments_on_district_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_amendments_on_district_id ON rt_volunteer_amendments USING btree (district_id);
-
-
---
--- Name: index_rt_volunteer_amendments_on_province_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_amendments_on_province_id ON rt_volunteer_amendments USING btree (province_id);
-
-
---
--- Name: index_rt_volunteer_amendments_on_road_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_amendments_on_road_type_id ON rt_volunteer_amendments USING btree (road_type_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_academic_level_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_academic_level_id ON rt_volunteer_subscribes USING btree (academic_level_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_district_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_district_id ON rt_volunteer_subscribes USING btree (district_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_employment_status_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_employment_status_id ON rt_volunteer_subscribes USING btree (employment_status_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_id_number_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_id_number_type_id ON rt_volunteer_subscribes USING btree (id_number_type_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_info_source_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_info_source_id ON rt_volunteer_subscribes USING btree (info_source_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_nationality_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_nationality_id ON rt_volunteer_subscribes USING btree (nationality_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_profession_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_profession_id ON rt_volunteer_subscribes USING btree (profession_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_province_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_province_id ON rt_volunteer_subscribes USING btree (province_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_road_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_road_type_id ON rt_volunteer_subscribes USING btree (road_type_id);
-
-
---
--- Name: index_rt_volunteer_subscribes_on_status_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteer_subscribes_on_status_id ON rt_volunteer_subscribes USING btree (status_id);
+CREATE INDEX index_rt_project_actions_on_project_id ON rt_project_actions USING btree (project_id);
 
 
 --
@@ -4783,27 +4763,6 @@ CREATE INDEX index_rt_volunteer_subscribes_on_status_id ON rt_volunteer_subscrib
 --
 
 CREATE INDEX index_rt_volunteer_unsubscribes_on_unsubscribe_level_id ON rt_volunteer_unsubscribes USING btree (unsubscribe_level_id);
-
-
---
--- Name: index_rt_volunteers_demands_on_district_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteers_demands_on_district_id ON rt_volunteers_demands USING btree (district_id);
-
-
---
--- Name: index_rt_volunteers_demands_on_province_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteers_demands_on_province_id ON rt_volunteers_demands USING btree (province_id);
-
-
---
--- Name: index_rt_volunteers_demands_on_road_type_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_rt_volunteers_demands_on_road_type_id ON rt_volunteers_demands USING btree (road_type_id);
 
 
 --
@@ -4996,6 +4955,13 @@ CREATE INDEX index_volun_trackings_on_project_id ON volun_trackings USING btree 
 
 
 --
+-- Name: index_volun_trackings_on_request_form_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_volun_trackings_on_request_form_id ON volun_trackings USING btree (request_form_id);
+
+
+--
 -- Name: index_volun_trackings_on_tracking_type_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5087,19 +5053,136 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: fk_rails_0286d8b237; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY addresses
-    ADD CONSTRAINT fk_rails_0286d8b237 FOREIGN KEY (province_id) REFERENCES provinces(id);
+CREATE TRIGGER check_project_references BEFORE DELETE ON pt_socials FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Social');
 
 
 --
--- Name: fk_rails_0660269916; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_activity_publishings
-    ADD CONSTRAINT fk_rails_0660269916 FOREIGN KEY (project_id) REFERENCES projects(id);
+CREATE TRIGGER check_project_references BEFORE DELETE ON pt_centres FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Centre');
+
+
+--
+-- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_project_references BEFORE DELETE ON pt_permanents FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Permanent');
+
+
+--
+-- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_project_references BEFORE DELETE ON pt_punctuals FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Punctual');
+
+
+--
+-- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_project_references BEFORE DELETE ON pt_subventions FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Subvention');
+
+
+--
+-- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_project_references BEFORE DELETE ON pt_entities FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Entity');
+
+
+--
+-- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_project_references BEFORE DELETE ON pt_others FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Other');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteer_subscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteerSubscribe');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteer_unsubscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteerUnsubscribe');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteer_amendments FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteerAmendment');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteer_appointments FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteerAppointment');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_entity_subscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::EntitySubscribe');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_entity_unsubscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::EntityUnsubscribe');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteers_demands FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteersDemand');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_project_subscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::ProjectSubscribe');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_project_actions FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::ProjectAction');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_activity_subscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::ActivitySubscribe');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_activity_actions FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::ActivityAction');
+
+
+--
+-- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+--
+
+CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_others FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::Other');
 
 
 --
@@ -5135,11 +5218,27 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_1b98d66e19; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_1c63970ba6; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY addresses
-    ADD CONSTRAINT fk_rails_1b98d66e19 FOREIGN KEY (district_id) REFERENCES districts(id);
+ALTER TABLE ONLY ent_trackings
+    ADD CONSTRAINT fk_rails_1c63970ba6 FOREIGN KEY (request_form_id) REFERENCES request_forms(id);
+
+
+--
+-- Name: fk_rails_1eb0844745; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY frontpage_elements
+    ADD CONSTRAINT fk_rails_1eb0844745 FOREIGN KEY (frontpage_position_id) REFERENCES frontpage_positions(id);
+
+
+--
+-- Name: fk_rails_218216dd2a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY req_status_traces
+    ADD CONSTRAINT fk_rails_218216dd2a FOREIGN KEY (manager_id) REFERENCES managers(id);
 
 
 --
@@ -5159,14 +5258,6 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: fk_rails_23bbf24b49; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_23bbf24b49 FOREIGN KEY (road_type_id) REFERENCES road_types(id);
-
-
---
 -- Name: fk_rails_2a2c9250e8; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5180,14 +5271,6 @@ ALTER TABLE ONLY events
 
 ALTER TABLE ONLY activities
     ADD CONSTRAINT fk_rails_2a8dd8e5f4 FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
--- Name: fk_rails_2ec518b2c1; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_amendments
-    ADD CONSTRAINT fk_rails_2ec518b2c1 FOREIGN KEY (province_id) REFERENCES provinces(id);
 
 
 --
@@ -5223,27 +5306,11 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: fk_rails_332a8e8cba; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_project_publishings
-    ADD CONSTRAINT fk_rails_332a8e8cba FOREIGN KEY (province_id) REFERENCES provinces(id);
-
-
---
 -- Name: fk_rails_34e98e56ba; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
     ADD CONSTRAINT fk_rails_34e98e56ba FOREIGN KEY (academic_level_id) REFERENCES academic_levels(id);
-
-
---
--- Name: fk_rails_41e220275b; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_41e220275b FOREIGN KEY (employment_status_id) REFERENCES employment_statuses(id);
 
 
 --
@@ -5255,19 +5322,43 @@ ALTER TABLE ONLY pro_issues
 
 
 --
--- Name: fk_rails_4ad249f539; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_48cc4fb8e0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_volunteer_amendments
-    ADD CONSTRAINT fk_rails_4ad249f539 FOREIGN KEY (district_id) REFERENCES districts(id);
+ALTER TABLE ONLY frontpage_elements
+    ADD CONSTRAINT fk_rails_48cc4fb8e0 FOREIGN KEY (updated_by) REFERENCES users(id);
 
 
 --
--- Name: fk_rails_4b2c46ecb0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_4a5d797686; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_volunteer_amendments
-    ADD CONSTRAINT fk_rails_4b2c46ecb0 FOREIGN KEY (road_type_id) REFERENCES road_types(id);
+ALTER TABLE ONLY degrees
+    ADD CONSTRAINT fk_rails_4a5d797686 FOREIGN KEY (degree_type_id) REFERENCES degree_types(id);
+
+
+--
+-- Name: fk_rails_4a82d3ec24; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_activity_actions
+    ADD CONSTRAINT fk_rails_4a82d3ec24 FOREIGN KEY (action_type_id) REFERENCES action_types(id);
+
+
+--
+-- Name: fk_rails_4dd6941588; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_project_actions
+    ADD CONSTRAINT fk_rails_4dd6941588 FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
+-- Name: fk_rails_4e614b6d26; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY volun_trackings
+    ADD CONSTRAINT fk_rails_4e614b6d26 FOREIGN KEY (request_form_id) REFERENCES request_forms(id);
 
 
 --
@@ -5287,14 +5378,6 @@ ALTER TABLE ONLY volun_trackings
 
 
 --
--- Name: fk_rails_55cf1b51e4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_activity_publishings
-    ADD CONSTRAINT fk_rails_55cf1b51e4 FOREIGN KEY (province_id) REFERENCES provinces(id);
-
-
---
 -- Name: fk_rails_55cfc1b0e0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5303,11 +5386,11 @@ ALTER TABLE ONLY documents
 
 
 --
--- Name: fk_rails_57ce8fa08b; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5607227932; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_project_publishings
-    ADD CONSTRAINT fk_rails_57ce8fa08b FOREIGN KEY (district_id) REFERENCES districts(id);
+ALTER TABLE ONLY entities
+    ADD CONSTRAINT fk_rails_5607227932 FOREIGN KEY (req_reason_id) REFERENCES req_reasons(id);
 
 
 --
@@ -5319,11 +5402,11 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_5c67115a6e; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5c72243f21; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_5c67115a6e FOREIGN KEY (academic_level_id) REFERENCES academic_levels(id);
+ALTER TABLE ONLY request_forms
+    ADD CONSTRAINT fk_rails_5c72243f21 FOREIGN KEY (req_reason_id) REFERENCES req_reasons(id);
 
 
 --
@@ -5351,6 +5434,14 @@ ALTER TABLE ONLY rt_volunteer_unsubscribes
 
 
 --
+-- Name: fk_rails_64ff98a69d; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_activity_actions
+    ADD CONSTRAINT fk_rails_64ff98a69d FOREIGN KEY (activity_id) REFERENCES activities(id);
+
+
+--
 -- Name: fk_rails_6835f66031; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5375,11 +5466,11 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_70ffe8fd78; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_6f8dd96490; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_70ffe8fd78 FOREIGN KEY (id_number_type_id) REFERENCES id_number_types(id);
+ALTER TABLE ONLY rt_activity_subscribes
+    ADD CONSTRAINT fk_rails_6f8dd96490 FOREIGN KEY (project_id) REFERENCES projects(id);
 
 
 --
@@ -5407,19 +5498,11 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: fk_rails_8916b62779; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_7c5d7eb5f0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_activity_publishings
-    ADD CONSTRAINT fk_rails_8916b62779 FOREIGN KEY (road_type_id) REFERENCES road_types(id);
-
-
---
--- Name: fk_rails_8fad3bcf60; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY request_forms
-    ADD CONSTRAINT fk_rails_8fad3bcf60 FOREIGN KEY (rejection_type_id) REFERENCES rejection_types(id);
+ALTER TABLE ONLY frontpage_elements
+    ADD CONSTRAINT fk_rails_7c5d7eb5f0 FOREIGN KEY (created_by) REFERENCES users(id);
 
 
 --
@@ -5428,22 +5511,6 @@ ALTER TABLE ONLY request_forms
 
 ALTER TABLE ONLY rt_entity_subscribes
     ADD CONSTRAINT fk_rails_908a35f934 FOREIGN KEY (entity_type_id) REFERENCES entity_types(id);
-
-
---
--- Name: fk_rails_90b919b5dd; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteers_demands
-    ADD CONSTRAINT fk_rails_90b919b5dd FOREIGN KEY (province_id) REFERENCES provinces(id);
-
-
---
--- Name: fk_rails_914a67db4a; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_914a67db4a FOREIGN KEY (province_id) REFERENCES provinces(id);
 
 
 --
@@ -5471,19 +5538,19 @@ ALTER TABLE ONLY volun_known_languages
 
 
 --
--- Name: fk_rails_a44a6d2ea1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a0518bdb63; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY boroughs
-    ADD CONSTRAINT fk_rails_a44a6d2ea1 FOREIGN KEY (district_id) REFERENCES districts(id);
+ALTER TABLE ONLY req_status_traces
+    ADD CONSTRAINT fk_rails_a0518bdb63 FOREIGN KEY (req_status_id) REFERENCES req_statuses(id);
 
 
 --
--- Name: fk_rails_a756e0883f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a6f023dc94; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_a756e0883f FOREIGN KEY (info_source_id) REFERENCES info_sources(id);
+ALTER TABLE ONLY managers
+    ADD CONSTRAINT fk_rails_a6f023dc94 FOREIGN KEY (role_id) REFERENCES roles(id);
 
 
 --
@@ -5495,19 +5562,11 @@ ALTER TABLE ONLY volun_availabilities
 
 
 --
--- Name: fk_rails_abaca6d161; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a835a978d0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_volunteers_demands
-    ADD CONSTRAINT fk_rails_abaca6d161 FOREIGN KEY (district_id) REFERENCES districts(id);
-
-
---
--- Name: fk_rails_af6823b0e6; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_af6823b0e6 FOREIGN KEY (profession_id) REFERENCES professions(id);
+ALTER TABLE ONLY rt_project_actions
+    ADD CONSTRAINT fk_rails_a835a978d0 FOREIGN KEY (action_type_id) REFERENCES action_types(id);
 
 
 --
@@ -5519,11 +5578,11 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: fk_rails_b0d97e7abf; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b590151cfe; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_entity_subscribes
-    ADD CONSTRAINT fk_rails_b0d97e7abf FOREIGN KEY (district_id) REFERENCES districts(id);
+ALTER TABLE ONLY req_status_traces
+    ADD CONSTRAINT fk_rails_b590151cfe FOREIGN KEY (request_form_id) REFERENCES request_forms(id);
 
 
 --
@@ -5535,11 +5594,11 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: fk_rails_b9041ac2cc; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b7b1b87a80; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_volunteers_demands
-    ADD CONSTRAINT fk_rails_b9041ac2cc FOREIGN KEY (road_type_id) REFERENCES road_types(id);
+ALTER TABLE ONLY request_forms
+    ADD CONSTRAINT fk_rails_b7b1b87a80 FOREIGN KEY (manager_id) REFERENCES managers(id);
 
 
 --
@@ -5591,11 +5650,11 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_c92072a9cf; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_cba16eb429; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_activity_publishings
-    ADD CONSTRAINT fk_rails_c92072a9cf FOREIGN KEY (district_id) REFERENCES districts(id);
+ALTER TABLE ONLY pro_trackings
+    ADD CONSTRAINT fk_rails_cba16eb429 FOREIGN KEY (request_form_id) REFERENCES request_forms(id);
 
 
 --
@@ -5623,14 +5682,6 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_d4023380ab; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_project_publishings
-    ADD CONSTRAINT fk_rails_d4023380ab FOREIGN KEY (road_type_id) REFERENCES road_types(id);
-
-
---
 -- Name: fk_rails_d7ca4cafeb; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5647,51 +5698,11 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_db219105a2; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_e988d26401; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY request_forms
-    ADD CONSTRAINT fk_rails_db219105a2 FOREIGN KEY (request_reason_id) REFERENCES request_reasons(id);
-
-
---
--- Name: fk_rails_e4656aa818; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_e4656aa818 FOREIGN KEY (district_id) REFERENCES districts(id);
-
-
---
--- Name: fk_rails_e9ec8bdda4; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY entities
-    ADD CONSTRAINT fk_rails_e9ec8bdda4 FOREIGN KEY (request_reason_id) REFERENCES request_reasons(id);
-
-
---
--- Name: fk_rails_ed2268fc5c; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_entity_subscribes
-    ADD CONSTRAINT fk_rails_ed2268fc5c FOREIGN KEY (province_id) REFERENCES provinces(id);
-
-
---
--- Name: fk_rails_ee71ed6a44; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_ee71ed6a44 FOREIGN KEY (status_id) REFERENCES statuses(id);
-
-
---
--- Name: fk_rails_ef6ed1df81; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_entity_subscribes
-    ADD CONSTRAINT fk_rails_ef6ed1df81 FOREIGN KEY (road_type_id) REFERENCES road_types(id);
+    ADD CONSTRAINT fk_rails_e988d26401 FOREIGN KEY (req_rejection_type_id) REFERENCES req_rejection_types(id);
 
 
 --
@@ -5700,14 +5711,6 @@ ALTER TABLE ONLY rt_entity_subscribes
 
 ALTER TABLE ONLY request_forms
     ADD CONSTRAINT fk_rails_f4b5a45eed FOREIGN KEY (user_id) REFERENCES users(id);
-
-
---
--- Name: fk_rails_f547f2af04; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY rt_project_unsubscribes
-    ADD CONSTRAINT fk_rails_f547f2af04 FOREIGN KEY (project_id) REFERENCES projects(id);
 
 
 --
@@ -5727,19 +5730,11 @@ ALTER TABLE ONLY entities
 
 
 --
--- Name: fk_rails_fd28fedc25; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_f9a88e8ebd; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY rt_volunteer_subscribes
-    ADD CONSTRAINT fk_rails_fd28fedc25 FOREIGN KEY (nationality_id) REFERENCES nationalities(id);
-
-
---
--- Name: fk_rails_fe88fb4ec0; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY addresses
-    ADD CONSTRAINT fk_rails_fe88fb4ec0 FOREIGN KEY (road_type_id) REFERENCES road_types(id);
+ALTER TABLE ONLY request_forms
+    ADD CONSTRAINT fk_rails_f9a88e8ebd FOREIGN KEY (req_status_id) REFERENCES req_statuses(id);
 
 
 --
@@ -5756,191 +5751,197 @@ ALTER TABLE ONLY projects
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162851');
+INSERT INTO schema_migrations (version) VALUES ('20170222093017');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162853');
+INSERT INTO schema_migrations (version) VALUES ('20170222093019');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162854');
+INSERT INTO schema_migrations (version) VALUES ('20170222093020');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162856');
+INSERT INTO schema_migrations (version) VALUES ('20170222093022');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162858');
+INSERT INTO schema_migrations (version) VALUES ('20170222093024');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162859');
+INSERT INTO schema_migrations (version) VALUES ('20170222093025');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162901');
+INSERT INTO schema_migrations (version) VALUES ('20170222093028');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162902');
+INSERT INTO schema_migrations (version) VALUES ('20170222093029');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162904');
+INSERT INTO schema_migrations (version) VALUES ('20170222093031');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162906');
+INSERT INTO schema_migrations (version) VALUES ('20170222093033');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162908');
+INSERT INTO schema_migrations (version) VALUES ('20170222093034');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162909');
+INSERT INTO schema_migrations (version) VALUES ('20170222093036');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162911');
+INSERT INTO schema_migrations (version) VALUES ('20170222093038');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162912');
+INSERT INTO schema_migrations (version) VALUES ('20170222093040');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162914');
+INSERT INTO schema_migrations (version) VALUES ('20170222093041');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162916');
+INSERT INTO schema_migrations (version) VALUES ('20170222093043');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162918');
+INSERT INTO schema_migrations (version) VALUES ('20170222093045');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162919');
+INSERT INTO schema_migrations (version) VALUES ('20170222093046');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162921');
+INSERT INTO schema_migrations (version) VALUES ('20170222093048');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162923');
+INSERT INTO schema_migrations (version) VALUES ('20170222093050');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162924');
+INSERT INTO schema_migrations (version) VALUES ('20170222093051');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162926');
+INSERT INTO schema_migrations (version) VALUES ('20170222093053');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162928');
+INSERT INTO schema_migrations (version) VALUES ('20170222093055');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162929');
+INSERT INTO schema_migrations (version) VALUES ('20170222093057');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162931');
+INSERT INTO schema_migrations (version) VALUES ('20170222093059');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162933');
+INSERT INTO schema_migrations (version) VALUES ('20170222093100');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162935');
+INSERT INTO schema_migrations (version) VALUES ('20170222093102');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162937');
+INSERT INTO schema_migrations (version) VALUES ('20170222093104');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162939');
+INSERT INTO schema_migrations (version) VALUES ('20170222093106');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162941');
+INSERT INTO schema_migrations (version) VALUES ('20170222093107');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162942');
+INSERT INTO schema_migrations (version) VALUES ('20170222093109');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162944');
+INSERT INTO schema_migrations (version) VALUES ('20170222093111');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162946');
+INSERT INTO schema_migrations (version) VALUES ('20170222093113');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162947');
+INSERT INTO schema_migrations (version) VALUES ('20170222093114');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162949');
+INSERT INTO schema_migrations (version) VALUES ('20170222093116');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162951');
+INSERT INTO schema_migrations (version) VALUES ('20170222093118');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162953');
+INSERT INTO schema_migrations (version) VALUES ('20170222093120');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162954');
+INSERT INTO schema_migrations (version) VALUES ('20170222093121');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162956');
+INSERT INTO schema_migrations (version) VALUES ('20170222093123');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130162958');
+INSERT INTO schema_migrations (version) VALUES ('20170222093125');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163000');
+INSERT INTO schema_migrations (version) VALUES ('20170222093127');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163001');
+INSERT INTO schema_migrations (version) VALUES ('20170222093129');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163003');
+INSERT INTO schema_migrations (version) VALUES ('20170222093130');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163005');
+INSERT INTO schema_migrations (version) VALUES ('20170222093132');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163007');
+INSERT INTO schema_migrations (version) VALUES ('20170222093134');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163009');
+INSERT INTO schema_migrations (version) VALUES ('20170222093136');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163011');
+INSERT INTO schema_migrations (version) VALUES ('20170222093138');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163013');
+INSERT INTO schema_migrations (version) VALUES ('20170222093140');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163015');
+INSERT INTO schema_migrations (version) VALUES ('20170222093141');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163017');
+INSERT INTO schema_migrations (version) VALUES ('20170222093143');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163018');
+INSERT INTO schema_migrations (version) VALUES ('20170222093145');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163020');
+INSERT INTO schema_migrations (version) VALUES ('20170222093147');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163022');
+INSERT INTO schema_migrations (version) VALUES ('20170222093149');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163024');
+INSERT INTO schema_migrations (version) VALUES ('20170222093151');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163026');
+INSERT INTO schema_migrations (version) VALUES ('20170222093153');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163027');
+INSERT INTO schema_migrations (version) VALUES ('20170222093155');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163029');
+INSERT INTO schema_migrations (version) VALUES ('20170222093156');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163031');
+INSERT INTO schema_migrations (version) VALUES ('20170222093158');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163033');
+INSERT INTO schema_migrations (version) VALUES ('20170222093200');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163036');
+INSERT INTO schema_migrations (version) VALUES ('20170222093202');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163037');
+INSERT INTO schema_migrations (version) VALUES ('20170222093204');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163039');
+INSERT INTO schema_migrations (version) VALUES ('20170222093206');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163042');
+INSERT INTO schema_migrations (version) VALUES ('20170222093208');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163044');
+INSERT INTO schema_migrations (version) VALUES ('20170222093209');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163046');
+INSERT INTO schema_migrations (version) VALUES ('20170222093211');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163048');
+INSERT INTO schema_migrations (version) VALUES ('20170222093213');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163050');
+INSERT INTO schema_migrations (version) VALUES ('20170222093215');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163051');
+INSERT INTO schema_migrations (version) VALUES ('20170222093217');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163053');
+INSERT INTO schema_migrations (version) VALUES ('20170222093219');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163055');
+INSERT INTO schema_migrations (version) VALUES ('20170222093221');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163057');
+INSERT INTO schema_migrations (version) VALUES ('20170222093223');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163059');
+INSERT INTO schema_migrations (version) VALUES ('20170222093225');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163101');
+INSERT INTO schema_migrations (version) VALUES ('20170222093226');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163102');
+INSERT INTO schema_migrations (version) VALUES ('20170222093228');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163104');
+INSERT INTO schema_migrations (version) VALUES ('20170222093230');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163106');
+INSERT INTO schema_migrations (version) VALUES ('20170222093232');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163108');
+INSERT INTO schema_migrations (version) VALUES ('20170222093234');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163110');
+INSERT INTO schema_migrations (version) VALUES ('20170222093236');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163112');
+INSERT INTO schema_migrations (version) VALUES ('20170222093238');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163113');
+INSERT INTO schema_migrations (version) VALUES ('20170222093240');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163114');
+INSERT INTO schema_migrations (version) VALUES ('20170222093242');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163115');
+INSERT INTO schema_migrations (version) VALUES ('20170222093244');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163117');
+INSERT INTO schema_migrations (version) VALUES ('20170222093245');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163118');
+INSERT INTO schema_migrations (version) VALUES ('20170222093247');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163119');
+INSERT INTO schema_migrations (version) VALUES ('20170222093248');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163121');
+INSERT INTO schema_migrations (version) VALUES ('20170222093250');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163122');
+INSERT INTO schema_migrations (version) VALUES ('20170222093251');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163123');
+INSERT INTO schema_migrations (version) VALUES ('20170222093253');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163124');
+INSERT INTO schema_migrations (version) VALUES ('20170222093254');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163126');
+INSERT INTO schema_migrations (version) VALUES ('20170222093256');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163127');
+INSERT INTO schema_migrations (version) VALUES ('20170222093257');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163128');
+INSERT INTO schema_migrations (version) VALUES ('20170222093259');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163130');
+INSERT INTO schema_migrations (version) VALUES ('20170222093300');
 
-INSERT INTO schema_migrations (version) VALUES ('20170130163131');
+INSERT INTO schema_migrations (version) VALUES ('20170222093302');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222093303');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222093304');
+
+INSERT INTO schema_migrations (version) VALUES ('20170222093306');
 

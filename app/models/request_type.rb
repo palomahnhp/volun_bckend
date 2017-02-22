@@ -14,12 +14,11 @@ class RequestType < ActiveRecord::Base
     rt_entity_subscribe:       5,
     rt_entity_unsubscribe:     6,
     rt_volunteers_demand:      7,
-    rt_project_publishing:     8,
-    rt_project_unpublishing:   9,
-    rt_project_unsubscribe:    10,
-    rt_activity_publishing:    11,
-    rt_activity_unpublishing:  12,
-    rt_other:                  13
+    rt_project_subscribe:      8,
+    rt_project_action:         9,
+    rt_activity_subscribe:    10,
+    rt_activity_action:       11,
+    rt_other:                 12
   }
 
   validates :kind, presence: true

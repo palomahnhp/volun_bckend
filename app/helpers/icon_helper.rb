@@ -5,19 +5,26 @@ module IconHelper
   end
 
   def icon_edit(opts = {})
-    build_icon(:edit, opts.merge(icon_name: 'pencil'))
+    build_icon(:edit, opts.merge(icon_name: 'pencil', title: t('action.edit', model: '')))
   end
 
   def icon_show(opts = {})
-    build_icon(:show, opts.merge(icon_name: 'search'))
+    build_icon(:show, opts.merge(icon_name: 'search', title: t('action.show', model: t('details').downcase)))
   end
 
   def icon_destroy(opts = {})
-    build_icon(:delete, opts.merge(icon_name: 'times', class: 'danger'))
+    if 'recover'.in?(controller.action_methods)
+      action    = :archive
+      icon_name = :archive
+    else
+      action    = :delete
+      icon_name = :times
+    end
+    build_icon(action, opts.merge(icon_name: icon_name, class: action))
   end
 
   def icon_recover(opts = {})
-    build_icon(:bolt, opts.merge(icon_name: 'bolt', class: 'danger'))
+    build_icon(:recover, opts.merge(icon_name: 'bolt', class: :recover))
   end
 
   def icon_search(opts = {})
@@ -25,10 +32,12 @@ module IconHelper
   end
 
   def build_icon(action, opts = {})
-    options        = {}
-    options[:text] = opts.delete(:text)
-    options[:alt]  = opts.delete(:alt) || options[:text] || t("action.#{action}")
-    fa_icon(opts.delete(:icon_name) || action, options.merge(opts))
+    icon_name       = opts.delete(:icon_name) || action
+    options         = {}
+    options[:text]  = opts.delete(:text)
+    options[:title] = opts.delete(:title) || t("action.#{action}", default: options[:text] || icon_name)
+    options[:alt]   = opts.delete(:alt) || options[:title]
+    fa_icon(icon_name, options.merge(opts))
   end
 
 end
