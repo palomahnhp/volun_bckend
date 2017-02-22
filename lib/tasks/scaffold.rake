@@ -144,7 +144,6 @@ MODELS_AND_ATTRS = {
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
-  'ActionType'                => 'kind:integer:uniq description:text', # Publishing, Unpublishing, Unsubscribe
   'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
   'Req::RejectionType'        => 'name:string:uniq description:text active:boolean',
   'RequestType'               => 'kind:integer:uniq description:text',
@@ -172,13 +171,13 @@ MODELS_AND_ATTRS = {
                                  'district town province requested_volunteers_num ' \
                                  'volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text ' \
                                  'volunteer_functions_3:text notes:text',
-  'Rt::ProjectSubscribe'      => 'description:text road_type road_name number_type road_number postal_code ' \
+  'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code ' \
                                  'borough district town province notes:text',
-  'Rt::ProjectAction'         => 'project:references action_type:references notes:text',
-  'Rt::ActivitySubscribe'     => 'name organizer description:text execution_date:date execution_hour ' \
+  'Rt::ProjectUnpublishing'   => 'project:references action_type:references notes:text',
+  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour ' \
                                  'road_type road_name number_type road_number postal_code ' \
                                  'borough district town province project:references notes:text',
-  'Rt::ActivityAction'        => 'activity:references action_type:references notes:text',
+  'Rt::ActivityUnpublishing'  => 'activity:references action_type:references notes:text',
   'Rt::Other'                 => 'description:text notes:text',
 
   # -------------------------------------------------
