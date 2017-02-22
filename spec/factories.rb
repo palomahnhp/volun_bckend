@@ -28,7 +28,6 @@ FactoryGirl.define do
     password_confirmation 'Wordpass1'
     association :notice_type
     # TODO check if there is a way to use loggable
-    loggable Manager.create!(name: 'manager')
     loggable_id 1
     loggable_type 'Manager'
   end
