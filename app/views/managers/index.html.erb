@@ -20,6 +20,9 @@
     <% model_class.main_columns.each do |column| -%>
       <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
     <% end -%>
+    
+    <th><%= Profile.model_name.human(count: 2) %></th>
+    <th><%= Role.model_name.human(count: 2) %></th>
 
       <th class="actions index_table-actions">
         <%= t('actions') %>

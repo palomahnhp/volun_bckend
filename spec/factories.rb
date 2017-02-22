@@ -11,6 +11,15 @@ FactoryGirl.define do
     description "MyText"
     active true
   end
+  factory :manager do
+    name "MyString"
+    phone_number "MyString"
+    active true
+
+    trait :invalid do
+      name nil
+    end
+  end
   factory :user do
     login  'My login'
     locale 'en'
@@ -18,9 +27,9 @@ FactoryGirl.define do
     password 'Wordpass1'
     password_confirmation 'Wordpass1'
     association :notice_type
-    loggable Manager.create(name: 'manager1')
-    #loggable_id nil
-    #loggable_type nil
+    # TODO check if there is a way to use loggable
+    loggable_id 1
+    loggable_type 'Manager'
   end
   factory :known_language, class: 'Volun::KnownLanguage' do
     association :volunteer
@@ -736,16 +745,6 @@ FactoryGirl.define do
   end
   factory :tracking_type do
     name "MyString"
-    active true
-
-    trait :invalid do
-      name nil
-    end
-  end
-  factory :manager do
-    name "MyString"
-    profile_id 1
-    phone_number "MyString"
     active true
 
     trait :invalid do

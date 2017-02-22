@@ -3,7 +3,11 @@
 
   <div class="form-inputs">
           <%= f.input :name %>
-          <%= f.input :profile_id %>
+          <%= f.input :last_name %>
+          <%= f.input :last_name_alt %>
+          <%= f.input :alias_name %>
+          <%= f.association  :profile %>
+          <%= f.association  :role %>
           <%= f.input :phone_number %>
           <%= f.input :active %>
   </div>
