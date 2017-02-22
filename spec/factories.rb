@@ -1,4 +1,11 @@
 FactoryGirl.define do
+  factory :setting do
+    key "MyString"
+    value "MyString"
+
+    trait :invalid do
+    end
+  end
   factory :notice_type do
     kind 1
     description "MyText"

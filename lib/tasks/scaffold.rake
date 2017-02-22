@@ -4,7 +4,7 @@ MODELS_AND_ATTRS = {
   # Tables
   # --------------------------------------------------------------------------------------------------
 
-
+  'Setting' => 'key value',
   'FrontpagePosition' => 'position:integer:uniq description:text active:boolean',
   'FrontpageElement'  => 'frontpage_position:references text_panel:text text_button:text image_url:text ' \
                          'link_url:text logo_url:text active:boolean',
