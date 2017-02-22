@@ -78,40 +78,40 @@
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::ProjectSubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_subscribes_url %>';">
+        <div class="panel panel-<%= Rt::ProjectPublishing.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_publishings_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= Rt::ProjectSubscribe.model_name.human %>
+              <%= Rt::ProjectPublishing.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::ProjectAction.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_actions_url %>';">
+        <div class="panel panel-<%= Rt::ProjectUnpublishing.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_unpublishings_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= Rt::ProjectAction.model_name.human %>
+              <%= Rt::ProjectUnpublishing.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::ActivitySubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_subscribes_url %>';">
+        <div class="panel panel-<%= Rt::ActivityPublishing.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_publishings_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= Rt::ActivitySubscribe.model_name.human %>
+              <%= Rt::ActivityPublishing.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">
             Asociados a una subvención
           </div>
         </div>
-        <div class="panel panel-<%= Rt::ActivityAction.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_actions_url %>';">
+        <div class="panel panel-<%= Rt::ActivityUnpublishing.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_unpublishings_url %>';">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= Rt::ActivityAction.model_name.human %>
+              <%= Rt::ActivityUnpublishing.model_name.human %>
             </h3>
           </div>
           <div class="panel-body">

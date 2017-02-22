@@ -88,10 +88,10 @@ Rails.application.routes.draw do
     resources :entity_subscribes
     resources :entity_unsubscribes
     resources :volunteers_demands
-    resources :activity_actions
-    resources :activity_subscribes
-    resources :project_actions
-    resources :project_subscribes
+    resources :activity_unpublishings
+    resources :activity_publishings
+    resources :project_unpublishings
+    resources :project_publishings
     resources :others
   end
 
