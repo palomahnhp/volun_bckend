@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   resources :language_levels
   resources :languages, concerns: :recoverable
   resources :links
-  resources :managers
+  resources :managers, concerns: :recoverable
   resources :nationalities, concerns: :recoverable
   resources :notice_types
   resources :professions

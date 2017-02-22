@@ -40,6 +40,11 @@ class ManagersController < ApplicationController
     @manager.destroy
     respond_with(@manager)
   end
+  
+  def recover
+    @manager.recover
+    respond_with(@manager)
+  end
 
   protected
 
