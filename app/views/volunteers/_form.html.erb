@@ -107,7 +107,7 @@
           <div class='row'>
             <%= f.input :error_address, wrapper_html: { class: 'col-md-6' } %>
             <div class='col-md-6'>
-              <%= check_box_tag('rev_add', t('revised'), checked: false) %>
+              <%= check_box_tag('rev_add', t('revised'), false) %>
               <label style='font-weight: normal;'>
                 <%= t('revised') %>
               </label>
@@ -118,7 +118,7 @@
           <div class='row'>
           <%= f.input :error_other, wrapper_html: { class: 'col-md-6' } %>
             <div class='col-md-6'>
-              <%= check_box_tag('rev_oth', t('revised'), checked: false) %>
+              <%= check_box_tag('rev_oth', t('revised'), false) %>
               <label style='font-weight: normal;'>
                 <%= t('revised') %>
               </label>
