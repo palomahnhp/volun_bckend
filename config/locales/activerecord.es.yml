@@ -18,10 +18,10 @@ es:
         rt_entity_subscribe:      &rt_entity_subscribe      Alta de entidad
         rt_entity_unsubscribe:    &rt_entity_unsubscribe    Baja de entidad
         rt_volunteers_demand:     &rt_volunteers_demand     Demanda de voluntarios
-        rt_project_subscribe:     &rt_project_subscribe     Publicación de projecto
-        rt_project_action:        &rt_project_action        Acción sobre proyecto
-        rt_activity_subscribe:    &rt_activity_subscribe    Publicación de actividad
-        rt_activity_action:       &rt_activity_action       Acción sobre actividad
+        rt_project_publishing:    &rt_project_publishing    Publicación de projecto
+        rt_project_unpublishing:  &rt_project_unpublishing  Despublicación de proyecto
+        rt_activity_publishing:   &rt_activity_publishing   Publicación de actividad
+        rt_activity_unpublishing: &rt_activity_unpublishing Despublicación de actividad
         rt_other:                 &rt_other                 '"Otros"'
     req:
       status:
@@ -183,16 +183,16 @@ es:
       rt/volunteers_demand:
         one:    Solicitud de Demanda de Voluntario
         other:  Solicitudes de Demanda de Voluntario
-      rt/project_subscribe:
+      rt/project_publishing:
         one:    Solicitud de Publicacion de Proyecto
         other:  Solicitudes de Publicacion de Proyecto
-      rt/project_action:
+      rt/project_unpublishing:
         one:    Solicitud de Accion sobre Proyecto
         other:  Solicitudes de Accion sobre Proyecto
-      rt/activity_subscribe:
+      rt/activity_publishing:
         one:    Solicitud de Publicacion de Actividad
         other:  Solicitudes de Publicacion de Actividad
-      rt/activity_action:
+      rt/activity_unpublishing:
         one:    Solicitud de Accion sobre Actividad
         other:  Solicitudes de Accion sobre Actividad
       rt/other:

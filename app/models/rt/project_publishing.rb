@@ -1,6 +1,6 @@
 class Rt::ProjectPublishing < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
 
 

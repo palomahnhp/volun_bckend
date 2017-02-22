@@ -9,10 +9,10 @@ class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
     Rt::EntitySubscribe,
     Rt::EntityUnsubscribe,
     Rt::VolunteersDemand,
-    Rt::ProjectSubscribe,
-    Rt::ProjectAction,
-    Rt::ActivitySubscribe,
-    Rt::ActivityAction,
+    Rt::ProjectPublishing,
+    Rt::ProjectUnpublishing,
+    Rt::ActivityPublishing,
+    Rt::ActivityUnpublishing,
     Rt::Other
   ]
 

@@ -20,8 +20,8 @@ class CreateProjects < ActiveRecord::Migration
       t.boolean :publish, default: true
       t.boolean :outstanding, default: false
       t.date :insurance_date
-      t.boolean :insured, default: false
       t.text :comments
+      t.boolean :insured, default: false
       t.references :project_type, index: true, foreign_key: true
       t.references :pt_extendable, polymorphic: true, index: true
       t.references :entity, index: true, foreign_key: true

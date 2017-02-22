@@ -1,6 +1,6 @@
 class Rt::ProjectUnpublishing < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
 
 
