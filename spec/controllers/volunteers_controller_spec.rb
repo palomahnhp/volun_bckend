@@ -79,6 +79,7 @@ RSpec.describe VolunteersController, type: :controller do
       end
 
       it 'redirects to the created volunteer' do
+        @manager = FactoryGirl.create(:manager)
         @trackingType = FactoryGirl.create(:tracking_type)
         @address = FactoryGirl.create(:address)
         @idNumerType = FactoryGirl.create(:id_number_type)
