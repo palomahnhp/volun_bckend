@@ -144,6 +144,9 @@ es:
       manager:
         one:   Gestor
         other: Gestores
+      setting:
+        one:   Configuración
+        other: Configuraciones
       request_form:
         one:   Solicitud
         other: Solicitudes
@@ -528,6 +531,11 @@ es:
         profile:              Perfil
         phone_number:         Teléfono móvil
         active:               Activo
+        created_at:           *created_at
+      setting:
+        id:                   ID
+        key:                  Clave
+        value:                Valor
         created_at:           *created_at
       skill:
         name: Nombre
