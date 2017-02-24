@@ -72,10 +72,9 @@
               <%= show_simple_base_errors(f_address) %>
               <div class="address-fields col-md-12">
                 <div class="row row-4-1">
-                  <% hide_no_bdc_check = /\APt::*/ === controller.class.name %>
                   <% no_bdc_check      = cast_as_boolean(f_address.object.no_bdc_check) %>
                   <% readonly          = !no_bdc_check%>
-                  <% unless hide_no_bdc_check %>
+                  <% unless hide_no_bdc_check_field %>
                       <%= f_address.input :no_bdc_check, as: :boolean, input_html: { class: 'js-no_bdc_check', value: no_bdc_check }, wrapper_html: { class: 'pull-right col-md-3' } %>
                   <% end %>
                 </div>
@@ -204,6 +203,13 @@
 
 // Toggle "readonly" prop for blocked address fields
     $(document).on('ready', function() {
+        // Prevent road type select from opening
+        $('.js-road_type select').on('mousedown', function(e) {
+            e.preventDefault();
+            this.blur();
+            window.focus();
+        });
+
         var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-grader', '.js-postal_code'];
         $(document).on('change', '.js-no_bdc_check', function () {
             var $address = $(this).closest('.address-block');
