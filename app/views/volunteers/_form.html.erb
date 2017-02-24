@@ -198,6 +198,13 @@
     }
     // Toggle "readonly" prop for blocked address fields
     $(document).on('ready', function() {
+        // Prevent road type select from opening
+        $('.js-road_type select').on('mousedown', function(e) {
+            e.preventDefault();
+            this.blur();
+            window.focus();
+        });
+
         var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-grader', '.js-postal_code'];
         $(document).on('change', '.js-no_bdc_check', function () {
             var $address = $(this).closest('.address-block');
