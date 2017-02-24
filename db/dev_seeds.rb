@@ -296,6 +296,8 @@ end
 
 puts "Creando Entidades"
 (1..ENTITIES_NUM).each do |n|
+  address = Address.all.sample
+  address.no_bdc_check = true
   Entity.create!(
     name:                     "#{Entity.model_name.human} #{n}",
     email:                    Faker::Internet.email,
@@ -304,7 +306,7 @@ puts "Creando Entidades"
     contact_name:             Faker::Name.name,
     contact_last_name:        Faker::Name.last_name,
     entity_type:              EntityType.all.sample,
-    address:                  Address.all.sample
+    address:                  address
   )
 end
 
@@ -429,8 +431,10 @@ puts "Creando Actividades"
 
   puts "Creando eventos de actividad #{activity.id}"
   EVENTS_NUM.times do
+    address = Address.all.sample
+    address.no_bdc_check = true
     event = Event.create!(
-      address:    Address.all.sample,
+      address:    address,
       eventable:  activity,
       timetables_attributes: [{
         execution_date:  rand(100).days.since.to_date,
@@ -578,10 +582,12 @@ end
 
 puts "Creando Voluntarios"
 (1..VOLUNTEERS).each do |n|
+  address = Address.all.sample
+  address.no_bdc_check = true
   Volunteer.create!(name: Faker::Name.first_name,
                     last_name: Faker::Name.last_name,
                     id_number_type_id: IdNumberType.last.id,
                     id_number: "%09d" % n,
                     email: Faker::Internet.email,
-                    address_id: Address.last.id)
+                    address: address)
 end
