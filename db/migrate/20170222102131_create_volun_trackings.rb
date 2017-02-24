@@ -7,6 +7,7 @@ class CreateVolunTrackings < ActiveRecord::Migration
       t.references :manager, index: true, foreign_key: true
       t.references :request_form, index: true, foreign_key: true
       t.datetime :tracked_at
+      t.boolean :automatic, default: false
       t.text :comments
 
       t.timestamps null: false

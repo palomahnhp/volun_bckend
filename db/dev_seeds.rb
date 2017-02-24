@@ -175,38 +175,6 @@ PROVINCES = [
   'MELILLA'
 ]
 
-ROAD_TYPES = [
-  'ACCESO',
-  'ARROYO',
-  'AUTOPISTA',
-  'AUTOVIA',
-  'AVENIDA',
-  'BULEVAR',
-  'CALLE',
-  'CALLEJON',
-  'CAMINO',
-  'CAMINOALTO',
-  'CARRERA',
-  'CARRETERA',
-  'CAÑADA',
-  'COLONIA',
-  'COSTANILLA',
-  'CUESTA',
-  'GALERIA',
-  'GLORIETA',
-  'PARQUE',
-  'PARTICULAR',
-  'PASADIZO',
-  'PASAJE',
-  'PASEO',
-  'PISTA',
-  'PLAZA',
-  'PLAZUELA',
-  'PUENTE',
-  'RONDA',
-  'TRAVESIA',
-]
-
 PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
 ENTITY_TYPES = {
@@ -306,22 +274,24 @@ end
 
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
-  Address.create!(
-    postal_code:           Faker::Address.postcode,
-    road_type:             ROAD_TYPES.sample,
-    road_name:             Faker::Address.street_name,
-    road_number_type:      Address::ROAD_NUMBER_TYPES.sample,
-    road_number:           rand(100).to_s,
-    grader:                Address::GRADERS.sample,
-    stairs:                rand(300).to_s,
-    floor:                 rand(9).to_s,
-    door:                  rand(10).to_s,
-    borough:               nil,
-    province:              PROVINCES.sample,
-    country:               "España",
-    town:                  "Madrid",
-    district:              DISTRICTS.sample
-  )
+  address = Address.new(
+              postal_code:           Faker::Address.postcode,
+              road_type:             ROAD_TYPES.sample,
+              road_name:             Faker::Address.street_name,
+              road_number_type:      ['num', 'km'].sample,
+              road_number:           rand(100).to_s,
+              grader:                [*'A'..'Z'].sample,
+              stairs:                rand(300).to_s,
+              floor:                 rand(9).to_s,
+              door:                  rand(10).to_s,
+              borough:               nil,
+              province:              PROVINCES.sample,
+              country:               "España",
+              town:                  "Madrid",
+              district:              DISTRICTS.sample
+            )
+  address.no_bdc_check = true
+  address.save!
 end
 
 puts "Creando Entidades"
@@ -417,8 +387,10 @@ ProjectType.all.each do |project_type|
 
     puts "Creando Eventos"
     EVENTS_NUM.times do
+      address = Address.all.sample
+      address.no_bdc_check = true
       event = Event.create!(
-        address:    Address.all.sample,
+        address:    address,
         eventable:  project,
         timetables_attributes: [{
           execution_date:  rand(100).days.since.to_date,
