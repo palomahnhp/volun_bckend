@@ -74,6 +74,10 @@ class BdcValidator
     road_block[:nomclase]
   end
 
+  def ndp_code
+    number_block[:coddireccion]
+  end
+
   def province_code
     province_block[:codprovincia]
   end
@@ -86,8 +90,8 @@ class BdcValidator
     number_block[:coddistrito]
   end
 
-  def ndp_code
-    number_block[:coddireccion]
+  def local_code
+    local_block[:codlocal]
   end
 
   def latitude
@@ -98,8 +102,8 @@ class BdcValidator
     number_block[:coordy]
   end
 
-  def local_code
-    local_block[:codlocal]
+  def postal_code
+    number_block[:codpostal]
   end
 
   alias_method :road_number  , :number_block
@@ -107,6 +111,10 @@ class BdcValidator
   alias_method :road_town    , :town_block
   alias_method :road_province, :province_block
   alias_method :road_country , :country_block
+
+  def road_types
+    road_block.dig(:numeros, :numero) || [road_type].compact
+  end
 
   def road_numbers
     road_block.dig(:numeros, :numero) || [road_number].compact
@@ -132,14 +140,18 @@ class BdcValidator
     number_block.present?
   end
 
+  def valid_bdc_fields?
+    bdc_fields[:country].present? && bdc_fields[:province].present?
+  end
+
   def search_towns
-    return [] if bdc_fields[:country].blank? && bdc_fields[:province].blank? && bdc_fields[:town].blank?
+    return [] unless valid_bdc_fields? && bdc_fields[:town].present?
     validate_address(bdc_fields_msg)
     road_towns.map { |town| town[:nompoblacion] }
   end
 
   def search_roads
-    return if bdc_fields[:country].blank? && bdc_fields[:province].blank?
+    return unless valid_bdc_fields?
     validate_address(bdc_fields_msg)
     _road_names = [road_names].flatten
     _road_names.select! { |road| road[:nomclase] == bdc_fields[:road_type] } if bdc_fields[:road_type].present?
@@ -147,7 +159,13 @@ class BdcValidator
   end
 
   def search_road_numbers
-    return if bdc_fields[:country].blank? && bdc_fields[:province].blank?
+    return unless valid_bdc_fields?
+    validate_address(bdc_fields_msg.merge(nom_clase: bdc_fields[:road_type] || ''))
+    road_numbers
+  end
+
+  def search_road_types
+    return unless valid_bdc_fields?
     validate_address(bdc_fields_msg.merge(nom_clase: bdc_fields[:road_type] || ''))
     road_numbers
   end

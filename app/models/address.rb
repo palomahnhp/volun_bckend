@@ -2,9 +2,6 @@ class Address < ActiveRecord::Base
 
   include BdcCompatible
 
-  ROAD_NUMBER_TYPES = %w(num km.)
-  GRADERS = [*'A'..'Z']
-
   has_many :entities
   has_many :volunteers
 

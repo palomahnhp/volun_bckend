@@ -218,6 +218,7 @@ es:
         latitude:         Latitud
         longitude:        Longitud
         district:         Distrito
+        no_bdc_check:     No normalizada
       district:
         code:        Código
         name:        Nombre
@@ -543,6 +544,10 @@ es:
         name: Nombre
     errors:
       models:
+        address:
+          attributes:
+            base:
+              address_is_not_normalized: "La dirección no está normalizada."
         pt/entity:
           attributes:
             base:

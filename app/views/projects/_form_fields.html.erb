@@ -2,6 +2,7 @@
   <div class="row well">
     <div class="col-md-12">
       <%= content_tag :h1, Project.model_name.human, class: 'form-subtitle' %>
+      <%= show_simple_base_errors(f) %>
       <div class="row">
         <%= f.input :project_type_id, as: :hidden %>
         <div class="col-md-6">
@@ -68,23 +69,32 @@
           <div class="address-block row well">
             <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
             <%= f_event.simple_fields_for :address, (f_event.object.build_address if f_event.object.address.blank?) do |f_address|  %>
+              <%= show_simple_base_errors(f_address) %>
               <div class="address-fields col-md-12">
                 <div class="row row-4-1">
-                    <%#= TODO replace "España" with Setting.default_country %>
-                    <%= f_address.input :country, selected: 1, collection: ["España"], input_html: { class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%#= TODO replace "Madrid" with Setting.default_province %>
-                    <%= f_address.input :province, selected: 28, input_html: { value: f_address.object.province || 'Madrid', class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
+                  <% hide_no_bdc_check = /\APt::*/ === controller.class.name %>
+                  <% no_bdc_check      = cast_as_boolean(f_address.object.no_bdc_check) %>
+                  <% readonly          = !no_bdc_check%>
+                  <% unless hide_no_bdc_check %>
+                      <%= f_address.input :no_bdc_check, as: :boolean, input_html: { class: 'js-no_bdc_check', value: no_bdc_check }, wrapper_html: { class: 'pull-right col-md-3' } %>
+                  <% end %>
+                </div>
+              </div>
+              <div class="address-fields col-md-12">
+                <div class="row row-4-1">
+                    <%= f_address.input :country, as: :string,  input_html: { value: (f_address.object.country || Setting['default_country']), readonly: true, class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :province, input_html: { value: (f_address.object.province || Setting['default_province']), readonly: true, class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
                     <%= f_address.input :town, input_html: { class: 'js-town' }, wrapper_html: { class: 'col-md-5' } %>
                 </div>
                 <div class="row row-4-1">
-                    <%= f_address.input :road_type, input_html: { class: 'js-road_type' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :road_type, collection: Setting.road_types, input_html: { readonly: true }, wrapper_html: { class: 'col-md-3 js-road_type' } %>
                     <%= f_address.input :road_name, input_html: { class: 'js-road_name' }, wrapper_html: { class: 'road_name col-md-9' } %>
                 </div>
                 <div class="row row-4-2">
-                    <%= f_address.input :road_number_type, collection:  Address::ROAD_NUMBER_TYPES, input_html: { class: 'm-width250 js-road_number_type' }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :road_number_type, input_html: { class: 'm-width250 js-road_number_type', readonly: readonly }, wrapper_html: { class: 'col-md-3' } %>
                     <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :grader, collection: Address::GRADERS, input_html: { class: 'm-width80 js-grader' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :postal_code, input_html: { class: 'js-postal_code', data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
+                    <%= f_address.input :grader, input_html: { class: 'm-width80 js-grader', readonly: readonly }, wrapper_html: { class: 'col-md-3' } %>
+                    <%= f_address.input :postal_code, input_html: { class: 'js-postal_code', readonly: readonly, data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
                 </div>
                 <div class="row row-4-3">
                     <%= f_address.input :stairs, input_html: { class: 'm-width250 js-stairs' }, wrapper_html: { class: 'col-md-3' } %>
@@ -192,6 +202,23 @@
       }
     }
 
+// Toggle "readonly" prop for blocked address fields
+    $(document).on('ready', function() {
+        var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-grader', '.js-postal_code'];
+        $(document).on('change', '.js-no_bdc_check', function () {
+            var $address = $(this).closest('.address-block');
+            if ($(this).is(':checked')){
+                blocked_fields.forEach(function (field_selector, index) {
+                    $address.find(field_selector).removeAttr('readonly');
+                });
+            }else{
+                blocked_fields.forEach(function (field_selector, index) {
+                    $address.find(field_selector).attr('readonly', 'readonly');
+                });
+            }
+        });
+    });
+
 // AUTOCOMPLETE TOWN
     $(function() {
         function log1($townInput, message) {
@@ -211,17 +238,17 @@
                             dataType: "json",
                             data: {
                                 address: {
-                                    country:          $address.find(".js-country").val(),
-                                    province:         $address.find(".js-province").val(),
-                                    town:             $address.find(".js-town").val(),
-                                    road_type:        $address.find(".js-road_type").val(),
-                                    road_name:        $address.find(".js-road_name").val(),
+                                    country: $address.find(".js-country").val(),
+                                    province: $address.find(".js-province").val(),
+                                    town: $address.find(".js-town").val(),
+                                    road_type: $address.find(".js-road_type option:selected").val(),
+                                    road_name: $address.find(".js-road_name").val(),
                                     road_number_type: $address.find(".js-road_number_type").val(),
-                                    road_number:      $address.find(".js-road_number").val(),
-                                    grader:           $address.find(".js-grader").val(),
-                                    stairs:           $address.find(".js-stairs").val(),
-                                    floor:            $address.find(".js-floor").val(),
-                                    door:             $address.find(".js-door").val()
+                                    road_number: $address.find(".js-road_number").val(),
+                                    grader: $address.find(".js-grader").val(),
+                                    stairs: $address.find(".js-stairs").val(),
+                                    floor: $address.find(".js-floor").val(),
+                                    door: $address.find(".js-door").val()
                                 },
                             },
                             success: function(data) {
@@ -239,10 +266,10 @@
                 close: function() {
                     $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
                     $address = $(this).closest(".address-block");
-                    $address.find(".js-road_type").val('');
+                    $address.find(".js-road_type option:selected").val('');
                     $address.find(".js-road_name").val('');
-                    $address.find(".js-road_number_type").prop('selectedIndex',0);
-                    $address.find(".js-grader").prop('selectedIndex',0);
+                    $address.find(".js-road_number_type").val('');
+                    $address.find(".js-grader").val('');
                     $address.find(".js-postal_code").val('');
                     $address.find(".js-road_number").val('');
                 }
@@ -255,13 +282,17 @@
         var roads;
         function log2($roadNameInput, message) {
             $roadNameInput.scrollTop(0);
-            var $roadTypeNameInput = $roadNameInput.closest(".address-block").find(".js-road_type");
             var roadName = message.split(" (")[0];
             var roadTypeName = message.split(" (")[1].replace(/\)/, "");
             var selectedRoad = roads.filter(function(road) {
                 return ( road.nomvial == roadName && road.nomclase == roadTypeName );
             })[0];
-            $roadTypeNameInput.val(selectedRoad.nomclase);
+
+            if (typeof selectedRoad !== 'undefined') {
+                $roadNameInput.closest(".address-block").find(".js-road_type option").filter(function() {
+                    return $(this).text().toLowerCase() == selectedRoad.nomclase.toLowerCase();
+                }).prop('selected', true);
+            }
         }
 
         $.each($(".address-block"), function(i, address){
@@ -278,7 +309,7 @@
                                     country: $address.find(".js-country").val(),
                                     province: $address.find(".js-province").val(),
                                     town: $address.find(".js-town").val(),
-                                    road_type: $address.find(".js-road_type").val(),
+                                    road_type: $address.find(".js-road_type option:selected").val(),
                                     road_name: $address.find(".js-road_name").val(),
                                     road_number_type: $address.find(".js-road_number_type").val(),
                                     road_number: $address.find(".js-road_number").val(),
@@ -299,8 +330,8 @@
 
                                 }else{
                                     _$address3 = $address
-                                    $address.find(".js-road_number_type").prop('selectedIndex',0);
-                                    $address.find(".js-grader").prop('selectedIndex',0);
+                                    $address.find(".js-road_number_type").val('');
+                                    $address.find(".js-grader").val('');
                                     $address.find(".js-postal_code").val('');
                                     $address.find(".js-road_number").val('');
                                     response({})
@@ -314,7 +345,6 @@
                 },
                 minLength: 3,
                 select: function(event, ui) {
-
                     log2($(this), ui.item ? ui.item.label : "Nothing selected, input was " + this.value);
                 },
                 open: function() {
@@ -325,8 +355,8 @@
                     value = $input.val();
                     $input.val(value.replace(/\s*\(\w*\)/, ""));
                     $address = $input.closest(".address-block");
-                    $address.find(".js-road_number_type").prop('selectedIndex',0);
-                    $address.find(".js-grader").prop('selectedIndex',0);
+                    $address.find(".js-road_number_type").val('');
+                    $address.find(".js-grader").val('');
                     $address.find(".js-postal_code").val('');
                     $address.find(".js-road_number").val('');
 
@@ -360,18 +390,9 @@
                 })[0];
             }
 
-            $numbersNameInput.closest(".address-block").find(".js-road_number_type option").filter(function() {
-                return ( $(this).text().toLowerCase() == selectedNumber.nomapp.toLowerCase() );
-            }).prop('selected', true);
-
-            if (selectedNumber.calapp != null) {
-                $numbersNameInput.closest(".address-block").find(".js-grader option").filter(function () {
-                    return $(this).text().toLowerCase() == selectedNumber.calapp.toLowerCase();
-                }).prop('selected', true);
-            }else{;
-                $numbersNameInput.closest(".address-block").find(".js-grader").prop('selectedIndex',0);
-            }
-
+            $numbersNameInput.closest(".address-block").find(".js-road_number_type").val(selectedNumber.nomapp);
+            var grader_value = (selectedNumber.calapp != null) ? selectedNumber.calapp : '  ';
+            $numbersNameInput.closest(".address-block").find(".js-grader").val(grader_value);
             $numbersNameInput.closest(".address-block").find('.js-postal_code').val(selectedNumber.codpostal)
           }
 
@@ -390,7 +411,7 @@
                                     country: $address.find(".js-country").val(),
                                     province: $address.find(".js-province").val(),
                                     town: $address.find(".js-town").val(),
-                                    road_type: $address.find(".js-road_type").val(),
+                                    road_type: $address.find(".js-road_type option:selected").val(),
                                     road_name: $address.find(".js-road_name").val(),
                                     road_number_type: $address.find(".js-road_number_type").val(),
                                     road_number: $address.find(".js-road_number").val(),
@@ -460,7 +481,7 @@
                                         country:             $address.find(".js-country").val(),
                                         province:            $address.find(".js-province").val(),
                                         town:                $address.find(".js-town").val(),
-                                        road_type:           $address.find(".js-road_type").val(),
+                                        road_type:           $address.find(".js-road_type option:selected").val(),
                                         road_name:           $address.find(".js-road_name").val(),
                                         road_number_type:    $address.find(".js-road_number_type").val(),
                                         road_number:         $address.find(".js-road_number").val(),
@@ -484,10 +505,10 @@
                     },
                     close: function() {
                         $address = $(this).closest(".address-block");
-                        $address.find(".js-road_type").val('');
+                        $address.find(".js-road_type option:selected").val('');
                         $address.find(".js-road_name").val('');
-                        $address.find(".js-road_number_type").prop('selectedIndex',0);
-                        $address.find(".js-grader").prop('selectedIndex',0);
+                        $address.find(".js-road_number_type").val('');
+                        $address.find(".js-grader").val('');
                         $address.find(".js-postal_code").val('');
                         $address.find(".js-road_number").val('');
                     }
@@ -500,13 +521,17 @@
             var roads;
             function log2($roadNameInput, message) {
                 $roadNameInput.scrollTop(0);
-                var $roadTypeNameInput = $roadNameInput.closest(".address-block").find(".js-road_type");
                 var roadName = message.split(" (")[0];
                 var roadTypeName = message.split(" (")[1].replace(/\)/, "");
                 var selectedRoad = roads.filter(function(road) {
                     return ( road.nomvial == roadName && road.nomclase == roadTypeName );
                 })[0];
-                $roadTypeNameInput.val(selectedRoad.nomclase);
+
+                if (typeof selectedRoad !== 'undefined') {
+                    $roadNameInput.closest(".address-block").find(".js-road_type option").filter(function() {
+                        return $(this).text().toLowerCase() == selectedRoad.nomclase.toLowerCase();
+                    }).prop('selected', true);
+                }
             }
 
             $.each($(".address-block"), function(i, address){
@@ -523,7 +548,7 @@
                                         country: $address.find(".js-country").val(),
                                         province: $address.find(".js-province").val(),
                                         town: $address.find(".js-town").val(),
-                                        road_type: $address.find(".js-road_type").val(),
+                                        road_type: $address.find(".js-road_type option:selected").val(),
                                         road_name: $address.find(".js-road_name").val(),
                                         road_number_type: $address.find(".js-road_number_type").val(),
                                         road_number: $address.find(".js-road_number").val(),
@@ -544,8 +569,8 @@
 
                                     }else{
                                         _$address3 = $address
-                                        $address.find(".js-road_number_type").prop('selectedIndex',0);
-                                        $address.find(".js-grader").prop('selectedIndex',0);
+                                        $address.find(".js-road_number_type").val('');
+                                        $address.find(".js-grader").val('');
                                         $address.find(".js-postal_code").val('');
                                         $address.find(".js-road_number").val('');
                                         response({})
@@ -569,8 +594,8 @@
                         value = $input.val();
                         $input.val(value.replace(/\s*\(\w*\)/, ""));
                         $address = $input.closest(".address-block");
-                        $address.find(".js-road_number_type").prop('selectedIndex',0);
-                        $address.find(".js-grader").prop('selectedIndex',0);
+                        $address.find(".js-road_number_type").val('');
+                        $address.find(".js-grader").val('');
                         $address.find(".js-postal_code").val('');
                         $address.find(".js-road_number").val('');
 
@@ -604,18 +629,9 @@
                     })[0];
                 }
 
-                $numbersNameInput.closest(".address-block").find(".js-road_number_type option").filter(function() {
-                    return ( $(this).text().toLowerCase() == selectedNumber.nomapp.toLowerCase() );
-                }).prop('selected', true);
-
-                if (selectedNumber.calapp != null) {
-                    $numbersNameInput.closest(".address-block").find(".js-grader option").filter(function () {
-                        return $(this).text().toLowerCase() == selectedNumber.calapp.toLowerCase();
-                    }).prop('selected', true);
-                }else{;
-                    $numbersNameInput.closest(".address-block").find(".js-grader").prop('selectedIndex',0);
-                }
-
+                $numbersNameInput.closest(".address-block").find(".js-road_number_type").val(selectedNumber.nomapp);
+                var grader_value = (selectedNumber.calapp != null) ? selectedNumber.calapp : '  ';
+                $numbersNameInput.closest(".address-block").find(".js-grader").val(grader_value);
                 $numbersNameInput.closest(".address-block").find('.js-postal_code').val(selectedNumber.codpostal)
             }
 
@@ -634,7 +650,7 @@
                                         country: $address.find(".js-country").val(),
                                         province: $address.find(".js-province").val(),
                                         town: $address.find(".js-town").val(),
-                                        road_type: $address.find(".js-road_type").val(),
+                                        road_type: $address.find(".js-road_type option:selected").val(),
                                         road_name: $address.find(".js-road_name").val(),
                                         road_number_type: $address.find(".js-road_number_type").val(),
                                         road_number: $address.find(".js-road_number").val(),

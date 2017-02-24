@@ -40,6 +40,15 @@ module ScaffoldHelper
     end.html_safe
   end
 
+  def show_simple_base_errors(form)
+    if form.object.errors.present?
+      content_tag :div, class: 'has-error alert alert-danger alert-dismissable' do
+        "<button name=\"button\" type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>" \
+        "#{form.error(:base)}".html_safe
+      end
+    end
+  end
+
   def link_to_new(model, opts = {})
     return unless can?(:create, model)
     options = {
