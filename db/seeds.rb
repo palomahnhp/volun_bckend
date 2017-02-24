@@ -5,6 +5,6 @@ ROAD_TYPES = %w(
   PISTA PASAJE PASEO PARQUE PARTICULAR PUERTA PLAZA RONDA RIO TRASERA TRAVESIA TRANSVERSAL URBANIZACION VIA
 )
 
-Setting.create(key: 'default_country', value: 'España')
-Setting.create(key: 'default_province', value: 'Madrid')
-Setting.create(key: 'road_types', value: ROAD_TYPES.join(','))
+Setting['default_country']  = 'España'
+Setting['default_province'] = 'Madrid'
+Setting['road_types']       = ROAD_TYPES.join(',')

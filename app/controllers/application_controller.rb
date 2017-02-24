@@ -62,8 +62,7 @@ class ApplicationController < ActionController::Base
 
   # TODO Create Setting model for app configuration
   def use_devise_authentication?
-    # Object.const_defined?('Devise') && Setting.use_devise?
-    true
+    Setting['backend.']
   end
 
   # Devise: Where to redirect users once they have logged in

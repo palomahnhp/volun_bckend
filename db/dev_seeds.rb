@@ -205,9 +205,9 @@ ROAD_TYPES = %w(
 )
 
 puts "Creando Propiedades"
-Setting.create(key: 'default_country', value: 'España')
-Setting.create(key: 'default_province', value: 'Madrid')
-Setting.create(key: 'road_types', value: ROAD_TYPES.join(','))
+Setting['default_country']  = 'España'
+Setting['default_province'] = 'Madrid'
+Setting['road_types']       = ROAD_TYPES.join(',')
 
 
 puts "Creando Medios de notificación"
@@ -288,7 +288,7 @@ puts "Creando Direcciones"
               floor:                 rand(9).to_s,
               door:                  rand(10).to_s,
               borough:               nil,
-              province:              PROVINCES.sample,
+              province:              "Madrid",
               country:               "España",
               town:                  "Madrid",
               district:              DISTRICTS.sample

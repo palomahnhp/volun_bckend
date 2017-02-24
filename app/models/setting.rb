@@ -1,4 +1,6 @@
 class Setting < ActiveRecord::Base
+  DEFAULT_PREFIX = 'volun_backend/'
+
   validates :key, presence: true, uniqueness: true
 
   default_scope { order(id: :asc) }
@@ -17,10 +19,11 @@ class Setting < ActiveRecord::Base
 
   class << self
     def [](key)
-      where(key: key).pluck(:value).first.presence
+      where(key: "#{DEFAULT_PREFIX}#{key}").pluck(:value).first.presence
     end
 
     def []=(key, value)
+      key = "#{DEFAULT_PREFIX}#{key}"
       setting = where(key: key).first || new(key: key)
       setting.value = value.presence
       setting.save!
