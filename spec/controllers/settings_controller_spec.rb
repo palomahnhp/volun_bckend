@@ -66,11 +66,13 @@ RSpec.describe SettingsController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved setting as @setting' do
+        skip("No posibility of invalid params")
         post :create, setting: invalid_attributes
         expect(assigns(:setting)).to be_a_new(Setting)
       end
 
       it 're-renders the "new" template' do
+        skip("No posibility of invalid params")
         post :create, setting: invalid_attributes
         expect(response).to render_template('new')
       end
@@ -111,6 +113,7 @@ RSpec.describe SettingsController, type: :controller do
       end
 
       it 're-renders the "edit" template' do
+        skip("No posibility of invalid params")
         setting = Setting.create! valid_attributes
         put :update, id: setting.to_param, setting: invalid_attributes
         expect(response).to render_template('edit')

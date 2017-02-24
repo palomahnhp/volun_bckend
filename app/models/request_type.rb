@@ -23,10 +23,6 @@ class RequestType < ActiveRecord::Base
 
   validates :kind, presence: true
 
-  def self.active?(kind)
-    send(kind).take.try(:active?)
-  end
-
   def extendable?
     kind.classify.sub(/\ARt/, 'Rt::').safe_constantize.present?
   end

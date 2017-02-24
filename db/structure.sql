@@ -573,6 +573,7 @@ CREATE TABLE ent_trackings (
     manager_id integer,
     request_form_id integer,
     tracked_at timestamp without time zone NOT NULL,
+    automatic boolean DEFAULT false,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -1174,6 +1175,7 @@ CREATE TABLE pro_trackings (
     project_id integer,
     request_form_id integer,
     tracked_at timestamp without time zone,
+    automatic boolean DEFAULT false,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2877,6 +2879,7 @@ CREATE TABLE volun_trackings (
     manager_id integer,
     request_form_id integer,
     tracked_at timestamp without time zone NOT NULL,
+    automatic boolean DEFAULT false,
     comments text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL

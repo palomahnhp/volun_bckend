@@ -26,7 +26,7 @@ class Volunteer < ActiveRecord::Base
   end
 
   belongs_to :academic_level
-  belongs_to :address, required: true
+  belongs_to :address #required: true
   belongs_to :id_number_type, required: true
   belongs_to :employment_status
   belongs_to :info_source

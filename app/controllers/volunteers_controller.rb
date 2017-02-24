@@ -120,6 +120,7 @@ class VolunteersController < ApplicationController
               :town,
               :province,
               :country,
+              :no_bdc_check,
               :_destroy
             ]
           }

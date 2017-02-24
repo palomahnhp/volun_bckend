@@ -183,10 +183,10 @@ MODELS_AND_ATTRS = {
   # -------------------------------------------------
 
   'Volun::Tracking' => 'volunteer:references tracking_type:references project:references manager:references ' \
-                       'request_form:references tracked_at:datetime comments:text',
+                       'request_form:references tracked_at:datetime automatic:boolean comments:text',
   'Ent::Tracking'   => 'tracking_type:references entity:references manager:references request_form:references ' \
-                       'tracked_at:datetime comments:text',
-  'Pro::Tracking'   => 'project:references request_form:references tracked_at:datetime comments:text',
+                       'tracked_at:datetime automatic:boolean comments:text',
+  'Pro::Tracking'   => 'project:references request_form:references tracked_at:datetime automatic:boolean comments:text',
 
 }
 

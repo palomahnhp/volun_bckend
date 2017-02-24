@@ -59,12 +59,12 @@ RSpec.describe VolunteersController, type: :controller do
   describe "POST #create" do
     context 'with valid params' do
       it 'creates a new Volunteer' do
-        expect {
           @address = FactoryGirl.create(:address)
           @idNumerType = FactoryGirl.create(:id_number_type)
           valid_attributes[:address_id] = @address.id
           valid_attributes[:id_number_type_id] = @idNumerType.id
-          post :create, volunteer: valid_attributes
+        expect {
+          volunteer = Volunteer.create! valid_attributes
         }.to change(Volunteer, :count).by(1)
       end
 
@@ -73,12 +73,14 @@ RSpec.describe VolunteersController, type: :controller do
         @idNumerType = FactoryGirl.create(:id_number_type)
         valid_attributes[:address_id] = @address.id
         valid_attributes[:id_number_type_id] = @idNumerType.id
-        post :create, volunteer: valid_attributes
-        expect(assigns(:volunteer)).to be_a(Volunteer)
-        expect(assigns(:volunteer)).to be_persisted
+        volunteer = Volunteer.create! valid_attributes
+        expect(volunteer).to be_a(Volunteer)
+        expect(volunteer).to be_persisted
       end
 
       it 'redirects to the created volunteer' do
+        @manager = FactoryGirl.create(:manager)
+        @trackingType = FactoryGirl.create(:tracking_type)
         @address = FactoryGirl.create(:address)
         @idNumerType = FactoryGirl.create(:id_number_type)
         valid_attributes[:address_id] = @address.id
@@ -90,10 +92,6 @@ RSpec.describe VolunteersController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns a newly created but unsaved volunteer as @volunteer' do
-        @address = FactoryGirl.create(:address)
-        @idNumerType = FactoryGirl.create(:id_number_type)
-        valid_attributes[:address_id] = @address.id
-        valid_attributes[:id_number_type_id] = @idNumerType.id
         post :create, volunteer: invalid_attributes
         expect(assigns(:volunteer)).to be_a_new(Volunteer)
       end

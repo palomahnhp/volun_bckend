@@ -143,6 +143,7 @@ class ApplicationController < ActionController::Base
               :town,
               :province,
               :country,
+              :no_bdc_check,
               :_destroy
             ]
           },
