@@ -345,6 +345,9 @@ es:
         publish_pictures: Publicar fotos
         annual_survey:    Recibir encuesta
         notes:            Notas
+      rt/volunteer_unsubscribe:
+        unsubscribe_level_id:   Nivel de baja de voluntario
+        notes:                  Notas
       collective:
         id:          ID
         name:        Denominación
