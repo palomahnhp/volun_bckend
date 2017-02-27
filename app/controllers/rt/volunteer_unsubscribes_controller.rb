@@ -4,11 +4,11 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
   
   include RtController
   
-  respond_to :html, :js, :json
+  respond_to :html, :js
 
   def index
     params[:q] ||= Rt::VolunteerUnsubscribe.ransack_default
-    @search_q = @rt_volunteer_unsubscribe
+    @search_q = @rt_volunteer_unsubscribes
                   .with_statuses(statuses.select{|status| params[status]})
                   .search(params[:q])
     @rt_volunteer_unsubscribes = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)

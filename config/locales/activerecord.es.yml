@@ -201,6 +201,9 @@ es:
       rt/other:
         one:    Solicitud de "Otros"'
         other:  Solicitudes de"Otros"'
+      unsubscribe_level:
+        one:    Nivel de baja de voluntario
+        other:  Nivel de baja de voluntario
     attributes:
       address:
         postal_code:      Código postal
@@ -346,6 +349,7 @@ es:
         annual_survey:    Recibir encuesta
         notes:            Notas
       rt/volunteer_unsubscribe:
+        unsubscribe_level:      Nivel de baja de voluntario
         unsubscribe_level_id:   Nivel de baja de voluntario
         notes:                  Notas
       collective:

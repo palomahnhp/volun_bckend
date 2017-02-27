@@ -15,10 +15,8 @@
       <dd><%= @request_form.reason %></dd>
       <dt><%= RequestForm.human_attribute_name(:comments) %>:</dt>
       <dd><%= @request_form.comments %></dd>
-      <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:publish_pictures) %>:</dt>
-      <dd><%= t("humanize.#{@rt_volunteer_unsubscribe.publish_pictures}") %></dd>
-      <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:annual_survey) %>:</dt>
-      <dd><%= t("humanize.#{@rt_volunteer_unsubscribe.annual_survey}") %></dd>
+      <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:unsubscribe_level) %>:</dt>
+      <dd><%= @rt_volunteer_unsubscribe.unsubscribe_level %></dd>
       <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:notes) %>:</dt>
       <dd><%= @rt_volunteer_unsubscribe.notes %></dd>
     </dl>
