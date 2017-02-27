@@ -157,7 +157,7 @@ MODELS_AND_ATTRS = {
   'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
   'Rt::VolunteerAmendment'    => 'road_type road_name number_type road_number postal_code borough ' \
                                  'district town province phone_number phone_number_alt ' \
-                                 'email notes:text',
+                                 'email notes:text project:references',
   'Rt::VolunteerAppointment'  => 'notes:text',
   'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name ' \
                                  'representative_last_name_alt contact_name contact_last_name contact_last_name_alt ' \

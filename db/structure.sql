@@ -2348,6 +2348,7 @@ CREATE TABLE rt_volunteers_demands (
     volunteer_functions_1 text,
     volunteer_functions_2 text,
     volunteer_functions_3 text,
+    project_id integer,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -4768,6 +4769,13 @@ CREATE INDEX index_rt_volunteer_unsubscribes_on_unsubscribe_level_id ON rt_volun
 
 
 --
+-- Name: index_rt_volunteers_demands_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rt_volunteers_demands_on_project_id ON rt_volunteers_demands USING btree (project_id);
+
+
+--
 -- Name: index_skills_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5569,6 +5577,14 @@ ALTER TABLE ONLY managers
 
 ALTER TABLE ONLY volun_availabilities
     ADD CONSTRAINT fk_rails_a7af8553e5 FOREIGN KEY (volunteer_id) REFERENCES volunteers(id);
+
+
+--
+-- Name: fk_rails_a96f5dbb87; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_volunteers_demands
+    ADD CONSTRAINT fk_rails_a96f5dbb87 FOREIGN KEY (project_id) REFERENCES projects(id);
 
 
 --
