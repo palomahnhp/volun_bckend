@@ -43,6 +43,10 @@ es:
       gender:
         male:     Hombre
         female:   Mujer
+    unsubscribe_level:
+      kind:
+        project:  Baja de voluntario en proyecto
+        user:     Baja de voluntario completa
   activerecord:
     models:
       project:

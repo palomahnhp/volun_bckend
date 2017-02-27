@@ -1,7 +1,9 @@
 class UnsubscribeLevel < ActiveRecord::Base
 
+  enum kind: [:project, :user]
+
   def to_s
-    description
+    kind_i18n
   end
   
 end

@@ -18,6 +18,7 @@ es:
     add:      'Añadir'
     remove:   'Eliminar'
     approve:  'Aprobar'
+    manage:   'Gestionar'
     reject:   'Rechazar'
     recover:  'Restablecer'
     undo_rejection: 'Deshacer rechazo'
