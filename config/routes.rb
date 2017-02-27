@@ -83,7 +83,16 @@ Rails.application.routes.draw do
       patch :reject_request_form, on: :member
       get :mark_request_form_as_pending, on: :member
     end
-    resources :volunteer_unsubscribes
+    resources :volunteer_unsubscribes do
+      get :process_request_form, on: :member
+      get :undo_rejection_request_form,
+          to: 'volunteer_unsubscribes#mark_request_form_as_pending',
+          on: :member
+      get :pre_approve_request_form, on: :member
+      get :pre_reject_request_form, on: :member
+      patch :reject_request_form, on: :member
+      get :mark_request_form_as_pending, on: :member
+    end
     resources :volunteer_amendments
     resources :volunteer_appointments
     resources :entity_subscribes
