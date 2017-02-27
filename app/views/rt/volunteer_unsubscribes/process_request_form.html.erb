@@ -10,7 +10,7 @@
         </span>
       </dd>
       <dt><%= RequestForm.human_attribute_name(:user_id) %>:</dt>
-      <dd><%= @request_form.user %></dd>
+      <dd><%= @request_form.user.loggable %> <%= link_to_show(@request_form.user.loggable) %></dd>
       <dt><%= RequestForm.human_attribute_name(:reason) %>:</dt>
       <dd><%= @request_form.reason %></dd>
       <dt><%= RequestForm.human_attribute_name(:comments) %>:</dt>
@@ -24,8 +24,7 @@
   </div>
 </div>
 
-<!-- path = "edit_#{@rt_volunteer_unsubscribe.volunteer.class.model_name.singular}_path" -->
-<%= link_to( t('action.manage'), pre_approve_request_form_rt_volunteer_unsubscribe_path, class: 'btn btn-success') %>
+<%= link_to( t('action.manage'), pre_approve_request_form_rt_volunteer_subscribe_path, class: 'btn btn-success') %>
 <%= link_to( t('action.reject'), pre_reject_request_form_rt_volunteer_unsubscribe_path, class: 'btn btn-danger') %>
 <%= link_to( t('mark_as_pending'), mark_request_form_as_pending_rt_volunteer_unsubscribe_path, class: 'btn btn-default') %>
 
