@@ -29,6 +29,9 @@ class VolunteersController < ApplicationController
   end
 
   def edit
+    if params[:rt_volunteer_unsubscribe_id].present?
+      @rt_volunteer_unsubscribe = Rt::VolunteerUnsubscribe.find(params[:rt_volunteer_unsubscribe_id])
+    end
   end
 
   def create
@@ -46,7 +49,8 @@ class VolunteersController < ApplicationController
 
   def update
     @volunteer.update_attributes(volunteer_params)
-    respond_with(@volunteer)
+    redirect_to rt_volunteer_unsubscribes_path
+    #respond_with(@volunteer)
   end
 
   def destroy

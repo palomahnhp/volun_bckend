@@ -45,8 +45,8 @@ es:
         female:   Mujer
     unsubscribe_level:
       kind:
-        project:  Baja de voluntario en proyecto
-        user:     Baja de voluntario completa
+        project:  Solicita baja de voluntario en proyecto
+        user:     Solicita baja de voluntario completa
   activerecord:
     models:
       project:
