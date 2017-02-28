@@ -55,7 +55,7 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
 
   def pre_approve_request_form
     if @rt_volunteer_unsubscribe.request_form.processing?
-      redirect_to new_volunteer_path(rt_volunteer_unsubscribe_id: @rt_volunteer_unsubscribe.id)
+      redirect_to edit_volunteer_path(@rt_volunteer_unsubscribe.request_form.user.loggable, rt_volunteer_unsubscribe_id: @rt_volunteer_unsubscribe.id)
     else
       flash[:alert] = 'status_manager.show_errors'
       redirect_to :back
