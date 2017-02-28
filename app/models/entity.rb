@@ -13,4 +13,16 @@ class Entity < ActiveRecord::Base
     name
   end
 
+  def self.main_columns
+    %i(name
+       description
+       vat_number
+       email
+       entity_type_id
+       comments
+       other_subscribe_reason
+       address_id
+       active
+       subscribed_at)
+  end
 end

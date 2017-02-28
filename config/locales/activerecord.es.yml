@@ -146,6 +146,29 @@ es:
         code:        Código
         name:        Nombre
         created_at : &created_at Fecha de creación
+      entity:
+        name: Nombre
+        description: Descripción
+        vat_number: CIF
+        email: Email
+        representative_name: Nombre
+        representative_last_name: Primer apellido
+        representative_last_name_alt: Segundo apellido
+        contact_name: Nombre
+        contact_last_name: Primer apellido
+        contact_last_name_alt: Segundo apellido
+        phone_number: Teléfono 1
+        phone_number_alt: Teléfono 2
+        publish_pictures: Divulgación de imagen
+        annual_survey: Recibir encuesta anual
+        request_reason_id: Motivo por el que solicita darse de alta
+        entity_type_id: Tipo de entidad
+        comments: Observaciones
+        other_subscribe_reason: Otro motivo de solicitud
+        address_id: Dirección
+        active: Activo
+        subscribed_at: Fecha de alta
+        unsubscribed_at: Fecha de baja
       project_type:
         id:          ID
         kind:        Nombre
@@ -229,7 +252,8 @@ es:
         contact_name:           Nombre
         contact_last_name:  Primer Apellido
         contact_last_name_alt: Segundo Apellido
-        phone_number:           Teléfono
+        phone_number:           Teléfono 1
+        phone_number_alt:       Teléfono 2
         email:                  E-mail
         comments:               Observaciones
         beneficiaries_num:      Nº de beneficiarios
@@ -323,8 +347,8 @@ es:
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad
         nationality:              Nacionalidad
-        phone_number:             Teléfono móvil
-        phone_number_alt:         Teléfono fijo
+        phone_number:             Teléfono 1
+        phone_number_alt:         Teléfono 2
         email:                    Email
         address_id:               Dirección
         status_id:                Situación
