@@ -90,9 +90,7 @@
             <div class="row row-4-1">
               <% no_bdc_check      = cast_as_boolean(f_address.object.no_bdc_check) %>
               <% readonly          = !no_bdc_check%>
-              <% unless hide_no_bdc_check_field %>
-                  <%= f_address.input :no_bdc_check, as: :boolean, input_html: { class: 'js-no_bdc_check', value: no_bdc_check }, wrapper_html: { class: 'pull-right col-md-3' } %>
-              <% end %>
+              <%= f_address.input :no_bdc_check, as: :boolean, input_html: { class: 'js-no_bdc_check', value: no_bdc_check }, wrapper_html: { class: 'pull-right col-md-3' } %>
             </div>
           </div>
           <div class="address-fields col-md-12">
@@ -107,7 +105,8 @@
             </div>
             <div class="row row-4-2">
               <%= f_address.input :road_number_type, input_html: { class: 'm-width250 js-road_number_type', readonly: readonly }, wrapper_html: { class: 'col-md-3' } %>
-              <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number' }, wrapper_html: { class: 'col-md-3' } %>
+              <%= f_address.input :road_number, collection: [], input_html: { class: 'm-width250 js-road_number' }, wrapper_html: { class: 'col-md-3 js-road_number', hidden: no_bdc_check } %>
+              <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number' }, wrapper_html: { class: 'col-md-3 js-road_number_input', hidden: !no_bdc_check } %>
               <%= f_address.input :grader, input_html: { class: 'm-width80 js-grader', readonly: readonly }, wrapper_html: { class: 'col-md-3' } %>
               <%= f_address.input :postal_code, input_html: { class: 'js-postal_code', readonly: readonly, data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
             </div>
@@ -207,26 +206,39 @@
         $("#volunteer_agreement_date").attr("disabled", false);
       }
     }
+
+
     // Toggle "readonly" prop for blocked address fields
     $(document).on('ready', function() {
         // Prevent road type select from opening
         $('.js-road_type select').on('mousedown', function(e) {
-            e.preventDefault();
-            this.blur();
-            window.focus();
+            if (!$(this).closest('.address-block').find('.js-no_bdc_check').is(':checked')){
+                e.preventDefault();
+                this.blur();
+                window.focus();
+            }
         });
 
         var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-grader', '.js-postal_code'];
         $(document).on('change', '.js-no_bdc_check', function () {
             var $address = $(this).closest('.address-block');
+            $address.find(".js-road_number_type").val('');
+            $address.find(".js-grader").val('');
+            $address.find(".js-postal_code").val('');
+            $address.find(".js-road_number").val('');
+
             if ($(this).is(':checked')){
                 blocked_fields.forEach(function (field_selector, index) {
                     $address.find(field_selector).removeAttr('readonly');
                 });
+                $('.js-road_number').attr('hidden', 'hidden');
+                $('.js-road_number_input').removeAttr('hidden');
             }else{
                 blocked_fields.forEach(function (field_selector, index) {
                     $address.find(field_selector).attr('readonly', 'readonly');
                 });
+                $('.js-road_number').removeAttr('hidden');
+                $('.js-road_number_input').attr('hidden', 'hidden');
             }
         });
     });
@@ -243,6 +255,8 @@
             var $input = $address.find(".js-town")
             $input.autocomplete({
                 source: function(request, response) {
+                    if ($address.find('.js-no_bdc_check').is(':checked')) { return response({}) };
+
                     var value = $.trim($input.val());
                     if(value.length > 0){
                         $.ajax({
@@ -309,8 +323,12 @@
 
         $.each($(".address-block"), function(i, address){
             var $address = $(address);
+            if ($address.find('.js-no_bdc_check').is(':checked')) { return };
+
             $address.find(".js-road_name").autocomplete({
                 source: function(request, response) {
+                    if ($address.find('.js-no_bdc_check').is(':checked')) { return response({}) };
+
                     var value = $.trim($address.find(".js-town").val());
                     if(value.length > 0) {
                         $.ajax({
@@ -372,97 +390,90 @@
                     $address.find(".js-postal_code").val('');
                     $address.find(".js-road_number").val('');
 
-                }
-            });
-        });
-    });
 
-    // AUTOCOMPLETE ROAD NUMBER
-    $(function() {
-        var numbers;
-        function log3($numbersNameInput, message) {
-
-            $numbersNameInput.scrollTop(0);
-
-            if (message.indexOf("(") >= 0){
-                var numberName = message.split(" (")[0];
-                var graderName = message.split(" (")[1].replace(/\)/, "");
-            }else{
-                var numberName = message;
-                var graderName = null;
-            }
-
-            var selectedNumber = numbers.filter(function(number) {
-                return ( number.numapp.toLowerCase() == numberName.toLowerCase() && number.calapp == graderName );
-            })[0];
-
-            if (typeof selectedNumber === 'undefined') {
-                selectedNumber = numbers.filter(function (number) {
-                    return ( number.numapp.toLowerCase() == numberName.toLowerCase());
-                })[0];
-            }
-
-            $numbersNameInput.closest(".address-block").find(".js-road_number_type").val(selectedNumber.nomapp);
-            var grader_value = (selectedNumber.calapp != null) ? selectedNumber.calapp : '  ';
-            $numbersNameInput.closest(".address-block").find(".js-grader").val(grader_value);
-            $numbersNameInput.closest(".address-block").find('.js-postal_code').val(selectedNumber.codpostal)
-        }
-
-
-        $.each($(".address-block"), function(i, address){
-            var $address = $(address);
-            $address.find(".js-road_number").autocomplete({
-                source: function(request, response) {
-                    var value = $.trim($address.find(".js-road_name").val());
-                    if(value.length > 0) {
-                        $.ajax({
-                            url: "<%= bdc_search_road_numbers_addresses_path %>",
-                            dataType: "json",
-                            data: {
-                                address: {
-                                    country: $address.find(".js-country").val(),
-                                    province: $address.find(".js-province").val(),
-                                    town: $address.find(".js-town").val(),
-                                    road_type: $address.find(".js-road_type option:selected").val(),
-                                    road_name: $address.find(".js-road_name").val(),
-                                    road_number_type: $address.find(".js-road_number_type").val(),
-                                    road_number: $address.find(".js-road_number").val(),
-                                    grader: $address.find(".js-grader").val(),
-                                    stairs: $address.find(".js-stairs").val(),
-                                    floor: $address.find(".js-floor").val(),
-                                    door: $address.find(".js-door").val()
+                    // AUTOCOMPLETE ROAD NUMBER
+                        var value = $.trim($address.find(".js-road_name").val());
+                        if(value.length > 0) {
+                            $.ajax({
+                                url: "<%= bdc_search_road_numbers_addresses_path %>",
+                                dataType: "json",
+                                data: {
+                                    address: {
+                                        country: $address.find(".js-country").val(),
+                                        province: $address.find(".js-province").val(),
+                                        town: $address.find(".js-town").val(),
+                                        road_type: $address.find(".js-road_type option:selected").val(),
+                                        road_name: $address.find(".js-road_name").val(),
+                                    }
                                 },
-                            },
-                            success: function (data) {
-                                numbers = data.numbers;
-                                var numbersList = [];
-                                $.each(numbers, function (index, number) {
-                                    if (number.calapp == null)
-                                        numbersList.push(number.numapp)
-                                    else
-                                        numbersList.push(number.numapp + ' (' + number.calapp + ')')
-                                });
-                                response(numbersList);
-                            },
-                            error: function () {
-                            }
-                        });
-                    }else{
-                        alert('El campo "Nombre de la vía" no puede estar vacío');
-                        response({});
-                    }
-                },
-                minLength: 1,
-                select: function(event, ui) {
-                    log3($(this), ui.item ? ui.item.label : "Nothing selected, input was " + this.value);
-                },
-                open: function() {
-                },
-                close: function() {
-                    $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
-                    $input = $(this)
-                    value = $input.val()
-                    $input.val(value.replace(/\s*\(\w*\)/, ""));
+                                success: function (data) {
+                                    var numbers = data.numbers;
+                                    var numbersList = [];
+                                    $.each(numbers, function (index, number) {
+                                        if (number.calapp == null)
+                                            numbersList.push(number.numapp)
+                                        else
+                                            numbersList.push(number.numapp + ' (' + number.calapp + ')')
+                                    });
+                                    var selectArr = numbersList.map(function(elem){ return {val: elem, text: elem}});
+                                    var $roadNumberSelect = $('.js-road_number select');
+                                    $roadNumberSelect.find('option').remove();
+                                    $roadNumberSelect.append($("<option>").attr('value', '').text(''));
+                                    $(selectArr).each(function() {
+                                        $roadNumberSelect.append($("<option>").attr('value',this.val).text(this.text));
+                                    });
+                                    $roadNumberSelect.removeAttr('readonly');
+                                    $roadNumberSelect.change(function(){
+                                        var selectedNumberOption = $(this).prop('value');
+                                        if (selectedNumberOption.indexOf("(") >= 0){
+                                            var numberName = selectedNumberOption.split(" (")[0];
+                                            var graderName = selectedNumberOption.split(" (")[1].replace(/\)/, "");
+                                        }else{
+                                            var numberName = selectedNumberOption;
+                                            var graderName = null;
+                                        }
+                                        $address = $(this).closest('.address-block');
+                                        $.ajax({
+                                            url: "<%= bdc_search_road_numbers_addresses_path %>",
+                                            dataType: "json",
+                                            data: {
+                                                address: {
+                                                    country: $address.find(".js-country").val(),
+                                                    province: $address.find(".js-province").val(),
+                                                    town: $address.find(".js-town").val(),
+                                                    road_type: $address.find(".js-road_type option:selected").val(),
+                                                    road_name: $address.find(".js-road_name").val(),
+                                                    road_number: numberName,
+                                                    grader: graderName,
+                                                }
+                                            },
+                                            success: function (data) {
+                                                var numbers = data.numbers;
+                                                var selectedNumber = numbers.filter(function(number) {
+                                                    return ( number.numapp.toLowerCase() == numberName.toLowerCase() && number.calapp == graderName );
+                                                })[0];
+
+                                                if (typeof selectedNumber === 'undefined') {
+                                                    selectedNumber = numbers.filter(function (number) {
+                                                        return ( number.numapp.toLowerCase() == numberName.toLowerCase());
+                                                    })[0];
+                                                }
+
+                                                $address.find(".js-road_number_type").val(selectedNumber.nomapp);
+                                                var graderValue = (selectedNumber.calapp != null) ? selectedNumber.calapp : '  ';
+                                                $address.find(".js-grader").val(graderValue);
+                                                $address.find('.js-postal_code').val(selectedNumber.codpostal)
+                                            }
+                                        });
+                                    });
+
+                                },
+                                error: function () {
+                                }
+                            });
+                        }else{
+                            alert('El campo "Nombre de la vía" no puede estar vacío');
+                        }
                 }
             });
         });

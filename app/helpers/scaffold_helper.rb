@@ -41,11 +41,11 @@ module ScaffoldHelper
   end
 
   def show_simple_base_errors(form)
-    if form.object.errors.present?
-      content_tag :div, class: 'has-error alert alert-danger alert-dismissable' do
-        "<button name=\"button\" type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>" \
-        "#{form.error(:base)}".html_safe
-      end
+    return unless form.object.errors[:base].present?
+
+    content_tag :div, class: 'has-error alert alert-danger alert-dismissable' do
+      "<button name=\"button\" type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>" \
+      "#{form.error(:base)}".html_safe
     end
   end
 
