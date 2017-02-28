@@ -42,12 +42,12 @@ TRAITS            = 3
 UNSUBS_LEVELS     = 3
 UNSUBS_REASONS    = 3
 
-REQUEST_REASONS = {
-  0 => 'Difusión de proyectos',
-  1 => 'Solicitud voluntarios',
-  2 => 'Publicación actividad en agenda',
-  3 => 'Otros'
-}
+REQUEST_REASONS = [
+  'Difusión de proyectos',
+  'Solicitud voluntarios',
+  'Publicación actividad en agenda',
+  'Otros'
+]
 
 REQUEST_STATUSES = {
   0 => 'Pendiente',
@@ -314,8 +314,8 @@ puts "Creando Entidades"
 end
 
 puts "Creando Motivos de solicitud"
-REQUEST_REASONS.each do |kind , name|
-  Req::Reason.create!(kind: kind)
+REQUEST_REASONS.each do |name|
+  Req::Reason.create!(name: name)
 end
 
 puts "Creando estados de solicitud"
