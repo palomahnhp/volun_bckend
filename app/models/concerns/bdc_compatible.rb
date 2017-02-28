@@ -30,6 +30,7 @@ module BdcCompatible
     attr_accessor :bdc_validator, :no_bdc_check
 
     before_validation :check_normalization, if: 'check_normalization?'
+    after_initialize :set_default_no_bdc_check_value, if: 'persisted?'
     validate :must_be_normalized, if: 'check_normalization?'
 
     def normalized?
@@ -76,7 +77,7 @@ module BdcCompatible
     end
 
     def check_normalization?
-      !(/true|yes|1/i === no_bdc_check.to_s)
+      !(ActiveRecord::Type::Boolean.new.type_cast_from_user no_bdc_check)
     end
 
     def check_normalization
@@ -109,6 +110,10 @@ module BdcCompatible
         bdc_exchange:     '',
         aplication:       Rails.application.secrets.bdc_app_name
       }
+    end
+
+    def set_default_no_bdc_check_value
+      self.no_bdc_check ||= !normalized?
     end
   end
 
