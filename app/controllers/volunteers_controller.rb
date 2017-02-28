@@ -48,9 +48,18 @@ class VolunteersController < ApplicationController
   end
 
   def update
-    @volunteer.update_attributes(volunteer_params)
-    redirect_to rt_volunteer_unsubscribes_path
+    #@volunteer.update_attributes(volunteer_params)
     #respond_with(@volunteer)
+    volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: params[:rt_volunteer_unsubscribe_id],
+                                             volunteer_attributes: volunteer_params,
+                                             manager_id: current_user.loggable_id)
+    volunteer_manager.update_volunteer(@volunteer)
+    @volunteer = volunteer_manager.volunteer
+    if @volunteer.persisted? || @volunteer.errors.present?
+      respond_with(@volunteer)
+    else
+      redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
+    end
   end
 
   def destroy

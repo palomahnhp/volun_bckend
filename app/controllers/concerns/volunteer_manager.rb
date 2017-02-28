@@ -4,6 +4,7 @@ class VolunteerManager
 
   def initialize(options = {})
     @rt_volunteer_subscribe_id = options[:rt_volunteer_subscribe_id]
+    @rt_volunteer_unsubscribe_id = options[:rt_volunteer_unsubscribe_id]
     @volunteer_attributes      = options[:volunteer_attributes] || {}
     @manager_id                = options[:manager_id]
     @errors                    = []
@@ -17,9 +18,17 @@ class VolunteerManager
   def build_volunteer(volunteer_attrs = nil)
     Volunteer.new(volunteer_attrs || rt_volunteer_subscribe.try(:volunteer_attributes) || {})
   end
+  
+  def upd_volunteer(volunteer, volunteer_attrs = nil)
+    volunteer.update_attributes(volunteer_attrs || rt_volunteer_unsubscribe.try(:volunteer_attributes) || {})
+  end
 
   def creation_through_request_form?
     @rt_volunteer_subscribe_id.present?
+  end
+  
+  def update_through_request_form?
+    @rt_volunteer_unsubscribe_id.present?
   end
 
   def create_volunteer
@@ -31,6 +40,21 @@ class VolunteerManager
         assign_user_to_volunteer!
         register_tracking!
         approve_request_form! if creation_through_request_form?
+      else
+        copy_errors_from!(volunteer)
+      end
+    end
+    errors.blank?
+  end
+  
+  def update_volunteer(v)
+    return unless valid?
+
+    self.volunteer = upd_volunteer(v, @volunteer_attributes)
+    ActiveRecord::Base.transaction do
+      if volunteer.save
+        register_tracking!
+        approve_request_form! if update_through_request_form?
       else
         copy_errors_from!(volunteer)
       end
@@ -56,6 +80,10 @@ class VolunteerManager
 
   def rt_volunteer_subscribe
     @rt_volunteer_subscribe ||= Rt::VolunteerSubscribe.find_by(id: @rt_volunteer_subscribe_id.to_i)
+  end
+  
+  def rt_volunteer_unsubscribe
+    @rt_volunteer_unsubscribe ||= Rt::VolunteerUnsubscribe.find_by(id: @rt_volunteer_unsubscribe_id.to_i)
   end
 
   def request_form
