@@ -72,8 +72,8 @@
               <%= show_simple_base_errors(f_address) %>
               <div class="address-fields col-md-12">
                 <div class="row row-4-1">
-                  <% no_bdc_check      = cast_as_boolean(f_address.object.no_bdc_check) %>
-                  <% readonly          = !no_bdc_check%>
+                  <% no_bdc_check  = cast_as_boolean(f_address.object.no_bdc_check) %>
+                  <% hide          = !no_bdc_check%>
                   <%= f_address.input :no_bdc_check, as: :boolean, input_html: { class: 'js-no_bdc_check', value: no_bdc_check }, wrapper_html: { class: 'pull-right col-md-3' } %>
                 </div>
               </div>
@@ -88,11 +88,11 @@
                     <%= f_address.input :road_name, input_html: { class: 'js-road_name' }, wrapper_html: { class: 'road_name col-md-9' } %>
                 </div>
                 <div class="row row-4-2">
-                    <%= f_address.input :road_number_type, input_html: { class: 'm-width250 js-road_number_type', readonly: readonly }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :road_number, collection: [], input_html: { class: 'm-width250 js-road_number' }, wrapper_html: { class: 'col-md-3 js-road_number', hidden: no_bdc_check } %>
-                    <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number' }, wrapper_html: { class: 'col-md-3 js-road_number_input', hidden: !no_bdc_check } %>
-                    <%= f_address.input :grader, input_html: { class: 'm-width80 js-grader', readonly: readonly }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :postal_code, input_html: { class: 'js-postal_code', readonly: readonly, data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
+                  <%= f_address.input :road_number_type, input_html: { class: 'm-width250 js-road_number_type', readonly: hide }, wrapper_html: { class: 'col-md-3' } %>
+                  <%= f_address.input :road_number, collection: [f_address.object.road_number || ''], input_html: { class: 'm-width250 js-road_number-select', disabled: !hide }, wrapper_html: { class: 'col-md-3 js-road_number-select-wrapper', hidden: !hide } %>
+                  <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number-input', disabled: hide }, wrapper_html: { class: 'col-md-3 js-road_number-input-wrapper', hidden: hide } %>
+                  <%= f_address.input :grader, input_html: { class: 'm-width80 js-grader', readonly: hide }, wrapper_html: { class: 'col-md-3' } %>
+                  <%= f_address.input :postal_code, input_html: { class: 'js-postal_code', readonly: hide, data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
                 </div>
                 <div class="row row-4-3">
                     <%= f_address.input :stairs, input_html: { class: 'm-width250 js-stairs' }, wrapper_html: { class: 'col-md-3' } %>
@@ -200,6 +200,7 @@
       }
     }
 
+
 // Toggle "readonly" prop for blocked address fields
 $(document).on('ready', function() {
     // Prevent road type select from opening
@@ -214,23 +215,23 @@ $(document).on('ready', function() {
     var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-grader', '.js-postal_code'];
     $(document).on('change', '.js-no_bdc_check', function () {
         var $address = $(this).closest('.address-block');
-        $address.find(".js-road_number_type").val('');
-        $address.find(".js-grader").val('');
-        $address.find(".js-postal_code").val('');
-        $address.find(".js-road_number").val('');
 
         if ($(this).is(':checked')){
             blocked_fields.forEach(function (field_selector, index) {
                 $address.find(field_selector).removeAttr('readonly');
             });
-            $('.js-road_number').attr('hidden', 'hidden');
-            $('.js-road_number_input').removeAttr('hidden');
+            $('.js-road_number-select-wrapper').attr('hidden', 'hidden');
+            $('.js-road_number-select').attr('disabled', 'disabled');
+            $('.js-road_number-input-wrapper').removeAttr('hidden');
+            $('.js-road_number-input').removeAttr('disabled');
         }else{
             blocked_fields.forEach(function (field_selector, index) {
                 $address.find(field_selector).attr('readonly', 'readonly');
             });
-            $('.js-road_number').removeAttr('hidden');
-            $('.js-road_number_input').attr('hidden', 'hidden');
+            $('.js-road_number-select-wrapper').removeAttr('hidden');
+            $('.js-road_number-select').removeAttr('disabled');
+            $('.js-road_number-input-wrapper').attr('hidden', 'hidden');
+            $('.js-road_number-input').attr('disabled', 'disabled');
         }
     });
 });
@@ -284,12 +285,12 @@ $(function() {
             close: function() {
                 $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
                 $address = $(this).closest(".address-block");
-                $address.find(".js-road_type option:selected").val('');
+                $address.find(".js-road_type select").prop('selectedIndex',0);
                 $address.find(".js-road_name").val('');
                 $address.find(".js-road_number_type").val('');
+                $address.find(".js-road_number-select").prop('selectedIndex',0);
                 $address.find(".js-grader").val('');
                 $address.find(".js-postal_code").val('');
-                $address.find(".js-road_number").val('');
             }
         });
     });
@@ -331,10 +332,10 @@ $(function() {
                                 country: $address.find(".js-country").val(),
                                 province: $address.find(".js-province").val(),
                                 town: $address.find(".js-town").val(),
-                                road_type: $address.find(".js-road_type option:selected").val(),
+                                road_type: '',
                                 road_name: $address.find(".js-road_name").val(),
                                 road_number_type: $address.find(".js-road_number_type").val(),
-                                road_number: $address.find(".js-road_number").val(),
+                                road_number: $address.find(".js-road_number-input").val(),
                                 grader: $address.find(".js-grader").val(),
                                 stairs: $address.find(".js-stairs").val(),
                                 floor: $address.find(".js-floor").val(),
@@ -355,7 +356,7 @@ $(function() {
                                 $address.find(".js-road_number_type").val('');
                                 $address.find(".js-grader").val('');
                                 $address.find(".js-postal_code").val('');
-                                $address.find(".js-road_number").val('');
+                                $address.find(".js-road_number-input").val('');
                                 response({})
                             }
                         }
@@ -380,7 +381,7 @@ $(function() {
                 $address.find(".js-road_number_type").val('');
                 $address.find(".js-grader").val('');
                 $address.find(".js-postal_code").val('');
-                $address.find(".js-road_number").val('');
+                $address.find(".js-road_number-input").val('');
 
 
                 // AUTOCOMPLETE ROAD NUMBER
@@ -408,7 +409,7 @@ $(function() {
                                     numbersList.push(number.numapp + ' (' + number.calapp + ')')
                             });
                             var selectArr = numbersList.map(function(elem){ return {val: elem, text: elem}});
-                            var $roadNumberSelect = $('.js-road_number select');
+                            var $roadNumberSelect = $('.js-road_number-select');
                             $roadNumberSelect.find('option').remove();
                             $roadNumberSelect.append($("<option>").attr('value', '').text(''));
                             $(selectArr).each(function() {
@@ -485,26 +486,26 @@ $(function() {
                 }
             });
 
-            var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-road_number', '.js-grader', '.js-postal_code'];
+            var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-grader', '.js-postal_code'];
             $(document).on('change', '.js-no_bdc_check', function () {
                 var $address = $(this).closest('.address-block');
-                $address.find(".js-road_number_type").val('');
-                $address.find(".js-grader").val('');
-                $address.find(".js-postal_code").val('');
-                $address.find(".js-road_number").val('');
 
                 if ($(this).is(':checked')){
                     blocked_fields.forEach(function (field_selector, index) {
                         $address.find(field_selector).removeAttr('readonly');
                     });
-                    $('.js-road_number').attr('hidden', 'hidden');
-                    $('.js-road_number_input').removeAttr('hidden');
+                    $('.js-road_number-select-wrapper').attr('hidden', 'hidden');
+                    $('.js-road_number-select').attr('disabled', 'disabled');
+                    $('.js-road_number-input-wrapper').removeAttr('hidden');
+                    $('.js-road_number-input').removeAttr('disabled');
                 }else{
                     blocked_fields.forEach(function (field_selector, index) {
                         $address.find(field_selector).attr('readonly', 'readonly');
                     });
-                    $('.js-road_number').removeAttr('hidden');
-                    $('.js-road_number_input').attr('hidden', 'hidden');
+                    $('.js-road_number-select-wrapper').removeAttr('hidden');
+                    $('.js-road_number-select').removeAttr('disabled');
+                    $('.js-road_number-input-wrapper').attr('hidden', 'hidden');
+                    $('.js-road_number-input').attr('disabled', 'disabled');
                 }
             });
         });
@@ -558,12 +559,12 @@ $(function() {
                     close: function() {
                         $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
                         $address = $(this).closest(".address-block");
-                        $address.find(".js-road_type option:selected").val('');
+                        $address.find(".js-road_type select").prop('selectedIndex',0);
                         $address.find(".js-road_name").val('');
                         $address.find(".js-road_number_type").val('');
+                        $address.find(".js-road_number-select").prop('selectedIndex',0);
                         $address.find(".js-grader").val('');
                         $address.find(".js-postal_code").val('');
-                        $address.find(".js-road_number").val('');
                     }
                 });
             });
@@ -605,10 +606,10 @@ $(function() {
                                         country: $address.find(".js-country").val(),
                                         province: $address.find(".js-province").val(),
                                         town: $address.find(".js-town").val(),
-                                        road_type: $address.find(".js-road_type option:selected").val(),
+                                        road_type: '',
                                         road_name: $address.find(".js-road_name").val(),
                                         road_number_type: $address.find(".js-road_number_type").val(),
-                                        road_number: $address.find(".js-road_number").val(),
+                                        road_number: $address.find(".js-road_number-input").val(),
                                         grader: $address.find(".js-grader").val(),
                                         stairs: $address.find(".js-stairs").val(),
                                         floor: $address.find(".js-floor").val(),
@@ -629,7 +630,7 @@ $(function() {
                                         $address.find(".js-road_number_type").val('');
                                         $address.find(".js-grader").val('');
                                         $address.find(".js-postal_code").val('');
-                                        $address.find(".js-road_number").val('');
+                                        $address.find(".js-road_number-input").val('');
                                         response({})
                                     }
                                 }
@@ -654,7 +655,7 @@ $(function() {
                         $address.find(".js-road_number_type").val('');
                         $address.find(".js-grader").val('');
                         $address.find(".js-postal_code").val('');
-                        $address.find(".js-road_number").val('');
+                        $address.find(".js-road_number-input").val('');
 
 
                         // AUTOCOMPLETE ROAD NUMBER
@@ -682,7 +683,7 @@ $(function() {
                                             numbersList.push(number.numapp + ' (' + number.calapp + ')')
                                     });
                                     var selectArr = numbersList.map(function(elem){ return {val: elem, text: elem}});
-                                    var $roadNumberSelect = $('.js-road_number select');
+                                    var $roadNumberSelect = $('.js-road_number-select');
                                     $roadNumberSelect.find('option').remove();
                                     $roadNumberSelect.append($("<option>").attr('value', '').text(''));
                                     $(selectArr).each(function() {
