@@ -1676,9 +1676,9 @@ ALTER SEQUENCE record_histories_id_seq OWNED BY record_histories.id;
 
 CREATE TABLE req_reasons (
     id integer NOT NULL,
-    kind integer,
+    name character varying NOT NULL,
     description text,
-    active boolean DEFAULT true,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -4612,13 +4612,6 @@ CREATE INDEX index_record_histories_on_recordable_type_and_recordable_id ON reco
 --
 
 CREATE INDEX index_record_histories_on_user_id ON record_histories USING btree (user_id);
-
-
---
--- Name: index_req_reasons_on_kind; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_req_reasons_on_kind ON req_reasons USING btree (kind);
 
 
 --

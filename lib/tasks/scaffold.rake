@@ -20,7 +20,7 @@ MODELS_AND_ATTRS = {
   'Role'          => 'kind:integer:uniq description:text',
   'Manager'       => 'name last_name last_name_alt alias_name role:references profile_id:integer phone_number active:boolean',
   'TrackingType'  => 'name:string:uniq active:boolean',
-  'Req::Reason'   => 'kind:integer:uniq description:text active:boolean',
+  'Req::Reason'   => 'name description:text active:boolean',
 
   'EntityType'     => 'kind:integer:uniq description:text active:boolean',
   'Entity'         => 'name:string:uniq description:text vat_number email ' \
@@ -280,6 +280,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :employment_statuses   => [:name, :active],
     :degrees               => [:name, :active],
     :unsubscribe_reasons   => [:name, :active],
+    :req_reasons           => [:name, :active],
     :managers              => [:name, :active],
     :profiles              => [:name, :active],
     :info_sources          => [:name, :active],
