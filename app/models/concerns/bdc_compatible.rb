@@ -29,10 +29,10 @@ module BdcCompatible
 
     attr_accessor :bdc_validator, :no_bdc_check
 
+    after_initialize :set_default_no_bdc_check_value, on: :update
     before_validation :check_normalization, if: 'check_normalization?'
     validate :must_be_normalized, if: 'check_normalization?'
-    after_initialize :set_default_no_bdc_check_value, if: 'persisted?'
-    before_save :unnormalize, on: :update, if: 'must_not_be_normalized?'
+    after_validation :unnormalize, on: :update, if: 'no_check_normalization?'
 
     def normalized?
       ndp_code.present?
@@ -53,14 +53,8 @@ module BdcCompatible
     end
 
     def reset_bdc_validator
+      unnormalize
       self.bdc_validator = nil
-      self.ndp_code      = nil
-      self.province_code = nil
-      self.town_code     = nil
-      self.district_code = nil
-      self.local_code    = nil
-      self.latitude      = nil
-      self.longitude     = nil
     end
 
     private
@@ -77,8 +71,12 @@ module BdcCompatible
       end
     end
 
-    def must_not_be_normalized?
-      !check_normalization?
+    def no_check_normalization?
+      ActiveRecord::Type::Boolean.new.type_cast_from_user no_bdc_check
+    end
+
+    def check_normalization?
+      !no_check_normalization?
     end
 
     def unnormalize
@@ -89,10 +87,6 @@ module BdcCompatible
       self.local_code    = nil
       self.latitude      = nil
       self.longitude     = nil
-    end
-
-    def check_normalization?
-      !(ActiveRecord::Type::Boolean.new.type_cast_from_user no_bdc_check)
     end
 
     def check_normalization
