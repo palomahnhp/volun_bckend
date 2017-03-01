@@ -2,25 +2,8 @@
   <%= simple_form_for(@volunteer, default_form_options) do |f| %>
       <%= show_simple_base_errors(f) %>
       <%= hidden_field_tag :rt_volunteer_subscribe_id, params[:rt_volunteer_subscribe_id] %>
-      <%= hidden_field_tag :rt_volunteer_unsubscribe_id, params[:rt_volunteer_unsubscribe_id] %>
 
   <div class="form-inputs">
-    <% if @rt_volunteer_unsubscribe.present? %>
-      <div class="row well">
-        <div class="col-md-12">
-          <%= content_tag :h3, Rt::VolunteerUnsubscribe.model_name.human, class: 'form-subtitle' %>
-          <div class="row">
-            <%= label_tag UnsubscribeLevel.model_name.human %>:
-            <%= content_tag :span, @rt_volunteer_unsubscribe.unsubscribe_level %>
-            <% if @rt_volunteer_unsubscribe.unsubscribe_level.kind == "project" %>
-              <%= label_tag "Baja sólo de proyecto" %>
-            <% else %>
-              <%= f.input :active, as: :hidden, input_html: { value: "0" } %>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
     <div class="row well">
       <div class="col-md-12">
         <div class="row">

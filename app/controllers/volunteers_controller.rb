@@ -29,9 +29,6 @@ class VolunteersController < ApplicationController
   end
 
   def edit
-    if params[:rt_volunteer_unsubscribe_id].present?
-      @rt_volunteer_unsubscribe = Rt::VolunteerUnsubscribe.find(params[:rt_volunteer_unsubscribe_id])
-    end
   end
 
   def create
@@ -48,16 +45,8 @@ class VolunteersController < ApplicationController
   end
 
   def update
-    volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: params[:rt_volunteer_unsubscribe_id],
-                                             volunteer_attributes: volunteer_params,
-                                             manager_id: current_user.loggable_id)
-    volunteer_manager.update_volunteer(@volunteer)
-    @volunteer = volunteer_manager.volunteer
-    if @volunteer.persisted? || @volunteer.errors.present?
-      respond_with(@volunteer)
-    else
-      redirect_to rt_volunteer_unsubscribes_path, alert: volunteer_manager.errors.to_sentence
-    end
+    @volunteer.update_attributes(volunteer_params)
+    respond_with(@volunteer)
   end
 
   def destroy
@@ -113,7 +102,6 @@ class VolunteersController < ApplicationController
           :review,
           :error_address,
           :error_other,
-          :active,
           { skill_ids: [] },
           {
             address_attributes: [
