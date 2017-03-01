@@ -84,11 +84,11 @@
                     <%= f_address.input :town, input_html: { class: 'js-town' }, wrapper_html: { class: 'col-md-5' } %>
                 </div>
                 <div class="row row-4-1">
-                    <%= f_address.input :road_type, collection: Setting.road_types, input_html: { readonly: true }, wrapper_html: { class: 'col-md-3 js-road_type' } %>
-                    <%= f_address.input :road_name, input_html: { class: 'js-road_name' }, wrapper_html: { class: 'road_name col-md-9' } %>
+                  <%= f_address.input :road_type, collection: Setting.road_types, input_html: { readonly: bdc_check }, wrapper_html: { class: 'col-md-3 js-road_type' } %>
+                  <%= f_address.input :road_name, input_html: { class: 'js-road_name' }, wrapper_html: { class: 'road_name col-md-9' } %>
                 </div>
                 <div class="row row-4-2">
-                  <%= f_address.input :road_number_type, input_html: { class: 'm-width250 js-road_number_type', readonly: no_bdc_check }, wrapper_html: { class: 'col-md-3' } %>
+                  <%= f_address.input :road_number_type, input_html: { class: 'm-width250 js-road_number_type', readonly: bdc_check }, wrapper_html: { class: 'col-md-3' } %>
                   <%= f_address.input :road_number, collection: [f_address.object.road_number || ''], input_html: { class: 'm-width250 js-road_number-select', disabled: no_bdc_check }, wrapper_html: { class: 'col-md-3 js-road_number-select-wrapper', hidden: no_bdc_check } %>
                   <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number-input', disabled: bdc_check }, wrapper_html: { class: 'col-md-3 js-road_number-input-wrapper', hidden: bdc_check } %>
                   <%= f_address.input :grader, input_html: { class: 'm-width80 js-grader', readonly: bdc_check }, wrapper_html: { class: 'col-md-3' } %>
