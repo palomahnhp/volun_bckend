@@ -26,6 +26,7 @@ es:
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
   mark_as_pending: Marcar como pendiente
+  creating: Creando
   messages:
     are_you_sure: ¿Está seguro?
     access_denied: "Accesso denegado"
