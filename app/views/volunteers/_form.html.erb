@@ -11,6 +11,8 @@
           <div class="row">
             <%= label_tag UnsubscribeLevel.model_name.human %>:
             <%= content_tag :span, @rt_volunteer_unsubscribe.unsubscribe_level %>
+            <%= f.input :rt_volunteer_unsubscribe_id, as: :hidden, input_html: { value: @rt_volunteer_unsubscribe.id } %>
+            <%= f.association :projects, wrapper_html: { class: 'col-md-4' } %>
           </div>
         </div>
       </div>

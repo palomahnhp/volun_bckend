@@ -99,6 +99,7 @@ class VolunteersController < ApplicationController
           :subscribe_date,
           :unsubscribe_date,
           :unsubscribe_reason_id,
+          :rt_volunteer_unsubscribe_id,
           :comments,
           :expectations,
           :agreement,

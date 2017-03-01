@@ -28,6 +28,7 @@ class VolunteerManager
   end
   
   def update_through_request_form?
+    puts "=============> #{@rt_volunteer_unsubscribe_id}"
     @rt_volunteer_unsubscribe_id.present?
   end
 
@@ -50,7 +51,7 @@ class VolunteerManager
   def update_volunteer(v)
     return unless valid?
 
-    self.volunteer = upd_volunteer(v, @volunteer_attributes)
+    self.volunteer = v
     ActiveRecord::Base.transaction do
       if volunteer.save
         register_tracking!
