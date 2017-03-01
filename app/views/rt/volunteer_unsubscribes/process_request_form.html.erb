@@ -17,8 +17,10 @@
       <dd><%= @request_form.comments %></dd>
       <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:unsubscribe_level) %>:</dt>
       <dd><%= @rt_volunteer_unsubscribe.unsubscribe_level %></dd>
-      <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:project) %>:</dt>
-      <dd><%= @rt_volunteer_unsubscribe.project %></dd>
+      <% if @rt_volunteer_unsubscribe.unsubscribe_level_is_project %>
+        <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:project) %>:</dt>
+        <dd><%= @rt_volunteer_unsubscribe.project %></dd>
+      <% end %>
       <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:notes) %>:</dt>
       <dd><%= @rt_volunteer_unsubscribe.notes %></dd>
     </dl>
@@ -26,7 +28,10 @@
   </div>
 </div>
 
-<%= link_to( t('action.manage'), pre_approve_request_form_rt_volunteer_unsubscribe_path, class: 'btn btn-success') %>
+<%= link_to( t('action.manage'),
+            pre_approve_request_form_rt_volunteer_unsubscribe_path,
+            data: { confirm: t('messages.confirm_unsubscribe_volunteer') },
+            class: 'btn btn-success') %>
 <%= link_to( t('action.reject'), pre_reject_request_form_rt_volunteer_unsubscribe_path, class: 'btn btn-danger') %>
 <%= link_to( t('mark_as_pending'), mark_request_form_as_pending_rt_volunteer_unsubscribe_path, class: 'btn btn-default') %>
 

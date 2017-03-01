@@ -52,13 +52,30 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
       redirect_to rt_volunteer_unsubscribes_path, alert: status_manager.show_errors
     end
   end
+  
+  def request_form
+    @rt_volunteer_unsubscribe.request_form
+  end
+  
+  def approve_request_form!
+    unless request_form.update_and_trace_status(:approved, manager_id: current_user.loggable_id, user_id: current_user.loggable_id)
+      copy_errors_from!(request_form)
+    end
+  end
 
   def pre_approve_request_form
-    if @rt_volunteer_unsubscribe.request_form.processing?
-      redirect_to edit_volunteer_path(@rt_volunteer_unsubscribe.request_form.user.loggable, rt_volunteer_unsubscribe_id: @rt_volunteer_unsubscribe.id)
+    if request_form.processing?
+      request_form.user.loggable.archive
+      approve_request_form!
+      respond_to do |format|
+        format.html { redirect_to(rt_volunteer_unsubscribes_url) }
+        format.js
+        format.xml  { render xml: @rt_volunteer_unsubscribe }
+      end
     else
+      @request_form = request_form
       flash[:alert] = 'status_manager.show_errors'
-      redirect_to :back
+      render :process_request_form
     end
   end
 
