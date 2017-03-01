@@ -2,6 +2,7 @@
   <%= simple_form_for(@volunteer, default_form_options) do |f| %>
       <%= show_simple_base_errors(f) %>
       <%= hidden_field_tag :rt_volunteer_subscribe_id, params[:rt_volunteer_subscribe_id] %>
+      <%= hidden_field_tag :rt_volunteer_unsubscribe_id, params[:rt_volunteer_unsubscribe_id] %>
 
   <div class="form-inputs">
     <% if @rt_volunteer_unsubscribe.present? %>
@@ -11,8 +12,6 @@
           <div class="row">
             <%= label_tag UnsubscribeLevel.model_name.human %>:
             <%= content_tag :span, @rt_volunteer_unsubscribe.unsubscribe_level %>
-            <%= f.input :rt_volunteer_unsubscribe_id, as: :hidden, input_html: { value: @rt_volunteer_unsubscribe.id } %>
-            <%= f.association :projects, wrapper_html: { class: 'col-md-4' } %>
           </div>
         </div>
       </div>

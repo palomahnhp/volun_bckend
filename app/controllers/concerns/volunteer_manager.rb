@@ -28,7 +28,6 @@ class VolunteerManager
   end
   
   def update_through_request_form?
-    puts "=============> #{@rt_volunteer_unsubscribe_id}"
     @rt_volunteer_unsubscribe_id.present?
   end
 
@@ -88,7 +87,8 @@ class VolunteerManager
   end
 
   def request_form
-    @request_form ||= rt_volunteer_subscribe.try(:request_form)
+    @request_form ||= rt_volunteer_subscribe.try(:request_form) if rt_volunteer_subscribe.present?
+    @request_form ||= rt_volunteer_unsubscribe.try(:request_form) if rt_volunteer_unsubscribe.present?
   end
 
   def assign_user_to_volunteer!
