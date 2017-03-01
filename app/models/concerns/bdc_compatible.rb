@@ -29,7 +29,7 @@ module BdcCompatible
 
     attr_accessor :bdc_validator, :no_bdc_check
 
-    after_initialize :set_default_no_bdc_check_value, on: :update
+    after_initialize :set_default_no_bdc_check_value
     before_validation :check_normalization, if: 'check_normalization?'
     validate :must_be_normalized, if: 'check_normalization?'
     after_validation :unnormalize, on: :update, if: 'no_check_normalization?'
@@ -123,7 +123,11 @@ module BdcCompatible
     end
 
     def set_default_no_bdc_check_value
-      self.no_bdc_check ||= !normalized?
+      if new_record?
+        self.no_bdc_check = false
+      else
+        self.no_bdc_check ||= !normalized?
+      end
     end
   end
 
