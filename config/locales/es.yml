@@ -37,11 +37,13 @@ es:
     confirm_mark_as_pending: Se marcará la solicitud como pendiente. ¿Está seguro de que desea continuar?
     confirm_revised_all_volunteer: Los campos de errores del voluntario han sido marcados como revisados. ¿Está seguro de que quiere continuar?
     confirm_revised_volunteer: Este voluntario tiene campos de errores pendientes de revisar. ¿Está seguro de que quiere continuar?
-    confirm_unsubscribe_volunteer: El voluntario se va a dar de baja. ¿Está seguro de que desea continuar?
+    confirm_unsubscribe_volunteer: Se aprobará y gestionará la baja. ¿Está seguro de que desea continuar?
     undo_changes: Deshacer cambios
     request_form_successfully_rejected: Solicitud rechazada con éxito
+    request_form_successfully_managed: Baja gestionada con éxito
     request_form_successfully_marked_as_pending: Solicitud marcada como pendiente
     request_form_cannot_be_processed: 'La solicitud no puede ser procesada porque ya está %{status_name}'
+    user_is_not_in_given_project: La solicitud no puede ser procesada porque el usuario no está en el proyecto en que se solicita su baja
     errors_found_in_request_form: "Se han encontrado errores al procesar la solicitud:"
     another_manager_is_processing_this_request_form: 'El gestor %{manager} está tratando esta solicitud'
   will_paginate:

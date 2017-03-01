@@ -62,15 +62,32 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
       copy_errors_from!(request_form)
     end
   end
+  
+  def approve_and_render_unsubscribes_path
+    approve_request_form!
+    respond_to do |format|
+      format.html { redirect_to(rt_volunteer_unsubscribes_url, notice: I18n.t('messages.request_form_successfully_managed')) }
+      format.js
+      format.xml  { render xml: @rt_volunteer_unsubscribe }
+    end
+  end
 
   def pre_approve_request_form
     if request_form.processing?
-      request_form.user.loggable.archive
-      approve_request_form!
-      respond_to do |format|
-        format.html { redirect_to(rt_volunteer_unsubscribes_url) }
-        format.js
-        format.xml  { render xml: @rt_volunteer_unsubscribe }
+      if @rt_volunteer_unsubscribe.unsubscribe_level_is_project
+        project = @rt_volunteer_unsubscribe.project
+        if project.volunteers.exists?(id: request_form.user.loggable.id)
+          volunteer = project.volunteers.find(request_form.user.loggable.id)
+          project.volunteers.delete(volunteer)
+          approve_and_render_unsubscribes_path
+        else
+          @request_form = request_form
+          flash[:alert] = t('messages.user_is_not_in_given_project')
+          render :process_request_form
+        end
+      else
+        request_form.user.loggable.archive
+        approve_and_render_unsubscribes_path
       end
     else
       @request_form = request_form
