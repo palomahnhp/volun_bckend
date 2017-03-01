@@ -1,7 +1,7 @@
 [NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel].each do |model|
   puts "#{I18n.t('creating')} #{model.model_name.human}"
   model.kinds.each do |kind_name , kind_num|
-    model.first_or_create!(id: kind_num, kind: kind_num, description: kind_name)
+    model.create!(id: kind_num, kind: kind_num, description: kind_name)
   end
 end
 
