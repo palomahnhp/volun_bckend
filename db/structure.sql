@@ -2268,6 +2268,7 @@ CREATE TABLE rt_volunteer_subscribes (
     email character varying,
     publish_pictures boolean DEFAULT true,
     annual_survey boolean DEFAULT false,
+    project_id integer,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -2300,6 +2301,7 @@ ALTER SEQUENCE rt_volunteer_subscribes_id_seq OWNED BY rt_volunteer_subscribes.i
 CREATE TABLE rt_volunteer_unsubscribes (
     id integer NOT NULL,
     unsubscribe_level_id integer,
+    project_id integer,
     notes text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -4755,6 +4757,20 @@ CREATE INDEX index_rt_project_unpublishings_on_project_id ON rt_project_unpublis
 
 
 --
+-- Name: index_rt_volunteer_subscribes_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rt_volunteer_subscribes_on_project_id ON rt_volunteer_subscribes USING btree (project_id);
+
+
+--
+-- Name: index_rt_volunteer_unsubscribes_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_rt_volunteer_unsubscribes_on_project_id ON rt_volunteer_unsubscribes USING btree (project_id);
+
+
+--
 -- Name: index_rt_volunteer_unsubscribes_on_unsubscribe_level_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5405,6 +5421,14 @@ ALTER TABLE ONLY volun_trackings
 
 
 --
+-- Name: fk_rails_537c7138f3; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_volunteer_subscribes
+    ADD CONSTRAINT fk_rails_537c7138f3 FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
 -- Name: fk_rails_55cfc1b0e0; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5578,6 +5602,14 @@ ALTER TABLE ONLY volun_availabilities
 
 ALTER TABLE ONLY rt_volunteers_demands
     ADD CONSTRAINT fk_rails_a96f5dbb87 FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
+-- Name: fk_rails_a9ecf0a1e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY rt_volunteer_unsubscribes
+    ADD CONSTRAINT fk_rails_a9ecf0a1e5 FOREIGN KEY (project_id) REFERENCES projects(id);
 
 
 --

@@ -153,8 +153,8 @@ MODELS_AND_ATTRS = {
                                  'req_reason:references manager:references comments:text',
   'Req::StatusTrace'          => 'req_status:references request_form:references manager:references',
   'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email ' \
-                                 'publish_pictures:boolean annual_survey:boolean notes:text',
-  'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
+                                 'publish_pictures:boolean annual_survey:boolean project:references notes:text',
+  'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references project:references notes:text',
   'Rt::VolunteerAmendment'    => 'road_type road_name number_type road_number postal_code borough ' \
                                  'district town province phone_number phone_number_alt ' \
                                  'email notes:text project:references',
