@@ -17,6 +17,8 @@
       <dd><%= @request_form.comments %></dd>
       <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:unsubscribe_level) %>:</dt>
       <dd><%= @rt_volunteer_unsubscribe.unsubscribe_level %></dd>
+      <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:project) %>:</dt>
+      <dd><%= @rt_volunteer_unsubscribe.project %></dd>
       <dt><%= Rt::VolunteerUnsubscribe.human_attribute_name(:notes) %>:</dt>
       <dd><%= @rt_volunteer_unsubscribe.notes %></dd>
     </dl>

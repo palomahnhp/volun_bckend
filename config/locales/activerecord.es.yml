@@ -355,6 +355,8 @@ es:
       rt/volunteer_unsubscribe:
         unsubscribe_level:      Nivel de baja de voluntario
         unsubscribe_level_id:   Nivel de baja de voluntario
+        project:                Proyecto
+        project_id:             Proyecto
         notes:                  Notas
       collective:
         id:          ID

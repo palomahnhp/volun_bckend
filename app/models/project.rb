@@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
 
   validates :name, uniqueness: true
   validates :name, :description, :contact_name, :contact_last_name, :execution_start_date,
-            :phone_number, :email, :active, :project_type_id, :entity_id, presence: true
+            :phone_number, :email, :project_type_id, :entity_id, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validate  :execution_start_date_less_than_execution_end_date
   validates :execution_start_date, inclusion: { in: (Date.today-11.months..Date.today+11.months),

@@ -12,6 +12,11 @@
           <div class="row">
             <%= label_tag UnsubscribeLevel.model_name.human %>:
             <%= content_tag :span, @rt_volunteer_unsubscribe.unsubscribe_level %>
+            <% if @rt_volunteer_unsubscribe.unsubscribe_level.kind == "project" %>
+              <%= label_tag "Baja sólo de proyecto" %>
+            <% else %>
+              <%= f.input :active, as: :hidden, input_html: { value: "0" } %>
+            <% end %>
           </div>
         </div>
       </div>

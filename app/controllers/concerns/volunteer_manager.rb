@@ -52,7 +52,7 @@ class VolunteerManager
 
     self.volunteer = v
     ActiveRecord::Base.transaction do
-      if volunteer.save
+      if volunteer.update_attributes(@volunteer_attributes)
         register_tracking!
         approve_request_form! if update_through_request_form?
       else

@@ -113,6 +113,7 @@ class VolunteersController < ApplicationController
           :review,
           :error_address,
           :error_other,
+          :active,
           { skill_ids: [] },
           {
             address_attributes: [
