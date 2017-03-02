@@ -14,6 +14,7 @@ class CreateRtVolunteerAmendments < ActiveRecord::Migration
       t.string :phone_number_alt
       t.string :email
       t.text :notes
+      t.references :project, index: true, foreign_key: true
 
       t.timestamps null: false
     end

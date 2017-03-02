@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :contact_results
   resources :coordinations, concerns: :recoverable
   resources :degrees, concerns: :recoverable
+  resources :districts
   resources :documents
   resources :employment_statuses
   resources :event_types
@@ -28,7 +29,9 @@ Rails.application.routes.draw do
   resources :professions
   resources :profiles
   resources :proposals
+  resources :provinces
   resources :record_histories, concerns: :recoverable
+  resources :road_types
   resources :roles
   resources :settings
   resources :skills

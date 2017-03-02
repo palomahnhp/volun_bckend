@@ -13,7 +13,7 @@ class Rt::VolunteerUnsubscribe < ActiveRecord::Base
   end
 	
 	def unsubscribe_level_is_project
-		self.unsubscribe_level.kind == "project"
+		self.unsubscribe_level.try(:kind) == "project"
 	end
 
 end

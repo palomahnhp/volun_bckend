@@ -11,6 +11,9 @@ MODELS_AND_ATTRS = {
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
   'Coordination'  => 'name:string:uniq description:text active:boolean',
+  'District'      => 'name:string:uniq code:string:uniq active:boolean',
+  'Province'      => 'name:string:uniq code:string:uniq active:boolean',
+  'RoadType'      => 'name:string:uniq code:string:uniq active:boolean',
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
 
   'Address'       => 'road_type road_name road_number_type road_number grader stairs floor door postal_code '\
