@@ -31,7 +31,7 @@ module BdcCompatible
     attr_accessor :bdc_validator
 
     before_validation :check_normalization, if: 'normalize?'
-    # after_validation :unnormalize, on: :update, unless: 'normalize?'
+    after_validation :unnormalize, on: :update, unless: 'normalize?'
     validate :must_be_normalized, if: 'normalize?'
 
     def normalized?
