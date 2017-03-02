@@ -5,5 +5,5 @@ class UnsubscribeLevel < ActiveRecord::Base
   def to_s
     kind_i18n
   end
-
+  
 end

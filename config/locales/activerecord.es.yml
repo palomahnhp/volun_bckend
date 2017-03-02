@@ -43,6 +43,10 @@ es:
       gender:
         male:     Hombre
         female:   Mujer
+    unsubscribe_level:
+      kind:
+        project:  Solicita baja de voluntario en proyecto
+        user:     Solicita baja de voluntario completa
   activerecord:
     models:
       project:
@@ -201,6 +205,9 @@ es:
       rt/other:
         one:    Solicitud de "Otros"'
         other:  Solicitudes de"Otros"'
+      unsubscribe_level:
+        one:    Nivel de baja de voluntario
+        other:  Nivel de baja de voluntario
     attributes:
       address:
         postal_code:      Código postal
@@ -345,6 +352,12 @@ es:
         publish_pictures: Publicar fotos
         annual_survey:    Recibir encuesta
         notes:            Notas
+      rt/volunteer_unsubscribe:
+        unsubscribe_level:      Nivel de baja de voluntario
+        unsubscribe_level_id:   Nivel de baja de voluntario
+        project:                Proyecto
+        project_id:             Proyecto
+        notes:                  Notas
       collective:
         id:          ID
         name:        Denominación
