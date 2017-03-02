@@ -190,6 +190,7 @@ CREATE TABLE addresses (
     class_name character varying,
     latitude character varying,
     longitude character varying,
+    normalize boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );

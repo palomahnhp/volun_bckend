@@ -164,8 +164,8 @@ MODELS_AND_ATTRS = {
                                  'phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean ' \
                                  'entity_type:references comments:text other_subscribe_reason:text ' \
                                  'road_type road_name number_type road_number postal_code borough ' \
-                                 'district town province notes:text',
-  'Rt::EntityUnsubscribe'     => 'notes:text',
+                                 'district town province project:references notes:text',
+  'Rt::EntityUnsubscribe'     => 'project:references notes:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date ' \
                                  'road_type road_name number_type road_number postal_code borough ' \
                                  'district town province requested_volunteers_num ' \
