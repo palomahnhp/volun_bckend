@@ -69,38 +69,9 @@
           <div class="address-block row well">
             <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
             <%= f_event.simple_fields_for :address, (f_event.object.build_address if f_event.object.address.blank?) do |f_address|  %>
-              <%= show_simple_base_errors(f_address) %>
-                <div class="address-fields col-md-12">
-                  <div class="row row-4-1">
-                    <% normalize = f_address.object.normalize %>
-                    <%= f_address.input :normalize, as: :boolean, input_html: { class: 'js-normalize' }, wrapper_html: { class: 'pull-right col-md-3' } %>
-                  </div>
-                </div>
-                <div class="address-fields col-md-12">
-                  <div class="row row-4-1">
-                    <%= f_address.input :country, as: :string,  input_html: { value: (f_address.object.country || Setting['default_country']), readonly: true, class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :province, input_html: { value: (f_address.object.province || Setting['default_province']), readonly: true, class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
-                    <%= f_address.input :town, input_html: { class: 'js-town', data: { 'js-search-towns-url' => bdc_search_towns_addresses_url } }, wrapper_html: { class: 'col-md-5' } %>
-                  </div>
-                  <div class="row row-4-1">
-                    <%= f_address.input :road_type, collection: Setting.road_types, input_html: { readonly: normalize }, wrapper_html: { class: 'col-md-3 js-road_type' } %>
-                    <%= f_address.input :road_name, input_html: { class: 'js-road_name', data: { 'js-search-road-names-url' => bdc_search_roads_addresses_url } }, wrapper_html: { class: 'road_name col-md-9' } %>
-                  </div>
-                  <div class="row row-4-2">
-                    <%= f_address.input :road_number_type, input_html: { class: 'm-width250 js-road_number_type', readonly: normalize }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :road_number, collection: [f_address.object.road_number || ''], input_html: { class: 'm-width250 js-road_number-select', disabled: !normalize }, wrapper_html: { class: 'col-md-3 js-road_number-select-wrapper', hidden: !normalize } %>
-                    <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number-input', data: { 'js-search-road-numbers-url' => bdc_search_road_numbers_addresses_url }, disabled: normalize }, wrapper_html: { class: 'col-md-3 js-road_number-input-wrapper', hidden: normalize } %>
-                    <%= f_address.input :grader, input_html: { class: 'm-width80 js-grader', readonly: normalize }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :postal_code, input_html: { class: 'js-postal_code', readonly: normalize, data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
-                  </div>
-                  <div class="row row-4-3">
-                    <%= f_address.input :stairs, input_html: { class: 'm-width250 js-stairs' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :floor, input_html: { class: 'm-width250 js-floor' }, wrapper_html: { class: 'col-md-3' } %>
-                    <%= f_address.input :door, input_html: { class: 'm-width250 js-door' }, wrapper_html: { class: 'col-md-3' } %>
-                  </div>
-                </div> <!-- address-fields -->
+                <%= render partial: 'addresses/form_fields', locals: {f: f_address } %>
             <% end %>
-          </div> <!-- address-block -->
+          </div>
 
           <div class="timetables_block row well">
             <%= content_tag :h3, Timetable.model_name.human(count: 2), class: 'form-subtitle' %>
