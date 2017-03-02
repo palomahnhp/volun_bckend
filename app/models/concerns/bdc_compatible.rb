@@ -20,6 +20,7 @@
 # +local_code+
 # +latitude+
 # +longitude+
+# +normalize+
 #
 
 module BdcCompatible
@@ -27,12 +28,11 @@ module BdcCompatible
 
   included do
 
-    attr_accessor :bdc_validator, :no_bdc_check
+    attr_accessor :bdc_validator
 
-    after_initialize :set_default_no_bdc_check_value
-    before_validation :check_normalization, if: 'check_normalization?'
-    validate :must_be_normalized, if: 'check_normalization?'
-    after_validation :unnormalize, on: :update, if: 'no_check_normalization?'
+    before_validation :check_normalization, if: 'normalize?'
+    # after_validation :unnormalize, on: :update, unless: 'normalize?'
+    validate :must_be_normalized, if: 'normalize?'
 
     def normalized?
       ndp_code.present?
@@ -71,15 +71,8 @@ module BdcCompatible
       end
     end
 
-    def no_check_normalization?
-      ActiveRecord::Type::Boolean.new.type_cast_from_user no_bdc_check
-    end
-
-    def check_normalization?
-      !no_check_normalization?
-    end
-
     def unnormalize
+      self.normalize     = false
       self.ndp_code      = nil
       self.province_code = nil
       self.town_code     = nil
@@ -120,14 +113,6 @@ module BdcCompatible
         bdc_exchange:     '',
         aplication:       Rails.application.secrets.bdc_app_name
       }
-    end
-
-    def set_default_no_bdc_check_value
-      if new_record?
-        self.no_bdc_check = false
-      else
-        self.no_bdc_check ||= !normalized?
-      end
     end
   end
 

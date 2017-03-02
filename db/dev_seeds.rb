@@ -190,26 +190,35 @@ end
 
 Rake::Task['db:custom_seed'].invoke
 
+puts "Creando Frontpage Positions"
+(1..FRONTPAGE_POSTN).each do |n|
+  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
+end
+
+puts "Creando Frontpage Elements"
+(1..FRONTPAGE_ELEMS).each do |n|
+  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
+end
+
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
-  address = Address.new(
-              postal_code:           Faker::Address.postcode,
-              road_type:             ROAD_TYPES.sample,
-              road_name:             Faker::Address.street_name,
-              road_number_type:      ['num', 'km'].sample,
-              road_number:           rand(100).to_s,
-              grader:                [*'A'..'Z'].sample,
-              stairs:                rand(300).to_s,
-              floor:                 rand(9).to_s,
-              door:                  rand(10).to_s,
-              borough:               nil,
-              province:              PROVINCES.sample,
-              country:               "España",
-              town:                  "Madrid",
-              district:              DISTRICTS.sample
-            )
-  address.no_bdc_check = true
-  address.save!
+  Address.create!(
+    postal_code:           Faker::Address.postcode,
+    road_type:             ROAD_TYPES.sample,
+    road_name:             Faker::Address.street_name,
+    road_number_type:      ['num', 'km'].sample,
+    road_number:           rand(100).to_s,
+    grader:                [*'A'..'Z'].sample,
+    stairs:                rand(300).to_s,
+    floor:                 rand(9).to_s,
+    door:                  rand(10).to_s,
+    borough:               nil,
+    province:              'Madrid',
+    country:               'España',
+    town:                  'Madrid',
+    district:              DISTRICTS.sample,
+    normalize:             false
+  )
 end
 
 puts "Creando Entidades"
@@ -370,29 +379,4 @@ puts "Creando Voluntarios"
                     id_number: "%09d" % n,
                     email: Faker::Internet.email,
                     address:  Address.all.sample)
-end
-
-puts "Creando usuario administrador..."
-User.create!(email: 'admin@madrid.es',
-             password: 'Wordpass1',
-             password_confirmation: 'Wordpass1',
-             loggable: Manager.create!(name: 'admin'),
-             notice_type: NoticeType.all.sample).save!
-
-puts "Creando usuario gestor..."
-User.create!(login: 'manager',
-             email: 'manager@madrid.es',
-             password: 'Wordpass1',
-             password_confirmation: 'Wordpass1',
-             loggable: Manager.create!(name: 'manager'),
-             notice_type: NoticeType.all.sample)
-
-puts "Creando Frontpage Positions"
-(1..FRONTPAGE_POSTN).each do |n|
-  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
-end
-
-puts "Creando Frontpage Elements"
-(1..FRONTPAGE_ELEMS).each do |n|
-  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
 end

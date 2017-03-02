@@ -87,7 +87,7 @@ class AddressesController < ApplicationController
           :ndp_code,
           :local_code,
           :class_name,
-          :no_bdc_check
+          :normalize
         )
     end
 end

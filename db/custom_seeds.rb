@@ -740,6 +740,7 @@ InfoSource.create!(id: 8, name: 'Otros'                             , active: tr
 
 puts "#{I18n.t('creating')} admin user"
 User.first_or_create!(
+  login: 'admin',
   email: 'admin@madrid.es',
   password: 'Wordpass1',
   password_confirmation: 'Wordpass1',

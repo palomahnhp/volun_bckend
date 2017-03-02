@@ -15,7 +15,7 @@ MODELS_AND_ATTRS = {
 
   'Address'       => 'road_type road_name road_number_type road_number grader stairs floor door postal_code '\
                      'borough district town province country ndp_code local_code province_code town_code district_code '\
-                     'class_name latitude longitude',
+                     'class_name latitude longitude normalize:boolean',
 
   'Role'          => 'kind:integer:uniq description:text',
   'Manager'       => 'name last_name last_name_alt alias_name role:references profile_id:integer phone_number active:boolean',
@@ -648,7 +648,7 @@ namespace :scaffold do
       File.open(rb_file, 'r').each do |l|
         line = l
         if line.chomp =~ /boolean.*/
-          default_value = /(active|volunteers_allowed|publish).*/ === line.chomp
+          default_value = /(active|volunteers_allowed|publish|normalize).*/ === line.chomp
           line  = line.sub("\n", '')
           line += ", default: #{default_value}\n"
         end

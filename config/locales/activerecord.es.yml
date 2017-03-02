@@ -225,7 +225,7 @@ es:
         latitude:         Latitud
         longitude:        Longitud
         district:         Distrito
-        no_bdc_check:     No normalizada
+        normalize:        Normalizar
       district:
         code:        Código
         name:        Nombre
