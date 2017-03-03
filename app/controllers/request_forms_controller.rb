@@ -5,7 +5,7 @@ class RequestFormsController < ApplicationController
 
   def index
     params[:q] ||= RequestForm.ransack_default
-    @search_q = @request_forms.search(params[:q])
+    @search_q = @request_forms.includes(:request_type, :user, :reason, :status).search(params[:q])
     @request_forms = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@request_forms)

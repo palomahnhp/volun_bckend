@@ -27,15 +27,12 @@ class Rt::VolunteerAppointmentsController < ApplicationController
 
   def create
     @rt_volunteer_appointment.save
-    respond_with(@rt_volunteer_appointment, location: projects_path)
+    respond_with(@rt_volunteer_appointment, location: request_forms_path)
   end
 
   def update
-    if @rt_volunteer_appointment.update(rt_volunteer_appointment_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_volunteer_appointment.update(rt_volunteer_appointment_params)
+    respond_with(@rt_volunteer_appointment, location: request_forms_path)
   end
 
   def destroy

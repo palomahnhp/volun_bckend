@@ -1,7 +1,7 @@
 class DistrictsController < ApplicationController
 
   load_and_authorize_resource
-  respond_to :html, :js, :json
+  respond_to :html, :js
 
   def index
     params[:q] ||= District.ransack_default
@@ -19,7 +19,6 @@ class DistrictsController < ApplicationController
   end
 
   def new
-    @district = District.new
     respond_with(@district)
   end
 

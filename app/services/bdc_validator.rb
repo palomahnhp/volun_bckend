@@ -1,258 +1,210 @@
 class BdcValidator
 
-  attr_accessor :bdc_fields, :clean_bdc_fields, :address_data
+  attr_accessor :bdc_fields, :response_data
 
   def initialize(bdc_fields = {})
-    self.bdc_fields = bdc_fields.with_indifferent_access
+    self.bdc_fields    = bdc_fields.with_indifferent_access
+    self.response_data = {}
   end
 
-  def bloquevial
-    clean_bdc_fields.dig(
-      :bloquedireccion,
-      :datosdireccion,
-      :bloquepais,
-      :bloqueprovincia,
-      :bloquepoblacion,
-      :bloquevial
-    ) || {}
-  end
-
-  def bloquenumero
-    bloquevial[:bloquenumero] || {}
-  end
-
-  def bloquelocal
-    bloquenumero[:bloquelocal] || {}
-  end
-
-  def road_type
-    bloquevial[:nomclase]
-  end
-
-  def ndp_code
-    bloquenumero[:coddireccion]
-  end
-
-  def latitude
-    bloquenumero[:coordx]
-  end
-
-  def longitude
-    bloquenumero[:coordy]
-  end
-
-  def local_code
-    bloquelocal[:codlocal]
+  def validate_address(bdc_fields = self.bdc_fields)
+    response           = client.call(:validar_direccion, message: bdc_fields)
+    self.response_data = Hash.deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return] || {})
+  rescue  Exception  => e
+    Rails.logger.error('BdcValidator#validate_address') do
+      "Error when calling BDC: \"validar_direccion\" - #{bdc_fields}: \n#{e}"
+    end
+    {}
   end
 
   def address_normalized?
     bdc_fields_msg = {
-        nom_pais:       bdc_fields[:country],
-        nom_provincia:  bdc_fields[:province],
-        nom_pueblo:     bdc_fields[:town],
-        nom_clase:      bdc_fields[:road_type],
-        nom_vial:       bdc_fields[:road_name],
-        nom_app:        bdc_fields[:road_number_type],
-        num_app:        bdc_fields[:road_number],
-        cal_app:        bdc_fields[:grader].present? ? bdc_fields[:grader] : '  ',
-        escalera:       bdc_fields[:stairs],
-        planta:         bdc_fields[:floor],
-        puerta:         bdc_fields[:door],
-        intercambioBDC: '',
-        aplicacion:     Rails.application.secrets.bdc_app_name
+      nom_pais:       bdc_fields[:country],
+      nom_provincia:  bdc_fields[:province],
+      nom_pueblo:     bdc_fields[:town],
+      nom_clase:      bdc_fields[:road_type],
+      nom_vial:       bdc_fields[:road_name],
+      nom_app:        bdc_fields[:road_number_type],
+      num_app:        bdc_fields[:road_number],
+      cal_app:        bdc_fields[:grader].present? ? bdc_fields[:grader] : '  ',
+      escalera:       bdc_fields[:stairs],
+      planta:         bdc_fields[:floor],
+      puerta:         bdc_fields[:door],
+      intercambioBDC: '',
+      aplicacion:     Rails.application.secrets.bdc_app_name
     }
 
-    response = client.call(:validar_direccion, message: bdc_fields_msg)
-    self.clean_bdc_fields = deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return])
+    validate_address(bdc_fields_msg)
     ndp_code.present?
-  rescue  Exception  => e
-    Rails.logger.error('BdcValidator#address_is_valid?') do
-      "Error when calling BDC: \"validar_direccion\" - #{bdc_fields}: \n#{e}"
-    end
-    false
   end
 
-  def country_unique?
-    address_data.dig(:estadopais) == '0'
+  def address_block
+    response_data[:bloquedireccion] || {}
   end
 
-  def province_unique?
-    country_unique? && address_data.dig(:bloquepais, :estadoprovincia) == '0'
+  def address_data
+    address_block[:datosdireccion] || {}
   end
 
-  def town_unique?
-    province_unique? && address_data.dig(:bloquepais, :bloqueprovincia, :estadopoblacion) == '0'
+  def country_block
+    address_data[:bloquepais] || {}
   end
 
-  def road_name_unique?
-    town_unique? &&
-      (address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :estadovial) == '0' ||
-        address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :viales, :@numero_viales) == '1')
+  def province_block
+    country_block[:bloqueprovincia] || {}
   end
 
-  def road_number_unique?
-    road_name_unique? && address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial, :estadonumero) == '0'
+  def town_block
+    province_block[:bloquepoblacion] || {}
+  end
+
+  def road_block
+    town_block[:bloquevial] || {}
+  end
+
+  def number_block
+    road_block[:bloquenumero] || {}
+  end
+
+  def local_block
+    number_block[:bloquelocal] || {}
+  end
+
+  def road_type
+    road_block[:nomclase]
+  end
+
+  def ndp_code
+    number_block[:coddireccion]
+  end
+
+  def province_code
+    province_block[:codprovincia]
+  end
+
+  def town_code
+    town_block[:codpoblacion]
+  end
+
+  def district_code
+    number_block[:coddistrito]
+  end
+
+  def local_code
+    local_block[:codlocal]
+  end
+
+  def latitude
+    number_block[:coordx]
+  end
+
+  def longitude
+    number_block[:coordy]
+  end
+
+  def postal_code
+    number_block[:codpostal]
   end
 
   def road_number
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial, :bloquenumero)
+    number_block.presence
   end
 
   def road_name
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial)
+    road_block.presence
   end
 
   def road_town
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion)
+    town_block.presence
+  end
+
+  def road_province
+    province_block.presence
+  end
+
+  def road_country
+    country_block.presence
+  end
+
+  def road_types
+    road_block.dig(:numeros, :numero) || [road_type].compact
   end
 
   def road_numbers
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial, :numeros, :numero) || []
+    road_block.dig(:numeros, :numero) || [road_number].compact
   end
 
   def road_names
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :viales, :vial) || []
+    town_block.dig(:viales, :vial) || [road_name].compact
   end
 
   def road_towns
-    address_data.dig(:bloquepais, :bloqueprovincia, :poblaciones, :poblacion) || []
+    province_block.dig(:poblaciones, :poblacion) || [road_town].compact
   end
 
   def road_provinces
-    address_data.dig(:bloquepais, :bloqueprovincia, :provincias, :provincia) || []
+    country_block.dig(:provincias, :provincia) || [road_province].compact
   end
 
   def road_countries
-    address_data.dig(:paises, :pais) || []
+    address_data.dig(:paises, :pais) || [road_country].compact
   end
 
   def valid?
-    address_data.dig(:bloquepais, :bloqueprovincia, :bloquepoblacion, :bloquevial, :bloquenumero).present?
+    number_block.present?
   end
 
-  def address_result
-    self.address_data = clean_bdc_fields[:bloquedireccion][:datosdireccion]
-    return road_countries unless country_unique?
-    return road_provinces unless province_unique?
-    return road_towns     unless town_unique?
-    return road_names     unless road_name_unique?
-    return road_numbers   unless road_number_unique?
-    road_number
+  def valid_bdc_fields?
+    bdc_fields[:country].present? && bdc_fields[:province].present?
   end
 
   def search_towns
-    return [] if bdc_fields[:country].blank? && bdc_fields[:province].blank? && bdc_fields[:town].blank?
-    bdc_fields_msg = {
-      nom_pais:       bdc_fields[:country],
-      nom_provincia:  bdc_fields[:province],
-      nom_pueblo:     bdc_fields[:town],
-      nom_clase:      '',
-      nom_vial:       bdc_fields[:road_name].present? ? bdc_fields[:road_name] : 'X',
-      nom_app:        '',
-      num_app:        '0',
-      cal_app:        '',
-      escalera:       '',
-      planta:         '',
-      puerta:         '',
-      intercambioBDC: '',
-      aplicacion:     Rails.application.secrets.bdc_app_name
-    }
-    response = client.call(:validar_direccion, message: bdc_fields_msg)
-    self.clean_bdc_fields = deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return])
-    self.address_data = clean_bdc_fields[:bloquedireccion][:datosdireccion]
-    if town_unique?
-      [road_town[:nompoblacion]]
-    elsif province_unique?
-      road_towns.map { |town| town[:nompoblacion] }
-    else
-      []
-    end
+    return [] unless valid_bdc_fields? && bdc_fields[:town].present?
+    validate_address(bdc_fields_msg)
+    road_towns.map { |town| town[:nompoblacion] }
   end
 
   def search_roads
-    return if bdc_fields[:country].blank? && bdc_fields[:province].blank?
-    bdc_fields_msg = {
-      nom_pais:       bdc_fields[:country],
-      nom_provincia:  bdc_fields[:province],
-      nom_pueblo:     bdc_fields[:town],
-      nom_clase:      '',
-      nom_vial:       bdc_fields[:road_name].present? ? bdc_fields[:road_name] : 'X',
-      nom_app:        '',
-      num_app:        '0',
-      cal_app:        '',
-      escalera:       '',
-      planta:         '',
-      puerta:         '',
-      intercambioBDC: '',
-      aplicacion:     Rails.application.secrets.bdc_app_name
-    }
-    response = client.call(:validar_direccion, message: bdc_fields_msg)
-    self.clean_bdc_fields = deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return])
-    self.address_data = clean_bdc_fields[:bloquedireccion][:datosdireccion]
-    if road_name_unique?
-      road_name.present? ? [road_name] : [road_names]
-    elsif town_unique?
-      _road_names = road_names
-      _road_names.select! { |road| road[:nomclase] == bdc_fields[:road_type] } if bdc_fields[:road_type].present?
-      _road_names.sort_by { |road| road[:nomvial] }
-    else
-      []
-    end
+    return unless valid_bdc_fields?
+    validate_address(bdc_fields_msg)
+    _road_names = [road_names].flatten
+    _road_names.select! { |road| road[:nomclase] == bdc_fields[:road_type] } if bdc_fields[:road_type].present?
+    _road_names.sort_by { |road| road[:nomvial] }
   end
 
   def search_road_numbers
-    return if bdc_fields[:country].blank? && bdc_fields[:province].blank?
-    bdc_fields_msg = {
-      nom_pais:       bdc_fields[:country],
-      nom_provincia:  bdc_fields[:province],
-      nom_pueblo:     bdc_fields[:town],
-      nom_clase:      bdc_fields[:road_type].present? ? bdc_fields[:road_type] : '',
-      nom_vial:       bdc_fields[:road_name].present? ? bdc_fields[:road_name] : 'X',
-      nom_app:        '',
-      num_app:        '0',
-      cal_app:        '',
-      escalera:       '',
-      planta:         '',
-      puerta:         '',
-      intercambioBDC: '',
-      aplicacion:     Rails.application.secrets.bdc_app_name
-    }
-    response = client.call(:validar_direccion, message: bdc_fields_msg)
-    self.clean_bdc_fields = deep_strip!(response.body[:validar_direccion_response][:validar_direccion_return])
-    self.address_data = clean_bdc_fields[:bloquedireccion][:datosdireccion]
-    if road_number_unique?
-      [road_number]
-    elsif road_name_unique?
-      road_numbers.sort_by { |road| road[:numapp] }
-    else
-      []
-    end
+    return unless valid_bdc_fields?
+    validate_address(bdc_fields_msg.merge(nom_clase: bdc_fields[:road_type] || ''))
+    road_numbers
+  end
+
+  def search_road_types
+    return unless valid_bdc_fields?
+    validate_address(bdc_fields_msg.merge(nom_clase: bdc_fields[:road_type] || ''))
+    road_numbers
   end
 
   private
 
-    # TODO move strip methods to a module or a helper
-
-    def strip_hash_values(hash)
-      hash.each { |_key, value| deep_strip!(value) }
-    end
-
-    def strip_array_values(array)
-      array.each { |value| deep_strip!(value) }
-    end
-
-    def deep_strip!(value)
-      case value
-      when Hash   then strip_hash_values(value)
-      when Array  then strip_array_values(value)
-      when String then value.strip!
-      else value
-      end
-    end
-
-    # END TODO
-
     def client
       @client ||= Savon.client(wsdl: Rails.application.secrets.bdc_wsdl, raise_errors: true)
+    end
+
+    def bdc_fields_msg
+      {
+        nom_pais:       bdc_fields[:country],
+        nom_provincia:  bdc_fields[:province],
+        nom_pueblo:     bdc_fields[:town],
+        nom_clase:      '',
+        nom_vial:       bdc_fields[:road_name].present? ? bdc_fields[:road_name] : 'X',
+        nom_app:        '',
+        num_app:        '0',
+        cal_app:        '',
+        escalera:       '',
+        planta:         '',
+        puerta:         '',
+        intercambioBDC: '',
+        aplicacion:     Rails.application.secrets.bdc_app_name
+      }
     end
 end 

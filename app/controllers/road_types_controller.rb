@@ -1,7 +1,7 @@
 class RoadTypesController < ApplicationController
 
   load_and_authorize_resource
-  respond_to :html, :js, :json
+  respond_to :html, :js
 
   def index
     params[:q] ||= RoadType.ransack_default
@@ -19,7 +19,6 @@ class RoadTypesController < ApplicationController
   end
 
   def new
-    @road_type = RoadType.new
     respond_with(@road_type)
   end
 
@@ -44,6 +43,6 @@ class RoadTypesController < ApplicationController
   protected
 
     def road_type_params
-      params.require(:road_type).permit(:name, :code)
+      params.require(:road_type).permit(:name, :code, :active)
     end
 end

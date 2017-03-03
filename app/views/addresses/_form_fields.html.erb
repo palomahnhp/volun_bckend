@@ -1,0 +1,30 @@
+<%= show_simple_base_errors(f) %>
+<div class="address-fields col-md-12">
+  <div class="row row-4-1">
+    <% normalize = f.object.normalize %>
+    <%= f.input :normalize, as: :boolean, input_html: { class: 'js-normalize' }, wrapper_html: { class: 'pull-right col-md-3' } %>
+  </div>
+</div>
+<div class="address-fields col-md-12">
+  <div class="row row-4-1">
+    <%= f.input :country, as: :string,  input_html: { value: (f.object.country || Setting['default_country']), readonly: true, class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
+    <%= f.input :province, input_html: { value: (f.object.province || Setting['default_province']), readonly: true, class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
+    <%= f.input :town, input_html: { class: 'js-town', data: { 'js-search-towns-url' => bdc_search_towns_addresses_url } }, wrapper_html: { class: 'col-md-5' } %>
+  </div>
+  <div class="row row-4-1">
+    <%= f.input :road_type, collection: Setting.road_types, input_html: { readonly: normalize }, wrapper_html: { class: 'col-md-3 js-road_type' } %>
+    <%= f.input :road_name, input_html: { class: 'js-road_name', data: { 'js-search-road-names-url' => bdc_search_roads_addresses_url } }, wrapper_html: { class: 'road_name col-md-9' } %>
+  </div>
+  <div class="row row-4-2">
+    <%= f.input :road_number_type, input_html: { class: 'm-width250 js-road_number_type', readonly: normalize }, wrapper_html: { class: 'col-md-3' } %>
+    <%= f.input :road_number, collection: [f.object.road_number || ''], input_html: { class: 'm-width250 js-road_number-select', disabled: !normalize }, wrapper_html: { class: 'col-md-3 js-road_number-select-wrapper', hidden: !normalize } %>
+    <%= f.input :road_number, input_html: { class: 'm-width250 js-road_number-input', data: { 'js-search-road-numbers-url' => bdc_search_road_numbers_addresses_url }, disabled: normalize }, wrapper_html: { class: 'col-md-3 js-road_number-input-wrapper', hidden: normalize } %>
+    <%= f.input :grader, input_html: { class: 'm-width80 js-grader', readonly: normalize }, wrapper_html: { class: 'col-md-3' } %>
+    <%= f.input :postal_code, input_html: { class: 'js-postal_code', readonly: normalize, data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
+  </div>
+  <div class="row row-4-3">
+    <%= f.input :stairs, input_html: { class: 'm-width250 js-stairs' }, wrapper_html: { class: 'col-md-3' } %>
+    <%= f.input :floor, input_html: { class: 'm-width250 js-floor' }, wrapper_html: { class: 'col-md-3' } %>
+    <%= f.input :door, input_html: { class: 'm-width250 js-door' }, wrapper_html: { class: 'col-md-3' } %>
+  </div>
+</div>

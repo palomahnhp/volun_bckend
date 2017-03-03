@@ -1,6 +1,6 @@
 class Rt::ActivityPublishing < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
   belongs_to :road_type
   belongs_to :province

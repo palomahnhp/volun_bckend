@@ -1,8 +1,24 @@
 FactoryGirl.define do
+  factory :setting do
+    key "MyString"
+    value "MyString"
+
+    trait :invalid do
+    end
+  end
   factory :notice_type do
-    kind 1
+    kind "email"
     description "MyText"
     active true
+  end
+  factory :manager do
+    name "MyString"
+    phone_number "MyString"
+    active true
+
+    trait :invalid do
+      name nil
+    end
   end
   factory :user do
     login  'My login'
@@ -11,8 +27,9 @@ FactoryGirl.define do
     password 'Wordpass1'
     password_confirmation 'Wordpass1'
     association :notice_type
-    loggable_id nil
-    loggable_type nil
+    # TODO check if there is a way to use loggable
+    loggable_id 1
+    loggable_type 'Manager'
   end
   factory :known_language, class: 'Volun::KnownLanguage' do
     association :volunteer
@@ -240,7 +257,7 @@ FactoryGirl.define do
       association :kind
     end
   end
-  factory :rejection_type do
+  factory :rejection_type, class: 'Req::RejectionType' do
     name "MyRejectionType"
     description "MyText"
     active true
@@ -302,7 +319,7 @@ FactoryGirl.define do
     last_name_alt "MyString"
     association :id_number_type
     id_number "123456789"
-    gender 1
+    gender "female" #Volunteer.genders[:female]
     birth_date "2017-01-27"
     association :nationality
     phone_number "632147896"
@@ -313,7 +330,7 @@ FactoryGirl.define do
     association :employment_status
     vocne false
     available false
-    availability_date "2017-01-27"
+    availability_date "2022-12-27"
     association :academic_level
     subscribe_date "2017-01-27"
     unsubscribe_date "2017-01-27"
@@ -332,6 +349,7 @@ FactoryGirl.define do
     association :info_source
     other_academic_info "MyText"
     association :profession
+    review 0
     active true
 
     trait :invalid do
@@ -640,7 +658,7 @@ FactoryGirl.define do
     contact_last_name_alt "MyString"
     phone_number "MyString"
     phone_number_alt "MyString"
-    email "MyString"
+    email "MyString@a.com"
     comments "MyText"
     beneficiaries_num 1
     volunteers_num 1
@@ -650,8 +668,8 @@ FactoryGirl.define do
     outstanding false
     insurance_date "2017-01-27"
     association :project_type
-    pt_extendable_id 1
-    pt_extendable_type 'Pt::Entity'
+    pt_extendable_id ProjectType.kinds[:pt_social]
+    pt_extendable_type 'Pt::Social'
     association :entity
 
     trait :invalid do
@@ -662,7 +680,6 @@ FactoryGirl.define do
     id ProjectType.kinds[:pt_social]
     kind "pt_social"
     description "MyText"
-    active true
 
     trait :invalid do
       kind nil
@@ -684,7 +701,7 @@ FactoryGirl.define do
     name "MyString"
     description "MyText"
     vat_number "MyString"
-    email "MyString"
+    email "MyString@a.com"
     representative_name "MyString"
     representative_last_name "MyString"
     representative_last_name_alt "MyString"
@@ -695,7 +712,7 @@ FactoryGirl.define do
     phone_number_alt "MyString"
     publish_pictures false
     annual_survey false
-    association :request_reason
+    association :req_reason
     association :entity_type
     comments "MyText"
     other_subscribe_reason "MyText"
@@ -717,7 +734,7 @@ FactoryGirl.define do
       association :kind
     end
   end
-  factory :request_reason do
+  factory :req_reason, class: 'Req::Reason' do
     kind 1
     description "MyText"
     active true
@@ -734,18 +751,8 @@ FactoryGirl.define do
       name nil
     end
   end
-  factory :manager do
-    name "MyString"
-    profile_id 1
-    phone_number "MyString"
-    active true
-
-    trait :invalid do
-      name nil
-    end
-  end
   factory :address do
-    association :road_type
+    road_type "MyString"
     road_name "MyString"
     road_number_type "MyString"
     road_number "MyString"
@@ -755,9 +762,9 @@ FactoryGirl.define do
     door "MyString"
     postal_code "28047"
     borough "MyString"
-    association :district
+    district "MyString"
     town "MyString"
-    association :province
+    province "MyString"
     country "MyString"
     ndp_code "MyString"
     local_code "MyString"
@@ -767,31 +774,6 @@ FactoryGirl.define do
 
     trait :invalid do
       association :road_type
-    end
-  end
-  factory :road_type do
-    name "MyString"
-    code "MyString"
-
-    trait :invalid do
-      name nil
-    end
-  end
-  factory :district do
-    name "MyString"
-    code "MyString"
-    active true
-
-    trait :invalid do
-      name nil
-    end
-  end
-  factory :province do
-    name "MyString"
-    code "MyString"
-
-    trait :invalid do
-      name nil
     end
   end
   factory :record_history do
@@ -828,6 +810,23 @@ FactoryGirl.define do
 
     trait :invalid do
       name nil
+    end
+  end
+  factory :frontpage_position do
+    position 1
+    description "MyText"
+    active true
+
+    trait :invalid do
+      position nil
+    end
+  end
+  factory :frontpage_element do
+    association :frontpage_position
+    active true
+
+    trait :invalid do
+      frontpage_position_id nil
     end
   end
 end

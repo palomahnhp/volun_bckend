@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(req_rejection_type) %>" >
+
+  <% req_rejection_type.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(req_rejection_type, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(req_rejection_type) %>
+    <%= link_to_edit(req_rejection_type) %>
+<% if req_rejection_type.try(:archived?) %>
+    <%= link_to_recover(req_rejection_type) %>
+<% else %>
+    <%= link_to_destroy(req_rejection_type) %>
+<% end %>
+  </td>
+</tr>

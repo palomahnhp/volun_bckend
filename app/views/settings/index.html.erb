@@ -1,0 +1,35 @@
+<% model_class = Setting %>
+
+<div class="row">
+  <div class="col-md-12">
+    <%= model_title(model_class) %>
+  </div>
+</div>
+<div class="index-panel row well">
+  <div class="col-md-6">
+    <%= content_tag(:div, link_to_new(model_class, opts = {text: "#{fa_icon('plus')} #{content_tag(:span, t('action.newFem', model: model_class.model_name.human))}".html_safe}), class: 'col-md-6 pull-left') %>
+  </div>
+  <div class="col-md-6">
+    <%= content_tag(:div, search_collection(@search_q, :key_or_value_cont), class: 'col-md-6 pull-right') %>
+  </div>
+</div>
+
+<table class="index-table">
+  <thead>
+    <tr>
+    <% model_class.main_columns.each do |column| -%>
+      <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
+    <% end -%>
+
+      <th class="actions index_table-actions">
+        <%= t('actions') %>
+      </th>
+    </tr>
+  </thead>
+  
+  <tbody>
+    <%= render(partial: 'setting', collection: @settings)%>
+  </tbody>
+</table>
+
+<%= render partial: "shared/pagination", locals: {collection: @settings} %>

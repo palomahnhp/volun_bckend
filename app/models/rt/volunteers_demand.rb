@@ -1,7 +1,5 @@
 class Rt::VolunteersDemand < ActiveRecord::Base
 
-  include RtCommons
-
-
+  include RtModel
 
 end

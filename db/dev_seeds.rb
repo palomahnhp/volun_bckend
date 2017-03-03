@@ -6,72 +6,37 @@ Faker::Config.locale = I18n.locale
 ADDRESSES_NUM     = 20
 PROJECTS_NUM      = 10
 REQUEST_FORMS_NUM = 10
-DISTRICTS_NUM     = 10
 ENTITIES_NUM      = 10
 COORDINATIONS_NUM = 10
 PROPOSAL_NUM      = 10
 ENTITY_NUM        = 10
 RACKING_NUM       = 10
-ISSUE_NUM         = 10
-ACTIVITIES_NUM    = 5
-TIMETABLE_NUM     = 5
-EVENTS_NUM        = 5
-DOCUMENT_NUM      = 5
-SKILLS_NUM        = 5
+VOLUNTEERS        = 10
+FRONTPAGE_ELEMS   = 3
+FRONTPAGE_POSTN   = 3
+LINKS             = 3
+PROFESSIONS       = 3
+REJECTION_TYPES   = 3
+SKILLS_NUM        = 3
+ACTIVITIES_NUM    = 3
+TIMETABLE_NUM     = 3
+EVENTS_NUM        = 3
+DOCUMENT_NUM      = 3
 
-REQUEST_TYPES = {
-  1  => 'rt_volunteer_subscribe',
-  2  => 'rt_volunteer_unsubscribe',
-  3  => 'rt_volunteer_amendment',
-  4  => 'rt_volunteer_appointment',
-  5  => 'rt_entity_subscribe',
-  6  => 'rt_entity_unsubscribe',
-  7  => 'rt_volunteers_demand',
-  8  => 'rt_project_publishing',
-  9  => 'rt_project_unpublishing',
-  10 => 'rt_project_unsubscribe',
-  11 => 'rt_activity_publishing',
-  12 => 'rt_activity_unpublishing',
-  13 => 'rt_other'
-}
 
-PROJECT_TYPES = {
-  1 => 'Servicios Sociales',
-  2 => 'Centros de mayores',
-  3 => 'Permanentes',
-  4 => 'Puntuales',
-  5 => 'Entidades',
-  6 => 'Subvencionados',
-  7 => 'Otros'
-}
-
-REQUEST_REASONS = {
-  0 => 'Difusión de proyectos',
-  1 => 'Solicitud voluntarios',
-  2 => 'Publicación actividad en agenda',
-  3 => 'Otros'
-}
-
-AREA_NAMES = [
-  'Derechos Sociales',
-  'Ambiental',
-  'Cultural',
-  'Deportivo',
-  'Educativo',
-  'Socio-sanitario',
-  'Ocio y tiempo libre',
-  'Comunitario y/o de ciudad',
-  'Animales',
-  'Participación',
-  'On line',
-  'Cuidados a las personas',
-  'Sensibilización',
-  'Comunicación',
-  'Cooperación',
-  'Responsabilidad social',
-  'Emergencias',
+REQUEST_REASONS = [
+  'Difusión de proyectos',
+  'Solicitud voluntarios',
+  'Publicación actividad en agenda',
   'Otros'
 ]
+
+REQUEST_STATUSES = {
+  0 => 'Pendiente',
+  1 => 'En trámite',
+  2 => 'Aceptado',
+  3 => 'Rechazado'
+}
 
 COLLECTIVE_NAMES = [
   'Menores',
@@ -90,182 +55,112 @@ COLLECTIVE_NAMES = [
   'Otros'
 ]
 
-DISTRICTS = {
+DISTRICTS = [
+  'CENTRO',
+  'ARGANZUELA',
+  'RETIRO',
+  'SALAMANCA',
+  'CHAMARTIN',
+  'TETUAN',
+  'CHAMBERI',
+  'FUENCARRAL-EL PARDO',
+  'MONCLOA-ARAVACA',
+  'LATINA',
+  'CARABANCHEL',
+  'USERA',
+  'PUENTE VALLECAS',
+  'MORATALAZ',
+  'CIUDAD LINEAL',
+  'HORTALEZA',
+  'VILLAVERDE',
+  'VILLA DE VALLECAS',
+  'VICÁLAVARO',
+  'SAN BLAS',
+  'BARAJAS',
+  'OTRO MUNICIPIO',
+  'OTROS'
+]
 
-  '01' => 'CENTRO',
-  '02' => 'ARGANZUELA',
-  '03' => 'RETIRO',
-  '04' => 'SALAMANCA',
-  '05' => 'CHAMARTIN',
-  '06' => 'TETUAN',
-  '07' => 'CHAMBERI',
-  '08' => 'FUENCARRAL-EL PARDO',
-  '09' => 'MONCLOA-ARAVACA',
-  '10' => 'LATINA',
-  '11' => 'CARABANCHEL',
-  '12' => 'USERA',
-  '13' => 'PUENTE VALLECAS',
-  '14' => 'MORATALAZ',
-  '15' => 'CIUDAD LINEAL',
-  '16' => 'HORTALEZA',
-  '17' => 'VILLAVERDE',
-  '18' => 'VILLA DE VALLECAS',
-  '19' => 'VICÁLAVARO',
-  '20' => 'SAN BLAS',
-  '21' => 'BARAJAS',
-  '22' => 'OTRO MUNICIPIO',
-  '99' => 'OTROS'
-
-}
-
-PROVINCES = {
-
-  '1'  => 'ARABA-ALAVA',
-  '2'  => 'ALBACETE',
-  '3'  => 'ALICANTE-ALACANT',
-  '4'  => 'ALMERIA',
-  '5'  => 'AVILA',
-  '6'  => 'BADAJOZ',
-  '7'  => 'ILLES BALEARS',
-  '8'  => 'BARCELONA',
-  '9'  => 'BURGOS',
-  '10' => 'CACERES',
-  '11' => 'CADIZ',
-  '12' => 'CASTELLON-CASTELLO',
-  '13' => 'CIUDAD REAL',
-  '14' => 'CORDOBA',
-  '15' => 'A CORUÑA',
-  '16' => 'CUENCA',
-  '17' => 'GIRONA',
-  '18' => 'GRANADA',
-  '19' => 'GUADALAJARA',
-  '20' => 'GIPUZKOA',
-  '21' => 'HUELVA',
-  '22' => 'HUESCA',
-  '23' => 'JAEN',
-  '24' => 'LEON',
-  '25' => 'LLEIDA',
-  '26' => 'LA RIOJA',
-  '27' => 'LUGO',
-  '28' => 'MADRID',
-  '29' => 'MALAGA',
-  '30' => 'MURCIA',
-  '31' => 'NAVARRA',
-  '32' => 'OURENSE',
-  '33' => 'ASTURIAS',
-  '34' => 'PALENCIA',
-  '35' => 'LAS PALMAS',
-  '36' => 'PONTEVEDRA',
-  '37' => 'SALAMANCA',
-  '38' => 'SANTA CRUZ DE TENERIFE',
-  '39' => 'CANTABRIA',
-  '40' => 'SEGOVIA',
-  '41' => 'SEVILLA',
-  '42' => 'SORIA',
-  '43' => 'TARRAGONA',
-  '44' => 'TERUEL',
-  '45' => 'TOLEDO',
-  '46' => 'VALENCIA',
-  '47' => 'VALLADOLID',
-  '48' => 'BIZKAIA',
-  '49' => 'ZAMORA',
-  '50' => 'ZARAGOZA',
-  '51' => 'CEUTA',
-  '52' => 'MELILLA'
-
-}
-
-ROAD_TYPES = {
-    'ACCESO'     => '13',
-    'ARROYO'     => '1',
-    'AUTOPISTA'  => '10',
-    'AUTOVIA'    => '364',
-    'AVENIDA'    => '13063',
-    'BULEVAR'    => '199',
-    'CALLE'      => '176374',
-    'CALLEJON'   => '159',
-    'CAMINO'     => '1604',
-    'CAMINOALTO' => '28',
-    'CARRERA'    => '50',
-    'CARRETERA'  => '831',
-    'CAÑADA'     => '107',
-    'COLONIA'    => '364 ',
-    'COSTANILLA' => '107 ',
-    'CUESTA'     => '113',
-    'GALERIA'    => '10 ',
-    'GLORIETA'   => '288',
-    'PARQUE'     => '30',
-    'PARTICULAR' => '21',
-    'PASADIZO'   => '6',
-    'PASAJE'     => '',
-    'PASEO'      => '4239',
-    'PISTA'      => '4',
-    'PLAZA'      => '3478',
-    'PLAZUELA'   => '16',
-    'PUENTE'     => '1 ',
-    'RONDA'      => ' ',
-    'TRAVESIA'   => '1007',
-}
+PROVINCES = [
+  'ARABA-ALAVA',
+  'ALBACETE',
+  'ALICANTE-ALACANT',
+  'ALMERIA',
+  'AVILA',
+  'BADAJOZ',
+  'ILLES BALEARS',
+  'BARCELONA',
+  'BURGOS',
+  'CACERES',
+  'CADIZ',
+  'CASTELLON-CASTELLO',
+  'CIUDAD REAL',
+  'CORDOBA',
+  'A CORUÑA',
+  'CUENCA',
+  'GIRONA',
+  'GRANADA',
+  'GUADALAJARA',
+  'GIPUZKOA',
+  'HUELVA',
+  'HUESCA',
+  'JAEN',
+  'LEON',
+  'LLEIDA',
+  'LA RIOJA',
+  'LUGO',
+  'MADRID',
+  'MALAGA',
+  'MURCIA',
+  'NAVARRA',
+  'OURENSE',
+  'ASTURIAS',
+  'PALENCIA',
+  'LAS PALMAS',
+  'PONTEVEDRA',
+  'SALAMANCA',
+  'SANTA CRUZ DE TENERIFE',
+  'CANTABRIA',
+  'SEGOVIA',
+  'SEVILLA',
+  'SORIA',
+  'TARRAGONA',
+  'TERUEL',
+  'TOLEDO',
+  'VALENCIA',
+  'VALLADOLID',
+  'BIZKAIA',
+  'ZAMORA',
+  'ZARAGOZA',
+  'CEUTA',
+  'MELILLA'
+]
 
 PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
-ENTITY_TYPES = {
-  0 => 'Organización',
-  1 => 'Empresa',
-  2 => 'Asociación'
-}
+NATIONALITIES = [
+	'Español',
+	'Inglés',
+	'Alemán',
+	'Francés',
+	'Italiano'
+]
 
-NOTICE_TYPES = {
-  0 => 'email',
-  1 => 'sms',
-  2 => 'papel'
-}
+ROAD_TYPES = %w(
+  ACCESO ARROYO AUTOVIA AUTOPISTA AVENIDA BARRANCO BARRIO BULEVAR CARRERA CAÐADA CARRIL CALLEJON CALLE
+  CAMINO CANAL COLONIA COMPLEJO CARRETERA COSTANILLA CANTON CUESTA EDIFICIO ESCALINATA ESTACION FINCA FUENTE
+  GALERIA GRUPO GLORIETA GRAN JARDIN LUGAR MONUMENTO MONTE MERCADO PLAZUELA POBLADO PASADIZO PUENTE POLIGONO
+  PISTA PASAJE PASEO PARQUE PARTICULAR PUERTA PLAZA RONDA RIO TRASERA TRAVESIA TRANSVERSAL URBANIZACION VIA
+)
 
-
-puts "Creando Medios de comunicación"
-NOTICE_TYPES.each do |kind , name|
-  NoticeType.create!(kind: kind, description: name)
-end
-
-puts "Creando usuario administrador..."
-User.first_or_initialize(email: 'admin@madrid.es',
-                         password: 'Wordpass1',
-                         password_confirmation: 'Wordpass1',
-                         notice_type: NoticeType.all.sample).save!
-
-puts "Creando Colectivos"
-AREA_NAMES.each do |name|
-  Area.create!(name: name)
-end
+puts "Creando Propiedades"
+Setting.create(key: 'default_country', value: 'España')
+Setting.create(key: 'default_province', value: 'Madrid')
+Setting.create(key: 'road_types', value: ROAD_TYPES.join(','))
 
 puts "Creando Ámbitos"
 COLLECTIVE_NAMES.each do |name|
   Collective.create!(name: name)
-end
-
-puts "Creando Propuestas"
-PROPOSALS.each do |name|
-  Proposal.create!(name: name)
-end
-
-puts "Creando Tipos de solicitudes"
-REQUEST_TYPES.each do |kind , name|
-  RequestType.create!(kind: kind)
-end
-
-puts "Creando Tipos de solicitudes"
-ENTITY_TYPES.each do |kind , name|
-  EntityType.create!(kind: kind, description: name)
-end
-
-puts "Creando Tipos de proyectos"
-PROJECT_TYPES.each do |kind , name|
-  ProjectType.create!(kind: kind, description: name)
-end
-
-puts "Creando Tipo documento"
-(1..2).each do |n|
-  IdNumberType.create!(name: "#{IdNumberType.model_name.human} #{n}")
 end
 
 puts "Creando Habilidades"
@@ -278,38 +173,51 @@ puts "Creando Coordinaciones"
   Coordination.create!(name: "#{Coordination.model_name.human} #{n}")
 end
 
-puts "Creando Distritos"
-DISTRICTS.each do |code, name|
-  District.create!(code: code, name: name)
+puts "Creando Links"
+(1..LINKS).each do |n|
+  Link.create!(url: "http://url#{n}.com", description: "Link #{n} description.")
 end
 
-puts "Creando Provincias"
-PROVINCES.each do |code, name|
-  Province.create!(code: code, name: name)
+puts "Creando Professions"
+(1..PROFESSIONS).each do |n|
+  Profession.create!(name: "Profession_#{n}")
 end
 
-puts "Creando Tipos de vías"
-ROAD_TYPES.each do |name, code|
-  RoadType.create!(name: name, code: code)
+puts "Creando Motivos de rechazo"
+(1..REJECTION_TYPES).each do |n|
+  Req::RejectionType.create!(name: "Rejection Type #{n}", description: "Rejection type #{n} description.")
+end
+
+Rake::Task['db:custom_seed'].invoke
+
+puts "Creando Frontpage Positions"
+(1..FRONTPAGE_POSTN).each do |n|
+  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
+end
+
+puts "Creando Frontpage Elements"
+(1..FRONTPAGE_ELEMS).each do |n|
+  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
 end
 
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
   Address.create!(
     postal_code:           Faker::Address.postcode,
-    road_type:             RoadType.all.sample,
+    road_type:             ROAD_TYPES.sample,
     road_name:             Faker::Address.street_name,
-    road_number_type:      Address::ROAD_NUMBER_TYPES.sample,
+    road_number_type:      ['num', 'km'].sample,
     road_number:           rand(100).to_s,
-    grader:                Address::GRADERS.sample,
+    grader:                [*'A'..'Z'].sample,
     stairs:                rand(300).to_s,
     floor:                 rand(9).to_s,
     door:                  rand(10).to_s,
     borough:               nil,
-    province:              Province.all.sample,
-    country:               "España",
-    town:                  "Madrid",
-    district:              District.all.sample
+    province:              'Madrid',
+    country:               'España',
+    town:                  'Madrid',
+    district:              DISTRICTS.sample,
+    normalize:             false
   )
 end
 
@@ -327,11 +235,38 @@ puts "Creando Entidades"
   )
 end
 
+puts "Creando Motivos de solicitud"
+REQUEST_REASONS.each do |name|
+  Req::Reason.create!(name: name, description: name)
+end
 
-# puts "Creando Motivos de solicitud"
-# REQUEST_REASONS.each do |kind , name|
-#   RequestReason.create!(kind: kind)
-# end
+puts "Creando Solicitudes"
+RequestType.all.each do |request_type|
+  (1..REQUEST_FORMS_NUM).each do |n|
+    request_form = RequestForm.new(
+      request_type: request_type,
+      status: Req::Status.pending.take,
+      status_date: DateTime.now,
+      comments: "#{n} #{Faker::Lorem.sentence}",
+      # user: user
+      # rejection_type_id: integer,
+    )
+
+    rt_attributes = case request_type.kind
+                      when 'rt_volunteer_subscribe'
+                        {
+                          name: Faker::Name.name,
+                          last_name: Faker::Name.last_name,
+                          phone_number: Faker::PhoneNumber.phone_number,
+                          email: Faker::Internet.email
+                        }
+                      else {}
+                    end
+    request_form.build_rt_extendable(rt_attributes)
+
+    request_form.save!
+  end
+end
 
 puts "Creando Proyectos"
 ProjectType.all.each do |project_type|
@@ -343,7 +278,7 @@ ProjectType.all.each do |project_type|
       comments:              Faker::Lorem.sentence,
       entity_id:             Entity.all.sample.id,
       execution_start_date:  Faker::Time.between(DateTime.now - 10, DateTime.now),
-      execution_end_date:    Faker::Time.between(DateTime.tomorrow - 10, DateTime.tomorrow),
+      execution_end_date:    Faker::Time.between(DateTime.tomorrow, DateTime.tomorrow + 10),
       contact_name:          Faker::Name.name,
       contact_last_name:     Faker::Name.last_name,
       phone_number:          Faker::PhoneNumber.phone_number,
@@ -377,6 +312,11 @@ ProjectType.all.each do |project_type|
       event = Event.create!(
         address:    Address.all.sample,
         eventable:  project,
+        timetables_attributes: [{
+          execution_date:  rand(100).days.since.to_date,
+          start_hour: '11:11',
+          end_hour:   '12:12'
+        }]
       )
 
       puts "Creando Horarios para evento #{event.id}"
@@ -412,6 +352,11 @@ puts "Creando Actividades"
     event = Event.create!(
       address:    Address.all.sample,
       eventable:  activity,
+      timetables_attributes: [{
+        execution_date:  rand(100).days.since.to_date,
+        start_hour: '11:11',
+        end_hour:   '12:12'
+      }]
     )
 
     puts "Creando Horarios para evento #{event.id}"
@@ -426,21 +371,12 @@ puts "Creando Actividades"
   end
 end
 
-
-puts "Creando Solicitudes"
-RequestType.all.each do |request_type|
-  (1..REQUEST_FORMS_NUM).each do |n|
-    request_form = RequestForm.new(
-      request_type: request_type,
-      status: RequestForm.statuses[:pending],
-      status_date: DateTime.now,
-      comments: "#{n} #{Faker::Lorem.sentence}",
-      # rejection_type_id: integer,
-      # user: User.all.sample,
-    )
-
-    request_form.build_rt_extendable
-
-    request_form.save!
-  end
+puts "Creando Voluntarios"
+(1..VOLUNTEERS).each do |n|
+  Volunteer.create!(name: Faker::Name.first_name,
+                    last_name: Faker::Name.last_name,
+                    id_number_type_id: IdNumberType.last.id,
+                    id_number: "%09d" % n,
+                    email: Faker::Internet.email,
+                    address:  Address.all.sample)
 end

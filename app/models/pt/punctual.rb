@@ -1,5 +1,5 @@
 class Pt::Punctual < ActiveRecord::Base
 
-  include PtCommons
+  include PtModel
 
 end

@@ -1,7 +1,7 @@
 module ScaffoldHelper
 
   def model_title(model_class, opts = {})
-    main_title(model_class.model_name.human(count: 2).capitalize, opts)
+    main_title(model_class.model_name.human(count: 2), opts)
   end
 
   def main_title(title, opts = {})
@@ -22,11 +22,31 @@ module ScaffoldHelper
   end
 
   def get_hidden_fields(hidden_fields)
-    hfs = ''
-    hidden_fields.each do |k,v|
-      hfs += hidden_field_tag k, v
+    html_tag = ''
+    grouped_hidden_fields = hidden_fields.select{ |_k, v| v.is_a? Hash }
+    grouped_hidden_fields.each do |group_name, _hidden_fields|
+      html_tag += content_tag(:div, id: group_name) do
+                    build_hidden_fields(_hidden_fields)
+                  end
     end
-    hfs.html_safe
+    independent_hidden_fields = hidden_fields.reject{ |_k, v| v.is_a? Hash }
+    html_tag += build_hidden_fields independent_hidden_fields
+    html_tag.html_safe
+  end
+
+  def build_hidden_fields(hidden_fields)
+    hidden_fields.inject('') do |hf_tags, (name, value)|
+      hf_tags + hidden_field_tag(name, value)
+    end.html_safe
+  end
+
+  def show_simple_base_errors(form)
+    return unless form.object.errors[:base].present?
+
+    content_tag :div, class: 'has-error alert alert-danger alert-dismissable' do
+      "<button name=\"button\" type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>" \
+      "#{form.error(:base)}".html_safe
+    end
   end
 
   def link_to_new(model, opts = {})
@@ -126,18 +146,23 @@ module ScaffoldHelper
   end
 
   def show_simple_date(date, options = {})
-    return unless date
-    format = date.is_a?(DateTime) ? '%d/%m/%Y %H:%M' : '%d/%m/%Y'
-    l(date, { format: format }.merge(options))
+    format =  case date
+              when Date
+                '%d/%m/%Y'
+              when DateTime, ActiveSupport::TimeWithZone
+                '%d/%m/%Y %H:%M'
+              end
+    l(date, { format: format }.merge(options)) if format
   end
 
   def show_attr(record, attr_name, date_opts = {})
     return record.public_send "#{attr_name}_i18n" if record.respond_to? "#{attr_name}_i18n"
 
     attr_value = record.public_send attr_name
-    if attr_value.is_a?(TrueClass) || attr_value.is_a?(FalseClass)
+    case attr_value
+    when TrueClass, FalseClass
       t("humanize.#{attr_value}")
-    elsif attr_value.is_a?(Date)
+    when Date, DateTime, ActiveSupport::TimeWithZone
       show_simple_date(attr_value, date_opts)
     else
       attr_value

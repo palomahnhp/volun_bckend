@@ -23,6 +23,22 @@ module ApplicationHelper
       data: {mask: '99/99/9999'}
     }
   end
+  
+  def date_input_html_default_values(date)
+    {
+      class: 'datepicker',
+      placeholder: 'dd/mm/aaaa',
+      value: date ? date.strftime('%d/%m/%Y') : Date.today.strftime('%d/%m/%Y'),
+      data: {mask: '99/99/9999'}
+    }
+  end
+
+  def check_box_filter_for(param_name, js_selector = nil)
+    check_box_tag "q[#{param_name}]",
+                  params[param_name],
+                  params[param_name],
+                  onchange: "update_hidden_inputs(this, '#{js_selector || '#' + param_name}')"
+  end
 
 end
 

@@ -1,0 +1,28 @@
+<%= main_title(t("action.show", model: FrontpageElement.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= FrontpageElement.human_attribute_name(:id) %>:</dt>
+  <dd><%= @frontpage_element.id %></dd>
+  <dt><%= FrontpageElement.human_attribute_name(:frontpage_position_id) %>:</dt>
+  <dd><%= @frontpage_element.frontpage_position.position %></dd>
+  <dt><%= FrontpageElement.human_attribute_name(:text_panel) %>:</dt>
+  <dd><%= @frontpage_element.text_panel %></dd>
+  <dt><%= FrontpageElement.human_attribute_name(:text_button) %>:</dt>
+  <dd><%= @frontpage_element.text_button %></dd>
+  <dt><%= FrontpageElement.human_attribute_name(:image_url) %>:</dt>
+  <dd><%= @frontpage_element.image_url %></dd>
+  <dt><%= FrontpageElement.human_attribute_name(:link_url) %>:</dt>
+  <dd><%= @frontpage_element.link_url %></dd>
+  <dt><%= FrontpageElement.human_attribute_name(:logo_url) %>:</dt>
+  <dd><%= @frontpage_element.logo_url %></dd>
+  <dt><%= FrontpageElement.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@frontpage_element.active}") %></dd>
+  <dt><%= FrontpageElement.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@frontpage_element.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@frontpage_element) %>
+<% end %>

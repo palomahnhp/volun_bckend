@@ -1,10 +1,6 @@
 <div class="well well-form">
   <%= simple_nested_form_for(@rt_other, default_form_options) do |f| %>
 
-      <%= f.simple_fields_for :request_form do |f_request_form|  %>
-          <%= render partial: 'request_forms/form_fields', locals: {f: f_request_form } %>
-      <% end %>
-
       <div class="form-inputs">
         <%= render partial: 'form_fields', locals: {f: f } %>
       </div>

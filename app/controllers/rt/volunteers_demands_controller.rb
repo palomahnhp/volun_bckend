@@ -27,15 +27,12 @@ class Rt::VolunteersDemandsController < ApplicationController
 
   def create
     @rt_volunteers_demand.save
-    respond_with(@rt_volunteers_demand, location: projects_path)
+    respond_with(@rt_volunteers_demand, location: request_forms_path)
   end
 
   def update
-    if @rt_volunteers_demand.update(rt_volunteers_demand_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_volunteers_demand.update(rt_volunteers_demand_params)
+    respond_with(@rt_volunteers_demand, location: request_forms_path)
   end
 
   def destroy
