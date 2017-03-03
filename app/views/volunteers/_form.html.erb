@@ -74,7 +74,7 @@
     <div class="address-block row well">
       <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
       <%= f.simple_fields_for :address, (f.object.build_address if f.object.address.blank?) do |f_address|  %>
-          <%= render partial: 'addresses/form_fields', locals: {f: f_address } %>
+          <%= render partial: 'addresses/form_fields', locals: { f: f_address } %>
       <% end %>
     </div>
     

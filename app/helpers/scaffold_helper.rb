@@ -51,8 +51,9 @@ module ScaffoldHelper
 
   def link_to_new(model, opts = {})
     return unless can?(:create, model)
-    options = {
-        text:   "#{fa_icon('plus')} #{content_tag(:span, t('action.new', model: model.model_name.human))}".html_safe,
+    new_i18n_path = opts.delete(:fem).present? ? 'new_fem' : 'new'
+      options = {
+        text:   "#{fa_icon('plus')} #{content_tag(:span, t("action.#{new_i18n_path}", model: model.model_name.human))}".html_safe,
         path:   "new_#{model.model_name.singular}_path",
         remote: false,
         class:  'btn btn-primary',

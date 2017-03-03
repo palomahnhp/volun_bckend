@@ -6,7 +6,7 @@ es:
   actions:   Acciones
   action:
     new:      'Nuevo %{model}'
-    newFem:   'Nueva %{model}'
+    new_fem:  'Nueva %{model}'
     edit:     'Editar %{model}'
     show:     'Ver %{model}'
     destroy:  'Eliminar'
@@ -28,6 +28,11 @@ es:
   date_placeholder: 'dd/mm/aaaa'
   mark_as_pending: Marcar como pendiente
   creating: Creando
+  representative: Representante legal
+  volunteers_amount: Número de voluntarios
+  other_data: Otros datos de interés
+  main_data: Datos principales
+  contact_data: Datos de contacto
   messages:
     are_you_sure: ¿Está seguro?
     access_denied: "Accesso denegado"

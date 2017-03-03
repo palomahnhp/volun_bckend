@@ -6,8 +6,7 @@ class Area < ActiveRecord::Base
   has_and_belongs_to_many :projects
   has_many :activities
 
-  validates :name, uniqueness: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
 
   def self.main_columns
     [:id, :name, :active]

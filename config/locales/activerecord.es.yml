@@ -245,7 +245,9 @@ es:
         phone_number_alt: Teléfono 2
         publish_pictures: Divulgación de imagen
         annual_survey: Recibir encuesta anual
-        request_reason_id: Motivo por el que solicita darse de alta
+        reason: Motivo por el que solicita darse de alta
+        reason_id: Motivo por el que solicita darse de alta
+        entity_type: Tipo de entidad
         entity_type_id: Tipo de entidad
         comments: Observaciones
         other_subscribe_reason: Otro motivo de solicitud
@@ -615,3 +617,4 @@ es:
         cannot_change_to_processing: no puede cambiar a 'en trámite'
         cannot_change_to_approved: no puede cambiar a aprobada
         cannot_change_to_rejected: no puede cambiar a rechazada
+        invalid_document_number: Número de documento inválido
