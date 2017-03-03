@@ -512,10 +512,10 @@ IdNumberType.create!(id: 5, name: 'OTROS'    , active: true)
 ## entity_types
 puts "#{I18n.t('creating')} #{EntityType.model_name.human}"
 
-EntityType.create!(id: 1, kind: 1, description: 'AYUNTAMIENTO MADRID',active: true)
-EntityType.create!(id: 2, kind: 2, description: 'OTROS ORGANISMOS',   active: true)
-EntityType.create!(id: 3, kind: 3, description: 'ENTIDAD',            active: true)
-EntityType.create!(id: 4, kind: 4, description: 'EMPRESA',            active: true)
+EntityType.create!(id: 1, name: 'AYUNTAMIENTO MADRID', description: 'AYUNTAMIENTO MADRID', active: true)
+EntityType.create!(id: 2, name: 'OTROS ORGANISMOS'   , description: 'OTROS ORGANISMOS',    active: true)
+EntityType.create!(id: 3, name: 'ENTIDAD'            , description: 'ENTIDAD',             active: true)
+EntityType.create!(id: 4, name: 'EMPRESA'            , description: 'EMPRESA',             active: true)
 
 
 

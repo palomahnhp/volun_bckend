@@ -701,9 +701,9 @@ CREATE TABLE entities_projects (
 
 CREATE TABLE entity_types (
     id integer NOT NULL,
-    kind integer,
+    name character varying NOT NULL,
     description text,
-    active boolean DEFAULT true,
+    active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -4561,10 +4561,10 @@ CREATE INDEX index_entities_projects_on_project_id_and_entity_id ON entities_pro
 
 
 --
--- Name: index_entity_types_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entity_types_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_entity_types_on_kind ON entity_types USING btree (kind);
+CREATE UNIQUE INDEX index_entity_types_on_name ON entity_types USING btree (name);
 
 
 --

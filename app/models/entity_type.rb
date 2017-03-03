@@ -2,6 +2,6 @@ class EntityType < ActiveRecord::Base
 
   include Archivable
 
-  validates :kind, presence: true
+  validates :name, presence: true
 
 end

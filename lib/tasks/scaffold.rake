@@ -25,7 +25,7 @@ MODELS_AND_ATTRS = {
   'TrackingType'  => 'name:string:uniq active:boolean',
   'Req::Reason'   => 'name description:text active:boolean',
 
-  'EntityType'     => 'kind:integer:uniq description:text active:boolean',
+  'EntityType'     => 'name:string:uniq description:text active:boolean',
   'Entity'         => 'name:string:uniq description:text vat_number email ' \
                       'representative_name representative_last_name representative_last_name_alt ' \
                       'contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt ' \
@@ -277,6 +277,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :volun_assessments     => [:volunteer_id, :trait_id, :project_id, :assessment],
     :frontpage_elements    => [:created_by, :created_by, :active, :frontpage_position_id],
     :academic_levels       => [:name, :active, :educational_type],
+    :entity_types          => [:name, :active],
     :id_number_types       => [:name, :active],
     :nationalities         => [:name, :active],
     :statuses              => [:name, :active],
