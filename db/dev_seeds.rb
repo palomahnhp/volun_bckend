@@ -11,43 +11,25 @@ COORDINATIONS_NUM = 10
 PROPOSAL_NUM      = 10
 ENTITY_NUM        = 10
 RACKING_NUM       = 10
-ISSUE_NUM         = 10
 VOLUNTEERS        = 10
+FRONTPAGE_ELEMS   = 3
+FRONTPAGE_POSTN   = 3
+LINKS             = 3
+PROFESSIONS       = 3
+REJECTION_TYPES   = 3
+SKILLS_NUM        = 3
 ACTIVITIES_NUM    = 3
 TIMETABLE_NUM     = 3
 EVENTS_NUM        = 3
 DOCUMENT_NUM      = 3
-SKILLS_NUM        = 3
-ACADEMIC_LEVELS   = 3
-CONTACT_RESULTS   = 3
-CONTACT_TYPES     = 3
-DEGREES           = 3
-DEGREE_TYPES      = 3
-EMPLOYMENT_STATUS = 3
-FRONTPAGE_ELEMS   = 3
-FRONTPAGE_POSTN   = 3
-INFO_SOURCES      = 3
-LANGUAGES         = 3
-LANGUAGE_LEVELS   = 3
-LINKS             = 3
-MANAGERS          = 3
-MOTIVATIONS       = 3
-PROFESSIONS       = 3
-PROFILES          = 3
-REJECTION_TYPES   = 3
-SECTORS           = 3
-STATUSES          = 3
-TRACKING_TYPES    = 3
-TRAITS            = 3
-UNSUBS_LEVELS     = 3
-UNSUBS_REASONS    = 3
 
-REQUEST_REASONS = {
-  0 => 'Difusión de proyectos',
-  1 => 'Solicitud voluntarios',
-  2 => 'Publicación actividad en agenda',
-  3 => 'Otros'
-}
+
+REQUEST_REASONS = [
+  'Difusión de proyectos',
+  'Solicitud voluntarios',
+  'Publicación actividad en agenda',
+  'Otros'
+]
 
 REQUEST_STATUSES = {
   0 => 'Pendiente',
@@ -55,27 +37,6 @@ REQUEST_STATUSES = {
   2 => 'Aceptado',
   3 => 'Rechazado'
 }
-
-AREA_NAMES = [
-  'Derechos Sociales',
-  'Ambiental',
-  'Cultural',
-  'Deportivo',
-  'Educativo',
-  'Socio-sanitario',
-  'Ocio y tiempo libre',
-  'Comunitario y/o de ciudad',
-  'Animales',
-  'Participación',
-  'On line',
-  'Cuidados a las personas',
-  'Sensibilización',
-  'Comunicación',
-  'Cooperación',
-  'Responsabilidad social',
-  'Emergencias',
-  'Otros'
-]
 
 COLLECTIVE_NAMES = [
   'Menores',
@@ -175,113 +136,31 @@ PROVINCES = [
   'MELILLA'
 ]
 
-ROAD_TYPES = [
-  'ACCESO',
-  'ARROYO',
-  'AUTOPISTA',
-  'AUTOVIA',
-  'AVENIDA',
-  'BULEVAR',
-  'CALLE',
-  'CALLEJON',
-  'CAMINO',
-  'CAMINOALTO',
-  'CARRERA',
-  'CARRETERA',
-  'CAÑADA',
-  'COLONIA',
-  'COSTANILLA',
-  'CUESTA',
-  'GALERIA',
-  'GLORIETA',
-  'PARQUE',
-  'PARTICULAR',
-  'PASADIZO',
-  'PASAJE',
-  'PASEO',
-  'PISTA',
-  'PLAZA',
-  'PLAZUELA',
-  'PUENTE',
-  'RONDA',
-  'TRAVESIA',
-]
-
 PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
-ENTITY_TYPES = {
-  0 => 'Organización',
-  1 => 'Empresa',
-  2 => 'Asociación'
-}
+NATIONALITIES = [
+	'Español',
+	'Inglés',
+	'Alemán',
+	'Francés',
+	'Italiano'
+]
 
-NOTICE_TYPES = {
-  0 => 'email',
-  1 => 'sms',
-  2 => 'papel'
-}
+ROAD_TYPES = %w(
+  ACCESO ARROYO AUTOVIA AUTOPISTA AVENIDA BARRANCO BARRIO BULEVAR CARRERA CAÐADA CARRIL CALLEJON CALLE
+  CAMINO CANAL COLONIA COMPLEJO CARRETERA COSTANILLA CANTON CUESTA EDIFICIO ESCALINATA ESTACION FINCA FUENTE
+  GALERIA GRUPO GLORIETA GRAN JARDIN LUGAR MONUMENTO MONTE MERCADO PLAZUELA POBLADO PASADIZO PUENTE POLIGONO
+  PISTA PASAJE PASEO PARQUE PARTICULAR PUERTA PLAZA RONDA RIO TRASERA TRAVESIA TRANSVERSAL URBANIZACION VIA
+)
 
-NATIONALITIES = {
-	0 => 'Español',
-	1 => 'Inglés',
-	2 => 'Alemán',
-	3 => 'Francés',
-	4 => 'Italiano'
-}
-
-puts "Creando Medios de notificación"
-NOTICE_TYPES.each do |kind , name|
-  NoticeType.create!(kind: kind, description: name)
-end
-
-puts "Creando usuario administrador..."
-User.create!(email: 'admin@madrid.es',
-             password: 'Wordpass1',
-             password_confirmation: 'Wordpass1',
-             loggable: Manager.create!(name: 'admin'),
-             notice_type: NoticeType.all.sample).save!
-
-puts "Creando usuario gestor..."
-user = User.create!(login: 'manager',
-                    email: 'manager@madrid.es',
-                    password: 'Wordpass1',
-                    password_confirmation: 'Wordpass1',
-                    loggable: Manager.create!(name: 'manager'),
-                    notice_type: NoticeType.all.sample)
-
-puts "Creando Colectivos"
-AREA_NAMES.each do |name|
-  Area.create!(name: name)
-end
+puts "Creando Propiedades"
+Setting.create(key: 'default_country', value: 'España')
+Setting.create(key: 'default_province', value: 'Madrid')
+Setting.create(key: 'road_types', value: ROAD_TYPES.join(','))
 
 puts "Creando Ámbitos"
 COLLECTIVE_NAMES.each do |name|
   Collective.create!(name: name)
-end
-
-puts "Creando Propuestas"
-PROPOSALS.each do |name|
-  Proposal.create!(name: name)
-end
-
-puts "Creando Tipos de solicitudes"
-RequestType.kinds.each do |kind_name , kind_num|
-  RequestType.create!(id: kind_num, kind: kind_num, description: kind_name)
-end
-
-puts "Creando Tipos de solicitudes"
-ENTITY_TYPES.each do |kind , name|
-  EntityType.create!(kind: kind, description: name)
-end
-
-puts "Creando Tipos de proyectos"
-ProjectType.kinds.each do |kind_name , kind_num|
-  ProjectType.create!(id: kind_num, kind: kind_num, description: kind_name)
-end
-
-puts "Creando Tipo documento"
-(1..2).each do |n|
-  IdNumberType.create!(name: "#{IdNumberType.model_name.human} #{n}")
 end
 
 puts "Creando Habilidades"
@@ -294,23 +173,51 @@ puts "Creando Coordinaciones"
   Coordination.create!(name: "#{Coordination.model_name.human} #{n}")
 end
 
+puts "Creando Links"
+(1..LINKS).each do |n|
+  Link.create!(url: "http://url#{n}.com", description: "Link #{n} description.")
+end
+
+puts "Creando Professions"
+(1..PROFESSIONS).each do |n|
+  Profession.create!(name: "Profession_#{n}")
+end
+
+puts "Creando Motivos de rechazo"
+(1..REJECTION_TYPES).each do |n|
+  Req::RejectionType.create!(name: "Rejection Type #{n}", description: "Rejection type #{n} description.")
+end
+
+Rake::Task['db:custom_seed'].invoke
+
+puts "Creando Frontpage Positions"
+(1..FRONTPAGE_POSTN).each do |n|
+  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
+end
+
+puts "Creando Frontpage Elements"
+(1..FRONTPAGE_ELEMS).each do |n|
+  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
+end
+
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
   Address.create!(
     postal_code:           Faker::Address.postcode,
     road_type:             ROAD_TYPES.sample,
     road_name:             Faker::Address.street_name,
-    road_number_type:      Address::ROAD_NUMBER_TYPES.sample,
+    road_number_type:      ['num', 'km'].sample,
     road_number:           rand(100).to_s,
-    grader:                Address::GRADERS.sample,
+    grader:                [*'A'..'Z'].sample,
     stairs:                rand(300).to_s,
     floor:                 rand(9).to_s,
     door:                  rand(10).to_s,
     borough:               nil,
-    province:              PROVINCES.sample,
-    country:               "España",
-    town:                  "Madrid",
-    district:              DISTRICTS.sample
+    province:              'Madrid',
+    country:               'España',
+    town:                  'Madrid',
+    district:              DISTRICTS.sample,
+    normalize:             false
   )
 end
 
@@ -329,13 +236,8 @@ puts "Creando Entidades"
 end
 
 puts "Creando Motivos de solicitud"
-REQUEST_REASONS.each do |kind , name|
-  Req::Reason.create!(kind: kind)
-end
-
-puts "Creando estados de solicitud"
-Req::Status.kinds.each do |kind_name, kind_num|
-  Req::Status.create!(kind: kind_num, description: kind_name)
+REQUEST_REASONS.each do |name|
+  Req::Reason.create!(name: name, description: name)
 end
 
 puts "Creando Solicitudes"
@@ -346,8 +248,8 @@ RequestType.all.each do |request_type|
       status: Req::Status.pending.take,
       status_date: DateTime.now,
       comments: "#{n} #{Faker::Lorem.sentence}",
-      user: user
-    # rejection_type_id: integer,
+      # user: user
+      # rejection_type_id: integer,
     )
 
     rt_attributes = case request_type.kind
@@ -469,131 +371,6 @@ puts "Creando Actividades"
   end
 end
 
-puts "Creando Niveles Académicos"
-(1..ACADEMIC_LEVELS).each do |n|
-  AcademicLevel.create!(name: "AcademicLevel_#{n}", educational_type: "EdType_#{n}")
-end
-
-puts "Creando Contact Results"
-(1..CONTACT_RESULTS).each do |n|
-  ContactResult.create!(name: "ContactResult_#{n}")
-end
-
-puts "Creando Contact Types"
-(1..CONTACT_TYPES).each do |n|
-  ContactType.create!(name: "ContactTypes_#{n}")
-end
-
-puts "Creando Tipos de titulaciones"
-(1..DEGREE_TYPES).each do |n|
-  DegreeType.create!(name: "DegreeTypes_#{n}", educational_type: "EdType_#{n}")
-end
-
-puts "Creando Titulaciones"
-(1..DEGREES).each do |n|
-  Degree.create!(name: "Degrees_#{n}", degree_type_id: n)
-end
-
-puts "Creando Employment Statuses"
-(1..EMPLOYMENT_STATUS).each do |n|
-  EmploymentStatus.create!(name: "EmploymentStatus_#{n}")
-end
-
-puts "Creando Event Types"
-EventType.kinds.each do |kind_name, kind_num|
-  EventType.create!(id: kind_num, kind: kind_num, description: kind_name)
-end
-
-puts "Creando Frontpage Positions"
-(1..FRONTPAGE_POSTN).each do |n|
-  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
-end
-
-puts "Creando Frontpage Elements"
-(1..FRONTPAGE_ELEMS).each do |n|
-  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
-end
-
-puts "Creando Info Sources"
-(1..INFO_SOURCES).each do |n|
-  InfoSource.create!(name: "InfoSource_#{n}")
-end
-
-puts "Creando Language Levels"
-(1..LANGUAGE_LEVELS).each do |n|
-  LanguageLevel.create!(name: "LanguageLevel_#{n}")
-end
-
-puts "Creando Languages"
-(1..LANGUAGES).each do |n|
-  Language.create!(name: "Language_#{n}")
-end
-
-puts "Creando Links"
-(1..LINKS).each do |n|
-  Link.create!(url: "http://url#{n}.com", description: "Link #{n} description.")
-end
-
-puts "Creando Managers"
-(1..MANAGERS).each do |n|
-  Manager.create!(name: "Manager_#{n}")
-end
-
-puts "Creando Motivations"
-(1..MOTIVATIONS).each do |n|
-  Motivation.create!(name: "Motivation_#{n}", active: true)
-end
-
-puts "Creando Nacionalidades"
-NATIONALITIES.each do |id, name|
-  Nationality.create!(name: name)
-end
-
-puts "Creando Professions"
-(1..PROFESSIONS).each do |n|
-  Profession.create!(name: "Profession_#{n}")
-end
-
-puts "Creando Profiles"
-(1..PROFILES).each do |n|
-  Profile.create!(name: "Profile_#{n}")
-end
-
-puts "Creando Motivos de rechazo"
-(1..REJECTION_TYPES).each do |n|
-  Req::RejectionType.create!(name: "Rejection Type #{n}", description: "Rejection type #{n} description.")
-end
-
-puts "Creando Sectors"
-(1..SECTORS).each do |n|
-  Sector.create!(name: "Sector_#{n}", active: true)
-end
-
-puts "Creando Statuses"
-(1..STATUSES).each do |n|
-  Status.create!(name: "Status_#{n}")
-end
-
-puts "Creando Tipos de Seguimiento"
-(1..TRACKING_TYPES).each do |n|
-  TrackingType.create!(name: "TrackingType_#{n}")
-end
-
-puts "Creando Cualidades"
-(1..TRAITS).each do |n|
-  Trait.create!(name: "Trait_#{n}")
-end
-
-puts "Creando Niveles de Baja"
-(1..UNSUBS_LEVELS).each do |n|
-  UnsubscribeLevel.create!(kind: n, description: "Trait #{n} description.")
-end
-
-puts "Creando Motivos de Baja"
-(1..UNSUBS_REASONS).each do |n|
-  UnsubscribeReason.create!(name: "UnsubscribeReason_#{n}")
-end
-
 puts "Creando Voluntarios"
 (1..VOLUNTEERS).each do |n|
   Volunteer.create!(name: Faker::Name.first_name,
@@ -601,5 +378,5 @@ puts "Creando Voluntarios"
                     id_number_type_id: IdNumberType.last.id,
                     id_number: "%09d" % n,
                     email: Faker::Internet.email,
-                    address_id: Address.last.id)
+                    address:  Address.all.sample)
 end

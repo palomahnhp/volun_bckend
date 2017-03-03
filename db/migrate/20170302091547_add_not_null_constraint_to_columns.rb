@@ -54,6 +54,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :employment_statuses   => [:name, :active],
     :degrees               => [:name, :active],
     :unsubscribe_reasons   => [:name, :active],
+    :req_reasons           => [:name, :active],
     :managers              => [:name, :active],
     :profiles              => [:name, :active],
     :info_sources          => [:name, :active],

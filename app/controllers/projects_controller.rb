@@ -116,6 +116,7 @@ class ProjectsController < ApplicationController
                   :town,
                   :province,
                   :country,
+                  :normalize,
                   :_destroy
                 ]
               },

@@ -49,7 +49,7 @@ class RequestForm < ActiveRecord::Base
     end
 
     def get_status_id_by_kind(status)
-      Req::Status.send(status).take.id
+      Req::Status.send(status).take.try :id
     end
 
     def status_names

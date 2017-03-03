@@ -20,6 +20,7 @@ class ProjectType < ActiveRecord::Base
 
   validates :kind, :description, presence: true
 
+  # TODO remove this method
   def self.active?(kind)
     send(kind).take.try(:active?)
   end

@@ -43,7 +43,7 @@ class Req::ReasonsController < ApplicationController
   protected
 
     def req_reason_params
-      params.require(:req_reason).permit(:kind, :description, :active)
+      params.require(:req_reason).permit(:name, :description, :active)
     end
 
     alias_method :create_params, :req_reason_params

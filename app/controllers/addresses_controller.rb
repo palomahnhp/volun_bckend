@@ -86,7 +86,8 @@ class AddressesController < ApplicationController
           :country,
           :ndp_code,
           :local_code,
-          :class_name
+          :class_name,
+          :normalize
         )
     end
 end

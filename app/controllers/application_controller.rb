@@ -143,6 +143,7 @@ class ApplicationController < ActionController::Base
               :town,
               :province,
               :country,
+              :normalize,
               :_destroy
             ]
           },
