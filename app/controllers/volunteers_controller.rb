@@ -102,6 +102,15 @@ class VolunteersController < ApplicationController
           :review,
           :error_address,
           :error_other,
+          {
+            availabilities_attributes: [
+              :id,
+              :day,
+              :start_hour,
+              :end_hour,
+              :_destroy
+            ]
+          },
           { skill_ids: [] },
           {
             address_attributes: [

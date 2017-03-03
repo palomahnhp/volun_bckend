@@ -47,6 +47,15 @@ es:
       kind:
         project:  Solicita baja de voluntario en proyecto
         user:     Solicita baja de voluntario completa
+    volun/availability:
+      day:
+        monday:     Lunes
+        tuesday:    Martes
+        wednesday:  Miércoles
+        thursday:   Jueves
+        friday:     Viernes
+        saturday:   Sábado
+        sunday:     Domingo
   activerecord:
     models:
       project:
