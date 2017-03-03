@@ -208,6 +208,9 @@ es:
       unsubscribe_level:
         one:    Nivel de baja de voluntario
         other:  Nivel de baja de voluntario
+      volun/availability:
+        one:    Horario de disponibilidad del usuario
+        other:  Horarios de disponibilidad del usuario
     attributes:
       address:
         postal_code:      Código postal
@@ -555,6 +558,12 @@ es:
         name: Nombre
       id_number_type:
         name: Nombre
+      volun/availability:
+        id:                   ID
+        day:                  Día de la semana
+        start_hour:           Hora de comienzo
+        end_hour:             Hora de fin
+        created_at:           *created_at
     errors:
       models:
         address:
