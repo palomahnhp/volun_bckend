@@ -67,6 +67,7 @@ class ProjectsController < ApplicationController
           :volunteers_allowed,
           :publish,
           :outstanding,
+          :urgent,
           :pt_subvention,
           :pt_extendable_id,
           :pt_extendable_type,
