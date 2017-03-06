@@ -126,6 +126,22 @@ module ScaffoldHelper
     link_to(text, public_send(path, record, options[:path_params]||{}), options)
   end
 
+  # TODO uncomment when index js response is done
+  # def link_to_index(record, opts = {})
+  #   return unless can?(:list, record)
+  #   options = {
+  #       id:     "#{dom_id(record)}_index",
+  #       text:   build_icon :index, icon_name: 'list-alt',
+  #       path:   "#{record.class.model_name.plural}_path",
+  #       remote: true,
+  #       method: :get
+  #   }.merge(opts)
+  #   path = options.delete(:path)
+  #   text = options.delete(:text)
+  #
+  #   link_to(text, public_send(path, record, options[:path_params]||{}), options)
+  # end
+
   def button_to_back(path=:back)
     link_to(t('action.back'), path, class: "btn btn-default")
   end
