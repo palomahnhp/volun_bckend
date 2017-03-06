@@ -75,6 +75,16 @@ class Project < ActiveRecord::Base
     {s: 'id desc'}
   end
 
+  # TODO pending of test
+  # def self.to_csv(projects = self.all)
+  #   CSV.generate do |csv|
+  #     csv << main_columns.map{ |column_name| human_attribute_name(column_name) }
+  #     projects.each do |project|
+  #       csv << main_columns.map{ |column_name| project.public_send column_name }
+  #     end
+  #   end
+  # end
+
   def to_s
     name
   end

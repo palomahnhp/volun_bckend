@@ -260,7 +260,7 @@ form {
   .row {
     textarea {
       margin-top: 10px;
-      min-height: 161px;
+      min-height: 75px;
     }
   }
 
@@ -582,4 +582,11 @@ form .well {
 .recover {
   color: green;
   font-weight: bold;
+}
+.vat_num{
+  max-width: 110px;
+}
+.with-scroll-bar{
+  max-height: 1000px;
+  overflow-y: scroll;
 }

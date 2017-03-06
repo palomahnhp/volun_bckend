@@ -66,9 +66,9 @@
         <div class="event-fields well col-md-12">
         <%= content_tag :h2, "#{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
 
-          <div class="address-block row well">
+          <div class="row well">
             <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
-            <%= f_event.simple_fields_for :address, (f_event.object.build_address if f_event.object.address.blank?) do |f_address|  %>
+            <%= f_event.simple_fields_for :address, (f_event.object.address.presence || f_event.object.build_address) do |f_address|  %>
                 <%= render partial: 'addresses/form_fields', locals: {f: f_address } %>
             <% end %>
           </div>

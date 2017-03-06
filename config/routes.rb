@@ -50,7 +50,7 @@ Rails.application.routes.draw do
 
   # Entity related routes
   resources :entity_types
-  resources :entities
+  resources :entities, concerns: :recoverable
   namespace :ent do
     resources :trackings
   end
