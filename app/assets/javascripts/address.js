@@ -1,7 +1,7 @@
 
 // Manage autocomplete for address blocks
 $(document).on('ready page:load turbolinks:load', function() {
-    $.each($('.address-block'), function(i, address) {
+    $.each($('.js-address'), function(i, address) {
         var $address = $(address);
         if ($address.find('.js-normalize').is(':checked')){
             setAddressAutocomplete($address);
@@ -10,12 +10,12 @@ $(document).on('ready page:load turbolinks:load', function() {
         $address.on('change', '.js-normalize', function () {
             var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-grader', '.js-postal_code'];
             var $normalizeInput = $(this);
-            var $_address = $normalizeInput.closest('.address-block');
+            var $_address = $normalizeInput.closest('.js-address');
             if ($normalizeInput.is(':checked')){
 
                 // Prevent road type select from opening
                 $address.find('.js-road_type select').on('mousedown', function(e) {
-                    if ($(this).closest('.address-block').find('.js-normalize').is(':checked')){
+                    if ($(this).closest('.js-address').find('.js-normalize').is(':checked')){
                         e.preventDefault();
                         this.blur();
                         window.focus();
@@ -48,7 +48,7 @@ $(document).on('ready page:load turbolinks:load', function() {
 // Allow autocomple after adding a new address block
 $(document).on('nested:fieldAdded', function(event){
     var $addNestedField = $($(this)[0].activeElement)
-    var $newAddedAddress = $addNestedField.closest('.events-block').find('.event-fields:last .address-block');
+    var $newAddedAddress = $addNestedField.closest('.events-block').find('.event-fields:last .js-address');
     setAddressAutocomplete($newAddedAddress);
 });
 
@@ -62,7 +62,7 @@ var blockBdcFields = function ($address) {
 
     // Prevent road type select from opening
     $address.find('.js-road_type select').on('mousedown', function(e) {
-        if ($(this).closest('.address-block').find('.js-normalize').is(':checked')){
+        if ($(this).closest('.js-address').find('.js-normalize').is(':checked')){
             e.preventDefault();
             this.blur();
             window.focus();
@@ -73,12 +73,12 @@ var blockBdcFields = function ($address) {
     var blocked_fields = ['.js-road_number_type', '.js-road_type select', '.js-grader', '.js-postal_code'];
     $address.on('change', '.js-normalize', function () {
         var $normalizeInput = $(this);
-        var $_address = $normalizeInput.closest('.address-block');
+        var $_address = $normalizeInput.closest('.js-address');
         if ($normalizeInput.is(':checked')){
 
             // Prevent road type select from opening
             $address.find('.js-road_type select').on('mousedown', function(e) {
-                if ($(this).closest('.address-block').find('.js-normalize').is(':checked')){
+                if ($(this).closest('.js-address').find('.js-normalize').is(':checked')){
                     e.preventDefault();
                     this.blur();
                     window.focus();
@@ -158,7 +158,7 @@ var addAddressAutocomplete = function($address) {
         },
         close: function() {
             $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
-            $address = $(this).closest(".address-block");
+            $address = $(this).closest(".js-address");
             $address.find(".js-road_type select").prop('selectedIndex',0);
             $address.find(".js-road_name").val('');
             $address.find(".js-road_number_type").val('');
@@ -179,7 +179,7 @@ var addAddressAutocomplete = function($address) {
         })[0];
 
         if (typeof selectedRoad !== 'undefined') {
-            $roadNameInput.closest(".address-block").find(".js-road_type option").filter(function() {
+            $roadNameInput.closest(".js-address").find(".js-road_type option").filter(function() {
                 return $(this).text().toLowerCase() == selectedRoad.nomclase.toLowerCase();
             }).prop('selected', true);
         }
@@ -242,7 +242,7 @@ var addAddressAutocomplete = function($address) {
             $input = $(this);
             value = $input.val();
             $input.val(value.replace(/\s*\(\w*\)/, ""));
-            $address = $input.closest(".address-block");
+            $address = $input.closest(".js-address");
             $address.find(".js-road_number_type").val('');
             $address.find(".js-grader").val('');
             $address.find(".js-postal_code").val('');
@@ -291,7 +291,7 @@ var addAddressAutocomplete = function($address) {
                                 var numberName = selectedNumberOption;
                                 var graderName = null;
                             }
-                            $address = $(this).closest('.address-block');
+                            $address = $(this).closest('.js-address');
                             $.ajax({
                                 url: searchRoadNumbersUrl,
                                 dataType: "json",

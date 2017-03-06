@@ -49,10 +49,9 @@ class Volunteer < ActiveRecord::Base
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
 
   validates :name, :last_name, :id_number, presence: true
-  validates :id_number, length: { minimum: 9, maximum: 9 }
-  validates :phone_number, format: { with: /[6|7]\d{8}/ }, allow_blank: true
-  validates :phone_number_alt, format: { with: /[8|9]\d{8}/ }, allow_blank: true
-  validates :id_number, format: { with: /[\w\d]{9}/i }
+  validates :id_number, spanish_vat: true
+  validates :phone_number, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
+  validates :phone_number_alt, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_blank: true
   validates :birth_date, inclusion: { in: (150.years.ago..Date.today-1),
                                       message: I18n.t('activerecord.errors.messages.invalid_volun_birth_date'),
