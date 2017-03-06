@@ -68,7 +68,6 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(rt_volunteer_unsubscribes_url, notice: I18n.t('messages.request_form_successfully_managed')) }
       format.js
-      format.xml  { render xml: @rt_volunteer_unsubscribe }
     end
   end
 
@@ -91,7 +90,7 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
       end
     else
       @request_form = request_form
-      flash[:alert] = 'status_manager.show_errors'
+      flash[:alert] = I18n.t('errors.request_form_must_be_at_processing')
       render :process_request_form
     end
   end
