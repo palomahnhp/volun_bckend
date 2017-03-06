@@ -3,11 +3,11 @@ class VolunteerManager
   attr_accessor :errors, :rt_volunteer_subscribe, :request_form, :volunteer
 
   def initialize(options = {})
-    @rt_volunteer_subscribe_id = options[:rt_volunteer_subscribe_id]
+    @rt_volunteer_subscribe_id   = options[:rt_volunteer_subscribe_id]
     @rt_volunteer_unsubscribe_id = options[:rt_volunteer_unsubscribe_id]
-    @volunteer_attributes      = options[:volunteer_attributes] || {}
-    @manager_id                = options[:manager_id]
-    @errors                    = []
+    @volunteer_attributes        = options[:volunteer_attributes] || {}
+    @manager_id                  = options[:manager_id]
+    @errors                      = []
   end
 
   def valid?
@@ -87,8 +87,7 @@ class VolunteerManager
   end
 
   def request_form
-    @request_form ||= rt_volunteer_subscribe.try(:request_form) if rt_volunteer_subscribe.present?
-    @request_form ||= rt_volunteer_unsubscribe.try(:request_form) if rt_volunteer_unsubscribe.present?
+    @request_form ||= rt_volunteer_subscribe.try(:request_form) || rt_volunteer_unsubscribe.try(:request_form)
   end
 
   def assign_user_to_volunteer!

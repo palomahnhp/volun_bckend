@@ -57,7 +57,7 @@ class Rt::VolunteerSubscribesController < ApplicationController
     if @rt_volunteer_subscribe.request_form.processing?
       redirect_to new_volunteer_path(rt_volunteer_subscribe_id: @rt_volunteer_subscribe.id)
     else
-      flash[:alert] = 'status_manager.show_errors'
+      flash[:alert] = I18n.t('errors.request_form_must_be_at_processing')
       redirect_to :back
     end
   end
