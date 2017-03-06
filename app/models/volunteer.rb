@@ -46,6 +46,7 @@ class Volunteer < ActiveRecord::Base
   has_many :traits,    :through => :assessments
   has_one :user, as: :loggable
   accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
 
   validates :name, :last_name, :id_number, presence: true
   validates :id_number, length: { minimum: 9, maximum: 9 }

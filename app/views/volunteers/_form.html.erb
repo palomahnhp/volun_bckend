@@ -1,5 +1,5 @@
 <div class="well">
-  <%= simple_form_for(@volunteer, default_form_options) do |f| %>
+  <%= simple_nested_form_for(@volunteer, default_form_options) do |f| %>
       <%= show_simple_base_errors(f) %>
       <%= hidden_field_tag :rt_volunteer_subscribe_id, params[:rt_volunteer_subscribe_id] %>
 
@@ -38,6 +38,20 @@
     <div class="row well">
       <%= f.input :available, input_html: {onClick: 'setAvailDate()'}, wrapper_html: { class: 'col-md-6' } %>
       <%= f.input :availability_date, as: :string, input_html: date_input_html(f.object.availability_date), wrapper_html: { class: 'col-md-6' } %>
+    </div>
+    <div class="row well">
+      <%= content_tag :h3, Volun::Availability.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :availabilities, (f.object.availabilities.build if f.object.new_record? && f.object.availabilities.empty?) do |f_availabilities|  %>
+        <div class="timetable-fields well col-md-12">
+          <div class="row">
+              <%= f_availabilities.input :day, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_availabilities.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_availabilities.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_availabilities.link_to_remove build_icon('trash-o', text: "#{Volun::Availability.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- timetable-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Volun::Availability.model_name.human}"), :availabilities, class: 'btn' %></p>
     </div>
     <div class="row well">
       <%= f.input :agreement, input_html: {onClick: 'setAgrmtDate()'}, wrapper_html: { class: 'col-md-6' } %>
