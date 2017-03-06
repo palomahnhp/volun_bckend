@@ -7,7 +7,7 @@
       <div class="row ">
         <div class="col-md-5">
           <%= f.input :name %>
-          <%= f.input :vat_number %>
+          <%= f.input :vat_number, input_html: { data: { mask: 'w9999999w'}, class: 'vat_num'} %>
         </div>
         <div class="col-md-7">
           <%= f.input :description, wrapper_html: { class: 'col-md-10' } %>
@@ -22,9 +22,9 @@
     </div>
     <div class="row well">
       <%= content_tag :h3, t('contact_data'), class: 'form-subtitle' %>
-      <%= f.input :email, wrapper_html: { class: 'col-md-4' } %>
-      <%= f.input :phone_number, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-4' } %>
-      <%= f.input :phone_number_alt, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.input :email, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :phone_number, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-3' } %>
+      <%= f.input :phone_number_alt, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-3' } %>
     </div>
     <div class="row well">
       <%= content_tag :h3, t('representative'), class: 'form-subtitle' %>
@@ -56,7 +56,7 @@
         <%= f.input :unsubscribed_at, as: :string, input_html: date_input_html_default_values(f.object.unsubscribed_at, disabled: true), wrapper_html: { class: 'col-md-4' }  %>
       </div>
     <% end %>
-    <div class="address-block row well">
+    <div class="row well">
       <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
       <%= f.simple_fields_for :address, (f.object.address.blank? ? f.object.build_address : f.object.address ) do |f_address|  %>
           <%= render partial: 'addresses/form_fields', locals: { f: f_address } %>
