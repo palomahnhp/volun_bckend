@@ -214,7 +214,7 @@ es:
         other:  Solicitudes de Accion sobre Actividad
       rt/other:
         one:    Solicitud de "Otros"'
-        other:  Solicitudes de"Otros"'
+        other:  Solicitudes de "Otros"'
       unsubscribe_level:
         one:    Nivel de baja de voluntario
         other:  Nivel de baja de voluntario
@@ -396,6 +396,11 @@ es:
         project:                Proyecto
         project_id:             Proyecto
         notes:                  Notas
+      rt/other:
+        id:           ID
+        description:  Descripción
+        notes:        Notas
+        created_at:   *created_at
       collective:
         id:          ID
         name:        Denominación
