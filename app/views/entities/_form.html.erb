@@ -1,5 +1,5 @@
 <div class="well">
-  <%= simple_form_for(@entity, default_form_options) do |f| %>
+  <%= simple_nested_form_for(@entity, default_form_options) do |f| %>
 
   <div class="form-inputs">
     <div class="row well">
@@ -58,10 +58,32 @@
     <% end %>
     <div class="row well">
       <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
-      <%= f.simple_fields_for :address, (f.object.address.blank? ? f.object.build_address : f.object.address ) do |f_address|  %>
+      <%= f.simple_fields_for :address, (f.object.address.presence || f.object.build_address) do |f_address|  %>
           <%= render partial: 'addresses/form_fields', locals: { f: f_address } %>
       <% end %>
     </div>
+    <% if f.object.persisted? && f.object.projects.present? %>
+      <div class="row well">
+        <%= content_tag :h3, Project.model_name.human(count: 2), class: 'form-subtitle' %>
+        <div class="col-md-12 with-scroll-bar">
+          <%= f.simple_fields_for :projects do |f_project|  %>
+              <div class="row">
+                <% project = f_project.object %>
+                <%= f_project.input :name, required: false, input_html: { readonly: true }, wrapper_html: { class: 'col-md-5' } %>
+                <%= f_project.input :created_at, as: :string, input_html: { readonly: true }, wrapper_html: { class: 'col-md-3' } %>
+                <%= f_project.input :active, wrapper_html: { class: 'col-md-2' } %>
+
+                <div class="col-md-2">
+                  <%= link_to_show project.pt_extendable, remote: true %>
+                  <%= link_to_edit project.pt_extendable, target: :_new %>
+                  <%#=  project.archived? ? link_to_recover(project, remote: true) : link_to_destroy(project, remote: true) %>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
   </div>
 
   <div class="form-actions">

@@ -6,6 +6,8 @@ class Entity < ActiveRecord::Base
   belongs_to :entity_type #, required: true
   belongs_to :address #, required: true
   has_one :user, as: :loggable
+  has_many :projects, ->(){ order('created_at' => :asc) }
+  accepts_nested_attributes_for :projects
 
   validates :name, :vat_number, :email, :representative_name, :representative_last_name, :contact_name,
             :contact_last_name, :entity_type_id,  :address_id, presence: true
@@ -22,7 +24,6 @@ class Entity < ActiveRecord::Base
     %i(name
        vat_number
        email
-       entity_type
-       active)
+       entity_type)
   end
 end
