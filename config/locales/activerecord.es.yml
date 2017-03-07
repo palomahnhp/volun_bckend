@@ -346,7 +346,7 @@ es:
         status:                Estado
         req_status_id:         Estado
         status_date:           Fecha de estado
-        req_rejection_type_id: Motivo de rechazo
+        rejection_type_id:     Motivo de rechazo
         rejection_type:        Motivo de rechazo
         reason_id:             Motivo
         reason:                Motivo
