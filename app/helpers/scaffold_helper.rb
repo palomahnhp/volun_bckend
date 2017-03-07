@@ -131,7 +131,7 @@ module ScaffoldHelper
     options = {
         id:     "#{dom_id(record)}_trackings",
         text:   icon_tracking,
-        path:   "#{record.class.model_name}/#{record.id}/#{type}_trackings_path",
+        path:   "#{type}_trackings_path",
         remote: false,
         method: :post
     }.merge(opts)
