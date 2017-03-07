@@ -125,6 +125,21 @@ module ScaffoldHelper
 
     link_to(text, public_send(path, record, options[:path_params]||{}), options)
   end
+  
+  def link_to_trackings(record, type, opts = {})
+    #return unless can?(:recover, record)
+    options = {
+        id:     "#{dom_id(record)}_trackings",
+        text:   icon_tracking,
+        path:   "#{record.class.model_name}/#{record.id}/#{type}_trackings_path",
+        remote: false,
+        method: :post
+    }.merge(opts)
+    path = options.delete(:path)
+    text = options.delete(:text)
+
+    link_to(text, public_send(path, record, options[:path_params]||{}), options)
+  end
 
   # TODO uncomment when index js response is done
   # def link_to_index(record, opts = {})
