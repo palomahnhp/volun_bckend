@@ -105,7 +105,16 @@ Rails.application.routes.draw do
     resources :activity_publishings
     resources :project_unpublishings
     resources :project_publishings
-    resources :others
+    resources :others do
+      get :process_request_form, on: :member
+      get :undo_rejection_request_form,
+          to: 'others#mark_request_form_as_pending',
+          on: :member
+      get :pre_approve_request_form, on: :member
+      get :pre_reject_request_form, on: :member
+      patch :reject_request_form, on: :member
+      get :mark_request_form_as_pending, on: :member
+    end
   end
 
   # Project related routes
