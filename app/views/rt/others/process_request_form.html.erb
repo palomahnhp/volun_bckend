@@ -1,0 +1,30 @@
+<%= main_title(t("action.show", model: Rt::Other.model_name.human)) %>
+<div class="row">
+  <div class="col-md-6">
+
+    <dl class="dl-horizontal well">
+      <dt><%= RequestForm.human_attribute_name(:status) %>:</dt>
+      <dd>
+        <span class="<%= @request_form.status.kind %>">
+          <%= @request_form.status %>
+        </span>
+      </dd>
+      <dt><%= RequestForm.human_attribute_name(:reason) %>:</dt>
+      <dd><%= @request_form.reason %></dd>
+      <dt><%= RequestForm.human_attribute_name(:comments) %>:</dt>
+      <dd><%= @request_form.comments %></dd>
+      <dt><%= Rt::Other.human_attribute_name(:description) %>:</dt>
+      <dd><%= @rt_other.description %></dd>
+      <dt><%= Rt::Other.human_attribute_name(:notes) %>:</dt>
+      <dd><%= @rt_other.notes %></dd>
+    </dl>
+
+  </div>
+</div>
+
+<%= link_to( t('action.approve'), pre_approve_request_form_rt_other_path, class: 'btn btn-success') %>
+<%= link_to( t('action.reject'), pre_reject_request_form_rt_other_path, class: 'btn btn-danger') %>
+<%= link_to( t('mark_as_pending'), mark_request_form_as_pending_rt_other_path, class: 'btn btn-default') %>
+
+
+

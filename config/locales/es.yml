@@ -45,7 +45,7 @@ es:
     confirm_unsubscribe_volunteer: Se aprobará y gestionará la baja. ¿Está seguro de que desea continuar?
     undo_changes: Deshacer cambios
     request_form_successfully_rejected: Solicitud rechazada con éxito
-    request_form_successfully_managed: Baja gestionada con éxito
+    request_form_successfully_managed: Solicitud gestionada con éxito
     request_form_successfully_marked_as_pending: Solicitud marcada como pendiente
     request_form_cannot_be_processed: 'La solicitud no puede ser procesada porque ya está %{status_name}'
     user_is_not_in_given_project: La solicitud no puede ser procesada porque el usuario no está en el proyecto en que se solicita su baja
