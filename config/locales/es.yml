@@ -81,6 +81,7 @@ es:
   common_fields: 'Campos comunes'
   specific_fields:  'Campos específicos'
   administration: Administración
+  catalogs: Catálogos
   diary: Agenda
   pending: Pendientes
   block: Bloque
