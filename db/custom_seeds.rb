@@ -486,13 +486,8 @@ Status.create!(id: 10, name: 'VOCNE'                     , active: true)
 ## managers
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
-Manager.create!(id: 1, name: 'TSV 1', alias_name: 'TSV 1', phone_number: '915880000', active: true, profile_id: 2)
-Manager.create!(id: 2, name: 'TSV 2', alias_name: 'TSV 2', phone_number: '915880000', active: true, profile_id: 2)
-Manager.create!(id: 3, name: 'TSV 3', alias_name: 'TSV 3', phone_number: '915880000', active: true, profile_id: 2)
-Manager.create!(id: 4, name: 'TSV 4', alias_name: 'TSV 4', phone_number: '915880000', active: true, profile_id: 2)
-Manager.create!(id: 5, name: 'TSV 5', alias_name: 'TSV 5', phone_number: '915880000', active: true, profile_id: 2)
-Manager.create!(id: 6, name: 'TSV 6', alias_name: 'TSV 6', phone_number: '915880000', active: true, profile_id: 2)
-Manager.create!(id: 7, name: 'TSV 7', alias_name: 'TSV 7', phone_number: '915880000', active: true, profile_id: 2)
+Manager.create!(id: 1, name: 'María Concepción', last_name: 'Fernández', last_name_alt: 'Alvarez', alias_name: 'MFA026', active: true, profile_id: 1)
+
 
 
 
@@ -756,4 +751,24 @@ user = User.first_or_create!(
   password_confirmation: 'Wordpass1',
   loggable: Manager.first_or_create!(name: 'manager'),
   notice_type: NoticeType.all.sample
+)
+
+puts "#{I18n.t('creating')} entity user"
+user = User.first_or_create!(
+    login: 'entity',
+    email: 'entity@madrid.es',
+    password: 'pwd',
+    password_confirmation: 'pwd',
+    loggable: Manager.first_or_create!(name: 'entity'),
+    notice_type: NoticeType.all.sample
+)
+
+puts "#{I18n.t('creating')} voluntary user"
+user = User.first_or_create!(
+    login: 'voluntary',
+    email: 'voluntary@madrid.es',
+    password: 'pwd',
+    password_confirmation: 'pwd',
+    loggable: Manager.first_or_create!(name: 'voluntary'),
+    notice_type: NoticeType.all.sample
 )
