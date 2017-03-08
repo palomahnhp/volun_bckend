@@ -95,6 +95,7 @@ class ApplicationController < ActionController::Base
       :volunteers_allowed,
       :publish,
       :outstanding,
+      :urgent,
       :project_type_id,
       :active,
       :comments,
