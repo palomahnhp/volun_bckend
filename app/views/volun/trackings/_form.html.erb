@@ -5,8 +5,8 @@
           <%= f.association :volunteer, input_html: { disabled: true }, default: @volun_tracking.volunteer %>
           <%= f.association :tracking_type %>
           <%= f.association :project %>
-          <%= f.association :manager %>
-          <%= f.input :tracked_at, as: :datepicker %>
+          <%= f.association :manager, input_html: { disabled: true }, default: @volun_tracking.manager %>
+          <%= f.input :tracked_at, as: :string, input_html: date_input_html_default_values(f.object.tracked_at) %>
           <%= f.input :comments %>
   </div>
 
