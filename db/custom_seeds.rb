@@ -757,3 +757,23 @@ user = User.first_or_create!(
   loggable: Manager.first_or_create!(name: 'manager'),
   notice_type: NoticeType.all.sample
 )
+
+puts "#{I18n.t('creating')} entity user"
+user = User.first_or_create!(
+    login: 'entity',
+    email: 'entity@madrid.es',
+    password: 'pwd',
+    password_confirmation: 'pwd',
+    loggable: Manager.first_or_create!(name: 'entity'),
+    notice_type: NoticeType.all.sample
+)
+
+puts "#{I18n.t('creating')} voluntary user"
+user = User.first_or_create!(
+    login: 'voluntary',
+    email: 'voluntary@madrid.es',
+    password: 'pwd',
+    password_confirmation: 'pwd',
+    loggable: Manager.first_or_create!(name: 'voluntary'),
+    notice_type: NoticeType.all.sample
+)
