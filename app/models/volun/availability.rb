@@ -4,7 +4,7 @@ class Volun::Availability < ActiveRecord::Base
 
   belongs_to :volunteer
 
-  validates :volunteer_id, :day, presence: true
+  validates :day, presence: true
   
   def to_s
     day_i18n
