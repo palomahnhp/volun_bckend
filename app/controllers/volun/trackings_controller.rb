@@ -21,7 +21,6 @@ class Volun::TrackingsController < ApplicationController
 
   def new
     @volun_tracking.volunteer_id = params[:tracked_obj]
-    puts "==============> #{@volun_tracking.volunteer_id}"
     respond_with(@volun_tracking)
   end
 
@@ -34,7 +33,6 @@ class Volun::TrackingsController < ApplicationController
   end
 
   def update
-    volun_tracking_params[:volunteer_id] = @volunteer
     @volun_tracking.update_attributes(volun_tracking_params)
     respond_with(@volun_tracking)
   end
