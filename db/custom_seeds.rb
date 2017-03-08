@@ -486,9 +486,7 @@ Status.create!(id: 10, name: 'VOCNE'                     , active: true)
 ## managers
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
-Manager.create!(id: 1, name: 'María Concepción', last_name: 'Fernández', last_name_alt: 'Alvarez', alias_name: 'MFA026', active: true, profile_id: 1)
-
-
+Manager.create!(id: 1, name: 'MFA026', alias_name: 'MFA026', phone_number: '915880000', active: true, profile_id: 2)
 
 
 
