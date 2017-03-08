@@ -132,13 +132,14 @@ module ScaffoldHelper
         id:     "#{dom_id(record)}_trackings",
         text:   icon_tracking,
         path:   "#{type}_trackings_path",
+        path_params: { tracked_obj: record },
         remote: false,
-        method: :post
+        method: :get
     }.merge(opts)
     path = options.delete(:path)
     text = options.delete(:text)
 
-    link_to(text, public_send(path, record, options[:path_params]||{}), options)
+    link_to(text, public_send(path, options[:path_params]||{}), options)
   end
 
   # TODO uncomment when index js response is done

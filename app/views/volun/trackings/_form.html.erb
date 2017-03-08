@@ -2,11 +2,11 @@
   <%= simple_form_for(@volun_tracking, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.association :volunteer %>
+          <%= f.association :volunteer, input_html: { disabled: true }, default: @volun_tracking.volunteer %>
           <%= f.association :tracking_type %>
           <%= f.association :project %>
           <%= f.association :manager %>
-          <%= f.input :tracking_date, as: :datepicker %>
+          <%= f.input :tracked_at, as: :datepicker %>
           <%= f.input :comments %>
   </div>
 
