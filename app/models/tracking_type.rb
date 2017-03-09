@@ -12,6 +12,10 @@ class TrackingType < ActiveRecord::Base
   def self.get_volunteer_subscribe_type
     first
   end
+  
+  def self.get_volunteer_unsubscribe_type
+    TrackingType.find(17)
+  end
 
   def to_s
     name
