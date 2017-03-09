@@ -4,6 +4,12 @@
   <td><%= show_attr(pro_tracking, attr_name) %></td>
   <% end %>
 
+  <td>
+  <% unless pro_tracking.request_form.nil? %>
+    <%= pro_tracking.request_form.request_type %>
+  <% end %>
+  </td>
+
   <td class="index_table-actions">
     <%= link_to_show(pro_tracking) %>
     <%= link_to_edit(pro_tracking) %>

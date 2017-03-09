@@ -4,6 +4,10 @@
 
   <dt><%= Pro::Tracking.human_attribute_name(:project) %>:</dt>
   <dd><%= @pro_tracking.project %></dd>
+  <% unless @pro_tracking.request_form.nil? %>
+    <dt><%= Pro::Tracking.human_attribute_name(:request_form) %>:</dt>
+    <dd><%= @pro_tracking.request_form.request_type %></dd>
+  <% end %>
   <dt><%= Pro::Tracking.human_attribute_name(:tracked_at) %>:</dt>
   <dd><%= show_simple_date(@pro_tracking.tracked_at) %></dd>
   <dt><%= Pro::Tracking.human_attribute_name(:comments) %>:</dt>

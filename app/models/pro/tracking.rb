@@ -6,7 +6,7 @@ class Pro::Tracking < ActiveRecord::Base
   validates :project_id, :tracked_at, presence: true
   
   def self.main_columns
-    %i(project request_form tracked_at automatic comments)
+    %i(project tracked_at automatic comments)
   end
 
 end
