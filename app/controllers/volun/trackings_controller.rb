@@ -5,7 +5,11 @@ class Volun::TrackingsController < ApplicationController
 
   def index
     params[:q] ||= Volun::Tracking.ransack_default
-    @volunteer = params[:tracked_obj]
+    if params[:tracked_obj].nil?
+      @volunteer = session[:tracked_obj]
+    else
+      @volunteer = params[:tracked_obj]
+    end
     @search_q = @volun_trackings.search(params[:q])
     @volun_trackings = @search_q.result.where(volunteer_id: @volunteer).paginate(page: params[:page], per_page: params[:per_page]||15)
 
@@ -29,7 +33,8 @@ class Volun::TrackingsController < ApplicationController
 
   def create
     @volun_tracking.save
-    redirect_to volun_trackings_path, tracked_obj: @volun_tracking.volunteer_id
+    session[:tracked_obj] = @volun_tracking.volunteer_id
+    respond_with(@volun_tracking)
   end
 
   def update
