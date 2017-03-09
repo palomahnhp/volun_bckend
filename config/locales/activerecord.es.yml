@@ -627,6 +627,12 @@ es:
         created_at:           *created_at
       pro/tracking:
         id:                   ID
+        project:              Proyecto
+        request_form:         Solicitud
+        tracked_at:           Fecha del seguimiento
+        automatic:            Automático
+        comments:             Comentarios
+        created_at:           *created_at
       ent/tracking:
         id:                   ID
     errors:

@@ -1,4 +1,4 @@
-<% model_class = ProTracking %>
+<% model_class = Pro::Tracking %>
 
 <div class="row">
   <div class="col-md-12">
@@ -7,7 +7,7 @@
 </div>
 <div class="index-panel row well">
   <div class="col-md-6">
-    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+    <%= content_tag(:div, link_to_new(model_class, options = { path_params: { tracked_obj: @project } }), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
     <%= content_tag(:div, search_collection(@search_q, :comments_cont), class: 'col-md-6 pull-right') %>

@@ -11,7 +11,7 @@
   <dt><%= Volun::Tracking.human_attribute_name(:manager) %>:</dt>
   <dd><%= @volun_tracking.manager %></dd>
   <dt><%= Volun::Tracking.human_attribute_name(:tracked_at) %>:</dt>
-  <dd><%= @volun_tracking.tracked_at %></dd>
+  <dd><%= show_simple_date(@volun_tracking.tracked_at) %></dd>
   <dt><%= Volun::Tracking.human_attribute_name(:comments) %>:</dt>
   <dd><%= @volun_tracking.comments %></dd>
   <dt><%= Volun::Tracking.human_attribute_name(:created_at) %>:</dt>

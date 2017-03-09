@@ -24,6 +24,7 @@ class Volun::TrackingsController < ApplicationController
   end
 
   def new
+    @volun_tracking = Volun::Tracking.new
     @volun_tracking.volunteer_id = params[:tracked_obj]
     respond_with(@volun_tracking)
   end
