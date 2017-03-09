@@ -1,20 +1,18 @@
-<%= main_title(t("action.show", model: EntTracking.model_name.human)) %>
+<%= main_title(t("action.show", model: Ent::Tracking.model_name.human)) %>
 
 <dl class="dl-horizontal">
 
-  <dt><%= EntTracking.human_attribute_name(:id) %>:</dt>
-  <dd><%= @ent_tracking.id %></dd>
-  <dt><%= EntTracking.human_attribute_name(:tracking_type_id) %>:</dt>
-  <dd><%= @ent_tracking.tracking_type %></dd>
-  <dt><%= EntTracking.human_attribute_name(:entity_id) %>:</dt>
+  <dt><%= Ent::Tracking.human_attribute_name(:entity) %>:</dt>
   <dd><%= @ent_tracking.entity %></dd>
-  <dt><%= EntTracking.human_attribute_name(:manager_id) %>:</dt>
+  <dt><%= Ent::Tracking.human_attribute_name(:tracking_type) %>:</dt>
+  <dd><%= @ent_tracking.tracking_type %></dd>
+  <dt><%= Ent::Tracking.human_attribute_name(:manager) %>:</dt>
   <dd><%= @ent_tracking.manager %></dd>
-  <dt><%= EntTracking.human_attribute_name(:tracked_at) %>:</dt>
-  <dd><%= @ent_tracking.tracked_at %></dd>
-  <dt><%= EntTracking.human_attribute_name(:comments) %>:</dt>
+  <dt><%= Ent::Tracking.human_attribute_name(:tracked_at) %>:</dt>
+  <dd><%= show_simple_date(@ent_tracking.tracked_at) %></dd>
+  <dt><%= Ent::Tracking.human_attribute_name(:comments) %>:</dt>
   <dd><%= @ent_tracking.comments %></dd>
-  <dt><%= EntTracking.human_attribute_name(:created_at) %>:</dt>
+  <dt><%= Ent::Tracking.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@ent_tracking.created_at) %></dd>
 
 </dl>

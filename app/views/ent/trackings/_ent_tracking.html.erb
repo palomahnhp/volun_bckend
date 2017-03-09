@@ -7,10 +7,5 @@
   <td class="index_table-actions">
     <%= link_to_show(ent_tracking) %>
     <%= link_to_edit(ent_tracking) %>
-<% if ent_tracking.try(:archived?) %>
-    <%= link_to_recover(ent_tracking) %>
-<% else %>
-    <%= link_to_destroy(ent_tracking) %>
-<% end %>
   </td>
 </tr>

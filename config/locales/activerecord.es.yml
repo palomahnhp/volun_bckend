@@ -635,6 +635,14 @@ es:
         created_at:           *created_at
       ent/tracking:
         id:                   ID
+        entity:               Entidad
+        tracking_type:        Tipo de seguimiento
+        manager:              Gestor
+        request_form:         Solicitud
+        tracked_at:           Fecha del seguimiento
+        automatic:            Automático
+        comments:             Comentarios
+        created_at:           *created_at
     errors:
       models:
         address:
