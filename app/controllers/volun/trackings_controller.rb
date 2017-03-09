@@ -39,6 +39,7 @@ class Volun::TrackingsController < ApplicationController
 
   def update
     @volun_tracking.update_attributes(volun_tracking_params)
+    session[:tracked_obj] = @volun_tracking.volunteer_id
     respond_with(@volun_tracking)
   end
 

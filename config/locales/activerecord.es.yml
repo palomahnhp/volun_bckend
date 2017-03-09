@@ -616,6 +616,7 @@ es:
         created_at:           *created_at
       volun/tracking:
         id:                   ID
+        volunteer:            Voluntario
         tracking_type:        Tipo de seguimiento
         project:              Proyecto
         manager:              Gestor
