@@ -17,9 +17,11 @@
 <table class="index-table">
   <thead>
     <tr>
-    <% model_class.main_columns.each do |column| -%>
-      <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
-    <% end -%>
+      <% model_class.main_columns.each do |column| -%>
+        <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
+      <% end %>
+      
+      <th><%= RequestForm.model_name.human %></th>
 
       <th class="actions index_table-actions">
         <%= t('actions') %>

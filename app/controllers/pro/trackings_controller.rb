@@ -9,6 +9,7 @@ class Pro::TrackingsController < ApplicationController
       @project = session[:tracked_obj]
     else
       @project = params[:tracked_obj]
+      session[:tracked_obj] = @project
     end
     @search_q = @pro_trackings.search(params[:q])
     @pro_trackings = @search_q.result.where(project_id: @project).paginate(page: params[:page], per_page: params[:per_page]||15)

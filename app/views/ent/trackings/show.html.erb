@@ -8,6 +8,10 @@
   <dd><%= @ent_tracking.tracking_type %></dd>
   <dt><%= Ent::Tracking.human_attribute_name(:manager) %>:</dt>
   <dd><%= @ent_tracking.manager %></dd>
+  <% unless @ent_tracking.request_form.nil? %>
+    <dt><%= Ent::Tracking.human_attribute_name(:request_form) %>:</dt>
+    <dd><%= @ent_tracking.request_form.request_type %></dd>
+  <% end %>
   <dt><%= Ent::Tracking.human_attribute_name(:tracked_at) %>:</dt>
   <dd><%= show_simple_date(@ent_tracking.tracked_at) %></dd>
   <dt><%= Ent::Tracking.human_attribute_name(:comments) %>:</dt>

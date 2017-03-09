@@ -8,7 +8,7 @@ class Ent::Tracking < ActiveRecord::Base
   validates :entity_id, :tracking_type_id, :tracked_at, presence: true
   
   def self.main_columns
-    %i(entity tracking_type manager request_form tracked_at automatic comments)
+    %i(entity tracking_type manager tracked_at automatic comments)
   end
 
 end

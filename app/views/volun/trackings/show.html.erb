@@ -10,6 +10,10 @@
   <dd><%= @volun_tracking.project %></dd>
   <dt><%= Volun::Tracking.human_attribute_name(:manager) %>:</dt>
   <dd><%= @volun_tracking.manager %></dd>
+  <% unless @volun_tracking.request_form.nil? %>
+    <dt><%= Volun::Tracking.human_attribute_name(:request_form) %>:</dt>
+    <dd><%= @volun_tracking.request_form.request_type %></dd>
+  <% end %>
   <dt><%= Volun::Tracking.human_attribute_name(:tracked_at) %>:</dt>
   <dd><%= show_simple_date(@volun_tracking.tracked_at) %></dd>
   <dt><%= Volun::Tracking.human_attribute_name(:comments) %>:</dt>

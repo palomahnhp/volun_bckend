@@ -72,6 +72,7 @@ class VolunteerManager
                  # TODO set the definitive tracking type
                  tracking_type: TrackingType.get_volunteer_subscribe_type,
                  # TODO fill with tracking type description?
+                 automatic: true,
                  comments: '',
                )
     copy_errors_from!(tracking) unless tracking.save

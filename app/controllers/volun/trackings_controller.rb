@@ -9,6 +9,7 @@ class Volun::TrackingsController < ApplicationController
       @volunteer = session[:tracked_obj]
     else
       @volunteer = params[:tracked_obj]
+      session[:tracked_obj] = @volunteer
     end
     @search_q = @volun_trackings.search(params[:q])
     @volun_trackings = @search_q.result.where(volunteer_id: @volunteer).paginate(page: params[:page], per_page: params[:per_page]||15)

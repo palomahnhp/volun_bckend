@@ -9,6 +9,7 @@ class Ent::TrackingsController < ApplicationController
       @entity = session[:tracked_obj]
     else
       @entity = params[:tracked_obj]
+      session[:tracked_obj] = @entity
     end
     @search_q = @ent_trackings.search(params[:q])
     @ent_trackings = @search_q.result.where(entity_id: @entity).paginate(page: params[:page], per_page: params[:per_page]||15)

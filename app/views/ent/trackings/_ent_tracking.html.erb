@@ -4,6 +4,12 @@
   <td><%= show_attr(ent_tracking, attr_name) %></td>
   <% end %>
 
+  <td>
+  <% unless ent_tracking.request_form.nil? %>
+    <%= ent_tracking.request_form.request_type %>
+  <% end %>
+  </td>
+
   <td class="index_table-actions">
     <%= link_to_show(ent_tracking) %>
     <%= link_to_edit(ent_tracking) %>
