@@ -29,7 +29,7 @@ class Volun::TrackingsController < ApplicationController
 
   def create
     @volun_tracking.save
-    respond_with(@volun_tracking)
+    redirect_to volun_trackings_path, tracked_obj: @volun_tracking.volunteer_id
   end
 
   def update
@@ -52,7 +52,7 @@ class Volun::TrackingsController < ApplicationController
           :tracking_type_id,
           :project_id,
           :manager_id,
-          :tracking_date,
+          :tracked_at,
           :comments
         )
     end
