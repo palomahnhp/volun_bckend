@@ -585,6 +585,7 @@ es:
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
         traits:                   Cualidades
+        updated_at:               Fecha de actualización
         created_at:               *created_at
         error_address:            Error en dirección
         error_other:              Otros errores
