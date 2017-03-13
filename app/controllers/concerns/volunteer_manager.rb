@@ -87,7 +87,11 @@ class VolunteerManager
   end
 
   def request_form
-    @request_form ||= rt_volunteer_subscribe.try(:request_form) || rt_volunteer_unsubscribe.try(:request_form)
+    @request_form ||= if rt_volunteer_subscribe.present?
+                        rt_volunteer_subscribe.try(:request_form)
+                      elsif rt_volunteer_unsubscribe.present?
+                        rt_volunteer_unsubscribe.try(:request_form)
+                      end
   end
 
   def assign_user_to_volunteer!
