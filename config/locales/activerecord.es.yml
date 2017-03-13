@@ -218,6 +218,9 @@ es:
       unsubscribe_level:
         one:    Nivel de baja de voluntario
         other:  Nivel de baja de voluntario
+      user:
+        one:    Usuario
+        other:  Usuarios
       volun/availability:
         one:    Horario de disponibilidad del usuario
         other:  Horarios de disponibilidad del usuario
