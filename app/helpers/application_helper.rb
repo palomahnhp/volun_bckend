@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def uweb_user_data
-    @uweb_user_data = session[:uweb_user_data] || {}
+    @uweb_user_data = (session[:uweb_user_data] || {}).with_indifferent_access
     @uweb_user_data[:full_name] = "#{@uweb_user_data[:name]} #{@uweb_user_data[:surname]} #{@uweb_user_data[:last_name_alt]} "
     @uweb_user_data
   end

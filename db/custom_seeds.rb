@@ -1,3 +1,5 @@
+Rake::Task['db:seed'].invoke
+
 [NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel].each do |model|
   puts "#{I18n.t('creating')} #{model.model_name.human}"
   model.kinds.each do |kind_name , kind_num|

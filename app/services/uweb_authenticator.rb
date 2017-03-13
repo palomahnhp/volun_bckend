@@ -17,7 +17,7 @@ class UwebAuthenticator
     def user_exists?
       response        = client.call(:get_user_data_by_login, message: { ub: { login: @user_params[:login] } }).body
       parsed_response = parser.parse(response[:get_user_data_by_login_response][:get_user_data_by_login_return])
-      self.uweb_user_data = get_uweb_user_data(parsed_response)
+      self.uweb_user_data = get_uweb_user_data!(parsed_response)
       @user_params[:login] == uweb_user_data[:login]
     rescue  Exception  => e
       Rails.logger.error('UwebAuthenticator#user_exists?') do
@@ -26,7 +26,7 @@ class UwebAuthenticator
       false
     end
 
-    def get_uweb_user_data(parsed_response)
+    def get_uweb_user_data!(parsed_response)
       user_data = parsed_response.fetch('USUARIO')
       {
         login:             user_data['LOGIN'],

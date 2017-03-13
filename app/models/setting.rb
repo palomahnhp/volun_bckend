@@ -10,7 +10,7 @@ class Setting < ActiveRecord::Base
   end
 
   def feature_flag?
-    key.sub("#{DEFAULT_PREFIX}.", '').start_with?('feature.')
+    key.sub("#{DEFAULT_PREFIX}", '').start_with?('feature.')
   end
 
   def enabled?

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   before_action :set_page_params, only: [:index]
   after_action :update_record_history, only: [:create, :update, :destroy], unless: :devise_controller?
 
-  helper_method :use_devise_authentication?, :cast_as_boolean
+  helper_method :use_devise_authentication?, :cast_as_boolean, :uweb_authenticated?
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = I18n.t('messages.access_denied')
@@ -22,6 +22,14 @@ class ApplicationController < ActionController::Base
 
   def cast_as_boolean(boolean_string)
     ActiveRecord::Type::Boolean.new.type_cast_from_user boolean_string
+  end
+
+  def uweb_authenticated?
+    return true if session[:user_authenticated]
+    uweb_auth = UwebAuthenticator.new(params)
+    session[:user_authenticated] = uweb_auth.authenticate!
+    session[:uweb_user_data] = uweb_auth.uweb_user_data
+    session[:user_authenticated]
   end
 
   private
@@ -48,21 +56,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def uweb_authenticated?
-    return true if session[:user_authenticated]
-    uweb_auth     = UwebAuthenticator.new(params)
-    authenticated = uweb_auth.authenticate!
-    session[:uweb_user_data] = uweb_auth.uweb_user_data
-    authenticated
-  end
-
   def user_authenticated?
     current_user || session.fetch(:user_authenticated, false)
   end
 
   # TODO Create Setting model for app configuration
   def use_devise_authentication?
-    Setting['backend.']
+    cast_as_boolean Setting['devise_auth']
   end
 
   # Devise: Where to redirect users once they have logged in
@@ -76,10 +76,11 @@ class ApplicationController < ActionController::Base
     params[:per_page] ||= 20
   end
 
-  # TODO use persistent users when uweb authentication
+  # TODO Ensure user creation after successful uweb login
   def current_user
     return super if use_devise_authentication?
-    User.new if uweb_authenticated?
+    return User.first_or_create(login: session[:uweb_user_data][:login]) if uweb_authenticated?
+    nil
   end
 
   def fields_for_options(collection)
