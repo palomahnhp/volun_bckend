@@ -1,4 +1,5 @@
 <% model_class = Rt::VolunteerUnsubscribe %>
+<% group_name = 'hidden_statuses' %>
 
 <div class="row">
   <div class="col-md-12">
@@ -6,17 +7,43 @@
   </div>
 </div>
 <div class="index-panel row well">
-  <div class="col-md-12">
-    <%= content_tag(:div, search_collection(@search_q, :notes_cont), class: 'col-md-4 pull-right') %>
+  <div class="col-md-5">
+    <%= content_tag(:div,
+                    search_collection(@search_q,
+                                      :notes_cont,
+                                      hidden_fields: {
+                                          group_name => {
+                                              pending:    cast_as_boolean(params[:pending]),
+                                              processing: cast_as_boolean(params[:processing]),
+                                              approved:   cast_as_boolean(params[:approved]),
+                                              rejected:   cast_as_boolean(params[:rejected])}}),
+                    class: 'pull-left') %>
+  </div>
+  <div id="statuses" class="col-md-4">
+    <%#= filter_status_date_between(params[:start_status_date], ) %>
+  </div>
+  <div id="statuses" class="col-md-3">
+    <%= content_tag :ul, class: 'pull-left' do %>
+      <% RequestForm.statuses.keys.each do |status| %>
+        <%= content_tag :li, class: "status-list #{status}" do %>
+          <%= label_tag status, RequestForm.statuses_i18n[status], class: 'boolean' %>
+          <%= check_box_filter_for(status) %>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>
 
 <table class="index-table">
   <thead>
     <tr>
-    <% model_class.main_columns.each do |column| -%>
+    <% model_class.main_columns.each do |column| -%>    
       <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
     <% end -%>
+
+      <th><%= sort_link(@search_q, :request_form_manager, RequestForm.human_attribute_name(:manager)) %></th>
+      <th><%= sort_link(@search_q, :request_form_status_date, RequestForm.human_attribute_name(:status_date)) %></th>
+      <th><%= sort_link(@search_q, :request_form_req_status_id, RequestForm.human_attribute_name(:status)) %></th>
 
       <th class="actions index_table-actions">
         <%= t('actions') %>
@@ -29,4 +56,4 @@
   </tbody>
 </table>
 
-<%= render partial: "shared/pagination", locals: {collection: @rt_volunteer_unsubscribes} %>
+<%= render partial: 'shared/pagination', locals: {collection: @rt_volunteer_unsubscribes} %>

@@ -2,7 +2,8 @@ class RequestForm < ActiveRecord::Base
 
   belongs_to :rt_extendable, polymorphic: true
   belongs_to :request_type, required: true
-  belongs_to :rejection_type, class_name: 'Req::RejectionType', foreign_key: 'req_rejection_type_id'
+  belongs_to :rejection_type, -> { where(active: true) }, class_name: 'Req::RejectionType', foreign_key: 'req_rejection_type_id'
+  belongs_to :inactive_rejection_type, -> { where(active: false) }, class_name: 'Req::RejectionType', foreign_key: 'req_rejection_type_id'
   belongs_to :reason, class_name: 'Req::Reason', foreign_key: 'req_reason_id'
   belongs_to :status, class_name: 'Req::Status', foreign_key: 'req_status_id'
   belongs_to :user
@@ -49,7 +50,7 @@ class RequestForm < ActiveRecord::Base
     end
 
     def get_status_id_by_kind(status)
-      Req::Status.send(status).take.id
+      Req::Status.send(status).take.try :id
     end
 
     def status_names

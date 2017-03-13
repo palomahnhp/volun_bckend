@@ -1,5 +1,5 @@
 class Setting < ActiveRecord::Base
-  DEFAULT_PREFIX = 'volun_backend/'
+  DEFAULT_PREFIX = "#{Rails.application.class.parent_name}."
 
   validates :key, presence: true, uniqueness: true
 
@@ -10,7 +10,7 @@ class Setting < ActiveRecord::Base
   end
 
   def feature_flag?
-    key.start_with?('feature.')
+    key.sub("#{DEFAULT_PREFIX}.", '').start_with?('feature.')
   end
 
   def enabled?

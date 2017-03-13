@@ -7,10 +7,10 @@
 </div>
 <div class="index-panel row well">
   <div class="col-md-6">
-    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+    <%= content_tag(:div, link_to_new(model_class, fem: true), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :name_or_description_or_vat_number_or_email_or_representative_name_or_representative_last_name_or_representative_last_name_alt_or_contact_name_or_contact_last_name_or_contact_last_name_alt_or_phone_number_or_phone_number_alt_or_comments_or_other_subscribe_reason_cont), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :name_or_vat_number_or_email_or_entity_type_name_cont), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 

@@ -20,6 +20,7 @@
 # +local_code+
 # +latitude+
 # +longitude+
+# +normalize+
 #
 
 module BdcCompatible
@@ -27,10 +28,11 @@ module BdcCompatible
 
   included do
 
-    attr_accessor :bdc_validator, :no_bdc_check
+    attr_accessor :bdc_validator
 
-    before_validation :check_normalization, if: 'check_normalization?'
-    validate :must_be_normalized, if: 'check_normalization?'
+    before_validation :check_normalization, if: 'normalize?'
+    after_validation :unnormalize, on: :update, unless: 'normalize?'
+    validate :must_be_normalized, if: 'normalize?'
 
     def normalized?
       ndp_code.present?
@@ -51,14 +53,8 @@ module BdcCompatible
     end
 
     def reset_bdc_validator
+      unnormalize
       self.bdc_validator = nil
-      self.ndp_code      = nil
-      self.province_code = nil
-      self.town_code     = nil
-      self.district_code = nil
-      self.local_code    = nil
-      self.latitude      = nil
-      self.longitude     = nil
     end
 
     private
@@ -75,11 +71,19 @@ module BdcCompatible
       end
     end
 
-    def check_normalization?
-      !(/true|yes|1/i === no_bdc_check.to_s)
+    def unnormalize
+      self.normalize     = false
+      self.ndp_code      = nil
+      self.province_code = nil
+      self.town_code     = nil
+      self.district_code = nil
+      self.local_code    = nil
+      self.latitude      = nil
+      self.longitude     = nil
     end
 
     def check_normalization
+      self.road_number = road_number.to_s.to_i
       normalize_grader
       if bdc_validator.address_normalized?
         self.postal_code   = bdc_validator.postal_code || self.postal_code

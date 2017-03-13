@@ -43,6 +43,20 @@ es:
       gender:
         male:     Hombre
         female:   Mujer
+    unsubscribe_level:
+      kind:
+        project:  Solicita baja de voluntario en proyecto
+        user:     Solicita baja de voluntario completa
+    volun:
+      availability:
+        day:
+          monday:     Lunes
+          tuesday:    Martes
+          wednesday:  Miércoles
+          thursday:   Jueves
+          friday:     Viernes
+          saturday:   Sábado
+          sunday:     Domingo
   activerecord:
     models:
       project:
@@ -200,7 +214,13 @@ es:
         other:  Solicitudes de Accion sobre Actividad
       rt/other:
         one:    Solicitud de "Otros"'
-        other:  Solicitudes de"Otros"'
+        other:  Solicitudes de "Otros"'
+      unsubscribe_level:
+        one:    Nivel de baja de voluntario
+        other:  Nivel de baja de voluntario
+      volun/availability:
+        one:    Horario de disponibilidad del usuario
+        other:  Horarios de disponibilidad del usuario
     attributes:
       address:
         postal_code:      Código postal
@@ -218,11 +238,36 @@ es:
         latitude:         Latitud
         longitude:        Longitud
         district:         Distrito
-        no_bdc_check:     No normalizada
+        normalize:        Normalizar
       district:
         code:        Código
         name:        Nombre
         created_at : &created_at Fecha de creación
+      entity:
+        name: Nombre
+        description: Descripción
+        vat_number: CIF
+        email: Email
+        representative_name: Nombre
+        representative_last_name: Primer apellido
+        representative_last_name_alt: Segundo apellido
+        contact_name: Nombre
+        contact_last_name: Primer apellido
+        contact_last_name_alt: Segundo apellido
+        phone_number: Teléfono 1
+        phone_number_alt: Teléfono 2
+        publish_pictures: Divulgación de imagen
+        annual_survey: Recibir encuesta anual
+        reason: Motivo por el que solicita darse de alta
+        reason_id: Motivo por el que solicita darse de alta
+        entity_type: Tipo de entidad
+        entity_type_id: Tipo de entidad
+        comments: Observaciones
+        other_subscribe_reason: Otro motivo de solicitud
+        address_id: Dirección
+        active: Activo
+        subscribed_at: Fecha de alta
+        unsubscribed_at: Fecha de baja
       project_type:
         id:          ID
         kind:        Nombre
@@ -301,7 +346,7 @@ es:
         status:                Estado
         req_status_id:         Estado
         status_date:           Fecha de estado
-        req_rejection_type_id: Motivo de rechazo
+        rejection_type_id:     Motivo de rechazo
         rejection_type:        Motivo de rechazo
         reason_id:             Motivo
         reason:                Motivo
@@ -345,6 +390,17 @@ es:
         publish_pictures: Publicar fotos
         annual_survey:    Recibir encuesta
         notes:            Notas
+      rt/volunteer_unsubscribe:
+        unsubscribe_level:      Nivel de baja de voluntario
+        unsubscribe_level_id:   Nivel de baja de voluntario
+        project:                Proyecto
+        project_id:             Proyecto
+        notes:                  Notas
+      rt/other:
+        id:           ID
+        description:  Descripción
+        notes:        Notas
+        created_at:   *created_at
       collective:
         id:          ID
         name:        Denominación
@@ -373,6 +429,7 @@ es:
         volunteers_allowed:     Admite voluntarios
         publish:                Publicitar
         outstanding:            Destacado
+        urgent:                 Urgente
         functions:              Funciones del voluntario
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
@@ -485,8 +542,8 @@ es:
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad
         nationality:              Nacionalidad
-        phone_number:             Teléfono móvil
-        phone_number_alt:         Teléfono fijo
+        phone_number:             Teléfono 1
+        phone_number_alt:         Teléfono 2
         email:                    Email
         address_id:               Dirección
         status_id:                Situación
@@ -542,6 +599,12 @@ es:
         name: Nombre
       id_number_type:
         name: Nombre
+      volun/availability:
+        id:                   ID
+        day:                  Día de la semana
+        start_hour:           Hora de comienzo
+        end_hour:             Hora de fin
+        created_at:           *created_at
     errors:
       models:
         address:
@@ -579,3 +642,4 @@ es:
         cannot_change_to_processing: no puede cambiar a 'en trámite'
         cannot_change_to_approved: no puede cambiar a aprobada
         cannot_change_to_rejected: no puede cambiar a rechazada
+        invalid_document_number: Número de documento inválido

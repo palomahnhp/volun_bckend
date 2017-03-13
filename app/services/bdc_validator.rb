@@ -106,11 +106,25 @@ class BdcValidator
     number_block[:codpostal]
   end
 
-  alias_method :road_number  , :number_block
-  alias_method :road_name    , :road_block
-  alias_method :road_town    , :town_block
-  alias_method :road_province, :province_block
-  alias_method :road_country , :country_block
+  def road_number
+    number_block.presence
+  end
+
+  def road_name
+    road_block.presence
+  end
+
+  def road_town
+    town_block.presence
+  end
+
+  def road_province
+    province_block.presence
+  end
+
+  def road_country
+    country_block.presence
+  end
 
   def road_types
     road_block.dig(:numeros, :numero) || [road_type].compact

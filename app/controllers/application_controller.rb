@@ -94,6 +94,7 @@ class ApplicationController < ActionController::Base
       :volunteers_allowed,
       :publish,
       :outstanding,
+      :urgent,
       :project_type_id,
       :active,
       :comments,
@@ -142,7 +143,7 @@ class ApplicationController < ActionController::Base
               :town,
               :province,
               :country,
-              :no_bdc_check,
+              :normalize,
               :_destroy
             ]
           },

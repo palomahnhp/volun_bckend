@@ -28,7 +28,7 @@ class Project < ActiveRecord::Base
 
   validates :name, uniqueness: true
   validates :name, :description, :contact_name, :contact_last_name, :execution_start_date,
-            :phone_number, :email, :active, :project_type_id, :entity_id, presence: true
+            :phone_number, :email, :project_type_id, :entity_id, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validate  :execution_start_date_less_than_execution_end_date
   validates :execution_start_date, inclusion: { in: (Date.today-11.months..Date.today+11.months),
@@ -74,6 +74,16 @@ class Project < ActiveRecord::Base
   def self.ransack_default
     {s: 'id desc'}
   end
+
+  # TODO pending of test
+  # def self.to_csv(projects = self.all)
+  #   CSV.generate do |csv|
+  #     csv << main_columns.map{ |column_name| human_attribute_name(column_name) }
+  #     projects.each do |project|
+  #       csv << main_columns.map{ |column_name| project.public_send column_name }
+  #     end
+  #   end
+  # end
 
   def to_s
     name

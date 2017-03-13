@@ -24,13 +24,13 @@ module ApplicationHelper
     }
   end
   
-  def date_input_html_default_values(date)
+  def date_input_html_default_values(date, opts = {})
     {
       class: 'datepicker',
       placeholder: 'dd/mm/aaaa',
       value: date ? date.strftime('%d/%m/%Y') : Date.today.strftime('%d/%m/%Y'),
       data: {mask: '99/99/9999'}
-    }
+    }.reverse_merge(opts)
   end
 
   def check_box_filter_for(param_name, js_selector = nil)

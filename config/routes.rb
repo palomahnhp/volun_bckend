@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :contact_results
   resources :coordinations, concerns: :recoverable
   resources :degrees, concerns: :recoverable
+  resources :districts
   resources :documents
   resources :employment_statuses
   resources :event_types
@@ -28,7 +29,9 @@ Rails.application.routes.draw do
   resources :professions
   resources :profiles
   resources :proposals
+  resources :provinces
   resources :record_histories, concerns: :recoverable
+  resources :road_types
   resources :roles
   resources :settings
   resources :skills
@@ -47,7 +50,7 @@ Rails.application.routes.draw do
 
   # Entity related routes
   resources :entity_types
-  resources :entities
+  resources :entities, concerns: :recoverable
   namespace :ent do
     resources :trackings
   end
@@ -83,7 +86,16 @@ Rails.application.routes.draw do
       patch :reject_request_form, on: :member
       get :mark_request_form_as_pending, on: :member
     end
-    resources :volunteer_unsubscribes
+    resources :volunteer_unsubscribes do
+      get :process_request_form, on: :member
+      get :undo_rejection_request_form,
+          to: 'volunteer_unsubscribes#mark_request_form_as_pending',
+          on: :member
+      get :pre_approve_request_form, on: :member
+      get :pre_reject_request_form, on: :member
+      patch :reject_request_form, on: :member
+      get :mark_request_form_as_pending, on: :member
+    end
     resources :volunteer_amendments
     resources :volunteer_appointments
     resources :entity_subscribes
@@ -93,7 +105,16 @@ Rails.application.routes.draw do
     resources :activity_publishings
     resources :project_unpublishings
     resources :project_publishings
-    resources :others
+    resources :others do
+      get :process_request_form, on: :member
+      get :undo_rejection_request_form,
+          to: 'others#mark_request_form_as_pending',
+          on: :member
+      get :pre_approve_request_form, on: :member
+      get :pre_reject_request_form, on: :member
+      patch :reject_request_form, on: :member
+      get :mark_request_form_as_pending, on: :member
+    end
   end
 
   # Project related routes

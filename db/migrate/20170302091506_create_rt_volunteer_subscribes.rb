@@ -9,6 +9,7 @@ class CreateRtVolunteerSubscribes < ActiveRecord::Migration
       t.string :email
       t.boolean :publish_pictures, default: true
       t.boolean :annual_survey, default: false
+      t.references :project, index: true, foreign_key: true
       t.text :notes
 
       t.timestamps null: false

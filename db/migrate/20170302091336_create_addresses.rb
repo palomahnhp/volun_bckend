@@ -23,6 +23,7 @@ class CreateAddresses < ActiveRecord::Migration
       t.string :class_name
       t.string :latitude
       t.string :longitude
+      t.boolean :normalize, default: true
 
       t.timestamps null: false
     end

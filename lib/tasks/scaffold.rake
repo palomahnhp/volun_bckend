@@ -11,18 +11,21 @@ MODELS_AND_ATTRS = {
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
   'Coordination'  => 'name:string:uniq description:text active:boolean',
+  'District'      => 'name:string:uniq code:string:uniq active:boolean',
+  'Province'      => 'name:string:uniq code:string:uniq active:boolean',
+  'RoadType'      => 'name:string:uniq code:string:uniq active:boolean',
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
 
   'Address'       => 'road_type road_name road_number_type road_number grader stairs floor door postal_code '\
                      'borough district town province country ndp_code local_code province_code town_code district_code '\
-                     'class_name latitude longitude',
+                     'class_name latitude longitude normalize:boolean',
 
   'Role'          => 'kind:integer:uniq description:text',
   'Manager'       => 'name last_name last_name_alt alias_name role:references profile_id:integer phone_number active:boolean',
   'TrackingType'  => 'name:string:uniq active:boolean',
-  'Req::Reason'   => 'kind:integer:uniq description:text active:boolean',
+  'Req::Reason'   => 'name description:text active:boolean',
 
-  'EntityType'     => 'kind:integer:uniq description:text active:boolean',
+  'EntityType'     => 'name:string:uniq description:text active:boolean',
   'Entity'         => 'name:string:uniq description:text vat_number email ' \
                       'representative_name representative_last_name representative_last_name_alt ' \
                       'contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt ' \
@@ -153,19 +156,19 @@ MODELS_AND_ATTRS = {
                                  'req_reason:references manager:references comments:text',
   'Req::StatusTrace'          => 'req_status:references request_form:references manager:references',
   'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email ' \
-                                 'publish_pictures:boolean annual_survey:boolean notes:text',
-  'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
+                                 'publish_pictures:boolean annual_survey:boolean project:references notes:text',
+  'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references project:references notes:text',
   'Rt::VolunteerAmendment'    => 'road_type road_name number_type road_number postal_code borough ' \
                                  'district town province phone_number phone_number_alt ' \
-                                 'email notes:text',
+                                 'email notes:text project:references',
   'Rt::VolunteerAppointment'  => 'notes:text',
   'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name ' \
                                  'representative_last_name_alt contact_name contact_last_name contact_last_name_alt ' \
                                  'phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean ' \
                                  'entity_type:references comments:text other_subscribe_reason:text ' \
                                  'road_type road_name number_type road_number postal_code borough ' \
-                                 'district town province notes:text',
-  'Rt::EntityUnsubscribe'     => 'notes:text',
+                                 'district town province project:references notes:text',
+  'Rt::EntityUnsubscribe'     => 'project:references notes:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date ' \
                                  'road_type road_name number_type road_number postal_code borough ' \
                                  'district town province requested_volunteers_num ' \
@@ -274,12 +277,14 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :volun_assessments     => [:volunteer_id, :trait_id, :project_id, :assessment],
     :frontpage_elements    => [:created_by, :created_by, :active, :frontpage_position_id],
     :academic_levels       => [:name, :active, :educational_type],
+    :entity_types          => [:name, :active],
     :id_number_types       => [:name, :active],
     :nationalities         => [:name, :active],
     :statuses              => [:name, :active],
     :employment_statuses   => [:name, :active],
     :degrees               => [:name, :active],
     :unsubscribe_reasons   => [:name, :active],
+    :req_reasons           => [:name, :active],
     :managers              => [:name, :active],
     :profiles              => [:name, :active],
     :info_sources          => [:name, :active],
@@ -647,7 +652,7 @@ namespace :scaffold do
       File.open(rb_file, 'r').each do |l|
         line = l
         if line.chomp =~ /boolean.*/
-          default_value = /(active|volunteers_allowed|publish).*/ === line.chomp
+          default_value = /(active|volunteers_allowed|publish|normalize).*/ === line.chomp
           line  = line.sub("\n", '')
           line += ", default: #{default_value}\n"
         end
