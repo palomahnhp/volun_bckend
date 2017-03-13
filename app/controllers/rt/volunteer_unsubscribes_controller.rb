@@ -53,16 +53,6 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
     end
   end
   
-  def request_form
-    @rt_volunteer_unsubscribe.request_form
-  end
-  
-  def approve_request_form!
-    unless request_form.update_and_trace_status(:approved, manager_id: current_user.loggable_id, user_id: current_user.loggable_id)
-      copy_errors_from!(request_form)
-    end
-  end
-  
   def approve_and_render_unsubscribes_path
     approve_request_form!
     respond_to do |format|
@@ -134,5 +124,15 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
         )
     end
 
-   alias_method :create_params, :rt_volunteer_unsubscribe_params
+    alias_method :create_params, :rt_volunteer_unsubscribe_params
+
+    def request_form
+      @rt_volunteer_unsubscribe.request_form
+    end
+
+    def approve_request_form!
+      unless request_form.update_and_trace_status(:approved, manager_id: current_user.loggable_id, user_id: current_user.loggable_id)
+        copy_errors_from!(request_form)
+      end
+    end
 end
