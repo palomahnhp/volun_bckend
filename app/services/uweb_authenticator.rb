@@ -7,9 +7,9 @@ class UwebAuthenticator
   end
 
   def authenticate!
-    return false unless @user_params[:login]
-    return true if user_exists?
-    false
+    return nil unless @user_params[:login]
+    return uweb_user_data if user_exists?
+    nil
   end
 
   private

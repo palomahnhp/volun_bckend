@@ -25,11 +25,10 @@ class ApplicationController < ActionController::Base
   end
 
   def uweb_authenticated?
-    return true if session[:user_authenticated]
+    return true if session[:uweb_user_data].present?
     uweb_auth = UwebAuthenticator.new(params)
-    session[:user_authenticated] = uweb_auth.authenticate!
-    session[:uweb_user_data] = uweb_auth.uweb_user_data
-    session[:user_authenticated]
+    session[:uweb_user_data] = uweb_auth.authenticate!
+    session[:uweb_user_data].present?
   end
 
   private
@@ -57,10 +56,9 @@ class ApplicationController < ActionController::Base
   end
 
   def user_authenticated?
-    current_user || session.fetch(:user_authenticated, false)
+    session[:uweb_user_data].present? || current_user
   end
 
-  # TODO Create Setting model for app configuration
   def use_devise_authentication?
     cast_as_boolean Setting['devise_auth']
   end
@@ -78,8 +76,9 @@ class ApplicationController < ActionController::Base
 
   # TODO Ensure user creation after successful uweb login
   def current_user
+    return @current_user if @current_user
     return super if use_devise_authentication?
-    return User.first_or_create(login: session[:uweb_user_data][:login]) if uweb_authenticated?
+    return @current_user = User.first_or_create(login: session[:uweb_user_data][:login]) if uweb_authenticated?
     nil
   end
 
