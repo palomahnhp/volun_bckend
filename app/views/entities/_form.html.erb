@@ -1,6 +1,6 @@
 <div class="well">
   <%= simple_nested_form_for(@entity, default_form_options) do |f| %>
-
+      <%= show_simple_base_errors(f) %>
   <div class="form-inputs">
     <div class="row well">
         <%= content_tag :h3, t('main_data'), class: 'form-subtitle' %>
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="row well">
+    <div class="phone row well">
       <%= content_tag :h3, t('contact_data'), class: 'form-subtitle' %>
       <%= f.input :email, wrapper_html: { class: 'col-md-6' } %>
       <%= f.input :phone_number, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-3' } %>

@@ -1,4 +1,6 @@
 class Setting < ActiveRecord::Base
+  DEFAULT_PREFIX = "#{Rails.application.class.parent_name}."
+
   validates :key, presence: true, uniqueness: true
 
   default_scope { order(id: :asc) }
@@ -8,7 +10,7 @@ class Setting < ActiveRecord::Base
   end
 
   def feature_flag?
-    key.start_with?('feature.')
+    key.sub("#{DEFAULT_PREFIX}", '').start_with?('feature.')
   end
 
   def enabled?
@@ -17,10 +19,11 @@ class Setting < ActiveRecord::Base
 
   class << self
     def [](key)
-      where(key: key).pluck(:value).first.presence
+      where(key: "#{DEFAULT_PREFIX}#{key}").pluck(:value).first.presence
     end
 
     def []=(key, value)
+      key = "#{DEFAULT_PREFIX}#{key}"
       setting = where(key: key).first || new(key: key)
       setting.value = value.presence
       setting.save!

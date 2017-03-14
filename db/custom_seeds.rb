@@ -1,3 +1,5 @@
+Rake::Task['db:seed'].invoke
+
 [NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel].each do |model|
   puts "#{I18n.t('creating')} #{model.model_name.human}"
   model.kinds.each do |kind_name , kind_num|
@@ -487,6 +489,14 @@ Status.create!(id: 10, name: 'VOCNE'                     , active: true)
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
 Manager.create!(id: 1, name: 'MFA026', alias_name: 'MFA026', phone_number: '915880000', active: true, profile_id: 2)
+
+## roles
+puts "#{I18n.t('creating')} #{Role.model_name.human}"
+
+Role.kinds_i18n.each do |kind, kind_i18n|
+  Role.create!(kind: Role.kinds[kind], description: kind_i18n)
+end
+
 
 
 ## id_number_types

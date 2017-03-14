@@ -21,8 +21,7 @@ class VolunteersController < ApplicationController
   def new
     volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id])
     if volunteer_manager.valid?
-      @volunteer = volunteer_manager.build_volunteer
-      respond_with(@volunteer)
+      respond_with(@volunteer = volunteer_manager.build_volunteer)
     else
       redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
     end
@@ -36,17 +35,24 @@ class VolunteersController < ApplicationController
                                              volunteer_attributes: volunteer_params,
                                              manager_id: current_user.loggable_id)
     volunteer_manager.create_volunteer
-    @volunteer = volunteer_manager.volunteer
-    if @volunteer.persisted? || @volunteer.errors.present?
-      respond_with(@volunteer)
+    if volunteer_manager.respond_with_volunteer?
+      respond_with(@volunteer = volunteer_manager.volunteer)
     else
       redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
     end
   end
 
   def update
-    @volunteer.update_attributes(volunteer_params)
-    respond_with(@volunteer)
+    volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: params[:rt_volunteer_unsubscribe_id],
+                                             volunteer: @volunteer,
+                                             volunteer_attributes: volunteer_params,
+                                             manager_id: current_user.loggable_id)
+    volunteer_manager.update_volunteer
+    if volunteer_manager.respond_with_volunteer?
+      respond_with(@volunteer = volunteer_manager.volunteer)
+    else
+      redirect_to rt_volunteer_unsubscribes_path, alert: volunteer_manager.errors.to_sentence
+    end
   end
 
   def destroy
@@ -132,7 +138,8 @@ class VolunteersController < ApplicationController
               :normalize,
               :_destroy
             ]
-          }
+          },
+          { project_ids: [] }
         )
     end
 end
