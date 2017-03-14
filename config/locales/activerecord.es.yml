@@ -30,6 +30,12 @@ es:
           processing: En trámite
           approved:   Aceptada
           rejected:   Rechazada
+    role:
+      kind:
+       super_admin:      Super Administrador
+       admin:            Adminstrador
+       internal_staff:   Personal interno
+       external_staff:   Personal externo
     timetable:
       day:
         monday:     Lunes
@@ -116,6 +122,9 @@ es:
       record_history:
         one:   Historial de registro
         other: Historial de registros
+      role:
+        one:   Rol
+        other: Roles
       pt/subvention:
         one:   Proyecto subvencionado
         other: Proyectos subvencionados
@@ -333,6 +342,8 @@ es:
         name:        Idioma
         active:      Activo
         created_at : *created_at
+      role:
+        description: Descripción
       tracking_type:
         id:          ID
         name:        Tipo Seguimiento

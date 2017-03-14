@@ -588,8 +588,9 @@ form .well {
   max-width: 110px;
 }
 .with-scroll-bar{
-  max-height: 1000px;
+  max-height: 800px;
   overflow-y: scroll;
+  border: 1px solid #e4dccf;
 }
 .normal-text {
   font-weight: normal;
