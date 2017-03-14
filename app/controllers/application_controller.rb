@@ -56,7 +56,8 @@ class ApplicationController < ActionController::Base
   end
 
   def user_authenticated?
-    session[:uweb_user_data].present? || current_user
+    session[:uweb_user_data] = {} if use_devise_authentication?
+    current_user.present?
   end
 
   def use_devise_authentication?
@@ -65,7 +66,6 @@ class ApplicationController < ActionController::Base
 
   # Devise: Where to redirect users once they have logged in
   def after_sign_in_path_for(resource)
-    session[:user_authenticated] = true
     root_path
   end
 
