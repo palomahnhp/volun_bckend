@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authenticate!, unless: :user_authenticated?
+  before_action :authorize_devise!
   before_action :set_page_params, only: [:index]
   after_action :update_record_history, only: [:create, :update, :destroy], unless: :devise_controller?
 
@@ -53,6 +54,10 @@ class ApplicationController < ActionController::Base
     else
       render file: 'public/401.html', status: :unauthorized unless uweb_authenticated?
     end
+  end
+
+  def authorize_devise!
+    redirect_to root_path if devise_controller? && uweb_authenticated?
   end
 
   def user_authenticated?
