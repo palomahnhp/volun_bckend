@@ -31,9 +31,9 @@ class Project < ActiveRecord::Base
             :phone_number, :email, :project_type_id, :entity_id, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
   validate  :execution_start_date_less_than_execution_end_date
-  validates :execution_start_date, inclusion: { in: (Date.today-11.months..Date.today+11.months),
+  validates :execution_start_date, inclusion: { in: (11.months.ago..11.months.since),
                                                 message: I18n.t('activerecord.errors.messages.invalid_proj_date')}
-  validates :execution_end_date, inclusion: { in: (Date.today-11.months..Date.today+11.months),
+  validates :execution_end_date, inclusion: { in: (11.months.ago..11.months.since),
                                               message: I18n.t('activerecord.errors.messages.invalid_proj_date'),
                                               allow_blank: true }
   validates :volunteers_num, :beneficiaries_num, numericality: { allow_blank: true }
