@@ -18,10 +18,10 @@ es:
         rt_entity_subscribe:      &rt_entity_subscribe      Alta de entidad
         rt_entity_unsubscribe:    &rt_entity_unsubscribe    Baja de entidad
         rt_volunteers_demand:     &rt_volunteers_demand     Demanda de voluntarios
-        rt_project_subscribe:     &rt_project_subscribe     Publicación de projecto
-        rt_project_action:        &rt_project_action        Acción sobre proyecto
-        rt_activity_subscribe:    &rt_activity_subscribe    Publicación de actividad
-        rt_activity_action:       &rt_activity_action       Acción sobre actividad
+        rt_project_publishing:    &rt_project_publishing    Publicación de projecto
+        rt_project_unpublishing:  &rt_project_unpublishing  Despublicación de proyecto
+        rt_activity_publishing:   &rt_activity_publishing   Publicación de actividad
+        rt_activity_unpublishing: &rt_activity_unpublishing Despublicación de actividad
         rt_other:                 &rt_other                 '"Otros"'
     req:
       status:
@@ -30,6 +30,12 @@ es:
           processing: En trámite
           approved:   Aceptada
           rejected:   Rechazada
+    role:
+      kind:
+       super_admin:      Super Administrador
+       admin:            Adminstrador
+       internal_staff:   Personal interno
+       external_staff:   Personal externo
     timetable:
       day:
         monday:     Lunes
@@ -43,6 +49,20 @@ es:
       gender:
         male:     Hombre
         female:   Mujer
+    unsubscribe_level:
+      kind:
+        project:  Solicita baja de voluntario en proyecto
+        user:     Solicita baja de voluntario completa
+    volun:
+      availability:
+        day:
+          monday:     Lunes
+          tuesday:    Martes
+          wednesday:  Miércoles
+          thursday:   Jueves
+          friday:     Viernes
+          saturday:   Sábado
+          sunday:     Domingo
   activerecord:
     models:
       project:
@@ -102,6 +122,9 @@ es:
       record_history:
         one:   Historial de registro
         other: Historial de registros
+      role:
+        one:   Rol
+        other: Roles
       pt/subvention:
         one:   Proyecto subvencionado
         other: Proyectos subvencionados
@@ -144,6 +167,9 @@ es:
       manager:
         one:   Gestor
         other: Gestores
+      setting:
+        one:   Configuración
+        other: Configuraciones
       request_form:
         one:   Solicitud
         other: Solicitudes
@@ -183,21 +209,30 @@ es:
       rt/volunteers_demand:
         one:    Solicitud de Demanda de Voluntario
         other:  Solicitudes de Demanda de Voluntario
-      rt/project_subscribe:
+      rt/project_publishing:
         one:    Solicitud de Publicacion de Proyecto
         other:  Solicitudes de Publicacion de Proyecto
-      rt/project_action:
+      rt/project_unpublishing:
         one:    Solicitud de Accion sobre Proyecto
         other:  Solicitudes de Accion sobre Proyecto
-      rt/activity_subscribe:
+      rt/activity_publishing:
         one:    Solicitud de Publicacion de Actividad
         other:  Solicitudes de Publicacion de Actividad
-      rt/activity_action:
+      rt/activity_unpublishing:
         one:    Solicitud de Accion sobre Actividad
         other:  Solicitudes de Accion sobre Actividad
       rt/other:
         one:    Solicitud de "Otros"'
-        other:  Solicitudes de"Otros"'
+        other:  Solicitudes de "Otros"'
+      unsubscribe_level:
+        one:    Nivel de baja de voluntario
+        other:  Nivel de baja de voluntario
+      user:
+        one:    Usuario
+        other:  Usuarios
+      volun/availability:
+        one:    Horario de disponibilidad del usuario
+        other:  Horarios de disponibilidad del usuario
     attributes:
       address:
         postal_code:      Código postal
@@ -215,10 +250,36 @@ es:
         latitude:         Latitud
         longitude:        Longitud
         district:         Distrito
+        normalize:        Normalizar
       district:
         code:        Código
         name:        Nombre
         created_at : &created_at Fecha de creación
+      entity:
+        name: Nombre
+        description: Descripción
+        vat_number: CIF
+        email: Email
+        representative_name: Nombre
+        representative_last_name: Primer apellido
+        representative_last_name_alt: Segundo apellido
+        contact_name: Nombre
+        contact_last_name: Primer apellido
+        contact_last_name_alt: Segundo apellido
+        phone_number: Teléfono 1
+        phone_number_alt: Teléfono 2
+        publish_pictures: Divulgación de imagen
+        annual_survey: Recibir encuesta anual
+        reason: Motivo por el que solicita darse de alta
+        reason_id: Motivo por el que solicita darse de alta
+        entity_type: Tipo de entidad
+        entity_type_id: Tipo de entidad
+        comments: Observaciones
+        other_subscribe_reason: Otro motivo de solicitud
+        address_id: Dirección
+        active: Activo
+        subscribed_at: Fecha de alta
+        unsubscribed_at: Fecha de baja
       project_type:
         id:          ID
         kind:        Nombre
@@ -281,6 +342,8 @@ es:
         name:        Idioma
         active:      Activo
         created_at : *created_at
+      role:
+        description: Descripción
       tracking_type:
         id:          ID
         name:        Tipo Seguimiento
@@ -297,7 +360,7 @@ es:
         status:                Estado
         req_status_id:         Estado
         status_date:           Fecha de estado
-        req_rejection_type_id: Motivo de rechazo
+        rejection_type_id:     Motivo de rechazo
         rejection_type:        Motivo de rechazo
         reason_id:             Motivo
         reason:                Motivo
@@ -341,6 +404,17 @@ es:
         publish_pictures: Publicar fotos
         annual_survey:    Recibir encuesta
         notes:            Notas
+      rt/volunteer_unsubscribe:
+        unsubscribe_level:      Nivel de baja de voluntario
+        unsubscribe_level_id:   Nivel de baja de voluntario
+        project:                Proyecto
+        project_id:             Proyecto
+        notes:                  Notas
+      rt/other:
+        id:           ID
+        description:  Descripción
+        notes:        Notas
+        created_at:   *created_at
       collective:
         id:          ID
         name:        Denominación
@@ -369,6 +443,7 @@ es:
         volunteers_allowed:     Admite voluntarios
         publish:                Publicitar
         outstanding:            Destacado
+        urgent:                 Urgente
         functions:              Funciones del voluntario
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
@@ -481,8 +556,8 @@ es:
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad
         nationality:              Nacionalidad
-        phone_number:             Teléfono móvil
-        phone_number_alt:         Teléfono fijo
+        phone_number:             Teléfono 1
+        phone_number_alt:         Teléfono 2
         email:                    Email
         address_id:               Dirección
         status_id:                Situación
@@ -514,13 +589,42 @@ es:
         profession:               Profesión
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
+        traits:                   Cualidades
         created_at:               *created_at
+        error_address:            Error en dirección
+        error_other:              Otros errores
+      manager:
+        id:                   ID
+        name:                 Nombre
+        last_name:            Apellido 1
+        last_name_alt:        Apellido 2
+        alias_name:           Alias
+        role:                 Rol
+        profile:              Perfil
+        phone_number:         Teléfono móvil
+        active:               Activo
+        created_at:           *created_at
+      setting:
+        id:                   ID
+        key:                  Clave
+        value:                Valor
+        created_at:           *created_at
       skill:
         name: Nombre
       id_number_type:
         name: Nombre
+      volun/availability:
+        id:                   ID
+        day:                  Día de la semana
+        start_hour:           Hora de comienzo
+        end_hour:             Hora de fin
+        created_at:           *created_at
     errors:
       models:
+        address:
+          attributes:
+            base:
+              address_is_not_normalized: "La dirección no está normalizada."
         pt/entity:
           attributes:
             base:
@@ -552,3 +656,4 @@ es:
         cannot_change_to_processing: no puede cambiar a 'en trámite'
         cannot_change_to_approved: no puede cambiar a aprobada
         cannot_change_to_rejected: no puede cambiar a rechazada
+        invalid_document_number: número de documento inválido

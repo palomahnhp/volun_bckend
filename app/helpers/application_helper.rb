@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def uweb_user_data
-    @uweb_user_data = session[:uweb_user_data] || {}
+    @uweb_user_data = (session[:uweb_user_data] || {}).with_indifferent_access
     @uweb_user_data[:full_name] = "#{@uweb_user_data[:name]} #{@uweb_user_data[:surname]} #{@uweb_user_data[:last_name_alt]} "
     @uweb_user_data
   end
@@ -24,13 +24,13 @@ module ApplicationHelper
     }
   end
   
-  def date_input_html_default_values(date)
+  def date_input_html_default_values(date, opts = {})
     {
       class: 'datepicker',
       placeholder: 'dd/mm/aaaa',
       value: date ? date.strftime('%d/%m/%Y') : Date.today.strftime('%d/%m/%Y'),
       data: {mask: '99/99/9999'}
-    }
+    }.reverse_merge(opts)
   end
 
   def check_box_filter_for(param_name, js_selector = nil)

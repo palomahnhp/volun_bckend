@@ -169,7 +169,7 @@ a:focus{
 
 @mixin elem-hover {
   background-color: #ebfdff;
-  font-size: 160px;
+  font-size: 130px;
   a {
     color: #3b5f79;
   }
@@ -180,9 +180,9 @@ a:focus{
 }
 .element {
   text-align: center;
-  font-size: 150px;
+  font-size: 120px;
   margin-top: 20px;
-  min-height: 350px;
+  min-height: 300px;
   .count {
     font-size: 16px;
     color: #3b5f79;
@@ -260,7 +260,7 @@ form {
   .row {
     textarea {
       margin-top: 10px;
-      min-height: 161px;
+      min-height: 75px;
     }
   }
 
@@ -343,6 +343,7 @@ form {
     li {
       color: white;
       label {
+        margin-right: 5px;
         margin-bottom: 0px;
         width: 50px;
       }
@@ -562,6 +563,7 @@ form .well {
  }
 }
 
+// Request Forms status classes
 .pending {
   background-color: #efefef;
 }
@@ -573,4 +575,28 @@ form .well {
 }
 .rejected {
   background-color: #ea9999;
+}
+
+.archive {
+  color: darkred;
+}
+.recover {
+  color: green;
+  font-weight: bold;
+}
+.vat_num{
+  max-width: 110px;
+}
+.with-scroll-bar{
+  max-height: 800px;
+  overflow-y: scroll;
+  border: 1px solid #e4dccf;
+}
+.normal-text {
+  font-weight: normal;
+}
+.phone{
+  .col-sm-5{
+    padding-right: 5px;
+  }
 }

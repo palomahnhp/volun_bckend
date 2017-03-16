@@ -1,33 +1,97 @@
 <div class="well">
-  <%= simple_form_for(@entity, default_form_options) do |f| %>
-
+  <%= simple_nested_form_for(@entity, default_form_options) do |f| %>
+      <%= show_simple_base_errors(f) %>
   <div class="form-inputs">
+    <div class="row well">
+        <%= content_tag :h3, t('main_data'), class: 'form-subtitle' %>
+      <div class="row ">
+        <div class="col-md-5">
           <%= f.input :name %>
-          <%= f.input :description %>
-          <%= f.input :vat_number %>
-          <%= f.input :email %>
-          <%= f.input :representative_name %>
-          <%= f.input :representative_last_name %>
-          <%= f.input :representative_last_name_alt %>
-          <%= f.input :contact_name %>
-          <%= f.input :contact_last_name %>
-          <%= f.input :contact_last_name_alt %>
-          <%= f.input :phone_number %>
-          <%= f.input :phone_number_alt %>
-          <%= f.input :publish_pictures %>
-          <%= f.input :annual_survey %>
-          <%= f.association :req_reason %>
-          <%= f.association :entity_type %>
-          <%= f.input :comments %>
-          <%= f.input :other_subscribe_reason %>
-          <%= f.association :address %>
-          <%= f.input :active %>
-          <%= f.input :subscribed_at %>
-          <%= f.input :unsubscribed_at %>
+          <%= f.input :vat_number, input_html: { data: { mask: 'w9999999w'}, class: 'vat_num'} %>
+        </div>
+        <div class="col-md-7">
+          <%= f.input :description, wrapper_html: { class: 'col-md-10' } %>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-md-12">
+          <%= f.association :entity_type, wrapper_html: { class: 'col-md-5' } %>
+          <%= f.association :reason, wrapper_html: { class: 'col-md-7' } %>
+        </div>
+      </div>
+    </div>
+    <div class="phone row well">
+      <%= content_tag :h3, t('contact_data'), class: 'form-subtitle' %>
+      <%= f.input :email, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :phone_number, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-3' } %>
+      <%= f.input :phone_number_alt, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-3' } %>
+    </div>
+    <div class="row well">
+      <%= content_tag :h3, t('representative'), class: 'form-subtitle' %>
+      <%= f.input :representative_name, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.input :representative_last_name, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.input :representative_last_name_alt, wrapper_html: { class: 'col-md-4' } %>
+    </div>
+    <div class="row well">
+      <%= content_tag :h3, t('contact_person'), class: 'form-subtitle' %>
+      <%= f.input :contact_name, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.input :contact_last_name, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.input :contact_last_name_alt, wrapper_html: { class: 'col-md-4' } %>
+    </div>
+    <div class="row well">
+      <%= content_tag :h3, t('other_data'), class: 'form-subtitle' %>
+        <div class="row">
+        <%= f.input :publish_pictures, wrapper_html: { class: 'col-md-6' } %>
+        <%= f.input :annual_survey, wrapper_html: { class: 'col-md-6' } %>
+        </div>
+      <div class="row">
+        <%= f.input :comments, wrapper_html: { class: 'col-md-6' } %>
+        <%= f.input :other_subscribe_reason, wrapper_html: { class: 'col-md-6' } %>
+      </div>
+    </div>
+    <% if f.object.persisted? %>
+      <div class="row well">
+        <%= f.input :active, wrapper_html: { class: 'col-md-4' } %>
+        <%= f.input :subscribed_at, as: :string, input_html: date_input_html_default_values(f.object.subscribed_at, disabled: true), wrapper_html: { class: 'col-md-4' }  %>
+        <%= f.input :unsubscribed_at, as: :string, input_html: date_input_html_default_values(f.object.unsubscribed_at, disabled: true), wrapper_html: { class: 'col-md-4' }  %>
+      </div>
+    <% end %>
+    <div class="row well">
+      <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
+      <%= f.simple_fields_for :address, (f.object.address.presence || f.object.build_address) do |f_address|  %>
+          <%= render partial: 'addresses/form_fields', locals: { f: f_address } %>
+      <% end %>
+    </div>
+    <% if f.object.persisted? && f.object.projects.present? %>
+      <div class="row well">
+        <div>
+          <%= content_tag :h3, Project.model_name.human(count: 2), class: 'form-subtitle' %>
+          <%# TODO uncomment when index js response is done %>
+          <%#= link_to_index :projects, q: { entity_id_eq: @entity.id} %>
+        </div>
+        <div class="col-md-12 with-scroll-bar">
+          <%= f.simple_fields_for :projects do |f_project|  %>
+              <div class="row">
+                <% project = f_project.object %>
+                <%= f_project.input :name, required: false, input_html: { readonly: true }, wrapper_html: { class: 'col-md-5' } %>
+                <%= f_project.input :created_at, as: :string, input_html: { value: show_simple_date(f.object.created_at), readonly: true }, wrapper_html: { class: 'col-md-3' } %>
+                <%= f_project.input :active, wrapper_html: { class: 'col-md-2' } %>
+
+                <div class="col-md-2">
+                  <%= link_to_show project.pt_extendable, remote: true %>
+                  <%= link_to_edit project.pt_extendable, target: :_new %>
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-success js-confirmable', id: 'submit' %>
+    <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
   <% end %>
 </div>

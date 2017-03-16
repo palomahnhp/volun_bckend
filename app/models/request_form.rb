@@ -2,13 +2,17 @@ class RequestForm < ActiveRecord::Base
 
   belongs_to :rt_extendable, polymorphic: true
   belongs_to :request_type, required: true
-  belongs_to :rejection_type, class_name: 'Req::RejectionType', foreign_key: 'req_rejection_type_id'
+  belongs_to :rejection_type, -> { where(active: true) }, class_name: 'Req::RejectionType', foreign_key: 'req_rejection_type_id'
+  belongs_to :inactive_rejection_type, -> { where(active: false) }, class_name: 'Req::RejectionType', foreign_key: 'req_rejection_type_id'
   belongs_to :reason, class_name: 'Req::Reason', foreign_key: 'req_reason_id'
   belongs_to :status, class_name: 'Req::Status', foreign_key: 'req_status_id'
   belongs_to :user
   belongs_to :manager
   has_many :events, as: :eventable
   has_many :status_traces, :class_name => 'Req::StatusTrace'
+  has_many :volun_trackings, :class_name => 'Volun::Tracking'
+  has_many :ent_trackings, :class_name => 'Ent::Tracking'
+  has_many :pro_trackings, :class_name => 'Pro::Tracking'
 
   accepts_nested_attributes_for :rt_extendable
 
@@ -46,7 +50,7 @@ class RequestForm < ActiveRecord::Base
     end
 
     def get_status_id_by_kind(status)
-      Req::Status.send(status).take.id
+      Req::Status.send(status).take.try :id
     end
 
     def status_names
@@ -91,7 +95,7 @@ class RequestForm < ActiveRecord::Base
   end
 
   def update_and_trace_status(status_name, attributes = {})
-    return true if status.kind == status_name.to_s
+    return true if status.kind == status_name.to_s && manager_id != attributes[:manager_id]
 
     if status_name.to_s.in? self.class.status_names
       attributes.merge!(
@@ -128,7 +132,7 @@ class RequestForm < ActiveRecord::Base
 
     case self
     when ->(rf){ rf.pending? }
-      add_status_error :cannot_change_to_pending    unless status_was?(:processing) || status_was?(:rejected)
+      add_status_error :cannot_change_to_pending    unless can_change_to_pending?
     when ->(rf){ rf.processing? }
       add_status_error :cannot_change_to_processing unless status_was?(:pending)
     when ->(rf){ rf.approved? }
@@ -145,6 +149,10 @@ class RequestForm < ActiveRecord::Base
 
   def status_was?(status_name)
     req_status_id_was == self.class.get_status_id_by_kind(status_name)
+  end
+
+  def can_change_to_pending?
+    status_was?(:processing) || status_was?(:rejected) || req_status_id_was == nil
   end
 
 end

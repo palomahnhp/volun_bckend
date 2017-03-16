@@ -3,7 +3,7 @@
     <%= content_tag :h3, 'Datos específicos del tipo de proyecto', class: 'form-subtitle' %>
     <div class="row">
       <div class="well col-md-6">
-        <%= content_tag :h4, 'Representante legal', class: 'form-subtitle' %>
+        <%= content_tag :h4, t('representative'), class: 'form-subtitle' %>
         <%= f.input :representative_name %>
         <%= f.input :representative_last_name %>
         <%= f.input :representative_last_name_alt %>
@@ -19,12 +19,11 @@
     </div>
     <div class="row">
       <div class="well col-md-6">
-        <%= content_tag :h4, 'Número de voluntarios', class: 'form-subtitle' %>
+        <%= content_tag :h4, t('volunteers_amount'), class: 'form-subtitle' %>
         <%= f.input :initial_volunteers_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
-        <%= f.input :participants_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
       </div>
       <div class="well col-md-6">
-        <%= content_tag :h4, 'Otros datos de interes', class: 'form-subtitle' %>
+        <%= content_tag :h4, t('other_data'), class: 'form-subtitle' %>
         <%= f.input :entity_registry %>
         <%= f.input :has_quality_evaluation %>
         <%= f.association :proposal, input_html: { class: 'm-width300' } %>

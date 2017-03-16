@@ -4,31 +4,34 @@ MODELS_AND_ATTRS = {
   # Tables
   # --------------------------------------------------------------------------------------------------
 
-
+  'Setting' => 'key value',
   'FrontpagePosition' => 'position:integer:uniq description:text active:boolean',
   'FrontpageElement'  => 'frontpage_position:references text_panel:text text_button:text image_url:text ' \
                          'link_url:text logo_url:text active:boolean',
   'Area'          => 'name:string:uniq description:text active:boolean',
   'Collective'    => 'name:string:uniq description:text active:boolean',
   'Coordination'  => 'name:string:uniq description:text active:boolean',
+  'District'      => 'name:string:uniq code:string:uniq active:boolean',
+  'Province'      => 'name:string:uniq code:string:uniq active:boolean',
+  'RoadType'      => 'name:string:uniq code:string:uniq active:boolean',
   'RecordHistory' => 'user:references recordable:references{polymorphic} recordable_changed_at:datetime',
 
   'Address'       => 'road_type road_name road_number_type road_number grader stairs floor door postal_code '\
-                     'borough district town province country ndp_code local_code class_name '\
-                     'latitude longitude',
+                     'borough district town province country ndp_code local_code province_code town_code district_code '\
+                     'class_name latitude longitude normalize:boolean',
 
-  'Manager'       => 'name profile_id:integer phone_number active:boolean',
+  'Role'          => 'kind:integer:uniq description:text',
+  'Manager'       => 'name last_name last_name_alt alias_name role:references profile_id:integer phone_number active:boolean',
   'TrackingType'  => 'name:string:uniq active:boolean',
-  'Req::Reason'   => 'kind:integer:uniq description:text active:boolean',
+  'Req::Reason'   => 'name description:text active:boolean',
 
-  'EntityType'     => 'kind:integer:uniq description:text active:boolean',
+  'EntityType'     => 'name:string:uniq description:text active:boolean',
   'Entity'         => 'name:string:uniq description:text vat_number email ' \
                       'representative_name representative_last_name representative_last_name_alt ' \
                       'contact_name contact_last_name contact_last_name_alt phone_number phone_number_alt ' \
                       'publish_pictures:boolean annual_survey:boolean req_reason:references entity_type:references ' \
                       'comments:text other_subscribe_reason:text address:references active:boolean ' \
                       'subscribed_at:datetime unsubscribed_at:datetime',
-  'Ent::Tracking'  => 'tracking_type:references entity:references manager:references tracked_at:datetime comments:text',
 
 
 
@@ -42,15 +45,14 @@ MODELS_AND_ATTRS = {
 
   'Project' => 'name:string:uniq active:boolean description:text functions execution_start_date:date ' \
                'execution_end_date:date contact_name contact_last_name contact_last_name_alt phone_number ' \
-               'phone_number_alt email comments:text beneficiaries_num:integer volunteers_num:integer insured:boolean ' \
-               'volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date ' \
-               'project_type:references pt_extendable:references{polymorphic} entity:references',
+               'phone_number_alt email participants_num:integer beneficiaries_num:integer volunteers_num:integer ' \
+               'volunteers_allowed:boolean publish:boolean outstanding:boolean insurance_date:date comments:text ' \
+               'insured:boolean project_type:references pt_extendable:references{polymorphic} entity:references',
 
   # 1:N tables for Project
-  'Pro::Tracking'  => 'comments:text start_date:datetime project:references',
   'Pro::Issue'     => 'comments:text start_date:datetime project:references',
 
-  'Document'      => 'name:string:uniq description:text documentum_id:string project:references',
+  'Document'      => 'name:string:uniq description:text extension csv doc_class documentum_id:string project:references',
 
   # -------------------------------------------------
 
@@ -70,8 +72,7 @@ MODELS_AND_ATTRS = {
 
   'Pt::Subvention' => 'representative_name representative_last_name representative_last_name_alt id_num vat_number ' \
                       'entity_registry:boolean cost:float requested_amount:float subsidized_amount:float ' \
-                      'initial_volunteers_num:integer participants_num:integer has_quality_evaluation:boolean ' \
-                      'proposal:references notes:text',
+                      'initial_volunteers_num:integer has_quality_evaluation:boolean proposal:references notes:text',
   'Pt::Entity'     => 'request_date:date request_description:text volunteers_profile activities:text sav_date:date ' \
                       'derived_volunteers_num:integer added_volunteers_num:integer agreement_signed:boolean ' \
                       'agreement_date:date prevailing:boolean notes:text',
@@ -137,8 +138,6 @@ MODELS_AND_ATTRS = {
   'Volun::Availability'  => 'volunteer:references day:integer start_hour:string end_hour:string',
 
   # N:N
-  'Volun::Tracking'      => 'volunteer:references tracking_type:references project:references manager:references ' \
-                            'tracking_date:datetime comments:text',
   'Volun::Contact'       => 'volunteer:references contact_result:references project:references manager:references ' \
                             'contact_type:references contact_date:datetime  comments:text',
   'Volun::Assessment'    => 'volunteer:references trait:references project:references trait_other:string ' \
@@ -148,7 +147,6 @@ MODELS_AND_ATTRS = {
   # Request Form Tables
   # --------------------------------------------------------------------------------------------------
 
-  'ActionType'                => 'kind:integer:uniq description:text', # Publishing, Unpublishing, Unsubscribe
   'UnsubscribeLevel'          => 'kind:integer:uniq description:text',
   'Req::RejectionType'        => 'name:string:uniq description:text active:boolean',
   'RequestType'               => 'kind:integer:uniq description:text',
@@ -158,34 +156,40 @@ MODELS_AND_ATTRS = {
                                  'req_reason:references manager:references comments:text',
   'Req::StatusTrace'          => 'req_status:references request_form:references manager:references',
   'Rt::VolunteerSubscribe'    => 'name last_name last_name_alt phone_number phone_number_alt email ' \
-                                 'publish_pictures:boolean annual_survey:boolean notes:text',
-  'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references notes:text',
+                                 'publish_pictures:boolean annual_survey:boolean project:references notes:text',
+  'Rt::VolunteerUnsubscribe'  => 'unsubscribe_level:references project:references notes:text',
   'Rt::VolunteerAmendment'    => 'road_type road_name number_type road_number postal_code borough ' \
                                  'district town province phone_number phone_number_alt ' \
-                                 'email notes:text',
+                                 'email notes:text project:references',
   'Rt::VolunteerAppointment'  => 'notes:text',
   'Rt::EntitySubscribe'       => 'name description:text vat_number email representative_name representative_last_name ' \
                                  'representative_last_name_alt contact_name contact_last_name contact_last_name_alt ' \
                                  'phone_number phone_number_alt publish_pictures:boolean annual_survey:boolean ' \
                                  'entity_type:references comments:text other_subscribe_reason:text ' \
                                  'road_type road_name number_type road_number postal_code borough ' \
-                                 'district town province notes:text',
-  'Rt::EntityUnsubscribe'     => 'notes:text',
+                                 'district town province project:references notes:text',
+  'Rt::EntityUnsubscribe'     => 'project:references notes:text',
   'Rt::VolunteersDemand'      => 'description:text execution_start_date:date execution_end_date:date ' \
                                  'road_type road_name number_type road_number postal_code borough ' \
                                  'district town province requested_volunteers_num ' \
                                  'volunteers_profile:text volunteer_functions_1:text volunteer_functions_2:text ' \
                                  'volunteer_functions_3:text notes:text',
-  'Rt::ProjectSubscribe'      => 'description:text road_type road_name number_type road_number postal_code ' \
-                                 'borough district town province notes:text',
-  'Rt::ProjectAction'         => 'project:references action_type:references notes:text',
-  'Rt::ActivitySubscribe'     => 'name organizer description:text execution_date:date execution_hour ' \
+  'Rt::ProjectPublishing'     => 'description:text road_type road_name number_type road_number postal_code ' \
+                                 'borough district town province notes:text project:references',
+  'Rt::ProjectUnpublishing'   => 'project:references notes:text',
+  'Rt::ActivityPublishing'    => 'name organizer description:text execution_date:date execution_hour ' \
                                  'road_type road_name number_type road_number postal_code ' \
-                                 'borough district town province project:references notes:text',
-  'Rt::ActivityAction'        => 'activity:references action_type:references notes:text',
+                                 'borough district town province project:references notes:text activity:references',
+  'Rt::ActivityUnpublishing'  => 'activity:references notes:text',
   'Rt::Other'                 => 'description:text notes:text',
 
   # -------------------------------------------------
+
+  'Volun::Tracking' => 'volunteer:references tracking_type:references project:references manager:references ' \
+                       'request_form:references tracked_at:datetime automatic:boolean comments:text',
+  'Ent::Tracking'   => 'tracking_type:references entity:references manager:references request_form:references ' \
+                       'tracked_at:datetime automatic:boolean comments:text',
+  'Pro::Tracking'   => 'project:references request_form:references tracked_at:datetime automatic:boolean comments:text',
 
 }
 
@@ -264,7 +268,7 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :volunteers            => [:name, :last_name],
     :volun_availabilities  => [:volunteer_id, :day],
     :volun_known_languages => [:volunteer_id, :language_id, :language_level_id],
-    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracking_date],
+    :volun_trackings       => [:volunteer_id, :tracking_type_id, :tracked_at],
     :volun_contacts        => [:volunteer_id,
                                :contact_result_id,
                                :project_id,
@@ -273,12 +277,14 @@ class AddNotNullConstraintToColumns < ActiveRecord::Migration
     :volun_assessments     => [:volunteer_id, :trait_id, :project_id, :assessment],
     :frontpage_elements    => [:created_by, :created_by, :active, :frontpage_position_id],
     :academic_levels       => [:name, :active, :educational_type],
+    :entity_types          => [:name, :active],
     :id_number_types       => [:name, :active],
     :nationalities         => [:name, :active],
     :statuses              => [:name, :active],
     :employment_statuses   => [:name, :active],
     :degrees               => [:name, :active],
     :unsubscribe_reasons   => [:name, :active],
+    :req_reasons           => [:name, :active],
     :managers              => [:name, :active],
     :profiles              => [:name, :active],
     :info_sources          => [:name, :active],
@@ -388,12 +394,11 @@ class AddKindConstraintToRequestTypes < ActiveRecord::Migration
           (id = #{RequestType.kinds[:rt_entity_subscribe]}      AND kind = #{RequestType.kinds[:rt_entity_subscribe]})      OR
           (id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND kind = #{RequestType.kinds[:rt_entity_unsubscribe]})    OR
           (id = #{RequestType.kinds[:rt_volunteers_demand]}     AND kind = #{RequestType.kinds[:rt_volunteers_demand]})     OR
-          (id = #{RequestType.kinds[:rt_project_subscribe]}     AND kind = #{RequestType.kinds[:rt_project_subscribe]})     OR
-          (id = #{RequestType.kinds[:rt_project_action]}        AND kind = #{RequestType.kinds[:rt_project_action]})        OR
-          (id = #{RequestType.kinds[:rt_activity_subscribe]}    AND kind = #{RequestType.kinds[:rt_activity_subscribe]})    OR
-          (id = #{RequestType.kinds[:rt_activity_action]}       AND kind = #{RequestType.kinds[:rt_activity_action]})       OR
-          (id = #{RequestType.kinds[:rt_other]}                 AND kind = #{RequestType.kinds[:rt_other]})
-        )
+          (id = #{RequestType.kinds[:rt_project_publishing]}    AND kind = #{RequestType.kinds[:rt_project_publishing]})    OR
+          (id = #{RequestType.kinds[:rt_project_unpublishing]}  AND kind = #{RequestType.kinds[:rt_project_unpublishing]})  OR
+          (id = #{RequestType.kinds[:rt_activity_publishing]}   AND kind = #{RequestType.kinds[:rt_activity_publishing]})   OR
+          (id = #{RequestType.kinds[:rt_activity_unpublishing]} AND kind = #{RequestType.kinds[:rt_activity_unpublishing]}) OR
+          (id = #{RequestType.kinds[:rt_other]}                 AND kind = #{RequestType.kinds[:rt_other]}))
     }
   end
 
@@ -423,10 +428,10 @@ class AddRtExtendableConstraintToRequestForms < ActiveRecord::Migration
           (request_type_id = #{RequestType.kinds[:rt_entity_subscribe]}      AND rt_extendable_type = '#{Rt::EntitySubscribe.name}')      OR
           (request_type_id = #{RequestType.kinds[:rt_entity_unsubscribe]}    AND rt_extendable_type = '#{Rt::EntityUnsubscribe.name}')    OR
           (request_type_id = #{RequestType.kinds[:rt_volunteers_demand]}     AND rt_extendable_type = '#{Rt::VolunteersDemand.name}')     OR
-          (request_type_id = #{RequestType.kinds[:rt_project_subscribe]}     AND rt_extendable_type = '#{Rt::ProjectSubscribe.name}')     OR
-          (request_type_id = #{RequestType.kinds[:rt_project_action]}        AND rt_extendable_type = '#{Rt::ProjectAction.name}')        OR
-          (request_type_id = #{RequestType.kinds[:rt_activity_subscribe]}    AND rt_extendable_type = '#{Rt::ActivitySubscribe.name}')    OR
-          (request_type_id = #{RequestType.kinds[:rt_activity_action]}       AND rt_extendable_type = '#{Rt::ActivityAction.name}')       OR
+          (request_type_id = #{RequestType.kinds[:rt_project_publishing]}    AND rt_extendable_type = '#{Rt::ProjectPublishing.name}')    OR
+          (request_type_id = #{RequestType.kinds[:rt_project_unpublishing]}  AND rt_extendable_type = '#{Rt::ProjectUnpublishing.name}')  OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_publishing]}   AND rt_extendable_type = '#{Rt::ActivityPublishing.name}')   OR
+          (request_type_id = #{RequestType.kinds[:rt_activity_unpublishing]} AND rt_extendable_type = '#{Rt::ActivityUnpublishing.name}') OR
           (request_type_id = #{RequestType.kinds[:rt_other]}                 AND rt_extendable_type = '#{Rt::Other.name}')
         )
     }
@@ -563,10 +568,10 @@ class CreateBeforeDeleteTriggerOnRtTables < ActiveRecord::Migration
     Rt::EntitySubscribe,
     Rt::EntityUnsubscribe,
     Rt::VolunteersDemand,
-    Rt::ProjectSubscribe,
-    Rt::ProjectAction,
-    Rt::ActivitySubscribe,
-    Rt::ActivityAction,
+    Rt::ProjectPublishing,
+    Rt::ProjectUnpublishing,
+    Rt::ActivityPublishing,
+    Rt::ActivityUnpublishing,
     Rt::Other
   ]
 
@@ -647,7 +652,7 @@ namespace :scaffold do
       File.open(rb_file, 'r').each do |l|
         line = l
         if line.chomp =~ /boolean.*/
-          default_value = /(active|volunteers_allowed|publish).*/ === line.chomp
+          default_value = /(active|volunteers_allowed|publish|normalize).*/ === line.chomp
           line  = line.sub("\n", '')
           line += ", default: #{default_value}\n"
         end

@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(role) %>" >
+
+  <% role.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(role, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(role) %>
+    <%= link_to_edit(role) %>
+<% if role.try(:archived?) %>
+    <%= link_to_recover(role) %>
+<% else %>
+    <%= link_to_destroy(role) %>
+<% end %>
+  </td>
+</tr>

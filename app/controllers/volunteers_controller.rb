@@ -21,8 +21,7 @@ class VolunteersController < ApplicationController
   def new
     volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id])
     if volunteer_manager.valid?
-      @volunteer = volunteer_manager.build_volunteer
-      respond_with(@volunteer)
+      respond_with(@volunteer = volunteer_manager.build_volunteer)
     else
       redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
     end
@@ -35,21 +34,34 @@ class VolunteersController < ApplicationController
     volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id],
                                              volunteer_attributes: volunteer_params,
                                              manager_id: current_user.loggable_id)
-    if volunteer_manager.create_volunteer
-      @volunteer = volunteer_manager.volunteer
-      respond_with(@volunteer, lolcation: rt_volunteer_subscribes_path)
+    volunteer_manager.create_volunteer
+    if volunteer_manager.respond_with_volunteer?
+      respond_with(@volunteer = volunteer_manager.volunteer)
     else
       redirect_to rt_volunteer_subscribes_path, alert: volunteer_manager.errors.to_sentence
     end
   end
 
   def update
-    @volunteer.update_attributes(volunteer_params)
-    respond_with(@volunteer)
+    volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: params[:rt_volunteer_unsubscribe_id],
+                                             volunteer: @volunteer,
+                                             volunteer_attributes: volunteer_params,
+                                             manager_id: current_user.loggable_id)
+    volunteer_manager.update_volunteer
+    if volunteer_manager.respond_with_volunteer?
+      respond_with(@volunteer = volunteer_manager.volunteer)
+    else
+      redirect_to rt_volunteer_unsubscribes_path, alert: volunteer_manager.errors.to_sentence
+    end
   end
 
   def destroy
     @volunteer.destroy
+    respond_with(@volunteer)
+  end
+
+  def recover
+    @volunteer.recover
     respond_with(@volunteer)
   end
 
@@ -93,6 +105,18 @@ class VolunteersController < ApplicationController
           :info_source_id,
           :other_academic_info,
           :profession_id,
+          :review,
+          :error_address,
+          :error_other,
+          {
+            availabilities_attributes: [
+              :id,
+              :day,
+              :start_hour,
+              :end_hour,
+              :_destroy
+            ]
+          },
           { skill_ids: [] },
           {
             address_attributes: [
@@ -111,9 +135,11 @@ class VolunteersController < ApplicationController
               :town,
               :province,
               :country,
+              :normalize,
               :_destroy
             ]
-          }
+          },
+          { project_ids: [] }
         )
     end
 end

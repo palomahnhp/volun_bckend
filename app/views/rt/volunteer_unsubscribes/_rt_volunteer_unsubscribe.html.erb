@@ -1,16 +1,26 @@
+<% request_form = rt_volunteer_unsubscribe.request_form %>
+<% status       = request_form.status %>
+
 <tr id="<%= dom_id(rt_volunteer_unsubscribe) %>" >
 
   <% rt_volunteer_unsubscribe.main_attributes.each do |attr_name| %>
   <td><%= show_attr(rt_volunteer_unsubscribe, attr_name) %></td>
   <% end %>
 
+  <td><%= show_attr(request_form, :manager) %></td>
+  <td><%= show_attr(request_form, :status_date) %></td>
+  <td class="<%= status.kind %>">
+    <%= show_attr(status, :kind) %>
+  </td>
+
   <td class="index_table-actions">
-    <%= link_to_show(rt_volunteer_unsubscribe) %>
-    <%= link_to_edit(rt_volunteer_unsubscribe) %>
-<% if rt_volunteer_unsubscribe.try(:archived?) %>
-    <%= link_to_recover(rt_volunteer_unsubscribe) %>
-<% else %>
-    <%= link_to_destroy(rt_volunteer_unsubscribe) %>
-<% end %>
+    <% if request_form.approved? || request_form.rejected? %>
+        <%= link_to_show(rt_volunteer_unsubscribe) %>
+        <% if request_form.rejected? %>
+            <%= link_to_undo_rejection(rt_volunteer_unsubscribe) %>
+        <% end %>
+    <% else %>
+        <%= link_to_process(rt_volunteer_unsubscribe) %>
+    <% end %>
   </td>
 </tr>

@@ -3,10 +3,12 @@ class VolunteerManager
   attr_accessor :errors, :rt_volunteer_subscribe, :request_form, :volunteer
 
   def initialize(options = {})
-    @rt_volunteer_subscribe_id = options[:rt_volunteer_subscribe_id]
-    @volunteer_attributes      = options[:volunteer_attributes] || {}
-    @manager_id                = options[:manager_id]
-    @errors                    = []
+    @rt_volunteer_subscribe_id   = options[:rt_volunteer_subscribe_id]
+    @rt_volunteer_unsubscribe_id = options[:rt_volunteer_unsubscribe_id]
+    @volunteer_attributes        = options[:volunteer_attributes] || {}
+    @volunteer                   = options[:volunteer]
+    @manager_id                  = options[:manager_id]
+    @errors                      = []
   end
 
   def valid?
@@ -17,18 +19,31 @@ class VolunteerManager
   def build_volunteer(volunteer_attrs = nil)
     Volunteer.new(volunteer_attrs || rt_volunteer_subscribe.try(:volunteer_attributes) || {})
   end
+  
+  def upd_volunteer(volunteer, volunteer_attrs = nil)
+    volunteer.update_attributes(volunteer_attrs || rt_volunteer_unsubscribe.try(:volunteer_attributes) || {})
+  end
 
   def creation_through_request_form?
     @rt_volunteer_subscribe_id.present?
+  end
+  
+  def update_through_request_form?
+    @rt_volunteer_unsubscribe_id.present?
   end
 
   def create_volunteer
     return unless valid?
 
-    self.volunteer = build_volunteer(@volunteer_attributes)
+    self.volunteer = build_volunteer(@volunteer_attributes.merge manager_id: @manager_id)
     ActiveRecord::Base.transaction do
       if volunteer.save
         assign_user_to_volunteer!
+        # TODO set the definitive tracking type
+        register_tracking!(
+          tracking_type: TrackingType.get_volunteer_subscribe,
+          comments:      I18n.t('trackings.volunteer_subscribe')
+        )
         approve_request_form! if creation_through_request_form?
       else
         copy_errors_from!(volunteer)
@@ -36,13 +51,65 @@ class VolunteerManager
     end
     errors.blank?
   end
+  
+  def update_volunteer
+    return unless valid?
+
+    ActiveRecord::Base.transaction do
+      old_project_ids = volunteer.project_ids
+      if volunteer.update_attributes(@volunteer_attributes)
+        new_project_ids     = volunteer.project_ids
+        removed_project_ids = old_project_ids - new_project_ids
+        added_project_ids   = new_project_ids - old_project_ids
+        removed_project_ids.each do |project_id|
+          register_tracking!(
+            project_id:    project_id,
+            tracking_type: TrackingType.get_project_unsubscribe,
+            comments:      I18n.t('trackings.unsubscribe_from_project')
+          )
+        end
+        added_project_ids.each do |project_id|
+          register_tracking!(
+            project_id:    project_id,
+            tracking_type: TrackingType.get_project_subscribe,
+            comments:      I18n.t('trackings.subscribe_to_project')
+          )
+        end
+        approve_request_form! if update_through_request_form?
+      else
+        copy_errors_from!(volunteer)
+      end
+    end
+    errors.blank?
+  end
+
+  def register_tracking!(attributes = {})
+    default_attrs = {
+      volunteer:    volunteer,
+      request_form: request_form,
+      manager_id:   @manager_id,
+      tracked_at:   DateTime.now,
+      automatic:    true,
+    }
+    tracking = Volun::Tracking.new(default_attrs.merge attributes)
+    copy_errors_from!(tracking) unless tracking.save
+    tracking
+  end
 
   def rt_volunteer_subscribe
     @rt_volunteer_subscribe ||= Rt::VolunteerSubscribe.find_by(id: @rt_volunteer_subscribe_id.to_i)
   end
+  
+  def rt_volunteer_unsubscribe
+    @rt_volunteer_unsubscribe ||= Rt::VolunteerUnsubscribe.find_by(id: @rt_volunteer_unsubscribe_id.to_i)
+  end
 
   def request_form
-    @request_form ||= rt_volunteer_subscribe.try(:request_form)
+    @request_form ||= if rt_volunteer_subscribe.present?
+                        rt_volunteer_subscribe.try(:request_form)
+                      elsif rt_volunteer_unsubscribe.present?
+                        rt_volunteer_unsubscribe.try(:request_form)
+                      end
   end
 
   def assign_user_to_volunteer!
@@ -58,6 +125,17 @@ class VolunteerManager
   def approve_request_form!
     unless request_form.update_and_trace_status(:approved, manager_id: @manager_id, user_id: volunteer.user.id)
       copy_errors_from!(request_form)
+    end
+  end
+
+  def respond_with_volunteer?
+    return true if volunteer.errors.present?
+    if rt_volunteer_subscribe
+      volunteer.persisted?
+    elsif rt_volunteer_subscribe
+      volunteer.updated_at_changed?
+    else
+      true
     end
   end
 

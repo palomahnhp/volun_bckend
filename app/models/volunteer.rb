@@ -26,7 +26,7 @@ class Volunteer < ActiveRecord::Base
   end
 
   belongs_to :academic_level
-  belongs_to :address, required: true
+  belongs_to :address #required: true
   belongs_to :id_number_type, required: true
   belongs_to :employment_status
   belongs_to :info_source
@@ -35,8 +35,8 @@ class Volunteer < ActiveRecord::Base
   belongs_to :status
   belongs_to :manager
   belongs_to :unsubscribe_reason
-  has_and_belongs_to_many :projects
-  has_and_belongs_to_many :skills
+  has_and_belongs_to_many :projects, ->{ where(active: true).order('projects.name asc') }
+  has_and_belongs_to_many :skills, ->{ where(active: true).order('skills.name asc') }
   has_many :known_languages, :class_name => 'Volun::KnownLanguage'
   has_many :assessments,     :class_name => 'Volun::Assessment'
   has_many :availabilities,  :class_name => 'Volun::Availability'
@@ -46,26 +46,33 @@ class Volunteer < ActiveRecord::Base
   has_many :traits,    :through => :assessments
   has_one :user, as: :loggable
   accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :projects, reject_if: :all_blank, allow_destroy: true
 
   validates :name, :last_name, :id_number, presence: true
-  validates :id_number, length: { minimum: 9, maximum: 9 }
-  validates :phone_number, format: { with: /[6|7]\d{8}/ }, allow_blank: true
-  validates :phone_number_alt, format: { with: /[8|9]\d{8}/ }, allow_blank: true
-  validates :id_number, format: { with: /[\w\d]{9}/i }
+  validates :id_number, spanish_vat: true
+  validates :phone_number, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
+  validates :phone_number_alt, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_blank: true
-  validates :birth_date, inclusion: { in: (150.years.ago..Date.today-1),
-                                      message: I18n.t('activerecord.errors.messages.invalid_volun_birth_date'),
-                                      allow_blank: true }
-  validates :availability_date, inclusion: { in: (Date.today+1..Date.today+150.years),
-                                             message: I18n.t('activerecord.errors.messages.invalid_volun_availability_date'),
-                                             allow_blank: true }, unless: 'available?'
-  validates :agreement_date, presence: {message: I18n.t('activerecord.errors.messages.invalid_volun_agreement_date')}, if: 'agreement?'
-  validates :subscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years),
-                                          message: I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
-                                          allow_blank: true }
-  validates :unsubscribe_date, inclusion: { in: (150.years.ago..Date.today+150.years),
-                                            message: I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
-                                            allow_blank: true }
+  validates :birth_date, date: { after:       Proc.new { 150.years.ago },
+                                 before:      Proc.new { Date.yesterday },
+                                 message:     I18n.t('activerecord.errors.messages.invalid_volun_birth_date'),
+                                 allow_blank: true }
+  validates :availability_date, date: { after:       Proc.new { Date.tomorrow },
+                                        before:      Proc.new { 150.years.since },
+                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_availability_date'),
+                                        allow_blank: true },
+                                unless: 'available?'
+  validates :agreement_date, presence: { message: I18n.t('activerecord.errors.messages.invalid_volun_agreement_date')},
+                             if: 'agreement?'
+  validates :subscribe_date, date: { after:       Proc.new { 150.years.ago },
+                                     before:      Proc.new { 150.years.since },
+                                     message:     I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
+                                     allow_blank: true }
+  validates :unsubscribe_date, date: { after:       Proc.new { 150.years.ago },
+                                       before:      Proc.new { 150.years.since },
+                                       message:     I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
+                                       allow_blank: true }
 
   def self.main_columns
     %i(name last_name last_name_alt email gender)
