@@ -5,11 +5,11 @@ class Pro::TrackingsController < ApplicationController
 
   def index
     params[:q] ||= Pro::Tracking.ransack_default
-    if params[:tracked_obj].nil?
-      @project = session[:tracked_obj]
+    if params[:tracked_record_id].nil?
+      @project = session[:tracked_record_id]
     else
-      @project = params[:tracked_obj]
-      session[:tracked_obj] = @project
+      @project = params[:tracked_record_id]
+      session[:tracked_record_id] = @project
     end
     @search_q = @pro_trackings.search(params[:q])
     @pro_trackings = @search_q.result.where(project_id: @project).paginate(page: params[:page], per_page: params[:per_page]||15)
@@ -26,7 +26,7 @@ class Pro::TrackingsController < ApplicationController
 
   def new
     @pro_tracking = Pro::Tracking.new
-    @pro_tracking.project_id = params[:tracked_obj]
+    @pro_tracking.project_id = params[:tracked_record_id]
     respond_with(@pro_tracking)
   end
 
@@ -35,13 +35,13 @@ class Pro::TrackingsController < ApplicationController
 
   def create
     @pro_tracking.save
-    session[:tracked_obj] = @pro_tracking.project_id
+    session[:tracked_record_id] = @pro_tracking.project_id
     respond_with(@pro_tracking)
   end
 
   def update
     @pro_tracking.update_attributes(pro_tracking_params)
-    session[:tracked_obj] = @pro_tracking.project_id
+    session[:tracked_record_id] = @pro_tracking.project_id
     respond_with(@pro_tracking)
   end
 

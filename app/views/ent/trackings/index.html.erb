@@ -7,7 +7,7 @@
 </div>
 <div class="index-panel row well">
   <div class="col-md-6">
-    <%= content_tag(:div, link_to_new(model_class, options = { path_params: { tracked_obj: @entity } }), class: 'col-md-6 pull-left') %>
+    <%= content_tag(:div, link_to_new(model_class, options = { path_params: { tracked_record_id: @entity } }), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
     <%= content_tag(:div, search_collection(@search_q, :entity_name_or_tracking_type_name_or_manager_name_or_comments_cont), class: 'col-md-6 pull-right') %>
