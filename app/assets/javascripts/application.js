@@ -24,7 +24,7 @@
 
 
 
-$(document).on('ready page:load turbolinks:load', function(){
+$(document).on('ready page:load turbolinks:load nested:fieldAdded', function(){
     $( "input.datepicker" ).datepicker({
         onSelect: function () {
             $(this).next('input[type="hidden"]').attr('value', this.value);
