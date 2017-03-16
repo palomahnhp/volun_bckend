@@ -43,29 +43,6 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
     @rt_volunteer_unsubscribe.destroy
     respond_with(@rt_volunteer_unsubscribe)
   end
-  
-  def register_tracking!
-    volunteer = @rt_volunteer_unsubscribe.request_form.user.loggable
-    if @rt_volunteer_unsubscribe.unsubscribe_level_is_project
-      project = @rt_volunteer_unsubscribe.project
-    else
-      project = nil
-    end
-    tracking = Volun::Tracking.new(
-                 volunteer: volunteer,
-                 manager_id: current_user.loggable_id,
-                 request_form: request_form,
-                 tracked_at: DateTime.now,
-                 project: project,
-                 # TODO set the definitive tracking type
-                 tracking_type: TrackingType.get_volunteer_unsubscribe_type,
-                 # TODO fill with tracking type description?
-                 automatic: true,
-                 comments: '',
-               )
-    copy_errors_from!(tracking) unless tracking.save
-    tracking
-  end
 
   def process_request_form
     status_manager = RtController::StatusManager.new(request_form: @rt_volunteer_unsubscribe.request_form,
@@ -77,8 +54,21 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
   end
   
   def approve_and_render_unsubscribes_path
-    register_tracking!
-    approve_request_form!
+    volunteer = @rt_volunteer_unsubscribe.request_form.user.loggable
+    if @rt_volunteer_unsubscribe.unsubscribe_level_is_project
+      project = @rt_volunteer_unsubscribe.project
+    else
+      project = nil
+    end
+    volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: @rt_volunteer_unsubscribe.id,
+                                             volunteer: volunteer,
+                                             manager_id: current_user.loggable_id)
+    volunteer_manager.register_tracking!(volunteer: volunteer,
+                                         request_form: request_form,
+                                         manager_id: current_user.loggable_id,
+                                         tracking_type: TrackingType.get_volunteer_unsubscribe_type,
+                                         project: project)
+    volunteer_manager.approve_request_form!
     respond_to do |format|
       format.html { redirect_to(rt_volunteer_unsubscribes_url, notice: I18n.t('messages.request_form_successfully_managed')) }
       format.js
@@ -154,9 +144,4 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
       @rt_volunteer_unsubscribe.request_form
     end
 
-    def approve_request_form!
-      unless request_form.update_and_trace_status(:approved, manager_id: current_user.loggable_id, user_id: current_user.loggable_id)
-        copy_errors_from!(request_form)
-      end
-    end
 end
