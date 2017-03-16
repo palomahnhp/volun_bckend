@@ -124,7 +124,7 @@
       <div class="well col-md-12">
         <%= content_tag :h3, Project.model_name.human(count: 2), class: 'form-subtitle' %>
         <div class="with-scroll-bar">
-          <%= f.association :projects, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+          <%= f.association :projects, as: :check_boxes, collection: Project.where('id IN (?)', f.object.projects.select('id')), label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
         </div>
       </div>
     </div>
