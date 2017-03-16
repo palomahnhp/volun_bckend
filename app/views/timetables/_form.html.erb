@@ -3,9 +3,9 @@
 
   <div class="form-inputs">
           <%= f.input :event_id %>
-          <%= f.input :execution_date, as: :string, input_html: date_input_html_default_values(f.object.execution_date), wrapper_html: { class: 'col-md-6' } %>
-          <%= f.input :start_hour %>
-          <%= f.input :end_hour %>
+          <%= f.input :execution_date, as: :string, input_html: date_input_html_default_values(f.object.execution_date), wrapper_html: { class: 'col-md-4' } %>
+          <%= f.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+          <%= f.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
   </div>
 
   <div class="form-actions">
