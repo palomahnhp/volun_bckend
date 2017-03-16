@@ -55,23 +55,26 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
   
   def approve_and_render_unsubscribes_path
     volunteer = @rt_volunteer_unsubscribe.request_form.user.loggable
-    if @rt_volunteer_unsubscribe.unsubscribe_level_is_project
-      project = @rt_volunteer_unsubscribe.project
-    else
-      project = nil
-    end
     volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: @rt_volunteer_unsubscribe.id,
                                              volunteer: volunteer,
                                              manager_id: current_user.loggable_id)
-    volunteer_manager.register_tracking!(volunteer: volunteer,
-                                         request_form: request_form,
-                                         manager_id: current_user.loggable_id,
-                                         tracking_type: TrackingType.get_volunteer_unsubscribe_type,
-                                         project: project)
-    volunteer_manager.approve_request_form!
-    respond_to do |format|
-      format.html { redirect_to(rt_volunteer_unsubscribes_url, notice: I18n.t('messages.request_form_successfully_managed')) }
-      format.js
+    ActiveRecord::Base.transaction do
+      volunteer_manager.register_tracking!(volunteer: volunteer,
+                                           request_form: request_form,
+                                           manager_id: current_user.loggable_id,
+                                           tracking_type: TrackingType.get_volunteer_unsubscribe_type,
+                                           project: @rt_volunteer_unsubscribe.project)
+    end
+    if volunteer_manager.errors.blank?
+      volunteer_manager.approve_request_form!
+      respond_to do |format|
+        format.html { redirect_to(rt_volunteer_unsubscribes_url, notice: I18n.t('messages.request_form_successfully_managed')) }
+        format.js
+      end
+    else
+      @request_form = request_form
+      flash[:alert] = volunteer_manager.errors
+      render :process_request_form
     end
   end
 
