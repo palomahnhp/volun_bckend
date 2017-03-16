@@ -10,6 +10,7 @@ class Entity < ActiveRecord::Base
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :address
 
+  validates :name, uniqueness: true
   validates :name, :vat_number, :email, :representative_name, :representative_last_name, :contact_name,
             :contact_last_name, :entity_type_id, presence: true
   validates :phone_number, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
