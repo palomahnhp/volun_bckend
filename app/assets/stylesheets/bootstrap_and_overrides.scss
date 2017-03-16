@@ -343,6 +343,7 @@ form {
     li {
       color: white;
       label {
+        margin-right: 5px;
         margin-bottom: 0px;
         width: 50px;
       }
@@ -587,6 +588,15 @@ form .well {
   max-width: 110px;
 }
 .with-scroll-bar{
-  max-height: 1000px;
+  max-height: 800px;
   overflow-y: scroll;
+  border: 1px solid #e4dccf;
+}
+.normal-text {
+  font-weight: normal;
+}
+.phone{
+  .col-sm-5{
+    padding-right: 5px;
+  }
 }

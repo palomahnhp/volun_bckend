@@ -146,18 +146,6 @@ NATIONALITIES = [
 	'Italiano'
 ]
 
-ROAD_TYPES = %w(
-  ACCESO ARROYO AUTOVIA AUTOPISTA AVENIDA BARRANCO BARRIO BULEVAR CARRERA CAÐADA CARRIL CALLEJON CALLE
-  CAMINO CANAL COLONIA COMPLEJO CARRETERA COSTANILLA CANTON CUESTA EDIFICIO ESCALINATA ESTACION FINCA FUENTE
-  GALERIA GRUPO GLORIETA GRAN JARDIN LUGAR MONUMENTO MONTE MERCADO PLAZUELA POBLADO PASADIZO PUENTE POLIGONO
-  PISTA PASAJE PASEO PARQUE PARTICULAR PUERTA PLAZA RONDA RIO TRASERA TRAVESIA TRANSVERSAL URBANIZACION VIA
-)
-
-puts "Creando Propiedades"
-Setting.create(key: 'default_country', value: 'España')
-Setting.create(key: 'default_province', value: 'Madrid')
-Setting.create(key: 'road_types', value: ROAD_TYPES.join(','))
-
 puts "Creando Ámbitos"
 COLLECTIVE_NAMES.each do |name|
   Collective.create!(name: name)
@@ -231,7 +219,8 @@ puts "Creando Entidades"
     contact_name:             Faker::Name.name,
     contact_last_name:        Faker::Name.last_name,
     entity_type:              EntityType.all.sample,
-    address:                  Address.all.sample
+    address:                  Address.all.sample,
+    vat_number:               %w(Z8383769K 38741046F).sample
   )
 end
 
@@ -376,7 +365,7 @@ puts "Creando Voluntarios"
   Volunteer.create!(name: Faker::Name.first_name,
                     last_name: Faker::Name.last_name,
                     id_number_type_id: IdNumberType.last.id,
-                    id_number: "%09d" % n,
+                    id_number: %w(Z8383769K 38741046F).sample,
                     email: Faker::Internet.email,
                     address:  Address.all.sample)
 end
