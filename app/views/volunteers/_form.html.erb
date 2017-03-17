@@ -133,7 +133,7 @@
         <%= content_tag :h3, t('not_associated_projects'), class: 'form-subtitle' %>
         <div class="with-scroll-bar">
           <% if f.object.projects.any? %>
-            <%= f.association :projects, as: :select, collection: Project.where('id NOT IN (?)', f.object.projects.select('id')), label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+            <%= f.association :projects, as: :select, collection: f.object.unassociated_projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
           <% else %>
             <%= f.association :projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
           <% end %>
