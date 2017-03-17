@@ -6,28 +6,37 @@ class Project < ActiveRecord::Base
   belongs_to :project_type, required: true
   belongs_to :entity, required: true
   has_and_belongs_to_many :volunteers
-  has_and_belongs_to_many :areas, -> { order('areas.name asc') }
-  has_and_belongs_to_many :collectives, -> { order('collectives.name asc') }
-  has_and_belongs_to_many :coordinations, -> { order('coordinations.name asc') }
+  has_and_belongs_to_many :areas, -> { where(active: true).order('areas.name asc') }
+  has_and_belongs_to_many :inactive_areas, -> { where(active: false).order('areas.name asc') }, class_name: 'Area'
+  has_and_belongs_to_many :collectives, -> { where(active: true).order('collectives.name asc') }
+  has_and_belongs_to_many :inactive_collectives, -> { where(active: false).order('collectives.name asc') }, class_name: 'Collective'
+  has_and_belongs_to_many :coordinations, -> { where(active: true).order('coordinations.name asc') }
+  has_and_belongs_to_many :inactive_coordinations, -> { where(active: false).order('coordinations.name asc') }, class_name: 'Coordination'
   has_many :documents
   has_many :activities
   has_many :events, as: :eventable
   has_many :links, as: :linkable
   has_many :addresses, through: :events
-  has_many :districts, through: :addresses
   has_many :trackings
   has_many :volun_trackings,   :class_name => 'Volun::Tracking'
   has_many :volun_contacts,    :class_name => 'Volun::Contact'
-  has_many :volun_assessments, :class_name => 'Volun::Tracking'
+  has_many :volun_assessments, :class_name => 'Volun::Assessments'
 
   accepts_nested_attributes_for :documents,  allow_destroy: true
   accepts_nested_attributes_for :pt_extendable
-  accepts_nested_attributes_for :events, reject_if: :all_blank
+  accepts_nested_attributes_for :events, reject_if: :all_blank, allow_destroy: true
 
   validates :name, uniqueness: true
-  validates :name, :description, :execution_start_date, :contact_name, :contact_last_name,
-            :phone_number, :email, :active, :project_type_id, :entity_id, presence: true
+  validates :name, :description, :contact_name, :contact_last_name, :execution_start_date,
+            :phone_number, :email, :project_type_id, :entity_id, presence: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }
+  validate  :execution_start_date_less_than_execution_end_date
+  validates :execution_start_date, inclusion: { in: (11.months.ago..11.months.since),
+                                                message: I18n.t('activerecord.errors.messages.invalid_proj_date')}
+  validates :execution_end_date, inclusion: { in: (11.months.ago..11.months.since),
+                                              message: I18n.t('activerecord.errors.messages.invalid_proj_date'),
+                                              allow_blank: true }
+  validates :volunteers_num, :beneficiaries_num, numericality: { allow_blank: true }
 
   scope :list, ->(){
     includes(
@@ -36,8 +45,7 @@ class Project < ActiveRecord::Base
       :entity,
       :areas,
       :collectives,
-      :addresses,
-      :districts
+      :addresses
     )
   }
   scope :all_active,   ->(){ where(active: true) }
@@ -51,13 +59,31 @@ class Project < ActiveRecord::Base
   }
 
   def self.main_columns
-    %i(id name project_type entity execution_start_date
-       execution_end_date volunteers_num beneficiaries_num)
+    %i(
+      id
+      name
+      project_type
+      entity
+      execution_start_date
+      execution_end_date
+      volunteers_num
+      beneficiaries_num
+    )
   end
 
   def self.ransack_default
     {s: 'id desc'}
   end
+
+  # TODO pending of test
+  # def self.to_csv(projects = self.all)
+  #   CSV.generate do |csv|
+  #     csv << main_columns.map{ |column_name| human_attribute_name(column_name) }
+  #     projects.each do |project|
+  #       csv << main_columns.map{ |column_name| project.public_send column_name }
+  #     end
+  #   end
+  # end
 
   def to_s
     name
@@ -69,6 +95,14 @@ class Project < ActiveRecord::Base
   end
 
   private
+
+  def execution_start_date_less_than_execution_end_date
+    return unless execution_start_date && execution_end_date
+
+    unless execution_start_date <= execution_end_date
+      errors.add(:execution_start_date, :execution_start_date_must_be_less_than_execution_end_date)
+    end
+  end
 
   def pt_extendable_class
     pt_extendable.try(:class) || project_type.kind.classify.sub(/\APt/, 'Pt::').constantize

@@ -1,5 +1,7 @@
 <div class="well">
-  <%= simple_form_for(@volunteer, default_form_options) do |f| %>
+  <%= simple_nested_form_for(@volunteer, default_form_options) do |f| %>
+      <%= show_simple_base_errors(f) %>
+      <%= hidden_field_tag :rt_volunteer_subscribe_id, params[:rt_volunteer_subscribe_id] %>
 
   <div class="form-inputs">
     <div class="row well">
@@ -17,13 +19,13 @@
       </div>
     </div>
     <div class="row well">
-      <%= f.association :id_number_type, wrapper_html: { class: 'col-md-4' } %>
-      <%= f.input :id_number, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.association :id_number_type, wrapper_html: { class: 'col-md-5' } %>
+      <%= f.input :id_number, input_html: { class: 'vat_num', data: { mask: 'wwwwwwwww'} }, wrapper_html: { class: 'col-md-5' } %>
     </div>
-    <div class="row well">
-      <%= f.input :email, wrapper_html: { class: 'col-md-4' } %>
-      <%= f.input :phone_number, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-4' } %>
-      <%= f.input :phone_number_alt, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-4' } %>
+    <div class="phone row well">
+      <%= f.input :email, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :phone_number, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-3' } %>
+      <%= f.input :phone_number_alt, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-3' } %>
     </div>
     <div class="row well">
       <%= f.association :status, wrapper_html: { class: 'col-md-6' } %>
@@ -36,6 +38,20 @@
     <div class="row well">
       <%= f.input :available, input_html: {onClick: 'setAvailDate()'}, wrapper_html: { class: 'col-md-6' } %>
       <%= f.input :availability_date, as: :string, input_html: date_input_html(f.object.availability_date), wrapper_html: { class: 'col-md-6' } %>
+    </div>
+    <div class="row well">
+      <%= content_tag :h3, Volun::Availability.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :availabilities, (f.object.availabilities.build if f.object.new_record? && f.object.availabilities.empty?) do |f_availabilities|  %>
+        <div class="timetable-fields well col-md-12">
+          <div class="row">
+              <%= f_availabilities.input :day, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_availabilities.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_availabilities.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_availabilities.link_to_remove build_icon('trash-o', text: "#{Volun::Availability.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- timetable-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Volun::Availability.model_name.human}"), :availabilities, class: 'btn' %></p>
     </div>
     <div class="row well">
       <%= f.input :agreement, input_html: {onClick: 'setAgrmtDate()'}, wrapper_html: { class: 'col-md-6' } %>
@@ -68,46 +84,83 @@
         <%= f.association :skills, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
       </div>
     </div>
-
-    <div class="address-block row well">
+    <div class="row well">
       <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
-      <%= f.simple_fields_for :address, (f.object.build_address if f.object.address.blank?) do |f_address|  %>
-          <div class="address-fields col-md-12">
-            <div class="row row-4-1">
-              <%#= TODO replace "España" with Setting.default_country %>
-              <%= f_address.input :country, selected: 1, collection: ["España"], input_html: { class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
-              <%= f_address.association :province, selected: 28, input_html: { class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
-              <%= f_address.input :town, input_html: { class: 'js-town' }, wrapper_html: { class: 'col-md-5' } %>
-            </div>
-            <div class="row row-4-1">
-              <%= f_address.association :road_type, input_html: { class: 'js-road_type' }, wrapper_html: { class: 'col-md-3' } %>
-              <%= f_address.input :road_name, input_html: { class: 'js-road_name' }, wrapper_html: { class: 'road_name col-md-9' } %>
-            </div>
-            <div class="row row-4-2">
-              <%= f_address.input :road_number_type, collection:  Address::ROAD_NUMBER_TYPES, input_html: { class: 'm-width250 js-road_number_type' }, wrapper_html: { class: 'col-md-3' } %>
-              <%= f_address.input :road_number, input_html: { class: 'm-width250 js-road_number' }, wrapper_html: { class: 'col-md-3' } %>
-              <%= f_address.input :grader, collection: Address::GRADERS, input_html: { class: 'm-width80 js-grader' }, wrapper_html: { class: 'col-md-3' } %>
-              <%= f_address.input :postal_code, input_html: { class: 'js-postal_code', data: { mask: '99999'} }, wrapper_html: { class: 'postal_code col-md-3' } %>
-            </div>
-            <div class="row row-4-3">
-              <%= f_address.input :stairs, input_html: { class: 'm-width250 js-stairs' }, wrapper_html: { class: 'col-md-3' } %>
-              <%= f_address.input :floor, input_html: { class: 'm-width250 js-floor' }, wrapper_html: { class: 'col-md-3' } %>
-              <%= f_address.input :door, input_html: { class: 'm-width250 js-door' }, wrapper_html: { class: 'col-md-3' } %>
-            </div>
-          </div> <!-- address-fields -->
+      <%= f.simple_fields_for :address, (f.object.address.presence || f.object.build_address) do |f_address|  %>
+          <%= render partial: 'addresses/form_fields', locals: { f: f_address } %>
       <% end %>
-    </div> <!-- address-block -->
+    </div>
+    <% if f.object.review? && @volunteer.persisted? %>
+      <%= f.input :review, as: :hidden, input_html: { id: 'review' } %>
+      <div class="row well">
+        <%= content_tag :h3, t('errors_title_volun'), class: 'form-subtitle' %>
+        <% if f.object.error_address %>
+          <div class='row'>
+            <%= f.input :error_address, wrapper_html: { class: 'col-md-6' } %>
+            <div class='col-md-6'>
+              <%= check_box_tag('rev_add', t('revised'), false) %>
+              <label style='font-weight: normal;'>
+                <%= t('revised') %>
+              </label>
+            </div>
+          </div>
+        <% end %>
+        <% if f.object.error_other %>
+          <div class='row'>
+          <%= f.input :error_other, wrapper_html: { class: 'col-md-6' } %>
+            <div class='col-md-6'>
+              <%= check_box_tag('rev_oth', t('revised'), false) %>
+              <label style='font-weight: normal;'>
+                <%= t('revised') %>
+              </label>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+
+    <div class="row">
+      <div class="well col-md-12">
+        <%= content_tag :h3, Project.model_name.human(count: 2), class: 'form-subtitle' %>
+        <div class="with-scroll-bar">
+          <%= f.association :projects, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit, class: 'btn btn-success js-confirmable' %>
+    <% if f.object.review? && @volunteer.persisted? %>
+      <input type="hidden" value="<%= t('messages.confirm_revised_all_volunteer') %>" id="reviseAllMsg" />
+      <input type="hidden" value="<%= t('messages.confirm_revised_volunteer') %>" id="reviseMsg" />
+    <% end %>
+    <%= f.button :submit, class: 'btn btn-success js-confirmable', id: 'submit' %>
     <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
+    <% if f.object.review? && @volunteer.persisted? %>
+      <script>
+        // These validations have effect only if review is 1
+        // Submit check specific revisions
+        var reviseAllMsg = $("#reviseAllMsg").val();
+        var reviseMsg = $("#reviseMsg").val();
+        var confirm_submit = function () {
+          $('.js-confirmable').closest('form').submit(function() {
+              if ($("#rev_add").is(':checked') && $("#rev_oth").is(':checked')) {
+                var c = confirm(reviseAllMsg);
+                $("#review").val(0);
+                return c; 
+              } else {
+                var c = confirm(reviseMsg);
+                return c;
+              }
+          });
+        };
+      </script>
+    <% end %>
   <% end %>
 </div>
 
-
-<!-- TODO Pending of refactoring and adapting addresses and timetables form to the new model design  -->
 <script>
   
     // Check date fields one time at rendering;
@@ -133,252 +186,5 @@
         $("#volunteer_agreement_date").attr("disabled", false);
       }
     }
-
-    // AUTOCOMPLETE TOWN
-    $(function() {
-        function log1($townInput, message) {
-            $townInput.scrollTop(0);
-            $townInput.val(message);
-        }
-
-        $.each($(".address-block"), function(i, address){
-            var $address = $(address);
-            var $input = $address.find(".js-town")
-            $input.autocomplete({
-                source: function(request, response) {
-                    var value = $.trim($input.val());
-                    if(value.length > 0){
-                        $.ajax({
-                            url: "<%= bdc_search_towns_addresses_path %>",
-                            dataType: "json",
-                            data: {
-                                address: {
-                                    country:             $address.find(".js-country").val(),
-                                    province_id:         $address.find(".js-province").val(),
-                                    town:                $address.find(".js-town").val(),
-                                    road_type_id:        $address.find(".js-road_type").val(),
-                                    road_name:           $address.find(".js-road_name").val(),
-                                    road_number_type:    $address.find(".js-road_number_type").val(),
-                                    road_number:         $address.find(".js-road_number").val(),
-                                    grader:              $address.find(".js-grader").val(),
-                                    stairs:              $address.find(".js-stairs").val(),
-                                    floor:               $address.find(".js-floor").val(),
-                                    door:                $address.find(".js-door").val()
-                                },
-                            },
-                            success: function(data) {
-                                response(data.towns);
-                            }
-                        });
-                    }
-                },
-                minLength: 3,
-                select: function(event, ui) {
-                    log1($(this), ui.item ? ui.item.label : "Nothing selected, input was " + this.value);
-                },
-                open: function() {
-                },
-                close: function() {
-                    $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
-                    $address = $(this).closest(".address-block");
-                    $address.find(".js-road_type").prop('selectedIndex',0);
-                    $address.find(".js-road_name").val('');
-                    $address.find(".js-road_number_type").prop('selectedIndex',0);
-                    $address.find(".js-grader").prop('selectedIndex',0);
-                    $address.find(".js-postal_code").val('');
-                    $address.find(".js-road_number").val('');
-                }
-            });
-        });
-    });
-
-    // AUTOCOMPLETE ROAD NAME
-    $(function() {
-        var roads;
-        function log2($roadNameInput, message) {
-            $roadNameInput.scrollTop(0);
-            var roadName = message.split(" (")[0];
-            var roadTypeName = message.split(" (")[1].replace(/\)/, "");
-            var selectedRoad = roads.filter(function(road) {
-                return ( road.nomvial == roadName && road.nomclase == roadTypeName );
-            })[0];
-
-            if (typeof selectedRoad !== 'undefined') {
-                $roadNameInput.closest(".address-block").find(".js-road_type option").filter(function() {
-                    return $(this).text() == selectedRoad.nomclase;
-                }).prop('selected', true);
-            }
-        }
-
-        $.each($(".address-block"), function(i, address){
-            var $address = $(address);
-            $address.find(".js-road_name").autocomplete({
-                source: function(request, response) {
-                    var value = $.trim($address.find(".js-town").val());
-                    if(value.length > 0) {
-                        $.ajax({
-                            url: "<%= bdc_search_roads_addresses_path %>",
-                            dataType: "json",
-                            data: {
-                                address: {
-                                    country: $address.find(".js-country").val(),
-                                    province_id: $address.find(".js-province").val(),
-                                    town: $address.find(".js-town").val(),
-                                    road_type_id: $address.find(".js-road_type").val(),
-                                    road_name: $address.find(".js-road_name").val(),
-                                    road_number_type: $address.find(".js-road_number_type").val(),
-                                    road_number: $address.find(".js-road_number").val(),
-                                    grader: $address.find(".js-grader").val(),
-                                    stairs: $address.find(".js-stairs").val(),
-                                    floor: $address.find(".js-floor").val(),
-                                    door: $address.find(".js-door").val()
-                                },
-                            },
-                            success: function (data) {
-                                roads = data.roads;
-                                if (roads.length > 0){
-                                    var roadList = [];
-                                    $.each(roads, function (index, road) {
-                                        roadList.push(road.nomvial + ' (' + road.nomclase + ')');
-                                    });
-                                    response(roadList);
-
-                                }else{
-                                    _$address3 = $address
-                                    $address.find(".js-road_number_type").prop('selectedIndex',0);
-                                    $address.find(".js-grader").prop('selectedIndex',0);
-                                    $address.find(".js-postal_code").val('');
-                                    $address.find(".js-road_number").val('');
-                                    response({})
-                                }
-                            }
-                        });
-                    }else{
-                        alert('El campo "Población" no puede estar vacío');
-                        response({});
-                    }
-                },
-                minLength: 3,
-                select: function(event, ui) {
-
-                    log2($(this), ui.item ? ui.item.label : "Nothing selected, input was " + this.value);
-                },
-                open: function() {
-                },
-                close: function() {
-                    $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
-                    $input = $(this);
-                    value = $input.val();
-                    $input.val(value.replace(/\s*\(\w*\)/, ""));
-                    $address = $input.closest(".address-block");
-                    $address.find(".js-road_number_type").prop('selectedIndex',0);
-                    $address.find(".js-grader").prop('selectedIndex',0);
-                    $address.find(".js-postal_code").val('');
-                    $address.find(".js-road_number").val('');
-
-                }
-            });
-        });
-    });
-
-    // AUTOCOMPLETE ROAD NUMBER
-    $(function() {
-        var numbers;
-        function log3($numbersNameInput, message) {
-
-            $numbersNameInput.scrollTop(0);
-
-            if (message.indexOf("(") >= 0){
-                var numberName = message.split(" (")[0];
-                var graderName = message.split(" (")[1].replace(/\)/, "");
-            }else{
-                var numberName = message;
-                var graderName = null;
-            }
-
-            var selectedNumber = numbers.filter(function(number) {
-                return ( number.numapp.toLowerCase() == numberName.toLowerCase() && number.calapp == graderName );
-            })[0];
-
-            if (typeof selectedNumber === 'undefined') {
-                selectedNumber = numbers.filter(function (number) {
-                    return ( number.numapp.toLowerCase() == numberName.toLowerCase());
-                })[0];
-            }
-
-            $numbersNameInput.closest(".address-block").find(".js-road_number_type option").filter(function() {
-                return ( $(this).text().toLowerCase() == selectedNumber.nomapp.toLowerCase() );
-            }).prop('selected', true);
-
-            if (selectedNumber.calapp != null) {
-                $numbersNameInput.closest(".address-block").find(".js-grader option").filter(function () {
-                    return $(this).text().toLowerCase() == selectedNumber.calapp.toLowerCase();
-                }).prop('selected', true);
-            }else{;
-                $numbersNameInput.closest(".address-block").find(".js-grader").prop('selectedIndex',0);
-            }
-
-            $numbersNameInput.closest(".address-block").find('.js-postal_code').val(selectedNumber.codpostal)
-        }
-
-
-        $.each($(".address-block"), function(i, address){
-            var $address = $(address);
-            $address.find(".js-road_number").autocomplete({
-                source: function(request, response) {
-                    var value = $.trim($address.find(".js-road_name").val());
-                    if(value.length > 0) {
-                        $.ajax({
-                            url: "<%= bdc_search_road_numbers_addresses_path %>",
-                            dataType: "json",
-                            data: {
-                                address: {
-                                    country: $address.find(".js-country").val(),
-                                    province_id: $address.find(".js-province").val(),
-                                    town: $address.find(".js-town").val(),
-                                    road_type_id: $address.find(".js-road_type").val(),
-                                    road_name: $address.find(".js-road_name").val(),
-                                    road_number_type: $address.find(".js-road_number_type").val(),
-                                    road_number: $address.find(".js-road_number").val(),
-                                    grader: $address.find(".js-grader").val(),
-                                    stairs: $address.find(".js-stairs").val(),
-                                    floor: $address.find(".js-floor").val(),
-                                    door: $address.find(".js-door").val()
-                                },
-                            },
-                            success: function (data) {
-                                numbers = data.numbers;
-                                var numbersList = [];
-                                $.each(numbers, function (index, number) {
-                                    if (number.calapp == null)
-                                        numbersList.push(number.numapp)
-                                    else
-                                        numbersList.push(number.numapp + ' (' + number.calapp + ')')
-                                });
-                                response(numbersList);
-                            },
-                            error: function () {
-                            }
-                        });
-                    }else{
-                        alert('El campo "Nombre de la vía" no puede estar vacío');
-                        response({});
-                    }
-                },
-                minLength: 1,
-                select: function(event, ui) {
-                    log3($(this), ui.item ? ui.item.label : "Nothing selected, input was " + this.value);
-                },
-                open: function() {
-                },
-                close: function() {
-                    $('.ui-autocomplete-loading').removeClass('ui-autocomplete-loading');
-                    $input = $(this)
-                    value = $input.val()
-                    $input.val(value.replace(/\s*\(\w*\)/, ""));
-                }
-            });
-        });
-    });
 
 </script>

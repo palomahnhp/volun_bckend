@@ -40,6 +40,11 @@ class LanguagesController < ApplicationController
     @language.destroy
     respond_with(@language)
   end
+  
+  def recover
+    @language.recover
+    respond_with(@language)
+  end
 
   protected
 

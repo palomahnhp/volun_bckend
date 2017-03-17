@@ -1,7 +1,7 @@
 class EntitiesController < ApplicationController
 
   load_and_authorize_resource
-  respond_to :html, :js, :json
+  respond_to :html, :js
 
   def index
     params[:q] ||= Entity.ransack_default
@@ -41,9 +41,65 @@ class EntitiesController < ApplicationController
     respond_with(@entity)
   end
 
+  def recover
+    @entity.recover
+    respond_with(@entity, notice: t('messages.succesfully_recovered'))
+  end
+
   protected
 
     def entity_params
-      params.require(:entity).permit(:name, :description, :vat_number, :email, :representative_name, :representative_last_name, :representative_last_name_alt, :contact_name, :contact_last_name, :contact_last_name_alt, :phone_number, :phone_number_alt, :publish_pictures, :annual_survey, :request_reason_id, :entity_type_id, :comments, :other_subscribe_reason, :address_id, :active, :subscribed_at, :unsubscribed_at)
+      params
+        .require(:entity)
+        .permit(
+          :name,
+          :description,
+          :vat_number,
+          :email,
+          :representative_name,
+          :representative_last_name,
+          :representative_last_name_alt,
+          :contact_name,
+          :contact_last_name,
+          :contact_last_name_alt,
+          :phone_number,
+          :phone_number_alt,
+          :publish_pictures,
+          :annual_survey,
+          :req_reason_id,
+          :entity_type_id,
+          :comments,
+          :other_subscribe_reason,
+          :active,
+          :subscribed_at,
+          :unsubscribed_at,
+          {
+            address_attributes: [
+              :id,
+              :road_type,
+              :road_name,
+              :road_number_type,
+              :road_number,
+              :grader,
+              :stairs,
+              :floor,
+              :door,
+              :postal_code,
+              :borough,
+              :district,
+              :town,
+              :province,
+              :country,
+              :normalize,
+              :_destroy
+            ]
+          },
+          {
+            projects_attributes: [
+              :id,
+              :active
+            ]
+          }
+        )
     end
 end

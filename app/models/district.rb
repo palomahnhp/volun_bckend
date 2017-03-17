@@ -1,8 +1,6 @@
 class District < ActiveRecord::Base
+  include Archivable
 
-  has_many :addresses
-
-  validates :name, :code, uniqueness: true
 
   def to_s
     name

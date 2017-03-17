@@ -7,11 +7,14 @@ class ProjectsController < ApplicationController
 
   def index
     params[:q] ||= Project.ransack_default
-    @projects = @projects.with_status(params[:status])
     @search_q = @projects.unscoped.list.search(params[:q])
-    @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
 
     respond_with(@projects)
+    # TODO implement js response
+    # format.js   { render 'shared/popup', locals: { index_folder: Project.model_name.plural }}
+    # TODO implement self.to_csv method
+    # format.csv  { send_data(Project.to_csv(@wires_by_circuit_id), filename: "#{Project.model_name.human(count: 2).downcase}.csv")}///
   end
 
   def show
@@ -68,7 +71,10 @@ class ProjectsController < ApplicationController
           :volunteers_allowed,
           :publish,
           :outstanding,
+          :urgent,
           :pt_subvention,
+          :pt_extendable_id,
+          :pt_extendable_type,
           :project_type_id,
           :active,
           :comments,
@@ -101,7 +107,7 @@ class ProjectsController < ApplicationController
               {
                 address_attributes: [
                   :id,
-                  :road_type_id,
+                  :road_type,
                   :road_name,
                   :road_number_type,
                   :road_number,
@@ -111,10 +117,11 @@ class ProjectsController < ApplicationController
                   :door,
                   :postal_code,
                   :borough,
-                  :district_id,
+                  :district,
                   :town,
-                  :province_id,
+                  :province,
                   :country,
+                  :normalize,
                   :_destroy
                 ]
               },

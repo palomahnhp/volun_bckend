@@ -9,6 +9,33 @@ es:
         pt_social:     Sociales
         pt_subvention: Subvencionado
         pt_other:      Otros
+    request_type:
+      kind:
+        rt_volunteer_subscribe:   &rt_volunteer_subscribe   Alta de voluntario
+        rt_volunteer_unsubscribe: &rt_volunteer_unsubscribe Baja de voluntario
+        rt_volunteer_amendment:   &rt_volunteer_amendment   Modificación de voluntario
+        rt_volunteer_appointment: &rt_volunteer_appointment Cita para voluntario
+        rt_entity_subscribe:      &rt_entity_subscribe      Alta de entidad
+        rt_entity_unsubscribe:    &rt_entity_unsubscribe    Baja de entidad
+        rt_volunteers_demand:     &rt_volunteers_demand     Demanda de voluntarios
+        rt_project_publishing:    &rt_project_publishing    Publicación de projecto
+        rt_project_unpublishing:  &rt_project_unpublishing  Despublicación de proyecto
+        rt_activity_publishing:   &rt_activity_publishing   Publicación de actividad
+        rt_activity_unpublishing: &rt_activity_unpublishing Despublicación de actividad
+        rt_other:                 &rt_other                 '"Otros"'
+    req:
+      status:
+        kind:
+          pending:    Pendiente
+          processing: En trámite
+          approved:   Aceptada
+          rejected:   Rechazada
+    role:
+      kind:
+       super_admin:      Super Administrador
+       admin:            Adminstrador
+       internal_staff:   Personal interno
+       external_staff:   Personal externo
     timetable:
       day:
         monday:     Lunes
@@ -22,6 +49,20 @@ es:
       gender:
         male:     Hombre
         female:   Mujer
+    unsubscribe_level:
+      kind:
+        project:  Solicita baja de voluntario en proyecto
+        user:     Solicita baja de voluntario completa
+    volun:
+      availability:
+        day:
+          monday:     Lunes
+          tuesday:    Martes
+          wednesday:  Miércoles
+          thursday:   Jueves
+          friday:     Viernes
+          saturday:   Sábado
+          sunday:     Domingo
   activerecord:
     models:
       project:
@@ -63,13 +104,16 @@ es:
       trait:
         one:   Cualidad
         other: Cualidades
+      language:
+        one:   Idioma
+        other: Idiomas
       unsubscribe_reason:
         one:   Motivo de baja
         other: Motivos de baja
       tracking_type:
         one:   Tipo de seguimiento
         other: Tipos de seguimiento
-      rejection_type:
+      req/rejection_type:
         one:   Motivo de rechazo
         other: Motivos de rechazo
       collective:
@@ -78,6 +122,9 @@ es:
       record_history:
         one:   Historial de registro
         other: Historial de registros
+      role:
+        one:   Rol
+        other: Roles
       pt/subvention:
         one:   Proyecto subvencionado
         other: Proyectos subvencionados
@@ -108,9 +155,21 @@ es:
       event:
         one:   Evento
         other: Eventos
+      frontpage_element:
+        one:   Elemento de página
+        other: Elementos de página
+      frontpage_position:
+        one:   Posición en página
+        other: Posiciones en página
       entity:
         one:   Entidad
         other: Entidades
+      manager:
+        one:   Gestor
+        other: Gestores
+      setting:
+        one:   Configuración
+        other: Configuraciones
       request_form:
         one:   Solicitud
         other: Solicitudes
@@ -126,6 +185,54 @@ es:
       id_number_type:
         one:   Tipo de documento
         other: Tipo de documentos
+      req/status:
+        one:   Estado
+        other: Estados
+      rt/volunteer_subscribe:
+        one:    Solicitud de Alta de Voluntario
+        other:  Solicitudes de Alta de Voluntario
+      rt/volunteer_unsubscribe:
+        one:    Solicitud de Baja de Voluntario
+        other:  Solicitudes de Baja de Voluntario
+      rt/volunteer_amendment:
+        one:    Solicitud de Modificacion de Voluntario
+        other:  Solicitudes de Modificacion de Voluntario
+      rt/volunteer_appointment:
+        one:    Solicitud de Cita para Voluntario
+        other:  Solicitudes de Cita para Voluntario
+      rt/entity_subscribe:
+        one:    Solicitud de Alta de Entidad
+        other:  Solicitudes de Alta de Entidad
+      rt/entity_unsubscribe:
+        one:    Solicitud de Baja de Entidades
+        other:  Solicitudes de Baja de Entidades
+      rt/volunteers_demand:
+        one:    Solicitud de Demanda de Voluntario
+        other:  Solicitudes de Demanda de Voluntario
+      rt/project_publishing:
+        one:    Solicitud de Publicacion de Proyecto
+        other:  Solicitudes de Publicacion de Proyecto
+      rt/project_unpublishing:
+        one:    Solicitud de Accion sobre Proyecto
+        other:  Solicitudes de Accion sobre Proyecto
+      rt/activity_publishing:
+        one:    Solicitud de Publicacion de Actividad
+        other:  Solicitudes de Publicacion de Actividad
+      rt/activity_unpublishing:
+        one:    Solicitud de Accion sobre Actividad
+        other:  Solicitudes de Accion sobre Actividad
+      rt/other:
+        one:    Solicitud de "Otros"'
+        other:  Solicitudes de "Otros"'
+      unsubscribe_level:
+        one:    Nivel de baja de voluntario
+        other:  Nivel de baja de voluntario
+      user:
+        one:    Usuario
+        other:  Usuarios
+      volun/availability:
+        one:    Horario de disponibilidad del usuario
+        other:  Horarios de disponibilidad del usuario
     attributes:
       address:
         postal_code:      Código postal
@@ -142,16 +249,62 @@ es:
         country:          País
         latitude:         Latitud
         longitude:        Longitud
+        district:         Distrito
+        normalize:        Normalizar
       district:
         code:        Código
         name:        Nombre
         created_at : &created_at Fecha de creación
+      entity:
+        name: Nombre
+        description: Descripción
+        vat_number: CIF
+        email: Email
+        representative_name: Nombre
+        representative_last_name: Primer apellido
+        representative_last_name_alt: Segundo apellido
+        contact_name: Nombre
+        contact_last_name: Primer apellido
+        contact_last_name_alt: Segundo apellido
+        phone_number: Teléfono 1
+        phone_number_alt: Teléfono 2
+        publish_pictures: Divulgación de imagen
+        annual_survey: Recibir encuesta anual
+        reason: Motivo por el que solicita darse de alta
+        reason_id: Motivo por el que solicita darse de alta
+        entity_type: Tipo de entidad
+        entity_type_id: Tipo de entidad
+        comments: Observaciones
+        other_subscribe_reason: Otro motivo de solicitud
+        address_id: Dirección
+        active: Activo
+        subscribed_at: Fecha de alta
+        unsubscribed_at: Fecha de baja
       project_type:
         id:          ID
         kind:        Nombre
         description: Descripción
         active:      Activo
         created_at : *created_at
+      frontpage_element:
+        id:                    ID
+        text_panel:            Panel de texto
+        text_button:           Botón
+        image_url:             Imagen (url)
+        link_url:              Enlace (url)
+        logo_url:              Logo (url)
+        active:                Activo
+        frontpage_position_id: Posición
+        frontpage_position:    Posición
+        created_at:            *created_at
+        created_by:            Creado por
+        updated_by:            Actualizado por
+      frontpage_position:
+        id:          ID
+        position:    Posición
+        description: Descripción
+        active:      Activo
+        created_at:  *created_at
       area:
         id:          ID
         name:        Denominación
@@ -184,17 +337,84 @@ es:
         name:        Cualidad
         active:      Activo
         created_at : *created_at
+      language:
+        id:          ID
+        name:        Idioma
+        active:      Activo
+        created_at : *created_at
+      role:
+        description: Descripción
       tracking_type:
         id:          ID
         name:        Tipo Seguimiento
         active:      Activo
         created_at : *created_at
-      rejection_type:
+      request_types:
+        kind:        Tipo
+        description: Descripción
+      request_form:
+        request_type_id:       Tipo de solicitud
+        request_type:          Tipo de solicitud
+        user_id:               Usuario
+        user:                  Usuario
+        status:                Estado
+        req_status_id:         Estado
+        status_date:           Fecha de estado
+        rejection_type_id:     Motivo de rechazo
+        rejection_type:        Motivo de rechazo
+        reason_id:             Motivo
+        reason:                Motivo
+        manager:               Gestor
+        manager_id:            Gestor
+        comments:              Comentarios
+        created_at :           *created_at
+      req/rejection_type:
         id:          ID
         name:        Nombre
         description: Motivo de rechazo
         active:      Activo
         created_at : *created_at
+      req/request_reason:
+        id:          ID
+        name:        Nombre
+        description: Motivo de rechazo
+        active:      Activo
+        created_at : *created_at
+      req/status:
+        id:          ID
+        kind:        Tipo
+        description: Descripción
+        created_at : *created_at
+      req/status_trace:
+        id:              ID
+        req_status:      Estado
+        req_status_id:   Estado
+        request_form:    Solicitud
+        request_form_id: Solicitud
+        manager_id:      Gestor
+        manager:         Gestor
+        created_at :     Fecha de estado
+      rt/volunteer_subscribe:
+        name:             Nombre
+        last_name:        Primer Apellido
+        last_name_alt:    Segundo Apellido
+        phone_number:     Teléfono
+        phone_number_alt: Otro teléfono
+        email:            Email
+        publish_pictures: Publicar fotos
+        annual_survey:    Recibir encuesta
+        notes:            Notas
+      rt/volunteer_unsubscribe:
+        unsubscribe_level:      Nivel de baja de voluntario
+        unsubscribe_level_id:   Nivel de baja de voluntario
+        project:                Proyecto
+        project_id:             Proyecto
+        notes:                  Notas
+      rt/other:
+        id:           ID
+        description:  Descripción
+        notes:        Notas
+        created_at:   *created_at
       collective:
         id:          ID
         name:        Denominación
@@ -223,13 +443,15 @@ es:
         volunteers_allowed:     Admite voluntarios
         publish:                Publicitar
         outstanding:            Destacado
+        urgent:                 Urgente
         functions:              Funciones del voluntario
         execution_start_date:   Fecha ejecución desde
         execution_end_date:     Fecha ejecución hasta
         contact_name:           Nombre
-        contact_last_name:  Primer Apellido
-        contact_last_name_alt: Segundo Apellido
-        phone_number:           Teléfono
+        contact_last_name:      Primer Apellido
+        contact_last_name_alt:  Segundo Apellido
+        phone_number:           Teléfono 1
+        phone_number_alt:       Teléfono 2
         email:                  E-mail
         comments:               Observaciones
         beneficiaries_num:      Nº de beneficiarios
@@ -241,7 +463,6 @@ es:
         entity:                 Entidad
         entity_id:              Entidad
         areas:                  Ámbitos        # N:N Association (for simple_form)
-        districts:              Distritos      # N:N Association (for simple_form)
         collectives:            Colectivos     # N:N Association (for simple_form)
         coordinations:          Coordinaciones # N:N Association (for simple_form)
         created_at:             *created_at
@@ -252,7 +473,7 @@ es:
         start_date:             Fecha desde
         end_date:               Fecha hasta
         transport:              Medios de transporte
-        pdf_url:                Url del folleto PDF     
+        pdf_url:                Url del folleto PDF
         entity_id:              Organizador de la actividad
         entity:                 Organizador de la actividad
         area_id:                Tipo de actividad
@@ -274,12 +495,13 @@ es:
         participants_num:              Nº de voluntarios participantes
         has_quality_evaluation:        Posee sistema de evaluación de calidad
         id_num:                        NIF
-        vat_number:                       CIF de la entidad
+        vat_number:                    CIF de la entidad
         project_id:                    Proyecto
         project:                       Proyecto
         proposal_id:                   Propuesta
         proposal:                      Propuesta
         notes:                         &notes Notas
+        created_at:               *created_at
       pt/entity:
         id:                       ID
         request_date:             Fecha recepción demanda
@@ -296,19 +518,30 @@ es:
         project:                  Proyecto
         project_id:               Proyecto
         notes:                    *notes
+        created_at:               *created_at
       pt/permanent:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       pt/punctual:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       pt/centre:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       pt/social:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       pt/other:
+        id:                       ID
         notes:                    *notes
+        created_at:               *created_at
       timetable:
         id:                       ID
-        execution_date:           Día de la semana
+        execution_date:           Fecha inicio
         start_hour:               Hora inicio
         end_hour:                 Hora fin
         project_id:               ID del proyecto
@@ -319,12 +552,12 @@ es:
         id_number_type_id:        Tipo de documento
         id_number_type:           Tipo de documento
         id_number:                Número de documento
-        gender:                   Sexo
+        gender:                   Género
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad
         nationality:              Nacionalidad
-        phone_number:             Teléfono móvil
-        phone_number_alt:         Teléfono fijo
+        phone_number:             Teléfono 1
+        phone_number_alt:         Teléfono 2
         email:                    Email
         address_id:               Dirección
         status_id:                Situación
@@ -356,13 +589,42 @@ es:
         profession:               Profesión
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
+        traits:                   Cualidades
         created_at:               *created_at
+        error_address:            Error en dirección
+        error_other:              Otros errores
+      manager:
+        id:                   ID
+        name:                 Nombre
+        last_name:            Apellido 1
+        last_name_alt:        Apellido 2
+        alias_name:           Alias
+        role:                 Rol
+        profile:              Perfil
+        phone_number:         Teléfono móvil
+        active:               Activo
+        created_at:           *created_at
+      setting:
+        id:                   ID
+        key:                  Clave
+        value:                Valor
+        created_at:           *created_at
       skill:
         name: Nombre
       id_number_type:
         name: Nombre
+      volun/availability:
+        id:                   ID
+        day:                  Día de la semana
+        start_hour:           Hora de comienzo
+        end_hour:             Hora de fin
+        created_at:           *created_at
     errors:
       models:
+        address:
+          attributes:
+            base:
+              address_is_not_normalized: "La dirección no está normalizada."
         pt/entity:
           attributes:
             base:
@@ -378,6 +640,7 @@ es:
       messages:
         invalid_project_type: El tipo de proyecto es inválido
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
+        execution_start_date_must_be_less_than_execution_end_date: La fecha de inicio debe ser menor o igual que la fecha de fin
         pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
         rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"
         invalid_volun_birth_date: "La fecha debe tener un formato válido y no puede ser posterior a la fecha actual"
@@ -385,3 +648,12 @@ es:
         invalid_volun_agreement_date: El formato de fecha debe ser válido y debe especificar una fecha de acuerdo si esta marcada la casilla "Acuerdo de colaboración"
         invalid_volun_subscribe_dates: El formato de fecha debe ser válido
         unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
+        invalid_proj_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses anteriores o posteriores
+        one_timetable_at_least: Cada dirección debe tener al menos un horario
+        cannot_be_present_if_is_not_rejected: no puede estar presente si no está rechazada
+        cannot_change_from_approved: no se puede cambiar el estado de una solicitud aprobada
+        cannot_change_to_pending: no puede cambiar a pendiente
+        cannot_change_to_processing: no puede cambiar a 'en trámite'
+        cannot_change_to_approved: no puede cambiar a aprobada
+        cannot_change_to_rejected: no puede cambiar a rechazada
+        invalid_document_number: número de documento inválido

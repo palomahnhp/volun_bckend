@@ -8,6 +8,8 @@
   <dd><%= @province.name %></dd>
   <dt><%= Province.human_attribute_name(:code) %>:</dt>
   <dd><%= @province.code %></dd>
+  <dt><%= Province.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@province.active}") %></dd>
   <dt><%= Province.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@province.created_at) %></dd>
 

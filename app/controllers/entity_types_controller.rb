@@ -44,6 +44,6 @@ class EntityTypesController < ApplicationController
   protected
 
     def entity_type_params
-      params.require(:entity_type).permit(:kind, :description, :active)
+      params.require(:entity_type).permit(:name, :description, :active)
     end
 end

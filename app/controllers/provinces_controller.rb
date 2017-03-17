@@ -1,7 +1,7 @@
 class ProvincesController < ApplicationController
 
   load_and_authorize_resource
-  respond_to :html, :js, :json
+  respond_to :html, :js
 
   def index
     params[:q] ||= Province.ransack_default
@@ -19,7 +19,6 @@ class ProvincesController < ApplicationController
   end
 
   def new
-    @province = Province.new
     respond_with(@province)
   end
 
@@ -44,6 +43,6 @@ class ProvincesController < ApplicationController
   protected
 
     def province_params
-      params.require(:province).permit(:name, :code)
+      params.require(:province).permit(:name, :code, :active)
     end
 end

@@ -1,6 +1,6 @@
 class Rt::ActivityUnpublishing < ActiveRecord::Base
 
-  include RtCommons
+  include RtModel
 
 
 

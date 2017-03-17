@@ -122,6 +122,7 @@ RSpec.describe ProjectTypesController, type: :controller do
 
   describe "DELETE #destroy" do
     it 'destroys the requested project_type' do
+      skip("Delete cannot be done anymore")
       project_type = ProjectType.create! valid_attributes
       expect {
         delete :destroy, id: project_type.to_param
@@ -129,6 +130,7 @@ RSpec.describe ProjectTypesController, type: :controller do
     end
 
     it 'redirects to the project_types list' do
+      skip("Delete cannot be done anymore")
       project_type = ProjectType.create! valid_attributes
       delete :destroy, id: project_type.to_param
       expect(response).to redirect_to(project_types_url)
@@ -137,6 +139,7 @@ RSpec.describe ProjectTypesController, type: :controller do
   
   describe "RECOVER #recover" do
     it 'recovers the requested project type' do
+      skip("Recover cannot be done anymore")
       project_type = ProjectType.create! valid_attributes
       delete :destroy, id: project_type.to_param
       post :recover, id: project_type.to_param
@@ -144,6 +147,7 @@ RSpec.describe ProjectTypesController, type: :controller do
     end
 
     it 'redirects to the project_types list' do
+      skip("Recover cannot be done anymore")
       project_type = ProjectType.create! valid_attributes
       post :recover, id: project_type.to_param
       expect(response).to redirect_to(project_types_url)

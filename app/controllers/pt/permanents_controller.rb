@@ -26,19 +26,13 @@ class Pt::PermanentsController < ApplicationController
   end
 
   def create
-    if @pt_other.save
-      redirect_to projects_path
-    else
-      render :new
-    end
+    @pt_permanent.save
+    respond_with(@pt_permanent, location: projects_path)
   end
 
   def update
-    if @pt_other.update(pt_permanent_params)
-      redirect_to projects_path
-    else
-      render :edit
-    end
+    @pt_permanent.update(pt_permanent_params)
+    respond_with(@pt_permanent, location: projects_path)
   end
 
   def destroy

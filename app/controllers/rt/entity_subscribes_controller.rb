@@ -27,19 +27,13 @@ class Rt::EntitySubscribesController < ApplicationController
   end
 
   def create
-    if @rt_entity_subscribe.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_entity_subscribe.save
+    respond_with(@rt_entity_subscribe, location: request_forms_path)
   end
 
   def update
-    if @rt_entity_subscribe.update(rt_entity_subscribe_params)
-      redirect_to request_forms_path
-    else
-      render :edit
-    end
+    @rt_entity_subscribe.update(rt_entity_subscribe_params)
+    respond_with(@rt_entity_subscribe, location: request_forms_path)
   end
 
   def destroy

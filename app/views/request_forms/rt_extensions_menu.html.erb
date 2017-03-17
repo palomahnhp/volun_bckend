@@ -1,0 +1,139 @@
+<div class="new-project-type">
+  <div class="jumbotron scale">
+    <h2>Elegir tipo de solicitud a gestionar</h2>
+    <br/>
+    <br/>
+    <br/>
+    <div class="panel-list row">
+      <div class="col-md-6">
+        <div class="panel panel-<%= Rt::VolunteerSubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_subscribes_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::VolunteerSubscribe.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <!-- type a description -->
+          </div>
+        </div>
+        <div class="panel panel-<%= Rt::VolunteerUnsubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_unsubscribes_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::VolunteerUnsubscribe.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <!-- type a description -->
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-<%= Rt::Other.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_others_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Rt::Other.model_name.human %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <!-- type a description -->
+          </div>
+        </div>
+      </div>
+        <%# TODO remove this 'if' when all the request forms are implemented %>
+        <% if false %>
+          <div class="col-md-6">
+          <div class="panel panel-<%= Rt::VolunteerAmendment.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_amendments_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::VolunteerAmendment.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          <div class="panel panel-<%= Rt::VolunteerAppointment.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteer_appointments_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::VolunteerAppointment.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          <div class="panel panel-<%= Rt::EntitySubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_entity_subscribes_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::EntitySubscribe.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          <div class="panel panel-<%= Rt::EntityUnsubscribe.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_entity_unsubscribes_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::EntityUnsubscribe.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          <div class="panel panel-<%= Rt::VolunteersDemand.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_volunteers_demands_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::VolunteersDemand.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          <div class="panel panel-<%= Rt::ProjectPublishing.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_publishings_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::ProjectPublishing.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          <div class="panel panel-<%= Rt::ProjectUnpublishing.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_project_unpublishings_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::ProjectUnpublishing.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          <div class="panel panel-<%= Rt::ActivityPublishing.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_publishings_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::ActivityPublishing.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          <div class="panel panel-<%= Rt::ActivityUnpublishing.pending.exists? ? 'warning' : 'danger' %>" onclick="window.location='<%= rt_activity_unpublishings_url %>';">
+            <div class="panel-heading">
+              <h3 class="panel-title">
+                <%= Rt::ActivityUnpublishing.model_name.human %>
+              </h3>
+            </div>
+            <div class="panel-body">
+              <!-- type a description -->
+            </div>
+          </div>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>

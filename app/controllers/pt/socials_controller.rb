@@ -26,19 +26,13 @@ class Pt::SocialsController < ApplicationController
   end
 
   def create
-    if @pt_social.save
-      redirect_to projects_path
-    else
-      render :new
-    end
+    @pt_social.save
+    respond_with(@pt_social, location: projects_path)
   end
 
   def update
-    if @pt_social.update(pt_social_params)
-      redirect_to projects_path
-    else
-      render :edit
-    end
+    @pt_social.update(pt_social_params)
+    respond_with(@pt_social, location: projects_path)
   end
 
   def destroy

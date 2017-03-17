@@ -1,5 +1,5 @@
 <div class="jumbotron scale">
-  <h1><%= t('administration') %></h1>
+  <h1><%= t('catalogs') %></h1>
   <br/>
   <p><%= t('administration_title_text') %></p>
   <br/>
@@ -46,14 +46,14 @@
           <%= TrackingType.model_name.human(count: 2) %>
         </div>
       </div>
-      <div class="panel panel-info" onclick="window.location='<%= rejection_types_url %>';">
+      <div class="panel panel-info" onclick="window.location='<%= req_rejection_types_url %>';">
         <div class="panel-heading">
           <h3 class="panel-title">
-            <%= RejectionType.model_name.human(count: 2)  %>
+            <%= Req::RejectionType.model_name.human(count: 2)  %>
           </h3>
         </div>
         <div class="panel-body">
-          <%= RejectionType.model_name.human(count: 2) %>
+          <%= Req::RejectionType.model_name.human(count: 2) %>
         </div>
       </div>
     </div>
@@ -96,6 +96,16 @@
         </div>
         <div class="panel-body">
           <%= Trait.model_name.human(count: 2) %>
+        </div>
+      </div>
+      <div class="panel panel-info" onclick="window.location='<%= languages_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Language.model_name.human(count: 2) %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= Language.model_name.human(count: 2) %>
         </div>
       </div>
       <!--<div class="panel panel-info" onclick="window.location='<%#= record_histories_url %>';">-->

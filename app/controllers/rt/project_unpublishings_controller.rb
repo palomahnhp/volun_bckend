@@ -26,11 +26,8 @@ class Rt::ProjectUnpublishingsController < ApplicationController
   end
 
   def create
-    if @rt_project_unpublishing.save
-      redirect_to request_forms_path
-    else
-      render :new
-    end
+    @rt_project_unpublishing.save
+    respond_with(@rt_project_unpublishing, location: projects_path)
   end
 
   def update
