@@ -85,5 +85,9 @@ class Volunteer < ActiveRecord::Base
   def to_s
     name
   end
+  
+  def unassociated_projects
+    Project.where('id NOT IN (?)', self.projects.select('id'))
+  end
 
 end
