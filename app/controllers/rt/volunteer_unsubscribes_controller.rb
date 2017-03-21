@@ -58,13 +58,11 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
     volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: @rt_volunteer_unsubscribe.id,
                                              volunteer: volunteer,
                                              manager_id: current_user.loggable_id)
-    ActiveRecord::Base.transaction do
-      volunteer_manager.register_tracking!(volunteer: volunteer,
+    volunteer_manager.register_unsubscribe(volunteer: volunteer,
                                            request_form: request_form,
                                            manager_id: current_user.loggable_id,
                                            tracking_type: TrackingType.get_volunteer_unsubscribe_type,
                                            project: @rt_volunteer_unsubscribe.project)
-    end
     if volunteer_manager.errors.blank?
       volunteer_manager.approve_request_form!
       respond_to do |format|
