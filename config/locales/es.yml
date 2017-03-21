@@ -94,6 +94,8 @@ es:
   all_statuses: Todos los estados
   errors_title_volun: Errores u observaciones
   revised: Revisado
+  associated_projects: Proyectos en los que se encuentra el voluntario
+  not_associated_projects: Asociar a proyectos
   trackings:
     unsubscribe_from_project: Baja de un proyecto
     subscribe_to_project: Alta en un proyecto

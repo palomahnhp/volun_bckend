@@ -5,6 +5,8 @@ class Activity < ActiveRecord::Base
   belongs_to :entity
   belongs_to :area
   belongs_to :project
+  
+  accepts_nested_attributes_for :events, reject_if: :all_blank, allow_destroy: true
 
   validates :name, uniqueness: true
   validates :name, :description, :start_date, :transport, presence: true
