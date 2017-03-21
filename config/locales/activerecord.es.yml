@@ -233,6 +233,15 @@ es:
       volun/availability:
         one:    Horario de disponibilidad del usuario
         other:  Horarios de disponibilidad del usuario
+      volun/tracking:
+        one:    Seguimiento de voluntario
+        other:  Seguimientos de voluntario
+      pro/tracking:
+        one:    Seguimiento de proyecto
+        other:  Seguimientos de proyecto
+      ent/tracking:
+        one:    Seguimiento de entidad
+        other:  Seguimientos de entidad
     attributes:
       address:
         postal_code:      Código postal
@@ -590,6 +599,7 @@ es:
         public_pictures:          Permitir publicación de fotos
         skills:                   Habilidades/aficiones
         traits:                   Cualidades
+        updated_at:               Fecha de actualización
         created_at:               *created_at
         error_address:            Error en dirección
         error_other:              Otros errores
@@ -618,6 +628,35 @@ es:
         day:                  Día de la semana
         start_hour:           Hora de comienzo
         end_hour:             Hora de fin
+        created_at:           *created_at
+      volun/tracking:
+        id:                   ID
+        volunteer:            Voluntario
+        tracking_type:        Tipo de seguimiento
+        project:              Proyecto
+        manager:              Gestor
+        request_form:         Solicitud
+        tracked_at:           Fecha del seguimiento
+        automatic:            Automático
+        comments:             Comentarios
+        created_at:           *created_at
+      pro/tracking:
+        id:                   ID
+        project:              Proyecto
+        request_form:         Solicitud
+        tracked_at:           Fecha del seguimiento
+        automatic:            Automático
+        comments:             Comentarios
+        created_at:           *created_at
+      ent/tracking:
+        id:                   ID
+        entity:               Entidad
+        tracking_type:        Tipo de seguimiento
+        manager:              Gestor
+        request_form:         Solicitud
+        tracked_at:           Fecha del seguimiento
+        automatic:            Automático
+        comments:             Comentarios
         created_at:           *created_at
     errors:
       models:

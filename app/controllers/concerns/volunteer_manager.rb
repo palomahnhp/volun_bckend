@@ -82,6 +82,12 @@ class VolunteerManager
     end
     errors.blank?
   end
+  
+  def register_unsubscribe(attributes = {})
+    ActiveRecord::Base.transaction do
+      register_tracking!(attributes)
+    end
+  end
 
   def register_tracking!(attributes = {})
     default_attrs = {

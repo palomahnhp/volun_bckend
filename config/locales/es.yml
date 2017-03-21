@@ -23,6 +23,7 @@ es:
     recover:  'Restablecer'
     undo_rejection: 'Deshacer rechazo'
     process:  'Procesar'
+    man_trackings: 'Gestionar seguimientos'
   details: Detalles
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
