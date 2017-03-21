@@ -44,6 +44,55 @@ class ActivitiesController < ApplicationController
   protected
 
     def activity_params
-      params.require(:activity).permit(:name, :description, :start_date, :end_date, :transport, :pdf_url, :entity_id, :area_id, :project_id, :share)
+      params
+        .require(:activity)
+        .permit(
+          :name,
+          :description,
+          :start_date,
+          :end_date,
+          :transport,
+          :pdf_url,
+          :entity_id,
+          :area_id,
+          :project_id,
+          :share,
+          {
+            events_attributes: [
+              :id,
+              {
+                address_attributes: [
+                  :id,
+                  :road_type,
+                  :road_name,
+                  :road_number_type,
+                  :road_number,
+                  :grader,
+                  :stairs,
+                  :floor,
+                  :door,
+                  :postal_code,
+                  :borough,
+                  :district,
+                  :town,
+                  :province,
+                  :country,
+                  :normalize,
+                  :_destroy
+                ]
+              },
+              {
+                timetables_attributes: [
+                  :id,
+                  :execution_date,
+                  :start_hour,
+                  :end_hour,
+                  :_destroy
+                ]
+              },
+              :_destroy
+            ]
+          }
+      )
     end
 end

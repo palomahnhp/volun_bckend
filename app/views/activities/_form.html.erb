@@ -1,17 +1,60 @@
 <div class="well">
-  <%= simple_form_for(@activity, default_form_options) do |f| %>
+  <%= simple_nested_form_for(@activity, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.input :name %>
-          <%= f.input :description %>
-          <%= f.input :start_date, as: :string, input_html: date_input_html(f.object.start_date) %>
-          <%= f.input :end_date, as: :string, input_html: date_input_html(f.object.end_date) %>
-          <%= f.input :transport %>
-          <%= f.input :pdf_url %>
-          <%= f.association :entity, input_html: { class: 'm-width200' } %>
-          <%= f.association :area, input_html: { class: 'm-width200' } %>
-          <%= f.association :project, input_html: { class: 'm-width200' } %>
-          <%= f.input :share %>
+    <div class='row'>
+      <div class='col-md-6'>
+        <%= f.input :name %>
+        <%= f.input :description %>
+        <%= f.input :start_date, as: :string, input_html: date_input_html(f.object.start_date) %>
+        <%= f.input :end_date, as: :string, input_html: date_input_html(f.object.end_date) %>
+        <%= f.input :transport %>
+      </div>
+      <div class='col-md-6'>
+        <%= f.input :pdf_url %>
+        <%= f.association :entity, input_html: { class: 'm-width200' } %>
+        <%= f.association :area, input_html: { class: 'm-width200' } %>
+        <%= f.association :project, input_html: { class: 'm-width200' } %>
+        <%= f.input :share %>
+      </div>
+    </div>
+      <div class="events-block row row-4 well">
+        <%= content_tag :h1, "#{Address.model_name.human(count: 2)} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
+          
+          <input type="hidden" value="<%= f.object.events.count %>" id="eventsNum" />
+          <%= f.simple_fields_for :events, (f.object.events.build if f.object.events.empty?) do |f_event|  %>
+            <div class="event-fields well col-md-12">
+            <%= content_tag :h2, "#{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}", class: 'form-subtitle' %>
+    
+              <div class="row well">
+                <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
+                <%= f_event.simple_fields_for :address, (f_event.object.address.presence || f_event.object.build_address) do |f_address|  %>
+                    <%= render partial: 'addresses/form_fields', locals: {f: f_address } %>
+                <% end %>
+              </div>
+    
+              <div class="timetables_block row well">
+                <%= content_tag :h3, Timetable.model_name.human(count: 2), class: 'form-subtitle' %>
+                  <%= f_event.error :base, class: 'alert alert-danger alert-dismissable' %>
+                  <%= f_event.simple_fields_for :timetables, (f_event.object.timetables.build if f_event.object.new_record? && f_event.object.timetables.empty?) do |f_timetable|  %>
+                    <div class="timetable-fields well col-md-12">
+                      <div class="row">
+                          <%= f_timetable.input :execution_date, as: :string, input_html: date_input_html_default_values(f_timetable.object.execution_date), wrapper_html: { class: 'col-md-4' } %>
+                          <%= f_timetable.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+                          <%= f_timetable.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
+                          <%= f_timetable.link_to_remove build_icon('trash-o', text: "#{Timetable.model_name.human}"), class: 'pull-right' %>
+                      </div> <!-- timetable-fields -->
+                    </div>
+                  <% end %>
+                <p><%= f_event.link_to_add icon_new(text: "#{Timetable.model_name.human}"), :timetables, class: 'btn' %></p>
+              </div> <!-- timetables_block -->
+              
+              <p><%= f_event.link_to_remove build_icon('trash-o', text: "#{t('action.remove')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), class: 'pull-right', id: 'rmEvent', onclick: 'rmEvent();' %></p>
+            </div> <!-- event-fields -->
+          <% end %>
+        <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn', id: 'addEvent', onclick: 'addEvent();' %></p>
+        
+      </div> <!-- events-block -->
   </div>
 
   <div class="form-actions">
@@ -19,3 +62,26 @@
   </div>
   <% end %>
 </div>
+    
+<script>
+
+// Preventing destroy events when only one
+    var eventsNum = $("#eventsNum").val();
+    
+    if (eventsNum < 2) {
+      $("#rmEvent").hide();
+    }
+    
+    function addEvent() {
+      eventsNum++;
+      $("#rmEvent").show();
+    }
+    
+    function rmEvent() {
+      eventsNum--;
+      if (eventsNum < 2) {
+        $("#rmEvent").hide();
+      }
+    }
+
+</script>
