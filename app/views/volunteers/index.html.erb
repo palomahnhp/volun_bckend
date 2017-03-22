@@ -21,12 +21,14 @@
       <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
     <% end -%>
 
+      <th><%= Address.human_attribute_name(:district) %></th>
+
       <th class="actions index_table-actions">
         <%= t('actions') %>
       </th>
     </tr>
   </thead>
-  
+
   <tbody>
     <%= render(partial: 'volunteer', collection: @volunteers)%>
   </tbody>

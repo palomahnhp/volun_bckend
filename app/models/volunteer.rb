@@ -75,7 +75,7 @@ class Volunteer < ActiveRecord::Base
                                        allow_blank: true }
 
   def self.main_columns
-    %i(name last_name last_name_alt email gender)
+  %i(id_number name last_name last_name_alt email gender)
   end
 
   def self.ransack_default

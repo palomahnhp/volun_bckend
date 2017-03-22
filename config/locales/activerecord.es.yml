@@ -551,7 +551,7 @@ es:
         last_name_alt:            Apellido 2
         id_number_type_id:        Tipo de documento
         id_number_type:           Tipo de documento
-        id_number:                Número de documento
+        id_number:                NIF
         gender:                   Género
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad
