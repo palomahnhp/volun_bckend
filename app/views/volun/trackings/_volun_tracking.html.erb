@@ -12,6 +12,6 @@
 
   <td class="index_table-actions">
     <%= link_to_show(volun_tracking) %>
-    <%= link_to_edit(volun_tracking) %>
+    <%= link_to_edit(volun_tracking, path_params: { volunteer_id: params[:q][:volunteer_id_eq] }) %>
   </td>
 </tr>

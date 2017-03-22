@@ -36,8 +36,13 @@ module ScaffoldHelper
 
   def build_hidden_fields(hidden_fields)
     hidden_fields.inject('') do |hf_tags, (name, value)|
-      hf_tags + hidden_field_tag(name, value)
+      hf_tags + hidden_field_tag(build_name_attr(name), value)
     end.html_safe
+  end
+
+  def build_name_attr(name)
+    name = name.to_s
+    /\Aq_(.*)\z/i === name ? "q[#{name.sub('q_', '')}]" : name
   end
 
   def show_simple_base_errors(form)
