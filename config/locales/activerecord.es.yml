@@ -465,6 +465,7 @@ es:
         comments:               Observaciones
         beneficiaries_num:      Nº de beneficiarios
         volunteers_num:         Nº de voluntarios demandados
+        participants_num:       Nº de participantes
         insured:                Seguro de accidentes
         insurance_date:         Fecha de caducidad
         project_type:           Tipo de proyecto
@@ -560,7 +561,7 @@ es:
         last_name_alt:            Apellido 2
         id_number_type_id:        Tipo de documento
         id_number_type:           Tipo de documento
-        id_number:                Número de documento
+        id_number:                NIF
         gender:                   Género
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad
