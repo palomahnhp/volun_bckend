@@ -138,13 +138,15 @@
       <% end %>
       <div class="well col-md-12">
         <%= content_tag :h3, t('not_associated_projects'), class: 'form-subtitle' %>
-        <div class="with-scroll-bar">
-          <% if f.object.projects.any? %>
-            <%= f.association :projects, as: :select, collection: f.object.unassociated_projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-          <% else %>
-            <%= f.association :projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-          <% end %>
-        </div>
+        <%= f.simple_fields_for :projects, (f.object.projects.build if f.object.new_record? && f.object.projects.empty?) do |f_project|  %>
+          <div class="well col-md-12">
+            <div class="row">
+              <%= f_project.input :id, as: :select, collection: f.object.unassociated_projects, label: Project.model_name.human, wrapper_html: { class: 'col-md-6' } %>
+              <%= f_project.link_to_remove build_icon('trash-o', text: "#{Project.model_name.human}"), class: 'pull-right' %>
+            </div>
+          </div>
+        <% end %>
+        <p><%= f.link_to_add icon_new(text: "#{Project.model_name.human}"), :projects, class: 'btn' %></p>
       </div>
     </div>
   </div>
