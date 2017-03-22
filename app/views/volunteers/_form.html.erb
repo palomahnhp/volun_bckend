@@ -124,9 +124,16 @@
       <% if @volunteer.persisted? && f.object.projects.any? %>
         <div class="well col-md-12">
           <%= content_tag :h3, t('associated_projects'), class: 'form-subtitle' %>
-          <div class="with-scroll-bar">
-            <%= f.association :projects, as: :check_boxes, collection: f.object.projects, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-          </div>
+          <%= f.simple_fields_for :projects do |f_project|  %>
+            <div class="well col-md-12">
+              <div class="row">
+                <%= f_project.label :name, label: f_project.object.name, wrapper_html: { class: 'col-md-6' } %>
+                <%= f_project.label :description, label: f_project.object.description, wrapper_html: { class: 'col-md-6' } %>
+                <%= link_to_show(f_project.object.pt_extendable || f_project.object) %>
+                <%= f_project.link_to_remove build_icon('trash-o', text: "#{Project.model_name.human}"), class: 'pull-right' %>
+              </div>
+            </div>
+          <% end %>
         </div>
       <% end %>
       <div class="well col-md-12">
