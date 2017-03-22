@@ -74,6 +74,9 @@ class Volunteer < ActiveRecord::Base
                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
                                        allow_blank: true }
 
+  scope :all_active,   ->(){ where(active: true) }
+  scope :all_inactive, ->(){ where(active: false) }
+
   def self.main_columns
     %i(id_number name last_name last_name_alt email gender)
   end
