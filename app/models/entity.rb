@@ -19,6 +19,9 @@ class Entity < ActiveRecord::Base
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_blank: true
   validates :vat_number, spanish_vat: true
 
+  scope :all_active,   ->(){ where(active: true) }
+  scope :all_inactive, ->(){ where(active: false) }
+
   def self.main_columns
     %i(name vat_number email entity_type)
   end
