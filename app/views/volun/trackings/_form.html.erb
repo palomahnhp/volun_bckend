@@ -2,16 +2,23 @@
   <%= simple_form_for(@volun_tracking, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.association :volunteer %>
+          <%= f.association :volunteer, input_html: { disabled: true, id: 'volunteer' }, default: @volun_tracking.volunteer %>
           <%= f.association :tracking_type %>
           <%= f.association :project %>
-          <%= f.association :manager %>
-          <%= f.input :tracking_date, as: :datepicker %>
+          <%= f.association :manager, input_html: { disabled: true, id: 'manager' }, default: @volun_tracking.manager %>
+          <%= f.input :tracked_at, as: :string, input_html: date_input_html_default_values(f.object.tracked_at) %>
           <%= f.input :comments %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, onclick: "enableToSaveFields();" %>
+    <script>
+      // Enable fields simple_form_for to be able to pass them as params
+      function enableToSaveFields() {
+        $('#volunteer').attr("disabled", false);
+        $('#manager').attr("disabled", false);
+      }
+    </script>
   </div>
   <% end %>
 </div>
