@@ -456,6 +456,7 @@ es:
         comments:               Observaciones
         beneficiaries_num:      Nº de beneficiarios
         volunteers_num:         Nº de voluntarios demandados
+        participants_num:       Nº de participantes
         insured:                Seguro de accidentes
         insurance_date:         Fecha de caducidad
         project_type:           Tipo de proyecto

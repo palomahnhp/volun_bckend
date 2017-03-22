@@ -27,7 +27,7 @@
     <%= content_tag :h1, Volunteer.model_name.human(count: 2), class: 'form-subtitle' %>
     <div class="col-md-6">
       <%= f.input :volunteers_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
-      <%= f.input :participants_num, label: "Nº de participantes" ,as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
+      <%= f.input :participants_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
       <%= f.input :beneficiaries_num, as: :string, placeholder: '0', input_html: {class: 'm-width150', min: 0, max: 5} %>
     </div>
     <div class="col-md-6">
