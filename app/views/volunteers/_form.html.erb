@@ -140,7 +140,10 @@
                 <tr>
                   <td><%= project.name %></td>
                   <td><%= project.description %></td>
-                  <td><%= link_to_show(project.pt_extendable || project) %></td>
+                  <td>
+                    <%= link_to_show(project.pt_extendable || project) %>
+                    <%= link_to_trackings(f.object, "volun", project.id) %>
+                  </td>
                 </tr>
               <% end %>
             </tbody>
@@ -149,13 +152,11 @@
       <% end %>
       <div class="well col-md-12">
         <%= content_tag :h3, t('not_associated_projects'), class: 'form-subtitle' %>
-        <div class="with-scroll-bar">
-          <% if f.object.projects.any? %>
-            <%= f.association :projects, as: :select, collection: f.object.unassociated_projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-          <% else %>
-            <%= f.association :projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-          <% end %>
-        </div>
+        <% if f.object.projects.any? %>
+          <%= f.association :projects, as: :select, collection: f.object.unassociated_projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+        <% else %>
+          <%= f.association :projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+        <% end %>
       </div>
     </div>
   </div>

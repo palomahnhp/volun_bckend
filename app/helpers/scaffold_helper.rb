@@ -126,7 +126,7 @@ module ScaffoldHelper
     link_to(text, public_send(path, record, options[:path_params]||{}), options)
   end
   
-  def link_to_trackings(record, type, opts = {})
+  def link_to_trackings(record, type, project = nil, opts = {})
     #return unless can?(:recover, record)
     options = {
         id:     "#{dom_id(record)}_trackings",
