@@ -7,6 +7,7 @@ class Entity < ActiveRecord::Base
   belongs_to :address, required: true
   has_one :user, as: :loggable
   has_many :projects, ->(){ order('created_at' => :asc) }
+  has_many :trackings, :class_name => 'Ent::Tracking'
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :address
 
