@@ -6,7 +6,11 @@ class Volun::TrackingsController < ApplicationController
   def index
     params[:q] ||= Volun::Tracking.ransack_default
     @search_q = @volun_trackings.search(params[:q])
-    @volun_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    unless params[:project_id].nil?
+      @volun_trackings = @search_q.result.where(project_id: params[:project_id]).paginate(page: params[:page], per_page: params[:per_page]||15)
+    else 
+      @volun_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    end
 
     respond_with(@volun_trackings)
   end
@@ -21,6 +25,7 @@ class Volun::TrackingsController < ApplicationController
   def new
     volunteer = Volunteer.find_by(id: params[:volunteer_id])
     @volun_tracking = volunteer.trackings.build
+    @volun_tracking.project_id = params[:project_id]
     respond_with(@volun_tracking)
   end
 
