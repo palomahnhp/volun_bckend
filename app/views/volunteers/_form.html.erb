@@ -124,29 +124,38 @@
       <% if @volunteer.persisted? && f.object.projects.any? %>
         <div class="well col-md-12">
           <%= content_tag :h3, t('associated_projects'), class: 'form-subtitle' %>
-          <%= f.simple_fields_for :projects do |f_project|  %>
-            <div class="well col-md-12">
-              <div class="row">
-                <%= f_project.label :name, label: f_project.object.name, wrapper_html: { class: 'col-md-6' } %>
-                <%= f_project.label :description, label: f_project.object.description, wrapper_html: { class: 'col-md-6' } %>
-                <%= link_to_show(f_project.object.pt_extendable || f_project.object) %>
-                <%= f_project.link_to_remove build_icon('trash-o', text: "#{Project.model_name.human}"), class: 'pull-right' %>
-              </div>
-            </div>
-          <% end %>
+          <div class="with-scroll-bar">
+            <%= f.association :projects, as: :check_boxes, collection: f.object.projects, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+          </div>
+          <table class="index-table">
+            <thead>
+              <tr>
+                <th><%= Project.human_attribute_name(:name) %></th>
+                <th><%= Project.human_attribute_name(:description) %></th>
+                <th><%= t('actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% f.object.projects.each do |project| %>
+                <tr>
+                  <td><%= project.name %></td>
+                  <td><%= project.description %></td>
+                  <td><%= link_to_show(project.pt_extendable || project) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       <% end %>
       <div class="well col-md-12">
         <%= content_tag :h3, t('not_associated_projects'), class: 'form-subtitle' %>
-        <%= f.simple_fields_for :projects, (f.object.projects.build if f.object.new_record? && f.object.projects.empty?) do |f_project|  %>
-          <div class="well col-md-12">
-            <div class="row">
-              <%= f_project.input :id, as: :select, collection: f.object.unassociated_projects, label: Project.model_name.human, wrapper_html: { class: 'col-md-6' } %>
-              <%= f_project.link_to_remove build_icon('trash-o', text: "#{Project.model_name.human}"), class: 'pull-right' %>
-            </div>
-          </div>
-        <% end %>
-        <p><%= f.link_to_add icon_new(text: "#{Project.model_name.human}"), :projects, class: 'btn' %></p>
+        <div class="with-scroll-bar">
+          <% if f.object.projects.any? %>
+            <%= f.association :projects, as: :select, collection: f.object.unassociated_projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+          <% else %>
+            <%= f.association :projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
