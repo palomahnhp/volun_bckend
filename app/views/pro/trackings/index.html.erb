@@ -10,7 +10,7 @@
     <%= content_tag(:div, link_to_new(model_class, path_params: { project_id: params[:q][:project_id_eq] }), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :project_name_or_comments_cont), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :project_name_or_comments_cont, hidden_fields: { q_project_id_eq: params[:q][:project_id_eq] }), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 
