@@ -29,12 +29,12 @@ class Pro::TrackingsController < ApplicationController
 
   def create
     @pro_tracking.save
-    respond_with(@pro_tracking)
+    respond_with(@pro_tracking, location: pro_trackings_path(q: { project_id_eq: @pro_tracking.project_id}))
   end
 
   def update
     @pro_tracking.update_attributes(pro_tracking_params)
-    respond_with(@pro_tracking)
+    respond_with(@pro_tracking, location: pro_trackings_path(q: { project_id_eq: @pro_tracking.project_id}))
   end
 
   def destroy

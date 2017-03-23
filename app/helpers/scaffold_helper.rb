@@ -137,7 +137,7 @@ module ScaffoldHelper
         id:     "#{dom_id(record)}_trackings",
         text:   icon_tracking,
         path:   "#{type}_trackings_path",
-        path_params: {q: {"#{record.class.model_name.singular}_id_eq": record}, project_id: project },
+        path_params: {q: {"#{record.class.model_name.singular}_id_eq": record}, project_id_assoc: project },
         remote: false,
         method: :get
     }.merge(opts)
