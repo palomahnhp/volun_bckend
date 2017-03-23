@@ -29,12 +29,12 @@ class Ent::TrackingsController < ApplicationController
 
   def create
     @ent_tracking.save
-    respond_with(@ent_tracking)
+    respond_with(@ent_tracking, location: ent_trackings_path(q: { q_entity_id_eq: @ent_tracking.entity_id}))
   end
 
   def update
     @ent_tracking.update_attributes(ent_tracking_params)
-    respond_with(@ent_tracking)
+    respond_with(@ent_tracking, location: ent_trackings_path(q: { q_entity_id_eq: @ent_tracking.entity_id}))
   end
 
   def destroy
