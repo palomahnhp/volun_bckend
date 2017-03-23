@@ -4,7 +4,7 @@
       <td><%= show_attr(volunteer, attr_name) %></td>
   <% end %>
 
-  <td><%= volunteer.address[:district] %></td>
+  <td><%= volunteer.address.try :district %></td>
 
   <td class="index_table-actions">
     <%= link_to_show(volunteer) %>
