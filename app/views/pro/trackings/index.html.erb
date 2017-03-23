@@ -3,6 +3,7 @@
 <div class="row">
   <div class="col-md-12">
     <%= model_title(model_class) %>
+    <%= content_tag :h3, Project.find_by(id: params[:q][:project_id_eq]), class: 'form-subtitle' %>
   </div>
 </div>
 <div class="index-panel row well">
