@@ -6,9 +6,9 @@ class Volun::TrackingsController < ApplicationController
   def index
     params[:q] ||= Volun::Tracking.ransack_default
     @search_q = @volun_trackings.search(params[:q])
-    unless params[:project_id].nil?
+    if params[:project_id].present?
       @volun_trackings = @search_q.result.where(project_id: params[:project_id]).paginate(page: params[:page], per_page: params[:per_page]||15)
-    else 
+    else
       @volun_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
     end
 
