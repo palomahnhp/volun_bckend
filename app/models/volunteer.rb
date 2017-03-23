@@ -36,6 +36,7 @@ class Volunteer < ActiveRecord::Base
   belongs_to :manager
   belongs_to :unsubscribe_reason
   has_and_belongs_to_many :projects, ->{ where(active: true).order('projects.name asc') }
+  has_and_belongs_to_many :projects_others, ->{ where(active: true).order('projects.name asc') }, :class_name => 'Project'
   has_and_belongs_to_many :skills, ->{ where(active: true).order('skills.name asc') }
   has_many :known_languages, :class_name => 'Volun::KnownLanguage'
   has_many :assessments,     :class_name => 'Volun::Assessment'

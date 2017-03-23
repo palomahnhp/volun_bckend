@@ -5,14 +5,12 @@ class Volun::TrackingsController < ApplicationController
 
   def index
     params[:q] ||= Volun::Tracking.ransack_default
-    if params[:tracked_record_id].nil?
-      @volunteer = session[:tracked_record_id]
-    else
-      @volunteer = params[:tracked_record_id]
-      session[:tracked_record_id] = @volunteer
-    end
     @search_q = @volun_trackings.search(params[:q])
-    @volun_trackings = @search_q.result.where(volunteer_id: @volunteer).paginate(page: params[:page], per_page: params[:per_page]||15)
+    if params[:project_id_assoc].present?
+      @volun_trackings = @search_q.result.where(project_id: params[:project_id]).paginate(page: params[:page], per_page: params[:per_page]||15)
+    else
+      @volun_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    end
 
     respond_with(@volun_trackings)
   end
@@ -25,8 +23,9 @@ class Volun::TrackingsController < ApplicationController
   end
 
   def new
-    @volun_tracking = Volun::Tracking.new
-    @volun_tracking.volunteer_id = params[:tracked_record_id]
+    volunteer = Volunteer.find_by(id: params[:volunteer_id])
+    @volun_tracking = volunteer.trackings.build
+    @volun_tracking.project_id = params[:project_id_assoc]
     respond_with(@volun_tracking)
   end
 
@@ -35,14 +34,12 @@ class Volun::TrackingsController < ApplicationController
 
   def create
     @volun_tracking.save
-    session[:tracked_record_id] = @volun_tracking.volunteer_id
-    respond_with(@volun_tracking)
+    respond_with(@volun_tracking, location: volun_trackings_path(q: { volunteer_id_eq: @volun_tracking.volunteer_id}, project_id_assoc: params[:project_id_assoc]))
   end
 
   def update
     @volun_tracking.update_attributes(volun_tracking_params)
-    session[:tracked_record_id] = @volun_tracking.volunteer_id
-    respond_with(@volun_tracking)
+    respond_with(@volun_tracking, location: volun_trackings_path(q: { volunteer_id_eq: @volun_tracking.volunteer_id}, project_id_assoc: params[:project_id_assoc]))
   end
 
   def destroy
@@ -61,7 +58,8 @@ class Volun::TrackingsController < ApplicationController
           :project_id,
           :manager_id,
           :tracked_at,
-          :comments
+          :comments,
+          :project_id_assoc
         )
     end
 
