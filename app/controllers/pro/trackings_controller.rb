@@ -5,14 +5,8 @@ class Pro::TrackingsController < ApplicationController
 
   def index
     params[:q] ||= Pro::Tracking.ransack_default
-    if params[:tracked_record_id].nil?
-      @project = session[:tracked_record_id]
-    else
-      @project = params[:tracked_record_id]
-      session[:tracked_record_id] = @project
-    end
     @search_q = @pro_trackings.search(params[:q])
-    @pro_trackings = @search_q.result.where(project_id: @project).paginate(page: params[:page], per_page: params[:per_page]||15)
+    @pro_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@pro_trackings)
   end
@@ -25,8 +19,8 @@ class Pro::TrackingsController < ApplicationController
   end
 
   def new
-    @pro_tracking = Pro::Tracking.new
-    @pro_tracking.project_id = params[:tracked_record_id]
+    project = Project.find_by(id: params[:project_id])
+    @pro_tracking = project.trackings.build
     respond_with(@pro_tracking)
   end
 
@@ -35,14 +29,12 @@ class Pro::TrackingsController < ApplicationController
 
   def create
     @pro_tracking.save
-    session[:tracked_record_id] = @pro_tracking.project_id
-    respond_with(@pro_tracking)
+    respond_with(@pro_tracking, location: pro_trackings_path(q: { project_id_eq: @pro_tracking.project_id}))
   end
 
   def update
     @pro_tracking.update_attributes(pro_tracking_params)
-    session[:tracked_record_id] = @pro_tracking.project_id
-    respond_with(@pro_tracking)
+    respond_with(@pro_tracking, location: pro_trackings_path(q: { project_id_eq: @pro_tracking.project_id}))
   end
 
   def destroy

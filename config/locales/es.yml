@@ -85,6 +85,10 @@ es:
   catalogs: Catálogos
   diary: Agenda
   pending: Pendientes
+  volunteers: Voluntarios
+  entities: Entidades
+  activities: Actividades
+  projects: Proyectos
   block: Bloque
   administration_title_text: Aquí se administran las tablas de la aplicación
   areas_text: Ámbitos a los que pertenece un proyecto

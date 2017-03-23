@@ -464,7 +464,8 @@ es:
         email:                  E-mail
         comments:               Observaciones
         beneficiaries_num:      Nº de beneficiarios
-        volunteers_num:         Nº de voluntarios demandados
+        volunteers_num:         Nº de voluntarios previstos
+        participants_num:       Nº de voluntarios que participan en el proyecto
         insured:                Seguro de accidentes
         insurance_date:         Fecha de caducidad
         project_type:           Tipo de proyecto
@@ -501,7 +502,7 @@ es:
         requested_amount:              Cantidad solicitada
         subsidized_amount:             Cantidad subvencionada
         initial_volunteers_num:        Nº de voluntarios iniciales
-        participants_num:              Nº de voluntarios participantes
+        participants_num:              Nº de participantes
         has_quality_evaluation:        Posee sistema de evaluación de calidad
         id_num:                        NIF
         vat_number:                    CIF de la entidad
@@ -560,7 +561,7 @@ es:
         last_name_alt:            Apellido 2
         id_number_type_id:        Tipo de documento
         id_number_type:           Tipo de documento
-        id_number:                Número de documento
+        id_number:                NIF
         gender:                   Género
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad

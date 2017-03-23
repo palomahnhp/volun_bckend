@@ -12,6 +12,6 @@
 
   <td class="index_table-actions">
     <%= link_to_show(volun_tracking) %>
-    <%= link_to_edit(volun_tracking) %>
+    <%= link_to_edit(volun_tracking, path_params: { project_id_assoc: params[:project_id_assoc] }) %>
   </td>
 </tr>

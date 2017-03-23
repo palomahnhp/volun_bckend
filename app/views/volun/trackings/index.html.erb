@@ -7,10 +7,10 @@
 </div>
 <div class="index-panel row well">
   <div class="col-md-6">
-    <%= content_tag(:div, link_to_new(model_class, options = { path_params: { tracked_record_id: @volunteer } }), class: 'col-md-6 pull-left') %>
+    <%= content_tag(:div, link_to_new(model_class, path_params: { volunteer_id: params[:q][:volunteer_id_eq], project_id_assoc: params[:project_id_assoc] }), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :volunteer_name_or_tracking_type_name_or_project_name_or_manager_name_or_comments_cont), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :volunteer_name_or_tracking_type_name_or_project_name_or_manager_name_or_comments_cont, hidden_fields: { q_volunteer_id_eq: params[:q][:volunteer_id_eq], project_id_assoc: params[:project_id_assoc] }), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 
