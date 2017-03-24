@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<p>Voluntarios: <%= @volunteers.count %></p>
+<p><%= model_class.model_name.human(count: 2) %>: <%= @volunteers.count %></p>
 
 <table class="index-table">
   <thead>
