@@ -28,7 +28,7 @@ module IconHelper
   end
   
   def icon_tracking(opts = {})
-    build_icon(:trackings, opts.merge(icon_name: 'calendar', title: t('action.man_trackings', model: '')))
+    build_icon(:trackings, opts.merge(icon_name: 'road', title: t('action.man_trackings', model: '')))
   end
 
   def icon_search(opts = {})

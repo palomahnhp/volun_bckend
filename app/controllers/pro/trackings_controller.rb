@@ -6,6 +6,7 @@ class Pro::TrackingsController < ApplicationController
   def index
     params[:q] ||= Pro::Tracking.ransack_default
     @search_q = @pro_trackings.search(params[:q])
+    @project = Project.find_by(id: params[:q][:project_id_eq])
     @pro_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@pro_trackings)

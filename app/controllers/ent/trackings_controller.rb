@@ -6,6 +6,7 @@ class Ent::TrackingsController < ApplicationController
   def index
     params[:q] ||= Ent::Tracking.ransack_default
     @search_q = @ent_trackings.search(params[:q])
+    @entity = Entity.find_by(id: params[:q][:entity_id_eq])
     @ent_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@ent_trackings)
