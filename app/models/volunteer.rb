@@ -79,7 +79,7 @@ class Volunteer < ActiveRecord::Base
   scope :all_inactive, ->(){ where(active: false) }
 
   def self.main_columns
-    %i(id_number name last_name last_name_alt email gender)
+    %i(id_number name last_name last_name_alt phone_number phone_number_alt)
   end
 
   def self.ransack_default
