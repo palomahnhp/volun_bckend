@@ -4,6 +4,7 @@
       <td><%= show_attr(volunteer, attr_name) %></td>
   <% end %>
 
+  <td><%= volunteer.address.try :postal_code %></td>
   <td><%= volunteer.address.try :district %></td>
 
   <td class="index_table-actions">

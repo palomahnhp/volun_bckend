@@ -25,7 +25,7 @@
   </div>
 </div>
 
-<p>Proyectos: <%= @projects.count %></p>
+<p><%= model_class.model_name.human(count: 2) %>: <%= @projects.count %></p>
 
 <table class="index-table">
   <thead>
