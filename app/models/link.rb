@@ -1,14 +1,82 @@
 class Link < ActiveRecord::Base
 
   belongs_to :linkable, polymorphic: true
+  belongs_to :link_type
+  belongs_to :project,  -> { includes(:links).where(links: { linkable_type: 'Project' }) }, foreign_key: 'linkable_id'
+  belongs_to :activity, -> { includes(:links).where(links: { linkable_type: 'Activity'}) }, foreign_key: 'linkable_id'
 
-  enum kind: {
-    logo:    1,
-    image:   2,
-    url:     3,
-    video:   4
+
+  has_attached_file :file,
+                    styles: lambda{ |a|
+                      return {} unless a.content_type.in? %w(image/jpeg image/png image/jpg image/gif)
+                      { thumb:  '100x100#', small:  '150x150>', medium: '300x300>' }
+                    },
+                    default_url: '/images/:style/missing.png',
+                    url: '/system/:class/:belongs_to/:id/:attachment/:style/:filename'
+  validates_attachment_content_type :file, content_type: /\Atxt|pdf|doc|rtf|xls|csv\/.*\z/, if: 'document?'
+  validates_attachment_content_type :file, content_type: /\Aimage\/.*\z/ , if: 'logo? || image?'
+  validates_attachment_content_type :file, content_type: /\Avideo\/.*\z/ , if: 'video?'
+  validates_attachment_content_type :file,
+                                    content_type: %w(
+                                      text/plain
+                                      text/csv
+                                      application/pdf
+                                      application/vnd.ms-excel
+                                      application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+                                      application/msword
+                                      application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                                    ),
+                                    if: 'document?'
+
+  validates :link_type_id, presence: true
+  validates :file, presence: true, unless: 'url?'
+  validates :path, format: { with: /\A#{URI.regexp.to_s}\z/ }, if: 'url?'
+  after_save :update_path
+
+  delegate :logo?, :image?, :url?, :video?, :document?, :kind_i18n, to: :link_type, allow_blank: true
+
+  scope :project_images , ->{
+    includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.image.take.id)
+  }
+  scope :project_videos , ->{
+    includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.video.take.id)
+  }
+  scope :project_docs   , ->{
+    includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.document.take.id)
+  }
+  scope :project_urls   , ->{
+    includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.url.take.id)
+  }
+  scope :project_logo, ->{
+    includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.logo.take.id)
   }
 
-  validates :url, presence: true
+  class << self
+    delegate :file_kinds, :logo_kind, :kinds, :kinds_i18n, to: LinkType
+  end
+
+  def file_extension
+    file_name.sub(file_base_name, '')
+  end
+
+  def file_base_name
+    file_name.match(/\A[^\.]+/).to_a.first.to_s
+  end
+
+  def file_name
+    file_file_name || path.to_s.match(/[^\/]+\z/).to_a.first.to_s
+  end
+
+  Paperclip.interpolates :belongs_to  do |attachment, _style|
+    link = attachment.instance
+    "#{link.linkable_type}/#{link.linkable_id}/#{link.link_type.kind}"
+  end
+
+  private
+
+  # Required by the VolunFrontend app to be fetched without the Paperclip gem
+  def update_path
+    update_column :path, file.url
+  end
 
 end

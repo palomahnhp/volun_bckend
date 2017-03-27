@@ -45,7 +45,7 @@ module ScaffoldHelper
 
     content_tag :div, class: 'has-error alert alert-danger alert-dismissable' do
       "<button name=\"button\" type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>" \
-      "#{form.error(:base)}".html_safe
+      "#{form.object.errors[:base]}".html_safe
     end
   end
 
@@ -126,6 +126,22 @@ module ScaffoldHelper
     link_to(text, public_send(path, record, options[:path_params]||{}), options)
   end
 
+  def link_to_linkable(record, opts = {})
+    return unless can?(:recover, record)
+    options = {
+        id:     "#{dom_id(record)}_recover",
+        text:   icon_recover,
+        path:   "#{record.linkable_type.underscore}_path",
+        remote: false,
+        method: :post,
+        data:   {confirm: t('messages.are_you_sure')}
+    }.merge(opts)
+    path = options.delete(:path)
+    text = options.delete(:text)
+
+    link_to(text, public_send(path, record, options[:path_params]||{}), options)
+  end
+
   # TODO uncomment when index js response is done
   # def link_to_index(record, opts = {})
   #   return unless can?(:list, record)
@@ -160,6 +176,12 @@ module ScaffoldHelper
                           file:          :horizontal_file_input,
                           boolean:       :horizontal_boolean }
      }
+  end
+
+  def attachable_form_options
+    @attachable_form_options = default_form_options
+    @attachable_form_options[:html] = { class: 'form-horizontal', multipart: true }
+    @attachable_form_options
   end
 
   def show_simple_date(date, options = {})

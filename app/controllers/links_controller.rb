@@ -41,9 +41,18 @@ class LinksController < ApplicationController
     respond_with(@link)
   end
 
+  def target
+    puts "+++++++++++++++++++++++++++ target 1"
+    @incoming_file = params[:file]
+    file_name = params[:original_file_name]
+    # FileUtils.mv @incoming_file.tempfile, "/Users/my_home_directory/#{file_name}"
+    FileUtils.mv @incoming_file.tempfile, "#{Rails.root.to_s}/#{file_name}"
+    puts "+++++++++++++++++++++++++++ target 2"
+  end
+
   protected
 
     def link_params
-      params.require(:link).permit(:url, :description, :kind, :linkable_id)
+      params.require(:link).permit(:path, :description, :linkable_id)
     end
 end

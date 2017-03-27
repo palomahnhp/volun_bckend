@@ -22,7 +22,9 @@ Rails.application.routes.draw do
   resources :id_number_types
   resources :language_levels
   resources :languages, concerns: :recoverable
-  resources :links
+  resources :links do
+    post :target, on: :collection
+  end
   resources :managers, concerns: :recoverable
   resources :nationalities, concerns: :recoverable
   resources :notice_types

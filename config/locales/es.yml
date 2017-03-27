@@ -33,6 +33,17 @@ es:
   other_data: Otros datos de interés
   main_data: Datos principales
   contact_data: Datos de contacto
+  logo: Logo
+  doc: Documento
+  docs: Documentos
+  url: URL
+  urls: URL's
+  video: Video
+  videos: Videos
+  image: Imágen
+  images: Imágenes
+  update_logo: Actualizar logo
+  name: Nombre
   messages:
     are_you_sure: ¿Está seguro?
     access_denied: "Accesso denegado"
