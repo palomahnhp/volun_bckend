@@ -48,7 +48,7 @@
           </div>
           <div class="caption">
             <h3><%= "#{t('diary')} #{t('of')} #{Activity.model_name.human(count: 2)}" %></h3>
-            <p class="count">(<%= Activity.all_active.count %> <%= t('activities').downcase %>)</p>
+            <p class="count">(<%= Activity.all_active.count %> <%= Activity.model_name.human(count: 2).downcase %>)</p>
           </div>
         </div>
       </div>
