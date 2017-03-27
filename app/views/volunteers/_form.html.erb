@@ -40,6 +40,19 @@
       <%= f.input :availability_date, as: :string, input_html: date_input_html(f.object.availability_date), wrapper_html: { class: 'col-md-6' } %>
     </div>
     <div class="row well">
+      <%= content_tag :h3, Degree.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :degrees, (f.object.degrees.build if f.object.new_record? && f.object.degrees.empty?) do |f_degrees|  %>
+        <div class="timetable-fields well col-md-12">
+          <div class="row">
+              <%= f_degrees.input :degree_type_id, as: :select, collection: DegreeType.where(active: true), label: Degree.human_attribute_name(:degree_type), wrapper_html: { class: 'col-md-6' } %>
+              <%= f_degrees.input :id, as: :select, collection: Degree.where(active: true), label: Degree.human_attribute_name(:name), wrapper_html: { class: 'col-md-6' } %>
+              <%= f_degrees.link_to_remove build_icon('trash-o', text: "#{Degree.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- timetable-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Degree.model_name.human}"), :degrees, class: 'btn' %></p>
+    </div>
+    <div class="row well">
       <%= content_tag :h3, Volun::Availability.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.simple_fields_for :availabilities, (f.object.availabilities.build if f.object.new_record? && f.object.availabilities.empty?) do |f_availabilities|  %>
         <div class="timetable-fields well col-md-12">
@@ -82,6 +95,12 @@
       <div class="well col-md-12">
         <%= content_tag :h3, Skill.model_name.human(count: 2), class: 'form-subtitle' %>
         <%= f.association :skills, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="well col-md-12">
+        <%= content_tag :h3, Trait.model_name.human(count: 2), class: 'form-subtitle' %>
+        <%= f.association :traits, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
       </div>
     </div>
     <div class="row well">

@@ -38,6 +38,7 @@ class Volunteer < ActiveRecord::Base
   has_and_belongs_to_many :projects, ->{ where(active: true).order('projects.name asc') }
   has_and_belongs_to_many :projects_others, ->{ where(active: true).order('projects.name asc') }, :class_name => 'Project'
   has_and_belongs_to_many :skills, ->{ where(active: true).order('skills.name asc') }
+  has_and_belongs_to_many :degrees, ->{ where(active: true).order('degrees.name asc') }
   has_many :known_languages, :class_name => 'Volun::KnownLanguage'
   has_many :assessments,     :class_name => 'Volun::Assessment'
   has_many :availabilities,  :class_name => 'Volun::Availability'
@@ -49,6 +50,7 @@ class Volunteer < ActiveRecord::Base
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :projects, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :degrees, reject_if: :all_blank, allow_destroy: true
 
   validates :name, :last_name, :id_number, presence: true
   validates :id_number, spanish_vat: true

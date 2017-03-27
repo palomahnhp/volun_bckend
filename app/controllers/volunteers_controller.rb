@@ -139,7 +139,15 @@ class VolunteersController < ApplicationController
               :_destroy
             ]
           },
-          { project_ids: [] }
+          { project_ids: [] },
+          {
+            degrees_attributes: [
+              :id,
+              :name,
+              :degree_type,
+              :_destroy
+            ]
+          }
         )
     end
 end

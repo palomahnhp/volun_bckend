@@ -334,6 +334,7 @@ es:
       degree:
         id:          ID
         name:        Nombre Titulación
+        degree_type: Categoría Titulación
         active:      Activo
         created_at : *created_at
       unsubscribe_reason:
