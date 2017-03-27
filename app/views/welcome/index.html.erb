@@ -13,7 +13,7 @@
           </div>
           <div class="caption">
             <h3><%= Project.model_name.human(count: 2) %></h3>
-              <p class="count">(<%= Project.all_active.count %> <%= t('projects').downcase %> activos)</p>
+              <p class="count">(<%= Project.all_active.count %> <%= Project.model_name.human(count: 2).downcase%> <%= t('active').downcase.pluralize %>)</p>
           </div>
         </div>
       </div>
@@ -24,7 +24,7 @@
           </div>
           <div class="caption">
             <h3><%= Volunteer.model_name.human(count: 2) %></h3>
-            <p class="count">(<%= Volunteer.all_active.count %> <%= t('volunteers').downcase %> activos)</p>
+            <p class="count">(<%= Volunteer.all_active.count %> <%= Volunteer.model_name.human(count: 2).downcase %> <%= t('active').downcase.pluralize %>)</p>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
           </div>
           <div class="caption">
             <h3><%= Entity.model_name.human(count: 2) %></h3>
-            <p class="count">(<%= Entity.all_active.count %> <%= t('entities').downcase %> activas)</p>
+            <p class="count">(<%= Entity.all_active.count %> <%= Entity.model_name.human(count: 2).downcase %> <%= t('active_f').downcase.pluralize %>)</p>
           </div>
         </div>
       </div>
