@@ -14,6 +14,8 @@
   </div>
 </div>
 
+<p><%= model_class.model_name.human(count: 2) %>: <%= @activities.count %></p>
+
 <table class="index-table">
   <thead>
     <tr>
@@ -26,7 +28,7 @@
       </th>
     </tr>
   </thead>
-  
+
   <tbody>
     <%= render(partial: 'activity', collection: @activities)%>
   </tbody>
