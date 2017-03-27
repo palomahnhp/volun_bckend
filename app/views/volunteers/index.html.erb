@@ -5,6 +5,23 @@
     <%= model_title(model_class) %>
   </div>
 </div>
+
+<div class="index-panel row well">
+  <div class="col-md-12">
+    <div class="status-filter col-md-4 form-group select">
+      <div class="row">
+       <%= content_tag :label, Address.human_attribute_name(:district).pluralize + ":", for: 'district-select', class: 'col-sm-6 control-label' %>
+       <div class="col-sm-6">
+          <%= select_tag :district, options_for_select(@districts_array), :include_blank => t('all'),
+                                    onchange:  "if(this.value){$('#district').prop('value',this.value)}; $('.search-form').submit()",
+                                    class:     'form-control',
+                                    id:        'pages-select' %>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="index-panel row well">
   <div class="col-md-6">
     <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
