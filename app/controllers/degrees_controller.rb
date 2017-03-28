@@ -53,6 +53,6 @@ class DegreesController < ApplicationController
   protected
 
     def degree_params
-      params.require(:degree).permit(:name, :active)
+      params.require(:degree).permit(:degree_type_id, :name, :active)
     end
 end
