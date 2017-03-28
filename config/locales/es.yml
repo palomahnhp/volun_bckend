@@ -89,6 +89,8 @@ es:
   diary: Agenda
   pending: Pendientes
   block: Bloque
+  filter: Filtro
+  status: Estado
   reset_search: "Limpiar búsqueda"
   administration_title_text: Aquí se administran las tablas de la aplicación
   areas_text: Ámbitos a los que pertenece un proyecto
