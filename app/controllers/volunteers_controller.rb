@@ -6,7 +6,7 @@ class VolunteersController < ApplicationController
   def index
     params[:q] ||= Volunteer.ransack_default
     @search_q = @volunteers.search(params[:q])
-    @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
 
     districts        = Address.all.map { |address| address[:district] }
     @districts_array = districts.uniq
