@@ -25,6 +25,7 @@ es:
     process:  'Procesar'
     man_trackings: 'Gestionar seguimientos'
   details: Detalles
+  search_filter: 'Filtrar búsqueda'
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
   mark_as_pending: Marcar como pendiente
@@ -95,6 +96,7 @@ es:
   specific_fields:  'Campos específicos'
   administration: Administración
   catalogs: Catálogos
+  district: Distrito
   diary: Agenda
   pending: Pendientes
   block: Bloque
