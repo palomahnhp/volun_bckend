@@ -28,8 +28,9 @@
       <%= f.input :phone_number_alt, input_html: { data: { mask: '999999999'} }, wrapper_html: { class: 'col-md-3' } %>
     </div>
     <div class="row well">
-      <%= f.association :status, wrapper_html: { class: 'col-md-6' } %>
-      <%= f.association :employment_status, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.association :profession, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.association :status, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.association :employment_status, wrapper_html: { class: 'col-md-4' } %>
     </div>
     <div class="row well">
       <%= f.association :academic_level, wrapper_html: { class: 'col-md-6' } %>
@@ -62,10 +63,6 @@
       <%= f.input :search_authorization, wrapper_html: { class: 'col-md-3' } %>
       <%= f.input :representative_statement, wrapper_html: { class: 'col-md-3' } %>
       <%= f.input :has_driving_license, wrapper_html: { class: 'col-md-3' } %>
-    </div>
-    <div class="row well">
-      <%= f.association  :manager, wrapper_html: { class: 'col-md-6' } %>
-      <%= f.association :profession, wrapper_html: { class: 'col-md-6' } %>
     </div>
     <% unless f.object.new_record? %>
         <div class="row well">
@@ -180,7 +177,7 @@
               if ($("#rev_add").is(':checked') && $("#rev_oth").is(':checked')) {
                 var c = confirm(reviseAllMsg);
                 $("#review").val(0);
-                return c; 
+                return c;
               } else {
                 var c = confirm(reviseMsg);
                 return c;
@@ -193,11 +190,11 @@
 </div>
 
 <script>
-  
+
     // Check date fields one time at rendering;
     setAvailDate();
     setAgrmtDate();
-  
+
     // Disable availability_date if available check is checked
     function setAvailDate() {
       if ($("#volunteer_available").prop("checked")) {
@@ -207,7 +204,7 @@
         $("#volunteer_availability_date").attr("disabled", false);
       }
     }
-    
+
     // Disable agreement_date if available check is checked
     function setAgrmtDate() {
       if (!$("#volunteer_agreement").prop("checked")) {

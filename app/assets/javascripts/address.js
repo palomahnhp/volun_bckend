@@ -47,7 +47,7 @@ $(document).on('ready page:load turbolinks:load', function() {
 
 // Allow autocomple after adding a new address block
 $(document).on('nested:fieldAdded', function(event){
-    var $addNestedField = $($(this)[0].activeElement)
+    var $addNestedField = $($(this)[0].activeElement);
     var $newAddedAddress = $addNestedField.closest('.events-block').find('.event-fields:last .js-address');
     setAddressAutocomplete($newAddedAddress);
 });
