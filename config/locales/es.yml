@@ -104,6 +104,7 @@ es:
   all_statuses: Todos los estados
   errors_title_volun: Errores u observaciones
   revised: Revisado
+  files: Archivos
   trackings:
     unsubscribe_from_project: Baja de un proyecto
     subscribe_to_project: Alta en un proyecto

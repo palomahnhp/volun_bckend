@@ -9,9 +9,9 @@ class Link < ActiveRecord::Base
   has_attached_file :file,
                     styles: lambda{ |a|
                       return {} unless a.content_type.in? %w(image/jpeg image/png image/jpg image/gif)
-                      { thumb:  '100x100#', small:  '150x150>', medium: '300x300>' }
+                      { thumb:  '100x100#', small:  '200x200#', medium: '300x300>' }
                     },
-                    default_url: '/images/:style/missing.png',
+                    default_url: '/images/missing.png',
                     url: '/system/:class/:belongs_to/:id/:attachment/:style/:filename'
   validates_attachment_content_type :file, content_type: /\Atxt|pdf|doc|rtf|xls|csv\/.*\z/, if: 'document?'
   validates_attachment_content_type :file, content_type: /\Aimage\/.*\z/ , if: 'logo? || image?'
