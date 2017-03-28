@@ -19,10 +19,10 @@ class RequestForm < ActiveRecord::Base
   delegate :pending?, :processing?, :approved?, :rejected?, :kind_i18n, to: :status, allow_blank: true
 
   default_scope ->{ includes(:request_type) }
-  scope :pending,    ->(){ where(req_status_id: get_status_id_by_kind(:pending)) }
-  scope :processing, ->(){ where(req_status_id: get_status_id_by_kind(:processing)) }
-  scope :approved,   ->(){ where(req_status_id: get_status_id_by_kind(:approved)) }
-  scope :rejected,   ->(){ where(req_status_id: get_status_id_by_kind(:rejected)) }
+  scope :pending,    ->(){ includes(:status).where(req_statuses: { kind: kinds[:pending] }) }
+  scope :processing, ->(){ includes(:status).where(req_statuses: { kind: kinds[:processing] }) }
+  scope :approved,   ->(){ includes(:status).where(req_statuses: { kind: kinds[:approved] }) }
+  scope :rejected,   ->(){ includes(:status).where(req_statuses: { kind: kinds[:rejected] }) }
 
   validates :req_rejection_type_id, presence: true, if: 'req_status_id_changed? && rejected?'
   validate :req_rejection_type_no_presence
@@ -30,32 +30,32 @@ class RequestForm < ActiveRecord::Base
 
   class << self
     delegate :kinds, :kinds_i18n, to: Req::Status
+  end
 
-    def statuses_i18n
-      kinds_i18n
-    end
+  def self.statuses_i18n
+    kinds_i18n
+  end
 
-    def statuses
-      kinds
-    end
+  def self.statuses
+    kinds
+  end
 
-    def main_columns
-      %i(
+  def self.main_columns
+    %i(
         request_type
         user
         status
         status_date
         reason
       )
-    end
+  end
 
-    def get_status_id_by_kind(status)
-      Req::Status.send(status).take.try :id
-    end
+  def self.get_status_id_by_kind(status)
+    Req::Status.send(status).take.try :id
+  end
 
-    def status_names
-      statuses.keys
-    end
+  def self.status_names
+    statuses.keys
   end
 
   def pending!

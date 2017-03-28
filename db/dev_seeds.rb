@@ -146,7 +146,7 @@ NATIONALITIES = [
 	'Italiano'
 ]
 
-puts "Creando Ámbitos"
+puts "Creando Colectivos"
 COLLECTIVE_NAMES.each do |name|
   Collective.create!(name: name)
 end
@@ -161,11 +161,6 @@ puts "Creando Coordinaciones"
   Coordination.create!(name: "#{Coordination.model_name.human} #{n}")
 end
 
-puts "Creando Links"
-(1..LINKS).each do |n|
-  Link.create!(url: "http://url#{n}.com", description: "Link #{n} description.")
-end
-
 puts "Creando Professions"
 (1..PROFESSIONS).each do |n|
   Profession.create!(name: "Profession_#{n}")
@@ -177,16 +172,6 @@ puts "Creando Motivos de rechazo"
 end
 
 Rake::Task['db:custom_seed'].invoke
-
-puts "Creando Frontpage Positions"
-(1..FRONTPAGE_POSTN).each do |n|
-  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
-end
-
-puts "Creando Frontpage Elements"
-(1..FRONTPAGE_ELEMS).each do |n|
-  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
-end
 
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
@@ -368,4 +353,71 @@ puts "Creando Voluntarios"
                     id_number: %w(Z8383769K 38741046F).sample,
                     email: Faker::Internet.email,
                     address:  Address.all.sample)
+end
+
+puts "#{I18n.t('creating')} manager user"
+attributes = {
+  login:                 'manager',
+  email:                 'manager@madrid.es',
+  password:              'Wordpass1',
+  password_confirmation: 'Wordpass1',
+  loggable:              Manager.first,
+  notice_type:           NoticeType.all.sample
+}
+user = User.find_or_initialize_by(login: attributes[:login])
+
+if user.new_record?
+  user.attributes = attributes
+  user.save!
+else
+  user.update_attributes!(attributes)
+end
+
+puts "#{I18n.t('creating')} entity user"
+attributes = {
+  login: 'entity',
+  email: 'entity@madrid.es',
+  password: 'Wordpass1',
+  password_confirmation: 'Wordpass1',
+  loggable: Entity.first,
+  notice_type: NoticeType.all.sample
+}
+user = User.find_or_initialize_by(login: attributes[:login])
+
+if user.new_record?
+  user.attributes = attributes
+  user.save!
+else
+  user.update_attributes!(attributes)
+end
+
+puts "#{I18n.t('creating')} voluntary user"
+attributes = {
+  email:                 'volunteering@madrid.es',
+  login:                 'volunteering',
+  password:              'Wordpass1',
+  password_confirmation: 'Wordpass1',
+  loggable:              Volunteer.first,
+  notice_type:           NoticeType.all.sample
+}
+user = User.find_or_initialize_by(login: attributes[:login])
+
+if user.new_record?
+  user.attributes = attributes
+  user.save!
+else
+  user.update_attributes!(attributes)
+end
+
+
+
+
+puts "Creando Frontpage Positions"
+(1..FRONTPAGE_POSTN).each do |n|
+  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
+end
+
+puts "Creando Frontpage Elements"
+(1..FRONTPAGE_ELEMS).each do |n|
+  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
 end

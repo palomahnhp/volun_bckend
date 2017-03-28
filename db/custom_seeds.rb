@@ -1,6 +1,6 @@
 Rake::Task['db:seed'].invoke
 
-[NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel].each do |model|
+[NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel, LinkType].each do |model|
   puts "#{I18n.t('creating')} #{model.model_name.human}"
   model.kinds.each do |kind_name , kind_num|
     model.create!(id: kind_num, kind: kind_num, description: kind_name)
@@ -737,45 +737,3 @@ InfoSource.create!(id: 5, name: 'Redes Sociales'                    , active: tr
 InfoSource.create!(id: 6, name: 'Medios de comunicación'            , active: true)
 InfoSource.create!(id: 7, name: 'Acciones de Voluntarios Por Madrid', active: true)
 InfoSource.create!(id: 8, name: 'Otros'                             , active: true)
-
-
-
-puts "#{I18n.t('creating')} admin user"
-User.first_or_create!(
-  login: 'admin',
-  email: 'admin@madrid.es',
-  password: 'Wordpass1',
-  password_confirmation: 'Wordpass1',
-  loggable: Manager.first_or_create!(name: 'admin'),
-  notice_type: NoticeType.all.sample
-)
-
-puts "#{I18n.t('creating')} manager user"
-user = User.first_or_create!(
-  login: 'manager',
-  email: 'manager@madrid.es',
-  password: 'Wordpass1',
-  password_confirmation: 'Wordpass1',
-  loggable: Manager.first_or_create!(name: 'manager'),
-  notice_type: NoticeType.all.sample
-)
-
-puts "#{I18n.t('creating')} entity user"
-user = User.first_or_create!(
-    login: 'entity',
-    email: 'entity@madrid.es',
-    password: 'pwd',
-    password_confirmation: 'pwd',
-    loggable: Manager.first_or_create!(name: 'entity'),
-    notice_type: NoticeType.all.sample
-)
-
-puts "#{I18n.t('creating')} voluntary user"
-user = User.first_or_create!(
-    login: 'voluntary',
-    email: 'voluntary@madrid.es',
-    password: 'pwd',
-    password_confirmation: 'pwd',
-    loggable: Manager.first_or_create!(name: 'voluntary'),
-    notice_type: NoticeType.all.sample
-)

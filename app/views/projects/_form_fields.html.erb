@@ -1,25 +1,36 @@
 <div class="form-inputs">
   <div class="row well">
-    <div class="col-md-12">
+    <div class="well col-md-12">
       <%= content_tag :h1, Project.model_name.human, class: 'form-subtitle' %>
       <%= show_simple_base_errors(f) %>
       <div class="row">
-        <%= f.input :project_type_id, as: :hidden %>
-        <div class="col-md-6">
+        <div class="logo_block col-md-2">
+          <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
+              <%= show_simple_base_errors(f_logo) %>
+              <div class="logo-fields col-md-12">
+                <div class="">
+                  <%= content_tag :div, image_tag(f_logo.object.file.url(:small), height: '210', width: '210'), class: 'logo-img' %>
+                  <%= f_logo.input :file, as: :file, label: false, wrapper_html: { class: '' } %>
+                  <%= f_logo.input :link_type_id, as: :hidden %>
+                </div> <!-- logo-fields -->
+              </div>
+          <% end %>
+        </div> <!-- logo_block -->
+        <div class="col-md-10">
+          <%= f.input :project_type_id, as: :hidden %>
           <%= f.input :name %>
-        </div>
-        <div class="col-md-6">
-          <%= f.input :active unless f.object.new_record? %>
-          <%= f.input :volunteers_allowed %>
-          <%= f.input :publish %>
-          <%= f.input :outstanding %>
-          <%= f.input :urgent %>
-
+          <%= f.input :description %>
+          <%= f.input :comments %>
         </div>
       </div>
       <div class="row">
-        <%= f.input :description, wrapper_html: { class: 'col-md-6' } %>
-        <%= f.input :comments, wrapper_html: { class: 'col-md-6' } %>
+        <p>
+          <%= f.input :active, wrapper_html: { class: 'col-md-2' } unless f.object.new_record? %>
+          <%= f.input :volunteers_allowed, wrapper_html: { class: 'col-md-3' } %>
+          <%= f.input :publish, wrapper_html: { class: 'col-md-2' } %>
+          <%= f.input :outstanding, wrapper_html: { class: 'col-md-2' } %>
+          <%= f.input :urgent, wrapper_html: { class: 'col-md-2' } %>
+        </p>
       </div>
     </div>
   </div>
@@ -146,9 +157,93 @@
       </div>
     </div>
   </div>
+  <div id="files" class="row well">
+    <div class="files-header row">
+      <div class="col-md-11">
+        <%= content_tag :h2, t('files'), class: 'form-subtitle' %>
+      </div>
+      <div class="col-md-1">
+        <p class="js-arrow hidden">
+          <span><%= build_icon('angle-down') %></span>
+          <span class="hidden"><%= build_icon('angle-up') %></span>
+        </p>
+      </div>
+    </div>
+    <div class="files-block">
+      <div class="images_block row well js-files-block">
+        <%= content_tag :h3, t('images'), class: 'form-subtitle' %>
+        <%= f.simple_fields_for :images  do |f_file|  %>
+            <%= show_simple_base_errors(f_file) %>
+            <div class="image-fields well col-md-12 js-file-fields">
+              <div class="row">
+                <%= f_file.input :path, label: t('name'), input_html: { disabled: true, value: f_file.object.file_base_name }, wrapper_html: { class: 'link-path col-md-5' } %>
+                <%= content_tag :div, link_to(build_icon(:share, text: f_file.object.file_extension), f_file.object.file.url, target: :_blank), class: 'js-file-link form-group col-md-1' %>
+                <%= f_file.input :file, as: :file, label: false, wrapper_html: { class: 'col-md-4' } %>
+                <%= f_file.input :link_type_id, as: :hidden, input_html: { value: LinkType.image.take.id } %>
+                <%= f_file.link_to_remove build_icon('trash-o', text: t('image')), class: 'col-md-2 pull-right' %>
+              </div> <!-- images-fields -->
+            </div>
+        <% end %>
+        <p><%= f.link_to_add icon_new(text: t('images')), :images, class: 'btn' %></p>
+      </div> <!-- images_block -->
+      <div class="docs_block row well js-files-block">
+        <%= content_tag :h3, t('docs'), class: 'form-subtitle' %>
+        <%= f.simple_fields_for :docs do |f_file|  %>
+            <%= show_simple_base_errors(f_file) %>
+            <div class="doc-fields well col-md-12 js-file-fields">
+              <div class="row">
+                <%= f_file.input :path, label: t('name'), input_html: { disabled: true, value: f_file.object.file_base_name }, wrapper_html: { class: 'link-path col-md-5' } %>
+                <% icon_name = /\.(txt|pdf)/ === f_file.object.file_extension ? :share : :download %>
+                <%= content_tag :div, link_to(build_icon(icon_name, text: f_file.object.file_extension), f_file.object.file.url, target: :_blank), class: 'js-file-link form-group col-md-1' %>
+                <%= f_file.input :file, as: :file, label: false, wrapper_html: { class: 'col-md-4' } %>
+                <%= f_file.input :link_type_id, as: :hidden, input_html: { value: LinkType.document.take.id } %>
+                <%= f_file.link_to_remove build_icon('trash-o', text: t('doc')), class: 'col-md-2 pull-right' %>
+              </div> <!-- docs-fields -->
+            </div>
+        <% end %>
+        <p><%= f.link_to_add icon_new(text: t('docs')), :docs, class: 'btn' %></p>
+      </div> <!-- docs_block -->
+      <div class="urls_block row well js-files-block">
+        <%= content_tag :h3, t('urls'), class: 'form-subtitle' %>
+        <%= f.simple_fields_for :urls  do |f_file|  %>
+            <%= show_simple_base_errors(f_file) %>
+            <div class="url-fields well col-md-12 js-file-fields">
+              <div class="row">
+                <%= f_file.input :path, as: :url, wrapper_html: { class: 'link-path col-md-9' } %>
+                <%= content_tag :div, link_to(build_icon(:share), f_file.object.path, target: :_blank), class: 'js-file-link form-group col-md-1' %>
+                <%= f_file.input :link_type_id, as: :hidden, input_html: { value: LinkType.url.take.id } %>
+                <%= f_file.link_to_remove build_icon('trash-o', text: t('url')), class: 'col-md-2 pull-right' %>
+              </div> <!-- urls-fields -->
+            </div>
+        <% end %>
+        <p><%= f.link_to_add icon_new(text: t('urls')), :urls, class: 'btn' %></p>
+      </div> <!-- urls_block -->
+      <%# TODO remove this conditional when video uploads is allowed %>
+      <% if false %>
+          <div class="videos_block row well js-files-block">
+            <%= content_tag :h3, t('videos'), class: 'form-subtitle' %>
+            <%= f.simple_fields_for :videos do |f_file|  %>
+                <%= show_simple_base_errors(f_file) %>
+                <div class="video-fields well col-md-12 js-file-fields">
+                  <div class="row">
+                    <%= f_file.input :path, input_html: { disabled: true }, wrapper_html: { class: 'link-path col-md-6' } %>
+                    <%= content_tag :div, link_to(build_icon(:share), f_file.object.path, target: :_blank), class: 'js-file-link form-group col-md-1' %>
+                    <%= f_file.input :file, as: :file, label: false, wrapper_html: { class: 'col-md-4' } %>
+                    <%= f_file.input :link_type_id, as: :hidden, input_html: { value: LinkType.video.take.id } %>
+                    <%= f_file.link_to_remove build_icon('trash-o', text: t('video')), class: 'col-md-2 pull-right' %>
+                  </div> <!-- videos-fields -->
+                </div>
+            <% end %>
+            <p><%= f.link_to_add icon_new(text: t('videos')), :videos, class: 'btn' %></p>
+          </div> <!-- videos_block -->
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <script>
+
+
 
 // Preventing destroy events when only one
     var eventsNum = $("#eventsNum").val();
