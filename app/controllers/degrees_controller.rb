@@ -6,7 +6,7 @@ class DegreesController < ApplicationController
   def index
     params[:q] ||= Degree.ransack_default
     @search_q = @degrees.search(params[:q])
-    if params[:degree_type] == 'all' || params[:degree_type].nil?
+    if params[:degree_type] == t('all') || params[:degree_type].nil? || params[:degree_type] == ""
       @degrees = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
     else
       @degrees = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).filter_by_degree_type(params[:degree_type])

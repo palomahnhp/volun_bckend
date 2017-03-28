@@ -11,9 +11,9 @@
   </div>
   <div class="status-filter col-md-4 form-group select">
     <div class="row">
-     <%= content_tag :label, 'Seleccionar categoría:', for: 'status-select', class: 'col-sm-6 control-label' %>
-     <div class="col-sm-6">
-        <%= select_tag :status, options_for_select(t('all') << DegreeType.where(active: true), params[:degree_type]),
+     <%= content_tag :label, 'Seleccionar categoría:', for: 'status-select', class: 'col-sm-3 control-label' %>
+     <div class="col-sm-9">
+        <%= select_tag :status, options_for_select(DegreeType.select('name').where(active: true).to_a.insert(0, t('all')), params[:degree_type]),
                        onchange:  "if(this.value){$('#degree_type').prop('value',this.value)}; $('.search-form').submit()",
                        class:     'form-control',
                        id:        'pages-select' %>
