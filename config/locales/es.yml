@@ -23,6 +23,7 @@ es:
     recover:  'Restablecer'
     undo_rejection: 'Deshacer rechazo'
     process:  'Procesar'
+    man_trackings: 'Gestionar seguimientos'
   details: Detalles
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
@@ -84,6 +85,7 @@ es:
   user_name:  'Nombre'
   user_login: 'Login'
   active:   Activo
+  active_f: Activa
   inactive: Inactivo
   all:      Todos
   of: de
@@ -105,6 +107,8 @@ es:
   errors_title_volun: Errores u observaciones
   revised: Revisado
   files: Archivos
+  associated_projects: Proyectos en los que se encuentra el voluntario
+  not_associated_projects: Asociar a proyectos
   trackings:
     unsubscribe_from_project: Baja de un proyecto
     subscribe_to_project: Alta en un proyecto

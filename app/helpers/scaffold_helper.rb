@@ -36,8 +36,13 @@ module ScaffoldHelper
 
   def build_hidden_fields(hidden_fields)
     hidden_fields.inject('') do |hf_tags, (name, value)|
-      hf_tags + hidden_field_tag(name, value)
+      hf_tags + hidden_field_tag(build_name_attr(name), value)
     end.html_safe
+  end
+
+  def build_name_attr(name)
+    name = name.to_s
+    /\Aq_(.*)\z/i === name ? "q[#{name.sub('q_', '')}]" : name
   end
 
   def show_simple_base_errors(form)
@@ -124,6 +129,22 @@ module ScaffoldHelper
     text = options.delete(:text)
 
     link_to(text, public_send(path, record, options[:path_params]||{}), options)
+  end
+  
+  def link_to_trackings(record, type, project = nil, opts = {})
+    #return unless can?(:recover, record)
+    options = {
+        id:     "#{dom_id(record)}_trackings",
+        text:   icon_tracking,
+        path:   "#{type}_trackings_path",
+        path_params: {q: {"#{record.class.model_name.singular}_id_eq": record}, project_id_assoc: project },
+        remote: false,
+        method: :get
+    }.merge(opts)
+    path = options.delete(:path)
+    text = options.delete(:text)
+
+    link_to(text, public_send(path, options[:path_params]||{}), options)
   end
 
   def link_to_linkable(record, opts = {})

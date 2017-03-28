@@ -4,6 +4,9 @@
       <td><%= show_attr(volunteer, attr_name) %></td>
   <% end %>
 
+  <td><%= volunteer.address.try :postal_code %></td>
+  <td><%= volunteer.address.try :district %></td>
+
   <td class="index_table-actions">
     <%= link_to_show(volunteer) %>
     <%= link_to_edit(volunteer) %>
@@ -12,5 +15,6 @@
 <% else %>
     <%= link_to_destroy(volunteer) %>
 <% end %>
+    <%= link_to_trackings(volunteer, "volun") %>
   </td>
 </tr>

@@ -118,11 +118,42 @@
 
 
     <div class="row">
-      <div class="well col-md-12">
-        <%= content_tag :h3, Project.model_name.human(count: 2), class: 'form-subtitle' %>
-        <div class="with-scroll-bar">
-          <%= f.association :projects, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      <% if @volunteer.persisted? && f.object.projects.any? %>
+        <div class="well col-md-12">
+          <%= content_tag :h3, t('associated_projects'), class: 'form-subtitle' %>
+          <div class="with-scroll-bar">
+            <%= f.association :projects, as: :check_boxes, collection: f.object.projects, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+          </div>
+          <table class="index-table">
+            <thead>
+              <tr>
+                <th><%= Project.human_attribute_name(:name) %></th>
+                <th><%= Project.human_attribute_name(:description) %></th>
+                <th><%= t('actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% f.object.projects.each do |project| %>
+                <tr>
+                  <td><%= project.name %></td>
+                  <td><%= project.description %></td>
+                  <td>
+                    <%= link_to_show(project.pt_extendable || project) %>
+                    <%= link_to_trackings(f.object, "volun", project) %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
         </div>
+      <% end %>
+      <div class="well col-md-12">
+        <%= content_tag :h3, t('not_associated_projects'), class: 'form-subtitle' %>
+        <% if f.object.projects.any? %>
+          <%= f.association :projects, as: :select, collection: f.object.unassociated_projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+        <% else %>
+          <%= f.association :projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+        <% end %>
       </div>
     </div>
   </div>

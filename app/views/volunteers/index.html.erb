@@ -10,9 +10,11 @@
     <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_comments_or_expectations_or_other_academic_info_cont), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :address_district_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_comments_or_expectations_or_other_academic_info_cont), class: 'col-md-6 pull-right') %>
   </div>
 </div>
+
+<p><%= model_class.model_name.human(count: 2) %>: <%= @volunteers.count %></p>
 
 <table class="index-table">
   <thead>
@@ -21,12 +23,15 @@
       <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
     <% end -%>
 
+      <th><%= Address.human_attribute_name(:postal_code) %></th>
+      <th><%= Address.human_attribute_name(:district) %></th>
+
       <th class="actions index_table-actions">
         <%= t('actions') %>
       </th>
     </tr>
   </thead>
-  
+
   <tbody>
     <%= render(partial: 'volunteer', collection: @volunteers)%>
   </tbody>

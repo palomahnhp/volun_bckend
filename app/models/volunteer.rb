@@ -36,6 +36,7 @@ class Volunteer < ActiveRecord::Base
   belongs_to :manager
   belongs_to :unsubscribe_reason
   has_and_belongs_to_many :projects, ->{ where(active: true).order('projects.name asc') }
+  has_and_belongs_to_many :projects_others, ->{ where(active: true).order('projects.name asc') }, :class_name => 'Project'
   has_and_belongs_to_many :skills, ->{ where(active: true).order('skills.name asc') }
   has_many :known_languages, :class_name => 'Volun::KnownLanguage'
   has_many :assessments,     :class_name => 'Volun::Assessment'
@@ -74,8 +75,11 @@ class Volunteer < ActiveRecord::Base
                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
                                        allow_blank: true }
 
+  scope :all_active,   ->(){ where(active: true) }
+  scope :all_inactive, ->(){ where(active: false) }
+
   def self.main_columns
-    %i(name last_name last_name_alt email gender)
+    %i(id_number name last_name last_name_alt phone_number phone_number_alt)
   end
 
   def self.ransack_default
@@ -84,6 +88,10 @@ class Volunteer < ActiveRecord::Base
 
   def to_s
     name
+  end
+  
+  def unassociated_projects
+    Project.where('id NOT IN (?)', self.projects.select('id'))
   end
 
 end

@@ -1,22 +1,24 @@
-<%= main_title(t("action.show", model: VolunTracking.model_name.human)) %>
+<%= main_title(t("action.show", model: Volun::Tracking.model_name.human)) %>
 
 <dl class="dl-horizontal">
 
-  <dt><%= VolunTracking.human_attribute_name(:id) %>:</dt>
-  <dd><%= @volun_tracking.id %></dd>
-  <dt><%= VolunTracking.human_attribute_name(:volunteer_id) %>:</dt>
+  <dt><%= Volun::Tracking.human_attribute_name(:volunteer) %>:</dt>
   <dd><%= @volun_tracking.volunteer %></dd>
-  <dt><%= VolunTracking.human_attribute_name(:tracking_type_id) %>:</dt>
+  <dt><%= Volun::Tracking.human_attribute_name(:tracking_type) %>:</dt>
   <dd><%= @volun_tracking.tracking_type %></dd>
-  <dt><%= VolunTracking.human_attribute_name(:project_id) %>:</dt>
+  <dt><%= Volun::Tracking.human_attribute_name(:project) %>:</dt>
   <dd><%= @volun_tracking.project %></dd>
-  <dt><%= VolunTracking.human_attribute_name(:manager_id) %>:</dt>
+  <dt><%= Volun::Tracking.human_attribute_name(:manager) %>:</dt>
   <dd><%= @volun_tracking.manager %></dd>
-  <dt><%= VolunTracking.human_attribute_name(:tracking_date) %>:</dt>
-  <dd><%= @volun_tracking.tracking_date %></dd>
-  <dt><%= VolunTracking.human_attribute_name(:comments) %>:</dt>
+  <% unless @volun_tracking.request_form.nil? %>
+    <dt><%= Volun::Tracking.human_attribute_name(:request_form) %>:</dt>
+    <dd><%= @volun_tracking.request_form.request_type %></dd>
+  <% end %>
+  <dt><%= Volun::Tracking.human_attribute_name(:tracked_at) %>:</dt>
+  <dd><%= show_simple_date(@volun_tracking.tracked_at) %></dd>
+  <dt><%= Volun::Tracking.human_attribute_name(:comments) %>:</dt>
   <dd><%= @volun_tracking.comments %></dd>
-  <dt><%= VolunTracking.human_attribute_name(:created_at) %>:</dt>
+  <dt><%= Volun::Tracking.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@volun_tracking.created_at) %></dd>
 
 </dl>
