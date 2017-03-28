@@ -71,6 +71,12 @@ $( document ).ready(function() {
         $(".spinner").delay(500).hide(0);
     });
 
+    //reset button
+    $("#btn-reset").click(function(){
+        $('#q_address_district_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_comments_or_expectations_or_other_academic_info_cont').prop('value', "");
+        $('.search-form').submit()
+    });
+
 });
 
 var update_hidden_inputs = function(elem, selector){

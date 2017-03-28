@@ -100,6 +100,7 @@ es:
   diary: Agenda
   pending: Pendientes
   block: Bloque
+  reset_search: "Limpiar búsqueda"
   administration_title_text: Aquí se administran las tablas de la aplicación
   areas_text: Ámbitos a los que pertenece un proyecto
   project_types_text: Tipos de proyecto a los que un proyecto puede ser
