@@ -12,8 +12,8 @@
       <div class="row">
        <%= content_tag :label, Address.human_attribute_name(:district).pluralize + ":", for: 'district-select', class: 'col-sm-6 control-label' %>
        <div class="col-sm-6">
-          <%= select_tag :district, options_for_select(@districts_array), :include_blank => t('all'),
-                                    onchange:  "if(this.value){$('#district').prop('value',this.value)}; $('.search-form').submit()",
+          <%= select_tag :district, options_for_select(@districts_array), include_blank: t('all'),
+                                    onchange:  "if(this.value){$('#q_address_district_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_comments_or_expectations_or_other_academic_info_cont').prop('value',this.value)}; $('.search-form').submit()",
                                     class:     'form-control',
                                     id:        'pages-select' %>
        </div>

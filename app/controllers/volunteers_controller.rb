@@ -8,9 +8,9 @@ class VolunteersController < ApplicationController
     @search_q = @volunteers.search(params[:q])
     @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
-    districts = Address.all.map { |address| address[:district] }
+    districts        = Address.all.map { |address| address[:district] }
     @districts_array = districts.uniq
-    
+
     respond_with(@volunteers)
   end
 
