@@ -44,8 +44,13 @@
       <%= f.simple_fields_for :degrees, (f.object.degrees.build if f.object.new_record? && f.object.degrees.empty?) do |f_degrees|  %>
         <div class="timetable-fields well col-md-12">
           <div class="row">
-              <%= f_degrees.input :degree_type_id, as: :select, collection: DegreeType.where(active: true), label: Degree.human_attribute_name(:degree_type), wrapper_html: { class: 'col-md-6' } %>
-              <%= f_degrees.input :id, as: :select, collection: Degree.where(active: true), label: Degree.human_attribute_name(:name), wrapper_html: { class: 'col-md-6' } %>
+              <%= f_degrees.association :degree_type, wrapper_html: { class: 'col-md-6' } %>
+              <div class='col-md-6'>
+                <%= label_tag Degree.human_attribute_name(:name), nil, class: 'col-sm-5 control-label select required' %>
+                <div class='col-sm-7'>
+                  <%= f_degrees.select :name, Degree.where(active: true), {}, { class: 'form-control' } %>
+                </div>
+              </div>
               <%= f_degrees.link_to_remove build_icon('trash-o', text: "#{Degree.model_name.human}"), class: 'pull-right' %>
           </div> <!-- timetable-fields -->
         </div>
@@ -156,14 +161,14 @@
             </thead>
             <tbody>
               <% f.object.projects.each do |project| %>
-                <tr>
-                  <td><%= project.name %></td>
-                  <td><%= project.description %></td>
-                  <td>
-                    <%= link_to_show(project.pt_extendable || project) %>
-                    <%= link_to_trackings(f.object, "volun", project) %>
-                  </td>
-                </tr>
+                  <tr>
+                    <td><%= project.name %></td>
+                    <td><%= project.description %></td>
+                    <td>
+                      <%= link_to_show(project.pt_extendable || project) %>
+                      <%= link_to_trackings(f.object, "volun", project) %>
+                    </td>
+                  </tr>
               <% end %>
             </tbody>
           </table>

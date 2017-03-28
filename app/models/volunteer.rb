@@ -50,7 +50,7 @@ class Volunteer < ActiveRecord::Base
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :projects, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :degrees, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :degrees, reject_if: :check_existing, allow_destroy: true
 
   validates :name, :last_name, :id_number, presence: true
   validates :id_number, spanish_vat: true
@@ -94,6 +94,18 @@ class Volunteer < ActiveRecord::Base
   
   def unassociated_projects
     Project.where('id NOT IN (?)', self.projects.select('id'))
+  end
+  
+  def check_existing(degree_attr)
+    _degree = Degree.find_by(name: degree_attr[:name])
+    if _degree && !self.degrees.exists?(_degree.id)
+      self.degrees << _degree
+      return true
+    elsif _degree && self.degrees.exists?(_degree.id)
+      return true
+    else
+      return false
+    end
   end
 
 end

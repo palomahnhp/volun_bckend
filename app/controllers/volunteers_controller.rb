@@ -140,9 +140,12 @@ class VolunteersController < ApplicationController
             ]
           },
           { project_ids: [] },
+          { trait_ids: [] },
           {
             degrees_attributes: [
               :id,
+              :name,
+              :degree_type,
               :degree_type_id,
               :_destroy
             ]
