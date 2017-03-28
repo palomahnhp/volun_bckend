@@ -5,10 +5,14 @@ class Degree < ActiveRecord::Base
 
   belongs_to :degree_type
   
-  scope :filter_by_degree_type, ->(dt_id){ where(active: true, degree_type_id: dt_id) }
+  scope :filter_by_degree_type, ->(dt_name){ where(active: true).joins(:degree_type).where("degree_types.name LIKE ?", dt_name) }
 
   validates :name, uniqueness: true
   validates :name, :degree_type, presence: true
+  
+  def self.main_columns
+    %i(degree_type name active)
+  end
 
   def to_s
     name

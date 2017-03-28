@@ -143,8 +143,7 @@ class VolunteersController < ApplicationController
           {
             degrees_attributes: [
               :id,
-              :name,
-              :degree_type,
+              :degree_type_id,
               :_destroy
             ]
           }
