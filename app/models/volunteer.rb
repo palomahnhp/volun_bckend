@@ -79,6 +79,15 @@ class Volunteer < ActiveRecord::Base
 
   scope :all_active,   ->(){ where(active: true) }
   scope :all_inactive, ->(){ where(active: false) }
+  scope :all_active,   ->(){ where(active: true) }
+  scope :all_inactive, ->(){ where(active: false) }
+  scope :with_status, ->(status){
+    if status.to_s.in? %w(active inactive)
+      public_send("all_#{status}")
+    else
+      all
+    end
+  }
 
   def self.main_columns
     %i(id_number name last_name last_name_alt phone_number phone_number_alt)
@@ -91,7 +100,7 @@ class Volunteer < ActiveRecord::Base
   def to_s
     name
   end
-  
+
   def unassociated_projects
     Project.where('id NOT IN (?)', self.projects.select('id'))
   end
