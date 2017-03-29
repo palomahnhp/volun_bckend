@@ -10,7 +10,7 @@ class VolunteersController < ApplicationController
 
     @districts_names = Address.pluck(:district).uniq
 
-    @degreeSearch = Degree.filter_by_degree_type(params[:dt_id])
+    @degreeSearch = Degree.filter_by_degree_type_id(params[:dt_id])
     respond_to do |format|
       format.html
       format.js {
