@@ -18,7 +18,7 @@
     <div class="status-filter col-md-4 form-group select">
        <%= content_tag :label, t('filter').pluralize + ":", for: 'district-select', class: 'col-sm-6 control-label' %>
        <div class="col-sm-6">
-          <%= select_tag :district, options_for_select(@districts_array), include_blank: t('district'),
+          <%= select_tag :district, options_for_select(@district_names), include_blank: t('district'),
                                     onchange:  "if(this.value){$('#q_address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_comments_or_expectations_or_other_academic_info_cont').prop('value',this.value)}; $('.search-form').submit()",
                                     class:     'form-control',
                                     id:        'pages-select' %>
