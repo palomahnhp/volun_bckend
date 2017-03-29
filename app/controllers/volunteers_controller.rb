@@ -10,7 +10,12 @@ class VolunteersController < ApplicationController
 
     @districts_names = Address.pluck(:district).uniq
 
-    respond_with(@volunteers)
+    @degreeSearch = Degree.filter_by_degree_type_id(params[:dt_id])
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: @degreeSearch.to_json }
+    end
   end
 
   def show
@@ -142,7 +147,17 @@ class VolunteersController < ApplicationController
               :_destroy
             ]
           },
-          { project_ids: [] }
+          { project_ids: [] },
+          { trait_ids: [] },
+          {
+            degrees_attributes: [
+              :id,
+              :name,
+              :degree_type,
+              :degree_type_id,
+              :_destroy
+            ]
+          }
         )
     end
 end

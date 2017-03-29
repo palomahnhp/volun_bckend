@@ -2,8 +2,9 @@
   <%= simple_form_for(@degree, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.input :name %>
-          <%= f.input :active %>
+    <%= f.association :degree_type %>
+    <%= f.input :name %>
+    <%= f.input :active %>
   </div>
 
   <div class="form-actions">

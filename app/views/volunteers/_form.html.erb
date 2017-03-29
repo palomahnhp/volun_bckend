@@ -41,6 +41,26 @@
       <%= f.input :availability_date, as: :string, input_html: date_input_html(f.object.availability_date), wrapper_html: { class: 'col-md-6' } %>
     </div>
     <div class="row well">
+      <%= content_tag :h3, Degree.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :degrees, (f.object.degrees.build if f.object.new_record? && f.object.degrees.empty?) do |f_degrees|  %>
+        <div class="timetable-fields well col-md-12">
+          <div class="row">
+              <%= f_degrees.association :degree_type, wrapper_html: { class: 'col-md-6' },
+                                                      input_html: { onchange: 'filterDegree(this.id);' }%>
+              <div class='col-md-6'>
+                <%= label_tag Degree.human_attribute_name(:name), nil, class: 'col-sm-5 control-label select required' %>
+                <div class='col-sm-7'>
+                  <%= f_degrees.select :name, Degree.filter_by_degree_type_id(f_degrees.object.degree_type_id),
+                                              {}, { class: 'form-control' } %>
+                </div>
+              </div>
+              <%= f_degrees.link_to_remove build_icon('trash-o', text: "#{Degree.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- timetable-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Degree.model_name.human}"), :degrees, class: 'btn' %></p>
+    </div>
+    <div class="row well">
       <%= content_tag :h3, Volun::Availability.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.simple_fields_for :availabilities, (f.object.availabilities.build if f.object.new_record? && f.object.availabilities.empty?) do |f_availabilities|  %>
         <div class="timetable-fields well col-md-12">
@@ -81,6 +101,14 @@
         <%= f.association :skills, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
       </div>
     </div>
+<!-- Intermediate table needs project_id and assessment_id, not possible to associate yet
+    <div class="row">
+      <div class="well col-md-12">
+        <%= content_tag :h3, Trait.model_name.human(count: 2), class: 'form-subtitle' %>
+        <%= f.association :traits, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      </div>
+    </div>
+-->
     <div class="row well">
       <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
       <%= f.simple_fields_for :address, (f.object.address.presence || f.object.build_address) do |f_address|  %>
@@ -118,7 +146,7 @@
 
 
     <div class="row">
-      <% if @volunteer.persisted? && f.object.projects.any? %>
+      <% if @volunteer.persisted? && f.object.reload.projects.any? %>
         <div class="well col-md-12">
           <%= content_tag :h3, t('associated_projects'), class: 'form-subtitle' %>
           <div class="with-scroll-bar">
@@ -134,14 +162,14 @@
             </thead>
             <tbody>
               <% f.object.projects.each do |project| %>
-                <tr>
-                  <td><%= project.name %></td>
-                  <td><%= project.description %></td>
-                  <td>
-                    <%= link_to_show(project.pt_extendable || project) %>
-                    <%= link_to_trackings(f.object, "volun", project) %>
-                  </td>
-                </tr>
+                  <tr>
+                    <td><%= project.name %></td>
+                    <td><%= project.description %></td>
+                    <td>
+                      <%= link_to_show(project.pt_extendable || project) %>
+                      <%= link_to_trackings(f.object, "volun", project) %>
+                    </td>
+                  </tr>
               <% end %>
             </tbody>
           </table>
@@ -194,6 +222,26 @@
     // Check date fields one time at rendering;
     setAvailDate();
     setAgrmtDate();
+    
+    // Select2 jQuery for degrees filtering
+    function filterDegree(degreeTypeId) {
+      degreeId = degreeTypeId.split("_degree_type_id")[0] + "_name";
+      dt_id = $("#" + degreeTypeId + " option:selected").val();
+      $.ajax({
+        url: "/volunteers",
+        dataType: 'json',
+        data: {
+            dt_id: dt_id
+        },
+        success: function (data) {
+          $("#"+degreeId).empty();
+          data.forEach(function(element) {
+            $("#"+degreeId).append("<option value='" + element.name + "'>" + element.name + "</option>");
+          });
+          return {results: data};
+        }
+      });
+    }
 
     // Disable availability_date if available check is checked
     function setAvailDate() {
