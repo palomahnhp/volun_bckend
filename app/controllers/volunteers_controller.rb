@@ -8,7 +8,15 @@ class VolunteersController < ApplicationController
     @search_q = @volunteers.search(params[:q])
     @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
-    respond_with(@volunteers)
+    @degreeSearch = Degree.filter_by_degree_type(params[:dt_id])
+    respond_to do |format|
+      format.html
+      format.js {
+        @volunteers = @volunteers
+        @degreeSearch = @degreeSearch
+      }
+      format.json { render json: @degreeSearch.to_json }
+    end
   end
 
   def show
