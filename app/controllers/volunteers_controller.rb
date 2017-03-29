@@ -6,7 +6,9 @@ class VolunteersController < ApplicationController
   def index
     params[:q] ||= Volunteer.ransack_default
     @search_q = @volunteers.search(params[:q])
-    @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
+
+    @districts_names = Address.pluck(:district).uniq
 
     respond_with(@volunteers)
   end
@@ -64,6 +66,7 @@ class VolunteersController < ApplicationController
     @volunteer.recover
     respond_with(@volunteer)
   end
+
 
   protected
 
