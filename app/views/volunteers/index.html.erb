@@ -30,6 +30,15 @@
                               class:     'form-control',
                               id:        'pages-select' %>
     </div>
+    <div class="col-sm-2" id="day-availability">
+      <%= select_tag :available_day, options_for_select(@available_days), include_blank: t('available_day'),
+                              onchange:  "",
+                              class:     'form-control',
+                              id:        'pages-select' %>
+    </div>
+    <div class="col-sm-2">
+      <button type="button" name="button" id="btn-add-day" class="btn btn-success"><%= t('add_day') %></button>
+    </div>
     <div class="col-sm-2 pull-right">
       <button type="button" name="button" id="btn-reset" class="btn btn-primary"><%= t('reset_search') %></button>
     </div>
