@@ -13,10 +13,7 @@ class VolunteersController < ApplicationController
     @degreeSearch = Degree.filter_by_degree_type_id(params[:dt_id])
     respond_to do |format|
       format.html
-      format.js {
-        @volunteers = @volunteers
-        @degreeSearch = @degreeSearch
-      }
+      format.js
       format.json { render json: @degreeSearch.to_json }
     end
   end
