@@ -6,8 +6,8 @@
   </div>
 </div>
 <div class="index-panel row well">
-  <div class="col-md-4">
-    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+  <div class="col-md-2">
+    <%= content_tag(:div, link_to_new(model_class, fem: true), class: 'col-md-6 pull-left') %>
   </div>
   <div class="status-filter col-md-4 form-group select">
     <div class="row">
@@ -20,7 +20,7 @@
      </div>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-6">
     <%= content_tag(:div, search_collection(@search_q, :degree_type_name_or_name_cont, hidden_fields: { degree_type: params[:degree_type] }), class: 'col-md-6 pull-right') %>
   </div>
 </div>
