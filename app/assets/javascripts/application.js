@@ -79,20 +79,6 @@ $( document ).ready(function() {
         $('.search-form').submit()
     });
 
-    //button for adding available days
-    $("#btn-add-day").click(function(){
-        $( "#day-availability" ).append( "<div class='row'> \
-                                            <select name='status' id='days-select' onchange='' class='form-control'><option value=''>Día disponible</option><option value='Lunes'>Lunes</option>\
-                                              <option value='Martes'>Martes</option>\
-                                              <option value='Miércoles'>Miércoles</option>\
-                                              <option value='Jueves'>Jueves</option>\
-                                              <option value='Viernes'>Viernes</option>\
-                                              <option value='Sábado'>Sábado</option>\
-                                              <option value='Domingo'>Domingo</option>\
-                                            </select>\
-                                          </div>" )
-    });
-
 });
 
 var update_hidden_inputs = function(elem, selector){
