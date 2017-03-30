@@ -65,6 +65,19 @@
       <p><%= f.link_to_add icon_new(text: "#{Degree.model_name.human}"), :degrees, class: 'btn' %></p>
     </div>
     <div class="row well">
+      <%= content_tag :h3, Volun::KnownLanguage.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :known_languages, (f.object.known_languages.build if f.object.new_record? && f.object.known_languages.empty?) do |f_known_languages|  %>
+        <div class="timetable-fields well col-md-12">
+          <div class="row">
+              <%= f_known_languages.association :language, wrapper_html: { class: 'col-md-6' } %>
+              <%= f_known_languages.association :language_level, wrapper_html: { class: 'col-md-6' } %>
+              <%= f_known_languages.link_to_remove build_icon('trash-o', text: "#{Volun::KnownLanguage.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- timetable-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Volun::KnownLanguage.model_name.human}"), :known_languages, class: 'btn' %></p>
+    </div>
+    <div class="row well">
       <%= content_tag :h3, Volun::Availability.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.simple_fields_for :availabilities, (f.object.availabilities.build if f.object.new_record? && f.object.availabilities.empty?) do |f_availabilities|  %>
         <div class="timetable-fields well col-md-12">
@@ -103,6 +116,12 @@
       <div class="well col-md-12">
         <%= content_tag :h3, Skill.model_name.human(count: 2), class: 'form-subtitle' %>
         <%= f.association :skills, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="well col-md-12">
+        <%= content_tag :h3, Area.model_name.human(count: 2), class: 'form-subtitle' %>
+        <%= f.association :areas, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
       </div>
     </div>
 <!-- Intermediate table needs project_id and assessment_id, not possible to associate yet

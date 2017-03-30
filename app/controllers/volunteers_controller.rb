@@ -125,6 +125,15 @@ class VolunteersController < ApplicationController
               :_destroy
             ]
           },
+          {
+            known_languages_attributes: [
+              :id,
+              :volunteer_id,
+              :language_id,
+              :language_level_id,
+              :_destroy
+            ]
+          },
           { skill_ids: [] },
           {
             address_attributes: [
@@ -149,6 +158,7 @@ class VolunteersController < ApplicationController
           },
           { project_ids: [] },
           { trait_ids: [] },
+          { area_ids: [] },
           {
             degrees_attributes: [
               :id,
