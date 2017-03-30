@@ -246,6 +246,9 @@ es:
       user:
         one:    Usuario
         other:  Usuarios
+      info_source:
+        one:    ¿Cómo conoció el programa de voluntariado?
+        other:  ¿Cómo conoció los programas de voluntariado?
       volunteer:
         one:   Voluntario
         other: Voluntarios
@@ -408,8 +411,8 @@ es:
         created_at :           *created_at
       req/rejection_type:
         id:          ID
-        name:        Nombre
-        description: Motivo de rechazo
+        name:        Motivo de rechazo
+        description: Descripción
         active:      Activo
         created_at : *created_at
       req/request_reason:

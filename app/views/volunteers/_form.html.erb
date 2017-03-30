@@ -41,6 +41,10 @@
       <%= f.input :availability_date, as: :string, input_html: date_input_html(f.object.availability_date), wrapper_html: { class: 'col-md-6' } %>
     </div>
     <div class="row well">
+      <%= content_tag :h3, InfoSource.model_name.human, class: 'form-subtitle' %>
+      <%= f.association :info_source, wrapper_html: { class: 'col-md-12' } %>
+    </div>
+    <div class="row well">
       <%= content_tag :h3, Degree.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.simple_fields_for :degrees, (f.object.degrees.build if f.object.new_record? && f.object.degrees.empty?) do |f_degrees|  %>
         <div class="timetable-fields well col-md-12">
