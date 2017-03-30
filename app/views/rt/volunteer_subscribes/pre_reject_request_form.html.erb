@@ -5,7 +5,12 @@
       <%= simple_form_for(@request_form, default_form_options.merge(url: reject_request_form_rt_volunteer_subscribe_path)) do |f| %>
           <div class="form-inputs well">
               <%= f.input :id, as: :hidden %>
-              <%= f.association :rejection_type %>
+              <%= f.association :rejection_type, input_html: { id: "sel_rej_type", onchange: "showComments();" } %>
+              <%= hidden_field_tag "no_accept_cond", t('no_accept_cond') %>
+              <%= hidden_field_tag "prev_comment", f.object.comments %>
+              <div id="comments">
+                <%= f.input :comments %>
+              </div>
           </div>
           <div class="form-actions">
             <%= f.button :submit, "#{t('action.reject')} #{RequestForm.model_name.human}", class: 'js-confirmable btn btn-danger' %>
@@ -15,3 +20,18 @@
 
   </div>
 </div>
+
+<script>
+  // Start hidden
+  $("#comments").hide();
+  
+  function showComments() {
+    if ($("#sel_rej_type option:selected").html() == $("#no_accept_cond").val()) {
+      $("#comments").find('textarea').html($("#prev_comment").val());
+      $("#comments").show();
+    } else {
+      $("#comments").find('textarea').html("");
+      $("#comments").hide();
+    }
+  }
+</script>

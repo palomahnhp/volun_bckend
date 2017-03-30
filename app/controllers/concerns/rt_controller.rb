@@ -29,6 +29,7 @@ module RtController
     def initialize(options = {})
       @req_rejection_type_id = options[:req_rejection_type_id]
       @request_form_id       = options[:id]
+      @request_form_comments = options[:comments]
       @request_form          = options[:request_form]
       @manager_id            = options[:manager_id]
       @errors                = []
@@ -43,7 +44,7 @@ module RtController
     end
 
     def reject_request_form
-      update_and_trace_status(:rejected, manager_id: @manager_id, req_rejection_type_id: rejection_type.try(:id))
+      update_and_trace_status(:rejected, manager_id: @manager_id, req_rejection_type_id: rejection_type.try(:id), comments: @request_form_comments)
     end
 
     def process_request_form
