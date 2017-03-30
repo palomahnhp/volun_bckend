@@ -18,10 +18,10 @@
     <div class="index-filters col-md-4 form-group select">
       <%= content_tag :label, t('filter').pluralize + ":", for: 'district-select', class: 'col-sm-6 control-label' %>
       <div class="col-sm-6">
-        <%= select_tag :district, options_for_select(@districts_names), include_blank: t('district'),
-                                  onchange:  "if(this.value){$('#q_address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_comments_or_expectations_or_other_academic_info_cont').prop('value',this.value)}; $('.search-form').submit()",
-                                  class:     'form-control',
-                                  id:        'pages-select' %>
+        <%= select_tag :address_district, options_for_select(@districts_names), include_blank: t('district'),
+                                          onchange:  "if(this.value){$('#q_address_district_eq').prop('value',this.value)}; $('.search-form').submit()",
+                                          class:     'form-control',
+                                          id:        'pages-select' %>
       </div>
     </div>
     <div class="col-sm-2">
@@ -32,9 +32,9 @@
     </div>
     <div class="col-sm-2" id="day-availability">
       <%= select_tag :available_day, options_for_select(@available_days), include_blank: t('available_day'),
-                              onchange:  "",
-                              class:     'form-control',
-                              id:        'pages-select' %>
+                                     onchange:  "",
+                                     class:     'form-control',
+                                     id:        'pages-select' %>
     </div>
     <div class="col-sm-2">
       <button type="button" name="button" id="btn-add-day" class="btn btn-success"><%= t('add_day') %></button>
@@ -50,7 +50,7 @@
     <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_comments_or_expectations_or_other_academic_info_cont, hidden_fields: { status: params[:status] }), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont, hidden_fields: { status: params[:status], q_address_district_eq: params[:q][:address_district_eq] }), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 

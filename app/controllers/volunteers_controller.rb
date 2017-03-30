@@ -8,7 +8,7 @@ class VolunteersController < ApplicationController
     @search_q = @volunteers.search(params[:q])
     @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
 
-    @districts_names = Address.pluck(:district).uniq
+    @districts_names = Address.joins(:volunteers).where.not(district: [nil, ""]).all.pluck(:district).uniq
     @available_days = Volun::Availability.days_i18n.map do |day, translation|
                         translation
                       end
