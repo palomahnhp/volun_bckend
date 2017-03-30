@@ -68,7 +68,6 @@ class Rt::VolunteerSubscribesController < ApplicationController
 
   def reject_request_form
     status_manager = RtController::StatusManager.new((params[:request_form]).merge(manager_id: current_user.loggable_id))
-    puts "=========================================>JCS\n#{params[:request_form]}\n=========================================> JCS"
     if status_manager.reject_request_form
       redirect_to rt_volunteer_subscribes_path, notice: I18n.t('messages.request_form_successfully_rejected')
     else
