@@ -59,7 +59,7 @@
                 </div>
               </div>
               <%= f_degrees.link_to_remove build_icon('trash-o', text: "#{Degree.model_name.human}"), class: 'pull-right' %>
-          </div> <!-- timetable-fields -->
+          </div> <!-- degree-fields -->
         </div>
       <% end %>
       <p><%= f.link_to_add icon_new(text: "#{Degree.model_name.human}"), :degrees, class: 'btn' %></p>
@@ -72,7 +72,7 @@
               <%= f_known_languages.association :language, wrapper_html: { class: 'col-md-6' } %>
               <%= f_known_languages.association :language_level, wrapper_html: { class: 'col-md-6' } %>
               <%= f_known_languages.link_to_remove build_icon('trash-o', text: "#{Volun::KnownLanguage.model_name.human}"), class: 'pull-right' %>
-          </div> <!-- timetable-fields -->
+          </div> <!-- known_language-fields -->
         </div>
       <% end %>
       <p><%= f.link_to_add icon_new(text: "#{Volun::KnownLanguage.model_name.human}"), :known_languages, class: 'btn' %></p>
