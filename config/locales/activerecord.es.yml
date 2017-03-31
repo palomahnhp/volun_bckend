@@ -257,7 +257,10 @@ es:
         other:  Horarios de disponibilidad del usuario
       volun/tracking:
         one:    Seguimiento de voluntario
-        other:  Seguimientos de voluntario
+        other:  Seguimientos de 
+      volun/known_language:
+        one:    Idioma
+        other:  Idiomas
       pro/tracking:
         one:    Seguimiento de proyecto
         other:  Seguimientos de proyecto
@@ -672,6 +675,13 @@ es:
         tracked_at:           Fecha del seguimiento
         automatic:            Automático
         comments:             Comentarios
+        created_at:           *created_at
+      volun/known_language:
+        id:                   ID
+        language:             Idioma
+        language_id:          Idioma
+        language_level:       Nivel
+        language_level_id:    Nivel
         created_at:           *created_at
       pro/tracking:
         id:                   ID
