@@ -35,7 +35,7 @@ Area.create!(id: 16, name: 'Gestión Administrativa', active: true)
 Area.create!(id: 17, name: 'Indiferente'           , active: true)
 Area.create!(id: 18, name: 'Otros'                 , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Area.sequence_name), Area.maximum("id") + 1)
+alter_sequence(Area.sequence_name, Area.maximum("id") + 1)
 
 ## degree_types
 puts "#{I18n.t('creating')} #{DegreeType.model_name.human}"
@@ -51,7 +51,7 @@ DegreeType.create!(id: 8,  name: 'Enseñanzas Técnicas'               , active:
 DegreeType.create!(id: 9,  name: 'Ciencias de la Salud'              , active: true) # educational_type: 'N',
 DegreeType.create!(id: 10, name: 'Otra Formación'                    , active: true) # educational_type: 'N',
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(DegreeType.sequence_name), DegreeType.maximum("id") + 1)
+alter_sequence(DegreeType.sequence_name, DegreeType.maximum("id") + 1)
 
 ##  languages
 puts "#{I18n.t('creating')} #{Language.model_name.human}"
@@ -125,7 +125,7 @@ Language.create!(id: 66, name: 'WOLOF'              , active: true)
 Language.create!(id: 98, name: 'SIGNOS'             , active: true)
 Language.create!(id: 99, name: 'OTROS'              , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Language.sequence_name), Language.maximum("id") + 1)
+alter_sequence(Language.sequence_name, Language.maximum("id") + 1)
 
 ## motivations
 puts "#{I18n.t('creating')} #{Motivation.model_name.human}"
@@ -148,7 +148,7 @@ Motivation.create!(id: 15, name: 'Para recibir información sobre voluntariado' 
 Motivation.create!(id: 16, name: 'Prescripción facultativa'                                , active: true)
 Motivation.create!(id: 99, name: 'Otras Motivaciones'                                      , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Motivation.sequence_name), Motivation.maximum("id") + 1)
+alter_sequence(Motivation.sequence_name, Motivation.maximum("id") + 1)
 
 ## unsubscribe_reasons
 puts "#{I18n.t('creating')} #{UnsubscribeReason.model_name.human}"
@@ -157,7 +157,7 @@ UnsubscribeReason.create!(id: 1, name: 'Baja voluntaria'                  , acti
 UnsubscribeReason.create!(id: 2, name: 'Incumplimiento de los compromisos', active: true)
 UnsubscribeReason.create!(id: 3, name: 'Falta de integración'             , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(UnsubscribeReason.sequence_name), UnsubscribeReason.maximum("id") + 1)
+alter_sequence(UnsubscribeReason.sequence_name, UnsubscribeReason.maximum("id") + 1)
 
 ## nationalities
 puts "#{I18n.t('creating')} #{Nationality.model_name.human}"
@@ -407,7 +407,7 @@ Nationality.create!(id: 243, name: 'SERBIA,REPÚBLICA DE'         , active: true
 Nationality.create!(id: 244, name: 'MONTENEGRO,REPÚBLICA DE'     , active: true)
 Nationality.create!(id: 999, name: 'NO IDENTIFICADO'             , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Nationality.sequence_name), Nationality.maximum("id") + 1)
+alter_sequence(Nationality.sequence_name, Nationality.maximum("id") + 1)
 
 ## academic_levels
 puts "#{I18n.t('creating')} #{AcademicLevel.model_name.human}"
@@ -430,7 +430,7 @@ AcademicLevel.create!(id: 106, name: '106-N Licenciado Universitario'      , edu
 AcademicLevel.create!(id: 107, name: '107-N Doctorado Universitario'       , educational_type: 'N', active: true)
 AcademicLevel.create!(id: 200, name: '200-N NS/NC'                         , educational_type: 'N', active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(AcademicLevel.sequence_name), AcademicLevel.maximum("id") + 1)
+alter_sequence(AcademicLevel.sequence_name, AcademicLevel.maximum("id") + 1)
 
 ## profiles
 puts "#{I18n.t('creating')} #{Profile.model_name.human}"
@@ -440,7 +440,7 @@ Profile.create!(id: 2, name: 'TECNICO'      , active: true)
 Profile.create!(id: 3, name: 'EMPRESA'      , active: true)
 Profile.create!(id: 4, name: 'VOLUNTARIO'   , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Profile.sequence_name), Profile.maximum("id") + 1)
+alter_sequence(Profile.sequence_name, Profile.maximum("id") + 1)
 
 ## sectors
 puts "#{I18n.t('creating')} #{Sector.model_name.human}"
@@ -466,7 +466,7 @@ Sector.create!(id: 18, name: 'Animales',                         active: true)
 Sector.create!(id: 19, name: 'Indiferente',                      active: true)
 Sector.create!(id: 20, name: 'Otros',                            active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Sector.sequence_name), Sector.maximum("id") + 1)
+alter_sequence(Sector.sequence_name, Sector.maximum("id") + 1)
 
 ## statuses
 puts "#{I18n.t('creating')} #{Status.model_name.human}"
@@ -482,14 +482,14 @@ Status.create!(id: 8 , name: 'Sin recurso'               , active: true)
 Status.create!(id: 9 , name: 'Situacion CM'              , active: true)
 Status.create!(id: 10, name: 'VOCNE'                     , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Status.sequence_name), Status.maximum("id") + 1)
+alter_sequence(Status.sequence_name, Status.maximum("id") + 1)
 
 ## managers
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
 Manager.create!(id: 1, name: 'MFA026', alias_name: 'MFA026', phone_number: '915880000', active: true, profile_id: 2)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Manager.sequence_name), Manager.maximum("id") + 1)
+alter_sequence(Manager.sequence_name, Manager.maximum("id") + 1)
 
 ## roles
 puts "#{I18n.t('creating')} #{Role.model_name.human}"
@@ -507,7 +507,7 @@ IdNumberType.create!(id: 3, name: 'NIE'      , active: true)
 IdNumberType.create!(id: 4, name: 'PASAPORTE', active: true)
 IdNumberType.create!(id: 5, name: 'OTROS'    , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(IdNumberType.sequence_name), IdNumberType.maximum("id") + 1)
+alter_sequence(IdNumberType.sequence_name, IdNumberType.maximum("id") + 1)
 
 ## entity_types
 puts "#{I18n.t('creating')} #{EntityType.model_name.human}"
@@ -517,7 +517,7 @@ EntityType.create!(id: 2, name: 'OTROS ORGANISMOS'   , description: 'OTROS ORGAN
 EntityType.create!(id: 3, name: 'ENTIDAD'            , description: 'ENTIDAD',             active: true)
 EntityType.create!(id: 4, name: 'EMPRESA'            , description: 'EMPRESA',             active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(EntityType.sequence_name), EntityType.maximum("id") + 1)
+alter_sequence(EntityType.sequence_name, EntityType.maximum("id") + 1)
 
 ## tracking_types
 puts "#{I18n.t('creating')} #{TrackingType.model_name.human}"
@@ -541,7 +541,7 @@ TrackingType.create!(id: 16, name: 'Incidencia'                                 
 TrackingType.create!(id: 17, name: 'Departamento Voluntariado'                      , active: true)
 TrackingType.create!(id: 18, name: 'Otros'                                          , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(TrackingType.sequence_name), TrackingType.maximum("id") + 1)
+alter_sequence(TrackingType.sequence_name, TrackingType.maximum("id") + 1)
 
 ## degrees
 puts "#{I18n.t('creating')} #{Degree.model_name.human}"
@@ -655,7 +655,7 @@ Degree.create!(id: 106, degree_type_id: 10, name: 'Música'                     
 Degree.create!(id: 107, degree_type_id: 10, name: 'Animador Sociocultural'                       , active: true)
 Degree.create!(id: 999, degree_type_id: 10, name: 'Otros'                                        , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Degree.sequence_name), Degree.maximum("id") + 1)
+alter_sequence(Degree.sequence_name, Degree.maximum("id") + 1)
 
 ## employment_statuses
 puts "#{I18n.t('creating')} #{EmploymentStatus.model_name.human}"
@@ -667,7 +667,7 @@ EmploymentStatus.create!(id: 4, name: 'Labores domésticas',active: true)
 EmploymentStatus.create!(id: 5, name: 'Desempleado/a',     active: true)
 EmploymentStatus.create!(id: 6, name: 'Otra situación',    active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(EmploymentStatus.sequence_name), EmploymentStatus.maximum("id") + 1)
+alter_sequence(EmploymentStatus.sequence_name, EmploymentStatus.maximum("id") + 1)
 
 ## language_levels
 puts "#{I18n.t('creating')} #{LanguageLevel.model_name.human}"
@@ -679,7 +679,7 @@ LanguageLevel.create!(id: 4, name: 'Bilingüe'       , active: true)
 LanguageLevel.create!(id: 5, name: 'Nativo'         , active: true)
 LanguageLevel.create!(id: 6, name: 'No especificado', active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(LanguageLevel.sequence_name), LanguageLevel.maximum("id") + 1)
+alter_sequence(LanguageLevel.sequence_name, LanguageLevel.maximum("id") + 1)
 
 ## contact_results
 puts "#{I18n.t('creating')} #{ContactResult.model_name.human}"
@@ -688,7 +688,7 @@ ContactResult.create!(id: 1, name: 'No localizado', active: true)
 ContactResult.create!(id: 2, name: 'No disponible', active: true)
 ContactResult.create!(id: 3, name: 'No acepta'    , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(ContactResult.sequence_name), ContactResult.maximum("id") + 1)
+alter_sequence(ContactResult.sequence_name, ContactResult.maximum("id") + 1)
 
 ## contact_types
 puts "#{I18n.t('creating')} #{ContactType.model_name.human}"
@@ -698,7 +698,7 @@ ContactType.create!(id: 2, name: 'Telefónico'        , active: true)
 ContactType.create!(id: 3, name: 'Correo electrónico', active: true)
 ContactType.create!(id: 4, name: 'Mensaje SMS'       , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(ContactType.sequence_name), ContactType.maximum("id") + 1)
+alter_sequence(ContactType.sequence_name, ContactType.maximum("id") + 1)
 
 ## traits
 puts "#{I18n.t('creating')} #{Trait.model_name.human}"
@@ -713,7 +713,7 @@ Trait.create!(id: 7, name: 'Conducta disruptiva'        , active: true)
 Trait.create!(id: 8, name: 'Capacidad de acogida'       , active: true)
 Trait.create!(id: 9, name: 'Otros'                      , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(Trait.sequence_name), Trait.maximum("id") + 1)
+alter_sequence(Trait.sequence_name, Trait.maximum("id") + 1)
 
 ## info_sources
 puts "#{I18n.t('creating')} #{InfoSource.model_name.human}"
@@ -727,4 +727,4 @@ InfoSource.create!(id: 6, name: 'Medios de comunicación'            , active: t
 InfoSource.create!(id: 7, name: 'Acciones de Voluntarios Por Madrid', active: true)
 InfoSource.create!(id: 8, name: 'Otros'                             , active: true)
 
-alter_sequence(ActiveRecord::Base.connection.quote_table_name(InfoSource.sequence_name), InfoSource.maximum("id") + 1)
+alter_sequence(InfoSource.sequence_name, InfoSource.maximum("id") + 1)
