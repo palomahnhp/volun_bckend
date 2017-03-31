@@ -31,8 +31,7 @@ Area.create!(id: 16, name: 'Gestión Administrativa', active: true)
 Area.create!(id: 17, name: 'Indiferente'           , active: true)
 Area.create!(id: 18, name: 'Otros'                 , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE areas_id_seq RESTART WITH 19")
 
 ## degree_types
 puts "#{I18n.t('creating')} #{DegreeType.model_name.human}"
@@ -48,8 +47,7 @@ DegreeType.create!(id: 8,  name: 'Enseñanzas Técnicas'               , active:
 DegreeType.create!(id: 9,  name: 'Ciencias de la Salud'              , active: true) # educational_type: 'N',
 DegreeType.create!(id: 10, name: 'Otra Formación'                    , active: true) # educational_type: 'N',
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE degree_types_id_seq RESTART WITH 11")
 
 ##  languages
 puts "#{I18n.t('creating')} #{Language.model_name.human}"
@@ -123,8 +121,7 @@ Language.create!(id: 66, name: 'WOLOF'              , active: true)
 Language.create!(id: 98, name: 'SIGNOS'             , active: true)
 Language.create!(id: 99, name: 'OTROS'              , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE languages_id_seq RESTART WITH 100")
 
 ## motivations
 puts "#{I18n.t('creating')} #{Motivation.model_name.human}"
@@ -147,8 +144,7 @@ Motivation.create!(id: 15, name: 'Para recibir información sobre voluntariado' 
 Motivation.create!(id: 16, name: 'Prescripción facultativa'                                , active: true)
 Motivation.create!(id: 99, name: 'Otras Motivaciones'                                      , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE motivations_id_seq RESTART WITH 100")
 
 ## unsubscribe_reasons
 puts "#{I18n.t('creating')} #{UnsubscribeReason.model_name.human}"
@@ -157,8 +153,7 @@ UnsubscribeReason.create!(id: 1, name: 'Baja voluntaria'                  , acti
 UnsubscribeReason.create!(id: 2, name: 'Incumplimiento de los compromisos', active: true)
 UnsubscribeReason.create!(id: 3, name: 'Falta de integración'             , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE unsubscribe_reasons_id_seq RESTART WITH 4")
 
 ## nationalities
 puts "#{I18n.t('creating')} #{Nationality.model_name.human}"
@@ -408,7 +403,7 @@ Nationality.create!(id: 243, name: 'SERBIA,REPÚBLICA DE'         , active: true
 Nationality.create!(id: 244, name: 'MONTENEGRO,REPÚBLICA DE'     , active: true)
 Nationality.create!(id: 999, name: 'NO IDENTIFICADO'             , active: true)
 
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE nationalities_id_seq RESTART WITH 1000")
 
 ## academic_levels
 puts "#{I18n.t('creating')} #{AcademicLevel.model_name.human}"
@@ -431,7 +426,7 @@ AcademicLevel.create!(id: 106, name: '106-N Licenciado Universitario'      , edu
 AcademicLevel.create!(id: 107, name: '107-N Doctorado Universitario'       , educational_type: 'N', active: true)
 AcademicLevel.create!(id: 200, name: '200-N NS/NC'                         , educational_type: 'N', active: true)
 
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE academic_levels_id_seq RESTART WITH 201")
 
 ## profiles
 puts "#{I18n.t('creating')} #{Profile.model_name.human}"
@@ -441,7 +436,7 @@ Profile.create!(id: 2, name: 'TECNICO'      , active: true)
 Profile.create!(id: 3, name: 'EMPRESA'      , active: true)
 Profile.create!(id: 4, name: 'VOLUNTARIO'   , active: true)
 
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE profiles_id_seq RESTART WITH 5")
 
 ## sectors
 puts "#{I18n.t('creating')} #{Sector.model_name.human}"
@@ -467,7 +462,7 @@ Sector.create!(id: 18, name: 'Animales',                         active: true)
 Sector.create!(id: 19, name: 'Indiferente',                      active: true)
 Sector.create!(id: 20, name: 'Otros',                            active: true)
 
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE sectors_id_seq RESTART WITH 21")
 
 ## statuses
 puts "#{I18n.t('creating')} #{Status.model_name.human}"
@@ -483,12 +478,14 @@ Status.create!(id: 8 , name: 'Sin recurso'               , active: true)
 Status.create!(id: 9 , name: 'Situacion CM'              , active: true)
 Status.create!(id: 10, name: 'VOCNE'                     , active: true)
 
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE statuses_id_seq RESTART WITH 11")
 
 ## managers
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
 Manager.create!(id: 1, name: 'MFA026', alias_name: 'MFA026', phone_number: '915880000', active: true, profile_id: 2)
+
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE managers_id_seq RESTART WITH 2")
 
 ## roles
 puts "#{I18n.t('creating')} #{Role.model_name.human}"
@@ -496,8 +493,6 @@ puts "#{I18n.t('creating')} #{Role.model_name.human}"
 Role.kinds_i18n.each do |kind, kind_i18n|
   Role.create!(kind: Role.kinds[kind], description: kind_i18n)
 end
-
-
 
 ## id_number_types
 puts "#{I18n.t('creating')} #{IdNumberType.model_name.human}"
@@ -508,8 +503,7 @@ IdNumberType.create!(id: 3, name: 'NIE'      , active: true)
 IdNumberType.create!(id: 4, name: 'PASAPORTE', active: true)
 IdNumberType.create!(id: 5, name: 'OTROS'    , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE id_number_types_id_seq RESTART WITH 6")
 
 ## entity_types
 puts "#{I18n.t('creating')} #{EntityType.model_name.human}"
@@ -519,8 +513,7 @@ EntityType.create!(id: 2, name: 'OTROS ORGANISMOS'   , description: 'OTROS ORGAN
 EntityType.create!(id: 3, name: 'ENTIDAD'            , description: 'ENTIDAD',             active: true)
 EntityType.create!(id: 4, name: 'EMPRESA'            , description: 'EMPRESA',             active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE entity_types_id_seq RESTART WITH 5")
 
 ## tracking_types
 puts "#{I18n.t('creating')} #{TrackingType.model_name.human}"
@@ -544,9 +537,7 @@ TrackingType.create!(id: 16, name: 'Incidencia'                                 
 TrackingType.create!(id: 17, name: 'Departamento Voluntariado'                      , active: true)
 TrackingType.create!(id: 18, name: 'Otros'                                          , active: true)
 
-
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE tracking_types_id_seq RESTART WITH 19")
 
 ## degrees
 puts "#{I18n.t('creating')} #{Degree.model_name.human}"
@@ -660,8 +651,7 @@ Degree.create!(id: 106, degree_type_id: 10, name: 'Música'                     
 Degree.create!(id: 107, degree_type_id: 10, name: 'Animador Sociocultural'                       , active: true)
 Degree.create!(id: 999, degree_type_id: 10, name: 'Otros'                                        , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE degrees_id_seq RESTART WITH 1000")
 
 ## employment_statuses
 puts "#{I18n.t('creating')} #{EmploymentStatus.model_name.human}"
@@ -673,8 +663,7 @@ EmploymentStatus.create!(id: 4, name: 'Labores domésticas',active: true)
 EmploymentStatus.create!(id: 5, name: 'Desempleado/a',     active: true)
 EmploymentStatus.create!(id: 6, name: 'Otra situación',    active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE employment_statuses_id_seq RESTART WITH 7")
 
 ## language_levels
 puts "#{I18n.t('creating')} #{LanguageLevel.model_name.human}"
@@ -686,8 +675,7 @@ LanguageLevel.create!(id: 4, name: 'Bilingüe'       , active: true)
 LanguageLevel.create!(id: 5, name: 'Nativo'         , active: true)
 LanguageLevel.create!(id: 6, name: 'No especificado', active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE language_levels_id_seq RESTART WITH 7")
 
 ## contact_results
 puts "#{I18n.t('creating')} #{ContactResult.model_name.human}"
@@ -696,8 +684,7 @@ ContactResult.create!(id: 1, name: 'No localizado', active: true)
 ContactResult.create!(id: 2, name: 'No disponible', active: true)
 ContactResult.create!(id: 3, name: 'No acepta'    , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE contact_results_id_seq RESTART WITH 4")
 
 ## contact_types
 puts "#{I18n.t('creating')} #{ContactType.model_name.human}"
@@ -707,8 +694,7 @@ ContactType.create!(id: 2, name: 'Telefónico'        , active: true)
 ContactType.create!(id: 3, name: 'Correo electrónico', active: true)
 ContactType.create!(id: 4, name: 'Mensaje SMS'       , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE contact_types_id_seq RESTART WITH 5")
 
 ## traits
 puts "#{I18n.t('creating')} #{Trait.model_name.human}"
@@ -723,8 +709,7 @@ Trait.create!(id: 7, name: 'Conducta disruptiva'        , active: true)
 Trait.create!(id: 8, name: 'Capacidad de acogida'       , active: true)
 Trait.create!(id: 9, name: 'Otros'                      , active: true)
 
-
-
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE traits_id_seq RESTART WITH 10")
 
 ## info_sources
 puts "#{I18n.t('creating')} #{InfoSource.model_name.human}"
@@ -737,3 +722,5 @@ InfoSource.create!(id: 5, name: 'Redes Sociales'                    , active: tr
 InfoSource.create!(id: 6, name: 'Medios de comunicación'            , active: true)
 InfoSource.create!(id: 7, name: 'Acciones de Voluntarios Por Madrid', active: true)
 InfoSource.create!(id: 8, name: 'Otros'                             , active: true)
+
+ActiveRecord::Base.connection.execute("ALTER SEQUENCE info_sources_id_seq RESTART WITH 9")
