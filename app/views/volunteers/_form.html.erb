@@ -47,7 +47,7 @@
     <div class="row well">
       <%= content_tag :h3, Degree.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.simple_fields_for :degrees, (f.object.degrees.build if f.object.new_record? && f.object.degrees.empty?) do |f_degrees|  %>
-        <div class="timetable-fields well col-md-12">
+        <div class="row well col-md-12">
           <div class="row">
               <%= f_degrees.association :degree_type, wrapper_html: { class: 'col-md-6' },
                                                       input_html: { onchange: 'filterDegree(this.id);' }%>
@@ -67,7 +67,7 @@
     <div class="row well">
       <%= content_tag :h3, Volun::KnownLanguage.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.simple_fields_for :known_languages, (f.object.known_languages.build if f.object.new_record? && f.object.known_languages.empty?) do |f_known_languages|  %>
-        <div class="timetable-fields well col-md-12">
+        <div class="row well col-md-12">
           <div class="row">
               <%= f_known_languages.association :language, wrapper_html: { class: 'col-md-6' } %>
               <%= f_known_languages.association :language_level, wrapper_html: { class: 'col-md-6' } %>
@@ -80,13 +80,13 @@
     <div class="row well">
       <%= content_tag :h3, Volun::Availability.model_name.human(count: 2), class: 'form-subtitle' %>
       <%= f.simple_fields_for :availabilities, (f.object.availabilities.build if f.object.new_record? && f.object.availabilities.empty?) do |f_availabilities|  %>
-        <div class="timetable-fields well col-md-12">
+        <div class="row well col-md-12">
           <div class="row">
               <%= f_availabilities.input :day, wrapper_html: { class: 'col-md-4' } %>
               <%= f_availabilities.input :start_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
               <%= f_availabilities.input :end_hour, input_html: { class: 'm-width70', data: { mask: '99:99'} }, wrapper_html: { class: 'col-md-4' } %>
               <%= f_availabilities.link_to_remove build_icon('trash-o', text: "#{Volun::Availability.model_name.human}"), class: 'pull-right' %>
-          </div> <!-- timetable-fields -->
+          </div> <!-- availability-fields -->
         </div>
       <% end %>
       <p><%= f.link_to_add icon_new(text: "#{Volun::Availability.model_name.human}"), :availabilities, class: 'btn' %></p>
