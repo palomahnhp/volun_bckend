@@ -1,12 +1,4 @@
-ROAD_TYPES = %w(
-  ACCESO ARROYO AUTOVIA AUTOPISTA AVENIDA BARRANCO BARRIO BULEVAR CARRERA CAÐADA CARRIL CALLEJON CALLE
-  CAMINO CANAL COLONIA COMPLEJO CARRETERA COSTANILLA CANTON CUESTA EDIFICIO ESCALINATA ESTACION FINCA FUENTE
-  GALERIA GRUPO GLORIETA GRAN JARDIN LUGAR MONUMENTO MONTE MERCADO PLAZUELA POBLADO PASADIZO PUENTE POLIGONO
-  PISTA PASAJE PASEO PARQUE PARTICULAR PUERTA PLAZA RONDA RIO TRASERA TRAVESIA TRANSVERSAL URBANIZACION VIA
-)
-
 # If devise_auth is false then uweb login is mandatory, otherwise devise login is mandatory
-Setting['devise_auth']      = 'false'
-Setting['default_country']  = 'España'
-Setting['default_province'] = 'Madrid'
-Setting['road_types']       = ROAD_TYPES.join(',')
+Setting['devise_auth']       = 'false'
+Setting['default_country']   = 'España'
+Setting['default_province']  = 'Madrid'

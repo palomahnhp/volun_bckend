@@ -55,87 +55,6 @@ COLLECTIVE_NAMES = [
   'Otros'
 ]
 
-DISTRICTS = [
-  'CENTRO',
-  'ARGANZUELA',
-  'RETIRO',
-  'SALAMANCA',
-  'CHAMARTIN',
-  'TETUAN',
-  'CHAMBERI',
-  'FUENCARRAL-EL PARDO',
-  'MONCLOA-ARAVACA',
-  'LATINA',
-  'CARABANCHEL',
-  'USERA',
-  'PUENTE VALLECAS',
-  'MORATALAZ',
-  'CIUDAD LINEAL',
-  'HORTALEZA',
-  'VILLAVERDE',
-  'VILLA DE VALLECAS',
-  'VICÁLAVARO',
-  'SAN BLAS',
-  'BARAJAS',
-  'OTRO MUNICIPIO',
-  'OTROS'
-]
-
-PROVINCES = [
-  'ARABA-ALAVA',
-  'ALBACETE',
-  'ALICANTE-ALACANT',
-  'ALMERIA',
-  'AVILA',
-  'BADAJOZ',
-  'ILLES BALEARS',
-  'BARCELONA',
-  'BURGOS',
-  'CACERES',
-  'CADIZ',
-  'CASTELLON-CASTELLO',
-  'CIUDAD REAL',
-  'CORDOBA',
-  'A CORUÑA',
-  'CUENCA',
-  'GIRONA',
-  'GRANADA',
-  'GUADALAJARA',
-  'GIPUZKOA',
-  'HUELVA',
-  'HUESCA',
-  'JAEN',
-  'LEON',
-  'LLEIDA',
-  'LA RIOJA',
-  'LUGO',
-  'MADRID',
-  'MALAGA',
-  'MURCIA',
-  'NAVARRA',
-  'OURENSE',
-  'ASTURIAS',
-  'PALENCIA',
-  'LAS PALMAS',
-  'PONTEVEDRA',
-  'SALAMANCA',
-  'SANTA CRUZ DE TENERIFE',
-  'CANTABRIA',
-  'SEGOVIA',
-  'SEVILLA',
-  'SORIA',
-  'TARRAGONA',
-  'TERUEL',
-  'TOLEDO',
-  'VALENCIA',
-  'VALLADOLID',
-  'BIZKAIA',
-  'ZAMORA',
-  'ZARAGOZA',
-  'CEUTA',
-  'MELILLA'
-]
-
 PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
 NATIONALITIES = [
@@ -177,7 +96,7 @@ puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
   Address.create!(
     postal_code:           Faker::Address.postcode,
-    road_type:             ROAD_TYPES.sample,
+    road_type:             RoadType.all.sample,
     road_name:             Faker::Address.street_name,
     road_number_type:      ['num', 'km'].sample,
     road_number:           rand(100).to_s,
@@ -186,10 +105,10 @@ puts "Creando Direcciones"
     floor:                 rand(9).to_s,
     door:                  rand(10).to_s,
     borough:               nil,
-    province:              'Madrid',
+    province:              Province.all.sample,
     country:               'España',
     town:                  'Madrid',
-    district:              DISTRICTS.sample,
+    district:              District.all.sample,
     normalize:             false
   )
 end
