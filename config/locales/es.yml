@@ -31,6 +31,7 @@ es:
   new_element: Nuevo elemento
   new_file:    Nuevo elemento
   must_choose_a_file: Debe seleccionar un archivo
+  files_are_allowed_olny_on_update: Sólo se pueden subir archivos para proyectos ya existentes
   does_not_have: "No tiene %{element}"
   details: Detalles
   search_filter: 'Filtrar búsqueda'
@@ -64,6 +65,7 @@ es:
     confirm_revised_all_volunteer: Los campos de errores del voluntario han sido marcados como revisados. ¿Está seguro de que quiere continuar?
     confirm_revised_volunteer: Este voluntario tiene campos de errores pendientes de revisar. ¿Está seguro de que quiere continuar?
     confirm_unsubscribe_volunteer: Se aprobará y gestionará la baja. ¿Está seguro de que desea continuar?
+    confirm_file_deletion: El archivo se eliminará cuando se de al botón de actualizar. ¿Está seguro de que desea continuar?
     undo_changes: Deshacer cambios
     request_form_successfully_rejected: Solicitud rechazada con éxito
     request_form_successfully_managed: Solicitud gestionada con éxito

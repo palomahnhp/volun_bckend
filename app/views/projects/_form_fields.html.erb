@@ -11,7 +11,7 @@
                 <div class="">
                   <%= content_tag :div, image_tag(f_logo.object.file.url(:small), height: '210', width: '210'), class: 'logo-img' %>
                   <%= f_logo.input :file, as: :file, label: false, wrapper_html: { class: '' } %>
-                  <%= f_logo.input :link_type_id, as: :hidden %>
+                  <%= f_logo.input :link_type_id, as: :hidden, input_html: { value: LinkType.logo.take.id } %>
                 </div> <!-- logo-fields -->
               </div>
           <% end %>
@@ -161,6 +161,7 @@
     <div class="files-header row">
       <div class="col-md-11">
         <%= content_tag :h2, "#{t('files')} #{t('and')} #{t('urls')}", class: 'form-subtitle' %>
+        <%= content_tag :div, (content_tag :p, t('files_are_allowed_olny_on_update')), class: 'well-no-border' if f.object.new_record? %>
       </div>
       <div class="col-md-1">
         <p class="js-arrow hidden">
@@ -169,35 +170,36 @@
         </p>
       </div>
     </div>
-    <div class="files-block">
-      <div class="images_block row well js-files-block">
-        <%= content_tag :h3, t('images'), class: 'form-subtitle' %>
-        <div class="col-md-12">
-          <% if f.object.images.exists? %>
-              <%= f.simple_fields_for :images  do |f_file|  %>
-                  <%= show_simple_base_errors(f_file) %>
-                  <div class="image-fields well-no-border js-file-fields">
-                    <div class="row">
-                      <%= f_file.input :path, label: t('name'), input_html: { disabled: true, value: f_file.object.file_name }, wrapper_html: { class: 'link-path col-md-9' } %>
-                      <%= f_file.input :link_type_id, as: :hidden, input_html: { value: LinkType.image.take.id } %>
-                      <%= content_tag :div, class: 'js-file-link form-group col-md-3' do %>
-                          <%= link_to(build_icon(:share), f_file.object.file.url, target: :_blank) %>
-                          <%= link_to_show(f_file.object) %>
-                          <%= f_file.link_to_remove build_icon('trash-o'), data: { confirm: t('messages') } %>
-                      <% end %>
-                    </div> <!-- images-fields -->
-                  </div>
-              <% end %>
-          <% else %>
-              <%= content_tag :p, "No tiene #{Project.human_attribute_name(:images)}" %>
-          <% end %>
-        </div>
-        <div class="col-md-12 js-links-block">
-          <%= link_to "#{build_icon(:upload, title: "ir a images")} Subir nuevas imágenes".html_safe,
-                      links_path(linkable_id: f.object.id, linkable_type: f.object.class.name, link_type_id: LinkType.image.take.id),
-                      target: :_blank,
-                      class: 'btn btn-success'%>
-        </div>
+    <% if f.object.persisted? %>
+      <div class="files-block">
+        <div class="images_block row well js-files-block">
+          <%= content_tag :h3, t('images'), class: 'form-subtitle' %>
+          <div class="col-md-12">
+            <% if f.object.images.exists? %>
+                <%= f.simple_fields_for :images  do |f_file|  %>
+                    <%= show_simple_base_errors(f_file) %>
+                    <div class="image-fields well-no-border js-file-fields">
+                      <div class="row">
+                        <%= f_file.input :path, label: t('name'), input_html: { disabled: true, value: f_file.object.file_name }, wrapper_html: { class: 'link-path col-md-9' } %>
+                        <%= f_file.input :link_type_id, as: :hidden, input_html: { value: LinkType.image.take.id } %>
+                        <%= content_tag :div, class: 'js-file-link form-group col-md-3' do %>
+                            <%= link_to(build_icon(:share), f_file.object.file.url, target: :_blank) %>
+                            <%= link_to_show(f_file.object) %>
+                            <%= f_file.link_to_remove build_icon('trash-o'), data: { confirm: t('messages.confirm_file_deletion') } %>
+                        <% end %>
+                      </div> <!-- images-fields -->
+                    </div>
+                <% end %>
+            <% else %>
+                <%= content_tag :p, "No tiene #{Project.human_attribute_name(:images)}" %>
+            <% end %>
+          </div>
+          <div class="col-md-12 js-links-block">
+            <%= link_to "#{build_icon(:upload, title: "ir a images")} Subir nuevas imágenes".html_safe,
+                        links_path(linkable_id: f.object.id, linkable_type: f.object.class.name, link_type_id: LinkType.image.take.id),
+                        target: :_blank,
+                        class: 'btn btn-success'%>
+          </div>
       </div> <!-- images_block -->
       <div class="docs_block row well js-files-block">
         <%= content_tag :h3, t('docs'), class: 'form-subtitle' %>
@@ -212,7 +214,7 @@
                       <%= content_tag :div, class: 'js-file-link form-group col-md-3' do %>
                           <%= link_to(build_icon(:share), f_file.object.file.url, target: :_blank) %>
                           <%= link_to_show(f_file.object) %>
-                          <%= f_file.link_to_remove build_icon('trash-o'), data: { confirm: t('messages.are_you_sure') } %>
+                          <%= f_file.link_to_remove build_icon('trash-o'), data: { confirm: t('messages.confirm_file_deletion') } %>
                       <% end %>
                     </div> <!-- docs-fields -->
                   </div>
@@ -238,7 +240,7 @@
                 <%= f_file.input :link_type_id, as: :hidden, input_html: { value: LinkType.url.take.id } %>
                 <%= content_tag :div, class: 'js-file-link form-group col-md-3' do %>
                     <%= link_to(build_icon(:share), f_file.object.path, target: :_blank, class: 'js-visit') %>
-                    <%= f_file.link_to_remove build_icon('trash-o'), data: { confirm: t('messages.are_you_sure') } %>
+                    <%= f_file.link_to_remove build_icon('trash-o'), data: { confirm: t('messages.confirm_file_deletion') } %>
                 <% end %>
               </div> <!-- urls-fields -->
             </div>
@@ -246,6 +248,7 @@
         <p><%= f.link_to_add icon_new(text: t('urls')), :urls, class: 'btn' %></p>
       </div> <!-- urls_block -->
     </div>
+    <% end %>
   </div>
 </div>
 
