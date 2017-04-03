@@ -121,8 +121,8 @@ es:
         one:   Idioma
         other: Idiomas
       link_type:
-        one:   Tipo de enlace
-        other: Tipos de enlaces
+        one:   Tipo de URL
+        other: Tipos de URL's
       link:
         one:   Fichero
         other: Ficheros
