@@ -12,6 +12,7 @@ module ScaffoldHelper
   def search_collection(search, search_condition, options = {})
     form =  search_form_for search, class: 'form-inline search-form', role: 'form', wrapper: :horizontal_form do |f|
               (get_hidden_fields options.delete(:hidden_fields) || {}) +
+                (get_q_hidden_fields options.delete(:q_hidden_fields) || {}) +
                 (hidden_field_tag :per_page, params[:per_page]) +
                 (f.search_field search_condition, class: 'form-control', placeholder: t('type_text')) +
                 (button_tag name: 'commit', class: 'btn btn-default' do
@@ -38,6 +39,31 @@ module ScaffoldHelper
     hidden_fields.inject('') do |hf_tags, (name, value)|
       hf_tags + hidden_field_tag(build_name_attr(name), value)
     end.html_safe
+  end
+
+  def get_q_hidden_fields(q_hidden_fields)
+    html_tag = ''
+    grouped_q_hidden_fields = q_hidden_fields.select{ |_k, v| v.is_a? Hash }
+    grouped_q_hidden_fields.each do |group_name, _q_hidden_fields|
+      html_tag += content_tag(:div, id: group_name) do
+                    build_q_hidden_fields(_q_hidden_fields)
+                  end
+    end
+    independent_q_hidden_fields = q_hidden_fields.reject{ |_k, v| v.is_a? Hash }
+    html_tag += build_q_hidden_fields independent_q_hidden_fields
+    html_tag.html_safe
+  end
+
+  def build_q_hidden_fields(hidden_fields)
+    hidden_fields.inject('') do |hf_tags, (name, value)|
+      hf_tags + hidden_field_tag("q[#{name}]", value)
+    end.html_safe
+  end
+
+  def convert_filters_to_params(filters)
+    filters.inject({}) do |params, (k,v)|
+      params.merge(k.sub(/_[^_]+\z/,'') => v)
+    end
   end
 
   def build_name_attr(name)
@@ -67,7 +93,7 @@ module ScaffoldHelper
     path = options.delete(:path)
     text = options.delete(:text)
 
-    link_to(text, public_send(path, options[:path_params]||{}), options)
+    link_to(text, public_send(path, options.delete(:path_params)||{}), options)
   end
 
   def link_to_show(record, opts = {})

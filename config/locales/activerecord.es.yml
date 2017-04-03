@@ -124,8 +124,8 @@ es:
         one:   Tipo de enlace
         other: Tipos de enlaces
       link:
-        one:   Enlace
-        other: Enlaces
+        one:   Fichero
+        other: Ficheros
       manager:
         one:   Gestor
         other: Gestores
@@ -381,11 +381,14 @@ es:
         kind: Tipo
         description: descripción
       link:
-        path:         URL
-        description:  Descripción
-        link_type_id: Tipo de enlace
-        link_type:    Tipo de enlace
-        file:         Archivo
+        path:           URL
+        description:    Descripción
+        link_type_id:   Tipo de enlace
+        link_type:      Tipo de enlace
+        linkable:       Pertenece a
+        file:           Archivo
+        file_file_name: Archivo
+        created_at:     *created_at
       role:
         description: Descripción
       tracking_type:
@@ -510,6 +513,11 @@ es:
         areas:                  Ámbitos        # N:N Association (for simple_form)
         collectives:            Colectivos     # N:N Association (for simple_form)
         coordinations:          Coordinaciones # N:N Association (for simple_form)
+        logo:                   Logo
+        docs:                   Documentos
+        images:                 Imágenes
+        urls:                   URL's
+        videos:                 Videos
         created_at:             *created_at
       activity:
         id:                     ID

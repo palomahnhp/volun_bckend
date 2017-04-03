@@ -1,0 +1,11 @@
+<!-- js-<%= links_name %>-begin -->
+<%= f_project.simple_fields_for links_name do |f_link|  %>
+    <%= show_simple_base_errors(f_link) %>
+    <div class="doc-fields well-no-border col-md-12 js-file-fields">
+      <div class="row">
+        <%= render partial: 'links/form_fields', locals: { f: f_link, link_type: link_type } %>
+      </div>
+    </div>
+<% end %>
+<p><%= f_project.link_to_add icon_new(text: Project.human_attribute_name(links_name)), links_name, class: 'btn' %></p>
+<!-- js-<%= links_name %>-end -->

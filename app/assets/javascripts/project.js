@@ -1,6 +1,7 @@
-$(document).on('ready page:load turbolinks:load', function() {
-    $('.js-files-block').on('nested:fieldAdded', function (event) {
-        var $newAddedFile = $(this).find('.js-file-fields:last .js-file-link a');
+$(document).on('turbolinks:load', function() {
+
+    $('.urls_block.js-files-block').on('nested:fieldAdded', function (event) {
+        var $newAddedFile = $(this).find('.js-file-fields:last .js-file-link a.js-visit');
         $newAddedFile.hide();
     });
 
