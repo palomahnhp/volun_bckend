@@ -11,6 +11,8 @@ es:
     show:     'Ver %{model}'
     destroy:  'Eliminar'
     delete:   'Eliminar'
+    download: 'Descargar'
+    upload:   'Subir'
     archive:  'Archivar'
     search:   'Buscar'
     back:     'Volver'
@@ -21,9 +23,15 @@ es:
     manage:   'Gestionar'
     reject:   'Rechazar'
     recover:  'Restablecer'
+    share:    'Abrir'
     undo_rejection: 'Deshacer rechazo'
     process:  'Procesar'
     man_trackings: 'Gestionar seguimientos'
+  upload_new_file: Nuevo fichero
+  new_element: Nuevo elemento
+  new_file:    Nuevo elemento
+  must_choose_a_file: Debe seleccionar un archivo
+  does_not_have: "No tiene %{element}"
   details: Detalles
   search_filter: 'Filtrar búsqueda'
   type_text: 'Introducir texto'
@@ -38,8 +46,8 @@ es:
   logo: Logo
   doc: Documento
   docs: Documentos
-  url: URL
-  urls: URL's
+  url: Enlaces
+  urls: Enlaces de interés
   video: Video
   videos: Videos
   image: Imágen

@@ -16,7 +16,11 @@ class LinkType < ActiveRecord::Base
   validates :kind, uniqueness: true
 
   def self.file_kinds
-    kinds.slice(:image, :url, :video, :document)
+    kinds.slice(:image, :video, :document)
+  end
+
+  def self.file_kinds_i18n
+    kinds_i18n.slice(:image, :video, :document)
   end
 
   def self.logo_kind

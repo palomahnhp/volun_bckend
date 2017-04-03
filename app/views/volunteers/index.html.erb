@@ -15,7 +15,7 @@
 
 <div class="index-panel row well">
   <div class="col-md-12">
-    <div class="status-filter col-md-4 form-group select">
+    <div class="index-filters col-md-4 form-group select">
       <%= content_tag :label, t('filter').pluralize + ":", for: 'district-select', class: 'col-sm-6 control-label' %>
       <div class="col-sm-6">
         <%= select_tag :district, options_for_select(@districts_names), include_blank: t('district'),
