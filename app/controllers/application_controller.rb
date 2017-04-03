@@ -136,6 +136,7 @@ class ApplicationController < ActionController::Base
           :_destroy
         ]
       },
+      # TODO remove images_attributes, videos_attributes and docs_attributes?
       {
         images_attributes: [
           :id,
