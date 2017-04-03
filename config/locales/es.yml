@@ -116,6 +116,9 @@ es:
   reset_search: "Limpiar búsqueda"
   add_day: 'Añadir día'
   available_day: 'Día disponible'
+  availability: 'Disponibilidad'
+  choose_availability: 'Elegir disponibilidad'
+  search: 'Buscar'
   administration_title_text: Aquí se administran las tablas de la aplicación
   areas_text: Ámbitos a los que pertenece un proyecto
   project_types_text: Tipos de proyecto a los que un proyecto puede ser

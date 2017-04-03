@@ -30,17 +30,19 @@
                               class:     'form-control',
                               id:        'pages-select' %>
     </div>
-    <div class="col-sm-2" id="day-availability">
-      <%= select_tag :available_day, options_for_select(@available_days), include_blank: t('available_day'),
-                                     onchange:  "if(this.value){$('#q_available_day_eq').prop('value',this.value)}; $('.search-form').submit()",
-                                     class:     'form-control',
-                                     id:        'pages-select' %>
+    <div class="status-filter col-md-2 form-group select">
+      <%= content_tag :label, t('availability') + ":", for: 'available_day', class: 'col-sm-6 control-label' %>
     </div>
-    <div class="col-sm-2">
-      <button type="button" name="button" id="btn-add-day" class="btn btn-success"><%= t('add_day') %></button>
+    <div class="col-sm-2" id="day-availability">
+      <%= select_tag :availabilities_day, options_for_select(:Lunes => 1, :Martes => 2, :Miércoles => 3, :Jueves => 4, :Viernes => 5, :Sábado => 6, :Domingo => 7), multiple: true,
+                                     class:     'form-control',
+                                     id:        'availability-select' %>
     </div>
     <div class="col-sm-2 pull-right">
       <button type="button" name="button" id="btn-reset" class="btn btn-primary"><%= t('reset_search') %></button>
+      <div class="row">
+        <button type="button" name="button" id="btn-search" class="btn btn-success btn-search"><%= t('search') %></button>
+      </div>
     </div>
   </div>
 </div>
@@ -50,7 +52,7 @@
     <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont, hidden_fields: { status: params[:status], q_address_district_eq: params[:q][:address_district_eq], q_available_day_eq: params[:q][:available_day_eq] }), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont, hidden_fields: { status: params[:status], q_address_district_eq: params[:q][:address_district_eq], 'q[availabilities_day_in][]' => params[:q][:availabilities_day_in] }), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 
@@ -78,3 +80,24 @@
 </table>
 
 <%= render partial: "shared/pagination", locals: {collection: @volunteers} %>
+
+<script>
+
+    $("#btn-reset").click(function(){
+        $('#q_address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont').prop('value', "");
+        $("#q_address_district_eq").removeAttr('value');
+        $(".q_availabilities_day_in").removeAttr('value');
+        $("#status").removeAttr('value');
+        $('.search-form').submit()
+    });
+
+    $("#btn-search").click(function(){
+        var days = [];
+        $('#availability-select option:selected').each(function() {
+            days.push(this.value);
+        });
+        $('.q_availabilities_day_in').prop('value',days);
+        $('.search-form').submit()
+    });
+
+</script>
