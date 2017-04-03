@@ -37,4 +37,8 @@
 
 <%= render partial: "shared/pagination", locals: {collection: @volun_trackings} %>
 
-<%= button_to_back %>
+<% if current_page?(volunteers_path) %>
+  <%= button_to_back %>
+<% else %>
+  <%= button_to_back (edit_volunteer_path(@volunteer)) %>
+<% end %>

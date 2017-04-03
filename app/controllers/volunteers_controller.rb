@@ -159,6 +159,7 @@ class VolunteersController < ApplicationController
           { project_ids: [] },
           { trait_ids: [] },
           { area_ids: [] },
+          { collective_ids: [] },
           {
             degrees_attributes: [
               :id,

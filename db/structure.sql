@@ -312,6 +312,16 @@ CREATE TABLE collectives_projects (
 
 
 --
+-- Name: collectives_volunteers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE collectives_volunteers (
+    collective_id integer NOT NULL,
+    volunteer_id integer NOT NULL
+);
+
+
+--
 -- Name: contact_results; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4439,6 +4449,20 @@ CREATE INDEX index_collectives_projects_on_project_id_and_collective_id ON colle
 
 
 --
+-- Name: index_collectives_volunteers_on_collective_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collectives_volunteers_on_collective_id_and_volunteer_id ON collectives_volunteers USING btree (collective_id, volunteer_id);
+
+
+--
+-- Name: index_collectives_volunteers_on_volunteer_id_and_collective_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_collectives_volunteers_on_volunteer_id_and_collective_id ON collectives_volunteers USING btree (volunteer_id, collective_id);
+
+
+--
 -- Name: index_contact_results_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6316,4 +6340,6 @@ INSERT INTO schema_migrations (version) VALUES ('20170315153639');
 INSERT INTO schema_migrations (version) VALUES ('20170316083914');
 
 INSERT INTO schema_migrations (version) VALUES ('20170321160845');
+
+INSERT INTO schema_migrations (version) VALUES ('20170403094612');
 

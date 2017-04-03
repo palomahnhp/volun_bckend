@@ -8,7 +8,7 @@ class Volun::TrackingsController < ApplicationController
     @search_q = @volun_trackings.search(params[:q])
     @volunteer = Volunteer.find_by(id: params[:q][:volunteer_id_eq])
     if params[:project_id_assoc].present?
-      @volun_trackings = @search_q.result.where(project_id: params[:project_id]).paginate(page: params[:page], per_page: params[:per_page]||15)
+      @volun_trackings = @search_q.result.where(project_id: params[:project_id_assoc]).paginate(page: params[:page], per_page: params[:per_page]||15)
     else
       @volun_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
     end

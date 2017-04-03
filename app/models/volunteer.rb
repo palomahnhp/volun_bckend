@@ -40,6 +40,7 @@ class Volunteer < ActiveRecord::Base
   has_and_belongs_to_many :skills, ->{ where(active: true).order('skills.name asc') }
   has_and_belongs_to_many :degrees, ->{ where(active: true).order('degrees.name asc') }
   has_and_belongs_to_many :areas, ->{ where(active: true).order('areas.name asc') }
+  has_and_belongs_to_many :collectives, ->{ where(active: true).order('collectives.name asc') }
   has_many :known_languages, :class_name => 'Volun::KnownLanguage'
   has_many :assessments,     :class_name => 'Volun::Assessment'
   has_many :availabilities,  :class_name => 'Volun::Availability'
