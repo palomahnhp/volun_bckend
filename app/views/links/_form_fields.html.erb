@@ -1,5 +1,6 @@
 <%= f.input :path, as: :hidden, wrapper_html: { calss: 'col-md-4' } %>
 <%= f.input :link_type_id, collection: LinkType.files, selected: f.object.link_type_id.presence, wrapper_html: { calss: 'col-md-4' } %>
 <%= f.input :linkable_type, as: :hidden %>
+<%= f.input :linkable_id, as: :hidden %>
 <%= f.input :file, as: :file, label: false, wrapper_html: { class: 'col-md-4' } %>
 
