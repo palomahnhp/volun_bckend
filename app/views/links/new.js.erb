@@ -1,0 +1,38 @@
+<% partial_name =  local_assigns[:partial_name].presence || :form %>
+<% partial_path =  local_assigns[:partial_path].presence || "#{params[:controller]}/#{partial_name}" %>
+<% title        =  local_assigns[:title].presence || t("action.#{params[:controller]}", default: t('new_element')) %>
+
+
+<% html_content  =  j(render partial: partial_path) %>
+
+//alert("<%= params.inspect %>");
+
+$('#dialog').remove();
+
+$('<div/>', {
+    id: 'dialog',
+    class: 'dialog-custom',
+    style: 'display:none'
+}).appendTo('body').
+html("<%= html_content %>").
+dialog({
+    title:       "<%= title %>",
+    resizable:   true,
+    closeText:   '',
+    stack:       true,
+    dialogClass: '',
+    modal:       false,
+    width:       'auto',
+    buttons: [
+        {
+            text: "<%= t('action.close') %>",
+            class: "btn btn-default",
+            click: function() {
+                $( this ).dialog( "close" );
+            }
+        }
+    ],
+    close: function(event, ui){
+        $(this).remove();
+    }
+});

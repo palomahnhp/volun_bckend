@@ -536,7 +536,7 @@ form .well {
 .m-width300 {
   max-width: 300px;
 }
-.status-filter {
+.index-filters {
   margin-bottom: 0;
   color: #3b5f79;
   label {
@@ -611,6 +611,16 @@ form .well {
   }
 }
 
+.link-path-new {
+
+  .col-sm-5 {
+    width: 38%;
+  }
+  .col-sm-7 {
+    width: 62%;
+  }
+}
+
 .js-arrow {
   margin-top: 16px;
   span {
@@ -629,4 +639,17 @@ form .well {
   img {
     border: 2px solid #d6d6d6;
   }
+}
+.files-warning {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #628198;
+}
+
+.well-no-border {
+  @extend .well;
+  border-width: 0px;
+}
+.delete {
+  color: darkred;
 }

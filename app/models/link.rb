@@ -29,11 +29,11 @@ class Link < ActiveRecord::Base
                                     if: 'document?'
 
   validates :link_type_id, presence: true
-  validates :file, presence: true, unless: 'url?'
+  validates :file, presence: { message: I18n.t('must_choose_a_file')}, unless: 'url?'
   validates :path, format: { with: /\A#{URI.regexp.to_s}\z/ }, if: 'url?'
   after_save :update_path
 
-  delegate :logo?, :image?, :url?, :video?, :document?, :kind_i18n, to: :link_type, allow_blank: true
+  delegate :logo?, :image?, :url?, :video?, :document?, :kind_i18n, to: :link_type, allow_nil: true
 
   scope :project_images , ->{
     includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.image.take.id)
@@ -53,6 +53,10 @@ class Link < ActiveRecord::Base
 
   class << self
     delegate :file_kinds, :logo_kind, :kinds, :kinds_i18n, to: LinkType
+  end
+
+  def self.main_columns
+    %i(file_file_name path linkable)
   end
 
   def file_extension
@@ -76,7 +80,7 @@ class Link < ActiveRecord::Base
 
   # Required by the VolunFrontend app to be fetched without the Paperclip gem
   def update_path
-    update_column :path, file.url
+    update_column :path, file.url unless url?
   end
 
 end
