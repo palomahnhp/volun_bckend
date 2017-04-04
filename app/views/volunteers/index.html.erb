@@ -32,7 +32,7 @@
       <%= content_tag :label, t('availability') + ":", for: 'available_day', class: 'col-sm-6 control-label' %>
     </div>
     <div class="col-sm-2" id="day-availability">
-      <%= select_tag :availabilities_day, options_for_select(@av_days), multiple: true,
+      <%= select_tag :availabilities_day, options_for_select(Volun::Availability.days_i18n_alt), multiple: true,
                                           class:     'form-control',
                                           id:        'availability-select' %>
     </div>

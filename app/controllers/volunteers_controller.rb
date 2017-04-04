@@ -10,9 +10,6 @@ class VolunteersController < ApplicationController
 
     @districts_names = Address.joins(:volunteers).where.not(district: [nil, ""]).all.pluck(:district).uniq
 
-    es_days = Volun::Availability.days_i18n.values
-    @av_days = x = Hash[(es_days).zip (1...7)]
-
     @degreeSearch = Degree.filter_by_degree_type_id(params[:dt_id])
     respond_to do |format|
       format.html
