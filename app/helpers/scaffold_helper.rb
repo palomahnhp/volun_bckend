@@ -37,7 +37,14 @@ module ScaffoldHelper
 
   def build_hidden_fields(hidden_fields)
     hidden_fields.inject('') do |hf_tags, (name, value)|
-      hf_tags + hidden_field_tag(build_name_attr(name), value)
+      if value.is_a?(Array)
+        value.each do |v|
+          hf_tags += hidden_field_tag(build_name_attr(name), v, class: name.to_s.gsub(/\[|\]/, '_').sub(/_+\z/, ''))
+        end
+        hf_tags
+      else
+        hf_tags + hidden_field_tag(build_name_attr(name), value)
+      end
     end.html_safe
   end
 
@@ -156,7 +163,7 @@ module ScaffoldHelper
 
     link_to(text, public_send(path, record, options[:path_params]||{}), options)
   end
-  
+
   def link_to_trackings(record, type, project = nil, opts = {})
     #return unless can?(:recover, record)
     options = {
