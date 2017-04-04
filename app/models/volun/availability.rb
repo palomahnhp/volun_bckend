@@ -11,8 +11,8 @@ class Volun::Availability < ActiveRecord::Base
   end
 
   def self.days_i18n_alt
-    self.days_i18n.inject({}) do |days_i18n_alt, (day, day_i18n)|
-      days_i18n_alt.merge(day_i18n =>  self.days[day])
+    days_i18n.inject({}) do |days_i18n_alt, (day, day_i18n)|
+      days_i18n_alt.merge(day_i18n =>  days[day])
     end
   end
 
