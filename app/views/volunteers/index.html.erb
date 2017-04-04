@@ -32,9 +32,9 @@
       <%= content_tag :label, t('availability') + ":", for: 'available_day', class: 'col-sm-6 control-label' %>
     </div>
     <div class="col-sm-2" id="day-availability">
-      <%= select_tag :availabilities_day, options_for_select(t('monday') => 1, t('tuesday') => 2, t('wednesday') => 3, t('thursday') => 4, t('friday') => 5, t('saturday') => 6, t('sunday') => 7), multiple: true,
-                                     class:     'form-control',
-                                     id:        'availability-select' %>
+      <%= select_tag :availabilities_day, options_for_select(Volun::Availability.days_i18n[:monday] => 1, Volun::Availability.days_i18n[:tuesday] => 2, Volun::Availability.days_i18n[:wednesday] => 3, Volun::Availability.days_i18n[:thursday] => 4, Volun::Availability.days_i18n[:friday] => 5, Volun::Availability.days_i18n[:monday] => 6, t('sunday') => 7), multiple: true,
+                                          class:     'form-control',
+                                          id:        'availability-select' %>
     </div>
     <div class="col-sm-2 pull-right">
       <button type="button" name="button" id="btn-reset" class="btn btn-primary"><%= t('reset_search') %></button>
