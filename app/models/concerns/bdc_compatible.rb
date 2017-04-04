@@ -14,9 +14,13 @@
 # +floor+
 # +door+
 # +ndp_code+
+# +province+
 # +province_code+
+# +town+
 # +town_code+
+# +district+
 # +district_code+
+# +borough+
 # +local_code+
 # +latitude+
 # +longitude+
@@ -75,8 +79,12 @@ module BdcCompatible
       self.normalize     = false
       self.ndp_code      = nil
       self.province_code = nil
+      self.province      = nil
+      self.town          = nil
       self.town_code     = nil
+      self.district      = nil
       self.district_code = nil
+      self.borough       = nil
       self.local_code    = nil
       self.latitude      = nil
       self.longitude     = nil
@@ -88,9 +96,13 @@ module BdcCompatible
       if bdc_validator.address_normalized?
         self.postal_code   = bdc_validator.postal_code || self.postal_code
         self.ndp_code      = bdc_validator.ndp_code
+        self.province      = bdc_validator.province
         self.province_code = bdc_validator.province_code
+        self.town          = bdc_validator.town
         self.town_code     = bdc_validator.town_code
+        self.district      = bdc_validator.district
         self.district_code = bdc_validator.district_code
+        self.borough       = bdc_validator.borough
         self.local_code    = bdc_validator.local_code
         self.latitude      = bdc_validator.latitude
         self.longitude     = bdc_validator.longitude

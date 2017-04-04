@@ -2,31 +2,30 @@
 
 
 <div class="row">
-    <div class="col-md-7">
+  <div class="col-md-3">
     <div class="row">
-    <div class="col-md-6">
-      <div class="row">
-        <% unless @link.document? %>
-          <%= content_tag :div, image_tag(@link.file.url(:medium)), class: 'col-md-12' %>
-          <%= link_to("#{build_icon(:share)} Ver en tamaño original".html_safe, @link.file.url, target: :_blank, class: 'col-md-12') %>
-        <% end %>
-      </div>
+      <% if @link.document? %>
+        <%= link_to build_icon(:file, title: @link.file_name), @link.file.url, class: 'col-md-12 font150 pull-right' %>
+        <%= link_to("#{build_icon(:download)} #{t('action.download')}".html_safe, @link.file.url, class: 'col-md-12 pull-right') %>
+      <% else %>
+        <%= content_tag :div, image_tag(@link.file.url(:medium)), class: 'col-md-12' %>
+        <%= link_to("#{build_icon(:share)} #{t('show_original_size')}".html_safe, @link.file.url, target: :_blank, class: 'col-md-12 pull-right') %>
+      <% end %>
     </div>
-    <div class="col-md-6">
-      <dl class="dl-horizontal">
-        <dt><%= Link.human_attribute_name(:file_file_name) %>:</dt>
-        <dd><%= @link.file_file_name %></dd>
-        <dt><%= Link.human_attribute_name(:path) %>:</dt>
-        <dd><%= @link.path %></dd>
-        <dt><%= Link.human_attribute_name(:link_type_id) %>:</dt>
-        <dd><%= @link.link_type.kind_i18n %></dd>
-        <dt><%= @link.linkable_type.constantize.model_name.human %>:</dt>
-        <dd><%= link_to_show @link.linkable, text: @link.linkable.to_s, target: :_blank %></dd>
-        <dt><%= Link.human_attribute_name(:created_at) %>:</dt>
-        <dd><%= show_simple_date(@link.created_at) %></dd>
-      </dl>
-    </div>
-    </div>
+  </div>
+  <div class="col-md-3">
+    <dl class="dl-horizontal">
+      <dt><%= Link.human_attribute_name(:file_file_name) %>:</dt>
+      <dd><%= @link.file_file_name %></dd>
+      <dt><%= Link.human_attribute_name(:path) %>:</dt>
+      <dd><%= @link.path %></dd>
+      <dt><%= Link.human_attribute_name(:link_type_id) %>:</dt>
+      <dd><%= @link.link_type.kind_i18n %></dd>
+      <dt><%= @link.linkable_type.constantize.model_name.human %>:</dt>
+      <dd><%= link_to_show @link.linkable, text: @link.linkable.to_s, target: :_blank %></dd>
+      <dt><%= Link.human_attribute_name(:created_at) %>:</dt>
+      <dd><%= show_simple_date(@link.created_at) %></dd>
+    </dl>
   </div>
 </div>
 

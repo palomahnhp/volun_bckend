@@ -53,7 +53,7 @@ class Link < ActiveRecord::Base
   }
 
   class << self
-    delegate :file_kinds, :logo_kind, :kinds, :kinds_i18n, to: LinkType
+    delegate :logo, :file_kinds, :logo_kind, :kinds, :kinds_i18n, to: LinkType
   end
 
   def self.main_columns
