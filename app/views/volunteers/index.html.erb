@@ -19,22 +19,20 @@
       <%= content_tag :label, t('filter').pluralize + ":", for: 'district-select', class: 'col-sm-6 control-label' %>
       <div class="col-sm-6">
         <%= select_tag :address_district, options_for_select(@districts_names), include_blank: t('district'),
-                                          onchange:  "if(this.value){$('#q_address_district_eq').prop('value',this.value)}; $('.search-form').submit()",
                                           class:     'form-control',
-                                          id:        'pages-select' %>
+                                          id:        'district-select' %>
       </div>
     </div>
     <div class="col-sm-2">
       <%= select_tag :status, options_for_select({ t('active') => :active, t('inactive') => :inactive, t('all') => :all }), include_blank: t('status'),
-                              onchange:  "if(this.value){$('#status').prop('value',this.value)}; $('.search-form').submit()",
                               class:     'form-control',
-                              id:        'pages-select' %>
+                              id:        'status-select' %>
     </div>
     <div class="status-filter col-md-2 form-group select">
       <%= content_tag :label, t('availability') + ":", for: 'available_day', class: 'col-sm-6 control-label' %>
     </div>
     <div class="col-sm-2" id="day-availability">
-      <%= select_tag :availabilities_day, options_for_select(:Lunes => 1, :Martes => 2, :Miércoles => 3, :Jueves => 4, :Viernes => 5, :Sábado => 6, :Domingo => 7), multiple: true,
+      <%= select_tag :availabilities_day, options_for_select(t('monday') => 1, t('tuesday') => 2, t('wednesday') => 3, t('thursday') => 4, t('friday') => 5, t('saturday') => 6, t('sunday') => 7), multiple: true,
                                      class:     'form-control',
                                      id:        'availability-select' %>
     </div>
@@ -97,6 +95,8 @@
             days.push(this.value);
         });
         $('.q_availabilities_day_in_all').prop('value',days);
+        $('#q_address_district_eq').prop('value', $('#district-select option:selected').val())
+        $('#status').prop('value', $('#status-select option:selected').val())
         $('.search-form').submit()
     });
 
