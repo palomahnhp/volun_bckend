@@ -79,8 +79,6 @@ module BdcCompatible
       self.normalize     = false
       self.ndp_code      = nil
       self.province_code = nil
-      self.province      = nil
-      self.town          = nil
       self.town_code     = nil
       self.district      = nil
       self.district_code = nil
