@@ -160,7 +160,8 @@
       <%= f.input :review, as: :hidden, input_html: { id: 'review' } %>
       <div class="row well">
         <%= content_tag :h3, t('errors_title_volun'), class: 'form-subtitle' %>
-        <% if f.object.error_address %>
+        <% unless f.object.error_address.blank? %>
+          <input type="hidden" id="err_add_val" value="<%= f.object.error_address %>" />
           <div class='row'>
             <%= f.input :error_address, wrapper_html: { class: 'col-md-6' } %>
             <div class='col-md-6'>
@@ -171,7 +172,8 @@
             </div>
           </div>
         <% end %>
-        <% if f.object.error_other %>
+        <% unless f.object.error_other.blank? %>
+          <input type="hidden" id="err_oth_val" value="<%= f.object.error_other %>" />
           <div class='row'>
           <%= f.input :error_other, wrapper_html: { class: 'col-md-6' } %>
             <div class='col-md-6'>
@@ -243,6 +245,7 @@
         var reviseMsg = $("#reviseMsg").val();
         var confirm_submit = function () {
           $('.js-confirmable').closest('form').submit(function() {
+            if ($("#err_add_val").length > 0 && $("#err_oth_val").length > 0) {
               if ($("#rev_add").is(':checked') && $("#rev_oth").is(':checked')) {
                 var c = confirm(reviseAllMsg);
                 $("#review").val(0);
@@ -251,6 +254,13 @@
                 var c = confirm(reviseMsg);
                 return c;
               }
+            } else {
+              if ($("#err_add_val").length > 0 || $("#err_oth_val").length > 0) {
+                var c = confirm(reviseAllMsg);
+                $("#review").val(0);
+                return c;
+              }
+            }
           });
         };
       </script>
