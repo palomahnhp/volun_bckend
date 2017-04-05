@@ -349,9 +349,14 @@
               }
             } else {
               if ($("#err_add_val").length > 0 || $("#err_oth_val").length > 0) {
-                var c = confirm(reviseAllMsg);
-                $("#review").val(0);
-                return c;
+                if ($("#rev_add").is(':checked') || $("#rev_oth").is(':checked')) {
+                  var c = confirm(reviseAllMsg);
+                  $("#review").val(0);
+                  return c;
+                } else {
+                  var c = confirm(reviseMsg);
+                  return c;
+                }
               }
             }
           });
