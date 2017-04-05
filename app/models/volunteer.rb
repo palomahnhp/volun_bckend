@@ -110,14 +110,10 @@ class Volunteer < ActiveRecord::Base
   
   def check_existing(degree_attr)
     _degree = Degree.find_by(name: degree_attr[:name])
-    if _degree && !self.degrees.exists?(_degree.id)
+    if !self.degrees.exists?(_degree)
       self.degrees << _degree
-      return true
-    elsif _degree && self.degrees.exists?(_degree.id)
-      return true
-    else
-      return false
     end
+    return true
   end
 
 end
