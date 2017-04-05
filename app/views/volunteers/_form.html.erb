@@ -6,15 +6,25 @@
   <div class="form-inputs">
     <div class="row well">
       <div class="col-md-12">
-        <div class="row">
-          <%= f.input :name, wrapper_html: { class: 'col-md-4' } %>
-          <%= f.input :last_name, wrapper_html: { class: 'col-md-4' } %>
-          <%= f.input :last_name_alt, wrapper_html: { class: 'col-md-4' } %>
-        </div>
-        <div class="row">
-          <%= f.association :nationality, wrapper_html: { class: 'col-md-4' } %>
-          <%= f.input :gender, wrapper_html: { class: 'col-md-4' } %>
-          <%= f.input :birth_date, as: :string, input_html: date_input_html(f.object.birth_date), wrapper_html: { class: 'col-md-4' } %>
+        <div class="logo_block col-md-2">
+          <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
+              <%= show_simple_base_errors(f_logo) %>
+              <div class="logo-fields col-md-12">
+                <div class="">
+                  <%= content_tag :div, image_tag(f_logo.object.file.url(:small), height: '210', width: '210'), class: 'logo-img' %>
+                  <%= f_logo.input :file, as: :file, label: false, wrapper_html: { class: '' } %>
+                  <%= f_logo.input :link_type_id, as: :hidden, input_html: { value: LinkType.logo.take.id } %>
+                </div> <!-- logo-fields -->
+              </div>
+          <% end %>
+        </div> <!-- logo_block -->
+        <div class="col-md-10">
+          <%= f.input :name, wrapper_html: { class: 'col-md-6' } %>
+          <%= f.input :last_name, wrapper_html: { class: 'col-md-6' } %>
+          <%= f.input :last_name_alt, wrapper_html: { class: 'col-md-6' } %>
+          <%= f.association :nationality, wrapper_html: { class: 'col-md-6' } %>
+          <%= f.input :gender, wrapper_html: { class: 'col-md-6' } %>
+          <%= f.input :birth_date, as: :string, input_html: date_input_html(f.object.birth_date), wrapper_html: { class: 'col-md-6' } %>
         </div>
       </div>
     </div>
@@ -146,7 +156,7 @@
           <%= render partial: 'addresses/form_fields', locals: { f: f_address } %>
       <% end %>
     </div>
-    <% if f.object.review? && @volunteer.persisted? %>
+    <% if @volunteer.persisted? && f.object.reload.review? %>
       <%= f.input :review, as: :hidden, input_html: { id: 'review' } %>
       <div class="row well">
         <%= content_tag :h3, t('errors_title_volun'), class: 'form-subtitle' %>
@@ -218,14 +228,14 @@
   </div>
 
   <div class="form-actions">
-    <% if f.object.review? && @volunteer.persisted? %>
+    <% if @volunteer.persisted? && f.object.reload.review? %>
       <input type="hidden" value="<%= t('messages.confirm_revised_all_volunteer') %>" id="reviseAllMsg" />
       <input type="hidden" value="<%= t('messages.confirm_revised_volunteer') %>" id="reviseMsg" />
     <% end %>
     <%= f.button :submit, class: 'btn btn-success js-confirmable', id: 'submit' %>
     <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
-    <% if f.object.review? && @volunteer.persisted? %>
+    <% if @volunteer.persisted? && f.object.reload.review? %>
       <script>
         // These validations have effect only if review is 1
         // Submit check specific revisions

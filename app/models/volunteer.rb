@@ -49,11 +49,23 @@ class Volunteer < ActiveRecord::Base
   has_many :languages, :through => :known_languages
   has_many :traits,    :through => :assessments
   has_one :user, as: :loggable
+  has_many :links, as: :linkable
+  has_one  :logo,   -> { volunteer_logo   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :images, -> { volunteer_images }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :videos, -> { volunteer_videos }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :docs,   -> { volunteer_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :urls,   -> { volunteer_urls   }, class_name: 'Link', foreign_key: 'linkable_id'
+  
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :known_languages, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :projects, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :degrees, reject_if: :check_existing, allow_destroy: true
+  accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :docs,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :urls,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :logo,   reject_if: :all_blank, allow_destroy: true
 
   validates :name, :last_name, :id_number, presence: true
   validates :id_number, spanish_vat: true
@@ -110,7 +122,7 @@ class Volunteer < ActiveRecord::Base
   
   def check_existing(degree_attr)
     _degree = Degree.find_by(name: degree_attr[:name])
-    if !self.degrees.exists?(_degree)
+    if _degree && !self.degrees.exists?(_degree)
       self.degrees << _degree
     end
     return true

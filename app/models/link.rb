@@ -3,6 +3,7 @@ class Link < ActiveRecord::Base
   belongs_to :linkable, polymorphic: true
   belongs_to :link_type
   belongs_to :project,  -> { includes(:links).where(links: { linkable_type: 'Project' }) }, foreign_key: 'linkable_id'
+  belongs_to :volunteer,  -> { includes(:links).where(links: { linkable_type: 'Volunteer' }) }, foreign_key: 'linkable_id'
   belongs_to :activity, -> { includes(:links).where(links: { linkable_type: 'Activity'}) }, foreign_key: 'linkable_id'
 
 
@@ -50,6 +51,22 @@ class Link < ActiveRecord::Base
   }
   scope :project_logo, ->{
     includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.logo.take.id)
+  }
+  
+  scope :volunteer_images , ->{
+    includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.image.take.id)
+  }
+  scope :volunteer_videos , ->{
+    includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.video.take.id)
+  }
+  scope :volunteer_docs   , ->{
+    includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.document.take.id)
+  }
+  scope :volunteer_urls   , ->{
+    includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.url.take.id)
+  }
+  scope :volunteer_logo, ->{
+    includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.logo.take.id)
   }
 
   class << self
