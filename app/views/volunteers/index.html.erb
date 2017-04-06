@@ -90,11 +90,7 @@
     });
 
     $("#btn-search").click(function(){
-        var days = [];
-        $('#availability-select option:selected').each(function() {
-            days.push(this.value);
-        });
-        $('.q_availabilities_day_in_all').prop('value',days);
+        $('.q_availabilities_day_in_all').prop('value',$('#availability-select option:selected').val());
         $('#q_address_district_eq').prop('value', $('#district-select option:selected').val())
         $('#status').prop('value', $('#status-select option:selected').val())
         $('.search-form').submit()
