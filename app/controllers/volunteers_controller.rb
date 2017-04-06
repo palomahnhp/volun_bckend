@@ -168,6 +168,47 @@ class VolunteersController < ApplicationController
               :degree_type_id,
               :_destroy
             ]
+          },
+          {
+            logo_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            images_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            videos_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            docs_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            urls_attributes: [
+              :id,
+              :path,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
           }
         )
     end

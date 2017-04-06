@@ -21,7 +21,7 @@ class Project < ActiveRecord::Base
   has_many :volun_contacts,    :class_name => 'Volun::Contact'
   has_many :volun_assessments, :class_name => 'Volun::Assessments'
   has_many :links, as: :linkable
-  has_one :logo,    -> { project_logo   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_one  :logo,   -> { project_logo   }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :images, -> { project_images }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :videos, -> { project_videos }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :docs,   -> { project_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
