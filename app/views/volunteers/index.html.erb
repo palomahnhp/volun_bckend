@@ -91,9 +91,32 @@
 
     $("#btn-search").click(function(){
         $('.q_availabilities_day_in_all').prop('value',$('#availability-select option:selected').val());
-        $('#q_address_district_eq').prop('value', $('#district-select option:selected').val())
-        $('#status').prop('value', $('#status-select option:selected').val())
+        $('#q_address_district_eq').prop('value', $('#district-select option:selected').val());
+        $('#status').prop('value', $('#status-select option:selected').val());
         $('.search-form').submit()
     });
+
+    if ($('#q_address_district_eq').val()) {
+        var districtValue = $('#q_address_district_eq').val()
+        $('#district-select option[value="'+districtValue+'"]').attr('selected', 'selected')
+    }
+
+    if ($('#status').val()) {
+        var statusValue = $('#status').val()
+        $('#status-select option[value="'+statusValue+'"]').attr('selected', 'selected')
+    }
+
+    if ($('.q_availabilities_day_in_all').val()) {
+        var availabilityValue = $('.q_availabilities_day_in_all').val()
+        $("#availability-select option:eq(" + availabilityValue + ")").attr('selected', 'selected')
+    }
+
+    if ($('.volun-result').length == 0) {
+        swal(
+            "Lo sentimos",
+            "Su búsqueda no ha encontrado resultados",
+            "error"
+        )
+    }
 
 </script>
