@@ -47,6 +47,7 @@ class Project < ActiveRecord::Base
                                               message: I18n.t('activerecord.errors.messages.invalid_proj_date'),
                                               allow_blank: true }
   validates :volunteers_num, :beneficiaries_num, numericality: { allow_blank: true }
+  validate  :check_timetables_execution_date
 
   scope :list, ->(){
     includes(
@@ -111,6 +112,22 @@ class Project < ActiveRecord::Base
 
     unless execution_start_date <= execution_end_date
       errors.add(:execution_start_date, :execution_start_date_must_be_less_than_execution_end_date)
+    end
+  end
+  
+  def check_timetables_execution_date
+    return unless events.any?
+    validation = true
+    self.events.each do |event|
+      event.timetables.each do |timetable|
+        unless (timetable.execution_date >= execution_start_date) && (timetable.execution_date <= execution_end_date)
+          validation = false
+        end
+        unless validation
+          errors.add(:base, :timetable_must_be_between_execution_start_date_and_execution_end_date)
+          return true
+        end
+      end
     end
   end
 
