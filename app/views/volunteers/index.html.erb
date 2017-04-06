@@ -28,11 +28,11 @@
                               class:     'form-control',
                               id:        'status-select' %>
     </div>
-    <div class="status-filter col-md-2 form-group select">
+    <div class="availability-filter col-md-2 form-group select">
       <%= content_tag :label, t('availability') + ":", for: 'available_day', class: 'col-sm-6 control-label' %>
     </div>
     <div class="col-sm-2" id="day-availability">
-      <%= select_tag :availabilities_day, options_for_select(Volun::Availability.days_i18n_alt), multiple: true,
+      <%= select_tag :availabilities_day, options_for_select(Volun::Availability.days_i18n_alt),
                                           class:     'form-control',
                                           id:        'availability-select' %>
     </div>

@@ -9,7 +9,7 @@
   <div class="address-fields col-md-12">
     <div class="row row-4-1">
       <%= f.input :country, as: :string,  input_html: { value: (f.object.country || Setting['default_country']), readonly: true, class: 'js-country' }, wrapper_html: { class: 'col-md-3' } %>
-      <%= f.input :province, collection: Province.pluck(:name), selected: (f.object.province || Setting['default_province']), input_html: { class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
+      <%= f.input :province, collection: Province.pluck(:name).map(&:upcase), selected: (f.object.province || Setting['default_province']).upcase, input_html: { class: 'js-province' }, wrapper_html: { class: 'col-md-4' } %>
       <%= f.input :town, input_html: { class: 'js-town', data: { 'js-search-towns-url' => bdc_search_towns_addresses_url } }, wrapper_html: { class: 'col-md-5' } %>
     </div>
     <div class="row row-4-1">
