@@ -103,6 +103,60 @@
       <% end %>
       <p><%= f.link_to_add icon_new(text: "#{Volun::Availability.model_name.human}"), :availabilities, class: 'btn' %></p>
     </div>
+    <script>
+      // Show field others in assessments
+      function showComments(selId) {
+        otherId = selId.split("_id")[0] + "_other";
+        if ($("#"+selId+" option:selected").html() == $("#others").val()) {
+          $("#"+otherId).parent().parent().show();
+        } else {
+          $("#"+otherId).parent().parent().hide();
+        }
+      }
+    </script>
+    <div class="row well">
+      <%= content_tag :h3, Volun::Assessment.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :assessments, (f.object.assessments.build if f.object.new_record? && f.object.assessments.empty?) do |f_assessments|  %>
+        <div class="row well col-md-12">
+          <div class="row">
+              <%= f_assessments.association :trait, input_html: { onchange: "showComments(this.id);" }, wrapper_html: { class: 'col-md-6' } %>
+              <%= hidden_field_tag "others", t('others') %>
+              <%= f_assessments.input :trait_other, wrapper_html: { hidden: true, class: 'col-md-6' }  %>
+              <%= f_assessments.link_to_remove build_icon('trash-o', text: "#{Volun::Assessment.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- assessment-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Volun::Assessment.model_name.human}"), :assessments, class: 'btn' %></p>
+      <script>
+        $( document ).ready(function() {
+          $.each($('[id^="volunteer_assessments_attributes"][id$="trait_id"]'), function( index, value ) {
+            showComments(value.id)
+          }); 
+        });
+      </script>
+    </div>
+    <div class="row well">
+      <%= content_tag :h3, Volun::AssessmentsProject.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :assessments_projects, (f.object.assessments_projects.build if f.object.new_record? && f.object.assessments_projects.empty?) do |f_assessments_projects|  %>
+        <div class="row well col-md-12">
+          <div class="row">
+              <%= f_assessments_projects.association :project, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_assessments_projects.association :trait, input_html: { onchange: "showComments(this.id);" }, wrapper_html: { class: 'col-md-4' } %>
+              <%= hidden_field_tag "others", t('others') %>
+              <%= f_assessments_projects.input :trait_other, wrapper_html: { hidden: true, class: 'col-md-4' }  %>
+              <%= f_assessments_projects.link_to_remove build_icon('trash-o', text: "#{Volun::AssessmentsProject.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- assessment-project-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Volun::AssessmentsProject.model_name.human}"), :assessments_projects, class: 'btn' %></p>
+      <script>
+        $( document ).ready(function() {
+          $.each($('[id^="volunteer_assessments_projects_attributes"][id$="trait_id"]'), function( index, value ) {
+            showComments(value.id)
+          }); 
+        });
+      </script>
+    </div>
     <div class="row well">
       <%= f.input :agreement, input_html: {onClick: 'setAgrmtDate()'}, wrapper_html: { class: 'col-md-6' } %>
       <%= f.input :agreement_date, as: :string, input_html: date_input_html(f.object.agreement_date), wrapper_html: { class: 'col-md-6' } %>
@@ -367,7 +421,6 @@
 </div>
 
 <script>
-
     // Check date fields one time at rendering;
     setAvailDate();
     setAgrmtDate();

@@ -145,3 +145,4 @@ es:
     formats:
       default: ! '%d/%m/%Y'
   no_accept_cond: No acepta condiciones
+  others: Otros

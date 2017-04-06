@@ -48,7 +48,6 @@ class Volun::AssessmentsController < ApplicationController
         .permit(
           :volunteer_id,
           :trait_id,
-          :project_id,
           :trait_other,
           :assessment,
           :comments

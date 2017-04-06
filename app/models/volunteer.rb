@@ -41,11 +41,12 @@ class Volunteer < ActiveRecord::Base
   has_and_belongs_to_many :degrees, ->{ where(active: true).order('degrees.name asc') }
   has_and_belongs_to_many :areas, ->{ where(active: true).order('areas.name asc') }
   has_and_belongs_to_many :collectives, ->{ where(active: true).order('collectives.name asc') }
-  has_many :known_languages, :class_name => 'Volun::KnownLanguage'
-  has_many :assessments,     :class_name => 'Volun::Assessment'
-  has_many :availabilities,  :class_name => 'Volun::Availability'
-  has_many :contacts,        :class_name => 'Volun::Contact'
-  has_many :trackings,       :class_name => 'Volun::Tracking'
+  has_many :known_languages,         :class_name => 'Volun::KnownLanguage'
+  has_many :assessments,             :class_name => 'Volun::Assessment'
+  has_many :assessments_projects,    :class_name => 'Volun::AssessmentsProject'
+  has_many :availabilities,          :class_name => 'Volun::Availability'
+  has_many :contacts,                :class_name => 'Volun::Contact'
+  has_many :trackings,               :class_name => 'Volun::Tracking'
   has_many :languages, :through => :known_languages
   has_many :traits,    :through => :assessments
   has_one :user, as: :loggable
@@ -59,6 +60,8 @@ class Volunteer < ActiveRecord::Base
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :known_languages, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :assessments, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :assessments_projects, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :projects, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :degrees, reject_if: :check_existing, allow_destroy: true
   accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
