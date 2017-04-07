@@ -2888,7 +2888,6 @@ CREATE TABLE volun_assessments (
     id integer NOT NULL,
     volunteer_id integer NOT NULL,
     trait_id integer NOT NULL,
-    project_id integer NOT NULL,
     trait_other character varying,
     assessment boolean DEFAULT false NOT NULL,
     comments text,
@@ -2914,6 +2913,42 @@ CREATE SEQUENCE volun_assessments_id_seq
 --
 
 ALTER SEQUENCE volun_assessments_id_seq OWNED BY volun_assessments.id;
+
+
+--
+-- Name: volun_assessments_projects; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE volun_assessments_projects (
+    id integer NOT NULL,
+    volunteer_id integer,
+    trait_id integer,
+    project_id integer,
+    trait_other character varying,
+    assessment boolean DEFAULT false,
+    comments text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: volun_assessments_projects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE volun_assessments_projects_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: volun_assessments_projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE volun_assessments_projects_id_seq OWNED BY volun_assessments_projects.id;
 
 
 --
@@ -3670,6 +3705,13 @@ ALTER TABLE ONLY volun_assessments ALTER COLUMN id SET DEFAULT nextval('volun_as
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY volun_assessments_projects ALTER COLUMN id SET DEFAULT nextval('volun_assessments_projects_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY volun_availabilities ALTER COLUMN id SET DEFAULT nextval('volun_availabilities_id_seq'::regclass);
 
 
@@ -4315,6 +4357,14 @@ ALTER TABLE ONLY users
 
 ALTER TABLE ONLY volun_assessments
     ADD CONSTRAINT volun_assessments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: volun_assessments_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY volun_assessments_projects
+    ADD CONSTRAINT volun_assessments_projects_pkey PRIMARY KEY (id);
 
 
 --
@@ -5177,13 +5227,6 @@ CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (re
 
 
 --
--- Name: index_volun_assessments_on_project_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_volun_assessments_on_project_id ON volun_assessments USING btree (project_id);
-
-
---
 -- Name: index_volun_assessments_on_trait_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -5195,6 +5238,27 @@ CREATE INDEX index_volun_assessments_on_trait_id ON volun_assessments USING btre
 --
 
 CREATE INDEX index_volun_assessments_on_volunteer_id ON volun_assessments USING btree (volunteer_id);
+
+
+--
+-- Name: index_volun_assessments_projects_on_project_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_volun_assessments_projects_on_project_id ON volun_assessments_projects USING btree (project_id);
+
+
+--
+-- Name: index_volun_assessments_projects_on_trait_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_volun_assessments_projects_on_trait_id ON volun_assessments_projects USING btree (trait_id);
+
+
+--
+-- Name: index_volun_assessments_projects_on_volunteer_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_volun_assessments_projects_on_volunteer_id ON volun_assessments_projects USING btree (volunteer_id);
 
 
 --
@@ -5578,6 +5642,14 @@ ALTER TABLE ONLY frontpage_elements
 
 
 --
+-- Name: fk_rails_1f94e4af32; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY volun_assessments_projects
+    ADD CONSTRAINT fk_rails_1f94e4af32 FOREIGN KEY (project_id) REFERENCES projects(id);
+
+
+--
 -- Name: fk_rails_218216dd2a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5794,19 +5866,19 @@ ALTER TABLE ONLY rt_volunteer_unsubscribes
 
 
 --
--- Name: fk_rails_6835f66031; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY volun_assessments
-    ADD CONSTRAINT fk_rails_6835f66031 FOREIGN KEY (project_id) REFERENCES projects(id);
-
-
---
 -- Name: fk_rails_6b7b9a59a1; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments
     ADD CONSTRAINT fk_rails_6b7b9a59a1 FOREIGN KEY (trait_id) REFERENCES traits(id);
+
+
+--
+-- Name: fk_rails_6bfcef8235; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY volun_assessments_projects
+    ADD CONSTRAINT fk_rails_6bfcef8235 FOREIGN KEY (trait_id) REFERENCES traits(id);
 
 
 --
@@ -5935,6 +6007,14 @@ ALTER TABLE ONLY rt_volunteer_unsubscribes
 
 ALTER TABLE ONLY volun_contacts
     ADD CONSTRAINT fk_rails_b0091044ff FOREIGN KEY (contact_result_id) REFERENCES contact_results(id);
+
+
+--
+-- Name: fk_rails_b167571955; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY volun_assessments_projects
+    ADD CONSTRAINT fk_rails_b167571955 FOREIGN KEY (volunteer_id) REFERENCES volunteers(id);
 
 
 --
@@ -6342,4 +6422,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170316083914');
 INSERT INTO schema_migrations (version) VALUES ('20170321160845');
 
 INSERT INTO schema_migrations (version) VALUES ('20170403094612');
+
+INSERT INTO schema_migrations (version) VALUES ('20170405163435');
+
+INSERT INTO schema_migrations (version) VALUES ('20170405163822');
 

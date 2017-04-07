@@ -134,6 +134,25 @@ class VolunteersController < ApplicationController
               :_destroy
             ]
           },
+          {
+            assessments_attributes: [
+              :id,
+              :volunteer_id,
+              :trait_id,
+              :trait_other,
+              :_destroy
+            ]
+          },
+          {
+            assessments_projects_attributes: [
+              :id,
+              :volunteer_id,
+              :trait_id,
+              :project_id,
+              :trait_other,
+              :_destroy
+            ]
+          },
           { skill_ids: [] },
           {
             address_attributes: [

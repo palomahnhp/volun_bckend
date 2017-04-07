@@ -261,6 +261,12 @@ es:
       volun/known_language:
         one:    Idioma
         other:  Idiomas
+      volun/assessment:
+        one:    Cualidad
+        other:  Cualidades
+      volun/assessments_project:
+        one:    Cualidad en proyecto
+        other:  Cualidades en proyecto
       pro/tracking:
         one:    Seguimiento de proyecto
         other:  Seguimientos de proyecto
@@ -594,7 +600,7 @@ es:
         created_at:               *created_at
       timetable:
         id:                       ID
-        execution_date:           Fecha inicio
+        execution_date:           Fecha
         start_hour:               Hora inicio
         end_hour:                 Hora fin
         project_id:               ID del proyecto
@@ -696,6 +702,24 @@ es:
         language_level:       Nivel
         language_level_id:    Nivel
         created_at:           *created_at
+      volun/assessment:
+        id:                   ID
+        volunteer_id:         Voluntario
+        volunteer:            Voluntario
+        trait_id:             Cualidad
+        trait:                Cualidad
+        trait_other:          Otras cualidades
+        created_at:           *created_at
+      volun/assessments_project:
+        id:                   ID
+        volunteer_id:         Voluntario
+        volunteer:            Voluntario
+        trait_id:             Cualidad
+        trait:                Cualidad
+        trait_other:          Otras cualidades
+        project_id:           Proyecto
+        project:              Proyecto
+        created_at:           *created_at
       pro/tracking:
         id:                   ID
         project:              Proyecto
@@ -739,6 +763,7 @@ es:
       messages:
         invalid_project_type: El tipo de proyecto es inválido
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
+        timetable_must_be_between_execution_start_date_and_execution_end_date: "Las fechas de horarios deben estar en el intervalo de las fechas de ejecución desde y hasta"
         execution_start_date_must_be_less_than_execution_end_date: La fecha de inicio debe ser menor o igual que la fecha de fin
         pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
         rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"

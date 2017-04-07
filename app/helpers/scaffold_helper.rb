@@ -83,7 +83,7 @@ module ScaffoldHelper
 
     content_tag :div, class: 'has-error alert alert-danger alert-dismissable' do
       "<button name=\"button\" type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>" \
-      "#{form.object.errors[:base]}".html_safe
+      "#{form.object.errors[:base].to_sentence}".html_safe
     end
   end
 
