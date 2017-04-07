@@ -1,4 +1,4 @@
-    // Select2 jQuery for degrees filtering
+    // Select jQuery for degrees filtering
     function filterDegree(degreeTypeId) {
       degreeId = degreeTypeId.split("_degree_type_id")[0] + "_name";
       dt_id = $("#" + degreeTypeId + " option:selected").val();
@@ -37,13 +37,13 @@
         $("#volunteer_agreement_date").attr("disabled", false);
       }
     }
-		
-		// Show field others in assessments
-		function showComments(selId) {
-			otherId = selId.split("_id")[0] + "_other";
-			if ($("#"+selId+" option:selected").html() == $("#others").val()) {
-				$("#"+otherId).parent().parent().show();
-			} else {
-				$("#"+otherId).parent().parent().hide();
-			}
-		}
+
+    // Show field others in assessments
+    function showComments(selId) {
+      otherId = selId.split("_id")[0] + "_other";
+      if ($("#"+selId+" option:selected").html() == $("#others").val()) {
+        $("#"+otherId).parent().parent().show();
+      } else {
+        $("#"+otherId).parent().parent().hide();
+      }
+    }
