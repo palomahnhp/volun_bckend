@@ -116,11 +116,6 @@
         </div>
       <% end %>
       <p><%= f.link_to_add icon_new(text: "#{Volun::Assessment.model_name.human}"), :assessments, class: 'btn' %></p>
-      <script>
-        $.each($('[id^="volunteer_assessments_attributes"][id$="trait_id"]'), function( index, value ) {
-          showComments(value.id)
-        });
-      </script>
     </div>
     <div class="row well">
       <%= content_tag :h3, Volun::AssessmentsProject.model_name.human(count: 2), class: 'form-subtitle' %>
@@ -136,11 +131,6 @@
         </div>
       <% end %>
       <p><%= f.link_to_add icon_new(text: "#{Volun::AssessmentsProject.model_name.human}"), :assessments_projects, class: 'btn' %></p>
-      <script>
-        $.each($('[id^="volunteer_assessments_projects_attributes"][id$="trait_id"]'), function( index, value ) {
-            showComments(value.id)
-        });
-      </script>
     </div>
     <div class="row well">
       <%= f.input :agreement, input_html: {onClick: 'setAgrmtDate()'}, wrapper_html: { class: 'col-md-6' } %>
@@ -181,14 +171,6 @@
         <%= f.association :collectives, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
       </div>
     </div>
-<!-- Intermediate table needs project_id and assessment_id, not possible to associate yet
-    <div class="row">
-      <div class="well col-md-12">
-        <%= content_tag :h3, Trait.model_name.human(count: 2), class: 'form-subtitle' %>
-        <%= f.association :traits, as: :check_boxes, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
-      </div>
-    </div>
--->
     <div class="row well">
       <%= content_tag :h3, Address.model_name.human, class: 'form-subtitle' %>
       <%= f.simple_fields_for :address, (f.object.address.presence || f.object.build_address) do |f_address|  %>
@@ -404,8 +386,3 @@
     <% end %>
   <% end %>
 </div>
-<script>
-    // Check date fields one time at rendering;
-    setAvailDate();
-    setAgrmtDate();
-</script>

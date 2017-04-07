@@ -1,3 +1,16 @@
+    $(document).on('turbolinks:load', function(){
+      // Check date fields one time at rendering;
+      setAvailDate();
+      setAgrmtDate();
+      // Show others comment fields on traits
+      $.each($('[id^="volunteer_assessments_attributes"][id$="trait_id"]'), function( index, value ) {
+        showComments(value.id)
+      });
+      $.each($('[id^="volunteer_assessments_projects_attributes"][id$="trait_id"]'), function( index, value ) {
+        showComments(value.id)
+      });
+    });
+    
     // Select jQuery for degrees filtering
     function filterDegree(degreeTypeId) {
       degreeId = degreeTypeId.split("_degree_type_id")[0] + "_name";
