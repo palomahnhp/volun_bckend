@@ -120,7 +120,7 @@ class Volunteer < ActiveRecord::Base
   end
 
   def unassociated_projects
-    Project.where('id NOT IN (?)', self.projects.select('id'))
+    Project.where('id NOT IN (?)', self.projects.select('id')).where(active: true).order('projects.name asc')
   end
   
   def check_existing(degree_attr)
