@@ -497,10 +497,14 @@ a:hover {
   padding-right: 15px;
   padding-top: 0;
   border: 2px solid #e3e3e3;
+  border-left-width: 0;
+  border-right-width: 0;
 }
 
 form .well {
   margin-bottom: 5px;
+  border-left-width: 0;
+  border-right-width: 0;
 }
 
 @media (min-width: 768px) {
