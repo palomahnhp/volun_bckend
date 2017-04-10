@@ -118,7 +118,7 @@ es:
   add_day: 'Añadir día'
   available_day: 'Día disponible'
   availability: 'Disponibilidad'
-  id: 'Identificador'
+  id: 'Id del voluntario'
   choose_availability: 'Elegir disponibilidad'
   search: 'Buscar'
   administration_title_text: Aquí se administran las tablas de la aplicación
