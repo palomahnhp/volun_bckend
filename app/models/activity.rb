@@ -3,8 +3,8 @@ class Activity < ActiveRecord::Base
   has_many :events, as: :eventable
   has_many :links, as: :linkable
   belongs_to :entity
-  belongs_to :area
-  belongs_to :project
+  belongs_to :area, ->{ where(active: true).order('areas.name asc') }
+  belongs_to :project, ->{ where(active: true).order('projects.name asc') }
   
   accepts_nested_attributes_for :events, reject_if: :all_blank, allow_destroy: true
 
