@@ -666,3 +666,7 @@ form .well {
 .availability-filter{
   color: #3b5f79;
 }
+
+select[multiple].wide-select {
+  height: 300px;
+}
