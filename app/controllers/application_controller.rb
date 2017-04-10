@@ -129,6 +129,48 @@ class ApplicationController < ActionController::Base
         ]
       },
       {
+        logo_attributes: [
+          :id,
+          :link_type_id,
+          :file,
+          :_destroy
+        ]
+      },
+      # TODO remove images_attributes, videos_attributes and docs_attributes?
+      {
+        images_attributes: [
+          :id,
+          :link_type_id,
+          :file,
+          :_destroy
+        ]
+      },
+      {
+        videos_attributes: [
+          :id,
+          :link_type_id,
+          :file,
+          :_destroy
+        ]
+      },
+      {
+        docs_attributes: [
+          :id,
+          :link_type_id,
+          :file,
+          :_destroy
+        ]
+      },
+      {
+        urls_attributes: [
+          :id,
+          :path,
+          :link_type_id,
+          :file,
+          :_destroy
+        ]
+      },
+      {
         events_attributes: [
           :id,
           {

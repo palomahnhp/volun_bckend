@@ -1,10 +1,142 @@
 Rake::Task['db:seed'].invoke
 
-[NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel].each do |model|
+[NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel, LinkType].each do |model|
   puts "#{I18n.t('creating')} #{model.model_name.human}"
   model.kinds.each do |kind_name , kind_num|
     model.create!(id: kind_num, kind: kind_num, description: kind_name)
   end
+end
+
+DISTRICTS = {
+  '01' => 'CENTRO',
+  '02' => 'ARGANZUELA',
+  '03' => 'RETIRO',
+  '04' => 'SALAMANCA',
+  '05' => 'CHAMARTIN',
+  '06' => 'TETUAN',
+  '07' => 'CHAMBERI',
+  '08' => 'FUENCARRAL-EL PARDO',
+  '09' => 'MONCLOA-ARAVACA',
+  '10' => 'LATINA',
+  '11' => 'CARABANCHEL',
+  '12' => 'USERA',
+  '13' => 'PUENTE VALLECAS',
+  '14' => 'MORATALAZ',
+  '15' => 'CIUDAD LINEAL',
+  '16' => 'HORTALEZA',
+  '17' => 'VILLAVERDE',
+  '18' => 'VILLA DE VALLECAS',
+  '19' => 'VICÁLAVARO',
+  '20' => 'SAN BLAS',
+  '21' => 'BARAJAS',
+  '22' => 'OTRO MUNICIPIO',
+  '99' => 'OTROS'
+}
+
+PROVINCES = {
+  '1'  => 'ARABA-ALAVA',
+  '2'  => 'ALBACETE',
+  '3'  => 'ALICANTE-ALACANT',
+  '4'  => 'ALMERIA',
+  '5'  => 'AVILA',
+  '6'  => 'BADAJOZ',
+  '7'  => 'ILLES BALEARS',
+  '8'  => 'BARCELONA',
+  '9'  => 'BURGOS',
+  '10' => 'CACERES',
+  '11' => 'CADIZ',
+  '12' => 'CASTELLON-CASTELLO',
+  '13' => 'CIUDAD REAL',
+  '14' => 'CORDOBA',
+  '15' => 'A CORUÑA',
+  '16' => 'CUENCA',
+  '17' => 'GIRONA',
+  '18' => 'GRANADA',
+  '19' => 'GUADALAJARA',
+  '20' => 'GIPUZKOA',
+  '21' => 'HUELVA',
+  '22' => 'HUESCA',
+  '23' => 'JAEN',
+  '24' => 'LEON',
+  '25' => 'LLEIDA',
+  '26' => 'LA RIOJA',
+  '27' => 'LUGO',
+  '28' => 'MADRID',
+  '29' => 'MALAGA',
+  '30' => 'MURCIA',
+  '31' => 'NAVARRA',
+  '32' => 'OURENSE',
+  '33' => 'ASTURIAS',
+  '34' => 'PALENCIA',
+  '35' => 'LAS PALMAS',
+  '36' => 'PONTEVEDRA',
+  '37' => 'SALAMANCA',
+  '38' => 'SANTA CRUZ DE TENERIFE',
+  '39' => 'CANTABRIA',
+  '40' => 'SEGOVIA',
+  '41' => 'SEVILLA',
+  '42' => 'SORIA',
+  '43' => 'TARRAGONA',
+  '44' => 'TERUEL',
+  '45' => 'TOLEDO',
+  '46' => 'VALENCIA',
+  '47' => 'VALLADOLID',
+  '48' => 'BIZKAIA',
+  '49' => 'ZAMORA',
+  '50' => 'ZARAGOZA',
+  '51' => 'CEUTA',
+  '52' => 'MELILLA'
+}
+
+ROAD_TYPES = {
+  'ACCESO'     => '13',
+  'ARROYO'     => '1',
+  'AUTOPISTA'  => '10',
+  'AUTOVIA'    => '364',
+  'AVENIDA'    => '13063',
+  'BULEVAR'    => '199',
+  'CALLE'      => '176374',
+  'CALLEJON'   => '159',
+  'CAMINO'     => '1604',
+  'CAMINOALTO' => '28',
+  'CARRERA'    => '50',
+  'CARRETERA'  => '831',
+  'CAÑADA'     => '107',
+  'COLONIA'    => '364 ',
+  'COSTANILLA' => '107 ',
+  'CUESTA'     => '113',
+  'GALERIA'    => '10 ',
+  'GLORIETA'   => '288',
+  'PARQUE'     => '30',
+  'PARTICULAR' => '21',
+  'PASADIZO'   => '6',
+  'PASAJE'     => '',
+  'PASEO'      => '4239',
+  'PISTA'      => '4',
+  'PLAZA'      => '3478',
+  'PLAZUELA'   => '16',
+  'PUENTE'     => '1 ',
+  'RONDA'      => ' ',
+  'TRAVESIA'   => '1007',
+}
+
+puts "#{I18n.t('creating')} #{District.model_name.human}"
+DISTRICTS.each do |code, name|
+  District.create!(code: code, name: name)
+end
+
+puts "#{I18n.t('creating')} #{Province.model_name.human}"
+PROVINCES.each do |code, name|
+  Province.create!(code: code, name: name)
+end
+
+puts "#{I18n.t('creating')} #{RoadType.model_name.human}"
+ROAD_TYPES.each do |name, code|
+  RoadType.create!(name: name, code: code)
+end
+
+def alter_sequence(sequence_name, sequence_number)
+  ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{sequence_name} RESTART WITH #{sequence_number}")
 end
 
 # The following data has been obtained from an access data base
@@ -31,8 +163,7 @@ Area.create!(id: 16, name: 'Gestión Administrativa', active: true)
 Area.create!(id: 17, name: 'Indiferente'           , active: true)
 Area.create!(id: 18, name: 'Otros'                 , active: true)
 
-
-
+alter_sequence(Area.sequence_name, Area.maximum("id") + 1)
 
 ## degree_types
 puts "#{I18n.t('creating')} #{DegreeType.model_name.human}"
@@ -48,8 +179,7 @@ DegreeType.create!(id: 8,  name: 'Enseñanzas Técnicas'               , active:
 DegreeType.create!(id: 9,  name: 'Ciencias de la Salud'              , active: true) # educational_type: 'N',
 DegreeType.create!(id: 10, name: 'Otra Formación'                    , active: true) # educational_type: 'N',
 
-
-
+alter_sequence(DegreeType.sequence_name, DegreeType.maximum("id") + 1)
 
 ##  languages
 puts "#{I18n.t('creating')} #{Language.model_name.human}"
@@ -123,8 +253,7 @@ Language.create!(id: 66, name: 'WOLOF'              , active: true)
 Language.create!(id: 98, name: 'SIGNOS'             , active: true)
 Language.create!(id: 99, name: 'OTROS'              , active: true)
 
-
-
+alter_sequence(Language.sequence_name, Language.maximum("id") + 1)
 
 ## motivations
 puts "#{I18n.t('creating')} #{Motivation.model_name.human}"
@@ -147,8 +276,7 @@ Motivation.create!(id: 15, name: 'Para recibir información sobre voluntariado' 
 Motivation.create!(id: 16, name: 'Prescripción facultativa'                                , active: true)
 Motivation.create!(id: 99, name: 'Otras Motivaciones'                                      , active: true)
 
-
-
+alter_sequence(Motivation.sequence_name, Motivation.maximum("id") + 1)
 
 ## unsubscribe_reasons
 puts "#{I18n.t('creating')} #{UnsubscribeReason.model_name.human}"
@@ -157,8 +285,7 @@ UnsubscribeReason.create!(id: 1, name: 'Baja voluntaria'                  , acti
 UnsubscribeReason.create!(id: 2, name: 'Incumplimiento de los compromisos', active: true)
 UnsubscribeReason.create!(id: 3, name: 'Falta de integración'             , active: true)
 
-
-
+alter_sequence(UnsubscribeReason.sequence_name, UnsubscribeReason.maximum("id") + 1)
 
 ## nationalities
 puts "#{I18n.t('creating')} #{Nationality.model_name.human}"
@@ -408,7 +535,7 @@ Nationality.create!(id: 243, name: 'SERBIA,REPÚBLICA DE'         , active: true
 Nationality.create!(id: 244, name: 'MONTENEGRO,REPÚBLICA DE'     , active: true)
 Nationality.create!(id: 999, name: 'NO IDENTIFICADO'             , active: true)
 
-
+alter_sequence(Nationality.sequence_name, Nationality.maximum("id") + 1)
 
 ## academic_levels
 puts "#{I18n.t('creating')} #{AcademicLevel.model_name.human}"
@@ -431,7 +558,7 @@ AcademicLevel.create!(id: 106, name: '106-N Licenciado Universitario'      , edu
 AcademicLevel.create!(id: 107, name: '107-N Doctorado Universitario'       , educational_type: 'N', active: true)
 AcademicLevel.create!(id: 200, name: '200-N NS/NC'                         , educational_type: 'N', active: true)
 
-
+alter_sequence(AcademicLevel.sequence_name, AcademicLevel.maximum("id") + 1)
 
 ## profiles
 puts "#{I18n.t('creating')} #{Profile.model_name.human}"
@@ -441,7 +568,7 @@ Profile.create!(id: 2, name: 'TECNICO'      , active: true)
 Profile.create!(id: 3, name: 'EMPRESA'      , active: true)
 Profile.create!(id: 4, name: 'VOLUNTARIO'   , active: true)
 
-
+alter_sequence(Profile.sequence_name, Profile.maximum("id") + 1)
 
 ## sectors
 puts "#{I18n.t('creating')} #{Sector.model_name.human}"
@@ -467,7 +594,7 @@ Sector.create!(id: 18, name: 'Animales',                         active: true)
 Sector.create!(id: 19, name: 'Indiferente',                      active: true)
 Sector.create!(id: 20, name: 'Otros',                            active: true)
 
-
+alter_sequence(Sector.sequence_name, Sector.maximum("id") + 1)
 
 ## statuses
 puts "#{I18n.t('creating')} #{Status.model_name.human}"
@@ -483,12 +610,14 @@ Status.create!(id: 8 , name: 'Sin recurso'               , active: true)
 Status.create!(id: 9 , name: 'Situacion CM'              , active: true)
 Status.create!(id: 10, name: 'VOCNE'                     , active: true)
 
-
+alter_sequence(Status.sequence_name, Status.maximum("id") + 1)
 
 ## managers
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
 Manager.create!(id: 1, name: 'MFA026', alias_name: 'MFA026', phone_number: '915880000', active: true, profile_id: 2)
+
+alter_sequence(Manager.sequence_name, Manager.maximum("id") + 1)
 
 ## roles
 puts "#{I18n.t('creating')} #{Role.model_name.human}"
@@ -496,8 +625,6 @@ puts "#{I18n.t('creating')} #{Role.model_name.human}"
 Role.kinds_i18n.each do |kind, kind_i18n|
   Role.create!(kind: Role.kinds[kind], description: kind_i18n)
 end
-
-
 
 ## id_number_types
 puts "#{I18n.t('creating')} #{IdNumberType.model_name.human}"
@@ -508,8 +635,7 @@ IdNumberType.create!(id: 3, name: 'NIE'      , active: true)
 IdNumberType.create!(id: 4, name: 'PASAPORTE', active: true)
 IdNumberType.create!(id: 5, name: 'OTROS'    , active: true)
 
-
-
+alter_sequence(IdNumberType.sequence_name, IdNumberType.maximum("id") + 1)
 
 ## entity_types
 puts "#{I18n.t('creating')} #{EntityType.model_name.human}"
@@ -519,8 +645,7 @@ EntityType.create!(id: 2, name: 'OTROS ORGANISMOS'   , description: 'OTROS ORGAN
 EntityType.create!(id: 3, name: 'ENTIDAD'            , description: 'ENTIDAD',             active: true)
 EntityType.create!(id: 4, name: 'EMPRESA'            , description: 'EMPRESA',             active: true)
 
-
-
+alter_sequence(EntityType.sequence_name, EntityType.maximum("id") + 1)
 
 ## tracking_types
 puts "#{I18n.t('creating')} #{TrackingType.model_name.human}"
@@ -544,9 +669,7 @@ TrackingType.create!(id: 16, name: 'Incidencia'                                 
 TrackingType.create!(id: 17, name: 'Departamento Voluntariado'                      , active: true)
 TrackingType.create!(id: 18, name: 'Otros'                                          , active: true)
 
-
-
-
+alter_sequence(TrackingType.sequence_name, TrackingType.maximum("id") + 1)
 
 ## degrees
 puts "#{I18n.t('creating')} #{Degree.model_name.human}"
@@ -660,8 +783,7 @@ Degree.create!(id: 106, degree_type_id: 10, name: 'Música'                     
 Degree.create!(id: 107, degree_type_id: 10, name: 'Animador Sociocultural'                       , active: true)
 Degree.create!(id: 999, degree_type_id: 10, name: 'Otros'                                        , active: true)
 
-
-
+alter_sequence(Degree.sequence_name, Degree.maximum("id") + 1)
 
 ## employment_statuses
 puts "#{I18n.t('creating')} #{EmploymentStatus.model_name.human}"
@@ -673,8 +795,7 @@ EmploymentStatus.create!(id: 4, name: 'Labores domésticas',active: true)
 EmploymentStatus.create!(id: 5, name: 'Desempleado/a',     active: true)
 EmploymentStatus.create!(id: 6, name: 'Otra situación',    active: true)
 
-
-
+alter_sequence(EmploymentStatus.sequence_name, EmploymentStatus.maximum("id") + 1)
 
 ## language_levels
 puts "#{I18n.t('creating')} #{LanguageLevel.model_name.human}"
@@ -686,8 +807,7 @@ LanguageLevel.create!(id: 4, name: 'Bilingüe'       , active: true)
 LanguageLevel.create!(id: 5, name: 'Nativo'         , active: true)
 LanguageLevel.create!(id: 6, name: 'No especificado', active: true)
 
-
-
+alter_sequence(LanguageLevel.sequence_name, LanguageLevel.maximum("id") + 1)
 
 ## contact_results
 puts "#{I18n.t('creating')} #{ContactResult.model_name.human}"
@@ -696,8 +816,7 @@ ContactResult.create!(id: 1, name: 'No localizado', active: true)
 ContactResult.create!(id: 2, name: 'No disponible', active: true)
 ContactResult.create!(id: 3, name: 'No acepta'    , active: true)
 
-
-
+alter_sequence(ContactResult.sequence_name, ContactResult.maximum("id") + 1)
 
 ## contact_types
 puts "#{I18n.t('creating')} #{ContactType.model_name.human}"
@@ -707,8 +826,7 @@ ContactType.create!(id: 2, name: 'Telefónico'        , active: true)
 ContactType.create!(id: 3, name: 'Correo electrónico', active: true)
 ContactType.create!(id: 4, name: 'Mensaje SMS'       , active: true)
 
-
-
+alter_sequence(ContactType.sequence_name, ContactType.maximum("id") + 1)
 
 ## traits
 puts "#{I18n.t('creating')} #{Trait.model_name.human}"
@@ -723,8 +841,7 @@ Trait.create!(id: 7, name: 'Conducta disruptiva'        , active: true)
 Trait.create!(id: 8, name: 'Capacidad de acogida'       , active: true)
 Trait.create!(id: 9, name: 'Otros'                      , active: true)
 
-
-
+alter_sequence(Trait.sequence_name, Trait.maximum("id") + 1)
 
 ## info_sources
 puts "#{I18n.t('creating')} #{InfoSource.model_name.human}"
@@ -738,44 +855,4 @@ InfoSource.create!(id: 6, name: 'Medios de comunicación'            , active: t
 InfoSource.create!(id: 7, name: 'Acciones de Voluntarios Por Madrid', active: true)
 InfoSource.create!(id: 8, name: 'Otros'                             , active: true)
 
-
-
-puts "#{I18n.t('creating')} admin user"
-User.first_or_create!(
-  login: 'admin',
-  email: 'admin@madrid.es',
-  password: 'Wordpass1',
-  password_confirmation: 'Wordpass1',
-  loggable: Manager.first_or_create!(name: 'admin'),
-  notice_type: NoticeType.all.sample
-)
-
-puts "#{I18n.t('creating')} manager user"
-user = User.first_or_create!(
-  login: 'manager',
-  email: 'manager@madrid.es',
-  password: 'Wordpass1',
-  password_confirmation: 'Wordpass1',
-  loggable: Manager.first_or_create!(name: 'manager'),
-  notice_type: NoticeType.all.sample
-)
-
-puts "#{I18n.t('creating')} entity user"
-user = User.first_or_create!(
-    login: 'entity',
-    email: 'entity@madrid.es',
-    password: 'pwd',
-    password_confirmation: 'pwd',
-    loggable: Manager.first_or_create!(name: 'entity'),
-    notice_type: NoticeType.all.sample
-)
-
-puts "#{I18n.t('creating')} voluntary user"
-user = User.first_or_create!(
-    login: 'voluntary',
-    email: 'voluntary@madrid.es',
-    password: 'pwd',
-    password_confirmation: 'pwd',
-    loggable: Manager.first_or_create!(name: 'voluntary'),
-    notice_type: NoticeType.all.sample
-)
+alter_sequence(InfoSource.sequence_name, InfoSource.maximum("id") + 1)

@@ -536,7 +536,7 @@ form .well {
 .m-width300 {
   max-width: 300px;
 }
-.status-filter {
+.index-filters {
   margin-bottom: 0;
   color: #3b5f79;
   label {
@@ -599,4 +599,70 @@ form .well {
   .col-sm-5{
     padding-right: 5px;
   }
+}
+
+.link-path {
+
+  .col-sm-5 {
+    width: 20%;
+  }
+  .col-sm-7 {
+    width: 80%;
+  }
+}
+
+.link-path-new {
+
+  .col-sm-5 {
+    width: 38%;
+  }
+  .col-sm-7 {
+    width: 62%;
+  }
+}
+
+.js-arrow {
+  margin-top: 16px;
+  span {
+    align-content: center;
+    i {
+      border-radius: 40px;
+      border: 2px solid #73AD21;
+      padding: 0px 6px 0px 6px;
+      color: #6b4505;
+      font-size: 35px;
+    }
+  }
+}
+.logo-img {
+  margin: 2px;
+  img {
+    border: 2px solid #d6d6d6;
+  }
+}
+.files-warning {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #628198;
+}
+
+.well-no-border {
+  @extend .well;
+  border-width: 0px;
+}
+.delete {
+  color: darkred;
+}
+
+.font150 {
+  font-size: 150px;
+}
+
+.btn-search {
+  margin-top: 20px;
+  margin-left: 15px;
+}
+
+.availability-filter{
+  color: #3b5f79;
 }

@@ -12,6 +12,7 @@ module ScaffoldHelper
   def search_collection(search, search_condition, options = {})
     form =  search_form_for search, class: 'form-inline search-form', role: 'form', wrapper: :horizontal_form do |f|
               (get_hidden_fields options.delete(:hidden_fields) || {}) +
+                (get_q_hidden_fields options.delete(:q_hidden_fields) || {}) +
                 (hidden_field_tag :per_page, params[:per_page]) +
                 (f.search_field search_condition, class: 'form-control', placeholder: t('type_text')) +
                 (button_tag name: 'commit', class: 'btn btn-default' do
@@ -36,8 +37,45 @@ module ScaffoldHelper
 
   def build_hidden_fields(hidden_fields)
     hidden_fields.inject('') do |hf_tags, (name, value)|
-      hf_tags + hidden_field_tag(name, value)
+      if value.is_a?(Array)
+        value.each do |v|
+          hf_tags += hidden_field_tag(build_name_attr(name), v, class: name.to_s.gsub(/\[|\]/, '_').sub(/_+\z/, ''))
+        end
+        hf_tags
+      else
+        hf_tags + hidden_field_tag(build_name_attr(name), value)
+      end
     end.html_safe
+  end
+
+  def get_q_hidden_fields(q_hidden_fields)
+    html_tag = ''
+    grouped_q_hidden_fields = q_hidden_fields.select{ |_k, v| v.is_a? Hash }
+    grouped_q_hidden_fields.each do |group_name, _q_hidden_fields|
+      html_tag += content_tag(:div, id: group_name) do
+                    build_q_hidden_fields(_q_hidden_fields)
+                  end
+    end
+    independent_q_hidden_fields = q_hidden_fields.reject{ |_k, v| v.is_a? Hash }
+    html_tag += build_q_hidden_fields independent_q_hidden_fields
+    html_tag.html_safe
+  end
+
+  def build_q_hidden_fields(hidden_fields)
+    hidden_fields.inject('') do |hf_tags, (name, value)|
+      hf_tags + hidden_field_tag("q[#{name}]", value)
+    end.html_safe
+  end
+
+  def convert_filters_to_params(filters)
+    filters.inject({}) do |params, (k,v)|
+      params.merge(k.sub(/_[^_]+\z/,'') => v)
+    end
+  end
+
+  def build_name_attr(name)
+    name = name.to_s
+    /\Aq_(.*)\z/i === name ? "q[#{name.sub('q_', '')}]" : name
   end
 
   def show_simple_base_errors(form)
@@ -45,7 +83,7 @@ module ScaffoldHelper
 
     content_tag :div, class: 'has-error alert alert-danger alert-dismissable' do
       "<button name=\"button\" type=\"button\" class=\"close\" data-dismiss=\"alert\">×</button>" \
-      "#{form.error(:base)}".html_safe
+      "#{form.object.errors[:base].to_sentence}".html_safe
     end
   end
 
@@ -62,7 +100,7 @@ module ScaffoldHelper
     path = options.delete(:path)
     text = options.delete(:text)
 
-    link_to(text, public_send(path, options[:path_params]||{}), options)
+    link_to(text, public_send(path, options.delete(:path_params)||{}), options)
   end
 
   def link_to_show(record, opts = {})
@@ -126,6 +164,38 @@ module ScaffoldHelper
     link_to(text, public_send(path, record, options[:path_params]||{}), options)
   end
 
+  def link_to_trackings(record, type, project = nil, opts = {})
+    #return unless can?(:recover, record)
+    options = {
+        id:     "#{dom_id(record)}_trackings",
+        text:   icon_tracking,
+        path:   "#{type}_trackings_path",
+        path_params: {q: {"#{record.class.model_name.singular}_id_eq": record}, project_id_assoc: project },
+        remote: false,
+        method: :get
+    }.merge(opts)
+    path = options.delete(:path)
+    text = options.delete(:text)
+
+    link_to(text, public_send(path, options[:path_params]||{}), options)
+  end
+
+  def link_to_linkable(record, opts = {})
+    return unless can?(:recover, record)
+    options = {
+        id:     "#{dom_id(record)}_recover",
+        text:   icon_recover,
+        path:   "#{record.linkable_type.underscore}_path",
+        remote: false,
+        method: :post,
+        data:   {confirm: t('messages.are_you_sure')}
+    }.merge(opts)
+    path = options.delete(:path)
+    text = options.delete(:text)
+
+    link_to(text, public_send(path, record, options[:path_params]||{}), options)
+  end
+
   # TODO uncomment when index js response is done
   # def link_to_index(record, opts = {})
   #   return unless can?(:list, record)
@@ -160,6 +230,12 @@ module ScaffoldHelper
                           file:          :horizontal_file_input,
                           boolean:       :horizontal_boolean }
      }
+  end
+
+  def attachable_form_options
+    @attachable_form_options = default_form_options
+    @attachable_form_options[:html] = { class: 'form-horizontal', multipart: true }
+    @attachable_form_options
   end
 
   def show_simple_date(date, options = {})

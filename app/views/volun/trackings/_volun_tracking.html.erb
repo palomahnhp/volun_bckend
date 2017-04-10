@@ -3,14 +3,15 @@
   <% volun_tracking.main_attributes.each do |attr_name| %>
   <td><%= show_attr(volun_tracking, attr_name) %></td>
   <% end %>
+  
+  <td>
+  <% unless volun_tracking.request_form.nil? %>
+    <%= volun_tracking.request_form.request_type %>
+  <% end %>
+  </td>
 
   <td class="index_table-actions">
     <%= link_to_show(volun_tracking) %>
-    <%= link_to_edit(volun_tracking) %>
-<% if volun_tracking.try(:archived?) %>
-    <%= link_to_recover(volun_tracking) %>
-<% else %>
-    <%= link_to_destroy(volun_tracking) %>
-<% end %>
+    <%= link_to_edit(volun_tracking, path_params: { project_id_assoc: params[:project_id_assoc] }) %>
   </td>
 </tr>

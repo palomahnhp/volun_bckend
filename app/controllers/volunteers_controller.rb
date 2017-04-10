@@ -6,9 +6,16 @@ class VolunteersController < ApplicationController
   def index
     params[:q] ||= Volunteer.ransack_default
     @search_q = @volunteers.search(params[:q])
-    @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
 
-    respond_with(@volunteers)
+    @districts_names = Address.joins(:volunteers).where.not(district: [nil, ""]).all.pluck(:district).uniq.sort_by { |district| district }
+
+    @degreeSearch = Degree.filter_by_degree_type_id(params[:dt_id])
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: @degreeSearch.to_json }
+    end
   end
 
   def show
@@ -65,6 +72,7 @@ class VolunteersController < ApplicationController
     respond_with(@volunteer)
   end
 
+
   protected
 
     def volunteer_params
@@ -117,6 +125,34 @@ class VolunteersController < ApplicationController
               :_destroy
             ]
           },
+          {
+            known_languages_attributes: [
+              :id,
+              :volunteer_id,
+              :language_id,
+              :language_level_id,
+              :_destroy
+            ]
+          },
+          {
+            assessments_attributes: [
+              :id,
+              :volunteer_id,
+              :trait_id,
+              :trait_other,
+              :_destroy
+            ]
+          },
+          {
+            assessments_projects_attributes: [
+              :id,
+              :volunteer_id,
+              :trait_id,
+              :project_id,
+              :trait_other,
+              :_destroy
+            ]
+          },
           { skill_ids: [] },
           {
             address_attributes: [
@@ -139,7 +175,60 @@ class VolunteersController < ApplicationController
               :_destroy
             ]
           },
-          { project_ids: [] }
+          { project_ids: [] },
+          { trait_ids: [] },
+          { area_ids: [] },
+          { collective_ids: [] },
+          {
+            degrees_attributes: [
+              :id,
+              :name,
+              :degree_type,
+              :degree_type_id,
+              :_destroy
+            ]
+          },
+          {
+            logo_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            images_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            videos_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            docs_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            urls_attributes: [
+              :id,
+              :path,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          }
         )
     end
 end

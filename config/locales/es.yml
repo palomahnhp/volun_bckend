@@ -11,6 +11,8 @@ es:
     show:     'Ver %{model}'
     destroy:  'Eliminar'
     delete:   'Eliminar'
+    download: 'Descargar'
+    upload:   'Subir'
     archive:  'Archivar'
     search:   'Buscar'
     back:     'Volver'
@@ -21,9 +23,20 @@ es:
     manage:   'Gestionar'
     reject:   'Rechazar'
     recover:  'Restablecer'
+    share:    'Abrir'
     undo_rejection: 'Deshacer rechazo'
     process:  'Procesar'
+    man_trackings: 'Gestionar seguimientos'
+  upload_new_file: Nuevo fichero
+  new_element: Nuevo elemento
+  new_file:    Nuevo elemento
+  must_choose_a_file: Debe seleccionar un archivo
+  show_original_size: Ver en tamaño original
+  files_are_allowed_olny_on_update: Sólo se pueden subir archivos para proyectos ya existentes
+  files_are_allowed_olny_on_update_volun: Sólo se pueden subir archivos para voluntarios ya existentes
+  does_not_have: "No tiene %{element}"
   details: Detalles
+  search_filter: 'Filtrar búsqueda'
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
   mark_as_pending: Marcar como pendiente
@@ -33,6 +46,17 @@ es:
   other_data: Otros datos de interés
   main_data: Datos principales
   contact_data: Datos de contacto
+  logo: Logo
+  doc: Documento
+  docs: Documentos
+  url: Enlaces
+  urls: Enlaces de interés
+  video: Video
+  videos: Videos
+  image: Imágen
+  images: Imágenes
+  update_logo: Actualizar logo
+  name: Nombre
   messages:
     are_you_sure: ¿Está seguro?
     access_denied: "Accesso denegado"
@@ -43,6 +67,7 @@ es:
     confirm_revised_all_volunteer: Los campos de errores del voluntario han sido marcados como revisados. ¿Está seguro de que quiere continuar?
     confirm_revised_volunteer: Este voluntario tiene campos de errores pendientes de revisar. ¿Está seguro de que quiere continuar?
     confirm_unsubscribe_volunteer: Se aprobará y gestionará la baja. ¿Está seguro de que desea continuar?
+    confirm_file_deletion: El archivo se eliminará cuando se de al botón de actualizar. ¿Está seguro de que desea continuar?
     undo_changes: Deshacer cambios
     request_form_successfully_rejected: Solicitud rechazada con éxito
     request_form_successfully_managed: Solicitud gestionada con éxito
@@ -73,6 +98,7 @@ es:
   user_name:  'Nombre'
   user_login: 'Login'
   active:   Activo
+  active_f: Activa
   inactive: Inactivo
   all:      Todos
   of: de
@@ -82,9 +108,18 @@ es:
   specific_fields:  'Campos específicos'
   administration: Administración
   catalogs: Catálogos
+  district: Distrito
   diary: Agenda
   pending: Pendientes
   block: Bloque
+  filter: Filtro
+  status: Estado
+  reset_search: "Limpiar búsqueda"
+  add_day: 'Añadir día'
+  available_day: 'Día disponible'
+  availability: 'Disponibilidad'
+  choose_availability: 'Elegir disponibilidad'
+  search: 'Buscar'
   administration_title_text: Aquí se administran las tablas de la aplicación
   areas_text: Ámbitos a los que pertenece un proyecto
   project_types_text: Tipos de proyecto a los que un proyecto puede ser
@@ -93,6 +128,9 @@ es:
   all_statuses: Todos los estados
   errors_title_volun: Errores u observaciones
   revised: Revisado
+  files: Archivos
+  associated_projects: Proyectos en los que se encuentra el voluntario
+  not_associated_projects: Asociar a proyectos
   trackings:
     unsubscribe_from_project: Baja de un proyecto
     subscribe_to_project: Alta en un proyecto
@@ -106,3 +144,5 @@ es:
       default: "dd/mm/yyyy"
     formats:
       default: ! '%d/%m/%Y'
+  no_accept_cond: No acepta condiciones
+  others: Otros

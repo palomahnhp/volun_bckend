@@ -1,11 +1,12 @@
 class Ent::TrackingsController < ApplicationController
 
-  load_and_authorize_resource
+  load_and_authorize_resource instance_name: :ent_tracking
   respond_to :html, :js, :json
 
   def index
-    params[:q] ||= EntTracking.ransack_default
+    params[:q] ||= Ent::Tracking.ransack_default
     @search_q = @ent_trackings.search(params[:q])
+    @entity = Entity.find_by(id: params[:q][:entity_id_eq])
     @ent_trackings = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@ent_trackings)
@@ -19,7 +20,8 @@ class Ent::TrackingsController < ApplicationController
   end
 
   def new
-    @ent_tracking = Ent::Tracking.new
+    entity = Entity.find_by(id: params[:entity_id])
+    @ent_tracking = entity.trackings.build
     respond_with(@ent_tracking)
   end
 
@@ -28,12 +30,12 @@ class Ent::TrackingsController < ApplicationController
 
   def create
     @ent_tracking.save
-    respond_with(@ent_tracking)
+    respond_with(@ent_tracking, location: ent_trackings_path(q: { entity_id_eq: @ent_tracking.entity_id}))
   end
 
   def update
     @ent_tracking.update_attributes(ent_tracking_params)
-    respond_with(@ent_tracking)
+    respond_with(@ent_tracking, location: ent_trackings_path(q: { entity_id_eq: @ent_tracking.entity_id}))
   end
 
   def destroy
@@ -44,6 +46,16 @@ class Ent::TrackingsController < ApplicationController
   protected
 
     def ent_tracking_params
-      params.require(:ent_tracking).permit(:tracking_type_id, :entity_id, :manager_id, :tracked_at, :comments)
+      params
+        .require(:ent_tracking)
+        .permit(
+          :entity_id,
+          :tracking_type_id,
+          :manager_id,
+          :tracked_at,
+          :comments
+        )
     end
+    
+  alias_method :create_params, :ent_tracking_params
 end

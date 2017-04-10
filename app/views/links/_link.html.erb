@@ -5,12 +5,10 @@
   <% end %>
 
   <td class="index_table-actions">
+    <% icon_name = /\.(txt|pdf|jpeg|png|jpg|gif)/ === link.file_extension ? :share : :download %>
+    <%= link_to(build_icon(icon_name), link.file.url, target: :_blank) %>
     <%= link_to_show(link) %>
     <%= link_to_edit(link) %>
-<% if link.try(:archived?) %>
-    <%= link_to_recover(link) %>
-<% else %>
     <%= link_to_destroy(link) %>
-<% end %>
   </td>
 </tr>

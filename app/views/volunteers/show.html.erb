@@ -26,7 +26,7 @@
 			<dt><%= Volunteer.human_attribute_name(:email) %>:</dt>
 			<dd><%= @volunteer.email %></dd>
 			<dt><%= Volunteer.human_attribute_name(:address_id) %>:</dt>
-			<dd><%= @volunteer.address.road_name %> - <%= @volunteer.address.road_number %></dd>
+			<dd><%= @volunteer.address %></dd>
 			<dt><%= Volunteer.human_attribute_name(:status_id) %>:</dt>
 			<dd><%= @volunteer.status %></dd>
 			<dt><%= Volunteer.human_attribute_name(:employment_status_id) %>:</dt>
@@ -73,6 +73,8 @@
 			<dd><%= @volunteer.profession %></dd>
 			<dt><%= Volunteer.human_attribute_name(:skills) %>:</dt>
 			<dd><%= @volunteer.skills.map(&:name).to_sentence %></dd>
+			<dt><%= Volunteer.human_attribute_name(:updated_at) %>:</dt>
+			<dd><%= show_simple_date(@volunteer.updated_at) %></dd>
 			<dt><%= Volunteer.human_attribute_name(:created_at) %>:</dt>
 			<dd><%= show_simple_date(@volunteer.created_at) %></dd>
 		</dl>

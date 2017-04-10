@@ -150,6 +150,22 @@ class BdcValidator
     address_data.dig(:paises, :pais) || [road_country].compact
   end
 
+  def province
+    province_block[:nomprovincia]
+  end
+
+  def town
+    town_block[:nompoblacion]
+  end
+
+  def district
+    number_block[:distrito]
+  end
+
+  def borough
+    number_block[:barrio]
+  end
+
   def valid?
     number_block.present?
   end

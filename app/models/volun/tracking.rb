@@ -8,5 +8,8 @@ class Volun::Tracking < ActiveRecord::Base
 
   validates :volunteer_id, :tracking_type_id, :tracked_at, presence: true
 
+  def self.main_columns
+    %i(volunteer tracking_type project manager tracked_at automatic comments)
+  end
 
 end

@@ -9,7 +9,7 @@
   <div class="col-md-4">
     <%= content_tag(:div, link_to_new(model_class, path: 'pt_extensions_menu_projects_path'), class: 'col-md-6 pull-left') %>
   </div>
-  <div class="status-filter col-md-4 form-group select">
+  <div class="index-filters col-md-4 form-group select">
     <div class="row">
      <%= content_tag :label, 'Seleccionar estado:', for: 'status-select', class: 'col-sm-6 control-label' %>
      <div class="col-sm-6">
@@ -21,9 +21,11 @@
     </div>
   </div>
   <div class="col-md-4">
-    <%= content_tag(:div, search_collection(@search_q, :name_or_description_cont, hidden_fields: { status: params[:status] }), class: 'pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :events_address_district_or_name_or_description_cont, hidden_fields: { status: params[:status] }), class: 'pull-right') %>
   </div>
 </div>
+
+<p><%= model_class.model_name.human(count: 2) %>: <%= @projects.count %></p>
 
 <table class="index-table">
   <thead>
@@ -48,3 +50,13 @@
 </table>
 
 <%= render partial: 'shared/pagination', locals: {collection: @projects} %>
+
+<script>
+    if ($('.project-result').length == 0) {
+        swal(
+            "Lo sentimos",
+            "Su búsqueda no ha encontrado resultados",
+            "error"
+        )
+    }
+</script>

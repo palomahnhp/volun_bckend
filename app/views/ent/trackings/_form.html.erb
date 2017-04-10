@@ -2,15 +2,22 @@
   <%= simple_form_for(@ent_tracking, default_form_options) do |f| %>
 
   <div class="form-inputs">
+          <%= f.association :entity, input_html: { disabled: true, id: 'entity' }, default: @ent_tracking.entity %>
           <%= f.association :tracking_type %>
-          <%= f.association :entity %>
-          <%= f.association :manager %>
-          <%= f.input :tracked_at %>
+          <%= f.association :manager, input_html: { disabled: true, id: 'manager' }, default: @ent_tracking.manager %>
+          <%= f.input :tracked_at, as: :string, input_html: date_input_html_default_values(f.object.tracked_at) %>
           <%= f.input :comments %>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, onclick: "enableToSaveFields();" %>
+    <script>
+      // Enable fields simple_form_for to be able to pass them as params
+      function enableToSaveFields() {
+        $('#entity').attr("disabled", false);
+        $('#manager').attr("disabled", false);
+      }
+    </script>
   </div>
   <% end %>
 </div>
