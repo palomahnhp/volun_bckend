@@ -55,7 +55,7 @@
       <div class="row well col-md-12">
         <%= f.association :academic_level, wrapper_html: { class: 'col-md-6' } %>
       </div>
-      <%= f.simple_fields_for :degrees, (f.object.degrees.build if f.object.new_record? && f.object.degrees.empty?) do |f_degrees|  %>
+      <%= f.simple_fields_for :degrees do |f_degrees|  %>
         <div class="row well col-md-12">
           <div class="row">
               <%= f_degrees.association :degree_type, wrapper_html: { class: 'col-md-6' },
@@ -78,7 +78,7 @@
     </div>
     <div class="row well">
       <%= content_tag :h3, Volun::KnownLanguage.model_name.human(count: 2), class: 'form-subtitle' %>
-      <%= f.simple_fields_for :known_languages, (f.object.known_languages.build if f.object.new_record? && f.object.known_languages.empty?) do |f_known_languages|  %>
+      <%= f.simple_fields_for :known_languages do |f_known_languages|  %>
         <div class="row well col-md-12">
           <div class="row">
               <%= f_known_languages.association :language, wrapper_html: { class: 'col-md-6' } %>
@@ -91,7 +91,7 @@
     </div>
     <div class="row well">
       <%= content_tag :h3, Volun::Availability.model_name.human(count: 2), class: 'form-subtitle' %>
-      <%= f.simple_fields_for :availabilities, (f.object.availabilities.build if f.object.new_record? && f.object.availabilities.empty?) do |f_availabilities|  %>
+      <%= f.simple_fields_for :availabilities do |f_availabilities|  %>
         <div class="row well col-md-12">
           <div class="row">
               <%= f_availabilities.input :day, wrapper_html: { class: 'col-md-4' } %>
@@ -105,7 +105,7 @@
     </div>
     <div class="row well">
       <%= content_tag :h3, Volun::Assessment.model_name.human(count: 2), class: 'form-subtitle' %>
-      <%= f.simple_fields_for :assessments, (f.object.assessments.build if f.object.new_record? && f.object.assessments.empty?) do |f_assessments|  %>
+      <%= f.simple_fields_for :assessments do |f_assessments|  %>
         <div class="row well col-md-12">
           <div class="row">
               <%= f_assessments.association :trait, input_html: { onchange: "showComments(this.id);" }, wrapper_html: { class: 'col-md-6' } %>
@@ -119,7 +119,7 @@
     </div>
     <div class="row well">
       <%= content_tag :h3, Volun::AssessmentsProject.model_name.human(count: 2), class: 'form-subtitle' %>
-      <%= f.simple_fields_for :assessments_projects, (f.object.assessments_projects.build if f.object.new_record? && f.object.assessments_projects.empty?) do |f_assessments_projects|  %>
+      <%= f.simple_fields_for :assessments_projects do |f_assessments_projects|  %>
         <div class="row well col-md-12">
           <div class="row">
               <%= f_assessments_projects.association :project, wrapper_html: { class: 'col-md-4' } %>
