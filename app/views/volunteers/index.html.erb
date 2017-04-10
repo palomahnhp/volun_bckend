@@ -50,7 +50,7 @@
     <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont, :id_eq, hidden_fields: { status: params[:status], q_address_district_eq: params[:q][:address_district_eq], 'q[availabilities_day_in_all][]' => params[:q][:availabilities_day_in_all] }), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection_alt(@search_q, :address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont, :id_eq, hidden_fields: { status: params[:status], q_address_district_eq: params[:q][:address_district_eq], 'q[availabilities_day_in_all][]' => params[:q][:availabilities_day_in_all] }), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 
