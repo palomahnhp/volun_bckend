@@ -537,8 +537,8 @@ es:
         entity:                 Organizador de la actividad
         area_id:                Tipo de actividad
         area:                   Tipo de actividad
-        project_id:             Código de proyecto asociado
-        project:                Código de proyecto asociado
+        project_id:             Proyecto asociado
+        project:                Proyecto asociado
         share:                  Compartir actividad con redes sociales
         created_at:             *created_at
       pt/subvention:
