@@ -9,11 +9,12 @@ module ScaffoldHelper
     content_tag(html_tag, title, { class: 'page-header' }.merge(opts))
   end
 
-  def search_collection(search, search_condition, options = {})
+  def search_collection(search, search_condition, search_condition_alt, options = {})
     form =  search_form_for search, class: 'form-inline search-form', role: 'form', wrapper: :horizontal_form do |f|
               (get_hidden_fields options.delete(:hidden_fields) || {}) +
                 (get_q_hidden_fields options.delete(:q_hidden_fields) || {}) +
                 (hidden_field_tag :per_page, params[:per_page]) +
+                (f.search_field search_condition_alt, class: 'form-control', placeholder: t('id')) +
                 (f.search_field search_condition, class: 'form-control', placeholder: t('type_text')) +
                 (button_tag name: 'commit', class: 'btn btn-default' do
                   ((fa_icon 'search')).html_safe

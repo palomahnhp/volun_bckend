@@ -50,7 +50,7 @@
     <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont, hidden_fields: { status: params[:status], q_address_district_eq: params[:q][:address_district_eq], 'q[availabilities_day_in_all][]' => params[:q][:availabilities_day_in_all] }), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont, :id_eq, hidden_fields: { status: params[:status], q_address_district_eq: params[:q][:address_district_eq], 'q[availabilities_day_in_all][]' => params[:q][:availabilities_day_in_all] }), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 
@@ -59,6 +59,8 @@
 <table class="index-table">
   <thead>
     <tr>
+      <th><%= Volunteer.human_attribute_name(:id) %></th>
+
     <% model_class.main_columns.each do |column| -%>
       <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
     <% end -%>
@@ -83,6 +85,7 @@
 
     $("#btn-reset").click(function(){
         $('#q_address_district_or_address_postal_code_or_name_or_last_name_or_last_name_alt_or_full_name_or_id_number_or_phone_number_or_phone_number_alt_or_email_or_other_academic_info_cont').prop('value', "");
+        $('#q_id_eq').prop('value', "");
         $("#q_address_district_eq").removeAttr('value');
         $(".q_availabilities_day_in_all").removeAttr('value');
         $("#status").removeAttr('value');
