@@ -7,7 +7,11 @@ class DegreesController < ApplicationController
     params[:q] ||= Degree.ransack_default
     @search_q = @degrees.search(params[:q])
     @degrees = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
-
+    
+    if params[:degree_type].present? && params[:degree_type] != t('all')
+      @degrees = @degrees.filter_by_degree_type_name(params[:degree_type])
+    end
+    
     respond_with(@degrees)
   end
 
@@ -49,6 +53,6 @@ class DegreesController < ApplicationController
   protected
 
     def degree_params
-      params.require(:degree).permit(:name, :active)
+      params.require(:degree).permit(:degree_type_id, :name, :active)
     end
 end

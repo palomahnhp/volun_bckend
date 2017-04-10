@@ -54,10 +54,25 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
   end
   
   def approve_and_render_unsubscribes_path
-    approve_request_form!
-    respond_to do |format|
-      format.html { redirect_to(rt_volunteer_unsubscribes_url, notice: I18n.t('messages.request_form_successfully_managed')) }
-      format.js
+    volunteer = @rt_volunteer_unsubscribe.request_form.user.loggable
+    volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: @rt_volunteer_unsubscribe.id,
+                                             volunteer: volunteer,
+                                             manager_id: current_user.loggable_id)
+    volunteer_manager.register_unsubscribe(volunteer: volunteer,
+                                           request_form: request_form,
+                                           manager_id: current_user.loggable_id,
+                                           tracking_type: TrackingType.get_volunteer_unsubscribe_type,
+                                           project: @rt_volunteer_unsubscribe.project)
+    if volunteer_manager.errors.blank?
+      volunteer_manager.approve_request_form!
+      respond_to do |format|
+        format.html { redirect_to(rt_volunteer_unsubscribes_url, notice: I18n.t('messages.request_form_successfully_managed')) }
+        format.js
+      end
+    else
+      @request_form = request_form
+      flash[:alert] = volunteer_manager.errors
+      render :process_request_form
     end
   end
 
@@ -130,9 +145,4 @@ class Rt::VolunteerUnsubscribesController < ApplicationController
       @rt_volunteer_unsubscribe.request_form
     end
 
-    def approve_request_form!
-      unless request_form.update_and_trace_status(:approved, manager_id: current_user.loggable_id, user_id: current_user.loggable_id)
-        copy_errors_from!(request_form)
-      end
-    end
 end

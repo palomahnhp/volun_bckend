@@ -1,4 +1,11 @@
 FactoryGirl.define do
+  factory :link_type do
+    kind 1
+    description "MyText"
+
+    trait :invalid do
+    end
+  end
   factory :setting do
     key "MyString"
     value "MyString"

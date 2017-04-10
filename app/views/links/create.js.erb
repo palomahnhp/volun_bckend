@@ -1,0 +1,6 @@
+alert('xxxxxxxxxxxx');
+
+$('#dialog').remove();
+
+var html = "<%= j( render record ) %>"
+$('#<%= record.class.model_class.plural %>-table').prepend(html);

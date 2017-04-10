@@ -55,87 +55,6 @@ COLLECTIVE_NAMES = [
   'Otros'
 ]
 
-DISTRICTS = [
-  'CENTRO',
-  'ARGANZUELA',
-  'RETIRO',
-  'SALAMANCA',
-  'CHAMARTIN',
-  'TETUAN',
-  'CHAMBERI',
-  'FUENCARRAL-EL PARDO',
-  'MONCLOA-ARAVACA',
-  'LATINA',
-  'CARABANCHEL',
-  'USERA',
-  'PUENTE VALLECAS',
-  'MORATALAZ',
-  'CIUDAD LINEAL',
-  'HORTALEZA',
-  'VILLAVERDE',
-  'VILLA DE VALLECAS',
-  'VICÁLAVARO',
-  'SAN BLAS',
-  'BARAJAS',
-  'OTRO MUNICIPIO',
-  'OTROS'
-]
-
-PROVINCES = [
-  'ARABA-ALAVA',
-  'ALBACETE',
-  'ALICANTE-ALACANT',
-  'ALMERIA',
-  'AVILA',
-  'BADAJOZ',
-  'ILLES BALEARS',
-  'BARCELONA',
-  'BURGOS',
-  'CACERES',
-  'CADIZ',
-  'CASTELLON-CASTELLO',
-  'CIUDAD REAL',
-  'CORDOBA',
-  'A CORUÑA',
-  'CUENCA',
-  'GIRONA',
-  'GRANADA',
-  'GUADALAJARA',
-  'GIPUZKOA',
-  'HUELVA',
-  'HUESCA',
-  'JAEN',
-  'LEON',
-  'LLEIDA',
-  'LA RIOJA',
-  'LUGO',
-  'MADRID',
-  'MALAGA',
-  'MURCIA',
-  'NAVARRA',
-  'OURENSE',
-  'ASTURIAS',
-  'PALENCIA',
-  'LAS PALMAS',
-  'PONTEVEDRA',
-  'SALAMANCA',
-  'SANTA CRUZ DE TENERIFE',
-  'CANTABRIA',
-  'SEGOVIA',
-  'SEVILLA',
-  'SORIA',
-  'TARRAGONA',
-  'TERUEL',
-  'TOLEDO',
-  'VALENCIA',
-  'VALLADOLID',
-  'BIZKAIA',
-  'ZAMORA',
-  'ZARAGOZA',
-  'CEUTA',
-  'MELILLA'
-]
-
 PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
 NATIONALITIES = [
@@ -146,7 +65,7 @@ NATIONALITIES = [
 	'Italiano'
 ]
 
-puts "Creando Ámbitos"
+puts "Creando Colectivos"
 COLLECTIVE_NAMES.each do |name|
   Collective.create!(name: name)
 end
@@ -161,11 +80,6 @@ puts "Creando Coordinaciones"
   Coordination.create!(name: "#{Coordination.model_name.human} #{n}")
 end
 
-puts "Creando Links"
-(1..LINKS).each do |n|
-  Link.create!(url: "http://url#{n}.com", description: "Link #{n} description.")
-end
-
 puts "Creando Professions"
 (1..PROFESSIONS).each do |n|
   Profession.create!(name: "Profession_#{n}")
@@ -178,21 +92,11 @@ end
 
 Rake::Task['db:custom_seed'].invoke
 
-puts "Creando Frontpage Positions"
-(1..FRONTPAGE_POSTN).each do |n|
-  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
-end
-
-puts "Creando Frontpage Elements"
-(1..FRONTPAGE_ELEMS).each do |n|
-  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
-end
-
 puts "Creando Direcciones"
 (1..ADDRESSES_NUM).each do |n|
   Address.create!(
     postal_code:           Faker::Address.postcode,
-    road_type:             ROAD_TYPES.sample,
+    road_type:             RoadType.all.sample,
     road_name:             Faker::Address.street_name,
     road_number_type:      ['num', 'km'].sample,
     road_number:           rand(100).to_s,
@@ -201,10 +105,10 @@ puts "Creando Direcciones"
     floor:                 rand(9).to_s,
     door:                  rand(10).to_s,
     borough:               nil,
-    province:              'Madrid',
+    province:              Province.all.sample,
     country:               'España',
     town:                  'Madrid',
-    district:              DISTRICTS.sample,
+    district:              District.all.sample,
     normalize:             false
   )
 end
@@ -236,7 +140,6 @@ RequestType.all.each do |request_type|
       request_type: request_type,
       status: Req::Status.pending.take,
       status_date: DateTime.now,
-      comments: "#{n} #{Faker::Lorem.sentence}",
       # user: user
       # rejection_type_id: integer,
     )
@@ -368,4 +271,71 @@ puts "Creando Voluntarios"
                     id_number: %w(Z8383769K 38741046F).sample,
                     email: Faker::Internet.email,
                     address:  Address.all.sample)
+end
+
+puts "#{I18n.t('creating')} manager user"
+attributes = {
+  login:                 'manager',
+  email:                 'manager@madrid.es',
+  password:              'Wordpass1',
+  password_confirmation: 'Wordpass1',
+  loggable:              Manager.first,
+  notice_type:           NoticeType.all.sample
+}
+user = User.find_or_initialize_by(login: attributes[:login])
+
+if user.new_record?
+  user.attributes = attributes
+  user.save!
+else
+  user.update_attributes!(attributes)
+end
+
+puts "#{I18n.t('creating')} entity user"
+attributes = {
+  login: 'entity',
+  email: 'entity@madrid.es',
+  password: 'Wordpass1',
+  password_confirmation: 'Wordpass1',
+  loggable: Entity.first,
+  notice_type: NoticeType.all.sample
+}
+user = User.find_or_initialize_by(login: attributes[:login])
+
+if user.new_record?
+  user.attributes = attributes
+  user.save!
+else
+  user.update_attributes!(attributes)
+end
+
+puts "#{I18n.t('creating')} voluntary user"
+attributes = {
+  email:                 'volunteering@madrid.es',
+  login:                 'volunteering',
+  password:              'Wordpass1',
+  password_confirmation: 'Wordpass1',
+  loggable:              Volunteer.first,
+  notice_type:           NoticeType.all.sample
+}
+user = User.find_or_initialize_by(login: attributes[:login])
+
+if user.new_record?
+  user.attributes = attributes
+  user.save!
+else
+  user.update_attributes!(attributes)
+end
+
+
+
+
+puts "Creando Frontpage Positions"
+(1..FRONTPAGE_POSTN).each do |n|
+  FrontpagePosition.create!(position: n, description: "Frontpage position #{n} description.")
+end
+
+puts "Creando Frontpage Elements"
+(1..FRONTPAGE_ELEMS).each do |n|
+  FrontpageElement.create!(frontpage_position_id: n, text_panel: "Frontpage element #{n} text panel.", created_by: User.last.id)
 end

@@ -2,19 +2,34 @@
 
 <div class="row">
   <div class="col-md-12">
-    <%= model_title(model_class) %>
+    <%= main_title("#{t('files')} #{t('and')} #{t('urls')}") %>
   </div>
 </div>
 <div class="index-panel row well">
-  <div class="col-md-6">
-    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+  <div class="col-md-4">
+    <%= content_tag(:div, link_to_new(model_class, path_params: { link: convert_filters_to_params(@search_filters) }), class: 'col-md-6 pull-left') %>
   </div>
-  <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :url_or_description_cont), class: 'col-md-6 pull-right') %>
+  <div class="col-md-4">
+    <div class="index-filters form-group select">
+      <div class="row">
+        <div class="col-md-4">
+          <%= content_tag :label, LinkType.model_name.human, for: 'district-select', class: 'control-label' %>
+        </div>
+        <div class="col-md-8">
+          <%= select_tag :link_type_id, options_from_collection_for_select(LinkType.visibles, 'id', 'kind_i18n', @search_filters[:link_type_id_eq].to_i), include_blank: false ,
+                         onchange:  "if(this.value){$('#q_link_type_id_eq').prop('value',this.value)}; $('.search-form').submit()",
+                         class:     'form-control',
+                         id:        'pages-select' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <%= content_tag(:div, search_collection(@search_q, :path_or_description_cont, q_hidden_fields: @search_filters), class: 'pull-right') %>
   </div>
 </div>
 
-<table class="index-table">
+<table id="<%= model_class.model_name.plural %>-table" class="index-table">
   <thead>
     <tr>
     <% model_class.main_columns.each do |column| -%>
@@ -33,3 +48,4 @@
 </table>
 
 <%= render partial: "shared/pagination", locals: {collection: @links} %>
+<%= button_to_back %>

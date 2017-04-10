@@ -15,16 +15,26 @@ class Project < ActiveRecord::Base
   has_many :documents
   has_many :activities
   has_many :events, as: :eventable
-  has_many :links, as: :linkable
   has_many :addresses, through: :events
-  has_many :trackings
+  has_many :trackings,         :class_name => 'Pro::Tracking'
   has_many :volun_trackings,   :class_name => 'Volun::Tracking'
   has_many :volun_contacts,    :class_name => 'Volun::Contact'
   has_many :volun_assessments, :class_name => 'Volun::Assessments'
+  has_many :links, as: :linkable
+  has_one  :logo,   -> { project_logo   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :images, -> { project_images }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :videos, -> { project_videos }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :docs,   -> { project_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :urls,   -> { project_urls   }, class_name: 'Link', foreign_key: 'linkable_id'
 
   accepts_nested_attributes_for :documents,  allow_destroy: true
   accepts_nested_attributes_for :pt_extendable
   accepts_nested_attributes_for :events, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :docs,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :urls,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :logo,   reject_if: :all_blank, allow_destroy: true
 
   validates :name, uniqueness: true
   validates :name, :description, :contact_name, :contact_last_name, :execution_start_date,
@@ -37,6 +47,7 @@ class Project < ActiveRecord::Base
                                               message: I18n.t('activerecord.errors.messages.invalid_proj_date'),
                                               allow_blank: true }
   validates :volunteers_num, :beneficiaries_num, numericality: { allow_blank: true }
+  validate  :check_timetables_execution_date
 
   scope :list, ->(){
     includes(
@@ -101,6 +112,22 @@ class Project < ActiveRecord::Base
 
     unless execution_start_date <= execution_end_date
       errors.add(:execution_start_date, :execution_start_date_must_be_less_than_execution_end_date)
+    end
+  end
+  
+  def check_timetables_execution_date
+    return unless events.any?
+    validation = true
+    self.events.each do |event|
+      event.timetables.each do |timetable|
+        unless (timetable.execution_date >= execution_start_date) && (timetable.execution_date <= execution_end_date)
+          validation = false
+        end
+        unless validation
+          errors.add(:base, :timetable_must_be_between_execution_start_date_and_execution_end_date)
+          return true
+        end
+      end
     end
   end
 

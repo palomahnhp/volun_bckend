@@ -1,16 +1,18 @@
-<%= main_title(t("action.show", model: ProTracking.model_name.human)) %>
+<%= main_title(t("action.show", model: Pro::Tracking.model_name.human)) %>
 
 <dl class="dl-horizontal">
 
-  <dt><%= ProTracking.human_attribute_name(:id) %>:</dt>
-  <dd><%= @pro_tracking.id %></dd>
-  <dt><%= ProTracking.human_attribute_name(:comments) %>:</dt>
-  <dd><%= @pro_tracking.comments %></dd>
-  <dt><%= ProTracking.human_attribute_name(:start_date) %>:</dt>
-  <dd><%= @pro_tracking.start_date %></dd>
-  <dt><%= ProTracking.human_attribute_name(:project_id) %>:</dt>
+  <dt><%= Pro::Tracking.human_attribute_name(:project) %>:</dt>
   <dd><%= @pro_tracking.project %></dd>
-  <dt><%= ProTracking.human_attribute_name(:created_at) %>:</dt>
+  <% unless @pro_tracking.request_form.nil? %>
+    <dt><%= Pro::Tracking.human_attribute_name(:request_form) %>:</dt>
+    <dd><%= @pro_tracking.request_form.request_type %></dd>
+  <% end %>
+  <dt><%= Pro::Tracking.human_attribute_name(:tracked_at) %>:</dt>
+  <dd><%= show_simple_date(@pro_tracking.tracked_at) %></dd>
+  <dt><%= Pro::Tracking.human_attribute_name(:comments) %>:</dt>
+  <dd><%= @pro_tracking.comments %></dd>
+  <dt><%= Pro::Tracking.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@pro_tracking.created_at) %></dd>
 
 </dl>
