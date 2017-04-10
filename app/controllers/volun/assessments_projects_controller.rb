@@ -47,7 +47,7 @@ class Volun::AssessmentsProjectsController < ApplicationController
         .require(:volun_assessments_project)
         .permit(
           :volunteer_id,
-          :project_id
+          :project_id,
           :trait_id,
           :trait_other,
           :assessment,

@@ -242,9 +242,9 @@
       <div class="well col-md-12">
         <%= content_tag :h3, t('not_associated_projects'), class: 'form-subtitle' %>
         <% if @volunteer.persisted? && f.object.reload.projects.any? %>
-          <%= f.association :projects, as: :select, collection: f.object.unassociated_projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+          <%= f.association :projects, as: :select, collection: f.object.unassociated_projects, as: :select, label: false, input_html: { class: 'wide-select col-md-12' } %>
         <% else %>
-          <%= f.association :projects, as: :select, label: false, item_wrapper_class: 'checkbox-inline checkbox-custom' %>
+          <%= f.association :projects, as: :select, label: false, input_html: { class: 'wide-select col-md-12' } %>
         <% end %>
       </div>
     </div>
