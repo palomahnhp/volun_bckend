@@ -12,7 +12,7 @@ es:
     link_type:
       kind:
         logo:     Logo
-        image:    Imágen
+        image:    Imagen
         url:      URL
         video:    Vídeo
         document: Documento
@@ -308,14 +308,14 @@ es:
         comments: Observaciones
         other_subscribe_reason: Otro motivo de solicitud
         address_id: Dirección
-        active: Activo
+        active: &active Activo
         subscribed_at: Fecha de alta
         unsubscribed_at: Fecha de baja
       project_type:
         id:          ID
         kind:        Nombre
         description: Descripción
-        active:      Activo
+        active:      *active
         created_at : *created_at
       frontpage_element:
         id:                    ID
@@ -324,7 +324,7 @@ es:
         image_url:             Imagen (url)
         link_url:              Enlace (url)
         logo_url:              Logo (url)
-        active:                Activo
+        active:                *active
         frontpage_position_id: Posición
         frontpage_position:    Posición
         created_at:            *created_at
@@ -334,45 +334,45 @@ es:
         id:          ID
         position:    Posición
         description: Descripción
-        active:      Activo
+        active:      *active
         created_at:  *created_at
       area:
         id:          ID
         name:        Denominación
         description: Descripción
-        active:      Activo
+        active:      *active
         created_at : *created_at
       coordination:
         id:          ID
         name:        Denominación
         description: Descripción
-        active:      Activo
+        active:      *active
         created_at : *created_at
       nationality:
         id:          ID
         name:        Nacionalidad
-        active:      Activo
+        active:      *active
         created_at : *created_at
       degree:
         id:          ID
         name:        Nombre Titulación
         degree_type: Categoría Titulación
-        active:      Activo
+        active:      *active
         created_at : *created_at
       unsubscribe_reason:
         id:          ID
         name:        Motivo Baja
-        active:      Activo
+        active:      *active
         created_at : *created_at
       trait:
         id:          ID
         name:        Cualidad
-        active:      Activo
+        active:      *active
         created_at : *created_at
       language:
         id:          ID
         name:        Idioma
-        active:      Activo
+        active:      *active
         created_at : *created_at
       link_type:
         kind: Tipo
@@ -388,7 +388,7 @@ es:
       tracking_type:
         id:          ID
         name:        Tipo Seguimiento
-        active:      Activo
+        active:      *active
         created_at : *created_at
       request_types:
         kind:        Tipo
@@ -413,13 +413,13 @@ es:
         id:          ID
         name:        Motivo de rechazo
         description: Descripción
-        active:      Activo
+        active:      *active
         created_at : *created_at
       req/request_reason:
         id:          ID
         name:        Nombre
         description: Motivo de rechazo
-        active:      Activo
+        active:      *active
         created_at : *created_at
       req/status:
         id:          ID
@@ -460,7 +460,7 @@ es:
         id:          ID
         name:        Denominación
         description: Descripción
-        active:      Activo
+        active:      *active
         created_at : *created_at
       issue:
         name:        Título
@@ -480,7 +480,7 @@ es:
         id:                     ID
         name:                   Nombre
         description:            Descripción
-        active:                 Activo
+        active:                 *active
         volunteers_allowed:     Admite voluntarios
         publish:                Publicitar
         outstanding:            Destacado
@@ -645,7 +645,7 @@ es:
         role:                 Rol
         profile:              Perfil
         phone_number:         Teléfono móvil
-        active:               Activo
+        active:               *active
         created_at:           *created_at
       setting:
         id:                   ID
@@ -653,7 +653,10 @@ es:
         value:                Valor
         created_at:           *created_at
       skill:
-        name: Nombre
+        id:                   ID
+        name:                 Nombre
+        active:               *active
+        created_at :          *created_at
       id_number_type:
         name: Nombre
       volun/availability:
