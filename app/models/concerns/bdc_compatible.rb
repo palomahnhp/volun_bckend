@@ -35,17 +35,10 @@ module BdcCompatible
     attr_accessor :bdc_validator
 
     before_validation :check_normalization, if: 'normalize?'
-    after_validation :unnormalize, on: :update, unless: 'normalize?'
-    validate :must_be_normalized, if: 'normalize?'
+    after_validation :unnormalize_fields, on: :update, unless: 'normalize?'
 
     def normalized?
       ndp_code.present?
-    end
-
-    def normalize!
-      reset_bdc_validator
-      check_normalization
-      ndp_code.presence
     end
 
     def bdc_validator
@@ -57,7 +50,7 @@ module BdcCompatible
     end
 
     def reset_bdc_validator
-      unnormalize
+      unnormalize_fields
       self.bdc_validator = nil
     end
 
@@ -69,13 +62,11 @@ module BdcCompatible
       self.grader = '  ' if grader.blank?
     end
 
-    def must_be_normalized
-      unless normalized?
-        errors.add :base, :address_is_not_normalized
-      end
+    def normalize_road_number
+      self.road_number = road_number.to_s.to_i
     end
 
-    def unnormalize
+    def unnormalize_fields
       self.normalize     = false
       self.ndp_code      = nil
       self.province_code = nil
@@ -88,22 +79,28 @@ module BdcCompatible
       self.longitude     = nil
     end
 
+    def normalize_fields
+      self.postal_code   = bdc_validator.postal_code || self.postal_code
+      self.ndp_code      = bdc_validator.ndp_code
+      self.province      = bdc_validator.province
+      self.province_code = bdc_validator.province_code
+      self.town          = bdc_validator.town
+      self.town_code     = bdc_validator.town_code
+      self.district      = bdc_validator.district
+      self.district_code = bdc_validator.district_code
+      self.borough       = bdc_validator.borough
+      self.local_code    = bdc_validator.local_code
+      self.latitude      = bdc_validator.latitude
+      self.longitude     = bdc_validator.longitude
+    end
+
     def check_normalization
-      self.road_number = road_number.to_s.to_i
       normalize_grader
+      normalize_road_number
       if bdc_validator.address_normalized?
-        self.postal_code   = bdc_validator.postal_code || self.postal_code
-        self.ndp_code      = bdc_validator.ndp_code
-        self.province      = bdc_validator.province
-        self.province_code = bdc_validator.province_code
-        self.town          = bdc_validator.town
-        self.town_code     = bdc_validator.town_code
-        self.district      = bdc_validator.district
-        self.district_code = bdc_validator.district_code
-        self.borough       = bdc_validator.borough
-        self.local_code    = bdc_validator.local_code
-        self.latitude      = bdc_validator.latitude
-        self.longitude     = bdc_validator.longitude
+        normalize_fields
+      elsif normalize?
+        errors.add :base, :address_is_not_normalized
       end
     end
 
