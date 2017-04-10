@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-12">
     <%= model_title(model_class) %>
-    <%= content_tag :h3, @volunteer.name, class: 'form-subtitle' %>
+    <%= content_tag :h3, "#{@volunteer.name} #{@volunteer.last_name}", class: 'form-subtitle' %>
   </div>
 </div>
 <div class="index-panel row well">
@@ -37,7 +37,7 @@
 
 <%= render partial: "shared/pagination", locals: {collection: @volun_trackings} %>
 
-<% if current_page?(volunteers_path) %>
+<% if params[:project_id_assoc].nil? %>
   <%= button_to_back %>
 <% else %>
   <%= button_to_back (edit_volunteer_path(@volunteer)) %>
