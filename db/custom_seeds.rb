@@ -640,10 +640,13 @@ alter_sequence(IdNumberType.sequence_name, IdNumberType.maximum("id") + 1)
 ## entity_types
 puts "#{I18n.t('creating')} #{EntityType.model_name.human}"
 
-EntityType.create!(id: 1, name: 'AYUNTAMIENTO MADRID', description: 'AYUNTAMIENTO MADRID', active: true)
-EntityType.create!(id: 2, name: 'OTROS ORGANISMOS'   , description: 'OTROS ORGANISMOS',    active: true)
-EntityType.create!(id: 3, name: 'ENTIDAD'            , description: 'ENTIDAD',             active: true)
-EntityType.create!(id: 4, name: 'EMPRESA'            , description: 'EMPRESA',             active: true)
+EntityType.create!(id: 1, name: 'ORGANISMO'             , description: 'ORGANISMO',              active: true)
+EntityType.create!(id: 2, name: 'EMPRESA'               , description: 'EMPRESA',                active: true)
+EntityType.create!(id: 3, name: 'FUNDACIÓN'             , description: 'FUNDACIÓN',              active: true)
+EntityType.create!(id: 4, name: 'ONG'                   , description: 'ONG',                    active: true)
+EntityType.create!(id: 5, name: 'ADMINISTRACIÓN PÚBLICA', description: 'ADMINISTRACIÓN PÚBLICA', active: true)
+EntityType.create!(id: 6, name: 'ENTIDAD'               , description: 'ENTIDAD',                active: true)
+EntityType.create!(id: 7, name: 'OTROS'                 , description: 'OTROS',                  active: true)
 
 alter_sequence(EntityType.sequence_name, EntityType.maximum("id") + 1)
 

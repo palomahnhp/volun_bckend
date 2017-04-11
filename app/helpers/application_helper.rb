@@ -32,6 +32,15 @@ module ApplicationHelper
       data: {mask: '99/99/9999'}
     }.reverse_merge(opts)
   end
+  
+  def date_input_html_default_values_no_default(date, opts = {})
+    {
+      class: 'datepicker',
+      placeholder: 'dd/mm/aaaa',
+      value: date ? date.strftime('%d/%m/%Y') : nil,
+      data: {mask: '99/99/9999'}
+    }.reverse_merge(opts)
+  end
 
   def check_box_filter_for(param_name, js_selector = nil)
     check_box_tag "q[#{param_name}]",

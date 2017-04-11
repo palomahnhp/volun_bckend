@@ -68,9 +68,17 @@
     </div>
     <% if f.object.persisted? %>
       <div class="row well">
-        <%= f.input :active, wrapper_html: { class: 'col-md-4' } %>
-        <%= f.input :subscribed_at, as: :string, input_html: date_input_html_default_values(f.object.subscribed_at, disabled: true), wrapper_html: { class: 'col-md-4' }  %>
-        <%= f.input :unsubscribed_at, as: :string, input_html: date_input_html_default_values(f.object.unsubscribed_at, disabled: true), wrapper_html: { class: 'col-md-4' }  %>
+        <div class="form-group string optional col-md-4">
+          <div class="pull-right">
+            <%= f.input :active, as: :hidden %>
+            <%= check_box_tag 'inactive', 'inactive', !f.object.active, onclick: "changeActive();" %>
+            <label style='font-weight: normal;'>
+              <%= t('inactivate') %>
+            </label>
+          </div>
+        </div>
+        <%= f.input :created_at, as: :string, input_html: date_input_html_default_values(f.object.created_at, disabled: true), wrapper_html: { class: 'col-md-4' }  %>
+        <%= f.input :unsubscribed_at, as: :string, input_html: date_input_html_default_values_no_default(f.object.unsubscribed_at, disabled: true), wrapper_html: { class: 'col-md-4' }  %>
       </div>
     <% end %>
     <div class="row well">
@@ -200,6 +208,15 @@
 
   <div class="form-actions">
     <%= f.button :submit, class: 'btn btn-success js-confirmable', id: 'submit' %>
+    <script>
+      var confirm_submit = function () {
+        $('.js-confirmable').closest('form').submit(function() {
+          if ($("#entity_unsubscribed_at").val() != "") {
+            $("#entity_unsubscribed_at").prop("disabled", false);
+          }
+        });
+      };
+    </script>
     <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
   <% end %>
