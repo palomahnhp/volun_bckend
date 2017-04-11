@@ -72,6 +72,10 @@ class VolunteersController < ApplicationController
     respond_with(@volunteer)
   end
 
+  def show_sms
+    render 'shared/popup'
+  end
+
 
   protected
 

@@ -1,6 +1,6 @@
 <tr class="volun-result" id="<%= dom_id(volunteer) %>" >
   <td><%= volunteer.try :id %></td>
-  
+
   <% volunteer.main_attributes.each do |attr_name| %>
       <td><%= show_attr(volunteer, attr_name) %></td>
   <% end %>
@@ -17,5 +17,6 @@
     <%= link_to_destroy(volunteer) %>
 <% end %>
     <%= link_to_trackings(volunteer, "volun") %>
+    <%= link_to_sms(volunteer) %>
   </td>
 </tr>
