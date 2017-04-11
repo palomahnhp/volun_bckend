@@ -1,9 +1,9 @@
-		$(document).on('turbolinks:load', function(){
+    $(document).on('turbolinks:load', function(){
       showOthersNoNested();
-			changeActive();
+      changeActive();
     });
 		
-		function showOthersNoNested() {
+    function showOthersNoNested() {
       if ($("#entity_req_reason_id option:selected").html() == $("#others").val()) {
         $("#entity_other_subscribe_reason").parent().parent().show();
       } else {
