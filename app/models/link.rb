@@ -31,7 +31,7 @@ class Link < ActiveRecord::Base
 
   validates :link_type_id, presence: true
   validates :linkable_id, :linkable_type, presence: true, unless: 'logo?'
-  validates :file, presence: { message: I18n.t('must_choose_a_file')}, unless: 'url?'
+  validates :file, presence: { message: I18n.t('must_choose_a_file')}, unless: 'url? || logo?'
   validates :path, format: { with: /\A#{URI.regexp.to_s}\z/ }, if: 'url?'
   after_save :update_path
 
