@@ -33,7 +33,7 @@ module ApplicationHelper
     }.reverse_merge(opts)
   end
   
-  def date_input_html_default_values_no_default(date, opts = {})
+  def date_input_html_no_default_values(date, opts = {})
     {
       class: 'datepicker',
       placeholder: 'dd/mm/aaaa',
