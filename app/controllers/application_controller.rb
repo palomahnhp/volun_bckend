@@ -79,12 +79,20 @@ class ApplicationController < ActionController::Base
     params[:per_page] ||= 20
   end
 
-  # TODO Ensure user creation after successful uweb login
   def current_user
-    return @current_user if @current_user
-    return super if use_devise_authentication?
-    return @current_user = User.first_or_create(login: session[:uweb_user_data][:login]) if uweb_authenticated?
-    nil
+    @current_user ||= if use_devise_authentication?
+                        super
+                      elsif uweb_authenticated?
+                        find_or_create_user
+                      end
+  end
+
+  def find_or_create_user
+    login_manager = LoginManager.new(login_data: session[:uweb_user_data])
+    unless login_manager.find_or_create_user
+      flash[:error] = login_manager.errors.to_sentence
+    end
+    login_manager.user
   end
 
   def fields_for_options(collection)

@@ -1,4 +1,22 @@
 FactoryGirl.define do
+  factory :permission do
+    manager nil
+    resource nil
+    create false
+    update false
+    read false
+    delete false
+
+    trait :invalid do
+    end
+  end
+  factory :resource do
+    name "MyString"
+    alias_name "MyString"
+
+    trait :invalid do
+    end
+  end
   factory :link_type do
     kind 1
     description "MyText"

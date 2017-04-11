@@ -15,9 +15,9 @@ class UwebAuthenticator
   private
 
     def user_exists?
-      response        = client.call(:get_user_data_by_login, message: { ub: { login: @user_params[:login] } }).body
-      parsed_response = parser.parse(response[:get_user_data_by_login_response][:get_user_data_by_login_return])
-      self.uweb_user_data = get_uweb_user_data!(parsed_response)
+      response            = client.call(:get_user_data_by_login, message: { ub: { login: @user_params[:login] } }).body
+      parsed_response     = parser.parse(response[:get_user_data_by_login_response][:get_user_data_by_login_return])
+      self.uweb_user_data = Hash.deep_strip! get_uweb_user_data!(parsed_response)
       @user_params[:login] == uweb_user_data[:login]
     rescue  Exception  => e
       Rails.logger.error('UwebAuthenticator#user_exists?') do
@@ -32,10 +32,10 @@ class UwebAuthenticator
         login:             user_data['LOGIN'],
         uweb_id:           user_data['CLAVE_IND'],
         name:              user_data['NOMBRE_USUARIO'],
-        surname:           user_data['APELLIDO1_USUARIO'],
+        last_name:         user_data['APELLIDO1_USUARIO'],
         last_name_alt:     user_data['APELLIDO2_USUARIO'],
         document:          user_data['DNI'],
-        phone:             user_data['TELEFONO'],
+        phone_number:      user_data['TELEFONO'],
         email:             user_data['MAIL'],
         official_position: user_data['CARGO'],
         personal_number:   user_data['NUM_PERSONAL']
