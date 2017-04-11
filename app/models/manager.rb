@@ -8,7 +8,8 @@ class Manager < ActiveRecord::Base
   has_many :trackings, :class_name => 'Volun::Tracking'
   has_many :request_forms
   has_many :permissions
-  has_one :user, as: :loggable
+  has_many :volunteers
+  has_one  :user, as: :loggable
   delegate :super_admin?, :admin?, :internal_staff?, :external_staff?, to: :role, allow_nil: true
 
   validates :name, uniqueness: true
