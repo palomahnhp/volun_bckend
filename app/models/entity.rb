@@ -8,8 +8,20 @@ class Entity < ActiveRecord::Base
   has_one :user, as: :loggable
   has_many :projects, ->(){ order('created_at' => :asc) }
   has_many :trackings, :class_name => 'Ent::Tracking'
+  has_many :links, as: :linkable
+  has_one  :logo,   -> { entity_logo   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :images, -> { entity_images }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :videos, -> { entity_videos }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :docs,   -> { entity_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :urls,   -> { entity_urls   }, class_name: 'Link', foreign_key: 'linkable_id'
+  
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :docs,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :urls,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :logo,   reject_if: :all_blank, allow_destroy: true
 
   validates :name, uniqueness: true
   validates :name, :vat_number, :email, :representative_name, :representative_last_name, :contact_name,
