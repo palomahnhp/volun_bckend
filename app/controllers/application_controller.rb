@@ -5,12 +5,12 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
-  before_action :authenticate!, unless: :user_authenticated?
-  before_action :authorize_devise!
+  before_action :authenticate!, unless: 'user_authenticated?'
+  before_action :block_devise_views, unless: 'use_devise_authentication?'
   before_action :set_page_params, only: [:index]
-  after_action :update_record_history, only: [:create, :update, :destroy], unless: :devise_controller?
+  after_action :update_record_history, only: [:create, :update, :destroy], unless: 'devise_controller?'
 
-  helper_method :use_devise_authentication?, :cast_as_boolean, :uweb_authenticated?
+  helper_method :use_devise_authentication?, :cast_as_boolean
 
   rescue_from CanCan::AccessDenied do |exception|
     flash[:error] = I18n.t('messages.access_denied')
@@ -26,10 +26,20 @@ class ApplicationController < ActionController::Base
   end
 
   def uweb_authenticated?
-    return true if session[:uweb_user_data].present?
+    return true unless new_login?
+
+    session[:current_user_id] = nil
     uweb_auth = UwebAuthenticator.new(params)
-    session[:uweb_user_data] = uweb_auth.authenticate!
+    if uweb_auth.authenticate
+      session[:uweb_user_data]  = uweb_auth.uweb_user_data
+    else
+      flash.now[:error] = "#{I18n.t('errors.cannot_log_in')}: #{uweb_auth.errors.to_sentence}"
+    end
     session[:uweb_user_data].present?
+  end
+
+  def new_login?
+    session[:uweb_user_data].blank? || params[:login].present? && session[:uweb_user_data][:login] != params[:login]
   end
 
   private
@@ -56,8 +66,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def authorize_devise!
-    redirect_to root_path if devise_controller? && uweb_authenticated?
+  def block_devise_views
+    redirect_to root_path if devise_controller?
   end
 
   def user_authenticated?
@@ -88,11 +98,19 @@ class ApplicationController < ActionController::Base
   end
 
   def find_or_create_user
-    login_manager = LoginManager.new(login_data: session[:uweb_user_data])
-    unless login_manager.find_or_create_user
-      flash[:error] = login_manager.errors.to_sentence
-    end
-    login_manager.user
+    user =  if session[:current_user_id].present?
+              User.find_by(id: session[:current_user_id])
+            else
+              login_manager = LoginManager.new(login_data: session[:uweb_user_data])
+              if login_manager.find_or_create_user
+                login_manager.user
+              else
+                flash[:error] = login_manager.errors.to_sentence
+                nil
+              end
+            end
+    session[:current_user_id] = user.try :id
+    user
   end
 
   def fields_for_options(collection)

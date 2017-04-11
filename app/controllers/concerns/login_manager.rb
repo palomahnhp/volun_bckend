@@ -44,6 +44,10 @@ class LoginManager
     manager
   end
 
+  def login_data=(hash)
+    @login_data = hash.present? ? hash.symbolize_keys : hash
+  end
+
   private
 
   def copy_errors_from(record)

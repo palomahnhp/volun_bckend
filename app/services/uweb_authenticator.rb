@@ -1,32 +1,49 @@
 class UwebAuthenticator
 
-  attr_accessor :uweb_user_data
+  attr_accessor :errors, :uweb_user_data
 
   def initialize(data = {})
     @user_params = { login: data[:login] }.with_indifferent_access
+    @errors      = []
   end
 
-  def authenticate!
-    return nil unless @user_params[:login]
-    return uweb_user_data if user_exists?
-    nil
+  def valid?
+    unless @user_params[:login].present?
+      errors << I18n.t('errors.missing_required_fields', default: 'Missing required fields' )
+    end
+    errors.blank?
+  end
+
+  def authenticate
+    valid? && user_exists?
+  end
+
+  def user_exists?
+    response            = client.call(:get_user_data_by_login, message: { ub: { login: @user_params[:login] } }).body
+    parsed_response     = parser.parse(response[:get_user_data_by_login_response][:get_user_data_by_login_return])
+    self.uweb_user_data = Hash.deep_strip! get_uweb_user_data(parsed_response)
+    uweb_user_data[:login].present?
+  rescue  Exception  => e
+    Rails.logger.error('UwebAuthenticator#user_exists?') do
+      "Error llamada UWEB: get_user_data_by_login - #{@user_params}: \n#{e}"
+    end
+    errors << generate_error_message(e.message)
+    false
   end
 
   private
 
-    def user_exists?
-      response            = client.call(:get_user_data_by_login, message: { ub: { login: @user_params[:login] } }).body
-      parsed_response     = parser.parse(response[:get_user_data_by_login_response][:get_user_data_by_login_return])
-      self.uweb_user_data = Hash.deep_strip! get_uweb_user_data!(parsed_response)
-      @user_params[:login] == uweb_user_data[:login]
-    rescue  Exception  => e
-      Rails.logger.error('UwebAuthenticator#user_exists?') do
-        "Error llamada UWEB: get_user_data_by_login - #{@user_params}: \n#{e}"
+    def generate_error_message(message)
+      not_found_error_pattern = 'Usuario .* no encontrado'
+      if /#{not_found_error_pattern}/ === message
+        message.sub(/(?:(?!\b#{not_found_error_pattern}\b).)*/, '')
+      else
+        I18n.t('errors.service_temporally_unavailable',
+               default: 'Service temporally unavailable. Please, try later.')
       end
-      false
     end
 
-    def get_uweb_user_data!(parsed_response)
+    def get_uweb_user_data(parsed_response)
       user_data = parsed_response.fetch('USUARIO')
       {
         login:             user_data['LOGIN'],
