@@ -56,6 +56,17 @@
           <%= Req::RejectionType.model_name.human(count: 2) %>
         </div>
       </div>
+      <div class="panel panel-info" onclick="window.location='<%= skills_url %>';">
+        <div class="panel-heading">
+          <h3 class="panel-title">
+            <%= Skill.model_name.human(count: 2) %>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <%= Skill.model_name.human(count: 2) %>
+        </div>
+      </div>
+
     </div>
     <div class="col-md-6">
       <div class="panel panel-info" onclick="window.location='<%= collectives_url %>';">
