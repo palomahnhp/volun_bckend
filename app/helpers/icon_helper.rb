@@ -32,7 +32,7 @@ module IconHelper
   end
 
   def icon_sms(opts = {})
-    build_icon(:show_sms, opts.merge(icon_name: 'envelope-o', title: t('action.show_sms', model: t('details').downcase)))
+    build_icon(:show_sms, opts.merge(icon_name: 'envelope-o', title: t('send_sms')))
   end
 
   def icon_search(opts = {})

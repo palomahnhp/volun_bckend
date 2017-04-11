@@ -36,6 +36,8 @@ es:
   files_are_allowed_olny_on_update_volun: Sólo se pueden subir archivos para voluntarios ya existentes
   does_not_have: "No tiene %{element}"
   details: Detalles
+  sms: Mensaje SMS
+  send_sms: Enviar SMS
   search_filter: 'Filtrar búsqueda'
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
@@ -55,6 +57,7 @@ es:
   videos: Videos
   image: Imágen
   images: Imágenes
+  cell_phone: Móvil
   update_logo: Actualizar logo
   name: Nombre
   messages:

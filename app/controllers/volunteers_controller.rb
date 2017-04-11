@@ -74,7 +74,15 @@ class VolunteersController < ApplicationController
   end
 
   def show_sms
-    render 'shared/popup'
+    @volunteer = Volunteer.find_by(id: params[:volunteer])
+    if @volunteer.phone_number_alt
+      respond_with(@volunteer) do |format|
+        format.js { render 'shared/popup' }
+        format.html
+      end
+    else
+      render js: "swal('Lo sentimos','No se ha encontrado ningún número de teléfono','error')"
+    end
   end
 
 

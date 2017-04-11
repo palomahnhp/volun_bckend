@@ -198,14 +198,15 @@ module ScaffoldHelper
     return unless can?(:show_sms, record)
     options = {
         text: icon_sms,
-        path: "#{record.class.model_name.singular}_path",
+        path: "show_sms_path",
+        path_params: { volunteer: record },
         class: 'grey-color',
         remote: true
     }.merge(opts)
     path = options.delete(:path)
     text = options.delete(:text)
 
-    link_to(text, public_send(path, record, options[:path_params]||{}), options)
+    link_to(text, public_send(path, options[:path_params]||{}), options)
   end
 
   def link_to_linkable(record, opts = {})
