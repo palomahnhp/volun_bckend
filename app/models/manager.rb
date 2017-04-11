@@ -22,6 +22,10 @@ class Manager < ActiveRecord::Base
     %i(name last_name last_name_alt alias_name phone_number)
   end
 
+  def full_name
+    "#{name} #{last_name}"
+  end
+
   def to_s
     name
   end

@@ -141,6 +141,7 @@ es:
     request_form_no_longer_exists: 'La %{request_type} ya no existe'
     request_form_must_be_at_processing: 'La solicitud tiene que estar en estado "en trámite"'
     a_rejection_type_must_be_selected: Debe seleccionar un motivo de rechazo
+    cannot_log_in: No puede iniciar sessión
   date:
     datepicker:
       default: "dd/mm/yyyy"
