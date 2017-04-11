@@ -280,7 +280,6 @@ attributes = {
   password:              'Wordpass1',
   password_confirmation: 'Wordpass1',
   loggable:              Manager.first,
-  notice_type:           NoticeType.all.sample
 }
 user = User.find_or_initialize_by(login: attributes[:login])
 

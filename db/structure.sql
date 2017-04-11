@@ -14,23 +14,16 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+-- Name: volun; Type: SCHEMA; Schema: -; Owner: -
 --
 
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+CREATE SCHEMA volun;
 
 
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
-SET search_path = public, pg_catalog;
+SET search_path = volun, pg_catalog;
 
 --
--- Name: check_project_references(); Type: FUNCTION; Schema: public; Owner: -
+-- Name: check_project_references(); Type: FUNCTION; Schema: volun; Owner: -
 --
 
 CREATE FUNCTION check_project_references() RETURNS trigger
@@ -57,7 +50,7 @@ CREATE FUNCTION check_project_references() RETURNS trigger
 
 
 --
--- Name: check_request_form_references(); Type: FUNCTION; Schema: public; Owner: -
+-- Name: check_request_form_references(); Type: FUNCTION; Schema: volun; Owner: -
 --
 
 CREATE FUNCTION check_request_form_references() RETURNS trigger
@@ -88,7 +81,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: academic_levels; Type: TABLE; Schema: public; Owner: -
+-- Name: academic_levels; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE academic_levels (
@@ -102,7 +95,7 @@ CREATE TABLE academic_levels (
 
 
 --
--- Name: academic_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: academic_levels_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE academic_levels_id_seq
@@ -114,14 +107,14 @@ CREATE SEQUENCE academic_levels_id_seq
 
 
 --
--- Name: academic_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: academic_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE academic_levels_id_seq OWNED BY academic_levels.id;
 
 
 --
--- Name: activities; Type: TABLE; Schema: public; Owner: -
+-- Name: activities; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE activities (
@@ -144,7 +137,7 @@ CREATE TABLE activities (
 
 
 --
--- Name: activities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: activities_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE activities_id_seq
@@ -156,14 +149,14 @@ CREATE SEQUENCE activities_id_seq
 
 
 --
--- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: activities_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE activities_id_seq OWNED BY activities.id;
 
 
 --
--- Name: addresses; Type: TABLE; Schema: public; Owner: -
+-- Name: addresses; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE addresses (
@@ -187,7 +180,6 @@ CREATE TABLE addresses (
     province_code character varying,
     town_code character varying,
     district_code character varying,
-    class_name character varying,
     latitude character varying,
     longitude character varying,
     normalize boolean DEFAULT true,
@@ -197,7 +189,7 @@ CREATE TABLE addresses (
 
 
 --
--- Name: addresses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: addresses_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE addresses_id_seq
@@ -209,14 +201,14 @@ CREATE SEQUENCE addresses_id_seq
 
 
 --
--- Name: addresses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: addresses_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE addresses_id_seq OWNED BY addresses.id;
 
 
 --
--- Name: areas; Type: TABLE; Schema: public; Owner: -
+-- Name: areas; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE areas (
@@ -230,7 +222,7 @@ CREATE TABLE areas (
 
 
 --
--- Name: areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: areas_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE areas_id_seq
@@ -242,14 +234,14 @@ CREATE SEQUENCE areas_id_seq
 
 
 --
--- Name: areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: areas_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE areas_id_seq OWNED BY areas.id;
 
 
 --
--- Name: areas_projects; Type: TABLE; Schema: public; Owner: -
+-- Name: areas_projects; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE areas_projects (
@@ -259,7 +251,7 @@ CREATE TABLE areas_projects (
 
 
 --
--- Name: areas_volunteers; Type: TABLE; Schema: public; Owner: -
+-- Name: areas_volunteers; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE areas_volunteers (
@@ -269,7 +261,7 @@ CREATE TABLE areas_volunteers (
 
 
 --
--- Name: collectives; Type: TABLE; Schema: public; Owner: -
+-- Name: collectives; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE collectives (
@@ -283,7 +275,7 @@ CREATE TABLE collectives (
 
 
 --
--- Name: collectives_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: collectives_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE collectives_id_seq
@@ -295,14 +287,14 @@ CREATE SEQUENCE collectives_id_seq
 
 
 --
--- Name: collectives_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: collectives_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE collectives_id_seq OWNED BY collectives.id;
 
 
 --
--- Name: collectives_projects; Type: TABLE; Schema: public; Owner: -
+-- Name: collectives_projects; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE collectives_projects (
@@ -312,7 +304,7 @@ CREATE TABLE collectives_projects (
 
 
 --
--- Name: collectives_volunteers; Type: TABLE; Schema: public; Owner: -
+-- Name: collectives_volunteers; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE collectives_volunteers (
@@ -322,7 +314,7 @@ CREATE TABLE collectives_volunteers (
 
 
 --
--- Name: contact_results; Type: TABLE; Schema: public; Owner: -
+-- Name: contact_results; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE contact_results (
@@ -335,7 +327,7 @@ CREATE TABLE contact_results (
 
 
 --
--- Name: contact_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: contact_results_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE contact_results_id_seq
@@ -347,14 +339,14 @@ CREATE SEQUENCE contact_results_id_seq
 
 
 --
--- Name: contact_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: contact_results_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE contact_results_id_seq OWNED BY contact_results.id;
 
 
 --
--- Name: contact_types; Type: TABLE; Schema: public; Owner: -
+-- Name: contact_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE contact_types (
@@ -367,7 +359,7 @@ CREATE TABLE contact_types (
 
 
 --
--- Name: contact_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: contact_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE contact_types_id_seq
@@ -379,14 +371,14 @@ CREATE SEQUENCE contact_types_id_seq
 
 
 --
--- Name: contact_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: contact_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE contact_types_id_seq OWNED BY contact_types.id;
 
 
 --
--- Name: coordinations; Type: TABLE; Schema: public; Owner: -
+-- Name: coordinations; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE coordinations (
@@ -400,7 +392,7 @@ CREATE TABLE coordinations (
 
 
 --
--- Name: coordinations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: coordinations_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE coordinations_id_seq
@@ -412,14 +404,14 @@ CREATE SEQUENCE coordinations_id_seq
 
 
 --
--- Name: coordinations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: coordinations_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE coordinations_id_seq OWNED BY coordinations.id;
 
 
 --
--- Name: coordinations_projects; Type: TABLE; Schema: public; Owner: -
+-- Name: coordinations_projects; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE coordinations_projects (
@@ -429,7 +421,7 @@ CREATE TABLE coordinations_projects (
 
 
 --
--- Name: degree_types; Type: TABLE; Schema: public; Owner: -
+-- Name: degree_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE degree_types (
@@ -443,7 +435,7 @@ CREATE TABLE degree_types (
 
 
 --
--- Name: degree_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: degree_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE degree_types_id_seq
@@ -455,14 +447,14 @@ CREATE SEQUENCE degree_types_id_seq
 
 
 --
--- Name: degree_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: degree_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE degree_types_id_seq OWNED BY degree_types.id;
 
 
 --
--- Name: degrees; Type: TABLE; Schema: public; Owner: -
+-- Name: degrees; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE degrees (
@@ -476,7 +468,7 @@ CREATE TABLE degrees (
 
 
 --
--- Name: degrees_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: degrees_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE degrees_id_seq
@@ -488,14 +480,14 @@ CREATE SEQUENCE degrees_id_seq
 
 
 --
--- Name: degrees_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: degrees_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE degrees_id_seq OWNED BY degrees.id;
 
 
 --
--- Name: degrees_volunteers; Type: TABLE; Schema: public; Owner: -
+-- Name: degrees_volunteers; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE degrees_volunteers (
@@ -505,7 +497,7 @@ CREATE TABLE degrees_volunteers (
 
 
 --
--- Name: districts; Type: TABLE; Schema: public; Owner: -
+-- Name: districts; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE districts (
@@ -519,7 +511,7 @@ CREATE TABLE districts (
 
 
 --
--- Name: districts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: districts_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE districts_id_seq
@@ -531,14 +523,14 @@ CREATE SEQUENCE districts_id_seq
 
 
 --
--- Name: districts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: districts_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE districts_id_seq OWNED BY districts.id;
 
 
 --
--- Name: documents; Type: TABLE; Schema: public; Owner: -
+-- Name: documents; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE documents (
@@ -556,7 +548,7 @@ CREATE TABLE documents (
 
 
 --
--- Name: documents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: documents_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE documents_id_seq
@@ -568,14 +560,14 @@ CREATE SEQUENCE documents_id_seq
 
 
 --
--- Name: documents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: documents_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE documents_id_seq OWNED BY documents.id;
 
 
 --
--- Name: employment_statuses; Type: TABLE; Schema: public; Owner: -
+-- Name: employment_statuses; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE employment_statuses (
@@ -588,7 +580,7 @@ CREATE TABLE employment_statuses (
 
 
 --
--- Name: employment_statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: employment_statuses_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE employment_statuses_id_seq
@@ -600,14 +592,14 @@ CREATE SEQUENCE employment_statuses_id_seq
 
 
 --
--- Name: employment_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: employment_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE employment_statuses_id_seq OWNED BY employment_statuses.id;
 
 
 --
--- Name: ent_trackings; Type: TABLE; Schema: public; Owner: -
+-- Name: ent_trackings; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE ent_trackings (
@@ -625,7 +617,7 @@ CREATE TABLE ent_trackings (
 
 
 --
--- Name: ent_trackings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ent_trackings_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE ent_trackings_id_seq
@@ -637,14 +629,14 @@ CREATE SEQUENCE ent_trackings_id_seq
 
 
 --
--- Name: ent_trackings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: ent_trackings_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE ent_trackings_id_seq OWNED BY ent_trackings.id;
 
 
 --
--- Name: entities; Type: TABLE; Schema: public; Owner: -
+-- Name: entities; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE entities (
@@ -677,7 +669,7 @@ CREATE TABLE entities (
 
 
 --
--- Name: entities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: entities_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE entities_id_seq
@@ -689,14 +681,14 @@ CREATE SEQUENCE entities_id_seq
 
 
 --
--- Name: entities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: entities_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE entities_id_seq OWNED BY entities.id;
 
 
 --
--- Name: entities_projects; Type: TABLE; Schema: public; Owner: -
+-- Name: entities_projects; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE entities_projects (
@@ -706,7 +698,7 @@ CREATE TABLE entities_projects (
 
 
 --
--- Name: entity_types; Type: TABLE; Schema: public; Owner: -
+-- Name: entity_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE entity_types (
@@ -720,7 +712,7 @@ CREATE TABLE entity_types (
 
 
 --
--- Name: entity_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: entity_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE entity_types_id_seq
@@ -732,14 +724,14 @@ CREATE SEQUENCE entity_types_id_seq
 
 
 --
--- Name: entity_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: entity_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE entity_types_id_seq OWNED BY entity_types.id;
 
 
 --
--- Name: event_types; Type: TABLE; Schema: public; Owner: -
+-- Name: event_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE event_types (
@@ -753,7 +745,7 @@ CREATE TABLE event_types (
 
 
 --
--- Name: event_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: event_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE event_types_id_seq
@@ -765,14 +757,14 @@ CREATE SEQUENCE event_types_id_seq
 
 
 --
--- Name: event_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: event_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE event_types_id_seq OWNED BY event_types.id;
 
 
 --
--- Name: events; Type: TABLE; Schema: public; Owner: -
+-- Name: events; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE events (
@@ -789,7 +781,7 @@ CREATE TABLE events (
 
 
 --
--- Name: events_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: events_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE events_id_seq
@@ -801,14 +793,14 @@ CREATE SEQUENCE events_id_seq
 
 
 --
--- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: events_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE events_id_seq OWNED BY events.id;
 
 
 --
--- Name: frontpage_elements; Type: TABLE; Schema: public; Owner: -
+-- Name: frontpage_elements; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE frontpage_elements (
@@ -828,7 +820,7 @@ CREATE TABLE frontpage_elements (
 
 
 --
--- Name: frontpage_elements_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: frontpage_elements_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE frontpage_elements_id_seq
@@ -840,14 +832,14 @@ CREATE SEQUENCE frontpage_elements_id_seq
 
 
 --
--- Name: frontpage_elements_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: frontpage_elements_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE frontpage_elements_id_seq OWNED BY frontpage_elements.id;
 
 
 --
--- Name: frontpage_positions; Type: TABLE; Schema: public; Owner: -
+-- Name: frontpage_positions; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE frontpage_positions (
@@ -861,7 +853,7 @@ CREATE TABLE frontpage_positions (
 
 
 --
--- Name: frontpage_positions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: frontpage_positions_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE frontpage_positions_id_seq
@@ -873,14 +865,14 @@ CREATE SEQUENCE frontpage_positions_id_seq
 
 
 --
--- Name: frontpage_positions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: frontpage_positions_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE frontpage_positions_id_seq OWNED BY frontpage_positions.id;
 
 
 --
--- Name: id_number_types; Type: TABLE; Schema: public; Owner: -
+-- Name: id_number_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE id_number_types (
@@ -893,7 +885,7 @@ CREATE TABLE id_number_types (
 
 
 --
--- Name: id_number_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: id_number_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE id_number_types_id_seq
@@ -905,14 +897,14 @@ CREATE SEQUENCE id_number_types_id_seq
 
 
 --
--- Name: id_number_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: id_number_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE id_number_types_id_seq OWNED BY id_number_types.id;
 
 
 --
--- Name: info_sources; Type: TABLE; Schema: public; Owner: -
+-- Name: info_sources; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE info_sources (
@@ -925,7 +917,7 @@ CREATE TABLE info_sources (
 
 
 --
--- Name: info_sources_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: info_sources_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE info_sources_id_seq
@@ -937,14 +929,14 @@ CREATE SEQUENCE info_sources_id_seq
 
 
 --
--- Name: info_sources_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: info_sources_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE info_sources_id_seq OWNED BY info_sources.id;
 
 
 --
--- Name: language_levels; Type: TABLE; Schema: public; Owner: -
+-- Name: language_levels; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE language_levels (
@@ -957,7 +949,7 @@ CREATE TABLE language_levels (
 
 
 --
--- Name: language_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: language_levels_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE language_levels_id_seq
@@ -969,14 +961,14 @@ CREATE SEQUENCE language_levels_id_seq
 
 
 --
--- Name: language_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: language_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE language_levels_id_seq OWNED BY language_levels.id;
 
 
 --
--- Name: languages; Type: TABLE; Schema: public; Owner: -
+-- Name: languages; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE languages (
@@ -989,7 +981,7 @@ CREATE TABLE languages (
 
 
 --
--- Name: languages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: languages_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE languages_id_seq
@@ -1001,14 +993,14 @@ CREATE SEQUENCE languages_id_seq
 
 
 --
--- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE languages_id_seq OWNED BY languages.id;
 
 
 --
--- Name: link_types; Type: TABLE; Schema: public; Owner: -
+-- Name: link_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE link_types (
@@ -1021,7 +1013,7 @@ CREATE TABLE link_types (
 
 
 --
--- Name: link_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: link_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE link_types_id_seq
@@ -1033,14 +1025,14 @@ CREATE SEQUENCE link_types_id_seq
 
 
 --
--- Name: link_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: link_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE link_types_id_seq OWNED BY link_types.id;
 
 
 --
--- Name: links; Type: TABLE; Schema: public; Owner: -
+-- Name: links; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE links (
@@ -1060,7 +1052,7 @@ CREATE TABLE links (
 
 
 --
--- Name: links_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: links_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE links_id_seq
@@ -1072,14 +1064,14 @@ CREATE SEQUENCE links_id_seq
 
 
 --
--- Name: links_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: links_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE links_id_seq OWNED BY links.id;
 
 
 --
--- Name: managers; Type: TABLE; Schema: public; Owner: -
+-- Name: managers; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE managers (
@@ -1093,12 +1085,18 @@ CREATE TABLE managers (
     phone_number character varying,
     active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    login character varying,
+    uweb_id character varying,
+    document character varying,
+    email character varying,
+    official_position character varying,
+    personal_number character varying
 );
 
 
 --
--- Name: managers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: managers_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE managers_id_seq
@@ -1110,14 +1108,14 @@ CREATE SEQUENCE managers_id_seq
 
 
 --
--- Name: managers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: managers_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE managers_id_seq OWNED BY managers.id;
 
 
 --
--- Name: motivations; Type: TABLE; Schema: public; Owner: -
+-- Name: motivations; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE motivations (
@@ -1130,7 +1128,7 @@ CREATE TABLE motivations (
 
 
 --
--- Name: motivations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: motivations_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE motivations_id_seq
@@ -1142,14 +1140,14 @@ CREATE SEQUENCE motivations_id_seq
 
 
 --
--- Name: motivations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: motivations_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE motivations_id_seq OWNED BY motivations.id;
 
 
 --
--- Name: nationalities; Type: TABLE; Schema: public; Owner: -
+-- Name: nationalities; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE nationalities (
@@ -1162,7 +1160,7 @@ CREATE TABLE nationalities (
 
 
 --
--- Name: nationalities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: nationalities_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE nationalities_id_seq
@@ -1174,14 +1172,14 @@ CREATE SEQUENCE nationalities_id_seq
 
 
 --
--- Name: nationalities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: nationalities_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE nationalities_id_seq OWNED BY nationalities.id;
 
 
 --
--- Name: notice_types; Type: TABLE; Schema: public; Owner: -
+-- Name: notice_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE notice_types (
@@ -1195,7 +1193,7 @@ CREATE TABLE notice_types (
 
 
 --
--- Name: notice_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: notice_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE notice_types_id_seq
@@ -1207,14 +1205,50 @@ CREATE SEQUENCE notice_types_id_seq
 
 
 --
--- Name: notice_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: notice_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE notice_types_id_seq OWNED BY notice_types.id;
 
 
 --
--- Name: pro_issues; Type: TABLE; Schema: public; Owner: -
+-- Name: permissions; Type: TABLE; Schema: volun; Owner: -
+--
+
+CREATE TABLE permissions (
+    id integer NOT NULL,
+    manager_id integer,
+    resource_id integer,
+    "create" boolean DEFAULT false,
+    update boolean DEFAULT false,
+    read boolean DEFAULT false,
+    destroy boolean DEFAULT false,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: permissions_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
+--
+
+CREATE SEQUENCE permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
+--
+
+ALTER SEQUENCE permissions_id_seq OWNED BY permissions.id;
+
+
+--
+-- Name: pro_issues; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pro_issues (
@@ -1228,7 +1262,7 @@ CREATE TABLE pro_issues (
 
 
 --
--- Name: pro_issues_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pro_issues_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pro_issues_id_seq
@@ -1240,14 +1274,14 @@ CREATE SEQUENCE pro_issues_id_seq
 
 
 --
--- Name: pro_issues_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pro_issues_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pro_issues_id_seq OWNED BY pro_issues.id;
 
 
 --
--- Name: pro_trackings; Type: TABLE; Schema: public; Owner: -
+-- Name: pro_trackings; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pro_trackings (
@@ -1263,7 +1297,7 @@ CREATE TABLE pro_trackings (
 
 
 --
--- Name: pro_trackings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pro_trackings_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pro_trackings_id_seq
@@ -1275,14 +1309,14 @@ CREATE SEQUENCE pro_trackings_id_seq
 
 
 --
--- Name: pro_trackings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pro_trackings_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pro_trackings_id_seq OWNED BY pro_trackings.id;
 
 
 --
--- Name: professions; Type: TABLE; Schema: public; Owner: -
+-- Name: professions; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE professions (
@@ -1295,7 +1329,7 @@ CREATE TABLE professions (
 
 
 --
--- Name: professions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: professions_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE professions_id_seq
@@ -1307,14 +1341,14 @@ CREATE SEQUENCE professions_id_seq
 
 
 --
--- Name: professions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: professions_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE professions_id_seq OWNED BY professions.id;
 
 
 --
--- Name: profiles; Type: TABLE; Schema: public; Owner: -
+-- Name: profiles; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE profiles (
@@ -1327,7 +1361,7 @@ CREATE TABLE profiles (
 
 
 --
--- Name: profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: profiles_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE profiles_id_seq
@@ -1339,14 +1373,14 @@ CREATE SEQUENCE profiles_id_seq
 
 
 --
--- Name: profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE profiles_id_seq OWNED BY profiles.id;
 
 
 --
--- Name: project_types; Type: TABLE; Schema: public; Owner: -
+-- Name: project_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE project_types (
@@ -1360,7 +1394,7 @@ CREATE TABLE project_types (
 
 
 --
--- Name: project_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: project_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE project_types_id_seq
@@ -1372,14 +1406,14 @@ CREATE SEQUENCE project_types_id_seq
 
 
 --
--- Name: project_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: project_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE project_types_id_seq OWNED BY project_types.id;
 
 
 --
--- Name: projects; Type: TABLE; Schema: public; Owner: -
+-- Name: projects; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE projects (
@@ -1417,7 +1451,7 @@ CREATE TABLE projects (
 
 
 --
--- Name: projects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: projects_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE projects_id_seq
@@ -1429,14 +1463,14 @@ CREATE SEQUENCE projects_id_seq
 
 
 --
--- Name: projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: projects_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE projects_id_seq OWNED BY projects.id;
 
 
 --
--- Name: projects_volunteers; Type: TABLE; Schema: public; Owner: -
+-- Name: projects_volunteers; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE projects_volunteers (
@@ -1446,7 +1480,7 @@ CREATE TABLE projects_volunteers (
 
 
 --
--- Name: proposals; Type: TABLE; Schema: public; Owner: -
+-- Name: proposals; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE proposals (
@@ -1460,7 +1494,7 @@ CREATE TABLE proposals (
 
 
 --
--- Name: proposals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: proposals_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE proposals_id_seq
@@ -1472,14 +1506,14 @@ CREATE SEQUENCE proposals_id_seq
 
 
 --
--- Name: proposals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: proposals_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE proposals_id_seq OWNED BY proposals.id;
 
 
 --
--- Name: provinces; Type: TABLE; Schema: public; Owner: -
+-- Name: provinces; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE provinces (
@@ -1493,7 +1527,7 @@ CREATE TABLE provinces (
 
 
 --
--- Name: provinces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: provinces_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE provinces_id_seq
@@ -1505,14 +1539,14 @@ CREATE SEQUENCE provinces_id_seq
 
 
 --
--- Name: provinces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: provinces_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE provinces_id_seq OWNED BY provinces.id;
 
 
 --
--- Name: pt_centres; Type: TABLE; Schema: public; Owner: -
+-- Name: pt_centres; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pt_centres (
@@ -1524,7 +1558,7 @@ CREATE TABLE pt_centres (
 
 
 --
--- Name: pt_centres_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pt_centres_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pt_centres_id_seq
@@ -1536,14 +1570,14 @@ CREATE SEQUENCE pt_centres_id_seq
 
 
 --
--- Name: pt_centres_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pt_centres_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pt_centres_id_seq OWNED BY pt_centres.id;
 
 
 --
--- Name: pt_entities; Type: TABLE; Schema: public; Owner: -
+-- Name: pt_entities; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pt_entities (
@@ -1565,7 +1599,7 @@ CREATE TABLE pt_entities (
 
 
 --
--- Name: pt_entities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pt_entities_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pt_entities_id_seq
@@ -1577,14 +1611,14 @@ CREATE SEQUENCE pt_entities_id_seq
 
 
 --
--- Name: pt_entities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pt_entities_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pt_entities_id_seq OWNED BY pt_entities.id;
 
 
 --
--- Name: pt_others; Type: TABLE; Schema: public; Owner: -
+-- Name: pt_others; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pt_others (
@@ -1596,7 +1630,7 @@ CREATE TABLE pt_others (
 
 
 --
--- Name: pt_others_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pt_others_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pt_others_id_seq
@@ -1608,14 +1642,14 @@ CREATE SEQUENCE pt_others_id_seq
 
 
 --
--- Name: pt_others_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pt_others_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pt_others_id_seq OWNED BY pt_others.id;
 
 
 --
--- Name: pt_permanents; Type: TABLE; Schema: public; Owner: -
+-- Name: pt_permanents; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pt_permanents (
@@ -1627,7 +1661,7 @@ CREATE TABLE pt_permanents (
 
 
 --
--- Name: pt_permanents_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pt_permanents_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pt_permanents_id_seq
@@ -1639,14 +1673,14 @@ CREATE SEQUENCE pt_permanents_id_seq
 
 
 --
--- Name: pt_permanents_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pt_permanents_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pt_permanents_id_seq OWNED BY pt_permanents.id;
 
 
 --
--- Name: pt_punctuals; Type: TABLE; Schema: public; Owner: -
+-- Name: pt_punctuals; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pt_punctuals (
@@ -1658,7 +1692,7 @@ CREATE TABLE pt_punctuals (
 
 
 --
--- Name: pt_punctuals_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pt_punctuals_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pt_punctuals_id_seq
@@ -1670,14 +1704,14 @@ CREATE SEQUENCE pt_punctuals_id_seq
 
 
 --
--- Name: pt_punctuals_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pt_punctuals_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pt_punctuals_id_seq OWNED BY pt_punctuals.id;
 
 
 --
--- Name: pt_socials; Type: TABLE; Schema: public; Owner: -
+-- Name: pt_socials; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pt_socials (
@@ -1689,7 +1723,7 @@ CREATE TABLE pt_socials (
 
 
 --
--- Name: pt_socials_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pt_socials_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pt_socials_id_seq
@@ -1701,14 +1735,14 @@ CREATE SEQUENCE pt_socials_id_seq
 
 
 --
--- Name: pt_socials_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pt_socials_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pt_socials_id_seq OWNED BY pt_socials.id;
 
 
 --
--- Name: pt_subventions; Type: TABLE; Schema: public; Owner: -
+-- Name: pt_subventions; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE pt_subventions (
@@ -1732,7 +1766,7 @@ CREATE TABLE pt_subventions (
 
 
 --
--- Name: pt_subventions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: pt_subventions_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE pt_subventions_id_seq
@@ -1744,14 +1778,14 @@ CREATE SEQUENCE pt_subventions_id_seq
 
 
 --
--- Name: pt_subventions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: pt_subventions_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE pt_subventions_id_seq OWNED BY pt_subventions.id;
 
 
 --
--- Name: record_histories; Type: TABLE; Schema: public; Owner: -
+-- Name: record_histories; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE record_histories (
@@ -1766,7 +1800,7 @@ CREATE TABLE record_histories (
 
 
 --
--- Name: record_histories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: record_histories_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE record_histories_id_seq
@@ -1778,14 +1812,14 @@ CREATE SEQUENCE record_histories_id_seq
 
 
 --
--- Name: record_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: record_histories_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE record_histories_id_seq OWNED BY record_histories.id;
 
 
 --
--- Name: req_reasons; Type: TABLE; Schema: public; Owner: -
+-- Name: req_reasons; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE req_reasons (
@@ -1799,7 +1833,7 @@ CREATE TABLE req_reasons (
 
 
 --
--- Name: req_reasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: req_reasons_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE req_reasons_id_seq
@@ -1811,14 +1845,14 @@ CREATE SEQUENCE req_reasons_id_seq
 
 
 --
--- Name: req_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: req_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE req_reasons_id_seq OWNED BY req_reasons.id;
 
 
 --
--- Name: req_rejection_types; Type: TABLE; Schema: public; Owner: -
+-- Name: req_rejection_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE req_rejection_types (
@@ -1832,7 +1866,7 @@ CREATE TABLE req_rejection_types (
 
 
 --
--- Name: req_rejection_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: req_rejection_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE req_rejection_types_id_seq
@@ -1844,14 +1878,14 @@ CREATE SEQUENCE req_rejection_types_id_seq
 
 
 --
--- Name: req_rejection_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: req_rejection_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE req_rejection_types_id_seq OWNED BY req_rejection_types.id;
 
 
 --
--- Name: req_status_traces; Type: TABLE; Schema: public; Owner: -
+-- Name: req_status_traces; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE req_status_traces (
@@ -1865,7 +1899,7 @@ CREATE TABLE req_status_traces (
 
 
 --
--- Name: req_status_traces_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: req_status_traces_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE req_status_traces_id_seq
@@ -1877,14 +1911,14 @@ CREATE SEQUENCE req_status_traces_id_seq
 
 
 --
--- Name: req_status_traces_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: req_status_traces_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE req_status_traces_id_seq OWNED BY req_status_traces.id;
 
 
 --
--- Name: req_statuses; Type: TABLE; Schema: public; Owner: -
+-- Name: req_statuses; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE req_statuses (
@@ -1897,7 +1931,7 @@ CREATE TABLE req_statuses (
 
 
 --
--- Name: req_statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: req_statuses_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE req_statuses_id_seq
@@ -1909,14 +1943,14 @@ CREATE SEQUENCE req_statuses_id_seq
 
 
 --
--- Name: req_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: req_statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE req_statuses_id_seq OWNED BY req_statuses.id;
 
 
 --
--- Name: request_forms; Type: TABLE; Schema: public; Owner: -
+-- Name: request_forms; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE request_forms (
@@ -1938,7 +1972,7 @@ CREATE TABLE request_forms (
 
 
 --
--- Name: request_forms_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: request_forms_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE request_forms_id_seq
@@ -1950,14 +1984,14 @@ CREATE SEQUENCE request_forms_id_seq
 
 
 --
--- Name: request_forms_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: request_forms_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE request_forms_id_seq OWNED BY request_forms.id;
 
 
 --
--- Name: request_types; Type: TABLE; Schema: public; Owner: -
+-- Name: request_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE request_types (
@@ -1971,7 +2005,7 @@ CREATE TABLE request_types (
 
 
 --
--- Name: request_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: request_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE request_types_id_seq
@@ -1983,14 +2017,46 @@ CREATE SEQUENCE request_types_id_seq
 
 
 --
--- Name: request_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: request_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE request_types_id_seq OWNED BY request_types.id;
 
 
 --
--- Name: road_types; Type: TABLE; Schema: public; Owner: -
+-- Name: resources; Type: TABLE; Schema: volun; Owner: -
+--
+
+CREATE TABLE resources (
+    id integer NOT NULL,
+    kind integer,
+    description character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: resources_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
+--
+
+CREATE SEQUENCE resources_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: resources_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
+--
+
+ALTER SEQUENCE resources_id_seq OWNED BY resources.id;
+
+
+--
+-- Name: road_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE road_types (
@@ -2004,7 +2070,7 @@ CREATE TABLE road_types (
 
 
 --
--- Name: road_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: road_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE road_types_id_seq
@@ -2016,14 +2082,14 @@ CREATE SEQUENCE road_types_id_seq
 
 
 --
--- Name: road_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: road_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE road_types_id_seq OWNED BY road_types.id;
 
 
 --
--- Name: roles; Type: TABLE; Schema: public; Owner: -
+-- Name: roles; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE roles (
@@ -2036,7 +2102,7 @@ CREATE TABLE roles (
 
 
 --
--- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE roles_id_seq
@@ -2048,14 +2114,14 @@ CREATE SEQUENCE roles_id_seq
 
 
 --
--- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
 
 
 --
--- Name: rt_activity_publishings; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_activity_publishings; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_activity_publishings (
@@ -2083,7 +2149,7 @@ CREATE TABLE rt_activity_publishings (
 
 
 --
--- Name: rt_activity_publishings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_activity_publishings_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_activity_publishings_id_seq
@@ -2095,14 +2161,14 @@ CREATE SEQUENCE rt_activity_publishings_id_seq
 
 
 --
--- Name: rt_activity_publishings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_activity_publishings_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_activity_publishings_id_seq OWNED BY rt_activity_publishings.id;
 
 
 --
--- Name: rt_activity_unpublishings; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_activity_unpublishings; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_activity_unpublishings (
@@ -2115,7 +2181,7 @@ CREATE TABLE rt_activity_unpublishings (
 
 
 --
--- Name: rt_activity_unpublishings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_activity_unpublishings_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_activity_unpublishings_id_seq
@@ -2127,14 +2193,14 @@ CREATE SEQUENCE rt_activity_unpublishings_id_seq
 
 
 --
--- Name: rt_activity_unpublishings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_activity_unpublishings_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_activity_unpublishings_id_seq OWNED BY rt_activity_unpublishings.id;
 
 
 --
--- Name: rt_entity_subscribes; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_entity_subscribes; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_entity_subscribes (
@@ -2173,7 +2239,7 @@ CREATE TABLE rt_entity_subscribes (
 
 
 --
--- Name: rt_entity_subscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_entity_subscribes_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_entity_subscribes_id_seq
@@ -2185,14 +2251,14 @@ CREATE SEQUENCE rt_entity_subscribes_id_seq
 
 
 --
--- Name: rt_entity_subscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_entity_subscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_entity_subscribes_id_seq OWNED BY rt_entity_subscribes.id;
 
 
 --
--- Name: rt_entity_unsubscribes; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_entity_unsubscribes; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_entity_unsubscribes (
@@ -2205,7 +2271,7 @@ CREATE TABLE rt_entity_unsubscribes (
 
 
 --
--- Name: rt_entity_unsubscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_entity_unsubscribes_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_entity_unsubscribes_id_seq
@@ -2217,14 +2283,14 @@ CREATE SEQUENCE rt_entity_unsubscribes_id_seq
 
 
 --
--- Name: rt_entity_unsubscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_entity_unsubscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_entity_unsubscribes_id_seq OWNED BY rt_entity_unsubscribes.id;
 
 
 --
--- Name: rt_others; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_others; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_others (
@@ -2237,7 +2303,7 @@ CREATE TABLE rt_others (
 
 
 --
--- Name: rt_others_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_others_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_others_id_seq
@@ -2249,14 +2315,14 @@ CREATE SEQUENCE rt_others_id_seq
 
 
 --
--- Name: rt_others_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_others_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_others_id_seq OWNED BY rt_others.id;
 
 
 --
--- Name: rt_project_publishings; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_project_publishings; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_project_publishings (
@@ -2279,7 +2345,7 @@ CREATE TABLE rt_project_publishings (
 
 
 --
--- Name: rt_project_publishings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_project_publishings_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_project_publishings_id_seq
@@ -2291,14 +2357,14 @@ CREATE SEQUENCE rt_project_publishings_id_seq
 
 
 --
--- Name: rt_project_publishings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_project_publishings_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_project_publishings_id_seq OWNED BY rt_project_publishings.id;
 
 
 --
--- Name: rt_project_unpublishings; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_project_unpublishings; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_project_unpublishings (
@@ -2311,7 +2377,7 @@ CREATE TABLE rt_project_unpublishings (
 
 
 --
--- Name: rt_project_unpublishings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_project_unpublishings_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_project_unpublishings_id_seq
@@ -2323,14 +2389,14 @@ CREATE SEQUENCE rt_project_unpublishings_id_seq
 
 
 --
--- Name: rt_project_unpublishings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_project_unpublishings_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_project_unpublishings_id_seq OWNED BY rt_project_unpublishings.id;
 
 
 --
--- Name: rt_volunteer_amendments; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_volunteer_amendments; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_volunteer_amendments (
@@ -2355,7 +2421,7 @@ CREATE TABLE rt_volunteer_amendments (
 
 
 --
--- Name: rt_volunteer_amendments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_volunteer_amendments_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_volunteer_amendments_id_seq
@@ -2367,14 +2433,14 @@ CREATE SEQUENCE rt_volunteer_amendments_id_seq
 
 
 --
--- Name: rt_volunteer_amendments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_volunteer_amendments_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_volunteer_amendments_id_seq OWNED BY rt_volunteer_amendments.id;
 
 
 --
--- Name: rt_volunteer_appointments; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_volunteer_appointments; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_volunteer_appointments (
@@ -2386,7 +2452,7 @@ CREATE TABLE rt_volunteer_appointments (
 
 
 --
--- Name: rt_volunteer_appointments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_volunteer_appointments_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_volunteer_appointments_id_seq
@@ -2398,14 +2464,14 @@ CREATE SEQUENCE rt_volunteer_appointments_id_seq
 
 
 --
--- Name: rt_volunteer_appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_volunteer_appointments_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_volunteer_appointments_id_seq OWNED BY rt_volunteer_appointments.id;
 
 
 --
--- Name: rt_volunteer_subscribes; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_volunteer_subscribes; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_volunteer_subscribes (
@@ -2426,7 +2492,7 @@ CREATE TABLE rt_volunteer_subscribes (
 
 
 --
--- Name: rt_volunteer_subscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_volunteer_subscribes_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_volunteer_subscribes_id_seq
@@ -2438,14 +2504,14 @@ CREATE SEQUENCE rt_volunteer_subscribes_id_seq
 
 
 --
--- Name: rt_volunteer_subscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_volunteer_subscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_volunteer_subscribes_id_seq OWNED BY rt_volunteer_subscribes.id;
 
 
 --
--- Name: rt_volunteer_unsubscribes; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_volunteer_unsubscribes; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_volunteer_unsubscribes (
@@ -2459,7 +2525,7 @@ CREATE TABLE rt_volunteer_unsubscribes (
 
 
 --
--- Name: rt_volunteer_unsubscribes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_volunteer_unsubscribes_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_volunteer_unsubscribes_id_seq
@@ -2471,14 +2537,14 @@ CREATE SEQUENCE rt_volunteer_unsubscribes_id_seq
 
 
 --
--- Name: rt_volunteer_unsubscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_volunteer_unsubscribes_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_volunteer_unsubscribes_id_seq OWNED BY rt_volunteer_unsubscribes.id;
 
 
 --
--- Name: rt_volunteers_demands; Type: TABLE; Schema: public; Owner: -
+-- Name: rt_volunteers_demands; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE rt_volunteers_demands (
@@ -2508,7 +2574,7 @@ CREATE TABLE rt_volunteers_demands (
 
 
 --
--- Name: rt_volunteers_demands_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: rt_volunteers_demands_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE rt_volunteers_demands_id_seq
@@ -2520,14 +2586,14 @@ CREATE SEQUENCE rt_volunteers_demands_id_seq
 
 
 --
--- Name: rt_volunteers_demands_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: rt_volunteers_demands_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE rt_volunteers_demands_id_seq OWNED BY rt_volunteers_demands.id;
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
+-- Name: schema_migrations; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE schema_migrations (
@@ -2536,7 +2602,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: sectors; Type: TABLE; Schema: public; Owner: -
+-- Name: sectors; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE sectors (
@@ -2549,7 +2615,7 @@ CREATE TABLE sectors (
 
 
 --
--- Name: sectors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: sectors_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE sectors_id_seq
@@ -2561,14 +2627,14 @@ CREATE SEQUENCE sectors_id_seq
 
 
 --
--- Name: sectors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: sectors_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE sectors_id_seq OWNED BY sectors.id;
 
 
 --
--- Name: settings; Type: TABLE; Schema: public; Owner: -
+-- Name: settings; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE settings (
@@ -2581,7 +2647,7 @@ CREATE TABLE settings (
 
 
 --
--- Name: settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: settings_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE settings_id_seq
@@ -2593,14 +2659,14 @@ CREATE SEQUENCE settings_id_seq
 
 
 --
--- Name: settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: settings_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE settings_id_seq OWNED BY settings.id;
 
 
 --
--- Name: skills; Type: TABLE; Schema: public; Owner: -
+-- Name: skills; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE skills (
@@ -2613,7 +2679,7 @@ CREATE TABLE skills (
 
 
 --
--- Name: skills_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: skills_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE skills_id_seq
@@ -2625,14 +2691,14 @@ CREATE SEQUENCE skills_id_seq
 
 
 --
--- Name: skills_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: skills_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE skills_id_seq OWNED BY skills.id;
 
 
 --
--- Name: skills_volunteers; Type: TABLE; Schema: public; Owner: -
+-- Name: skills_volunteers; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE skills_volunteers (
@@ -2642,7 +2708,7 @@ CREATE TABLE skills_volunteers (
 
 
 --
--- Name: statuses; Type: TABLE; Schema: public; Owner: -
+-- Name: statuses; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE statuses (
@@ -2655,7 +2721,7 @@ CREATE TABLE statuses (
 
 
 --
--- Name: statuses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: statuses_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE statuses_id_seq
@@ -2667,14 +2733,14 @@ CREATE SEQUENCE statuses_id_seq
 
 
 --
--- Name: statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: statuses_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE statuses_id_seq OWNED BY statuses.id;
 
 
 --
--- Name: timetables; Type: TABLE; Schema: public; Owner: -
+-- Name: timetables; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE timetables (
@@ -2689,7 +2755,7 @@ CREATE TABLE timetables (
 
 
 --
--- Name: timetables_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: timetables_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE timetables_id_seq
@@ -2701,14 +2767,255 @@ CREATE SEQUENCE timetables_id_seq
 
 
 --
--- Name: timetables_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: timetables_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE timetables_id_seq OWNED BY timetables.id;
 
 
 --
--- Name: tracking_types; Type: TABLE; Schema: public; Owner: -
+-- Name: tmp_accionvoluntaria; Type: TABLE; Schema: volun; Owner: -
+--
+
+CREATE TABLE tmp_accionvoluntaria (
+    "Número Voluntario" integer,
+    "Motivos religiosos" character(1),
+    "Búsqueda de una transformación del sistema" character(1),
+    "Prestar ayuda" character(1),
+    "Búsqueda de experiencia laboral" character(1),
+    "Identificación/pertenencia al colectivo objeto de ayuda" character(1),
+    "Campaña de sensibilización ante situaciones coyunturales" character(1),
+    "Participación en actuaciones puntuales de voluntariado" character(1),
+    "Para recibir información sobre voluntariado" character(1),
+    "Prescripción facultativa" character(1),
+    "Otras Motivaciones" text,
+    "Experiencia en voluntariado" character varying(50),
+    "Expectativas Voluntario" text,
+    "Discapacidad física experiencia voluntario" character(1),
+    "Discapacidad psíquica experiencia voluntario" character(1),
+    "Discapacidad sensorial experiencia voluntario" character(1),
+    "Enfermos crónicos o degenerativos experiencia voluntario" character(1),
+    "Enfermos Mentales experiencia voluntario" character(1),
+    "Exclusión social experiencia voluntario" character(1),
+    "Minorias étnicas experiencia voluntario" character(1),
+    "Inmigración experiencia voluntario" character(1),
+    "Refugiados experiencia voluntario" character(1),
+    "Reclusos y exreclusos experiencia voluntario" character(1),
+    "Sin hogar experiencia voluntario" character(1),
+    "Juventud experiencia voluntario" character(1),
+    "Infancia experiencia voluntario" character(1),
+    "Mayores experiencia voluntario" character(1),
+    "Mujeres experiencia voluntario" character(1),
+    "Drogodependencias experiencia voluntario" character(1),
+    "Enfermos de SIDA experiencia voluntario" character(1),
+    "Animales experiencia voluntario" character(1),
+    "Indiferente experiencia voluntario" character(1),
+    "Otros experiencia voluntario" text,
+    "Formción en el campo del voluntariado" character varying(50),
+    "Tipo de formación del voluntario" text,
+    "Qué le gustaréa aportar en el ámbito del voluntariado" text,
+    "Discapacidad física voluntario interesado" character(1),
+    "Discapacidad psíquica voluntario interesado" character(1),
+    "Discapacidad sensorial voluntario interesado" character(1),
+    "Enfermos crónicos o degenerativos voluntario interesado" character(1),
+    "Enfermos Mentales voluntario interesado" character(1),
+    "Exclusión social voluntario interesado" character(1),
+    "Minorías étnicas voluntario interesado" character(1),
+    "Inmigración voluntario interesado" character(1),
+    "Refugiadosvoluntario interesado" character(1),
+    "Reclusos y exreclusos voluntario interesado" character(1),
+    "Sin hogar voluntario interesado" character(1),
+    "Juventud voluntario interesado" character(1),
+    "Infancia voluntario interesado" character(1),
+    "Mayores voluntario interesado" character(1),
+    "Mujeres voluntario interesado" character(1),
+    "Drogodependencias voluntario interesado" character(1),
+    "Enfermos de SIDA voluntario interesado" character(1),
+    "Animales voluntario interesado" character(1),
+    "Indiferente voluntario interesado" character(1),
+    "Otros voluntario interesado" text,
+    "Educación preferencia ambito actividad" character(1),
+    "Acción Sanitaria preferencia ambito actividad" character(1),
+    "Familia preferencia ambito actividad" character(1),
+    "Orientación Laboral-Empleo preferencia ambito actividad" character(1),
+    "Enfermedad Mental preferencia ambito actividad" character(1),
+    "Talleres-Formación preferencia ambito actividad" character(1),
+    "Cooperación preferencia ambito actividad" character(1),
+    "Sensibilización preferencia ambito actividad" character(1),
+    "Participación Ciudadana preferencia ambito actividad" character(1),
+    "Medio Ambiente preferencia ambito actividad" character(1),
+    "Emergencias preferencia ambito actividad" character(1),
+    "Actividades Culturales preferencia ambito actividad" character(1),
+    "Actividades Deportivas preferencia ambito actividad" character(1),
+    "Nuevas Tecnologías preferencia ambito actividad" character(1),
+    "Actuaciones Puntuales  preferencia ambito actividad" character(1),
+    "Gestión Administrativa preferencia ambito actividad" character(1),
+    "Indiferente preferencia ambito actividad" character(1),
+    "Otros preferencia ambito actividad" text,
+    "Todos los días disponibilidad voluntario" character(1),
+    "Fines de semana disponibilidad voluntario" character(1),
+    "Mañanas disponibilidad voluntario" character(1),
+    "Tardes disponibilidad voluntario" character(1),
+    "Indistintamente disponibilidad voluntario" character(1),
+    "Desde su casa disponibilidad voluntario" character(1),
+    "Otras disponibilidad voluntario disponibilidad voluntario" text,
+    "Acuerdo Voluntariado" character(1),
+    "Fecha Acuerdo Voluntario" timestamp with time zone,
+    "Fotografía" character(1),
+    "Carnet Identificativo" character(1),
+    "Fecha Carnet Identificativo" timestamp with time zone,
+    "Compromiso Uso de Uniforme" character(1),
+    "Fecha Uso de Uniforme" character varying(50),
+    "Observaciones Ambito Voluntariado" text,
+    "IdDirección" integer
+);
+
+
+--
+-- Name: tmp_voluntarios; Type: TABLE; Schema: volun; Owner: -
+--
+
+CREATE TABLE tmp_voluntarios (
+    "Número Voluntario" integer,
+    "Código del técnico/a" character varying(50),
+    "Nombre nuevo voluntario/a" character varying(50),
+    "1º Apellido" character varying(50),
+    "2º Apellido" character varying(50),
+    "DNI CIF NIE" character varying(50),
+    "Número documento identidad" character varying(50),
+    "Fecha Nacimiento" timestamp with time zone,
+    "Sexo" character varying(50),
+    "Nacionalidad" character varying(50),
+    "Edad: 16 - 24" character(1),
+    "Edad: 25 - 34" character(1),
+    "Edad: 35 - 44" character(1),
+    "Edad: 45 - 54" character(1),
+    "Edad: 55 - 64" character(1),
+    "Edad: + 65" character(1),
+    "Estado civil: Soltero/a" character(1),
+    "Estado civil: Casado/a" character(1),
+    "Estado civil: Pareja de hecho" character(1),
+    "Estado civil: Viudo/a" character(1),
+    "Estado civil: Separado/a" character(1),
+    "Fecha Alta" timestamp with time zone,
+    "Fecha Baja" timestamp with time zone,
+    "Municipio" text,
+    "Codigo Postal" character varying(50),
+    "Distrito" character varying(50),
+    "Tipo de vía" character varying(50),
+    "Nombre Calle" text,
+    "Portal" character varying(50),
+    "Puerta" character varying(50),
+    "Número" character varying(50),
+    "Escalera" character varying(50),
+    "Planta" character varying(50),
+    "Teléfono" character varying(50),
+    "Móvil" character varying(50),
+    "e mail" character varying(50),
+    "Carnet de conducir" character(1),
+    "Carnet de conducir en trámite" character(1),
+    "Cita previa" character varying(50),
+    "Captación Oficina Móvil de Atención al Voluntarido" character varying(50),
+    "¿Cómo conoció el SAV?" text,
+    "Situación laboral: Trabajando" character(1),
+    "Situación laboral: Estudiando" character(1),
+    "Situación laboral: Jubilado/a" character(1),
+    "Situación laboral:Labores domésticas" character(1),
+    "Situación laboral: Desempleado/a" character(1),
+    "Otra situación laboral" text,
+    "Situación laboral:NC" character(1),
+    "Con Estudios" character(1),
+    "Sin Estudios" character(1),
+    "EGB/Graduado Escolar" character(1),
+    "BUP/Bachillerato" character(1),
+    "FP" character(1),
+    "COU" character(1),
+    "Módulo Profesional" character(1),
+    "Diplomado Universitario" character(1),
+    "Licenciado Universitario" character(1),
+    "Educación Primaria" character(1),
+    "ESO" character(1),
+    "Bachillerato" character(1),
+    "Ciclo Formativo de Grado Medio" character(1),
+    "Ciclo Formativo de Grado Superior" character(1),
+    "Diplomado Universitario LOGSE" character(1),
+    "Licenciado Superior LOGSE" character(1),
+    "NS/NC Estudios" character(1),
+    "Ciencias Experimentales" character varying(50),
+    "Ciencias Sociales y Jurídicas" character varying(50),
+    "Enseñanzas Técnicas" character varying(50),
+    "Ciencias de la Salud" character varying(50),
+    "Humanidades" character varying(50),
+    "Ciencias Experimentales Licenciaturas" character varying(50),
+    "Ciencias Sociales y Jurídicas Licenciaturas" character varying(50),
+    "Enseñanzas Ténicas Licenciaturas" character varying(50),
+    "Ciencias de la Salud Licenciaturas" character varying(50),
+    "Otra formación" character varying(50),
+    "Otras" character varying(50),
+    "Idiomas" character(1),
+    "Inglés" character(1),
+    "Francés" character(1),
+    "Rumano" character(1),
+    "Árabe" character(1),
+    "Chino" character(1),
+    "Griego" character(1),
+    "Alemán" character(1),
+    "Irlandés" character(1),
+    "Italiano" character(1),
+    "Japonés" character(1),
+    "Polaco" character(1),
+    "Portugués" character(1),
+    "Ruso" character(1),
+    "Húngaro" character(1),
+    "Nivel hablado Inglés" character varying(50),
+    "Nivel hablado Francés" character varying(50),
+    "Nivel hablado Rumano" character varying(50),
+    "Nivel hablado Árabe" character varying(50),
+    "Nivel hablado Chino" character varying(50),
+    "Nivelhablado Griego" character varying(50),
+    "Nivel hablado Alemán" character varying(50),
+    "Nivel hablado Irlandés" character varying(50),
+    "Nivel hablado Italiano" character varying(50),
+    "Nivel hablado Japonés" character varying(50),
+    "Nivel hablado Polaco" character varying(50),
+    "Nivel hablado Portugués" character varying(50),
+    "Nivel hablado Ruso" character varying(50),
+    "Nivel hablado Húngaro" character varying(50),
+    "Nivel escrito Inglés" character varying(50),
+    "Nivel escrito Francés" character varying(50),
+    "Nivel escrito Rumano" character varying(50),
+    "Nivel escrito Árabe" character varying(50),
+    "Nivel escrito Chino" character varying(50),
+    "Nivel escrito Griego" character varying(50),
+    "Nivel escrito Alemán" character varying(50),
+    "Nivel escrito Irlandés" character varying(50),
+    "Nivel escrito Italiano" character varying(50),
+    "Nivel escrito Japonés" character varying(50),
+    "Nivel escrito Polaco" character varying(50),
+    "Nivel escrito Portugués" character varying(50),
+    "Nivel escrito Ruso" character varying(50),
+    "Nivel escrito Húngaro" character varying(50),
+    "Otros Idiomas" text,
+    "2013" character varying(50),
+    "2014" character varying(50),
+    "Situacion: Activo 2015" character(1),
+    "Situacion: Activo 2014" character(1),
+    "Situación: Baja sin tramitar" character(1),
+    "Situación: Derivado" character(1),
+    "Situación: Ilocalizable" character(1),
+    "Situación: No disponible" character(1),
+    "Situación: No loc temp" character(1),
+    "Situación: Sin recurso" character(1),
+    "Situación: Vocne" character(1),
+    "Situacion: No apto" character(1),
+    "Situacion: CM" character(1),
+    "CMCSV" text,
+    "Barrio" integer
+);
+
+
+--
+-- Name: tracking_types; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE tracking_types (
@@ -2721,7 +3028,7 @@ CREATE TABLE tracking_types (
 
 
 --
--- Name: tracking_types_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: tracking_types_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE tracking_types_id_seq
@@ -2733,14 +3040,14 @@ CREATE SEQUENCE tracking_types_id_seq
 
 
 --
--- Name: tracking_types_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: tracking_types_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE tracking_types_id_seq OWNED BY tracking_types.id;
 
 
 --
--- Name: traits; Type: TABLE; Schema: public; Owner: -
+-- Name: traits; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE traits (
@@ -2753,7 +3060,7 @@ CREATE TABLE traits (
 
 
 --
--- Name: traits_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: traits_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE traits_id_seq
@@ -2765,14 +3072,14 @@ CREATE SEQUENCE traits_id_seq
 
 
 --
--- Name: traits_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: traits_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE traits_id_seq OWNED BY traits.id;
 
 
 --
--- Name: unsubscribe_levels; Type: TABLE; Schema: public; Owner: -
+-- Name: unsubscribe_levels; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE unsubscribe_levels (
@@ -2785,7 +3092,7 @@ CREATE TABLE unsubscribe_levels (
 
 
 --
--- Name: unsubscribe_levels_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: unsubscribe_levels_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE unsubscribe_levels_id_seq
@@ -2797,14 +3104,14 @@ CREATE SEQUENCE unsubscribe_levels_id_seq
 
 
 --
--- Name: unsubscribe_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: unsubscribe_levels_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE unsubscribe_levels_id_seq OWNED BY unsubscribe_levels.id;
 
 
 --
--- Name: unsubscribe_reasons; Type: TABLE; Schema: public; Owner: -
+-- Name: unsubscribe_reasons; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE unsubscribe_reasons (
@@ -2817,7 +3124,7 @@ CREATE TABLE unsubscribe_reasons (
 
 
 --
--- Name: unsubscribe_reasons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: unsubscribe_reasons_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE unsubscribe_reasons_id_seq
@@ -2829,26 +3136,26 @@ CREATE SEQUENCE unsubscribe_reasons_id_seq
 
 
 --
--- Name: unsubscribe_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: unsubscribe_reasons_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE unsubscribe_reasons_id_seq OWNED BY unsubscribe_reasons.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -
+-- Name: users; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE users (
     id integer NOT NULL,
     login character varying,
     locale character varying,
-    notice_type_id integer NOT NULL,
+    notice_type_id integer,
     loggable_id integer,
     loggable_type character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    email character varying DEFAULT ''::character varying NOT NULL,
+    email character varying DEFAULT ''::character varying,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
     reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
@@ -2862,7 +3169,7 @@ CREATE TABLE users (
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: users_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE users_id_seq
@@ -2874,14 +3181,14 @@ CREATE SEQUENCE users_id_seq
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
--- Name: volun_assessments; Type: TABLE; Schema: public; Owner: -
+-- Name: volun_assessments; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE volun_assessments (
@@ -2897,7 +3204,7 @@ CREATE TABLE volun_assessments (
 
 
 --
--- Name: volun_assessments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: volun_assessments_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE volun_assessments_id_seq
@@ -2909,14 +3216,14 @@ CREATE SEQUENCE volun_assessments_id_seq
 
 
 --
--- Name: volun_assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: volun_assessments_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE volun_assessments_id_seq OWNED BY volun_assessments.id;
 
 
 --
--- Name: volun_assessments_projects; Type: TABLE; Schema: public; Owner: -
+-- Name: volun_assessments_projects; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE volun_assessments_projects (
@@ -2933,7 +3240,7 @@ CREATE TABLE volun_assessments_projects (
 
 
 --
--- Name: volun_assessments_projects_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: volun_assessments_projects_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE volun_assessments_projects_id_seq
@@ -2945,14 +3252,14 @@ CREATE SEQUENCE volun_assessments_projects_id_seq
 
 
 --
--- Name: volun_assessments_projects_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: volun_assessments_projects_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE volun_assessments_projects_id_seq OWNED BY volun_assessments_projects.id;
 
 
 --
--- Name: volun_availabilities; Type: TABLE; Schema: public; Owner: -
+-- Name: volun_availabilities; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE volun_availabilities (
@@ -2967,7 +3274,7 @@ CREATE TABLE volun_availabilities (
 
 
 --
--- Name: volun_availabilities_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: volun_availabilities_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE volun_availabilities_id_seq
@@ -2979,14 +3286,14 @@ CREATE SEQUENCE volun_availabilities_id_seq
 
 
 --
--- Name: volun_availabilities_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: volun_availabilities_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE volun_availabilities_id_seq OWNED BY volun_availabilities.id;
 
 
 --
--- Name: volun_contacts; Type: TABLE; Schema: public; Owner: -
+-- Name: volun_contacts; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE volun_contacts (
@@ -3004,7 +3311,7 @@ CREATE TABLE volun_contacts (
 
 
 --
--- Name: volun_contacts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: volun_contacts_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE volun_contacts_id_seq
@@ -3016,14 +3323,14 @@ CREATE SEQUENCE volun_contacts_id_seq
 
 
 --
--- Name: volun_contacts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: volun_contacts_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE volun_contacts_id_seq OWNED BY volun_contacts.id;
 
 
 --
--- Name: volun_known_languages; Type: TABLE; Schema: public; Owner: -
+-- Name: volun_known_languages; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE volun_known_languages (
@@ -3037,7 +3344,7 @@ CREATE TABLE volun_known_languages (
 
 
 --
--- Name: volun_known_languages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: volun_known_languages_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE volun_known_languages_id_seq
@@ -3049,14 +3356,14 @@ CREATE SEQUENCE volun_known_languages_id_seq
 
 
 --
--- Name: volun_known_languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: volun_known_languages_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE volun_known_languages_id_seq OWNED BY volun_known_languages.id;
 
 
 --
--- Name: volun_trackings; Type: TABLE; Schema: public; Owner: -
+-- Name: volun_trackings; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE volun_trackings (
@@ -3075,7 +3382,7 @@ CREATE TABLE volun_trackings (
 
 
 --
--- Name: volun_trackings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: volun_trackings_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE volun_trackings_id_seq
@@ -3087,14 +3394,14 @@ CREATE SEQUENCE volun_trackings_id_seq
 
 
 --
--- Name: volun_trackings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: volun_trackings_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE volun_trackings_id_seq OWNED BY volun_trackings.id;
 
 
 --
--- Name: volunteers; Type: TABLE; Schema: public; Owner: -
+-- Name: volunteers; Type: TABLE; Schema: volun; Owner: -
 --
 
 CREATE TABLE volunteers (
@@ -3144,7 +3451,7 @@ CREATE TABLE volunteers (
 
 
 --
--- Name: volunteers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: volunteers_id_seq; Type: SEQUENCE; Schema: volun; Owner: -
 --
 
 CREATE SEQUENCE volunteers_id_seq
@@ -3156,595 +3463,609 @@ CREATE SEQUENCE volunteers_id_seq
 
 
 --
--- Name: volunteers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: volunteers_id_seq; Type: SEQUENCE OWNED BY; Schema: volun; Owner: -
 --
 
 ALTER SEQUENCE volunteers_id_seq OWNED BY volunteers.id;
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY academic_levels ALTER COLUMN id SET DEFAULT nextval('academic_levels_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY activities ALTER COLUMN id SET DEFAULT nextval('activities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY addresses ALTER COLUMN id SET DEFAULT nextval('addresses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY areas ALTER COLUMN id SET DEFAULT nextval('areas_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY collectives ALTER COLUMN id SET DEFAULT nextval('collectives_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY contact_results ALTER COLUMN id SET DEFAULT nextval('contact_results_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY contact_types ALTER COLUMN id SET DEFAULT nextval('contact_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY coordinations ALTER COLUMN id SET DEFAULT nextval('coordinations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY degree_types ALTER COLUMN id SET DEFAULT nextval('degree_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY degrees ALTER COLUMN id SET DEFAULT nextval('degrees_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY districts ALTER COLUMN id SET DEFAULT nextval('districts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY documents ALTER COLUMN id SET DEFAULT nextval('documents_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY employment_statuses ALTER COLUMN id SET DEFAULT nextval('employment_statuses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY ent_trackings ALTER COLUMN id SET DEFAULT nextval('ent_trackings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY entities ALTER COLUMN id SET DEFAULT nextval('entities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY entity_types ALTER COLUMN id SET DEFAULT nextval('entity_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY event_types ALTER COLUMN id SET DEFAULT nextval('event_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY events ALTER COLUMN id SET DEFAULT nextval('events_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY frontpage_elements ALTER COLUMN id SET DEFAULT nextval('frontpage_elements_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY frontpage_positions ALTER COLUMN id SET DEFAULT nextval('frontpage_positions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY id_number_types ALTER COLUMN id SET DEFAULT nextval('id_number_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY info_sources ALTER COLUMN id SET DEFAULT nextval('info_sources_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY language_levels ALTER COLUMN id SET DEFAULT nextval('language_levels_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY languages ALTER COLUMN id SET DEFAULT nextval('languages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY link_types ALTER COLUMN id SET DEFAULT nextval('link_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY links ALTER COLUMN id SET DEFAULT nextval('links_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY managers ALTER COLUMN id SET DEFAULT nextval('managers_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY motivations ALTER COLUMN id SET DEFAULT nextval('motivations_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY nationalities ALTER COLUMN id SET DEFAULT nextval('nationalities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY notice_types ALTER COLUMN id SET DEFAULT nextval('notice_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
+--
+
+ALTER TABLE ONLY permissions ALTER COLUMN id SET DEFAULT nextval('permissions_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pro_issues ALTER COLUMN id SET DEFAULT nextval('pro_issues_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pro_trackings ALTER COLUMN id SET DEFAULT nextval('pro_trackings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY professions ALTER COLUMN id SET DEFAULT nextval('professions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY profiles ALTER COLUMN id SET DEFAULT nextval('profiles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY project_types ALTER COLUMN id SET DEFAULT nextval('project_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY projects ALTER COLUMN id SET DEFAULT nextval('projects_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY proposals ALTER COLUMN id SET DEFAULT nextval('proposals_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY provinces ALTER COLUMN id SET DEFAULT nextval('provinces_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_centres ALTER COLUMN id SET DEFAULT nextval('pt_centres_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_entities ALTER COLUMN id SET DEFAULT nextval('pt_entities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_others ALTER COLUMN id SET DEFAULT nextval('pt_others_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_permanents ALTER COLUMN id SET DEFAULT nextval('pt_permanents_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_punctuals ALTER COLUMN id SET DEFAULT nextval('pt_punctuals_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_socials ALTER COLUMN id SET DEFAULT nextval('pt_socials_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_subventions ALTER COLUMN id SET DEFAULT nextval('pt_subventions_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY record_histories ALTER COLUMN id SET DEFAULT nextval('record_histories_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_reasons ALTER COLUMN id SET DEFAULT nextval('req_reasons_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_rejection_types ALTER COLUMN id SET DEFAULT nextval('req_rejection_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_status_traces ALTER COLUMN id SET DEFAULT nextval('req_status_traces_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_statuses ALTER COLUMN id SET DEFAULT nextval('req_statuses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_forms ALTER COLUMN id SET DEFAULT nextval('request_forms_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_types ALTER COLUMN id SET DEFAULT nextval('request_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
+--
+
+ALTER TABLE ONLY resources ALTER COLUMN id SET DEFAULT nextval('resources_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY road_types ALTER COLUMN id SET DEFAULT nextval('road_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_activity_publishings ALTER COLUMN id SET DEFAULT nextval('rt_activity_publishings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_activity_unpublishings ALTER COLUMN id SET DEFAULT nextval('rt_activity_unpublishings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_entity_subscribes ALTER COLUMN id SET DEFAULT nextval('rt_entity_subscribes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_entity_unsubscribes ALTER COLUMN id SET DEFAULT nextval('rt_entity_unsubscribes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_others ALTER COLUMN id SET DEFAULT nextval('rt_others_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_project_publishings ALTER COLUMN id SET DEFAULT nextval('rt_project_publishings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_project_unpublishings ALTER COLUMN id SET DEFAULT nextval('rt_project_unpublishings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_amendments ALTER COLUMN id SET DEFAULT nextval('rt_volunteer_amendments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_appointments ALTER COLUMN id SET DEFAULT nextval('rt_volunteer_appointments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_subscribes ALTER COLUMN id SET DEFAULT nextval('rt_volunteer_subscribes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_unsubscribes ALTER COLUMN id SET DEFAULT nextval('rt_volunteer_unsubscribes_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteers_demands ALTER COLUMN id SET DEFAULT nextval('rt_volunteers_demands_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY sectors ALTER COLUMN id SET DEFAULT nextval('sectors_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY settings ALTER COLUMN id SET DEFAULT nextval('settings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY skills ALTER COLUMN id SET DEFAULT nextval('skills_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY statuses ALTER COLUMN id SET DEFAULT nextval('statuses_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY timetables ALTER COLUMN id SET DEFAULT nextval('timetables_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY tracking_types ALTER COLUMN id SET DEFAULT nextval('tracking_types_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY traits ALTER COLUMN id SET DEFAULT nextval('traits_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY unsubscribe_levels ALTER COLUMN id SET DEFAULT nextval('unsubscribe_levels_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY unsubscribe_reasons ALTER COLUMN id SET DEFAULT nextval('unsubscribe_reasons_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments ALTER COLUMN id SET DEFAULT nextval('volun_assessments_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments_projects ALTER COLUMN id SET DEFAULT nextval('volun_assessments_projects_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_availabilities ALTER COLUMN id SET DEFAULT nextval('volun_availabilities_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_contacts ALTER COLUMN id SET DEFAULT nextval('volun_contacts_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_known_languages ALTER COLUMN id SET DEFAULT nextval('volun_known_languages_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_trackings ALTER COLUMN id SET DEFAULT nextval('volun_trackings_id_seq'::regclass);
 
 
 --
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: id; Type: DEFAULT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers ALTER COLUMN id SET DEFAULT nextval('volunteers_id_seq'::regclass);
 
 
 --
--- Name: academic_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: academic_levels_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY academic_levels
@@ -3752,7 +4073,7 @@ ALTER TABLE ONLY academic_levels
 
 
 --
--- Name: activities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: activities_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY activities
@@ -3760,7 +4081,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: addresses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: addresses_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY addresses
@@ -3768,7 +4089,7 @@ ALTER TABLE ONLY addresses
 
 
 --
--- Name: areas_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: areas_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY areas
@@ -3776,7 +4097,7 @@ ALTER TABLE ONLY areas
 
 
 --
--- Name: collectives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: collectives_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY collectives
@@ -3784,7 +4105,7 @@ ALTER TABLE ONLY collectives
 
 
 --
--- Name: contact_results_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: contact_results_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY contact_results
@@ -3792,7 +4113,7 @@ ALTER TABLE ONLY contact_results
 
 
 --
--- Name: contact_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: contact_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY contact_types
@@ -3800,7 +4121,7 @@ ALTER TABLE ONLY contact_types
 
 
 --
--- Name: coordinations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: coordinations_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY coordinations
@@ -3808,7 +4129,7 @@ ALTER TABLE ONLY coordinations
 
 
 --
--- Name: degree_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: degree_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY degree_types
@@ -3816,7 +4137,7 @@ ALTER TABLE ONLY degree_types
 
 
 --
--- Name: degrees_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: degrees_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY degrees
@@ -3824,7 +4145,7 @@ ALTER TABLE ONLY degrees
 
 
 --
--- Name: districts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: districts_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY districts
@@ -3832,7 +4153,7 @@ ALTER TABLE ONLY districts
 
 
 --
--- Name: documents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: documents_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY documents
@@ -3840,7 +4161,7 @@ ALTER TABLE ONLY documents
 
 
 --
--- Name: employment_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: employment_statuses_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY employment_statuses
@@ -3848,7 +4169,7 @@ ALTER TABLE ONLY employment_statuses
 
 
 --
--- Name: ent_trackings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ent_trackings_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY ent_trackings
@@ -3856,7 +4177,7 @@ ALTER TABLE ONLY ent_trackings
 
 
 --
--- Name: entities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: entities_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY entities
@@ -3864,7 +4185,7 @@ ALTER TABLE ONLY entities
 
 
 --
--- Name: entity_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: entity_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY entity_types
@@ -3872,7 +4193,7 @@ ALTER TABLE ONLY entity_types
 
 
 --
--- Name: event_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: event_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY event_types
@@ -3880,7 +4201,7 @@ ALTER TABLE ONLY event_types
 
 
 --
--- Name: events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: events_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -3888,7 +4209,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: frontpage_elements_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: frontpage_elements_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY frontpage_elements
@@ -3896,7 +4217,7 @@ ALTER TABLE ONLY frontpage_elements
 
 
 --
--- Name: frontpage_positions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: frontpage_positions_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY frontpage_positions
@@ -3904,7 +4225,7 @@ ALTER TABLE ONLY frontpage_positions
 
 
 --
--- Name: id_number_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: id_number_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY id_number_types
@@ -3912,7 +4233,7 @@ ALTER TABLE ONLY id_number_types
 
 
 --
--- Name: info_sources_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: info_sources_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY info_sources
@@ -3920,7 +4241,7 @@ ALTER TABLE ONLY info_sources
 
 
 --
--- Name: language_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: language_levels_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY language_levels
@@ -3928,7 +4249,7 @@ ALTER TABLE ONLY language_levels
 
 
 --
--- Name: languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: languages_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY languages
@@ -3936,7 +4257,7 @@ ALTER TABLE ONLY languages
 
 
 --
--- Name: link_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: link_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY link_types
@@ -3944,7 +4265,7 @@ ALTER TABLE ONLY link_types
 
 
 --
--- Name: links_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: links_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY links
@@ -3952,7 +4273,7 @@ ALTER TABLE ONLY links
 
 
 --
--- Name: managers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: managers_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY managers
@@ -3960,7 +4281,7 @@ ALTER TABLE ONLY managers
 
 
 --
--- Name: motivations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: motivations_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY motivations
@@ -3968,7 +4289,7 @@ ALTER TABLE ONLY motivations
 
 
 --
--- Name: nationalities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: nationalities_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY nationalities
@@ -3976,7 +4297,7 @@ ALTER TABLE ONLY nationalities
 
 
 --
--- Name: notice_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: notice_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY notice_types
@@ -3984,7 +4305,15 @@ ALTER TABLE ONLY notice_types
 
 
 --
--- Name: pro_issues_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: permissions_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
+--
+
+ALTER TABLE ONLY permissions
+    ADD CONSTRAINT permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pro_issues_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pro_issues
@@ -3992,7 +4321,7 @@ ALTER TABLE ONLY pro_issues
 
 
 --
--- Name: pro_trackings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pro_trackings_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pro_trackings
@@ -4000,7 +4329,7 @@ ALTER TABLE ONLY pro_trackings
 
 
 --
--- Name: professions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: professions_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY professions
@@ -4008,7 +4337,7 @@ ALTER TABLE ONLY professions
 
 
 --
--- Name: profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: profiles_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY profiles
@@ -4016,7 +4345,7 @@ ALTER TABLE ONLY profiles
 
 
 --
--- Name: project_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: project_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY project_types
@@ -4024,7 +4353,7 @@ ALTER TABLE ONLY project_types
 
 
 --
--- Name: projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: projects_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY projects
@@ -4032,7 +4361,7 @@ ALTER TABLE ONLY projects
 
 
 --
--- Name: proposals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: proposals_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY proposals
@@ -4040,7 +4369,7 @@ ALTER TABLE ONLY proposals
 
 
 --
--- Name: provinces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: provinces_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY provinces
@@ -4048,7 +4377,7 @@ ALTER TABLE ONLY provinces
 
 
 --
--- Name: pt_centres_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pt_centres_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_centres
@@ -4056,7 +4385,7 @@ ALTER TABLE ONLY pt_centres
 
 
 --
--- Name: pt_entities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pt_entities_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_entities
@@ -4064,7 +4393,7 @@ ALTER TABLE ONLY pt_entities
 
 
 --
--- Name: pt_others_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pt_others_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_others
@@ -4072,7 +4401,7 @@ ALTER TABLE ONLY pt_others
 
 
 --
--- Name: pt_permanents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pt_permanents_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_permanents
@@ -4080,7 +4409,7 @@ ALTER TABLE ONLY pt_permanents
 
 
 --
--- Name: pt_punctuals_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pt_punctuals_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_punctuals
@@ -4088,7 +4417,7 @@ ALTER TABLE ONLY pt_punctuals
 
 
 --
--- Name: pt_socials_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pt_socials_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_socials
@@ -4096,7 +4425,7 @@ ALTER TABLE ONLY pt_socials
 
 
 --
--- Name: pt_subventions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: pt_subventions_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_subventions
@@ -4104,7 +4433,7 @@ ALTER TABLE ONLY pt_subventions
 
 
 --
--- Name: record_histories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: record_histories_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY record_histories
@@ -4112,7 +4441,7 @@ ALTER TABLE ONLY record_histories
 
 
 --
--- Name: req_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: req_reasons_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_reasons
@@ -4120,7 +4449,7 @@ ALTER TABLE ONLY req_reasons
 
 
 --
--- Name: req_rejection_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: req_rejection_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_rejection_types
@@ -4128,7 +4457,7 @@ ALTER TABLE ONLY req_rejection_types
 
 
 --
--- Name: req_status_traces_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: req_status_traces_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_status_traces
@@ -4136,7 +4465,7 @@ ALTER TABLE ONLY req_status_traces
 
 
 --
--- Name: req_statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: req_statuses_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_statuses
@@ -4144,7 +4473,7 @@ ALTER TABLE ONLY req_statuses
 
 
 --
--- Name: request_forms_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: request_forms_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_forms
@@ -4152,7 +4481,7 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: request_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: request_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_types
@@ -4160,7 +4489,15 @@ ALTER TABLE ONLY request_types
 
 
 --
--- Name: road_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: resources_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
+--
+
+ALTER TABLE ONLY resources
+    ADD CONSTRAINT resources_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: road_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY road_types
@@ -4168,7 +4505,7 @@ ALTER TABLE ONLY road_types
 
 
 --
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY roles
@@ -4176,7 +4513,7 @@ ALTER TABLE ONLY roles
 
 
 --
--- Name: rt_activity_publishings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_activity_publishings_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_activity_publishings
@@ -4184,7 +4521,7 @@ ALTER TABLE ONLY rt_activity_publishings
 
 
 --
--- Name: rt_activity_unpublishings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_activity_unpublishings_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_activity_unpublishings
@@ -4192,7 +4529,7 @@ ALTER TABLE ONLY rt_activity_unpublishings
 
 
 --
--- Name: rt_entity_subscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_entity_subscribes_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_entity_subscribes
@@ -4200,7 +4537,7 @@ ALTER TABLE ONLY rt_entity_subscribes
 
 
 --
--- Name: rt_entity_unsubscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_entity_unsubscribes_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_entity_unsubscribes
@@ -4208,7 +4545,7 @@ ALTER TABLE ONLY rt_entity_unsubscribes
 
 
 --
--- Name: rt_others_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_others_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_others
@@ -4216,7 +4553,7 @@ ALTER TABLE ONLY rt_others
 
 
 --
--- Name: rt_project_publishings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_project_publishings_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_project_publishings
@@ -4224,7 +4561,7 @@ ALTER TABLE ONLY rt_project_publishings
 
 
 --
--- Name: rt_project_unpublishings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_project_unpublishings_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_project_unpublishings
@@ -4232,7 +4569,7 @@ ALTER TABLE ONLY rt_project_unpublishings
 
 
 --
--- Name: rt_volunteer_amendments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_volunteer_amendments_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_amendments
@@ -4240,7 +4577,7 @@ ALTER TABLE ONLY rt_volunteer_amendments
 
 
 --
--- Name: rt_volunteer_appointments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_volunteer_appointments_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_appointments
@@ -4248,7 +4585,7 @@ ALTER TABLE ONLY rt_volunteer_appointments
 
 
 --
--- Name: rt_volunteer_subscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_volunteer_subscribes_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_subscribes
@@ -4256,7 +4593,7 @@ ALTER TABLE ONLY rt_volunteer_subscribes
 
 
 --
--- Name: rt_volunteer_unsubscribes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_volunteer_unsubscribes_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_unsubscribes
@@ -4264,7 +4601,7 @@ ALTER TABLE ONLY rt_volunteer_unsubscribes
 
 
 --
--- Name: rt_volunteers_demands_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: rt_volunteers_demands_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteers_demands
@@ -4272,7 +4609,7 @@ ALTER TABLE ONLY rt_volunteers_demands
 
 
 --
--- Name: sectors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: sectors_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY sectors
@@ -4280,7 +4617,7 @@ ALTER TABLE ONLY sectors
 
 
 --
--- Name: settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: settings_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY settings
@@ -4288,7 +4625,7 @@ ALTER TABLE ONLY settings
 
 
 --
--- Name: skills_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: skills_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY skills
@@ -4296,7 +4633,7 @@ ALTER TABLE ONLY skills
 
 
 --
--- Name: statuses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: statuses_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY statuses
@@ -4304,7 +4641,7 @@ ALTER TABLE ONLY statuses
 
 
 --
--- Name: timetables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: timetables_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY timetables
@@ -4312,7 +4649,7 @@ ALTER TABLE ONLY timetables
 
 
 --
--- Name: tracking_types_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: tracking_types_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY tracking_types
@@ -4320,7 +4657,7 @@ ALTER TABLE ONLY tracking_types
 
 
 --
--- Name: traits_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: traits_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY traits
@@ -4328,7 +4665,7 @@ ALTER TABLE ONLY traits
 
 
 --
--- Name: unsubscribe_levels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: unsubscribe_levels_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY unsubscribe_levels
@@ -4336,7 +4673,7 @@ ALTER TABLE ONLY unsubscribe_levels
 
 
 --
--- Name: unsubscribe_reasons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: unsubscribe_reasons_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY unsubscribe_reasons
@@ -4344,7 +4681,7 @@ ALTER TABLE ONLY unsubscribe_reasons
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -4352,7 +4689,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: volun_assessments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: volun_assessments_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments
@@ -4360,7 +4697,7 @@ ALTER TABLE ONLY volun_assessments
 
 
 --
--- Name: volun_assessments_projects_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: volun_assessments_projects_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments_projects
@@ -4368,7 +4705,7 @@ ALTER TABLE ONLY volun_assessments_projects
 
 
 --
--- Name: volun_availabilities_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: volun_availabilities_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_availabilities
@@ -4376,7 +4713,7 @@ ALTER TABLE ONLY volun_availabilities
 
 
 --
--- Name: volun_contacts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: volun_contacts_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_contacts
@@ -4384,7 +4721,7 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: volun_known_languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: volun_known_languages_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_known_languages
@@ -4392,7 +4729,7 @@ ALTER TABLE ONLY volun_known_languages
 
 
 --
--- Name: volun_trackings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: volun_trackings_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_trackings
@@ -4400,7 +4737,7 @@ ALTER TABLE ONLY volun_trackings
 
 
 --
--- Name: volunteers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: volunteers_pkey; Type: CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -4408,1169 +4745,1190 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: index_academic_levels_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_academic_levels_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_academic_levels_on_name ON academic_levels USING btree (name);
 
 
 --
--- Name: index_activities_on_area_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_activities_on_area_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_activities_on_area_id ON activities USING btree (area_id);
 
 
 --
--- Name: index_activities_on_entity_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_activities_on_entity_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_activities_on_entity_id ON activities USING btree (entity_id);
 
 
 --
--- Name: index_activities_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_activities_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_activities_on_name ON activities USING btree (name);
 
 
 --
--- Name: index_activities_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_activities_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_activities_on_project_id ON activities USING btree (project_id);
 
 
 --
--- Name: index_areas_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_areas_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_areas_on_name ON areas USING btree (name);
 
 
 --
--- Name: index_areas_projects_on_area_id_and_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_areas_projects_on_area_id_and_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_areas_projects_on_area_id_and_project_id ON areas_projects USING btree (area_id, project_id);
 
 
 --
--- Name: index_areas_projects_on_project_id_and_area_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_areas_projects_on_project_id_and_area_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_areas_projects_on_project_id_and_area_id ON areas_projects USING btree (project_id, area_id);
 
 
 --
--- Name: index_areas_volunteers_on_area_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_areas_volunteers_on_area_id_and_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_areas_volunteers_on_area_id_and_volunteer_id ON areas_volunteers USING btree (area_id, volunteer_id);
 
 
 --
--- Name: index_areas_volunteers_on_volunteer_id_and_area_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_areas_volunteers_on_volunteer_id_and_area_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_areas_volunteers_on_volunteer_id_and_area_id ON areas_volunteers USING btree (volunteer_id, area_id);
 
 
 --
--- Name: index_collectives_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_collectives_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_collectives_on_name ON collectives USING btree (name);
 
 
 --
--- Name: index_collectives_projects_on_collective_id_and_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_collectives_projects_on_collective_id_and_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_collectives_projects_on_collective_id_and_project_id ON collectives_projects USING btree (collective_id, project_id);
 
 
 --
--- Name: index_collectives_projects_on_project_id_and_collective_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_collectives_projects_on_project_id_and_collective_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_collectives_projects_on_project_id_and_collective_id ON collectives_projects USING btree (project_id, collective_id);
 
 
 --
--- Name: index_collectives_volunteers_on_collective_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_collectives_volunteers_on_collective_id_and_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_collectives_volunteers_on_collective_id_and_volunteer_id ON collectives_volunteers USING btree (collective_id, volunteer_id);
 
 
 --
--- Name: index_collectives_volunteers_on_volunteer_id_and_collective_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_collectives_volunteers_on_volunteer_id_and_collective_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_collectives_volunteers_on_volunteer_id_and_collective_id ON collectives_volunteers USING btree (volunteer_id, collective_id);
 
 
 --
--- Name: index_contact_results_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_contact_results_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_contact_results_on_name ON contact_results USING btree (name);
 
 
 --
--- Name: index_contact_types_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_contact_types_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_contact_types_on_name ON contact_types USING btree (name);
 
 
 --
--- Name: index_coordinations_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_coordinations_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_coordinations_on_name ON coordinations USING btree (name);
 
 
 --
--- Name: index_coordinations_projects_on_coordination_id_and_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_coordinations_projects_on_coordination_id_and_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_coordinations_projects_on_coordination_id_and_project_id ON coordinations_projects USING btree (coordination_id, project_id);
 
 
 --
--- Name: index_coordinations_projects_on_project_id_and_coordination_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_coordinations_projects_on_project_id_and_coordination_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_coordinations_projects_on_project_id_and_coordination_id ON coordinations_projects USING btree (project_id, coordination_id);
 
 
 --
--- Name: index_degree_types_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_degree_types_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_degree_types_on_name ON degree_types USING btree (name);
 
 
 --
--- Name: index_degrees_on_degree_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_degrees_on_degree_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_degrees_on_degree_type_id ON degrees USING btree (degree_type_id);
 
 
 --
--- Name: index_degrees_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_degrees_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_degrees_on_name ON degrees USING btree (name);
 
 
 --
--- Name: index_degrees_volunteers_on_degree_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_degrees_volunteers_on_degree_id_and_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_degrees_volunteers_on_degree_id_and_volunteer_id ON degrees_volunteers USING btree (degree_id, volunteer_id);
 
 
 --
--- Name: index_degrees_volunteers_on_volunteer_id_and_degree_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_degrees_volunteers_on_volunteer_id_and_degree_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_degrees_volunteers_on_volunteer_id_and_degree_id ON degrees_volunteers USING btree (volunteer_id, degree_id);
 
 
 --
--- Name: index_districts_on_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_districts_on_code; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_districts_on_code ON districts USING btree (code);
 
 
 --
--- Name: index_districts_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_districts_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_districts_on_name ON districts USING btree (name);
 
 
 --
--- Name: index_documents_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_documents_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_documents_on_name ON documents USING btree (name);
 
 
 --
--- Name: index_documents_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_documents_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_documents_on_project_id ON documents USING btree (project_id);
 
 
 --
--- Name: index_employment_statuses_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_employment_statuses_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_employment_statuses_on_name ON employment_statuses USING btree (name);
 
 
 --
--- Name: index_ent_trackings_on_entity_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_ent_trackings_on_entity_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_ent_trackings_on_entity_id ON ent_trackings USING btree (entity_id);
 
 
 --
--- Name: index_ent_trackings_on_manager_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_ent_trackings_on_manager_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_ent_trackings_on_manager_id ON ent_trackings USING btree (manager_id);
 
 
 --
--- Name: index_ent_trackings_on_request_form_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_ent_trackings_on_request_form_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_ent_trackings_on_request_form_id ON ent_trackings USING btree (request_form_id);
 
 
 --
--- Name: index_ent_trackings_on_tracking_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_ent_trackings_on_tracking_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_ent_trackings_on_tracking_type_id ON ent_trackings USING btree (tracking_type_id);
 
 
 --
--- Name: index_entities_on_address_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entities_on_address_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_entities_on_address_id ON entities USING btree (address_id);
 
 
 --
--- Name: index_entities_on_entity_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entities_on_entity_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_entities_on_entity_type_id ON entities USING btree (entity_type_id);
 
 
 --
--- Name: index_entities_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entities_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_entities_on_name ON entities USING btree (name);
 
 
 --
--- Name: index_entities_on_req_reason_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entities_on_req_reason_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_entities_on_req_reason_id ON entities USING btree (req_reason_id);
 
 
 --
--- Name: index_entities_projects_on_entity_id_and_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entities_projects_on_entity_id_and_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_entities_projects_on_entity_id_and_project_id ON entities_projects USING btree (entity_id, project_id);
 
 
 --
--- Name: index_entities_projects_on_project_id_and_entity_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entities_projects_on_project_id_and_entity_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_entities_projects_on_project_id_and_entity_id ON entities_projects USING btree (project_id, entity_id);
 
 
 --
--- Name: index_entity_types_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_entity_types_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_entity_types_on_name ON entity_types USING btree (name);
 
 
 --
--- Name: index_event_types_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_event_types_on_kind; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_event_types_on_kind ON event_types USING btree (kind);
 
 
 --
--- Name: index_events_on_address_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_events_on_address_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_events_on_address_id ON events USING btree (address_id);
 
 
 --
--- Name: index_events_on_event_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_events_on_event_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_events_on_event_type_id ON events USING btree (event_type_id);
 
 
 --
--- Name: index_events_on_eventable_type_and_eventable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_events_on_eventable_type_and_eventable_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_events_on_eventable_type_and_eventable_id ON events USING btree (eventable_type, eventable_id);
 
 
 --
--- Name: index_frontpage_elements_on_frontpage_position_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_frontpage_elements_on_frontpage_position_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_frontpage_elements_on_frontpage_position_id ON frontpage_elements USING btree (frontpage_position_id);
 
 
 --
--- Name: index_frontpage_positions_on_position; Type: INDEX; Schema: public; Owner: -
+-- Name: index_frontpage_positions_on_position; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_frontpage_positions_on_position ON frontpage_positions USING btree ("position");
 
 
 --
--- Name: index_id_number_types_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_id_number_types_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_id_number_types_on_name ON id_number_types USING btree (name);
 
 
 --
--- Name: index_info_sources_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_info_sources_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_info_sources_on_name ON info_sources USING btree (name);
 
 
 --
--- Name: index_language_levels_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_language_levels_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_language_levels_on_name ON language_levels USING btree (name);
 
 
 --
--- Name: index_languages_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_languages_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_languages_on_name ON languages USING btree (name);
 
 
 --
--- Name: index_link_types_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_link_types_on_kind; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_link_types_on_kind ON link_types USING btree (kind);
 
 
 --
--- Name: index_links_on_link_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_links_on_link_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_links_on_link_type_id ON links USING btree (link_type_id);
 
 
 --
--- Name: index_links_on_linkable_type_and_linkable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_links_on_linkable_type_and_linkable_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_links_on_linkable_type_and_linkable_id ON links USING btree (linkable_type, linkable_id);
 
 
 --
--- Name: index_managers_on_role_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_managers_on_role_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_managers_on_role_id ON managers USING btree (role_id);
 
 
 --
--- Name: index_nationalities_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_nationalities_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_nationalities_on_name ON nationalities USING btree (name);
 
 
 --
--- Name: index_notice_types_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_notice_types_on_kind; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_notice_types_on_kind ON notice_types USING btree (kind);
 
 
 --
--- Name: index_pro_issues_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_permissions_on_manager_id; Type: INDEX; Schema: volun; Owner: -
+--
+
+CREATE INDEX index_permissions_on_manager_id ON permissions USING btree (manager_id);
+
+
+--
+-- Name: index_permissions_on_resource_id; Type: INDEX; Schema: volun; Owner: -
+--
+
+CREATE INDEX index_permissions_on_resource_id ON permissions USING btree (resource_id);
+
+
+--
+-- Name: index_pro_issues_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_pro_issues_on_project_id ON pro_issues USING btree (project_id);
 
 
 --
--- Name: index_pro_trackings_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pro_trackings_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_pro_trackings_on_project_id ON pro_trackings USING btree (project_id);
 
 
 --
--- Name: index_pro_trackings_on_request_form_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pro_trackings_on_request_form_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_pro_trackings_on_request_form_id ON pro_trackings USING btree (request_form_id);
 
 
 --
--- Name: index_professions_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_professions_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_professions_on_name ON professions USING btree (name);
 
 
 --
--- Name: index_profiles_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_profiles_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_profiles_on_name ON profiles USING btree (name);
 
 
 --
--- Name: index_project_types_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_project_types_on_kind; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_project_types_on_kind ON project_types USING btree (kind);
 
 
 --
--- Name: index_projects_on_entity_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_projects_on_entity_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_projects_on_entity_id ON projects USING btree (entity_id);
 
 
 --
--- Name: index_projects_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_projects_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_projects_on_name ON projects USING btree (name);
 
 
 --
--- Name: index_projects_on_project_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_projects_on_project_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_projects_on_project_type_id ON projects USING btree (project_type_id);
 
 
 --
--- Name: index_projects_on_pt_extendable_type_and_pt_extendable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_projects_on_pt_extendable_type_and_pt_extendable_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_projects_on_pt_extendable_type_and_pt_extendable_id ON projects USING btree (pt_extendable_type, pt_extendable_id);
 
 
 --
--- Name: index_projects_volunteers_on_project_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_projects_volunteers_on_project_id_and_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_projects_volunteers_on_project_id_and_volunteer_id ON projects_volunteers USING btree (project_id, volunteer_id);
 
 
 --
--- Name: index_projects_volunteers_on_volunteer_id_and_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_projects_volunteers_on_volunteer_id_and_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_projects_volunteers_on_volunteer_id_and_project_id ON projects_volunteers USING btree (volunteer_id, project_id);
 
 
 --
--- Name: index_proposals_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_proposals_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_proposals_on_name ON proposals USING btree (name);
 
 
 --
--- Name: index_provinces_on_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_provinces_on_code; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_provinces_on_code ON provinces USING btree (code);
 
 
 --
--- Name: index_provinces_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_provinces_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_provinces_on_name ON provinces USING btree (name);
 
 
 --
--- Name: index_pt_subventions_on_proposal_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pt_subventions_on_proposal_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_pt_subventions_on_proposal_id ON pt_subventions USING btree (proposal_id);
 
 
 --
--- Name: index_record_histories_on_recordable_type_and_recordable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_record_histories_on_recordable_type_and_recordable_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_record_histories_on_recordable_type_and_recordable_id ON record_histories USING btree (recordable_type, recordable_id);
 
 
 --
--- Name: index_record_histories_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_record_histories_on_user_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_record_histories_on_user_id ON record_histories USING btree (user_id);
 
 
 --
--- Name: index_req_rejection_types_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_req_rejection_types_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_req_rejection_types_on_name ON req_rejection_types USING btree (name);
 
 
 --
--- Name: index_req_status_traces_on_manager_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_req_status_traces_on_manager_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_req_status_traces_on_manager_id ON req_status_traces USING btree (manager_id);
 
 
 --
--- Name: index_req_status_traces_on_req_status_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_req_status_traces_on_req_status_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_req_status_traces_on_req_status_id ON req_status_traces USING btree (req_status_id);
 
 
 --
--- Name: index_req_status_traces_on_request_form_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_req_status_traces_on_request_form_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_req_status_traces_on_request_form_id ON req_status_traces USING btree (request_form_id);
 
 
 --
--- Name: index_req_statuses_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_req_statuses_on_kind; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_req_statuses_on_kind ON req_statuses USING btree (kind);
 
 
 --
--- Name: index_request_forms_on_manager_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_request_forms_on_manager_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_request_forms_on_manager_id ON request_forms USING btree (manager_id);
 
 
 --
--- Name: index_request_forms_on_req_reason_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_request_forms_on_req_reason_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_request_forms_on_req_reason_id ON request_forms USING btree (req_reason_id);
 
 
 --
--- Name: index_request_forms_on_req_rejection_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_request_forms_on_req_rejection_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_request_forms_on_req_rejection_type_id ON request_forms USING btree (req_rejection_type_id);
 
 
 --
--- Name: index_request_forms_on_req_status_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_request_forms_on_req_status_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_request_forms_on_req_status_id ON request_forms USING btree (req_status_id);
 
 
 --
--- Name: index_request_forms_on_request_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_request_forms_on_request_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_request_forms_on_request_type_id ON request_forms USING btree (request_type_id);
 
 
 --
--- Name: index_request_forms_on_rt_extendable_type_and_rt_extendable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_request_forms_on_rt_extendable_type_and_rt_extendable_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_request_forms_on_rt_extendable_type_and_rt_extendable_id ON request_forms USING btree (rt_extendable_type, rt_extendable_id);
 
 
 --
--- Name: index_request_forms_on_user_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_request_forms_on_user_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_request_forms_on_user_id ON request_forms USING btree (user_id);
 
 
 --
--- Name: index_request_types_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_request_types_on_kind; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_request_types_on_kind ON request_types USING btree (kind);
 
 
 --
--- Name: index_road_types_on_code; Type: INDEX; Schema: public; Owner: -
+-- Name: index_resources_on_kind; Type: INDEX; Schema: volun; Owner: -
+--
+
+CREATE UNIQUE INDEX index_resources_on_kind ON resources USING btree (kind);
+
+
+--
+-- Name: index_road_types_on_code; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_road_types_on_code ON road_types USING btree (code);
 
 
 --
--- Name: index_road_types_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_road_types_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_road_types_on_name ON road_types USING btree (name);
 
 
 --
--- Name: index_roles_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_roles_on_kind; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_roles_on_kind ON roles USING btree (kind);
 
 
 --
--- Name: index_rt_activity_publishings_on_activity_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_activity_publishings_on_activity_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_activity_publishings_on_activity_id ON rt_activity_publishings USING btree (activity_id);
 
 
 --
--- Name: index_rt_activity_publishings_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_activity_publishings_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_activity_publishings_on_project_id ON rt_activity_publishings USING btree (project_id);
 
 
 --
--- Name: index_rt_activity_unpublishings_on_activity_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_activity_unpublishings_on_activity_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_activity_unpublishings_on_activity_id ON rt_activity_unpublishings USING btree (activity_id);
 
 
 --
--- Name: index_rt_entity_subscribes_on_entity_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_entity_subscribes_on_entity_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_entity_subscribes_on_entity_type_id ON rt_entity_subscribes USING btree (entity_type_id);
 
 
 --
--- Name: index_rt_entity_subscribes_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_entity_subscribes_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_entity_subscribes_on_project_id ON rt_entity_subscribes USING btree (project_id);
 
 
 --
--- Name: index_rt_entity_unsubscribes_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_entity_unsubscribes_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_entity_unsubscribes_on_project_id ON rt_entity_unsubscribes USING btree (project_id);
 
 
 --
--- Name: index_rt_project_publishings_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_project_publishings_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_project_publishings_on_project_id ON rt_project_publishings USING btree (project_id);
 
 
 --
--- Name: index_rt_project_unpublishings_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_project_unpublishings_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_project_unpublishings_on_project_id ON rt_project_unpublishings USING btree (project_id);
 
 
 --
--- Name: index_rt_volunteer_amendments_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_volunteer_amendments_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_volunteer_amendments_on_project_id ON rt_volunteer_amendments USING btree (project_id);
 
 
 --
--- Name: index_rt_volunteer_subscribes_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_volunteer_subscribes_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_volunteer_subscribes_on_project_id ON rt_volunteer_subscribes USING btree (project_id);
 
 
 --
--- Name: index_rt_volunteer_unsubscribes_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_volunteer_unsubscribes_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_volunteer_unsubscribes_on_project_id ON rt_volunteer_unsubscribes USING btree (project_id);
 
 
 --
--- Name: index_rt_volunteer_unsubscribes_on_unsubscribe_level_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_volunteer_unsubscribes_on_unsubscribe_level_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_volunteer_unsubscribes_on_unsubscribe_level_id ON rt_volunteer_unsubscribes USING btree (unsubscribe_level_id);
 
 
 --
--- Name: index_rt_volunteers_demands_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_rt_volunteers_demands_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_rt_volunteers_demands_on_project_id ON rt_volunteers_demands USING btree (project_id);
 
 
 --
--- Name: index_skills_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_skills_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_skills_on_name ON skills USING btree (name);
 
 
 --
--- Name: index_skills_volunteers_on_skill_id_and_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_skills_volunteers_on_skill_id_and_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_skills_volunteers_on_skill_id_and_volunteer_id ON skills_volunteers USING btree (skill_id, volunteer_id);
 
 
 --
--- Name: index_skills_volunteers_on_volunteer_id_and_skill_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_skills_volunteers_on_volunteer_id_and_skill_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_skills_volunteers_on_volunteer_id_and_skill_id ON skills_volunteers USING btree (volunteer_id, skill_id);
 
 
 --
--- Name: index_statuses_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_statuses_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_statuses_on_name ON statuses USING btree (name);
 
 
 --
--- Name: index_timetables_on_event_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_timetables_on_event_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_timetables_on_event_id ON timetables USING btree (event_id);
 
 
 --
--- Name: index_tracking_types_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_tracking_types_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_tracking_types_on_name ON tracking_types USING btree (name);
 
 
 --
--- Name: index_traits_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_traits_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_traits_on_name ON traits USING btree (name);
 
 
 --
--- Name: index_unsubscribe_levels_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_unsubscribe_levels_on_kind; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_unsubscribe_levels_on_kind ON unsubscribe_levels USING btree (kind);
 
 
 --
--- Name: index_unsubscribe_reasons_on_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_unsubscribe_reasons_on_name; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_unsubscribe_reasons_on_name ON unsubscribe_reasons USING btree (name);
 
 
 --
--- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_email; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_email ON users USING btree (email);
 
 
 --
--- Name: index_users_on_loggable_type_and_loggable_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_loggable_type_and_loggable_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_users_on_loggable_type_and_loggable_id ON users USING btree (loggable_type, loggable_id);
 
 
 --
--- Name: index_users_on_notice_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_notice_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_users_on_notice_type_id ON users USING btree (notice_type_id);
 
 
 --
--- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX index_users_on_reset_password_token ON users USING btree (reset_password_token);
 
 
 --
--- Name: index_volun_assessments_on_trait_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_assessments_on_trait_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_assessments_on_trait_id ON volun_assessments USING btree (trait_id);
 
 
 --
--- Name: index_volun_assessments_on_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_assessments_on_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_assessments_on_volunteer_id ON volun_assessments USING btree (volunteer_id);
 
 
 --
--- Name: index_volun_assessments_projects_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_assessments_projects_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_assessments_projects_on_project_id ON volun_assessments_projects USING btree (project_id);
 
 
 --
--- Name: index_volun_assessments_projects_on_trait_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_assessments_projects_on_trait_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_assessments_projects_on_trait_id ON volun_assessments_projects USING btree (trait_id);
 
 
 --
--- Name: index_volun_assessments_projects_on_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_assessments_projects_on_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_assessments_projects_on_volunteer_id ON volun_assessments_projects USING btree (volunteer_id);
 
 
 --
--- Name: index_volun_availabilities_on_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_availabilities_on_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_availabilities_on_volunteer_id ON volun_availabilities USING btree (volunteer_id);
 
 
 --
--- Name: index_volun_contacts_on_contact_result_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_contacts_on_contact_result_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_contacts_on_contact_result_id ON volun_contacts USING btree (contact_result_id);
 
 
 --
--- Name: index_volun_contacts_on_contact_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_contacts_on_contact_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_contacts_on_contact_type_id ON volun_contacts USING btree (contact_type_id);
 
 
 --
--- Name: index_volun_contacts_on_manager_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_contacts_on_manager_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_contacts_on_manager_id ON volun_contacts USING btree (manager_id);
 
 
 --
--- Name: index_volun_contacts_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_contacts_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_contacts_on_project_id ON volun_contacts USING btree (project_id);
 
 
 --
--- Name: index_volun_contacts_on_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_contacts_on_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_contacts_on_volunteer_id ON volun_contacts USING btree (volunteer_id);
 
 
 --
--- Name: index_volun_known_languages_on_language_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_known_languages_on_language_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_known_languages_on_language_id ON volun_known_languages USING btree (language_id);
 
 
 --
--- Name: index_volun_known_languages_on_language_level_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_known_languages_on_language_level_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_known_languages_on_language_level_id ON volun_known_languages USING btree (language_level_id);
 
 
 --
--- Name: index_volun_known_languages_on_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_known_languages_on_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_known_languages_on_volunteer_id ON volun_known_languages USING btree (volunteer_id);
 
 
 --
--- Name: index_volun_trackings_on_manager_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_trackings_on_manager_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_trackings_on_manager_id ON volun_trackings USING btree (manager_id);
 
 
 --
--- Name: index_volun_trackings_on_project_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_trackings_on_project_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_trackings_on_project_id ON volun_trackings USING btree (project_id);
 
 
 --
--- Name: index_volun_trackings_on_request_form_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_trackings_on_request_form_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_trackings_on_request_form_id ON volun_trackings USING btree (request_form_id);
 
 
 --
--- Name: index_volun_trackings_on_tracking_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_trackings_on_tracking_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_trackings_on_tracking_type_id ON volun_trackings USING btree (tracking_type_id);
 
 
 --
--- Name: index_volun_trackings_on_volunteer_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volun_trackings_on_volunteer_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volun_trackings_on_volunteer_id ON volun_trackings USING btree (volunteer_id);
 
 
 --
--- Name: index_volunteers_on_academic_level_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_academic_level_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_academic_level_id ON volunteers USING btree (academic_level_id);
 
 
 --
--- Name: index_volunteers_on_address_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_address_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_address_id ON volunteers USING btree (address_id);
 
 
 --
--- Name: index_volunteers_on_employment_status_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_employment_status_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_employment_status_id ON volunteers USING btree (employment_status_id);
 
 
 --
--- Name: index_volunteers_on_id_number_type_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_id_number_type_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_id_number_type_id ON volunteers USING btree (id_number_type_id);
 
 
 --
--- Name: index_volunteers_on_info_source_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_info_source_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_info_source_id ON volunteers USING btree (info_source_id);
 
 
 --
--- Name: index_volunteers_on_manager_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_manager_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_manager_id ON volunteers USING btree (manager_id);
 
 
 --
--- Name: index_volunteers_on_nationality_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_nationality_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_nationality_id ON volunteers USING btree (nationality_id);
 
 
 --
--- Name: index_volunteers_on_profession_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_profession_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_profession_id ON volunteers USING btree (profession_id);
 
 
 --
--- Name: index_volunteers_on_status_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_status_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_status_id ON volunteers USING btree (status_id);
 
 
 --
--- Name: index_volunteers_on_unsubscribe_reason_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_volunteers_on_unsubscribe_reason_id; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE INDEX index_volunteers_on_unsubscribe_reason_id ON volunteers USING btree (unsubscribe_reason_id);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
+-- Name: unique_schema_migrations; Type: INDEX; Schema: volun; Owner: -
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
 
 
 --
--- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_project_references BEFORE DELETE ON pt_socials FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Social');
 
 
 --
--- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_project_references BEFORE DELETE ON pt_centres FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Centre');
 
 
 --
--- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_project_references BEFORE DELETE ON pt_permanents FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Permanent');
 
 
 --
--- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_project_references BEFORE DELETE ON pt_punctuals FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Punctual');
 
 
 --
--- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_project_references BEFORE DELETE ON pt_subventions FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Subvention');
 
 
 --
--- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_project_references BEFORE DELETE ON pt_entities FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Entity');
 
 
 --
--- Name: check_project_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_project_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_project_references BEFORE DELETE ON pt_others FOR EACH ROW EXECUTE PROCEDURE check_project_references('Pt::Other');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteer_subscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteerSubscribe');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteer_unsubscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteerUnsubscribe');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteer_amendments FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteerAmendment');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteer_appointments FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteerAppointment');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_entity_subscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::EntitySubscribe');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_entity_unsubscribes FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::EntityUnsubscribe');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_volunteers_demands FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::VolunteersDemand');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_project_publishings FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::ProjectPublishing');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_project_unpublishings FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::ProjectUnpublishing');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_activity_publishings FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::ActivityPublishing');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_activity_unpublishings FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::ActivityUnpublishing');
 
 
 --
--- Name: check_request_form_references; Type: TRIGGER; Schema: public; Owner: -
+-- Name: check_request_form_references; Type: TRIGGER; Schema: volun; Owner: -
 --
 
 CREATE TRIGGER check_request_form_references BEFORE DELETE ON rt_others FOR EACH ROW EXECUTE PROCEDURE check_request_form_references('Rt::Other');
 
 
 --
--- Name: fk_rails_0660269916; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_0660269916; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_activity_publishings
@@ -5578,7 +5936,7 @@ ALTER TABLE ONLY rt_activity_publishings
 
 
 --
--- Name: fk_rails_076cef1fdc; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_076cef1fdc; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -5586,7 +5944,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_078fb0c271; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_078fb0c271; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_project_unpublishings
@@ -5594,7 +5952,7 @@ ALTER TABLE ONLY rt_project_unpublishings
 
 
 --
--- Name: fk_rails_11a4b85b23; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_11a4b85b23; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pt_subventions
@@ -5602,7 +5960,7 @@ ALTER TABLE ONLY pt_subventions
 
 
 --
--- Name: fk_rails_15c4c560b1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_15c4c560b1; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY timetables
@@ -5610,7 +5968,7 @@ ALTER TABLE ONLY timetables
 
 
 --
--- Name: fk_rails_18766af8ad; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_18766af8ad; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_activity_publishings
@@ -5618,7 +5976,7 @@ ALTER TABLE ONLY rt_activity_publishings
 
 
 --
--- Name: fk_rails_1b6a6db21c; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_1b6a6db21c; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -5626,7 +5984,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_1c63970ba6; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_1c63970ba6; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY ent_trackings
@@ -5634,7 +5992,7 @@ ALTER TABLE ONLY ent_trackings
 
 
 --
--- Name: fk_rails_1eb0844745; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_1eb0844745; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY frontpage_elements
@@ -5642,7 +6000,7 @@ ALTER TABLE ONLY frontpage_elements
 
 
 --
--- Name: fk_rails_1f94e4af32; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_1f94e4af32; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments_projects
@@ -5650,7 +6008,7 @@ ALTER TABLE ONLY volun_assessments_projects
 
 
 --
--- Name: fk_rails_218216dd2a; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_218216dd2a; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_status_traces
@@ -5658,7 +6016,7 @@ ALTER TABLE ONLY req_status_traces
 
 
 --
--- Name: fk_rails_238a7f0b81; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_238a7f0b81; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_trackings
@@ -5666,7 +6024,7 @@ ALTER TABLE ONLY volun_trackings
 
 
 --
--- Name: fk_rails_23944d719f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_23944d719f; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_contacts
@@ -5674,7 +6032,7 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: fk_rails_2a2c9250e8; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_2a2c9250e8; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -5682,7 +6040,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: fk_rails_2a8dd8e5f4; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_2a8dd8e5f4; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY activities
@@ -5690,7 +6048,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: fk_rails_2e4768f7ae; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_2e4768f7ae; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_entity_unsubscribes
@@ -5698,7 +6056,7 @@ ALTER TABLE ONLY rt_entity_unsubscribes
 
 
 --
--- Name: fk_rails_30ddac6918; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_30ddac6918; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_trackings
@@ -5706,7 +6064,7 @@ ALTER TABLE ONLY volun_trackings
 
 
 --
--- Name: fk_rails_3184e37ad1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_3184e37ad1; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY record_histories
@@ -5714,7 +6072,7 @@ ALTER TABLE ONLY record_histories
 
 
 --
--- Name: fk_rails_3196973a02; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_3196973a02; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pro_trackings
@@ -5722,7 +6080,7 @@ ALTER TABLE ONLY pro_trackings
 
 
 --
--- Name: fk_rails_319db762f5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_319db762f5; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY activities
@@ -5730,7 +6088,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: fk_rails_34e98e56ba; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_34e98e56ba; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -5738,7 +6096,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_365de92f46; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_365de92f46; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_project_publishings
@@ -5746,7 +6104,7 @@ ALTER TABLE ONLY rt_project_publishings
 
 
 --
--- Name: fk_rails_42c5cc9a36; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_42c5cc9a36; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pro_issues
@@ -5754,7 +6112,7 @@ ALTER TABLE ONLY pro_issues
 
 
 --
--- Name: fk_rails_442ab3e172; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_442ab3e172; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_activity_unpublishings
@@ -5762,7 +6120,7 @@ ALTER TABLE ONLY rt_activity_unpublishings
 
 
 --
--- Name: fk_rails_48cc4fb8e0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_48cc4fb8e0; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY frontpage_elements
@@ -5770,7 +6128,7 @@ ALTER TABLE ONLY frontpage_elements
 
 
 --
--- Name: fk_rails_4a5d797686; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_4a5d797686; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY degrees
@@ -5778,7 +6136,7 @@ ALTER TABLE ONLY degrees
 
 
 --
--- Name: fk_rails_4e614b6d26; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_4e614b6d26; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_trackings
@@ -5786,7 +6144,7 @@ ALTER TABLE ONLY volun_trackings
 
 
 --
--- Name: fk_rails_500ca5be40; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_500ca5be40; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -5794,7 +6152,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_5048823c24; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5048823c24; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_trackings
@@ -5802,7 +6160,7 @@ ALTER TABLE ONLY volun_trackings
 
 
 --
--- Name: fk_rails_537c7138f3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_537c7138f3; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_subscribes
@@ -5810,7 +6168,7 @@ ALTER TABLE ONLY rt_volunteer_subscribes
 
 
 --
--- Name: fk_rails_55cfc1b0e0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_55cfc1b0e0; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY documents
@@ -5818,7 +6176,7 @@ ALTER TABLE ONLY documents
 
 
 --
--- Name: fk_rails_5607227932; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5607227932; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY entities
@@ -5826,7 +6184,7 @@ ALTER TABLE ONLY entities
 
 
 --
--- Name: fk_rails_58ead69265; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_58ead69265; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -5834,7 +6192,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_5c72243f21; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5c72243f21; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_forms
@@ -5842,7 +6200,7 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_5e29a4093f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5e29a4093f; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_contacts
@@ -5850,7 +6208,7 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: fk_rails_5fda6378ac; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_5fda6378ac; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY ent_trackings
@@ -5858,7 +6216,7 @@ ALTER TABLE ONLY ent_trackings
 
 
 --
--- Name: fk_rails_61c7d4f0f7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_61c7d4f0f7; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_unsubscribes
@@ -5866,7 +6224,7 @@ ALTER TABLE ONLY rt_volunteer_unsubscribes
 
 
 --
--- Name: fk_rails_6b7b9a59a1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_6b7b9a59a1; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments
@@ -5874,7 +6232,7 @@ ALTER TABLE ONLY volun_assessments
 
 
 --
--- Name: fk_rails_6bfcef8235; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_6bfcef8235; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments_projects
@@ -5882,7 +6240,7 @@ ALTER TABLE ONLY volun_assessments_projects
 
 
 --
--- Name: fk_rails_6c193dac04; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_6c193dac04; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -5890,7 +6248,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_752e02b6ad; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_752e02b6ad; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY ent_trackings
@@ -5898,7 +6256,7 @@ ALTER TABLE ONLY ent_trackings
 
 
 --
--- Name: fk_rails_757c811ef3; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_757c811ef3; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -5906,7 +6264,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_75f14fef31; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_75f14fef31; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY events
@@ -5914,7 +6272,7 @@ ALTER TABLE ONLY events
 
 
 --
--- Name: fk_rails_7c5d7eb5f0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_7c5d7eb5f0; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY frontpage_elements
@@ -5922,7 +6280,7 @@ ALTER TABLE ONLY frontpage_elements
 
 
 --
--- Name: fk_rails_908a35f934; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_908a35f934; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_entity_subscribes
@@ -5930,7 +6288,7 @@ ALTER TABLE ONLY rt_entity_subscribes
 
 
 --
--- Name: fk_rails_931c3c76ef; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_931c3c76ef; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY entities
@@ -5938,7 +6296,7 @@ ALTER TABLE ONLY entities
 
 
 --
--- Name: fk_rails_9aae347038; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_9aae347038; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_contacts
@@ -5946,7 +6304,15 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: fk_rails_9d90949dfa; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_9d3f95f3b7; Type: FK CONSTRAINT; Schema: volun; Owner: -
+--
+
+ALTER TABLE ONLY permissions
+    ADD CONSTRAINT fk_rails_9d3f95f3b7 FOREIGN KEY (resource_id) REFERENCES resources(id);
+
+
+--
+-- Name: fk_rails_9d90949dfa; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_known_languages
@@ -5954,7 +6320,7 @@ ALTER TABLE ONLY volun_known_languages
 
 
 --
--- Name: fk_rails_a0518bdb63; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a0518bdb63; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_status_traces
@@ -5962,7 +6328,15 @@ ALTER TABLE ONLY req_status_traces
 
 
 --
--- Name: fk_rails_a578a39c28; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a1fc3c028f; Type: FK CONSTRAINT; Schema: volun; Owner: -
+--
+
+ALTER TABLE ONLY permissions
+    ADD CONSTRAINT fk_rails_a1fc3c028f FOREIGN KEY (manager_id) REFERENCES managers(id);
+
+
+--
+-- Name: fk_rails_a578a39c28; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY links
@@ -5970,7 +6344,7 @@ ALTER TABLE ONLY links
 
 
 --
--- Name: fk_rails_a6f023dc94; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a6f023dc94; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY managers
@@ -5978,7 +6352,7 @@ ALTER TABLE ONLY managers
 
 
 --
--- Name: fk_rails_a7af8553e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a7af8553e5; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_availabilities
@@ -5986,7 +6360,7 @@ ALTER TABLE ONLY volun_availabilities
 
 
 --
--- Name: fk_rails_a96f5dbb87; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a96f5dbb87; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteers_demands
@@ -5994,7 +6368,7 @@ ALTER TABLE ONLY rt_volunteers_demands
 
 
 --
--- Name: fk_rails_a9ecf0a1e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_a9ecf0a1e5; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_unsubscribes
@@ -6002,7 +6376,7 @@ ALTER TABLE ONLY rt_volunteer_unsubscribes
 
 
 --
--- Name: fk_rails_b0091044ff; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b0091044ff; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_contacts
@@ -6010,7 +6384,7 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: fk_rails_b167571955; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b167571955; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments_projects
@@ -6018,7 +6392,7 @@ ALTER TABLE ONLY volun_assessments_projects
 
 
 --
--- Name: fk_rails_b590151cfe; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b590151cfe; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY req_status_traces
@@ -6026,7 +6400,7 @@ ALTER TABLE ONLY req_status_traces
 
 
 --
--- Name: fk_rails_b6d9e93c75; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b6d9e93c75; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -6034,7 +6408,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: fk_rails_b7b1b87a80; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b7b1b87a80; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_forms
@@ -6042,7 +6416,7 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_b949e9dc3f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_b949e9dc3f; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY ent_trackings
@@ -6050,7 +6424,7 @@ ALTER TABLE ONLY ent_trackings
 
 
 --
--- Name: fk_rails_bddba12401; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_bddba12401; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY activities
@@ -6058,7 +6432,7 @@ ALTER TABLE ONLY activities
 
 
 --
--- Name: fk_rails_bfb3770a7f; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_bfb3770a7f; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_contacts
@@ -6066,7 +6440,7 @@ ALTER TABLE ONLY volun_contacts
 
 
 --
--- Name: fk_rails_c5cc40e3a0; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_c5cc40e3a0; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_assessments
@@ -6074,7 +6448,7 @@ ALTER TABLE ONLY volun_assessments
 
 
 --
--- Name: fk_rails_c6094089f7; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_c6094089f7; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_trackings
@@ -6082,7 +6456,7 @@ ALTER TABLE ONLY volun_trackings
 
 
 --
--- Name: fk_rails_c722c76bbe; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_c722c76bbe; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -6090,7 +6464,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_cba16eb429; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_cba16eb429; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY pro_trackings
@@ -6098,7 +6472,7 @@ ALTER TABLE ONLY pro_trackings
 
 
 --
--- Name: fk_rails_cc2b7ccd21; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_cc2b7ccd21; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_known_languages
@@ -6106,7 +6480,7 @@ ALTER TABLE ONLY volun_known_languages
 
 
 --
--- Name: fk_rails_d2aadf7da1; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_d2aadf7da1; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volun_known_languages
@@ -6114,7 +6488,7 @@ ALTER TABLE ONLY volun_known_languages
 
 
 --
--- Name: fk_rails_d3eae920e5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_d3eae920e5; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -6122,7 +6496,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_d68b725283; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_d68b725283; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_volunteer_amendments
@@ -6130,7 +6504,7 @@ ALTER TABLE ONLY rt_volunteer_amendments
 
 
 --
--- Name: fk_rails_d7ca4cafeb; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_d7ca4cafeb; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY projects
@@ -6138,7 +6512,7 @@ ALTER TABLE ONLY projects
 
 
 --
--- Name: fk_rails_d97274598d; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_d97274598d; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_forms
@@ -6146,7 +6520,7 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_e8163aa1d5; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_e8163aa1d5; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY rt_entity_subscribes
@@ -6154,7 +6528,7 @@ ALTER TABLE ONLY rt_entity_subscribes
 
 
 --
--- Name: fk_rails_e988d26401; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_e988d26401; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_forms
@@ -6162,7 +6536,7 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_f4b5a45eed; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_f4b5a45eed; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_forms
@@ -6170,7 +6544,7 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_f771039889; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_f771039889; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY volunteers
@@ -6178,7 +6552,7 @@ ALTER TABLE ONLY volunteers
 
 
 --
--- Name: fk_rails_f8a44fe9bf; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_f8a44fe9bf; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY entities
@@ -6186,7 +6560,7 @@ ALTER TABLE ONLY entities
 
 
 --
--- Name: fk_rails_f9a88e8ebd; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_f9a88e8ebd; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY request_forms
@@ -6194,7 +6568,7 @@ ALTER TABLE ONLY request_forms
 
 
 --
--- Name: fk_rails_ffd1fb1016; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: fk_rails_ffd1fb1016; Type: FK CONSTRAINT; Schema: volun; Owner: -
 --
 
 ALTER TABLE ONLY projects
@@ -6205,7 +6579,7 @@ ALTER TABLE ONLY projects
 -- PostgreSQL database dump complete
 --
 
-SET search_path TO "$user", public;
+SET search_path TO volun;
 
 INSERT INTO schema_migrations (version) VALUES ('20170302091316');
 
@@ -6426,4 +6800,14 @@ INSERT INTO schema_migrations (version) VALUES ('20170403094612');
 INSERT INTO schema_migrations (version) VALUES ('20170405163435');
 
 INSERT INTO schema_migrations (version) VALUES ('20170405163822');
+
+INSERT INTO schema_migrations (version) VALUES ('20170406105006');
+
+INSERT INTO schema_migrations (version) VALUES ('20170406105317');
+
+INSERT INTO schema_migrations (version) VALUES ('20170406113450');
+
+INSERT INTO schema_migrations (version) VALUES ('20170406140900');
+
+INSERT INTO schema_migrations (version) VALUES ('20170406173450');
 

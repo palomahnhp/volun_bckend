@@ -139,6 +139,8 @@ class RequestForm < ActiveRecord::Base
       add_status_error :cannot_change_to_approved   unless status_was?(:processing)
     when ->(rf){ rf.rejected? }
       add_status_error :cannot_change_to_rejected   unless status_was?(:processing)
+    else
+      nil
     end
   end
 
