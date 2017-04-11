@@ -663,13 +663,13 @@ form .well {
 }
 
 .btn-search {
-  margin-top: 20px;
+  margin-top: 6px;
   margin-left: 15px;
   padding: 6px 48.5px;
 }
 
 #new_volunteer_link {
-  margin: 20px;
+  margin: 10px;
   padding: 10px 10px;
 }
 
@@ -680,4 +680,9 @@ form .well {
 
 select[multiple].wide-select {
   height: 300px;
+}
+
+.search-index {
+  padding-top: 10px;
+  padding-bottom: 5px
 }
