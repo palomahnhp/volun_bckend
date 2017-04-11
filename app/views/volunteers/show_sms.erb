@@ -8,10 +8,20 @@
       <dt><%= t('cell_phone') %>:</dt>
 			<dd class="phone"><%= @volunteer.phone_number_alt %></dd>
     </dl>
-    <button class="btn btn-success"><%= t('send_sms') %></button>
+    <button id="btn-send" class="btn btn-success"><%= t('send_sms') %></button>
 	</div>
 </div>
 
 <% unless request.xhr? %>
 <%= button_to_back %>
 <% end %>
+
+<script>
+    $("#btn-send").click(function(){
+        swal(
+          "Enviado!",
+          "El mensaje ha sido enviado",
+          "success"
+        )
+    });
+</script>
