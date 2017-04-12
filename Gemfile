@@ -61,7 +61,7 @@ group :staging, :development, :test do
   gem 'capybara' # integration testing tool for rack based web applications.
   gem 'fuubar'   # RSpec progress bar formatter
   gem 'i18n-tasks' #  helps you find and manage missing and unused translations.
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 3.5'
   gem 'factory_girl_rails'
 end
 

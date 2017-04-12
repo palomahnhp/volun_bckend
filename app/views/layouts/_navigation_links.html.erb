@@ -4,15 +4,15 @@
   <% else %>
     <li><%= link_to 'Iniciar sesión', new_user_session_path %></li>
   <% end %>
-<% elsif uweb_authenticated? %>
+<% elsif current_user.present? %>
     <li class="login-info">
       <ul class="list-inline">
         <li><%= label_tag "#{User.model_name.human}: " %></li>
-        <li><span class="normal-text"><%= uweb_user_data[:full_name].titleize %></span></li>
+        <li><span class="normal-text"><%= current_user.loggable.full_name.titleize %></span></li>
       </ul>
       <ul class="list-inline">
         <li><%= label_tag "#{t('user_login')}:" %></li>
-        <li><span class="normal-text"><%= uweb_user_data[:login] %></span></li>
+        <li><span class="normal-text"><%= current_user.login %></span></li>
       </ul>
     </li>
 <% end %>

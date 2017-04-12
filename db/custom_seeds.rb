@@ -1,6 +1,6 @@
 Rake::Task['db:seed'].invoke
 
-[NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel, LinkType].each do |model|
+[NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel, LinkType, Role].each do |model|
   puts "#{I18n.t('creating')} #{model.model_name.human}"
   model.kinds.each do |kind_name , kind_num|
     model.create!(id: kind_num, kind: kind_num, description: kind_name)
