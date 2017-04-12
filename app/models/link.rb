@@ -2,9 +2,10 @@ class Link < ActiveRecord::Base
 
   belongs_to :linkable, polymorphic: true
   belongs_to :link_type
-  belongs_to :project,  -> { includes(:links).where(links: { linkable_type: 'Project' }) }, foreign_key: 'linkable_id'
-  belongs_to :volunteer,  -> { includes(:links).where(links: { linkable_type: 'Volunteer' }) }, foreign_key: 'linkable_id'
+  belongs_to :project, -> { includes(:links).where(links: { linkable_type: 'Project' }) }, foreign_key: 'linkable_id'
+  belongs_to :volunteer, -> { includes(:links).where(links: { linkable_type: 'Volunteer' }) }, foreign_key: 'linkable_id'
   belongs_to :activity, -> { includes(:links).where(links: { linkable_type: 'Activity'}) }, foreign_key: 'linkable_id'
+  belongs_to :entity, -> { includes(:links).where(links: { linkable_type: 'Entity'}) }, foreign_key: 'linkable_id'
 
 
   has_attached_file :file,
@@ -67,6 +68,22 @@ class Link < ActiveRecord::Base
   }
   scope :volunteer_logo, ->{
     includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.logo.take.id)
+  }
+  
+  scope :entity_images , ->{
+    includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.image.take.id)
+  }
+  scope :entity_videos , ->{
+    includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.video.take.id)
+  }
+  scope :entity_docs   , ->{
+    includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.document.take.id)
+  }
+  scope :entity_urls   , ->{
+    includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.url.take.id)
+  }
+  scope :entity_logo, ->{
+    includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.logo.take.id)
   }
 
   class << self

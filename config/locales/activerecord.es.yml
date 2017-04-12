@@ -132,6 +132,9 @@ es:
       nationality:
         one:   Nacionalidad
         other: Nacionalidades
+      notice_type:
+        one:   Tipo de notificación
+        other: Tipos de notificación
       organization:
         one:   Entidad
         other: Entidades
