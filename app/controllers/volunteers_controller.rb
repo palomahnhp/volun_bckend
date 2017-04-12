@@ -80,13 +80,13 @@ class VolunteersController < ApplicationController
         format.html
       end
     else
-      render js: "swal('Lo sentimos','No se ha encontrado ningún número de teléfono','error')"
+      render js: "swal( '#{t('alert_title')}','#{t('alert_message_phone')}','error')"
     end
   end
 
   def send_sms
     @volunteer = Volunteer.find_by(id: params[:volunteer])
-    SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
+    sms = SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
     redirect_to volunteers_path
   end
 

@@ -22,14 +22,3 @@
 <% unless request.xhr? %>
 <%= button_to_back %>
 <% end %>
-
-<script>
-    $("#btn-send").click(function(){
-
-        swal(
-          "Enviado!",
-          "El mensaje ha sido enviado",
-          "success"
-        );
-    });
-</script>
