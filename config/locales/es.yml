@@ -124,6 +124,7 @@ es:
   id: 'ID del voluntario'
   choose_availability: 'Elegir disponibilidad'
   search: 'Buscar'
+  sms_service: 'Servicio SMS'
   administration_title_text: Aquí se administran las tablas de la aplicación
   areas_text: Ámbitos a los que pertenece un proyecto
   project_types_text: Tipos de proyecto a los que un proyecto puede ser

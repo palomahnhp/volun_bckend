@@ -1,4 +1,4 @@
-<%= main_title(t('sms')) %>
+<%= main_title(t('sms_service')) %>
 
 <div class="row">
 	<div class="col-md-6 pull left">
@@ -8,6 +8,10 @@
       <dt><%= t('cell_phone') %>:</dt>
 			<dd class="phone"><%= @volunteer.phone_number_alt %></dd>
     </dl>
+		<div class="form-group">
+  		<label for="comment"><%= t('sms') %></label>
+  		<textarea class="sms-message form-control" rows="5" id="comment"></textarea>
+		</div>
     <button id="btn-send" class="btn btn-success"><%= t('send_sms') %></button>
 	</div>
 </div>
