@@ -18,12 +18,19 @@
           <%= f.input :description, wrapper_html: { class: 'col-md-10' } %>
         </div>
       </div>
-      <div class="row ">
+      <div class="row well">
         <div class="col-md-12">
           <%= f.association :entity_type, wrapper_html: { class: 'col-md-5' } %>
           <%= f.association :reason, input_html: { onchange: "showOthersNoNested();" }, wrapper_html: { class: 'col-md-7' } %>
           <%= hidden_field_tag "others", t('others') %>
           <%= f.input :other_subscribe_reason, wrapper_html: { hidden: true, class: 'col-md-9 pull-right' }  %>
+        </div>
+      </div>
+      <div class="row well">
+        <div class="col-md-12">
+          <%= f.simple_fields_for :user, (f.object.user.presence || f.object.build_user) do |f_user| %>
+            <%= f_user.association :notice_type, label: NoticeType.model_name.human, wrapper_html: { class: 'col-md-5' } %>
+          <% end %>
         </div>
       </div>
     </div>

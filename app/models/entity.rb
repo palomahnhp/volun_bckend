@@ -17,6 +17,7 @@ class Entity < ActiveRecord::Base
   
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :address
+  accepts_nested_attributes_for :user
   accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :docs,   reject_if: :all_blank, allow_destroy: true
