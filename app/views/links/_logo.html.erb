@@ -1,12 +1,12 @@
 <div class="logo_block col-md-2">
-	<%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
-			<%= show_simple_base_errors(f_logo) %>
-			<div class="logo-fields col-md-12">
-				<div class="">
-					<%= content_tag :div, image_tag(f_logo.object.file.url(:small), height: '210', width: '210'), class: 'logo-img' %>
-					<%= f_logo.input :file, as: :file, label: false, wrapper_html: { class: '' } %>
-					<%= f_logo.input :link_type_id, as: :hidden, input_html: { value: LinkType.logo.take.id } %>
-				</div> <!-- logo-fields -->
-			</div>
+  <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
+    <%= show_simple_base_errors(f_logo) %>
+    <div class="logo-fields col-md-12">
+	    <div class="">
+        <%= content_tag :div, image_tag(f_logo.object.file.url(:small), height: '210', width: '210'), class: 'logo-img' %>
+        <%= f_logo.input :file, as: :file, label: false, wrapper_html: { class: '' } %>
+        <%= f_logo.input :link_type_id, as: :hidden, input_html: { value: LinkType.logo.take.id } %>
+      </div> <!-- logo-fields -->
+    </div>
 	<% end %>
 </div> <!-- logo_block -->
