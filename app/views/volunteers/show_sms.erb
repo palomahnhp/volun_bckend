@@ -10,9 +10,12 @@
     </dl>
 		<div class="form-group">
   		<label for="comment"><%= t('sms') %></label>
-  		<textarea class="sms-message form-control" rows="5" id="comment"></textarea>
+			<%= form_for @volunteer, url: send_sms_path, method: :get do |f| %>
+				<%= text_area_tag "message", nil, class: "sms-message form-control", row: "5" %>
+				<%= hidden_field_tag "volunteer", @volunteer.id %>
+				<%= f.submit t('send_sms'), class: 'btn btn-success', id: 'btn-send' %>
+			<% end %>
 		</div>
-    <button id="btn-send" class="btn btn-success"><%= t('send_sms') %></button>
 	</div>
 </div>
 
@@ -22,10 +25,11 @@
 
 <script>
     $("#btn-send").click(function(){
+
         swal(
           "Enviado!",
           "El mensaje ha sido enviado",
           "success"
-        )
+        );
     });
 </script>

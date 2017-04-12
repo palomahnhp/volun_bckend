@@ -15,17 +15,17 @@ class SMSApi
     Base64.encode64("#{Rails.application.secrets.sms_username}:#{Rails.application.secrets.sms_password}")
   end
 
-  def sms_deliver(phone, code)
+  def sms_deliver(phone_number_alt, message)
     return stubbed_response unless end_point_available?
 
-    response = client.call(:enviar_sms_simples, message: request(phone, code))
+    response = client.call(:enviar_sms_simples, message: request(phone_number_alt, message))
     success?(response)
   end
 
-  def request(phone, code)
+  def request(phone_number_alt, message)
     { autorizacion:  authorization,
-      destinatarios: { destinatario: phone },
-      texto_mensaje: "Clave para verificarte: #{code}. Gobierno Abierto",
+      destinatarios: { destinatario: phone_number_alt },
+      texto_mensaje: message,
       solicita_notificacion: "All" }
   end
 
@@ -34,7 +34,7 @@ class SMSApi
   end
 
   def end_point_available?
-    Rails.env.staging? || Rails.env.preproduction? || Rails.env.production?
+    Rails.env.development? || Rails.env.preproduction? || Rails.env.production?
   end
 
   def stubbed_response
