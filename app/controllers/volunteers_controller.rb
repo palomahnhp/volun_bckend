@@ -86,8 +86,12 @@ class VolunteersController < ApplicationController
 
   def send_sms
     @volunteer = Volunteer.find_by(id: params[:volunteer])
-    sms = SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
-    redirect_to volunteers_path
+    begin
+      SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
+      redirect_to volunteers_path, notice: I18n.t('success_message_sending')
+    rescue
+      redirect_to volunteers_path, alert: I18n.t('alert_message_sending')
+    end
   end
 
 
