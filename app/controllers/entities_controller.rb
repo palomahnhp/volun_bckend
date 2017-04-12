@@ -140,6 +140,13 @@ class EntitiesController < ApplicationController
               :file,
               :_destroy
             ]
+          },
+          {
+            user_attributes: [
+              :id,
+              :notice_type_id,
+              :_destroy
+            ]
           }
         )
     end
