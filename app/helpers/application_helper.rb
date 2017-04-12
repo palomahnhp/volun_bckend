@@ -1,16 +1,5 @@
 module ApplicationHelper
 
-  def uweb_user_data
-    @uweb_user_data = (session[:uweb_user_data] || {}).with_indifferent_access
-    @uweb_user_data[:full_name] = "#{@uweb_user_data[:name]} #{@uweb_user_data[:surname]} #{@uweb_user_data[:last_name_alt]} "
-    @uweb_user_data
-  end
-
-  def logged_user_name
-    user_data = session[:uweb_user_data] || {}
-    "#{user_data[:name]} #{user_data[:surname]} #{user_data[:last_name_alt]} "
-  end
-
   def show_simple_list(ar_collection, attr = :name)
     ar_collection.pluck(attr).join(" <strong>-</strong> ").html_safe
   end
