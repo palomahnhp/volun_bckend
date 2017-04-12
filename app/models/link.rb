@@ -14,7 +14,6 @@ class Link < ActiveRecord::Base
                     },
                     default_url: '/images/missing.png',
                     url: '/system/:class/:belongs_to/:id/:attachment/:style/:filename'
-  validates_attachment_content_type :file, content_type: /\Atxt|pdf|doc|rtf|xls|csv\/.*\z/, if: 'document?'
   validates_attachment_content_type :file, content_type: /\Aimage\/.*\z/ , if: 'logo? || image?'
   validates_attachment_content_type :file, content_type: /\Avideo\/.*\z/ , if: 'video?'
   validates_attachment_content_type :file,
