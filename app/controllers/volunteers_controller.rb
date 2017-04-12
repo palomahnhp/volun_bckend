@@ -1,11 +1,11 @@
 class VolunteersController < ApplicationController
-
   load_and_authorize_resource
   respond_to :html, :js, :json
 
   def index
     params[:q] ||= Volunteer.ransack_default
     @search_q = @volunteers.search(params[:q])
+    @search_q.sorts = 'id asc' if @search_q.sorts.empty?
     @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
 
     @districts_names = Address.joins(:volunteers).where.not(district: [nil, ""]).all.pluck(:district).uniq.sort_by { |district| district }
@@ -70,6 +70,28 @@ class VolunteersController < ApplicationController
   def recover
     @volunteer.recover
     respond_with(@volunteer)
+  end
+
+  def show_sms
+    @volunteer = Volunteer.find_by(id: params[:volunteer])
+    if @volunteer.phone_number_alt
+      respond_with(@volunteer) do |format|
+        format.js { render 'shared/popup' }
+        format.html
+      end
+    else
+      render js: "swal( '#{t('alert_title')}','#{t('alert_message_phone')}','error')"
+    end
+  end
+
+  def send_sms
+    @volunteer = Volunteer.find_by(id: params[:volunteer])
+    begin
+      SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
+      redirect_to volunteers_path, notice: I18n.t('success_message_sending')
+    rescue
+      redirect_to volunteers_path, alert: I18n.t('alert_message_sending')
+    end
   end
 
 

@@ -36,6 +36,8 @@ es:
   files_are_allowed_olny_on_update_volun: Sólo se pueden subir archivos para voluntarios ya existentes
   does_not_have: "No tiene %{element}"
   details: Detalles
+  sms: Mensaje SMS
+  send_sms: Enviar SMS
   search_filter: 'Filtrar búsqueda'
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
@@ -55,6 +57,7 @@ es:
   videos: Videos
   image: Imágen
   images: Imágenes
+  cell_phone: Móvil
   update_logo: Actualizar logo
   name: Nombre
   messages:
@@ -121,6 +124,7 @@ es:
   id: 'ID del voluntario'
   choose_availability: 'Elegir disponibilidad'
   search: 'Buscar'
+  sms_service: 'Servicio SMS'
   administration_title_text: Aquí se administran las tablas de la aplicación
   areas_text: Ámbitos a los que pertenece un proyecto
   project_types_text: Tipos de proyecto a los que un proyecto puede ser
@@ -150,3 +154,8 @@ es:
   no_accept_cond: No acepta condiciones
   others: Otros
   inactivate: Dar de baja entidad
+  alert_title: 'Lo sentimos'
+  alert_message_phone: 'No se ha encontrado ningún número de teléfono'
+  alert_message_sending: 'Temporalmente fuera de servicio'
+  success_sending: '¡Enviado!'
+  success_message_sending: 'El mensaje ha sido enviado'

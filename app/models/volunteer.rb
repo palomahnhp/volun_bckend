@@ -56,7 +56,7 @@ class Volunteer < ActiveRecord::Base
   has_many :videos, -> { volunteer_videos }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :docs,   -> { volunteer_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :urls,   -> { volunteer_urls   }, class_name: 'Link', foreign_key: 'linkable_id'
-  
+
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :known_languages, reject_if: :all_blank, allow_destroy: true
@@ -108,11 +108,17 @@ class Volunteer < ActiveRecord::Base
   }
 
   def self.main_columns
-    %i(id_number name last_name last_name_alt phone_number phone_number_alt)
+    %i(id
+       id_number
+       name
+       last_name
+       last_name_alt
+       phone_number
+       phone_number_alt)
   end
 
   def self.ransack_default
-    {s: 'id desc'}
+    {s: 'id asc'}
   end
 
   def to_s
@@ -122,7 +128,7 @@ class Volunteer < ActiveRecord::Base
   def unassociated_projects
     Project.where('id NOT IN (?)', self.projects.select('id')).where(active: true).order('projects.name asc')
   end
-  
+
   def check_existing(degree_attr)
     _degree = Degree.find_by(name: degree_attr[:name])
     if _degree && !self.degrees.exists?(_degree)

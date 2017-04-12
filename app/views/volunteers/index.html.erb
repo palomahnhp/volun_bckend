@@ -59,8 +59,6 @@
 <table class="index-table">
   <thead>
     <tr>
-      <th><%= Volunteer.human_attribute_name(:id) %></th>
-
     <% model_class.main_columns.each do |column| -%>
       <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
     <% end -%>

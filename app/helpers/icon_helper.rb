@@ -26,9 +26,13 @@ module IconHelper
   def icon_recover(opts = {})
     build_icon(:recover, opts.merge(icon_name: 'bolt', class: :recover))
   end
-  
+
   def icon_tracking(opts = {})
     build_icon(:trackings, opts.merge(icon_name: 'road', title: t('action.man_trackings', model: '')))
+  end
+
+  def icon_sms(opts = {})
+    build_icon(:show_sms, opts.merge(icon_name: 'envelope-o', title: t('send_sms')))
   end
 
   def icon_search(opts = {})
