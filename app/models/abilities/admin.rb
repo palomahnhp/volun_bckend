@@ -1,5 +1,5 @@
 module Abilities
-  class SuperAdmin
+  class Admin
     include CanCan::Ability
 
     def initialize(user)

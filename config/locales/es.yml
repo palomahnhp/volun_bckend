@@ -59,7 +59,7 @@ es:
   name: Nombre
   messages:
     are_you_sure: ¿Está seguro?
-    access_denied: "Accesso denegado"
+    access_denied: "Accesso denegado, no tiene suficientes permisos."
     select_a_model: Seleccionar %{model}
     confirm_action: Se van a efectuar los cambios. ¿Está seguro de que desea continuar?
     confirm_undo: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
@@ -149,3 +149,7 @@ es:
       default: ! '%d/%m/%Y'
   no_accept_cond: No acepta condiciones
   others: Otros
+  unauthorized:
+    default: No tienes permiso para acceder a esta página.
+    manage:
+      all: "No tienes permiso para realizar la acción '%{action}' sobre %{subject}."

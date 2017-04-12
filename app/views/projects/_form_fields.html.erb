@@ -23,15 +23,17 @@
           <%= f.input :comments %>
         </div>
       </div>
-      <div class="row">
-        <p>
-          <%= f.input :active, wrapper_html: { class: 'col-md-2' } unless f.object.new_record? %>
-          <%= f.input :volunteers_allowed, wrapper_html: { class: 'col-md-3' } %>
-          <%= f.input :publish, wrapper_html: { class: 'col-md-2' } %>
-          <%= f.input :outstanding, wrapper_html: { class: 'col-md-2' } %>
-          <%= f.input :urgent, wrapper_html: { class: 'col-md-2' } %>
-        </p>
-      </div>
+      <% if can? :update_checks, Project  %>
+        <div class="row">
+          <p>
+            <%= f.input :active, wrapper_html: { class: 'col-md-2' } unless f.object.new_record? %>
+            <%= f.input :volunteers_allowed, wrapper_html: { class: 'col-md-3' } %>
+            <%= f.input :publish, wrapper_html: { class: 'col-md-2' } %>
+            <%= f.input :outstanding, wrapper_html: { class: 'col-md-2' } %>
+            <%= f.input :urgent, wrapper_html: { class: 'col-md-2' } %>
+          </p>
+        </div>
+      <% end %>
     </div>
   </div>
   <div class="row well row-2">
