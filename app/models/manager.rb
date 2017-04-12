@@ -10,7 +10,7 @@ class Manager < ActiveRecord::Base
   has_many :permissions
   has_many :volunteers
   has_one  :user, as: :loggable
-  delegate :super_admin?, :admin?, :internal_staff?, :external_staff?, to: :role, allow_nil: true
+  delegate :is_administrator?, :super_admin?, :admin?, :internal_staff?, :external_staff?, to: :role, allow_nil: true
 
   validates :name, uniqueness: true
   validates :name, presence: true

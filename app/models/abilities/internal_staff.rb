@@ -91,6 +91,9 @@ module Abilities
 
       cannot :manage, Setting
       cannot :manage, User
+      cannot :administration, WelcomeController
+      cannot :maintenance, WelcomeController
+      cannot :update_checks, Project
     end
 
   end

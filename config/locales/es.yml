@@ -62,7 +62,7 @@ es:
   name: Nombre
   messages:
     are_you_sure: ¿Está seguro?
-    access_denied: "Accesso denegado"
+    access_denied: "Accesso denegado, no tiene suficientes permisos."
     select_a_model: Seleccionar %{model}
     confirm_action: Se van a efectuar los cambios. ¿Está seguro de que desea continuar?
     confirm_undo: Se perderán todos los cambios realizados. ¿Está seguro de que desea continuar?
@@ -159,3 +159,7 @@ es:
   alert_message_sending: 'Temporalmente fuera de servicio'
   success_sending: '¡Enviado!'
   success_message_sending: 'El mensaje ha sido enviado'
+  unauthorized:
+    default: No tienes permiso para acceder a esta página.
+    manage:
+      all: "No tienes permiso para realizar la acción '%{action}' sobre %{subject}."

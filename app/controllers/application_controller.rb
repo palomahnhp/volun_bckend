@@ -12,12 +12,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :use_devise_authentication?, :cast_as_boolean
 
-  rescue_from CanCan::AccessDenied do |exception|
-    flash[:error] = I18n.t('messages.access_denied')
-    begin
-      redirect_to :back
-    rescue
-      redirect_to root_path
+  rescue_from CanCan::AccessDenied do |_exception|
+    respond_to do |format|
+      format.html { redirect_to root_path, alert: I18n.t('messages.access_denied') }
+      format.json { render json: {error: I18n.t('messages.access_denied')}, status: :forbidden }
     end
   end
 
