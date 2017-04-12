@@ -4,7 +4,12 @@
       <%= content_tag :h1, Project.model_name.human, class: 'form-subtitle' %>
       <%= show_simple_base_errors(f) %>
       <div class="row">
-        <%= render partial: 'links/logo', locals: { f: f } %>
+        <div class="logo_block col-md-2">
+          <%= show_simple_base_errors(f) %>
+          <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
+            <%= render partial: 'links/logo', locals: { f: f_logo } %>
+          <% end %>
+        </div> <!-- logo_block -->
         <div class="col-md-10">
           <%= f.input :project_type_id, as: :hidden %>
           <%= f.input :name %>

@@ -6,7 +6,12 @@
   <div class="form-inputs">
     <div class="row well">
       <div class="col-md-12">
-        <%= render partial: 'links/logo', locals: { f: f } %>
+        <div class="logo_block col-md-2">
+          <%= show_simple_base_errors(f) %>
+          <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
+            <%= render partial: 'links/logo', locals: { f: f_logo } %>
+          <% end %>
+        </div> <!-- logo_block -->
         <div class="col-md-10">
           <%= f.input :name, wrapper_html: { class: 'col-md-6' } %>
           <%= f.input :last_name, wrapper_html: { class: 'col-md-6' } %>
