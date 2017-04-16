@@ -20,6 +20,7 @@
 
 # Database files
 *.dump
+*.backup
 
 # Rubymine hidden files
 .idea/
