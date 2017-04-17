@@ -687,14 +687,14 @@ select[multiple].wide-select {
   padding-bottom: 5px
 }
 
-.sms-message {
+.sms-message.form-control {
   margin: 0px -202.292px 0px 0px;
-  height: 114px;
-  width: 373px;
+  width: 372px;
+  height: 148px;
 }
 
-.btn-send {
-  margin-left: 122px;
+#btn-send {
+  margin-top: 5%;
 }
 
 #availability-select {
