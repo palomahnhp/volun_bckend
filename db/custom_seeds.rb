@@ -120,6 +120,11 @@ ROAD_TYPES = {
   'TRAVESIA'   => '1007',
 }
 
+puts "#{I18n.t('creating')} #{Resource.model_name.human}"
+Resource::RESOURCES_NAMES.each do |resource_name|
+  Resource.create!(name: resource_name)
+end
+
 puts "#{I18n.t('creating')} #{District.model_name.human}"
 DISTRICTS.each do |code, name|
   District.create!(code: code, name: name)

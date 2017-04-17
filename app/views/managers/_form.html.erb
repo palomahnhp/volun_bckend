@@ -1,19 +1,42 @@
-<div class="well">
+<div class="well-form">
   <%= simple_form_for(@manager, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.input :name %>
-          <%= f.input :last_name %>
-          <%= f.input :last_name_alt %>
-          <%= f.input :alias_name %>
-          <%= f.association  :profile %>
-          <%= f.association  :role %>
-          <%= f.input :phone_number %>
-          <%= f.input :active %>
+    <div class="row well">
+      <div class="col-md-6">
+        <%= f.input :name %>
+        <%= f.input :last_name %>
+        <%= f.input :last_name_alt %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :alias_name %>
+        <%= f.association :role %>
+        <%= f.input :phone_number %>
+        <%= f.input :active %>
+      </div>
+    </div>
+    <div class="row well">
+      <%= content_tag :h3, Permission.model_name.human(count: 2), class: 'form-subtitle' %>
+      <div class="col-md-12 with-scroll-bar">
+        <%= f.simple_fields_for :permissions do |f_permission| %>
+          <div class="row well">
+                <%= f_permission.input :resource,
+                                       label: f_permission.object.resource.class_name.model_name.human,
+                                       input_html: { disabled: true, class: 'hidden' },
+                                       wrapper_html: { class: 'col-md-4' } %>
+            <%= f_permission.input :can_create, wrapper_html: { class: 'col-md-2' } %>
+            <%= f_permission.input :can_read, wrapper_html: { class: 'col-md-2' } %>
+            <%= f_permission.input :can_update, wrapper_html: { class: 'col-md-2' } %>
+            <%= f_permission.input :can_destroy, wrapper_html: { class: 'col-md-2' } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
 
   <div class="form-actions">
-    <%= f.button :submit %>
+    <%= f.button :submit, class: 'btn btn-success js-confirmable', id: 'submit' %>
+    <%= link_to build_icon('repeat', text: t('messages.undo_changes')), '', class: 'undo js-reloadable' %>
   </div>
   <% end %>
 </div>

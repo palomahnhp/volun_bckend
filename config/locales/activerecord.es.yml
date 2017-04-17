@@ -141,6 +141,9 @@ es:
       proposal:
         one:   Propuesta
         other: Propuestas
+      permission:
+        one:   Permiso
+        other: Permisos
       project:
         one:   Proyecto
         other: Proyectos
@@ -663,15 +666,30 @@ es:
         videos:                   Videos
       manager:
         id:                   ID
+        login:                Login
+        uweb_id:              Clave IND
         name:                 Nombre
         last_name:            Apellido 1
         last_name_alt:        Apellido 2
-        alias_name:           Alias
+        document:             DNI
+        phone_number:         Teléfono
+        email:                Email
+        official_position:    Cargo
+        personal_number:      Num. Personal
         role:                 Rol
+        role_id:              Rol
         profile:              Perfil
-        phone_number:         Teléfono móvil
+        profile_id:           Perfil
+        alias_name:           Alias
         active:               *active
         created_at:           *created_at
+      permission:
+        resource:             Recurso
+        manager:              Gestor
+        can_create:           Crear
+        can_read:             Leer
+        can_update:           Modificar
+        can_destroy:          Eliminar
       setting:
         id:                   ID
         key:                  Clave
