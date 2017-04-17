@@ -74,7 +74,6 @@ class Volunteer < ActiveRecord::Base
                                        before:      Proc.new { 150.years.since },
                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
                                        allow_blank: true }
-
   scope :all_active,   ->(){ where(active: true) }
   scope :all_inactive, ->(){ where(active: false) }
   scope :all_active,   ->(){ where(active: true) }
