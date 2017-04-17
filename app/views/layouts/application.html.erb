@@ -55,12 +55,12 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav">
-          <li><%= link_to Project.model_name.human(count: 2), projects_path %></li>
-          <li><%= link_to Volunteer.model_name.human(count: 2), volunteers_path %></li>
-          <li><%= link_to Entity.model_name.human(count: 2), entities_path %></li>
-          <li><%= link_to Activity.model_name.human(count: 2), activities_path %></li>
-          <li><%= link_to RequestForm.model_name.human(count: 2), rt_extensions_menu_request_forms_path %></li>
-          <li><%= link_to t('administration'), administration_path %></li>
+          <li><%= link_to Project.model_name.human(count: 2), projects_path if can? :read, Project %></li>
+          <li><%= link_to Volunteer.model_name.human(count: 2), volunteers_path if can? :read, Volunteer %></li>
+          <li><%= link_to Entity.model_name.human(count: 2), entities_path if can? :read, Entity %></li>
+          <li><%= link_to Activity.model_name.human(count: 2), activities_path if can? :read, Activity %></li>
+          <li><%= link_to RequestForm.model_name.human(count: 2), rt_extensions_menu_request_forms_path if can? :read, RequestForm %></li>
+          <li><%= link_to t('administration'), administration_path if can? :administration, WelcomeController %></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">

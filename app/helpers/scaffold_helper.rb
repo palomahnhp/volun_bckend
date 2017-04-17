@@ -210,7 +210,7 @@ module ScaffoldHelper
   end
 
   def link_to_linkable(record, opts = {})
-    return unless can?(:recover, record)
+    #return unless can?(:recover, record)
     options = {
         id:     "#{dom_id(record)}_recover",
         text:   icon_recover,

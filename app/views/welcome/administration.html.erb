@@ -13,16 +13,18 @@
           <%= t('catalogs') %>
         </div>
       </div>
-      <div class="panel panel-info" onclick="window.location='<%= settings_path %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= Setting.model_name.human(count: 2)  %>
-          </h3>
+      <% if can? :read, Setting %>
+        <div class="panel panel-info" onclick="window.location='<%= settings_path %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Setting.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= Setting.model_name.human(count: 2) %>
+          </div>
         </div>
-        <div class="panel-body">
-          <%= Setting.model_name.human(count: 2) %>
-        </div>
-      </div>
+      <% end %>
     </div>
     <div class="col-md-6">
       <div class="panel panel-info" onclick="window.location='<%= managers_url %>';">

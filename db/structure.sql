@@ -1227,10 +1227,10 @@ CREATE TABLE permissions (
     id integer NOT NULL,
     manager_id integer,
     resource_id integer,
-    "create" boolean DEFAULT false,
-    update boolean DEFAULT false,
-    read boolean DEFAULT false,
-    destroy boolean DEFAULT false,
+    can_create boolean DEFAULT false,
+    can_update boolean DEFAULT false,
+    can_read boolean DEFAULT false,
+    can_destroy boolean DEFAULT false,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -2037,10 +2037,11 @@ ALTER SEQUENCE request_types_id_seq OWNED BY request_types.id;
 
 CREATE TABLE resources (
     id integer NOT NULL,
-    kind integer,
     description character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    name character varying,
+    active boolean DEFAULT true
 );
 
 
@@ -5142,10 +5143,10 @@ CREATE UNIQUE INDEX index_request_types_on_kind ON request_types USING btree (ki
 
 
 --
--- Name: index_resources_on_kind; Type: INDEX; Schema: public; Owner: -
+-- Name: index_resources_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_resources_on_kind ON resources USING btree (kind);
+CREATE UNIQUE INDEX index_resources_on_name ON resources USING btree (name);
 
 
 --
@@ -6577,4 +6578,12 @@ INSERT INTO schema_migrations (version) VALUES ('20170406113450');
 INSERT INTO schema_migrations (version) VALUES ('20170406140900');
 
 INSERT INTO schema_migrations (version) VALUES ('20170406173450');
+
+INSERT INTO schema_migrations (version) VALUES ('20170416174003');
+
+INSERT INTO schema_migrations (version) VALUES ('20170416175829');
+
+INSERT INTO schema_migrations (version) VALUES ('20170416181032');
+
+INSERT INTO schema_migrations (version) VALUES ('20170416183328');
 
