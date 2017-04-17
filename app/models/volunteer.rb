@@ -1,29 +1,9 @@
 class Volunteer < ActiveRecord::Base
 
   include Archivable
+  include VirtualFullName
 
   enum gender: [:male, :female]
-
-  # Virtual predicate to search text in three columns as they were only one column named :full_name
-  ransacker :full_name, formatter: proc { |v| v.squeeze(' ') }  do |parent|
-    Arel::Nodes::InfixOperation.new(
-      '||',
-      Arel::Nodes::InfixOperation.new(
-        '||',
-        Arel::Nodes::InfixOperation.new(
-          '||',
-          Arel::Nodes::InfixOperation.new(
-            '||',
-            parent.table[:name],
-            Arel::Nodes.build_quoted(' ')
-          ),
-          parent.table[:last_name]
-        ),
-        Arel::Nodes.build_quoted(' ')
-      ),
-      parent.table[:last_name_alt]
-    )
-  end
 
   belongs_to :academic_level
   belongs_to :address #required: true
@@ -35,40 +15,40 @@ class Volunteer < ActiveRecord::Base
   belongs_to :status
   belongs_to :manager
   belongs_to :unsubscribe_reason
-  has_and_belongs_to_many :projects, ->{ where(active: true).order('projects.name asc') }
-  has_and_belongs_to_many :projects_others, ->{ where(active: true).order('projects.name asc') }, :class_name => 'Project'
-  has_and_belongs_to_many :skills, ->{ where(active: true).order('skills.name asc') }
-  has_and_belongs_to_many :degrees, ->{ where(active: true).order('degrees.name asc') }
-  has_and_belongs_to_many :areas, ->{ where(active: true).order('areas.name asc') }
-  has_and_belongs_to_many :collectives, ->{ where(active: true).order('collectives.name asc') }
-  has_many :known_languages,         :class_name => 'Volun::KnownLanguage'
-  has_many :assessments,             :class_name => 'Volun::Assessment'
-  has_many :assessments_projects,    :class_name => 'Volun::AssessmentsProject'
-  has_many :availabilities,          :class_name => 'Volun::Availability'
-  has_many :contacts,                :class_name => 'Volun::Contact'
-  has_many :trackings,               :class_name => 'Volun::Tracking'
+  has_and_belongs_to_many :projects,        ->{ where(active: true).order('projects.name asc') }
+  has_and_belongs_to_many :projects_others, ->{ where(active: true).order('projects.name asc') }, class_name: 'Project'
+  has_and_belongs_to_many :skills,          ->{ where(active: true).order('skills.name asc') }
+  has_and_belongs_to_many :degrees,         ->{ where(active: true).order('degrees.name asc') }
+  has_and_belongs_to_many :areas,           ->{ where(active: true).order('areas.name asc') }
+  has_and_belongs_to_many :collectives,     ->{ where(active: true).order('collectives.name asc') }
+  has_many :availabilities, ->{ ordered }, class_name: 'Volun::Availability'
+  has_many :known_languages,      class_name: 'Volun::KnownLanguage'
+  has_many :assessments,          class_name: 'Volun::Assessment'
+  has_many :assessments_projects, class_name: 'Volun::AssessmentsProject'
+  has_many :contacts,             class_name: 'Volun::Contact'
+  has_many :trackings,            class_name: 'Volun::Tracking'
   has_many :languages, :through => :known_languages
   has_many :traits,    :through => :assessments
-  has_one :user, as: :loggable
   has_many :links, as: :linkable
-  has_one  :logo,   -> { volunteer_logo   }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :images, -> { volunteer_images }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :videos, -> { volunteer_videos }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :docs,   -> { volunteer_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :urls,   -> { volunteer_urls   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_one  :logo,   -> { volunteer_logo   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_one  :user, as: :loggable
 
   accepts_nested_attributes_for :address
-  accepts_nested_attributes_for :availabilities, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :known_languages, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :assessments, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :degrees,              reject_if: :check_existing, allow_destroy: true
+  accepts_nested_attributes_for :availabilities,       reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :known_languages,      reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :assessments,          reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :assessments_projects, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :projects, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :degrees, reject_if: :check_existing, allow_destroy: true
-  accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :docs,   reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :urls,   reject_if: :all_blank, allow_destroy: true
-  accepts_nested_attributes_for :logo,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :projects,             reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :images,               reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :videos,               reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :docs,                 reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :urls,                 reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :logo,                 reject_if: :all_blank, allow_destroy: true
 
   validates :name, :last_name, :id_number, presence: true
   validates :id_number, spanish_vat: true

@@ -6,6 +6,10 @@ class Volun::Availability < ActiveRecord::Base
 
   validates :day, presence: true
 
+  scope :ordered, ->(){
+    order('volun_availabilities.day asc, volun_availabilities.start_hour asc, volun_availabilities.start_hour asc')
+  }
+
   def to_s
     day_i18n
   end

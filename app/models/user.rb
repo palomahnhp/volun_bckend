@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   validates :notice_type_id, presence: true, if: 'volunteer? || entity?'
   validates :loggable_id, :loggable_type, :login, presence: true
 
+  default_scope ->{ includes(:loggable) }
+
   def to_s
     login || email
   end
