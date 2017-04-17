@@ -5,6 +5,7 @@ class Volun::Availability < ActiveRecord::Base
   belongs_to :volunteer
 
   validates :day, presence: true
+  validates :day, uniqueness: { scope: [:start_hour, :end_hour, :volunteer_id], message: :repeated_day_and_start_hour_and_end_hour }
 
   scope :ordered, ->(){
     order('volun_availabilities.day asc, volun_availabilities.start_hour asc, volun_availabilities.start_hour asc')
