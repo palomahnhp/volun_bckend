@@ -1,4 +1,7 @@
 es:
+  welcome:
+    title: Bienvenido!
+    main_text: Esta es la página de Administración del Voluntariado de Madrid
   humanize:
     "true":  "Sí"
     "false": "No"
