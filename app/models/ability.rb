@@ -5,8 +5,6 @@ class Ability
     return unless user
     can :manage, :all
 
-    # case user.manager
-    # manager =
     case user.loggable
     when ->(manager){ manager.super_admin? }
       self.merge Abilities::SuperAdmin.new(user)
