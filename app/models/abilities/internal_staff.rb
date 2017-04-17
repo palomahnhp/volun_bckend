@@ -14,6 +14,8 @@ module Abilities
 
       can :pt_extensions_menu, Project
       can :rt_extensions_menu, RequestForm
+      can :show_sms, Volunteer
+      can :send_sms, Volunteer
 
       # Add and override permissions
       user.loggable.permissions.each do |permission|
