@@ -16,6 +16,14 @@ module Abilities
       can :rt_extensions_menu, RequestForm
       can :show_sms, Volunteer
       can :send_sms, Volunteer
+      can [:process_request_form, :pre_approve_request_form, :pre_reject_request_form, :reject_request_form],
+          Rt::VolunteerSubscribe
+      can [:process_request_form, :approve_and_render_unsubscribes_path, :pre_approve_request_form,
+           :pre_reject_request_form, :reject_request_form, :mark_request_form_as_pending],
+          Rt::VolunteerUnsubscribe
+      can [:process_request_form, :pre_approve_request_form, :pre_reject_request_form, :reject_request_form,
+           :mark_request_form_as_pending],
+          Rt::Other
 
       # Add and override permissions
       user.loggable.permissions.each do |permission|

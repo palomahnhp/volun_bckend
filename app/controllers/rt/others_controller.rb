@@ -52,28 +52,14 @@ class Rt::OthersController < ApplicationController
       redirect_to rt_others_path, alert: status_manager.show_errors
     end
   end
-  
-  def request_form
-    @rt_other.request_form
-  end
-  
-  def approve_request_form!
-    unless request_form.update_and_trace_status(:approved, manager_id: current_user.loggable_id, user_id: current_user.loggable_id)
-      copy_errors_from!(request_form)
-    end
-  end
-  
-  def approve_and_render_others_path
-    approve_request_form!
-    respond_to do |format|
-      format.html { redirect_to(rt_others_url, notice: I18n.t('messages.request_form_successfully_managed')) }
-      format.js
-    end
-  end
 
   def pre_approve_request_form
     if request_form.processing?
-      approve_and_render_others_path
+      approve_request_form
+      respond_to do |format|
+        format.html { redirect_to(rt_others_url, notice: I18n.t('messages.request_form_successfully_managed')) }
+        format.js
+      end
     else
       @request_form = request_form
       flash[:alert] = I18n.t('errors.request_form_must_be_at_processing')
@@ -116,5 +102,15 @@ class Rt::OthersController < ApplicationController
     end
 
     alias_method :create_params, :rt_other_params
+
+    def request_form
+      @rt_other.request_form
+    end
+
+    def approve_request_form
+      unless request_form.update_and_trace_status(:approved, manager_id: current_user.loggable_id, user_id: current_user.loggable_id)
+        copy_errors_from!(request_form)
+      end
+    end
 
 end
