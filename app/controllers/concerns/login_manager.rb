@@ -36,11 +36,11 @@ class LoginManager
   def find_or_create_manager
     return unless valid?
 
-    self.manager = Manager.search(login_eq: login_data[:login], uweb_id_eq: login_data[:uweb_id], m: 'or').result.take
-    unless manager
-      self.manager = Manager.new(login_data.merge(role: Role.internal_staff.take))
-      copy_errors_from!(manager) unless manager.save
-    end
+    self.manager   = Manager.search(login_eq: login_data[:login], uweb_id_eq: login_data[:uweb_id], m: 'or').result.take
+    self.manager ||= Manager.new(login_data.merge(role: Role.internal_staff.take))
+    set_default_permissions(manager)
+    copy_errors_from!(manager) unless manager.save
+
     manager
   end
 
@@ -62,6 +62,16 @@ class LoginManager
 
   def required_data_present?
     %i(login uweb_id email document).all? { |key| login_data.key? key }
+  end
+
+  def set_default_permissions(manager)
+    Resource.all.each do |resource|
+      manager.permissions.build(resource: resource,
+                                can_create:  true,
+                                can_read:    true,
+                                can_update:  true,
+                                can_destroy: true)
+    end
   end
 
 end

@@ -7,7 +7,7 @@ class Role < ActiveRecord::Base
   end
 
   def to_s
-    description
+    kind_i18n
   end
 
 end

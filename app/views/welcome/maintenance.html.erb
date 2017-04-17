@@ -6,79 +6,93 @@
   <br/>
   <div class="panel-list row">
     <div class="col-md-6">
-      <div class="panel panel-info" onclick="window.location='<%= areas_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= Area.model_name.human(count: 2)  %>
-          </h3>
+      <% if can? :read, Area %>
+        <div class="panel panel-info" onclick="window.location='<%= areas_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Area.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= t('areas_text') %>
+          </div>
         </div>
-        <div class="panel-body">
-          <%= t('areas_text') %>
+      <% end %>
+      <% if can? :read, Nationality %>
+        <div class="panel panel-info" onclick="window.location='<%= nationalities_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Nationality.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= Nationality.model_name.human(count: 2) %>
+          </div>
         </div>
-      </div>
-      <div class="panel panel-info" onclick="window.location='<%= nationalities_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= Nationality.model_name.human(count: 2)  %>
-          </h3>
+      <% end %>
+      <% if can? :read, UnsubscribeReason %>
+        <div class="panel panel-info" onclick="window.location='<%= unsubscribe_reasons_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= UnsubscribeReason.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= UnsubscribeReason.model_name.human(count: 2) %>
+          </div>
         </div>
-        <div class="panel-body">
-          <%= Nationality.model_name.human(count: 2) %>
+      <% end %>
+      <% if can? :read, TrackingType %>
+        <div class="panel panel-info" onclick="window.location='<%= tracking_types_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= TrackingType.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= TrackingType.model_name.human(count: 2) %>
+          </div>
         </div>
-      </div>
-      <div class="panel panel-info" onclick="window.location='<%= unsubscribe_reasons_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= UnsubscribeReason.model_name.human(count: 2)  %>
-          </h3>
+      <% end %>
+      <% if can? :read, Req::RejectionType %>
+        <div class="panel panel-info" onclick="window.location='<%= req_rejection_types_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Req::RejectionType.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= Req::RejectionType.model_name.human(count: 2) %>
+          </div>
         </div>
-        <div class="panel-body">
-          <%= UnsubscribeReason.model_name.human(count: 2) %>
-        </div>
-      </div>
-      <div class="panel panel-info" onclick="window.location='<%= tracking_types_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= TrackingType.model_name.human(count: 2)  %>
-          </h3>
-        </div>
-        <div class="panel-body">
-          <%= TrackingType.model_name.human(count: 2) %>
-        </div>
-      </div>
-      <div class="panel panel-info" onclick="window.location='<%= req_rejection_types_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= Req::RejectionType.model_name.human(count: 2)  %>
-          </h3>
-        </div>
-        <div class="panel-body">
-          <%= Req::RejectionType.model_name.human(count: 2) %>
-        </div>
-      </div>
-      <div class="panel panel-info" onclick="window.location='<%= skills_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
+      <% end %>
+      <% if can? :read, Skill %>
+        <div class="panel panel-info" onclick="window.location='<%= skills_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Skill.model_name.human(count: 2) %>
+            </h3>
+          </div>
+          <div class="panel-body">
             <%= Skill.model_name.human(count: 2) %>
-          </h3>
+          </div>
         </div>
-        <div class="panel-body">
-          <%= Skill.model_name.human(count: 2) %>
-        </div>
-      </div>
-
+      <% end %>
     </div>
     <div class="col-md-6">
-      <div class="panel panel-info" onclick="window.location='<%= collectives_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= Collective.model_name.human(count: 2)  %>
-          </h3>
+      <% if can? :read, Collective %>
+        <div class="panel panel-info" onclick="window.location='<%= collectives_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Collective.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= t('collectives_text') %>
+          </div>
         </div>
-        <div class="panel-body">
-          <%= t('collectives_text') %>
-        </div>
-      </div>
+      <% end %>
+      <% if can? :read, Coordination %>
       <div class="panel panel-info" onclick="window.location='<%= coordinations_url %>';">
         <div class="panel-heading">
           <h3 class="panel-title">
@@ -89,36 +103,43 @@
           <%= t('coordinations_text') %>
         </div>
       </div>
-      <div class="panel panel-info" onclick="window.location='<%= degrees_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= Degree.model_name.human(count: 2)  %>
-          </h3>
+      <% end %>
+      <% if can? :read, Degree %>
+        <div class="panel panel-info" onclick="window.location='<%= degrees_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Degree.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= Degree.model_name.human(count: 2) %>
+          </div>
         </div>
-        <div class="panel-body">
-          <%= Degree.model_name.human(count: 2) %>
+      <% end %>
+      <% if can? :read, Trait %>
+        <div class="panel panel-info" onclick="window.location='<%= traits_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Trait.model_name.human(count: 2)  %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= Trait.model_name.human(count: 2) %>
+          </div>
         </div>
-      </div>
-      <div class="panel panel-info" onclick="window.location='<%= traits_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= Trait.model_name.human(count: 2)  %>
-          </h3>
-        </div>
-        <div class="panel-body">
-          <%= Trait.model_name.human(count: 2) %>
-        </div>
-      </div>
-      <div class="panel panel-info" onclick="window.location='<%= languages_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
+      <% end %>
+      <% if can? :read, Language %>
+        <div class="panel panel-info" onclick="window.location='<%= languages_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Language.model_name.human(count: 2) %>
+            </h3>
+          </div>
+          <div class="panel-body">
             <%= Language.model_name.human(count: 2) %>
-          </h3>
+          </div>
         </div>
-        <div class="panel-body">
-          <%= Language.model_name.human(count: 2) %>
-        </div>
-      </div>
+      <% end %>
       <!--<div class="panel panel-info" onclick="window.location='<%#= record_histories_url %>';">-->
         <!--<div class="panel-heading">-->
           <!--<h3 class="panel-title">-->

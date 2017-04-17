@@ -7,9 +7,11 @@ class Manager < ActiveRecord::Base
   has_many :contacts, :class_name => 'Volun::Contact'
   has_many :trackings, :class_name => 'Volun::Tracking'
   has_many :request_forms
-  has_many :permissions
+  has_many :permissions, ->{ includes(:resource).where(resources: { active: true }) }
   has_many :volunteers
   has_one  :user, as: :loggable
+  accepts_nested_attributes_for :permissions
+
   delegate :is_administrator?, :super_admin?, :admin?, :internal_staff?, :external_staff?, to: :role, allow_nil: true
 
   validates :name, uniqueness: true
