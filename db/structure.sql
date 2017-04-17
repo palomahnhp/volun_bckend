@@ -5143,11 +5143,7 @@ CREATE UNIQUE INDEX index_request_types_on_kind ON request_types USING btree (ki
 
 
 --
-<<<<<<< 58ed0351938a53822e91f0cea74324525df44bb8
--- Name: index_resources_on_kind; Type: INDEX; Schema: public; Owner: -
-=======
 -- Name: index_resources_on_name; Type: INDEX; Schema: public; Owner: -
->>>>>>> Manage permissions from manager form
 --
 
 CREATE UNIQUE INDEX index_resources_on_name ON resources USING btree (name);
@@ -6590,4 +6586,3 @@ INSERT INTO schema_migrations (version) VALUES ('20170416175829');
 INSERT INTO schema_migrations (version) VALUES ('20170416181032');
 
 INSERT INTO schema_migrations (version) VALUES ('20170416183328');
-
