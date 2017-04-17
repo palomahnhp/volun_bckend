@@ -707,3 +707,11 @@ select[multiple].wide-select {
   width: 20%;
   margin-left: 3%;
 }
+.text_area {
+  .col-sm-5 {
+    width: 15%;
+  }
+  .col-sm-7 {
+    width: 85%;
+  }
+}
