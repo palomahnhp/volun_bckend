@@ -84,7 +84,7 @@ class Resource < ActiveRecord::Base
   has_many :permissions
   has_many :managers
 
-  validates name, inclusion: { in: RESOURCES_NAMES }
+  validates :name, inclusion: { in: RESOURCES_NAMES }
 
   def to_s
     name
