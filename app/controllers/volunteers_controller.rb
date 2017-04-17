@@ -90,7 +90,7 @@ class VolunteersController < ApplicationController
       SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
       redirect_to volunteers_path, notice: I18n.t('success_message_sending')
     rescue
-      redirect_to volunteers_path, alert: I18n.t('alert_message_sending')
+      render js: "swal( '#{t('alert_title')}','#{t('alert_message_sending')}','error')"
     end
   end
 

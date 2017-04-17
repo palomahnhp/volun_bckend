@@ -15,26 +15,23 @@
 
 <div class="index-panel row well">
   <div class="col-md-12">
-    <div class="index-filters col-md-4 form-group select">
-      <%= content_tag :label, t('filter').pluralize + ":", for: 'district-select', class: 'col-sm-6 control-label' %>
-      <div class="col-sm-6">
+    <div class="index-filters col-md-9 form-group select">
+      <%= content_tag :label, t('filter').pluralize + ":", for: 'district-select', class: 'col-sm-3 control-label filter-volun' %>
+      <div class="col-sm-3">
         <%= select_tag :address_district, options_for_select(@districts_names), include_blank: t('district'),
                                           class:     'form-control',
                                           id:        'district-select' %>
       </div>
-    </div>
-    <div class="col-sm-2">
-      <%= select_tag :status, options_for_select({ t('active') => :active, t('inactive') => :inactive, t('all') => :all }), include_blank: t('status'),
-                              class:     'form-control',
-                              id:        'status-select' %>
-    </div>
-    <div class="availability-filter col-md-2 form-group select">
-      <%= content_tag :label, t('availability') + ":", for: 'available_day', class: 'col-sm-6 control-label' %>
-    </div>
-    <div class="col-sm-2" id="day-availability">
-      <%= select_tag :availabilities_day, options_for_select(Volun::Availability.days_i18n_alt), include_blank: t('available_day'),
-                                          class:     'form-control',
-                                          id:        'availability-select' %>
+      <div class="col-sm-3">
+        <%= select_tag :status, options_for_select({ t('active') => :active, t('inactive') => :inactive, t('all') => :all }), include_blank: t('status'),
+                                class:     'form-control',
+                                id:        'status-select' %>
+      </div>
+      <div class="col-sm-3" id="day-availability">
+        <%= select_tag :availabilities_day, options_for_select(Volun::Availability.days_i18n_alt), include_blank: t('available_day'),
+                                            class:     'form-control',
+                                            id:        'availability-select' %>
+      </div>
     </div>
     <div class="col-sm-2 pull-right">
       <button type="button" name="button" id="btn-reset" class="btn btn-primary"><%= t('reset_search') %></button>
