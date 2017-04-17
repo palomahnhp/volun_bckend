@@ -1,6 +1,7 @@
 class Manager < ActiveRecord::Base
 
   include Archivable
+  include VirtualFullName
 
   belongs_to :profile
   belongs_to :role
@@ -16,6 +17,8 @@ class Manager < ActiveRecord::Base
 
   validates :name, uniqueness: true
   validates :name, presence: true
+
+  default_scope ->{ includes(:role, :permissions) }
 
   class << self
     delegate :kinds, :kinds_i18n, to: Role
