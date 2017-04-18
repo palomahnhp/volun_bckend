@@ -111,21 +111,7 @@
       <% end %>
       <p><%= f.link_to_add icon_new(text: "#{Volun::Assessment.model_name.human}"), :assessments, class: 'btn' %></p>
     </div>
-    <div class="row well">
-      <%= content_tag :h3, Volun::AssessmentsProject.model_name.human(count: 2), class: 'form-subtitle' %>
-      <%= f.simple_fields_for :assessments_projects do |f_assessments_projects|  %>
-        <div class="row well col-md-12">
-          <div class="row">
-              <%= f_assessments_projects.association :project, wrapper_html: { class: 'col-md-4' } %>
-              <%= f_assessments_projects.association :trait, input_html: { onchange: "showComments(this.id);" }, wrapper_html: { class: 'col-md-4' } %>
-              <%= hidden_field_tag "others", t('others') %>
-              <%= f_assessments_projects.input :trait_other, wrapper_html: { hidden: true, class: 'col-md-4' }  %>
-              <%= f_assessments_projects.link_to_remove build_icon('trash-o', text: "#{Volun::AssessmentsProject.model_name.human}"), class: 'pull-right' %>
-          </div> <!-- assessment-project-fields -->
-        </div>
-      <% end %>
-      <p><%= f.link_to_add icon_new(text: "#{Volun::AssessmentsProject.model_name.human}"), :assessments_projects, class: 'btn' %></p>
-    </div>
+    
     <div class="row well">
       <%= f.input :agreement, input_html: {onClick: 'setAgrmtDate()'}, wrapper_html: { class: 'col-md-6' } %>
       <%= f.input :agreement_date, as: :string, input_html: date_input_html(f.object.agreement_date), wrapper_html: { class: 'col-md-6' } %>
@@ -201,8 +187,21 @@
         <% end %>
       </div>
     <% end %>
-
-
+    <div class="row well">
+      <%= content_tag :h3, Volun::AssessmentsProject.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :assessments_projects do |f_assessments_projects|  %>
+        <div class="row well col-md-12">
+          <div class="row">
+              <%= f_assessments_projects.association :project, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_assessments_projects.association :trait, input_html: { onchange: "showComments(this.id);" }, wrapper_html: { class: 'col-md-4' } %>
+              <%= hidden_field_tag "others", t('others') %>
+              <%= f_assessments_projects.input :trait_other, wrapper_html: { hidden: true, class: 'col-md-4' }  %>
+              <%= f_assessments_projects.link_to_remove build_icon('trash-o', text: "#{Volun::AssessmentsProject.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- assessment-project-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Volun::AssessmentsProject.model_name.human}"), :assessments_projects, class: 'btn' %></p>
+    </div>
     <div class="row">
       <% if @volunteer.persisted? && f.object.reload.projects.any? %>
         <div class="well col-md-12">
@@ -241,6 +240,7 @@
           <%= f.association :projects, as: :select, label: false, input_html: { class: 'wide-select col-md-12' } %>
         <% end %>
       </div>
+      
     </div>
     <%= render partial: 'links/documents', locals: { f: f } %>
   </div>
