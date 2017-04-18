@@ -38,7 +38,7 @@ body {
 }
 
 .footer {
-  height: 300px;
+  height: 360px;
   background-image: image_url("volunteer-work.jpg");
   background-color: white;
   background-position: center bottom;
@@ -49,8 +49,6 @@ body {
   padding: 20px;
   bottom: 0;
   width: 100%;
-  /* Set the fixed height of the footer here */
-  margin-top: 50px;
 }
 
 .copyright {
@@ -222,7 +220,7 @@ a.btn-primary:visited {
   .jumbotron{
     background-color: lightgoldenrodyellow;
     margin-top: 30px;
-    min-height: 640px;
+    min-height: 570px;
   }
 }
 
@@ -491,9 +489,11 @@ a:hover {
   padding-left: 15px;
   padding-right: 15px;
   padding-top: 0;
+  padding-bottom: 10px;
   border: 2px solid #e3e3e3;
   border-left-width: 0;
   border-right-width: 0;
+  margin-bottom: 10px;
 }
 
 form .well {
