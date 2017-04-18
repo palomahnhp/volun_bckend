@@ -3,6 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/core-js/2.4.1/core.js"></script>
+
   <%= viewport_meta_tag %>
   <title><%= content_for?(:title) ? yield(:title) : Volunteer.model_name.human(count: 2) %></title>
   <%= csrf_meta_tags %>
