@@ -74,7 +74,14 @@ class VolunteersController < ApplicationController
 
   def show_sms
     @volunteer = Volunteer.find_by(id: params[:volunteer])
-    if @volunteer.phone_number_alt
+    if @volunteer.phone_number && @volunteer.phone_number.start_with?("6"||"7")
+      @sms_number = @volunteer.phone_number
+      respond_with(@volunteer) do |format|
+        format.js { render 'shared/popup' }
+        format.html
+      end
+    elsif @volunteer.phone_number_alt && @volunteer.phone_number_alt.start_with?("6"||"7")
+      @sms_number = @volunteer.phone_number_alt
       respond_with(@volunteer) do |format|
         format.js { render 'shared/popup' }
         format.html
@@ -86,11 +93,16 @@ class VolunteersController < ApplicationController
 
   def send_sms
     @volunteer = Volunteer.find_by(id: params[:volunteer])
+    if @volunteer.phone_number && @volunteer.phone_number.start_with?("6"||"7")
+      @sms_number = @volunteer.phone_number
+    elsif @volunteer.phone_number_alt && @volunteer.phone_number_alt.start_with?("6"||"7")
+      @sms_number = @volunteer.phone_number_alt
+    end
     begin
-      SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
+      SMSApi.new.sms_deliver(@sms_number, params[:message])
       redirect_to volunteers_path, notice: I18n.t('success_message_sending')
     rescue
-      render js: "swal( '#{t('alert_title')}','#{t('alert_message_sending')}','error')"
+      redirect_to volunteers_path, alert: I18n.t('alert_message_sending')
     end
   end
 
