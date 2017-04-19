@@ -131,13 +131,13 @@ class Volunteer < ActiveRecord::Base
   def trait_check
     return unless assessments.any?
     assessments.each do |first_assessment|
-      i = 0
+      trait_count = 0
       assessments.each do |assessment|
         if  first_assessment.trait_id == assessment.trait_id
-          i += 1
+          trait_count += 1
         end
       end
-      if i > 1
+      if trait_count > 1
         errors.add(:base, :alert_trait_duplicity)
         return
       end
@@ -147,13 +147,13 @@ class Volunteer < ActiveRecord::Base
   def trait_project_check
     return unless assessments_projects.any?
     assessments_projects.each do |first_assessment|
-      i = 0
+      project_trait_count = 0
       assessments_projects.each do |assessment|
         if  first_assessment.trait_id == assessment.trait_id && first_assessment.project_id == assessment.project_id
-          i += 1
+          project_trait_count += 1
         end
       end
-      if i > 1
+      if project_trait_count > 1
         errors.add(:base, :alert_project_trait_duplicity)
         return
       end
