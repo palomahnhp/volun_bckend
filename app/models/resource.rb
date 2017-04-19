@@ -81,10 +81,22 @@ class Resource < ActiveRecord::Base
     Volunteer.name
   ]
 
+  include Archivable
+
+  attr_accessor :alias_name
+
   has_many :permissions
   has_many :managers
 
   validates :name, inclusion: { in: RESOURCES_NAMES }
+
+  def self.main_columns
+    %i(alias_name name description active)
+  end
+
+  def alias_name
+    class_name.model_name.human
+  end
 
   def to_s
     name
