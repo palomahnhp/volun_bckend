@@ -768,6 +768,11 @@ es:
           attributes:
             day:
               repeated_day_and_start_hour_and_end_hour: El día, la hora de comienzo y la hora de fin ya existen
+        id_number_type:
+          attributes:
+            name:
+              cannot_be_deleted: No puede ser eliminado
+              cannot_be_modified: No puede ser Modificado
         link:
           attributes:
             file:
