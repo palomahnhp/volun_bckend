@@ -155,7 +155,7 @@ es:
   others: Otros
   inactivate: Dar de baja entidad
   alert_title: 'Lo sentimos'
-  alert_message_phone: 'No se ha encontrado ningún número de teléfono'
+  alert_message_phone: 'No se ha encontrado ningún número de teléfono móvil disponible'
   alert_message_sending: 'Temporalmente fuera de servicio'
   success_sending: '¡Enviado!'
   success_message_sending: 'El mensaje ha sido enviado'
