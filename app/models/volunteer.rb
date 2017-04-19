@@ -137,4 +137,12 @@ class Volunteer < ActiveRecord::Base
     return true
   end
 
+  def mobile_number
+    if phone_number && phone_number.start_with?("6"||"7")
+      phone_number
+    elsif phone_number_alt && phone_number_alt.start_with?("6"||"7")
+      phone_number_alt
+    end
+  end
+
 end
