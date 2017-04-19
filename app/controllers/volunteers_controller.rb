@@ -74,7 +74,8 @@ class VolunteersController < ApplicationController
 
   def show_sms
     @volunteer = Volunteer.find_by(id: params[:volunteer])
-    if @volunteer.phone_number_alt
+    @sms_number = @volunteer.mobile_number
+    if @sms_number
       respond_with(@volunteer) do |format|
         format.js { render 'shared/popup' }
         format.html
@@ -86,14 +87,14 @@ class VolunteersController < ApplicationController
 
   def send_sms
     @volunteer = Volunteer.find_by(id: params[:volunteer])
+    sms_number =  @volunteer.mobile_number
     begin
-      SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
+      SMSApi.new.sms_deliver(sms_number, params[:message])
       redirect_to volunteers_path, notice: I18n.t('success_message_sending')
     rescue
-      render js: "swal( '#{t('alert_title')}','#{t('alert_message_sending')}','error')"
+      redirect_to volunteers_path, alert: I18n.t('alert_message_sending')
     end
   end
-
 
   protected
 
