@@ -41,6 +41,11 @@ class ActivitiesController < ApplicationController
     respond_with(@activity)
   end
 
+  def recover
+    @activity.recover
+    respond_with(@activity)
+  end
+
   protected
 
     def activity_params
