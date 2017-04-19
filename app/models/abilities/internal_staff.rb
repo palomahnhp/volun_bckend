@@ -12,6 +12,7 @@ module Abilities
       cannot :maintenance, WelcomeController
       cannot :update_checks, Project
 
+      can :recover, :all
       can :bdc_search_towns, Address
       can :bdc_search_roads, Address
       can :bdc_search_road_numbers, Address

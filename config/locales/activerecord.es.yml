@@ -186,9 +186,6 @@ es:
       record_history:
         one:   Historial de registro
         other: Historial de registros
-      role:
-        one:   Rol
-        other: Roles
       request_form:
         one:   Solicitud
         other: Solicitudes
@@ -198,6 +195,12 @@ es:
       req/status:
         one:   Estado
         other: Estados
+      resource:
+        one:   Recurso
+        other: Recursos
+      role:
+        one:   Rol
+        other: Roles
       rt/volunteer_subscribe:
         one:    Solicitud de Alta de Voluntario
         other:  Solicitudes de Alta de Voluntario
@@ -390,7 +393,7 @@ es:
         active:      *active
         created_at : *created_at
       link_type:
-        kind: Tipo
+        kind:        Tipo
         description: descripción
       link:
         path:           URL
@@ -401,6 +404,11 @@ es:
         file:           Archivo
         file_file_name: Archivo
         created_at:     *created_at
+      resource:
+        alias_name:  Nombre  # virtual attribute
+        name:        Nombre de Modelo
+        description: Descripción
+        active:      Activo
       role:
         description: Descripción
       tracking_type:

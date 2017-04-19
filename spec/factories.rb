@@ -12,7 +12,8 @@ FactoryGirl.define do
   end
   factory :resource do
     name "MyString"
-    alias_name "MyString"
+    description "MyString"
+    active false
 
     trait :invalid do
     end

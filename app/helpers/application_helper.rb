@@ -38,6 +38,22 @@ module ApplicationHelper
                   onchange: "update_hidden_inputs(this, '#{js_selector || '#' + param_name}')"
   end
 
+  def link_to_extendable(extendable_class, options = {})
+    return unless can? (options[:action].presence || :read), extendable_class
+
+    path = options[:path].presence || public_send("new_#{extendable_class.model_name.singular}_path")
+    link_to path, options[:html_input] || {} do
+      content_tag :div, class: "panel panel-#{extendable_class.exists? ? 'warning' : 'danger'}" do
+        ( content_tag :div, class: 'panel-heading' do
+            content_tag :h3, extendable_class.model_name.human, class: 'panel-title'
+          end  )+
+        ( content_tag :div, extendable_class.model_name.human, class: 'panel-body' do
+            options[:body]
+          end  )
+      end
+    end
+  end
+
 end
 
 module ActionView::Helpers::FormHelper
