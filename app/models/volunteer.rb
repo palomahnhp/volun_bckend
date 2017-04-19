@@ -74,6 +74,10 @@ class Volunteer < ActiveRecord::Base
                                        before:      Proc.new { 150.years.since },
                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
                                        allow_blank: true }
+
+  validate :trait_check
+  validate :trait_project_check
+
   scope :all_active,   ->(){ where(active: true) }
   scope :all_inactive, ->(){ where(active: false) }
   scope :all_active,   ->(){ where(active: true) }
@@ -121,6 +125,38 @@ class Volunteer < ActiveRecord::Base
       phone_number
     elsif phone_number_alt && phone_number_alt.start_with?("6"||"7")
       phone_number_alt
+    end
+  end
+
+  def trait_check
+    return unless assessments.any?
+    assessments.each do |first_assessment|
+      trait_count = 0
+      assessments.each do |assessment|
+        if  first_assessment.trait_id == assessment.trait_id
+          trait_count += 1
+        end
+      end
+      if trait_count > 1
+        errors.add(:base, :alert_trait_duplicity)
+        return
+      end
+    end
+  end
+
+  def trait_project_check
+    return unless assessments_projects.any?
+    assessments_projects.each do |first_assessment|
+      project_trait_count = 0
+      assessments_projects.each do |assessment|
+        if  first_assessment.trait_id == assessment.trait_id && first_assessment.project_id == assessment.project_id
+          project_trait_count += 1
+        end
+      end
+      if project_trait_count > 1
+        errors.add(:base, :alert_project_trait_duplicity)
+        return
+      end
     end
   end
 

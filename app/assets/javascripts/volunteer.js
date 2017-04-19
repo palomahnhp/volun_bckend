@@ -10,7 +10,7 @@
         showComments(value.id)
       });
     });
-    
+
     // Select jQuery for degrees filtering
     function filterDegree(degreeTypeId) {
       degreeId = degreeTypeId.split("_degree_type_id")[0] + "_name";

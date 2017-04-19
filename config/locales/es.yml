@@ -137,7 +137,7 @@ es:
   errors_title_volun: Errores u observaciones
   revised: Revisado
   files: Archivos
-  associated_projects: Proyectos en los que se encuentra el voluntario
+  associated_projects: Proyectos asociados al voluntario
   not_associated_projects: Asociar a proyectos
   trackings:
     unsubscribe_from_project: Baja de un proyecto
