@@ -263,7 +263,7 @@ es:
         other:  Horarios de disponibilidad del usuario
       volun/tracking:
         one:    Seguimiento de voluntario
-        other:  Seguimientos de 
+        other:  Seguimientos de
       volun/known_language:
         one:    Idioma
         other:  Idiomas
@@ -785,6 +785,8 @@ es:
             base:
               invalid_request_type: "Tipo de solicitud inválida"
       messages:
+        alert_trait_duplicity: 'No pueden introducirse cualidades duplicadas'
+        alert_project_trait_duplicity: 'No pueden introducirse cualidades duplicadas en un mismo proyecto'
         invalid_project_type: El tipo de proyecto es inválido
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
         timetable_must_be_between_execution_start_date_and_execution_end_date: "Las fechas de horarios deben estar en el intervalo de las fechas de ejecución desde y hasta"

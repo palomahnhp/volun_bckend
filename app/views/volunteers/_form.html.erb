@@ -7,7 +7,6 @@
     <div class="row well">
       <div class="col-md-12">
         <div class="logo_block col-md-2">
-          <%= show_simple_base_errors(f) %>
           <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
             <%= render partial: 'links/logo', locals: { f: f_logo } %>
           <% end %>
@@ -116,7 +115,7 @@
       <%= f.simple_fields_for :assessments_projects do |f_assessments_projects|  %>
         <div class="row well col-md-12">
           <div class="row">
-              <%= f_assessments_projects.association :project, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_assessments_projects.association :project, collection: f.object.projects, wrapper_html: { class: 'col-md-4' } %>
               <%= f_assessments_projects.association :trait, input_html: { onchange: "showComments(this.id);" }, wrapper_html: { class: 'col-md-4' } %>
               <%= hidden_field_tag "others", t('others') %>
               <%= f_assessments_projects.input :trait_other, wrapper_html: { hidden: true, class: 'col-md-4' }  %>
