@@ -151,26 +151,26 @@ es:
         one:   Tipo de proyecto
         other: Tipos de proyecto
       pt/subvention:
-        one:   Proyecto subvencionado
-        other: Proyectos subvencionados
+        one:        Subvencionado
+        other:      Subvencionados
       pt/entity:
-        one:   Proyecto de entidad
-        other: Proyectos de entidades
+        one:        De Entidad
+        other:      De Entidades
       pt/permanent:
-        one:   Proyecto permanente
-        other: Proyectos permanentes
+        one:        Permanente
+        other:      Permanentes
       pt/punctual:
-        one:   Proyecto puntual
-        other: Proyectos puntuales
+        one:        Puntual
+        other:      Puntuales
       pt/centre:
-        one:   Proyecto de centro de mayores
-        other: Proyectos de centros de mayores
+        one:        De Centro de mayores
+        other:      De Centros de mayores
       pt/social:
-        one:   Proyecto de servicios sociales
-        other: Proyectos de servicios sociales
+        one:        De Servicios sociales
+        other:      De Servicios sociales
       pt/other:
-        one:   Proyecto "Otros"
-        other: Proyectos "Otros"
+        one:        "Otros"
+        other:      "Otros"
       sector:
         one:   Sector de intervención
         other: Sectores de intervención
