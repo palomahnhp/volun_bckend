@@ -90,7 +90,7 @@ class Link < ActiveRecord::Base
   end
 
   def self.main_columns
-    %i(file_file_name path linkable)
+    %i(file_file_name description linkable)
   end
 
   def file_extension

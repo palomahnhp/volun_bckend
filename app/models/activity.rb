@@ -1,5 +1,7 @@
 class Activity < ActiveRecord::Base
 
+  include Archivable
+
   has_many :events, as: :eventable
   has_many :links, as: :linkable
   belongs_to :entity

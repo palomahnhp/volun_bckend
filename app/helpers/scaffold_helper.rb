@@ -163,7 +163,7 @@ module ScaffoldHelper
   end
 
   def link_to_recover(record, opts = {})
-    return unless can?(:recover, record)
+    return unless can?(:destroy, record)
     options = {
         id:     "#{dom_id(record)}_recover",
         text:   icon_recover,
@@ -179,7 +179,7 @@ module ScaffoldHelper
   end
 
   def link_to_trackings(record, type, project = nil, opts = {})
-    #return unless can?(:recover, record)
+    return unless can?(:read, record)
     options = {
         id:     "#{dom_id(record)}_trackings",
         text:   icon_tracking,

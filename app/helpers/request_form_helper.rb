@@ -4,7 +4,7 @@ module RequestFormHelper
 
 
   def link_to_process(record, opts = {})
-    return unless can?(:process, record)
+    return unless can?(:process_request_form, record)
     options = {
       id:     "#{dom_id(record)}_process",
       text:   build_icon(:process, icon_name: :play),
@@ -19,7 +19,7 @@ module RequestFormHelper
   end
 
   def link_to_undo_rejection(record, opts = {})
-    return unless can?(:process, record)
+    return unless can?(:process_request_form, record)
     options = {
       id:     "#{dom_id(record)}_process",
       text:   build_icon(:undo_rejection, icon_name: :undo),

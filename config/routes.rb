@@ -6,9 +6,9 @@ Rails.application.routes.draw do
 
   devise_for :users
   resources :academic_levels
-  resources :activities
-  resources :areas        , concerns: :recoverable
-  resources :collectives  , concerns: :recoverable
+  resources :activities , concerns: :recoverable
+  resources :areas      , concerns: :recoverable
+  resources :collectives, concerns: :recoverable
   resources :contact_results
   resources :coordinations, concerns: :recoverable
   resources :degrees, concerns: :recoverable

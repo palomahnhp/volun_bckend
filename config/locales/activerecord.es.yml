@@ -764,6 +764,10 @@ es:
         created_at:           *created_at
     errors:
       models:
+        volun/availability:
+          attributes:
+            day:
+              repeated_day_and_start_hour_and_end_hour: El día, la hora de comienzo y la hora de fin ya existen
         link:
           attributes:
             file:
