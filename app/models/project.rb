@@ -88,15 +88,14 @@ class Project < ActiveRecord::Base
     {s: 'id desc'}
   end
 
-  # TODO pending of test
-  # def self.to_csv(projects = self.all)
-  #   CSV.generate do |csv|
-  #     csv << main_columns.map{ |column_name| human_attribute_name(column_name) }
-  #     projects.each do |project|
-  #       csv << main_columns.map{ |column_name| project.public_send column_name }
-  #     end
-  #   end
-  # end
+  def self.to_csv(projects = self.all)
+    CSV.generate do |csv|
+      csv << main_columns.map{ |column_name| human_attribute_name(column_name) } + [Address.human_attribute_name(:district).pluralize, Area.model_name.human(count: 2), Collective.model_name.human(count: 2)]
+      projects.each do |project|
+        csv << main_columns.map{ |column_name| project.public_send column_name } + [project.addresses.pluck(:district).to_sentence, project.areas.to_sentence, project.collectives.to_sentence]
+      end
+    end
+  end
 
   def to_s
     name
@@ -116,7 +115,7 @@ class Project < ActiveRecord::Base
       errors.add(:execution_start_date, :execution_start_date_must_be_less_than_execution_end_date)
     end
   end
-  
+
   def check_timetables_execution_date
     return unless events.any?
     validation = true

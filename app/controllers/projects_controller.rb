@@ -14,14 +14,13 @@ class ProjectsController < ApplicationController
     @outstandingProjects = Project.outstanding_projects
     respond_to do |format|
       format.html
+      format.csv { send_data @projects.to_csv }
       format.js
       format.json { render json: { urgent: @urgentProjects,
                                    outstanding: @outstandingProjects } }
     end
     # TODO implement js response
     # format.js   { render 'shared/popup', locals: { index_folder: Project.model_name.plural }}
-    # TODO implement self.to_csv method
-    # format.csv  { send_data(Project.to_csv(@wires_by_circuit_id), filename: "#{Project.model_name.human(count: 2).downcase}.csv")}///
   end
 
   def show
