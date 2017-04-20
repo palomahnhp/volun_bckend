@@ -148,6 +148,8 @@ class EntitiesController < ApplicationController
         )
     end
 
+    private
+
     def create_and_assign_user_to_entity!(entity, notice_type_id_param)
       if User.find_by(loggable_type: "Entity", loggable_id: entity.id).nil?
         user = User.new(login: "user#{'%09d' % entity.id}", loggable: entity, notice_type: NoticeType.find_by(description: notice_type_id_param))
