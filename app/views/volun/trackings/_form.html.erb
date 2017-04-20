@@ -3,7 +3,10 @@
   <input type="hidden" name="project_id_assoc" value="<%= params[:project_id_assoc] %>" />
 
   <div class="form-inputs">
-          <%= f.association :volunteer, input_html: { disabled: true, id: 'volunteer' }, default: @volun_tracking.volunteer %>
+          <%= f.association :volunteer, input_html: { disabled: true, id: 'volunteer', attr_data: @volun_tracking.volunteer } %>
+          <script>
+            $("#volunteer option:selected").html($("#volunteer").attr('attr_data'));
+          </script>
           <%= f.association :tracking_type %>
           <%= f.association :project %>
           <%= f.input :manager, input_html: { disabled: true, id: 'manager', value: current_user.loggable } %>

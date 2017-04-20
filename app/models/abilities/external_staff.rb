@@ -4,6 +4,7 @@ module Abilities
 
     def initialize(user)
       self.merge Abilities::ExternalStaff.new(user)
+
       cannot :manage, Pt::Subvention
     end
 

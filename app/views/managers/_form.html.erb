@@ -10,7 +10,7 @@
       </div>
       <div class="col-md-6">
         <%= f.input :alias_name %>
-        <%= f.association :role %>
+        <%= f.association :role, collection: Role.non_super_admin %>
         <%= f.input :phone_number %>
         <%= f.input :active %>
       </div>
@@ -19,9 +19,9 @@
       <%= content_tag :h3, Permission.model_name.human(count: 2), class: 'form-subtitle' %>
       <div class="col-md-12 with-scroll-bar">
         <%= f.simple_fields_for :permissions do |f_permission| %>
-          <div class="row well">
+          <div class="row well-no-border">
                 <%= f_permission.input :resource,
-                                       label: f_permission.object.resource.class_name.model_name.human,
+                                       label: f_permission.object.resource.class_name.model_name.human(count: 2),
                                        input_html: { disabled: true, class: 'hidden' },
                                        wrapper_html: { class: 'col-md-4' } %>
             <%= f_permission.input :can_create, wrapper_html: { class: 'col-md-2' } %>
