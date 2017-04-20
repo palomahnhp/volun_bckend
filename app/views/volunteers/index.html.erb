@@ -75,3 +75,16 @@
 </table>
 
 <%= render partial: "shared/pagination", locals: {collection: @volunteers} %>
+
+<script>
+
+    //No results alert
+    if ($('.vol-results').length == 0) {
+        swal(
+            "Lo sentimos",
+            "Su búsqueda no ha encontrado resultados",
+            "error"
+        )
+    };
+
+</script>
