@@ -32,15 +32,19 @@
         </div>
       </div>
       <div class="row well">
-        <div class="col-md-12">
-          <%= label_tag NoticeType.model_name.human, nil, class: 'col-sm-5' %>
-          <% if User.find_by(loggable_type: "Entity", loggable_id: f.object.id).nil? %>
-            <%= select_tag "entity_notice_type", options_for_select(NoticeType.all),
-                                                 class: 'form-control select col-sm-7' %>
-          <% else %>
-            <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type.description),
-                                                 class: 'form-control select col-sm-7' %>
-          <% end %>
+        <div class="col-md-8">
+          <div class="col-md-5">
+            <%= label_tag NoticeType.model_name.human, nil, class: 'col-sm-5 pull-right' %>
+          </div>
+          <div class="col-md-7">
+            <% if User.find_by(loggable_type: "Entity", loggable_id: f.object.id).nil? %>
+              <%= select_tag "entity_notice_type", options_for_select(NoticeType.all),
+                                                   class: 'form-control select' %>
+            <% else %>
+              <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type.description),
+                                                   class: 'form-control select' %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
