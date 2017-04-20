@@ -67,6 +67,9 @@ $( document ).ready(function() {
         $(".spinner").show();
     });
 
+    // close window when close button is pressed
+    closeButton();
+
     // hide spinner on AJAX stop
     $(document).ajaxStop(function(){
         $(".spinner").delay(500).hide(0);
@@ -78,4 +81,10 @@ var update_hidden_inputs = function(elem, selector){
     if(elem.value)
         $(selector).prop('value', elem.checked);
     $('.search-form').submit();
+}
+
+function closeButton() {
+    $('#btn-close').click(function() {
+      window.close()
+    });
 }
