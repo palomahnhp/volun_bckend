@@ -35,13 +35,3 @@
 </table>
 
 <%= render partial: "shared/pagination", locals: {collection: @activities} %>
-
-<script>
-    if ($('.act-result').length == 0) {
-        swal(
-            "Lo sentimos",
-            "Su búsqueda no ha encontrado resultados",
-            "error"
-        )
-    }
-</script>

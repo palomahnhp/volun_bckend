@@ -50,13 +50,3 @@
 </table>
 
 <%= render partial: 'shared/pagination', locals: {collection: @projects} %>
-
-<script>
-    if ($('.project-result').length == 0) {
-        swal(
-            "Lo sentimos",
-            "Su búsqueda no ha encontrado resultados",
-            "error"
-        )
-    }
-</script>
