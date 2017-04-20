@@ -133,8 +133,8 @@ es:
         one:   Nacionalidad
         other: Nacionalidades
       notice_type:
-        one:   Tipo de notificación
-        other: Tipos de notificación
+        one:   Medio de comunicación
+        other: Medios de comunicación
       organization:
         one:   Entidad
         other: Entidades
@@ -330,6 +330,7 @@ es:
         active: &active Activo
         subscribed_at: Fecha de alta
         unsubscribed_at: Fecha de baja
+        created_at : *created_at
       project_type:
         id:          ID
         kind:        Nombre

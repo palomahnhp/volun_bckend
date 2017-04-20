@@ -105,7 +105,7 @@ class Volunteer < ActiveRecord::Base
   end
 
   def to_s
-    name
+    "#{name} #{last_name}"
   end
 
   def unassociated_projects
