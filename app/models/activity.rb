@@ -22,15 +22,6 @@ class Activity < ActiveRecord::Base
     %i(id name description start_date end_date transport entity area project share)
   end
 
-  def self.to_csv
-    CSV.generate do |csv|
-      csv << column_names
-      all.each do |activity|
-        csv << activity.attributes.values_at(*column_names)
-      end
-    end
-  end
-
   def to_s
     name
   end
