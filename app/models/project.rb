@@ -68,6 +68,8 @@ class Project < ActiveRecord::Base
       all
     end
   }
+  scope :urgent_projects, ->(){ where(urgent: true) }
+  scope :outstanding_projects, ->(){ where(outstanding: true) }
 
   def self.main_columns
     %i(

@@ -167,3 +167,7 @@ es:
     default: No tienes permiso para acceder a esta página.
     manage:
       all: "No tienes permiso para realizar la acción '%{action}' sobre %{subject}."
+  message_title_urgent: Proyecto urgente
+  message_body_urgent: Ya existe un proyecto urgente
+  message_title_outstanding: Proyectos destacados
+  message_body_outstanding: Ya existen tres proyectos destacados
