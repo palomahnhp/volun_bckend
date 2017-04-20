@@ -38,16 +38,19 @@ module ApplicationHelper
                   onchange: "update_hidden_inputs(this, '#{js_selector || '#' + param_name}')"
   end
 
-  def link_to_extendable(extendable_class, options = {})
-    return unless can? (options[:action].presence || :read), extendable_class
+  def box_link_to(model, options = {})
+    return unless can? (options[:action].presence || :read), model
 
-    path = options[:path].presence || public_send("new_#{extendable_class.model_name.singular}_path")
+    options[:count] ||= 1
+    panel_type = options[:panel_type] || (model.exists? ? 'warning' : 'danger')
+    path   = options[:path].presence
+    path ||= public_send(options[:count] == 1 ? "new_#{model.model_name.singular}_path" : "#{model.model_name.plural}_path")
     link_to path, options[:html_input] || {} do
-      content_tag :div, class: "panel panel-#{extendable_class.exists? ? 'warning' : 'danger'}" do
+      content_tag :div, class: "panel panel-#{panel_type}" do
         ( content_tag :div, class: 'panel-heading' do
-            content_tag :h3, extendable_class.model_name.human, class: 'panel-title'
+            content_tag :h3, model.model_name.human(count: options[:count]), class: 'panel-title'
           end  )+
-        ( content_tag :div, extendable_class.model_name.human, class: 'panel-body' do
+        ( content_tag :div, model.model_name.human(count: options[:count]), class: 'panel-body' do
             options[:body]
           end  )
       end

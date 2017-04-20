@@ -40,7 +40,7 @@ es:
     role:
       kind:
        super_admin:      Super Administrador
-       admin:            Adminstrador
+       admin:            Administrador
        internal_staff:   Personal interno
        external_staff:   Personal externo
     timetable:
@@ -151,26 +151,26 @@ es:
         one:   Tipo de proyecto
         other: Tipos de proyecto
       pt/subvention:
-        one:        Subvencionado
-        other:      Subvencionados
+        one:   Proyecto subvencionado
+        other: Proyectos subvencionados
       pt/entity:
-        one:        De Entidad
-        other:      De Entidades
+        one:   Proyecto de entidad
+        other: Proyectos de entidades
       pt/permanent:
-        one:        Permanente
-        other:      Permanentes
+        one:   Proyecto permanente
+        other: Proyectos permanentes
       pt/punctual:
-        one:        Puntual
-        other:      Puntuales
+        one:   Proyecto puntual
+        other: Proyectos puntuales
       pt/centre:
-        one:        De Centro de mayores
-        other:      De Centros de mayores
+        one:   Proyecto de centro de mayores
+        other: Proyectos de centros de mayores
       pt/social:
-        one:        De Servicios sociales
-        other:      De Servicios sociales
+        one:   Proyecto de servicios sociales
+        other: Proyectos de servicios sociales
       pt/other:
-        one:        "Otros"
-        other:      "Otros"
+        one:   Proyecto de otro tipo
+        other: Proyectos de otros tipos
       sector:
         one:   Sector de intervención
         other: Sectores de intervención
@@ -235,8 +235,8 @@ es:
         one:    Solicitud de Accion sobre Actividad
         other:  Solicitudes de Accion sobre Actividad
       rt/other:
-        one:    Solicitud de "Otros"'
-        other:  Solicitudes de "Otros"'
+        one:    Solicitud de otro tipo
+        other:  Solicitudes de otros tipos
       tracking_type:
         one:   Tipo de seguimiento
         other: Tipos de seguimiento
