@@ -8,7 +8,9 @@ class EntitiesController < ApplicationController
     @search_q = @entities.search(params[:q])
     @entities = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
-    respond_with(@entities)
+    respond_with(@entities) do |format|
+      format.csv { send_data @entities.to_csv }
+    end
   end
 
   def show

@@ -8,7 +8,9 @@ class ActivitiesController < ApplicationController
     @search_q = @activities.search(params[:q])
     @activities = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
-    respond_with(@activities)
+    respond_with(@activities) do |format|
+      format.csv { send_data @activities.to_csv }
+    end
   end
 
   def show

@@ -40,7 +40,7 @@ es:
     role:
       kind:
        super_admin:      Super Administrador
-       admin:            Adminstrador
+       admin:            Administrador
        internal_staff:   Personal interno
        external_staff:   Personal externo
     timetable:
@@ -72,6 +72,8 @@ es:
           sunday:     Domingo
   activerecord:
     models:
+      academic_level:
+        one:   Nivel académico
       activity:
         one:   Actividad
         other: Actividades
@@ -87,6 +89,12 @@ es:
       collective:
         one:   Colectivo
         other: Colectivos
+      contact_result:
+        one:   Resultado de contacto
+        other: Resultados de contacto
+      contact_type:
+        one:   Tipo de contacto
+        other: Tipos de contacto
       district:
         one:   Distrito
         other: Distritos
@@ -96,6 +104,10 @@ es:
       degree:
         one:   Titulación
         other: Titulaciones
+      degree_type:
+        one:   Tipo de titulación
+      employment_status:
+        one:   Situación laboral
       entity_type:
         one:   Tipo de entidad
         other: Tipos de entidades
@@ -120,6 +132,11 @@ es:
       language:
         one:   Idioma
         other: Idiomas
+      language_level:
+        one:   Nivel de idioma
+      language_volunteer:
+        one:   Idioma del voluntario
+        other: Idiomas del voluntario
       link_type:
         one:   Tipo de URL
         other: Tipos de URL's
@@ -129,12 +146,15 @@ es:
       manager:
         one:   Gestor
         other: Gestores
+      motivation:
+        one:   Motivación
+        other: Motivaciones
       nationality:
         one:   Nacionalidad
         other: Nacionalidades
       notice_type:
-        one:   Tipo de notificación
-        other: Tipos de notificación
+        one:   Medio de comunicación
+        other: Medios de comunicación
       organization:
         one:   Entidad
         other: Entidades
@@ -144,33 +164,42 @@ es:
       permission:
         one:   Permiso
         other: Permisos
+      profession:
+        one:   Profesión
+        other: Profesiones
+      profile:
+        one:   Perfil
+        other: Perfiles
       project:
         one:   Proyecto
         other: Proyectos
       project_type:
         one:   Tipo de proyecto
         other: Tipos de proyecto
+      province:
+        one:   Provincia
+        other: Provincias
       pt/subvention:
-        one:        Subvencionado
-        other:      Subvencionados
+        one:   Proyecto subvencionado
+        other: Proyectos subvencionados
       pt/entity:
-        one:        De Entidad
-        other:      De Entidades
+        one:   Proyecto de entidad
+        other: Proyectos de entidades
       pt/permanent:
-        one:        Permanente
-        other:      Permanentes
+        one:   Proyecto permanente
+        other: Proyectos permanentes
       pt/punctual:
-        one:        Puntual
-        other:      Puntuales
+        one:   Proyecto puntual
+        other: Proyectos puntuales
       pt/centre:
-        one:        De Centro de mayores
-        other:      De Centros de mayores
+        one:   Proyecto de centro de mayores
+        other: Proyectos de centros de mayores
       pt/social:
-        one:        De Servicios sociales
-        other:      De Servicios sociales
+        one:   Proyecto de servicios sociales
+        other: Proyectos de servicios sociales
       pt/other:
-        one:        "Otros"
-        other:      "Otros"
+        one:   Proyecto de otro tipo
+        other: Proyectos de otros tipos
       sector:
         one:   Sector de intervención
         other: Sectores de intervención
@@ -198,6 +227,8 @@ es:
       resource:
         one:   Recurso
         other: Recursos
+      road_type:
+        one:   Tipo de vía
       role:
         one:   Rol
         other: Roles
@@ -235,8 +266,8 @@ es:
         one:    Solicitud de Accion sobre Actividad
         other:  Solicitudes de Accion sobre Actividad
       rt/other:
-        one:    Solicitud de "Otros"'
-        other:  Solicitudes de "Otros"'
+        one:    Solicitud de otro tipo
+        other:  Solicitudes de otros tipos
       tracking_type:
         one:   Tipo de seguimiento
         other: Tipos de seguimiento
@@ -264,6 +295,12 @@ es:
       volun/availability:
         one:    Horario de disponibilidad del usuario
         other:  Horarios de disponibilidad del usuario
+      volun/contact:
+        one: Contacto
+        other: Contactos
+      pro/issue:
+        one:   Incidencia
+        other: Incidencias
       volun/tracking:
         one:    Seguimiento de voluntario
         other:  Seguimientos de
@@ -276,6 +313,11 @@ es:
       volun/assessments_project:
         one:    Cualidad en proyecto
         other:  Cualidades en proyecto
+      req/status_trace:
+        one: Estado del seguimiento
+      req/reason:
+        one:   Motivo
+        other: Motivos
       pro/tracking:
         one:    Seguimiento de proyecto
         other:  Seguimientos de proyecto
@@ -330,6 +372,7 @@ es:
         active: &active Activo
         subscribed_at: Fecha de alta
         unsubscribed_at: Fecha de baja
+        created_at : *created_at
       project_type:
         id:          ID
         kind:        Nombre

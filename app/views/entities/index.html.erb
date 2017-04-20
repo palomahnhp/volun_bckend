@@ -14,7 +14,10 @@
   </div>
 </div>
 
-<p><%= model_class.model_name.human(count: 2) %>: <%= @entities.count %></p>
+<div class="col-md-12 table-csv">
+  <p><%= model_class.model_name.human(count: 2) %>: <%= @entities.count %></p>
+  <%= link_to t('action.download_csv'), entities_path(format: "csv"), class: "btn btn-success" %>
+</div>
 
 <table class="index-table">
   <thead>

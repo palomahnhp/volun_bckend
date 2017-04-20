@@ -15,6 +15,7 @@ class VolunteersController < ApplicationController
       format.html
       format.js
       format.json { render json: @degreeSearch.to_json }
+      format.csv { send_data @volunteers.to_csv }
     end
   end
 

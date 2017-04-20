@@ -6,20 +6,20 @@
     <br/>
     <div class="panel-list row">
       <div class="col-md-6">
-        <%= link_to_extendable Rt::VolunteerSubscribe %>
-        <%= link_to_extendable Rt::VolunteerUnsubscribe %>
-        <%= link_to_extendable Rt::VolunteerAmendment %>
-        <%= link_to_extendable Rt::VolunteerAppointment %>
-        <%= link_to_extendable Rt::EntitySubscribe %>
-        <%= link_to_extendable Rt::EntityUnsubscribe %>
+        <%= box_link_to Rt::VolunteerSubscribe, count: 2 %>
+        <%= box_link_to Rt::VolunteerUnsubscribe, count: 2 %>
+        <%= box_link_to Rt::VolunteerAmendment, count: 2 %>
+        <%= box_link_to Rt::VolunteerAppointment, count: 2 %>
+        <%= box_link_to Rt::EntitySubscribe, count: 2 %>
+        <%= box_link_to Rt::EntityUnsubscribe, count: 2 %>
       </div>
       <div class="col-md-6">
-        <%= link_to_extendable Rt::VolunteersDemand %>
-        <%= link_to_extendable Rt::ProjectPublishing %>
-        <%= link_to_extendable Rt::ProjectUnpublishing %>
-        <%= link_to_extendable Rt::ActivityPublishing %>
-        <%= link_to_extendable Rt::ActivityUnpublishing %>
-        <%= link_to_extendable Rt::Other %>
+        <%= box_link_to Rt::VolunteersDemand, count: 2 %>
+        <%= box_link_to Rt::ProjectPublishing, count: 2 %>
+        <%= box_link_to Rt::ProjectUnpublishing, count: 2 %>
+        <%= box_link_to Rt::ActivityPublishing, count: 2 %>
+        <%= box_link_to Rt::ActivityUnpublishing, count: 2 %>
+        <%= box_link_to Rt::Other, count: 2 %>
       </div>
     </div>
   </div>
