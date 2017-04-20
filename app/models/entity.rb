@@ -14,7 +14,7 @@ class Entity < ActiveRecord::Base
   has_many :videos, -> { entity_videos }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :docs,   -> { entity_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :urls,   -> { entity_urls   }, class_name: 'Link', foreign_key: 'linkable_id'
-  
+
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :user
@@ -37,6 +37,15 @@ class Entity < ActiveRecord::Base
 
   def self.main_columns
     %i(name vat_number email entity_type)
+  end
+
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      all.each do |entity|
+        csv << entity.attributes.values_at(*column_names)
+      end
+    end
   end
 
   def to_s

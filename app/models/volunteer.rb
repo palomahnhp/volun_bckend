@@ -108,6 +108,15 @@ class Volunteer < ActiveRecord::Base
     name
   end
 
+  def self.to_csv
+    CSV.generate do |csv|
+      csv << column_names
+      all.each do |volunteer|
+        csv << volunteer.attributes.values_at(*column_names)
+      end
+    end
+  end
+
   def unassociated_projects
     Project.where('id NOT IN (?)', self.projects.select('id')).where(active: true).order('projects.name asc')
   end

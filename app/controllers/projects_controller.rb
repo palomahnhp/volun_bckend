@@ -10,11 +10,12 @@ class ProjectsController < ApplicationController
     @search_q = @projects.unscoped.list.search(params[:q])
     @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
 
-    respond_with(@projects)
+    respond_with(@projects) do |format|
+      format.html
+      format.csv { send_data @projects.to_csv }
+    end
     # TODO implement js response
     # format.js   { render 'shared/popup', locals: { index_folder: Project.model_name.plural }}
-    # TODO implement self.to_csv method
-    # format.csv  { send_data(Project.to_csv(@wires_by_circuit_id), filename: "#{Project.model_name.human(count: 2).downcase}.csv")}///
   end
 
   def show
