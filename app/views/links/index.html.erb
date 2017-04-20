@@ -41,11 +41,20 @@
       </th>
     </tr>
   </thead>
-  
+
   <tbody>
     <%= render(partial: 'link', collection: @links)%>
   </tbody>
 </table>
 
 <%= render partial: "shared/pagination", locals: {collection: @links} %>
-<%= button_to_back %>
+
+<button type="button" name="button" id="btn-close" class="btn btn-primary">Cerrar</button>
+
+<script>
+
+    $('#btn-close').click(function() {
+      window.close()
+    });
+
+</script>
