@@ -1,4 +1,4 @@
-<% model_class = Activity %>
+<% model_class = Resource %>
 
 <div class="row">
   <div class="col-md-12">
@@ -10,11 +10,9 @@
     <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
-    <%= content_tag(:div, search_collection(@search_q, :name_or_description_or_transport_or_pdf_url_cont), class: 'col-md-6 pull-right') %>
+    <%= content_tag(:div, search_collection(@search_q, :name_or_description_cont), class: 'col-md-6 pull-right') %>
   </div>
 </div>
-
-<p><%= model_class.model_name.human(count: 2) %>: <%= @activities.count %></p>
 
 <table class="index-table">
   <thead>
@@ -28,10 +26,10 @@
       </th>
     </tr>
   </thead>
-
+  
   <tbody>
-    <%= render(partial: 'activity', collection: @activities)%>
+    <%= render(partial: 'resource', collection: @resources)%>
   </tbody>
 </table>
 
-<%= render partial: "shared/pagination", locals: {collection: @activities} %>
+<%= render partial: "shared/pagination", locals: {collection: @resources} %>

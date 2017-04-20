@@ -67,6 +67,9 @@ $( document ).ready(function() {
         $(".spinner").show();
     });
 
+    //No results alert
+    resultAlert();
+
     // hide spinner on AJAX stop
     $(document).ajaxStop(function(){
         $(".spinner").delay(500).hide(0);
@@ -78,4 +81,15 @@ var update_hidden_inputs = function(elem, selector){
     if(elem.value)
         $(selector).prop('value', elem.checked);
     $('.search-form').submit();
+}
+
+//No results alert
+function resultAlert() {
+  if ($('.results').length == 0) {
+      swal(
+          "Lo sentimos",
+          "Su búsqueda no ha encontrado resultados",
+          "error"
+      )
+  };
 }

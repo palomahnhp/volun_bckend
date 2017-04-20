@@ -1,0 +1,16 @@
+<tr id="<%= dom_id(resource) %>" >
+
+  <% resource.main_attributes.each do |attr_name| %>
+  <td><%= show_attr(resource, attr_name) %></td>
+  <% end %>
+
+  <td class="index_table-actions">
+    <%= link_to_show(resource) %>
+    <%= link_to_edit(resource) %>
+<% if resource.try(:archived?) %>
+    <%= link_to_recover(resource) %>
+<% else %>
+    <%= link_to_destroy(resource) %>
+<% end %>
+  </td>
+</tr>
