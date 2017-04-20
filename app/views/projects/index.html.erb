@@ -50,3 +50,16 @@
 </table>
 
 <%= render partial: 'shared/pagination', locals: {collection: @projects} %>
+
+<script>
+
+    //No results alert
+    if ($('.pro-results').length == 0) {
+        swal(
+            "Lo sentimos",
+            "Su búsqueda no ha encontrado resultados",
+            "error"
+        )
+    };
+
+</script>
