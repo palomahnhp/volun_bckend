@@ -28,13 +28,13 @@ class EntitiesController < ApplicationController
 
   def create
     @entity.save
+    create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
     respond_with(@entity)
   end
 
   def update
     @entity.update_attributes(entity_params)
     create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
-    puts "==================>>>> #{@entity.errors.full_messages}"
     respond_with(@entity)
   end
 
