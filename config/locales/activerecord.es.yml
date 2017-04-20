@@ -314,7 +314,8 @@ es:
         one:    Cualidad en proyecto
         other:  Cualidades en proyecto
       req/status_trace:
-        one: Estado del seguimiento
+        one:    Estado del seguimiento
+        other:  Estados de los seguimientos
       req/reason:
         one:   Motivo
         other: Motivos
