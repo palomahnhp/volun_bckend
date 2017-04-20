@@ -10,9 +10,6 @@
       searchButton();
       keepSearch();
 
-      //No results alert
-      resultAlert();
-
       // Show others comment fields on traits
       $.each($('[id^="volunteer_assessments_attributes"][id$="trait_id"]'), function( index, value ) {
         showComments(value.id)
@@ -108,16 +105,5 @@
       if ($('.q_availabilities_day_in_all').val()) {
           var availabilityValue = $('.q_availabilities_day_in_all').val()
           $('#availability-select option[value="' + availabilityValue + '"]').prop('selected', true)
-      };
-    }
-
-    //No results alert
-    function resultAlert() {
-      if ($('.volun-result').length == 0) {
-          swal(
-              "Lo sentimos",
-              "Su búsqueda no ha encontrado resultados",
-              "error"
-          )
       };
     }
