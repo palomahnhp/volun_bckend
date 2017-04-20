@@ -30,11 +30,13 @@ class EntitiesController < ApplicationController
 
   def create
     @entity.save
+    create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
     respond_with(@entity)
   end
 
   def update
     @entity.update_attributes(entity_params)
+    create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
     respond_with(@entity)
   end
 
@@ -143,13 +145,22 @@ class EntitiesController < ApplicationController
               :_destroy
             ]
           },
-          {
-            user_attributes: [
-              :id,
-              :notice_type_id,
-              :_destroy
-            ]
-          }
         )
+    end
+
+    private
+
+    def create_and_assign_user_to_entity!(entity, notice_type_id_param)
+      if User.find_by(loggable_type: "Entity", loggable_id: entity.id).nil?
+        user = User.new(login: "user#{'%09d' % entity.id}", loggable: entity, notice_type: NoticeType.find_by(description: notice_type_id_param))
+        user.password = Digest::SHA1.hexdigest("#{entity.created_at.to_s}--#{user.login}")[0,8]
+        user.password_confirmation = user.password
+        user.email = "#{user.login}@volun.es"
+        user.save
+      else
+        user = User.find_by(loggable_type: "Entity", loggable_id: entity.id)
+        user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).id
+        user.save
+      end
     end
 end
