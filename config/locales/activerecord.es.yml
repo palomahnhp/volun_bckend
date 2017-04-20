@@ -89,9 +89,6 @@ es:
       collective:
         one:   Colectivo
         other: Colectivos
-      contact:
-        one: Contacto
-        other: Contactos
       contact_result:
         one:   Resultado de contacto
         other: Resultados de contacto
@@ -132,9 +129,6 @@ es:
       id_number_type:
         one:   Tipo de documento
         other: Tipo de documentos
-      issue:
-        one:   Incidencia
-        other: Incidencias
       language:
         one:   Idioma
         other: Idiomas
@@ -218,9 +212,6 @@ es:
       status:
         one:   Situación
         other: Situaciones
-      reason:
-        one:   Motivo
-        other: Motivos
       record_history:
         one:   Historial de registro
         other: Historial de registros
@@ -276,9 +267,7 @@ es:
         other:  Solicitudes de Accion sobre Actividad
       rt/other:
         one:    Solicitud de "Otros"'
-        other:  Solicitudes de "Otros"'
-      status_trace:
-        one: Estado del seguimiento
+        other:  Solicitudes de "Otros"
       tracking_type:
         one:   Tipo de seguimiento
         other: Tipos de seguimiento
@@ -306,6 +295,12 @@ es:
       volun/availability:
         one:    Horario de disponibilidad del usuario
         other:  Horarios de disponibilidad del usuario
+      volun/contact:
+        one: Contacto
+        other: Contactos
+      pro/issue:
+        one:   Incidencia
+        other: Incidencias
       volun/tracking:
         one:    Seguimiento de voluntario
         other:  Seguimientos de
@@ -318,6 +313,11 @@ es:
       volun/assessments_project:
         one:    Cualidad en proyecto
         other:  Cualidades en proyecto
+      req/status_trace:
+        one: Estado del seguimiento
+      req/reason:
+        one:   Motivo
+        other: Motivos
       pro/tracking:
         one:    Seguimiento de proyecto
         other:  Seguimientos de proyecto
