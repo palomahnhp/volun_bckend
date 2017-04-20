@@ -72,6 +72,8 @@ es:
           sunday:     Domingo
   activerecord:
     models:
+      academic_level:
+        one:   Nivel académico
       activity:
         one:   Actividad
         other: Actividades
@@ -87,6 +89,15 @@ es:
       collective:
         one:   Colectivo
         other: Colectivos
+      contact:
+        one: Contacto
+        other: Contactos
+      contact_result:
+        one:   Resultado de contacto
+        other: Resultados de contacto
+      contact_type:
+        one:   Tipo de contacto
+        other: Tipos de contacto
       district:
         one:   Distrito
         other: Distritos
@@ -96,6 +107,10 @@ es:
       degree:
         one:   Titulación
         other: Titulaciones
+      degree_type:
+        one:   Tipo de titulación
+      employment_status:
+        one:   Situación laboral
       entity_type:
         one:   Tipo de entidad
         other: Tipos de entidades
@@ -117,9 +132,17 @@ es:
       id_number_type:
         one:   Tipo de documento
         other: Tipo de documentos
+      issue:
+        one:   Incidencia
+        other: Incidencias
       language:
         one:   Idioma
         other: Idiomas
+      language_level:
+        one:   Nivel de idioma
+      language_volunteer:
+        one:   Idioma del voluntario
+        other: Idiomas del voluntario
       link_type:
         one:   Tipo de URL
         other: Tipos de URL's
@@ -129,6 +152,9 @@ es:
       manager:
         one:   Gestor
         other: Gestores
+      motivation:
+        one:   Motivación
+        other: Motivaciones
       nationality:
         one:   Nacionalidad
         other: Nacionalidades
@@ -144,12 +170,21 @@ es:
       permission:
         one:   Permiso
         other: Permisos
+      profession:
+        one:   Profesión
+        other: Profesiones
+      profile:
+        one:   Perfil
+        other: Perfiles
       project:
         one:   Proyecto
         other: Proyectos
       project_type:
         one:   Tipo de proyecto
         other: Tipos de proyecto
+      province:
+        one:   Provincia
+        other: Provincias
       pt/subvention:
         one:        Subvencionado
         other:      Subvencionados
@@ -183,6 +218,9 @@ es:
       status:
         one:   Situación
         other: Situaciones
+      reason:
+        one:   Motivo
+        other: Motivos
       record_history:
         one:   Historial de registro
         other: Historial de registros
@@ -198,6 +236,8 @@ es:
       resource:
         one:   Recurso
         other: Recursos
+      road_type:
+        one:   Tipo de vía
       role:
         one:   Rol
         other: Roles
@@ -237,6 +277,8 @@ es:
       rt/other:
         one:    Solicitud de "Otros"'
         other:  Solicitudes de "Otros"'
+      status_trace:
+        one: Estado del seguimiento
       tracking_type:
         one:   Tipo de seguimiento
         other: Tipos de seguimiento
