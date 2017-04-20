@@ -8,7 +8,6 @@ PROJECTS_NUM      = 10
 REQUEST_FORMS_NUM = 10
 ENTITIES_NUM      = 10
 COORDINATIONS_NUM = 10
-PROPOSAL_NUM      = 10
 ENTITY_NUM        = 10
 RACKING_NUM       = 10
 VOLUNTEERS        = 10
@@ -54,8 +53,6 @@ COLLECTIVE_NAMES = [
   'Toda la población',
   'Otros'
 ]
-
-PROPOSALS = %w(subvencionado desistido desestimado excluido)
 
 NATIONALITIES = [
 	'Español',
