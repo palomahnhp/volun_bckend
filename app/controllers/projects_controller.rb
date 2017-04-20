@@ -10,7 +10,14 @@ class ProjectsController < ApplicationController
     @search_q = @projects.unscoped.list.search(params[:q])
     @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
 
-    respond_with(@projects)
+    @urgentProjects = Project.urgent_projects
+    @outstandingProjects = Project.outstanding_projects
+    respond_to do |format|
+      format.html
+      format.js
+      format.json { render json: { urgent: @urgentProjects,
+                                   outstanding: @outstandingProjects } }
+    end
     # TODO implement js response
     # format.js   { render 'shared/popup', locals: { index_folder: Project.model_name.plural }}
     # TODO implement self.to_csv method
