@@ -19,8 +19,8 @@ class ActiveRecord::Base
     column_names.reject{ |column| column =~ /\b(id|created_at|updated_at)\b/ }
   end
 
-  def self.to_csv(records = self.all)
-    CSV.generate do |csv|
+  def self.to_csv(records)
+    CSV.generate(:col_sep => ';') do |csv|
       csv << main_columns.map{ |column_name| human_attribute_name(column_name) }
       records.each do |record|
         csv << main_columns.map{ |column_name| record.public_send column_name }
