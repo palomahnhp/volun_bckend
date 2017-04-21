@@ -108,8 +108,8 @@ class Volunteer < ActiveRecord::Base
     "#{name} #{last_name}"
   end
 
-  def self.to_csv(volunteers = self.all)
-    CSV.generate do |csv|
+  def self.to_csv(volunteers)
+    CSV.generate(:col_sep => ';') do |csv|
       csv << main_columns.map{ |column_name| human_attribute_name(column_name) } + [Address.human_attribute_name(:postal_code), Address.human_attribute_name(:district)]
       volunteers.each do |volunteer|
         csv << main_columns.map{ |column_name| volunteer.public_send column_name } + [(volunteer.address.try :postal_code), (volunteer.address.try :district)]
