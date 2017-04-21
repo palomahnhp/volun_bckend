@@ -10,7 +10,7 @@ class EntitiesController < ApplicationController
     @unpaginated_entities = @search_q.result.uniq
     @entities = @unpaginated_entities.paginate(page: params[:page], per_page: params[:per_page]||15)
 
-    respond_with(@entities) do |format|
+    respond_with(@unpaginated_entities) do |format|
       format.csv { send_data Entity.to_csv(@unpaginated_entities), filename: "#{Entity.model_name.human(count: 2)}.csv" }
     end
   end
