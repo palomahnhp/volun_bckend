@@ -157,7 +157,7 @@ class EntitiesController < ApplicationController
         user.password_confirmation = user.password
         user.email = "#{user.login}.entity@volun.es"
         if notice_type_id_param != ""
-          user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).id
+          user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).try(:id) if notice_type_id_param.present?
         else
           user.notice_type_id = nil
         end
@@ -165,7 +165,7 @@ class EntitiesController < ApplicationController
       else
         user = User.find_by(loggable_type: "Entity", loggable_id: entity.id)
         if notice_type_id_param != ""
-          user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).id
+          user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).try(:id) if notice_type_id_param.present?
         else
           user.notice_type_id = nil
         end
