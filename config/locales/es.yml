@@ -36,8 +36,7 @@ es:
   new_file:    Nuevo elemento
   must_choose_a_file: Debe seleccionar un archivo
   show_original_size: Ver en tamaño original
-  files_are_allowed_olny_on_update: Sólo se pueden subir archivos para proyectos ya existentes
-  files_are_allowed_olny_on_update_volun: Sólo se pueden subir archivos para voluntarios ya existentes
+  files_are_allowed_olny_on_update: Sólo se pueden subir archivos para registros ya existentes
   does_not_have: "No tiene %{element}"
   details: Detalles
   sms: Mensaje SMS
