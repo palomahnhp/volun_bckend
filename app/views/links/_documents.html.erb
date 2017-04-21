@@ -2,7 +2,7 @@
   <div class="files-header row">
     <div class="col-md-11">
       <%= content_tag :h2, "#{t('files')} #{t('and')} #{t('urls')}", class: 'form-subtitle' %>
-      <%= content_tag :div, (content_tag :p, t('files_are_allowed_olny_on_update_volun')), class: 'well-no-border' if f.object.new_record? %>
+      <%= content_tag :div, (content_tag :p, t('files_are_allowed_olny_on_update')), class: 'well-no-border' if f.object.new_record? %>
     </div>
     <div class="col-md-1">
       <p class="js-arrow hidden">
