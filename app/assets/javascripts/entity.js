@@ -17,9 +17,9 @@
         var d = new Date();
         var day = d.getDate();
         var month = d.getMonth() + 1;
-				var year = d.getFullYear();
-				var hours = d.getHours();
-				var min = d.getMinutes();
+        var year = d.getFullYear();
+        var hours = d.getHours();
+        var min = d.getMinutes();
         if (day < 10) {
           day = "0" + day;
         }
