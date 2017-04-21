@@ -152,15 +152,20 @@ class EntitiesController < ApplicationController
 
     def create_and_assign_user_to_entity!(entity, notice_type_id_param)
       if User.find_by(loggable_type: "Entity", loggable_id: entity.id).nil?
-        user = User.new(login: "user#{'%09d' % entity.id}", loggable: entity, notice_type: NoticeType.find_by(description: notice_type_id_param))
+        user = User.new(login: "userentity#{'%09d'}#{entity.name}", loggable: entity)
         user.password = Digest::SHA1.hexdigest("#{entity.created_at.to_s}--#{user.login}")[0,8]
         user.password_confirmation = user.password
-        user.email = "#{user.login}@volun.es"
+        user.email = "#{user.login}.entity@volun.es"
+        if notice_type_id_param != ""
+          user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).id
+        end
         user.save
       else
-        user = User.find_by(loggable_type: "Entity", loggable_id: entity.id)
-        user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).id
-        user.save
+        if notice_type_id_param != ""
+          user = User.find_by(loggable_type: "Entity", loggable_id: entity.id)
+          user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).id
+          user.save
+        end
       end
     end
 end

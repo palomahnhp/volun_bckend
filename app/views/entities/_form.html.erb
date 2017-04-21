@@ -39,10 +39,18 @@
           <div class="col-md-7">
             <% if User.find_by(loggable_type: "Entity", loggable_id: f.object.id).nil? %>
               <%= select_tag "entity_notice_type", options_for_select(NoticeType.all),
+                                                   include_blank: true,
                                                    class: 'form-control select' %>
             <% else %>
-              <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type.description),
+              <% if User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type_id.nil? %>
+                <%= select_tag "entity_notice_type", options_for_select(NoticeType.all),
+                                                   include_blank: true,
                                                    class: 'form-control select' %>
+              <% else %>
+                <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type.description),
+                                                     include_blank: true,
+                                                     class: 'form-control select' %>
+              <% end %>
             <% end %>
           </div>
         </div>
