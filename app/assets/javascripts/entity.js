@@ -17,13 +17,16 @@
         var d = new Date();
         var day = d.getDate();
         var month = d.getMonth() + 1;
+        var year = d.getFullYear();
+        var hours = d.getHours();
+        var min = d.getMinutes();
         if (day < 10) {
           day = "0" + day;
         }
         if (month < 10) {
           month = "0" + month;
         }
-        var strDate = day + "/" + month + "/" + d.getFullYear();
+        var strDate = day + "/" + month + "/" + year + " " + hours + ":" + min;
         $("#entity_unsubscribed_at").val(strDate);
       } else {
         $("#entity_unsubscribed_at").val("");
