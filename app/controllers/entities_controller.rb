@@ -158,14 +158,18 @@ class EntitiesController < ApplicationController
         user.email = "#{user.login}.entity@volun.es"
         if notice_type_id_param != ""
           user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).id
+        else
+          user.notice_type_id = nil
         end
         user.save
       else
+        user = User.find_by(loggable_type: "Entity", loggable_id: entity.id)
         if notice_type_id_param != ""
-          user = User.find_by(loggable_type: "Entity", loggable_id: entity.id)
           user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).id
-          user.save
+        else
+          user.notice_type_id = nil
         end
+        user.save
       end
     end
 end
