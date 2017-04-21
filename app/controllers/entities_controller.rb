@@ -6,10 +6,12 @@ class EntitiesController < ApplicationController
   def index
     params[:q] ||= Entity.ransack_default
     @search_q = @entities.search(params[:q])
-    @entities = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    @search_q.sorts ||= 'id asc'
+    @unpaginated_entities = @search_q.result.uniq
+    @entities = @unpaginated_entities.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@entities) do |format|
-      format.csv { send_data @entities.to_csv }
+      format.csv { send_data Entity.to_csv(@unpaginated_entities), filename: "#{Entity.model_name.human(count: 2)}.csv" }
     end
   end
 

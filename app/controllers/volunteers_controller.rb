@@ -5,8 +5,9 @@ class VolunteersController < ApplicationController
   def index
     params[:q] ||= Volunteer.ransack_default
     @search_q = @volunteers.search(params[:q])
-    @search_q.sorts = 'id asc' if @search_q.sorts.empty?
-    @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
+    @search_q.sorts ||= 'id asc'
+    @unpaginated_volunteers = @search_q.result.uniq.with_status(params[:status])
+    @volunteers = @unpaginated_volunteers.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     @districts_names = Address.joins(:volunteers).where.not(district: [nil, ""]).all.pluck(:district).uniq.sort_by { |district| district }
 
@@ -15,7 +16,7 @@ class VolunteersController < ApplicationController
       format.html
       format.js
       format.json { render json: @degreeSearch.to_json }
-      format.csv { send_data @volunteers.to_csv }
+      format.csv  { render text: Volunteer.to_csv(@unpaginated_volunteers), filename: "#{Volunteer.model_name.human(count: 2)}.csv" }
     end
   end
 

@@ -88,8 +88,8 @@ class Project < ActiveRecord::Base
     {s: 'id desc'}
   end
 
-  def self.to_csv(projects = self.all)
-    CSV.generate do |csv|
+  def self.to_csv(projects)
+    CSV.generate(:col_sep => ';') do |csv|
       csv << main_columns.map{ |column_name| human_attribute_name(column_name) } + [Address.human_attribute_name(:district).pluralize, Area.model_name.human(count: 2), Collective.model_name.human(count: 2)]
       projects.each do |project|
         csv << main_columns.map{ |column_name| project.public_send column_name } + [project.addresses.pluck(:district).to_sentence, project.areas.to_sentence, project.collectives.to_sentence]
