@@ -1,34 +1,43 @@
 class TrackingType < ActiveRecord::Base
 
+  AUTOMATIC_TRACKINGS = {
+    subscribe:   'subscribe',
+    unsubscribe: 'unsubscribe',
+  }
+
   include Recordable
   include Archivable
 
-  has_many :trackings, :class_name => 'Volun::Tracking'
+  has_many :trackings, class_name: 'Volun::Tracking'
 
-  validates :name, uniqueness: true
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :alias_name, uniqueness: true, if: 'alias_name.present?'
+  validate  :check_immutability, on: :update
 
-  # TODO set the definitive tracking type
   def self.get_volunteer_subscribe
-    take
+    where(alias_name: AUTOMATIC_TRACKINGS[:subscribe]).take!
   end
 
-  # TODO set the definitive tracking type
   def self.get_project_subscribe
-    take
+    where(alias_name: AUTOMATIC_TRACKINGS[:subscribe]).take!
   end
 
-  # TODO set the definitive tracking type
   def self.get_project_unsubscribe
-    take
+    where(alias_name: AUTOMATIC_TRACKINGS[:unsubscribe]).take!
   end
   
-  def self.get_volunteer_unsubscribe_type
-    TrackingType.find(17)
+  def self.get_volunteer_unsubscribe
+    where(alias_name: AUTOMATIC_TRACKINGS[:unsubscribe]).take!
   end
 
   def to_s
     name
   end
+
+  private
+
+    def check_immutability
+      errors.add :system, :cannot_be_modified if system_was && system_was != system
+    end
 
 end

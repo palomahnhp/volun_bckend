@@ -143,6 +143,12 @@ ROAD_TYPES.each do |name, code|
   RoadType.create!(name: name, code: code)
 end
 
+PROPOSALS = %w(Subvencionado Desistido Desestimado Excluido)
+puts "#{I18n.t('creating')} #{Proposal.model_name.human}"
+PROPOSALS.each do |proposal|
+  Proposal.create!(name: proposal, description: proposal)
+end
+
 def alter_sequence(sequence_name, sequence_number)
   ActiveRecord::Base.connection.execute("ALTER SEQUENCE #{sequence_name} RESTART WITH #{sequence_number}")
 end
@@ -654,24 +660,25 @@ alter_sequence(EntityType.sequence_name, EntityType.maximum("id") + 1)
 ## tracking_types
 puts "#{I18n.t('creating')} #{TrackingType.model_name.human}"
 
-TrackingType.create!(id: 1,  name: 'Alta'                                           , active: true)
-TrackingType.create!(id: 2,  name: 'Primera entrevista'                             , active: true)
-TrackingType.create!(id: 3,  name: 'Derivación'                                     , active: true)
-TrackingType.create!(id: 4,  name: 'Seguimientos individuales grado de satisfacción', active: true)
-TrackingType.create!(id: 5,  name: 'Participación reuniones grupales'               , active: true)
-TrackingType.create!(id: 6,  name: 'Notificaciones/avisos/incidencias'              , active: true)
-TrackingType.create!(id: 7,  name: 'Reunión inicial'                                , active: true)
-TrackingType.create!(id: 8,  name: 'Reunión seguimiento'                            , active: true)
-TrackingType.create!(id: 9,  name: 'Reunión voluntarios'                            , active: true)
-TrackingType.create!(id: 10, name: 'Cuestionarios satisfacción'                     , active: true)
-TrackingType.create!(id: 11, name: 'Evaluación'                                     , active: true)
-TrackingType.create!(id: 12, name: 'Seguimiento periódico rutinario'                , active: true)
-TrackingType.create!(id: 13, name: 'Presentación de nuevo proyecto'                 , active: true)
-TrackingType.create!(id: 14, name: 'Seguimiento de proyecto'                        , active: true)
-TrackingType.create!(id: 15, name: 'Actualización de datos de contacto'             , active: true)
-TrackingType.create!(id: 16, name: 'Incidencia'                                     , active: true)
-TrackingType.create!(id: 17, name: 'Departamento Voluntariado'                      , active: true)
-TrackingType.create!(id: 18, name: 'Otros'                                          , active: true)
+TrackingType.create!(id: 1,  name: 'Alta'                                           , active: true, alias_name: TrackingType::AUTOMATIC_TRACKINGS[:subscribe], system: true)
+TrackingType.create!(id: 2,  name: 'Primera entrevista'                             , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 3,  name: 'Derivación'                                     , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 4,  name: 'Seguimientos individuales grado de satisfacción', active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 5,  name: 'Participación reuniones grupales'               , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 6,  name: 'Notificaciones/avisos/incidencias'              , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 7,  name: 'Reunión inicial'                                , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 8,  name: 'Reunión seguimiento'                            , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 9,  name: 'Reunión voluntarios'                            , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 10, name: 'Cuestionarios satisfacción'                     , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 11, name: 'Evaluación'                                     , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 12, name: 'Seguimiento periódico rutinario'                , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 13, name: 'Presentación de nuevo proyecto'                 , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 14, name: 'Seguimiento de proyecto'                        , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 15, name: 'Actualización de datos de contacto'             , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 16, name: 'Incidencia'                                     , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 17, name: 'Departamento Voluntariado'                      , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 18, name: 'Otros'                                          , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 19, name: 'Baja'                                           , active: true, alias_name: TrackingType::AUTOMATIC_TRACKINGS[:unsubscribe], system: true)
 
 alter_sequence(TrackingType.sequence_name, TrackingType.maximum("id") + 1)
 

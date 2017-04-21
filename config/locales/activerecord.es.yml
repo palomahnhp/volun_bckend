@@ -74,6 +74,7 @@ es:
     models:
       academic_level:
         one:   Nivel académico
+        other: Niveles académicos
       activity:
         one:   Actividad
         other: Actividades
@@ -106,8 +107,10 @@ es:
         other: Titulaciones
       degree_type:
         one:   Tipo de titulación
+        other: Tipos de titulaciones
       employment_status:
         one:   Situación laboral
+        other: Situaciones laborales
       entity_type:
         one:   Tipo de entidad
         other: Tipos de entidades
@@ -134,6 +137,7 @@ es:
         other: Idiomas
       language_level:
         one:   Nivel de idioma
+        other: Niveles de idiomas
       language_volunteer:
         one:   Idioma del voluntario
         other: Idiomas del voluntario
@@ -229,6 +233,7 @@ es:
         other: Recursos
       road_type:
         one:   Tipo de vía
+        other: Tipos de vías
       role:
         one:   Rol
         other: Roles
@@ -314,7 +319,8 @@ es:
         one:    Cualidad en proyecto
         other:  Cualidades en proyecto
       req/status_trace:
-        one: Estado del seguimiento
+        one:    Estado del seguimiento
+        other:  Estados de los seguimientos
       req/reason:
         one:   Motivo
         other: Motivos
@@ -458,6 +464,8 @@ es:
       tracking_type:
         id:          ID
         name:        Tipo Seguimiento
+        alias_name:  Alias
+        system:      De Sistema
         active:      *active
         created_at : *created_at
       request_types:
