@@ -41,7 +41,7 @@
 
     // Disable availability_date if available check is checked
     function setAvailDate() {
-      if ($("#volunteer_available").prop("checked")) {
+      if (!$("#volunteer_available").prop("checked")) {
         $("#volunteer_availability_date").attr("disabled", true);
         $("#volunteer_availability_date").val("");
       } else {

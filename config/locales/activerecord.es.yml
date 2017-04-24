@@ -298,8 +298,8 @@ es:
         one:   Voluntario
         other: Voluntarios
       volun/availability:
-        one:    Horario de disponibilidad del usuario
-        other:  Horarios de disponibilidad del usuario
+        one:    Horario de disponibilidad del voluntario
+        other:  Horarios de disponibilidad del voluntario
       volun/contact:
         one: Contacto
         other: Contactos
@@ -678,7 +678,7 @@ es:
         id_number_type_id:        Tipo de documento
         id_number_type:           Tipo de documento
         id_number:                NIF
-        gender:                   Género
+        gender:                   Sexo
         birth_date:               Fecha de nacimiento
         nationality_id:           Nacionalidad
         nationality:              Nacionalidad
@@ -691,8 +691,8 @@ es:
         employment_status_id:     Situación laboral
         employment_status:        Situación laboral
         vocne:                    VOCNE
-        available:                Disponible
-        availability_date:        Fecha de disponibilidad
+        available:                No disponible
+        availability_date:        Fecha de disponibilidad desde
         academic_level_id:        Nivel Académico
         academic_level:           Nivel Académico
         subscribe_date:           Fecha de alta
@@ -861,10 +861,11 @@ es:
         start_hour_must_be_less_than_end_hour: La hora inicio deber ser menor que la hora fin
         timetable_must_be_between_execution_start_date_and_execution_end_date: "Las fechas de horarios deben estar en el intervalo de las fechas de ejecución desde y hasta"
         execution_start_date_must_be_less_than_execution_end_date: La fecha de inicio debe ser menor o igual que la fecha de fin
+        unsubscribe_date_must_be_higher_than_subscribe_date: La fecha de baja no puede ser anterior a la fecha de alta
         pt_extendable_inconsistency: "Existe una inconsistencia entre los datos del proyecto y el tipo de proyecto"
         rt_extendable_inconsistency: "Existe una inconsistencia entre los datos de la solicitud y el tipo de solicitud"
         invalid_volun_birth_date: "La fecha debe tener un formato válido y no puede ser posterior a la fecha actual"
-        invalid_volun_availability_date: El formato de fecha debe ser válido y la fecha de disponibilidad debe ser posterior a la actual, en caso contrario, marque la casilla "Disponible"
+        invalid_volun_availability_date: El formato de fecha debe ser válido y la fecha de disponibilidad debe ser posterior a la actual, en caso contrario, marque la casilla "No disponible"
         invalid_volun_agreement_date: El formato de fecha debe ser válido y debe especificar una fecha de acuerdo si esta marcada la casilla "Acuerdo de colaboración"
         invalid_volun_subscribe_dates: El formato de fecha debe ser válido
         unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
