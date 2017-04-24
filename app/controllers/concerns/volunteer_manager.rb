@@ -39,7 +39,6 @@ class VolunteerManager
     ActiveRecord::Base.transaction do
       if volunteer.save
         assign_user_to_volunteer!
-        # TODO set the definitive tracking type
         register_tracking!(
           tracking_type: TrackingType.get_volunteer_subscribe,
           comments:      I18n.t('trackings.volunteer_subscribe')
