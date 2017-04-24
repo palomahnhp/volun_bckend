@@ -20,7 +20,7 @@ class ActiveRecord::Base
   end
 
   def self.to_csv(records)
-    CSV.generate(:col_sep => ';') do |csv|
+    CSV.generate(col_sep:';', encoding:'ISO-8859-1') do |csv|
       csv << main_columns.map{ |column_name| human_attribute_name(column_name) }
       records.each do |record|
         csv << main_columns.map{ |column_name| record.public_send column_name }
