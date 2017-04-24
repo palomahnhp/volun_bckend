@@ -370,6 +370,7 @@ es:
         annual_survey: Recibir encuesta anual
         reason: Motivo por el que solicita darse de alta
         reason_id: Motivo por el que solicita darse de alta
+        req_reason_id: Motivo por el que solicita darse de alta
         entity_type: Tipo de entidad
         entity_type_id: Tipo de entidad
         comments: Observaciones
