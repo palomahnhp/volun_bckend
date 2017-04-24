@@ -622,7 +622,7 @@ alter_sequence(Status.sequence_name, Status.maximum("id") + 1)
 ## managers
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
-internal_staff = Role.internal_staff.take.id
+internal_staff = Role.internal_staff.take
 Manager.create!(id: 1 , name: 'Yolanda',  last_name: 'Gutiérrez', last_name_alt: 'García'   , alias_name: 'YGG007' , login: 'YGG007' , phone_number: nil, active: true, profile_id: 1, role: internal_staff)
 Manager.create!(id: 2 , name: 'Vanesa',   last_name: 'Pereiro',   last_name_alt: 'Pereira'  , alias_name: 'VPP005' , login: 'VPP005' , phone_number: nil, active: true, profile_id: 1, role: internal_staff)
 Manager.create!(id: 3 , name: 'Salvador', last_name: 'Vinardel',  last_name_alt: 'García'   , alias_name: 'SVG006' , login: 'SVG006' , phone_number: nil, active: true, profile_id: 1, role: internal_staff)
