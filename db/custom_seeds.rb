@@ -629,7 +629,21 @@ alter_sequence(Status.sequence_name, Status.maximum("id") + 1)
 ## managers
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
-Manager.create!(id: 1, name: 'MFA026', alias_name: 'MFA026', phone_number: '915880000', active: true, profile_id: 2)
+Manager.create!(id: 1 , name: 'Yolanda',  last_name: 'Gutiérrez', last_name_alt: 'García'   , alias_name: 'YGG007' , login: 'YGG007' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 2 , name: 'Vanesa',   last_name: 'Pereiro',   last_name_alt: 'Pereira'  , alias_name: 'VPP005' , login: 'VPP005' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 3 , name: 'Salvador', last_name: 'Vinardel',  last_name_alt: 'García'   , alias_name: 'SVG006' , login: 'SVG006' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 4 , name: 'Sandra ',  last_name: 'De Andrés', last_name_alt: 'Niño'     , alias_name: 'SDN002' , login: 'SDN002' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 5 , name: 'María',    last_name: 'De Diego',  last_name_alt: 'Maté'     , alias_name: 'MDM062' , login: 'MDM062' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 6 , name: 'Celia',    last_name: 'Bañon',     last_name_alt: 'Ferrero'  , alias_name: 'CBF006' , login: 'CBF006' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 7 , name: 'Daniel',   last_name: 'Peinado',   last_name_alt: 'Ruiz'     , alias_name: 'DPR006' , login: 'DPR006' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 8 , name: 'Nazaret',  last_name: 'Sánchez',   last_name_alt: 'Piña'     , alias_name: 'NSP001' , login: 'NSP001' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 9 , name: 'Carolina', last_name: 'Domínguez', last_name_alt: 'Rodríguez', alias_name: 'CDR012' , login: 'CDR012' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 10, name: 'Isabel',   last_name: 'Lozano',    last_name_alt: 'Vique'    , alias_name: 'ILV005' , login: 'ILV005' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 11, name: 'David',    last_name: 'Guerra',    last_name_alt: 'López'    , alias_name: 'DGL018' , login: 'DGL018' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 12, name: 'Laura',    last_name: 'Cañete',    last_name_alt: 'Guzmán'   , alias_name: 'LCG028' , login: 'LCG028' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 13, name: 'Carlos',   last_name: 'Lozano',    last_name_alt: 'Casado'   , alias_name: 'CLC011' , login: 'CLC011' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 14, name: 'Laura',    last_name: 'Gónzalez',  last_name_alt: 'Munin'    , alias_name: 'LGM023' , login: 'LGM023' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 15, name: 'Mª. Luz',  last_name: 'García',    last_name_alt: 'MATEO'    , alias_name: 'MGM108' , login: 'MGM108' , phone_number: nil, active: true, profile_id: 1)
 
 alter_sequence(Manager.sequence_name, Manager.maximum("id") + 1)
 

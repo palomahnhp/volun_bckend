@@ -17,8 +17,6 @@ class Manager < ActiveRecord::Base
 
   validates :name, presence: true
 
-  default_scope ->{ includes(:role, :permissions) }
-
   class << self
     delegate :kinds, :kinds_i18n, to: Role
   end
