@@ -5,7 +5,7 @@ class VolunteersController < ApplicationController
   def index
     params[:q] ||= Volunteer.ransack_default
     @search_q = @volunteers.search(params[:q])
-    @search_q.sorts ||= 'id asc'
+    @search_q.sorts ||= 'updated_at asc'
     @unpaginated_volunteers = @search_q.result.uniq.with_status(params[:status])
     @volunteers = @unpaginated_volunteers.paginate(page: params[:page], per_page: params[:per_page]||15)
 

@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="row well">
-      <%= f.association :id_number_type, wrapper_html: { class: 'col-md-5' } %>
+      <%= f.association :id_number_type, collection: IdNumberType.for_volunteers,  wrapper_html: { class: 'col-md-5' } %>
       <%= f.input :id_number, input_html: { class: 'vat_num', data: { mask: 'wwwwwwwww'} }, wrapper_html: { class: 'col-md-5' } %>
     </div>
     <div class="phone row well">

@@ -25,12 +25,10 @@ class Manager < ActiveRecord::Base
     %i(name last_name last_name_alt login phone_number)
   end
 
-  def full_name
+  def to_s
     "#{name} #{last_name}"
   end
 
-  def to_s
-    self.full_name
-  end
+  alias_method :full_name, :to_s
 
 end

@@ -1,12 +1,5 @@
 Rake::Task['db:seed'].invoke
 
-[NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel, LinkType, Role].each do |model|
-  puts "#{I18n.t('creating')} #{model.model_name.human}"
-  model.kinds.each do |kind_name , kind_num|
-    model.create!(id: kind_num, kind: kind_num, description: kind_name)
-  end
-end
-
 DISTRICTS = {
   '01' => 'CENTRO',
   '02' => 'ARGANZUELA',
@@ -645,7 +638,7 @@ Manager.create!(id: 13, name: 'Carlos',   last_name: 'Lozano',    last_name_alt:
 Manager.create!(id: 14, name: 'Laura',    last_name: 'Gónzalez',  last_name_alt: 'Munin'    , alias_name: 'LGM023' , login: 'LGM023' , phone_number: nil, active: true, profile_id: 1)
 Manager.create!(id: 15, name: 'Mª. Luz',  last_name: 'García',    last_name_alt: 'MATEO'    , alias_name: 'MGM108' , login: 'MGM108' , phone_number: nil, active: true, profile_id: 1)
 
-alter_sequence(Manager.sequence_name, Manager.maximum("id") + 1)
+# alter_sequence(Manager.sequence_name, Manager.maximum("id") + 1)
 
 ## id_number_types
 puts "#{I18n.t('creating')} #{IdNumberType.model_name.human}"
