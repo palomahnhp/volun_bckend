@@ -24,8 +24,10 @@
     <%= content_tag(:div, search_collection(@search_q, :events_address_district_or_name_or_description_cont, hidden_fields: { status: params[:status] }), class: 'pull-right') %>
   </div>
 </div>
-
-<p><%= model_class.model_name.human(count: 2) %>: <%= @projects.count %></p>
+<div class="col-md-12">
+  <p><%= model_class.model_name.human(count: 2) %>: <%= @projects.count %></p>
+  <%= link_to t('action.download_csv'), projects_path(format: "csv", q: params[:q], status: params[:status]), class: "btn btn-success" %>
+</div>
 
 <table class="index-table">
   <thead>

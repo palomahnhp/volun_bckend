@@ -5,4 +5,8 @@ class Req::Reason < ActiveRecord::Base
   validates :name, :description, uniqueness: true
   validates :name, presence: true
 
+  def to_s
+    description
+  end
+
 end

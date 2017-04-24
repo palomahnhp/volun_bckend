@@ -1,12 +1,5 @@
 Rake::Task['db:seed'].invoke
 
-[NoticeType, Req::Status, ProjectType, RequestType, EventType, UnsubscribeLevel, LinkType, Role].each do |model|
-  puts "#{I18n.t('creating')} #{model.model_name.human}"
-  model.kinds.each do |kind_name , kind_num|
-    model.create!(id: kind_num, kind: kind_num, description: kind_name)
-  end
-end
-
 DISTRICTS = {
   '01' => 'CENTRO',
   '02' => 'ARGANZUELA',
@@ -121,9 +114,12 @@ ROAD_TYPES = {
 }
 
 puts "#{I18n.t('creating')} #{Resource.model_name.human}"
-Resource::RESOURCES_NAMES.each do |resource_name|
-  Resource.create!(name: resource_name)
+Resource::ALL_RESOURCES.each do |resource_name|
+  resource = Resource.new(name: resource_name , active: false)
+  resource.description = resource.class_name.model_name.human
+  resource.save!
 end
+Resource.where(name: Resource::DEFAULT_RESOURCES).update_all(active: true)
 
 puts "#{I18n.t('creating')} #{District.model_name.human}"
 DISTRICTS.each do |code, name|
@@ -138,6 +134,12 @@ end
 puts "#{I18n.t('creating')} #{RoadType.model_name.human}"
 ROAD_TYPES.each do |name, code|
   RoadType.create!(name: name, code: code)
+end
+
+PROPOSALS = %w(Subvencionado Desistido Desestimado Excluido)
+puts "#{I18n.t('creating')} #{Proposal.model_name.human}"
+PROPOSALS.each do |proposal|
+  Proposal.create!(name: proposal, description: proposal)
 end
 
 def alter_sequence(sequence_name, sequence_number)
@@ -620,9 +622,23 @@ alter_sequence(Status.sequence_name, Status.maximum("id") + 1)
 ## managers
 puts "#{I18n.t('creating')} #{Manager.model_name.human}"
 
-Manager.create!(id: 1, name: 'MFA026', alias_name: 'MFA026', phone_number: '915880000', active: true, profile_id: 2)
+Manager.create!(id: 1 , name: 'Yolanda',  last_name: 'Gutiérrez', last_name_alt: 'García'   , alias_name: 'YGG007' , login: 'YGG007' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 2 , name: 'Vanesa',   last_name: 'Pereiro',   last_name_alt: 'Pereira'  , alias_name: 'VPP005' , login: 'VPP005' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 3 , name: 'Salvador', last_name: 'Vinardel',  last_name_alt: 'García'   , alias_name: 'SVG006' , login: 'SVG006' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 4 , name: 'Sandra ',  last_name: 'De Andrés', last_name_alt: 'Niño'     , alias_name: 'SDN002' , login: 'SDN002' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 5 , name: 'María',    last_name: 'De Diego',  last_name_alt: 'Maté'     , alias_name: 'MDM062' , login: 'MDM062' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 6 , name: 'Celia',    last_name: 'Bañon',     last_name_alt: 'Ferrero'  , alias_name: 'CBF006' , login: 'CBF006' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 7 , name: 'Daniel',   last_name: 'Peinado',   last_name_alt: 'Ruiz'     , alias_name: 'DPR006' , login: 'DPR006' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 8 , name: 'Nazaret',  last_name: 'Sánchez',   last_name_alt: 'Piña'     , alias_name: 'NSP001' , login: 'NSP001' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 9 , name: 'Carolina', last_name: 'Domínguez', last_name_alt: 'Rodríguez', alias_name: 'CDR012' , login: 'CDR012' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 10, name: 'Isabel',   last_name: 'Lozano',    last_name_alt: 'Vique'    , alias_name: 'ILV005' , login: 'ILV005' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 11, name: 'David',    last_name: 'Guerra',    last_name_alt: 'López'    , alias_name: 'DGL018' , login: 'DGL018' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 12, name: 'Laura',    last_name: 'Cañete',    last_name_alt: 'Guzmán'   , alias_name: 'LCG028' , login: 'LCG028' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 13, name: 'Carlos',   last_name: 'Lozano',    last_name_alt: 'Casado'   , alias_name: 'CLC011' , login: 'CLC011' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 14, name: 'Laura',    last_name: 'Gónzalez',  last_name_alt: 'Munin'    , alias_name: 'LGM023' , login: 'LGM023' , phone_number: nil, active: true, profile_id: 1)
+Manager.create!(id: 15, name: 'Mª. Luz',  last_name: 'García',    last_name_alt: 'MATEO'    , alias_name: 'MGM108' , login: 'MGM108' , phone_number: nil, active: true, profile_id: 1)
 
-alter_sequence(Manager.sequence_name, Manager.maximum("id") + 1)
+# alter_sequence(Manager.sequence_name, Manager.maximum("id") + 1)
 
 ## id_number_types
 puts "#{I18n.t('creating')} #{IdNumberType.model_name.human}"
@@ -651,24 +667,25 @@ alter_sequence(EntityType.sequence_name, EntityType.maximum("id") + 1)
 ## tracking_types
 puts "#{I18n.t('creating')} #{TrackingType.model_name.human}"
 
-TrackingType.create!(id: 1,  name: 'Alta'                                           , active: true)
-TrackingType.create!(id: 2,  name: 'Primera entrevista'                             , active: true)
-TrackingType.create!(id: 3,  name: 'Derivación'                                     , active: true)
-TrackingType.create!(id: 4,  name: 'Seguimientos individuales grado de satisfacción', active: true)
-TrackingType.create!(id: 5,  name: 'Participación reuniones grupales'               , active: true)
-TrackingType.create!(id: 6,  name: 'Notificaciones/avisos/incidencias'              , active: true)
-TrackingType.create!(id: 7,  name: 'Reunión inicial'                                , active: true)
-TrackingType.create!(id: 8,  name: 'Reunión seguimiento'                            , active: true)
-TrackingType.create!(id: 9,  name: 'Reunión voluntarios'                            , active: true)
-TrackingType.create!(id: 10, name: 'Cuestionarios satisfacción'                     , active: true)
-TrackingType.create!(id: 11, name: 'Evaluación'                                     , active: true)
-TrackingType.create!(id: 12, name: 'Seguimiento periódico rutinario'                , active: true)
-TrackingType.create!(id: 13, name: 'Presentación de nuevo proyecto'                 , active: true)
-TrackingType.create!(id: 14, name: 'Seguimiento de proyecto'                        , active: true)
-TrackingType.create!(id: 15, name: 'Actualización de datos de contacto'             , active: true)
-TrackingType.create!(id: 16, name: 'Incidencia'                                     , active: true)
-TrackingType.create!(id: 17, name: 'Departamento Voluntariado'                      , active: true)
-TrackingType.create!(id: 18, name: 'Otros'                                          , active: true)
+TrackingType.create!(id: 1,  name: 'Alta'                                           , active: true, alias_name: TrackingType::AUTOMATIC_TRACKINGS[:subscribe], system: true)
+TrackingType.create!(id: 2,  name: 'Primera entrevista'                             , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 3,  name: 'Derivación'                                     , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 4,  name: 'Seguimientos individuales grado de satisfacción', active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 5,  name: 'Participación reuniones grupales'               , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 6,  name: 'Notificaciones/avisos/incidencias'              , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 7,  name: 'Reunión inicial'                                , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 8,  name: 'Reunión seguimiento'                            , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 9,  name: 'Reunión voluntarios'                            , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 10, name: 'Cuestionarios satisfacción'                     , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 11, name: 'Evaluación'                                     , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 12, name: 'Seguimiento periódico rutinario'                , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 13, name: 'Presentación de nuevo proyecto'                 , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 14, name: 'Seguimiento de proyecto'                        , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 15, name: 'Actualización de datos de contacto'             , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 16, name: 'Incidencia'                                     , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 17, name: 'Departamento Voluntariado'                      , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 18, name: 'Otros'                                          , active: true, alias_name: nil, system: false)
+TrackingType.create!(id: 19, name: 'Baja'                                           , active: true, alias_name: TrackingType::AUTOMATIC_TRACKINGS[:unsubscribe], system: true)
 
 alter_sequence(TrackingType.sequence_name, TrackingType.maximum("id") + 1)
 

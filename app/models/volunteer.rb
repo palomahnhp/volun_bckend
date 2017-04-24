@@ -61,9 +61,8 @@ class Volunteer < ActiveRecord::Base
                                  allow_blank: true }
   validates :availability_date, date: { after:       Proc.new { Date.tomorrow },
                                         before:      Proc.new { 150.years.since },
-                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_availability_date'),
-                                        allow_blank: true },
-                                unless: 'available?'
+                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_availability_date') },
+                                if: 'available?'
   validates :agreement_date, presence: { message: I18n.t('activerecord.errors.messages.invalid_volun_agreement_date')},
                              if: 'agreement?'
   validates :subscribe_date, date: { after:       Proc.new { 150.years.ago },
@@ -74,7 +73,7 @@ class Volunteer < ActiveRecord::Base
                                        before:      Proc.new { 150.years.since },
                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
                                        allow_blank: true }
-
+  validate :unsubscribe_date_higher_than_subscribe_date
   validate :trait_check
   validate :trait_project_check
 
@@ -101,11 +100,20 @@ class Volunteer < ActiveRecord::Base
   end
 
   def self.ransack_default
-    {s: 'id asc'}
+    {s: 'updated_at asc'}
   end
 
   def to_s
     "#{name} #{last_name}"
+  end
+
+  def self.to_csv(volunteers)
+    CSV.generate(col_sep:';', encoding:'ISO-8859-1') do |csv|
+      csv << main_columns.map{ |column_name| human_attribute_name(column_name) } + [Address.human_attribute_name(:postal_code), Address.human_attribute_name(:district)]
+      volunteers.each do |volunteer|
+        csv << main_columns.map{ |column_name| volunteer.public_send column_name } + [(volunteer.address.try :postal_code), (volunteer.address.try :district)]
+      end
+    end
   end
 
   def unassociated_projects
@@ -127,6 +135,8 @@ class Volunteer < ActiveRecord::Base
       phone_number_alt
     end
   end
+
+  private
 
   def trait_check
     return unless assessments.any?
@@ -157,6 +167,14 @@ class Volunteer < ActiveRecord::Base
         errors.add(:base, :alert_project_trait_duplicity)
         return
       end
+    end
+  end
+
+  def unsubscribe_date_higher_than_subscribe_date
+    return unless subscribe_date && unsubscribe_date
+
+    unless subscribe_date <= unsubscribe_date
+      errors.add(:unsubscribe_date, :unsubscribe_date_must_be_higher_than_subscribe_date)
     end
   end
 

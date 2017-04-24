@@ -51,7 +51,10 @@
   </div>
 </div>
 
-<p><%= model_class.model_name.human(count: 2) %>: <%= @volunteers.count %></p>
+<div class="col-md-12 table-csv">
+  <p><%= model_class.model_name.human(count: 2) %>: <%= @volunteers.count %></p>
+  <%= link_to t('action.download_csv'), volunteers_path(format: "csv", q: params[:q], status: params[:status], q_address_district_eq: params[:q][:address_district_eq], 'q[availabilities_day_in_all][]' => params[:q][:availabilities_day_in_all] ), class: "btn btn-success" %>
+</div>
 
 <table class="index-table">
   <thead>

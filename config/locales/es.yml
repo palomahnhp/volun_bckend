@@ -8,25 +8,26 @@ es:
   app_name: 'Voluntariado'
   actions:   Acciones
   action:
-    new:      'Nuevo %{model}'
-    new_fem:  'Nueva %{model}'
-    edit:     'Editar %{model}'
-    show:     'Ver %{model}'
-    destroy:  'Eliminar'
-    delete:   'Eliminar'
-    download: 'Descargar'
-    upload:   'Subir'
-    archive:  'Archivar'
-    search:   'Buscar'
-    back:     'Volver'
-    close:    'Cerrar'
-    add:      'Añadir'
-    remove:   'Eliminar'
-    approve:  'Aprobar'
-    manage:   'Gestionar'
-    reject:   'Rechazar'
-    recover:  'Restablecer'
-    share:    'Abrir'
+    new:          'Nuevo %{model}'
+    new_fem:      'Nueva %{model}'
+    edit:         'Editar %{model}'
+    show:         'Ver %{model}'
+    destroy:      'Eliminar'
+    delete:       'Eliminar'
+    download:     'Descargar'
+    download_csv: 'Descargar tabla'
+    upload:       'Subir'
+    archive:      'Archivar'
+    search:       'Buscar'
+    back:         'Volver'
+    close:        'Cerrar'
+    add:          'Añadir'
+    remove:       'Eliminar'
+    approve:      'Aprobar'
+    manage:       'Gestionar'
+    reject:       'Rechazar'
+    recover:      'Restablecer'
+    share:        'Abrir'
     undo_rejection: 'Deshacer rechazo'
     process:  'Procesar'
     man_trackings: 'Gestionar seguimientos'
@@ -35,8 +36,7 @@ es:
   new_file:    Nuevo elemento
   must_choose_a_file: Debe seleccionar un archivo
   show_original_size: Ver en tamaño original
-  files_are_allowed_olny_on_update: Sólo se pueden subir archivos para proyectos ya existentes
-  files_are_allowed_olny_on_update_volun: Sólo se pueden subir archivos para voluntarios ya existentes
+  files_are_allowed_olny_on_update: Sólo se pueden subir archivos para registros ya existentes
   does_not_have: "No tiene %{element}"
   details: Detalles
   sms: Mensaje SMS
@@ -170,3 +170,4 @@ es:
   message_body_urgent: Ya existe un proyecto urgente
   message_title_outstanding: Proyectos destacados
   message_body_outstanding: Ya existen tres proyectos destacados
+  volunteer_docs: Documentación del voluntario

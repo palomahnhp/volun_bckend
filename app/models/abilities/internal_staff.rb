@@ -11,6 +11,7 @@ module Abilities
       cannot :administration, WelcomeController
       cannot :maintenance, WelcomeController
       cannot :update_checks, Project
+      cannot :destroy, TrackingType, system: true
 
       can :recover, :all
       can :bdc_search_towns, Address
@@ -18,8 +19,6 @@ module Abilities
       can :bdc_search_road_numbers, Address
       can :pt_extensions_menu, Project
       can :rt_extensions_menu, RequestForm
-      can :show_sms, Volunteer
-      can :send_sms, Volunteer
       can [:process_request_form, :pre_approve_request_form, :pre_reject_request_form, :reject_request_form],
           Rt::VolunteerSubscribe
       can [:process_request_form, :approve_and_render_unsubscribes_path, :pre_approve_request_form,

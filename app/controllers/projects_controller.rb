@@ -8,20 +8,21 @@ class ProjectsController < ApplicationController
   def index
     params[:q] ||= Project.ransack_default
     @search_q = @projects.unscoped.list.search(params[:q])
-    @projects = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
+    @search_q.sorts ||= 'id asc'
+    @unpaginated_projects = @search_q.result.uniq.with_status(params[:status])
+    @projects = @unpaginated_projects.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     @urgentProjects = Project.urgent_projects
     @outstandingProjects = Project.outstanding_projects
     respond_to do |format|
       format.html
+      format.csv { send_data Project.to_csv(@unpaginated_projects), filename: "#{Project.model_name.human(count: 2)}.csv" }
       format.js
       format.json { render json: { urgent: @urgentProjects,
                                    outstanding: @outstandingProjects } }
     end
     # TODO implement js response
     # format.js   { render 'shared/popup', locals: { index_folder: Project.model_name.plural }}
-    # TODO implement self.to_csv method
-    # format.csv  { send_data(Project.to_csv(@wires_by_circuit_id), filename: "#{Project.model_name.human(count: 2).downcase}.csv")}///
   end
 
   def show

@@ -6,9 +6,13 @@ class EntitiesController < ApplicationController
   def index
     params[:q] ||= Entity.ransack_default
     @search_q = @entities.search(params[:q])
-    @entities = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
+    @search_q.sorts ||= 'id asc'
+    @unpaginated_entities = @search_q.result.uniq
+    @entities = @unpaginated_entities.paginate(page: params[:page], per_page: params[:per_page]||15)
 
-    respond_with(@entities)
+    respond_with(@unpaginated_entities) do |format|
+      format.csv { send_data Entity.to_csv(@unpaginated_entities), filename: "#{Entity.model_name.human(count: 2)}.csv" }
+    end
   end
 
   def show
@@ -28,11 +32,13 @@ class EntitiesController < ApplicationController
 
   def create
     @entity.save
+    create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
     respond_with(@entity)
   end
 
   def update
     @entity.update_attributes(entity_params)
+    create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
     respond_with(@entity)
   end
 
@@ -141,13 +147,31 @@ class EntitiesController < ApplicationController
               :_destroy
             ]
           },
-          {
-            user_attributes: [
-              :id,
-              :notice_type_id,
-              :_destroy
-            ]
-          }
         )
+    end
+
+    private
+
+    def create_and_assign_user_to_entity!(entity, notice_type_id_param)
+      if User.find_by(loggable_type: "Entity", loggable_id: entity.id).nil?
+        user = User.new(login: "userentity#{'%09d'}#{entity.name}", loggable: entity)
+        user.password = Digest::SHA1.hexdigest("#{entity.created_at.to_s}--#{user.login}")[0,8]
+        user.password_confirmation = user.password
+        user.email = "#{user.login}.entity@volun.es"
+        if notice_type_id_param != ""
+          user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).try(:id) if notice_type_id_param.present?
+        else
+          user.notice_type_id = nil
+        end
+        user.save
+      else
+        user = User.find_by(loggable_type: "Entity", loggable_id: entity.id)
+        if notice_type_id_param != ""
+          user.notice_type_id = NoticeType.find_by(description: notice_type_id_param).try(:id) if notice_type_id_param.present?
+        else
+          user.notice_type_id = nil
+        end
+        user.save
+      end
     end
 end
