@@ -24,7 +24,7 @@
       <% if can? :read, Volunteer %>
         <%= link_to volunteers_path, class: 'menu-item' do %>
           <div class="col-sm-3 col-md-2">
-            <div class="thumbnail element">
+            <div class="thumbnail">
               <div>
                 <%= content_tag :div, build_icon('users', title: '') %>
               </div>
@@ -39,7 +39,7 @@
       <% if can? :read, Entity %>
         <%= link_to entities_path, class: 'menu-item' do %>
           <div class="col-sm-3 col-md-2">
-            <div class="thumbnail element">
+            <div class="thumbnail">
               <div>
                 <%= content_tag :div, build_icon('cubes', title: '') %>
               </div>
@@ -54,7 +54,7 @@
       <% if can? :read, Activity %>
         <%= link_to activities_path, class: 'menu-item' do %>
           <div class="col-sm-3 col-md-2">
-            <div class="thumbnail element">
+            <div class="thumbnail">
               <div>
                 <%= content_tag :div, build_icon('book', title: '') %>
               </div>
@@ -69,7 +69,7 @@
       <% if can? :read, RequestForm %>
         <%= link_to rt_extensions_menu_request_forms_path, class: 'menu-item' do %>
           <div class="col-sm-3 col-md-2">
-            <div class="thumbnail element">
+            <div class="thumbnail">
               <div>
                 <%= content_tag :div, build_icon('list', title: '') %>
               </div>
@@ -84,7 +84,7 @@
       <% if can? :administration, WelcomeController %>
         <%= link_to administration_path, class: 'menu-item' do %>
           <div class="col-sm-3 col-md-2">
-            <div class="thumbnail element">
+            <div class="thumbnail">
               <div>
                 <%= content_tag :div, build_icon('cogs', title: '') %>
               </div>
