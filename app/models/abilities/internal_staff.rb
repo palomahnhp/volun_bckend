@@ -11,6 +11,7 @@ module Abilities
       cannot :administration, WelcomeController
       cannot :maintenance, WelcomeController
       cannot :update_checks, Project
+      cannot :destroy, TrackingType, system: true
 
       can :recover, :all
       can :bdc_search_towns, Address
