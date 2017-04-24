@@ -51,7 +51,7 @@ class Volunteer < ActiveRecord::Base
   accepts_nested_attributes_for :logo,                 reject_if: :all_blank, allow_destroy: true
 
   validates :name, :last_name, :id_number, presence: true
-  validates :id_number, spanish_vat: true, unless: 'id_number_type.is_other_type?'
+  validates :id_number, spanish_vat: true, unless: 'id_number_type.try :is_other_type?'
   validates :phone_number, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
   validates :phone_number_alt, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_blank: true
