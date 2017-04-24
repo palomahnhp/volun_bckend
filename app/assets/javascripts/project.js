@@ -1,5 +1,7 @@
 $(document).on('turbolinks:load', function() {
 
+    setInsurDate();
+
     $('.urls_block.js-files-block').on('nested:fieldAdded', function (event) {
         var $newAddedFile = $(this).find('.js-file-fields:last .js-file-link a.js-visit');
         $newAddedFile.hide();
@@ -58,4 +60,14 @@ function filterImportance(checkId) {
       return {results: data};
     }
   });
+}
+
+// Disable insurance_date if available check is checked
+function setInsurDate() {
+  if ($('[id$="_attributes_insured"]').prop("checked")) {
+    $('[id$="_attributes_insurance_date"]').attr("disabled", false);
+  } else {
+    $('[id$="_attributes_insurance_date"]').attr("disabled", true);
+    $('[id$="_attributes_insurance_date"]').val("");
+  }
 }

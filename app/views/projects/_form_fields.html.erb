@@ -65,7 +65,7 @@
   </div>
   <div class="row well row-3">
     <%= content_tag :h1, 'Datos del seguro', class: 'form-subtitle' %>
-      <%= f.input :insured, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :insured, input_html: {onClick: 'setInsurDate()'}, wrapper_html: { class: 'col-md-6' } %>
       <%= f.input :insurance_date, as: :string, input_html: date_input_html(f.object.insurance_date), wrapper_html: { class: 'col-md-6' } %>
       <%= f.simple_fields_for :documents do |f_document|  %>
           <%= f_document.input :name, label: Document.model_name.human %>
