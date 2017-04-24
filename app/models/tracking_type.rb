@@ -37,7 +37,8 @@ class TrackingType < ActiveRecord::Base
   private
 
     def check_immutability
-      errors.add :system, :cannot_be_modified if system_was && system_was != system
+      errors.add :system, :cannot_be_modified if system_was && system_changed?
+      errors.add :alias_name, :cannot_be_modified if system_was && alias_name_changed?
     end
 
 end
