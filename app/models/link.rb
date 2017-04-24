@@ -85,6 +85,22 @@ class Link < ActiveRecord::Base
     includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.logo.take.id)
   }
 
+  scope :activity_images , ->{
+    includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.image.take.id)
+  }
+  scope :activity_videos , ->{
+    includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.video.take.id)
+  }
+  scope :activity_docs   , ->{
+    includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.document.take.id)
+  }
+  scope :activity_urls   , ->{
+    includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.url.take.id)
+  }
+  scope :activity_logo, ->{
+    includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.logo.take.id)
+  }
+
   class << self
     delegate :logo, :file_kinds, :logo_kind, :kinds, :kinds_i18n, to: LinkType
   end
