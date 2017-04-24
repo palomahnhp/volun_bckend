@@ -4,7 +4,7 @@
 
     <div class="form-inputs">
         <%= f.input :name %>
-        <%= f.input :active %>
+        <%= f.input :active unless f.object.system? %>
     </div>
 
     <div class="form-actions">
