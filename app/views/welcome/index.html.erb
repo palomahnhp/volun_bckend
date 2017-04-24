@@ -7,81 +7,93 @@
     <br/>
     <div class="row">
       <% if can? :read, Project %>
-        <div class="col-sm-3 col-md-2">
-          <div class="thumbnail element">
-            <div>
-              <%= link_to build_icon('file-powerpoint-o'), projects_path %>
-            </div>
-            <div class="caption">
-              <h4><%= Project.model_name.human(count: 2) %></h4>
+        <%= link_to projects_path, class: 'menu-item' do %>
+          <div class="col-sm-3 col-md-2">
+            <div class="thumbnail">
+              <div>
+                <%= content_tag :div, build_icon('file-powerpoint-o'), class: 'welcome-icon' %>
+              </div>
+              <div class="caption">
+                <h4><%= Project.model_name.human(count: 2) %></h4>
                 <p class="count">(<%= Project.all_active.count %> <%= t('active').downcase.pluralize %>)</p>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
       <% if can? :read, Volunteer %>
-        <div class="col-sm-3 col-md-2">
-          <div class="thumbnail element">
-            <div>
-              <%= link_to build_icon('users'), volunteers_path %>
-            </div>
-            <div class="caption">
-              <h4><%= Volunteer.model_name.human(count: 2) %></h4>
-              <p class="count">(<%= Volunteer.all_active.count %> <%= t('active').downcase.pluralize %>)</p>
+        <%= link_to volunteers_path, class: 'menu-item' do %>
+          <div class="col-sm-3 col-md-2">
+            <div class="thumbnail element">
+              <div>
+                <%= content_tag :div, build_icon('users')  %>
+              </div>
+              <div class="caption">
+                <h4><%= Volunteer.model_name.human(count: 2) %></h4>
+                <p class="count">(<%= Volunteer.all_active.count %> <%= t('active').downcase.pluralize %>)</p>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
       <% if can? :read, Entity %>
-        <div class="col-sm-3 col-md-2">
-          <div class="thumbnail element">
-            <div>
-              <%= link_to build_icon('cubes'), entities_path %>
-            </div>
-            <div class="caption">
-              <h4><%= Entity.model_name.human(count: 2) %></h4>
-              <p class="count">(<%= Entity.all_active.count %> <%= t('active_f').downcase.pluralize %>)</p>
+        <%= link_to entities_path, class: 'menu-item' do %>
+          <div class="col-sm-3 col-md-2">
+            <div class="thumbnail element">
+              <div>
+                <%= content_tag :div, build_icon('cubes') %>
+              </div>
+              <div class="caption">
+                <h4><%= Entity.model_name.human(count: 2) %></h4>
+                <p class="count">(<%= Entity.all_active.count %> <%= t('active_f').downcase.pluralize %>)</p>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
       <% if can? :read, Activity %>
-        <div class="col-sm-3 col-md-2">
-          <div class="thumbnail element">
-            <div>
-              <%= link_to build_icon('book'), activities_path %>
-            </div>
-            <div class="caption">
-              <h4><%= Activity.model_name.human(count: 2) %></h4>
-              <p class="count">(<%= Activity.all_active.count %> <%= Activity.model_name.human(count: 2).downcase %>)</p>
+        <%= link_to activities_path, class: 'menu-item' do %>
+          <div class="col-sm-3 col-md-2">
+            <div class="thumbnail element">
+              <div>
+                <%= content_tag :div, build_icon('book') %>
+              </div>
+              <div class="caption">
+                <h4><%= Activity.model_name.human(count: 2) %></h4>
+                <p class="count">(<%= Activity.all_active.count %> <%= Activity.model_name.human(count: 2).downcase %>)</p>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
       <% if can? :read, RequestForm %>
-        <div class="col-sm-3 col-md-2">
-          <div class="thumbnail element">
-            <div>
-              <%= link_to build_icon('list'), rt_extensions_menu_request_forms_path %>
-            </div>
-            <div class="caption">
-              <h4><%= RequestForm.model_name.human(count: 2) %></h4>
-              <p class="count">(<%= RequestForm.pending.count %> <%= t('pending').downcase %>)</p>
+        <%= link_to rt_extensions_menu_request_forms_path, class: 'menu-item' do %>
+          <div class="col-sm-3 col-md-2">
+            <div class="thumbnail element">
+              <div>
+                <%= content_tag :div, build_icon('list') %>
+              </div>
+              <div class="caption">
+                <h4><%= RequestForm.model_name.human(count: 2) %></h4>
+                <p class="count">(<%= RequestForm.pending.count %> <%= t('pending').downcase %>)</p>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
       <% if can? :administration, WelcomeController %>
-        <div class="col-sm-3 col-md-2">
-          <div class="thumbnail element">
-            <div>
-              <%= link_to build_icon('cogs'), administration_path %>
-            </div>
-            <div class="caption">
-              <h4><%= t('administration') %></h4>
+        <%= link_to administration_path, class: 'menu-item' do %>
+          <div class="col-sm-3 col-md-2">
+            <div class="thumbnail element">
+              <div>
+                <%= content_tag :div, build_icon('cogs') %>
+              </div>
+              <div class="caption">
+                <h4><%= t('administration') %></h4>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </div>
