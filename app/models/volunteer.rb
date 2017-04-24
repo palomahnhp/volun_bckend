@@ -61,9 +61,8 @@ class Volunteer < ActiveRecord::Base
                                  allow_blank: true }
   validates :availability_date, date: { after:       Proc.new { Date.tomorrow },
                                         before:      Proc.new { 150.years.since },
-                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_availability_date'),
-                                        allow_blank: true },
-                                unless: 'available?'
+                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_availability_date') },
+                                if: 'available?'
   validates :agreement_date, presence: { message: I18n.t('activerecord.errors.messages.invalid_volun_agreement_date')},
                              if: 'agreement?'
   validates :subscribe_date, date: { after:       Proc.new { 150.years.ago },
@@ -74,7 +73,7 @@ class Volunteer < ActiveRecord::Base
                                        before:      Proc.new { 150.years.since },
                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_subscribe_dates'),
                                        allow_blank: true }
-
+  validate :unsubscribe_date_higher_than_subscribe_date
   validate :trait_check
   validate :trait_project_check
 
@@ -137,6 +136,8 @@ class Volunteer < ActiveRecord::Base
     end
   end
 
+  private
+
   def trait_check
     return unless assessments.any?
     assessments.each do |first_assessment|
@@ -166,6 +167,14 @@ class Volunteer < ActiveRecord::Base
         errors.add(:base, :alert_project_trait_duplicity)
         return
       end
+    end
+  end
+
+  def unsubscribe_date_higher_than_subscribe_date
+    return unless subscribe_date && unsubscribe_date
+
+    unless subscribe_date <= unsubscribe_date
+      errors.add(:unsubscribe_date, :unsubscribe_date_must_be_higher_than_subscribe_date)
     end
   end
 
