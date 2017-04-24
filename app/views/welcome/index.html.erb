@@ -11,7 +11,7 @@
           <div class="col-sm-3 col-md-2">
             <div class="thumbnail">
               <div>
-                <%= content_tag :div, build_icon('file-powerpoint-o'), class: 'welcome-icon' %>
+                <%= content_tag :div, build_icon('file-powerpoint-o', title: '') %>
               </div>
               <div class="caption">
                 <h4><%= Project.model_name.human(count: 2) %></h4>
@@ -26,7 +26,7 @@
           <div class="col-sm-3 col-md-2">
             <div class="thumbnail element">
               <div>
-                <%= content_tag :div, build_icon('users')  %>
+                <%= content_tag :div, build_icon('users', title: '') %>
               </div>
               <div class="caption">
                 <h4><%= Volunteer.model_name.human(count: 2) %></h4>
@@ -41,7 +41,7 @@
           <div class="col-sm-3 col-md-2">
             <div class="thumbnail element">
               <div>
-                <%= content_tag :div, build_icon('cubes') %>
+                <%= content_tag :div, build_icon('cubes', title: '') %>
               </div>
               <div class="caption">
                 <h4><%= Entity.model_name.human(count: 2) %></h4>
@@ -56,7 +56,7 @@
           <div class="col-sm-3 col-md-2">
             <div class="thumbnail element">
               <div>
-                <%= content_tag :div, build_icon('book') %>
+                <%= content_tag :div, build_icon('book', title: '') %>
               </div>
               <div class="caption">
                 <h4><%= Activity.model_name.human(count: 2) %></h4>
@@ -71,7 +71,7 @@
           <div class="col-sm-3 col-md-2">
             <div class="thumbnail element">
               <div>
-                <%= content_tag :div, build_icon('list') %>
+                <%= content_tag :div, build_icon('list', title: '') %>
               </div>
               <div class="caption">
                 <h4><%= RequestForm.model_name.human(count: 2) %></h4>
@@ -86,7 +86,7 @@
           <div class="col-sm-3 col-md-2">
             <div class="thumbnail element">
               <div>
-                <%= content_tag :div, build_icon('cogs') %>
+                <%= content_tag :div, build_icon('cogs', title: '') %>
               </div>
               <div class="caption">
                 <h4><%= t('administration') %></h4>
