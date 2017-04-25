@@ -184,6 +184,7 @@ class EntitiesController < ApplicationController
     def register_ent_subs_tracking!(entity)
       default_attrs = {
         entity:        entity,
+        manager_id:    current_user.loggable_id,
         tracking_type: TrackingType.get_volunteer_subscribe,
         comments:      I18n.t('trackings.volunteer_subscribe'),
         tracked_at:    DateTime.now,
@@ -196,6 +197,7 @@ class EntitiesController < ApplicationController
     def register_ent_unsubs_tracking!(entity)
       default_attrs = {
         entity:        entity,
+        manager_id:    current_user.loggable_id,
         tracking_type: TrackingType.get_volunteer_unsubscribe,
         comments:      I18n.t('trackings.volunteer_unsubscribe'),
         tracked_at:    DateTime.now,
