@@ -52,13 +52,15 @@ class Activity < ActiveRecord::Base
     validation = true
     self.events.each do |event|
       event.timetables.each do |timetable|
-        if end_date?
-          unless (timetable.execution_date >= start_date) && (timetable.execution_date <= end_date)
-            validation = false
-          end
-        else
-          unless (timetable.execution_date >= start_date)
-            validation = false
+        if timetable.execution_date?
+          if end_date?
+            unless (timetable.execution_date >= start_date) && (timetable.execution_date <= end_date)
+              validation = false
+            end
+          else
+            unless (timetable.execution_date >= start_date)
+              validation = false
+            end
           end
         end
         unless validation
