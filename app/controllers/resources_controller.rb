@@ -48,6 +48,6 @@ class ResourcesController < ApplicationController
   protected
 
     def resource_params
-      params.require(:resource).permit(:description, :active)
+      params.require(:resource).permit(:description, :active, :main)
     end
 end

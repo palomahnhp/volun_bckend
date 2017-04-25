@@ -473,6 +473,7 @@ es:
         name:        Nombre de Modelo
         description: Descripción
         active:      Activo
+        main:        Configurable por Admin
       role:
         description: Descripción
       tracking_type:
