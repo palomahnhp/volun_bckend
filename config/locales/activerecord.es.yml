@@ -81,6 +81,9 @@ es:
       area:
         one:   Ámbito de actuación
         other: Ámbitos de actuación
+      profession:
+        one:   Profesión
+        other: Profesiones
       address:
         one:   Dirección
         other: Direcciones
@@ -409,6 +412,11 @@ es:
         id:          ID
         name:        Denominación
         description: Descripción
+        active:      *active
+        created_at : *created_at
+      profesion:
+        id:          ID
+        name:        Denominación
         active:      *active
         created_at : *created_at
       coordination:
