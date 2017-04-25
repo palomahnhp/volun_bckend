@@ -1,11 +1,12 @@
 class Resource < ActiveRecord::Base
 
   DEFAULT_RESOURCES = [
-    Project.name,
-    Volunteer.name,
-    Entity.name,
     Activity.name,
-    RequestForm.name,
+    Entity.name,
+    Ent::Tracking.name,
+    Link.name,
+    Project.name,
+    Pro::Tracking.name,
     Pt::Subvention.name,
     Pt::Centre.name,
     Pt::Entity.name,
@@ -13,8 +14,11 @@ class Resource < ActiveRecord::Base
     Pt::Permanent.name,
     Pt::Punctual.name,
     Pt::Social.name,
+    RequestForm.name,
     Rt::VolunteerSubscribe.name,
-    Rt::Other.name
+    Rt::Other.name,
+    Volunteer.name,
+    Volun::Tracking.name,
   ]
 
   ALL_RESOURCES = [
@@ -30,7 +34,6 @@ class Resource < ActiveRecord::Base
     District.name,
     Document.name,
     EmploymentStatus.name,
-    Ent::Tracking.name,
     Event.name,
     EventType.name,
     FrontpageElement.name,
@@ -40,14 +43,12 @@ class Resource < ActiveRecord::Base
     Language.name,
     LanguageLevel.name,
     LanguageVolunteer.name,
-    Link.name,
     Manager.name,
     Motivation.name,
     Nationality.name,
     NoticeType.name,
     Permission.name,
     Pro::Issue.name,
-    Pro::Tracking.name,
     Profession.name,
     Profile.name,
     Proposal.name,
@@ -81,7 +82,6 @@ class Resource < ActiveRecord::Base
     Volun::Availability.name,
     Volun::Contact.name,
     Volun::KnownLanguage.name,
-    Volun::Tracking.name,
   ] + DEFAULT_RESOURCES
 
   include Archivable
