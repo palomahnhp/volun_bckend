@@ -18,9 +18,10 @@ class Volunteer < ActiveRecord::Base
   has_and_belongs_to_many :projects,        ->{ where(active: true).order('projects.name asc') }
   has_and_belongs_to_many :projects_others, ->{ where(active: true).order('projects.name asc') }, class_name: 'Project'
   has_and_belongs_to_many :skills,          ->{ where(active: true).order('skills.name asc') }
-  has_and_belongs_to_many :degrees,         ->{ where(active: true).order('degrees.name asc') }
   has_and_belongs_to_many :areas,           ->{ where(active: true).order('areas.name asc') }
   has_and_belongs_to_many :collectives,     ->{ where(active: true).order('collectives.name asc') }
+  has_many :degrees_volunteers
+  has_many :degrees, ->{ where(active: true).order('degrees.name asc') }, through: :degrees_volunteers
   has_many :availabilities, ->{ ordered }, class_name: 'Volun::Availability'
   has_many :known_languages,      class_name: 'Volun::KnownLanguage'
   has_many :assessments,          class_name: 'Volun::Assessment'

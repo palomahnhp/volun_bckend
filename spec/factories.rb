@@ -1,4 +1,10 @@
 FactoryGirl.define do
+  factory :degrees_volunteer do
+    
+
+    trait :invalid do
+    end
+  end
   factory :permission do
     manager nil
     resource nil
