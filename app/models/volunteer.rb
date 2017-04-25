@@ -100,7 +100,7 @@ class Volunteer < ActiveRecord::Base
   end
 
   def self.ransack_default
-    {s: 'updated_at asc'}
+    {s: 'updated_at desc'}
   end
 
   def to_s
