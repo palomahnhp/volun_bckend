@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :managers, concerns: :recoverable
   resources :nationalities, concerns: :recoverable
   resources :notice_types
-  resources :professions
+  resources :professions, concerns: :recoverable
   resources :profiles
   resources :proposals
   resources :provinces

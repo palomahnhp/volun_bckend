@@ -81,6 +81,17 @@ class VolunteerManager
     end
     errors.blank?
   end
+
+  def register_destroy_volunteer
+    ActiveRecord::Base.transaction do
+      register_tracking!(
+        tracking_type: TrackingType.get_volunteer_unsubscribe,
+        comments:      I18n.t('trackings.volunteer_unsubscribe')
+      )
+    end
+
+    errors.blank?
+  end
   
   def register_unsubscribe(attributes = {})
     ActiveRecord::Base.transaction do

@@ -140,6 +140,18 @@
           </div>
         </div>
       <% end %>
+      <% if can? :read, Profession %>
+        <div class="panel panel-info" onclick="window.location='<%= professions_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Profession.model_name.human(count: 2) %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= Profession.model_name.human(count: 2) %>
+          </div>
+        </div>
+      <% end %>
       <!--<div class="panel panel-info" onclick="window.location='<%#= record_histories_url %>';">-->
         <!--<div class="panel-heading">-->
           <!--<h3 class="panel-title">-->
