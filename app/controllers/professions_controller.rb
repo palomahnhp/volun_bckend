@@ -42,8 +42,8 @@ class ProfessionsController < ApplicationController
   end
 
   def recover
-    @area.recover
-    respond_with(@area)
+    @profession.recover
+    respond_with(@profession)
   end
 
   protected

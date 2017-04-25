@@ -606,6 +606,10 @@ es:
         urls:                   URL's
         videos:                 Videos
         created_at:             *created_at
+      profession:
+        name:       Nombre
+        active:     Activo
+        created_at: *created_at
       activity:
         id:                     ID
         name:                   Denominación de la actividad
