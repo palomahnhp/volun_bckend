@@ -37,36 +37,6 @@ REQUEST_STATUSES = {
   3 => 'Rechazado'
 }
 
-COLLECTIVE_NAMES = [
-  'Menores',
-  'Jóvenes',
-  'Mayores',
-  'Diversidad funcional',
-  'Mujer',
-  'Inmigrantes',
-  'Refugiados',
-  'Personas sin hogar',
-  'Reclusos y exreclusos',
-  'Personas enfermas',
-  'Exclusión social',
-  'Voluntariado',
-  'Toda la población',
-  'Otros'
-]
-
-NATIONALITIES = [
-	'Español',
-	'Inglés',
-	'Alemán',
-	'Francés',
-	'Italiano'
-]
-
-puts "Creando Colectivos"
-COLLECTIVE_NAMES.each do |name|
-  Collective.create!(name: name)
-end
-
 puts "Creando Habilidades"
 (1..SKILLS_NUM).each do |n|
   Skill.create!(name: "#{Skill.model_name.human} #{n}")

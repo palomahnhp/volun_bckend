@@ -875,3 +875,26 @@ InfoSource.create!(id: 7, name: 'Acciones de Voluntarios Por Madrid', active: tr
 InfoSource.create!(id: 8, name: 'Otros'                             , active: true)
 
 alter_sequence(InfoSource.sequence_name, InfoSource.maximum("id") + 1)
+
+
+COLLECTIVE_NAMES = [
+  'Menores',
+  'Jóvenes',
+  'Mayores',
+  'Diversidad funcional',
+  'Mujer',
+  'Inmigrantes',
+  'Refugiados',
+  'Personas sin hogar',
+  'Reclusos y exreclusos',
+  'Personas enfermas',
+  'Exclusión social',
+  'Voluntariado',
+  'Toda la población',
+  'Otros'
+]
+
+puts "#{I18n.t('creating')} #{Collective.model_name.human}"
+COLLECTIVE_NAMES.each do |name|
+  Collective.create!(name: name)
+end
