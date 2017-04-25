@@ -33,23 +33,31 @@ class EntitiesController < ApplicationController
   def create
     @entity.save
     create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
+    assign_subscribe_date!(@entity)
+    register_ent_subs_tracking!(@entity)
     respond_with(@entity)
   end
 
   def update
     @entity.update_attributes(entity_params)
     create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
+    if params[:entity][:unsubscribed_at].present?
+      register_ent_unsubs_tracking!(@entity)
+    end
     respond_with(@entity)
   end
 
   def destroy
     @entity.destroy
     assign_unsubscribe_date!(@entity)
+    register_ent_unsubs_tracking!(@entity)
     respond_with(@entity)
   end
 
   def recover
     @entity.recover
+    unassign_unsubscribe_date!(@entity)
+    register_ent_subs_tracking!(@entity)
     respond_with(@entity, notice: t('messages.succesfully_recovered'))
   end
 
@@ -178,8 +186,44 @@ class EntitiesController < ApplicationController
       end
     end
 
+    def register_ent_subs_tracking!(entity)
+      default_attrs = {
+        entity:        entity,
+        manager_id:    current_user.loggable_id,
+        tracking_type: TrackingType.get_volunteer_subscribe,
+        comments:      I18n.t('trackings.volunteer_subscribe'),
+        tracked_at:    DateTime.now,
+        automatic:     true,
+      }
+      tracking = Ent::Tracking.new(default_attrs)
+      tracking.save
+    end
+
+    def register_ent_unsubs_tracking!(entity)
+      default_attrs = {
+        entity:        entity,
+        manager_id:    current_user.loggable_id,
+        tracking_type: TrackingType.get_volunteer_unsubscribe,
+        comments:      I18n.t('trackings.volunteer_unsubscribe'),
+        tracked_at:    DateTime.now,
+        automatic:     true,
+      }
+      tracking = Ent::Tracking.new(default_attrs)
+      tracking.save
+    end
+
+    def assign_subscribe_date!(entity)
+      entity.subscribed_at = Time.now
+      entity.save
+    end
+
     def assign_unsubscribe_date!(entity)
       entity.unsubscribed_at = Time.now
+      entity.save
+    end
+
+    def unassign_unsubscribe_date!(entity)
+      entity.unsubscribed_at = nil
       entity.save
     end
 
