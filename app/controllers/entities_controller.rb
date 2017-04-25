@@ -44,6 +44,7 @@ class EntitiesController < ApplicationController
 
   def destroy
     @entity.destroy
+    assign_unsubscribe_date!(@entity)
     respond_with(@entity)
   end
 
@@ -174,4 +175,10 @@ class EntitiesController < ApplicationController
         user.save
       end
     end
+
+    def assign_unsubscribe_date!(entity)
+      entity.unsubscribed_at = Time.now
+      entity.save
+    end
+
 end
