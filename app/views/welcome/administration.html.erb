@@ -3,40 +3,22 @@
   <br/>
   <div class="panel-list row">
     <div class="col-md-6">
-      <div class="panel panel-info" onclick="window.location='<%= maintenance_path %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= t('catalogs')  %>
-          </h3>
-        </div>
-        <div class="panel-body">
-          <%= t('catalogs') %>
-        </div>
-      </div>
-      <% if can? :read, Setting %>
-        <div class="panel panel-info" onclick="window.location='<%= settings_path %>';">
+      <%= link_to maintenance_path do %>
+        <div class="panel panel-info">
           <div class="panel-heading">
             <h3 class="panel-title">
-              <%= Setting.model_name.human(count: 2)  %>
+              <%= t('catalogs')  %>
             </h3>
           </div>
           <div class="panel-body">
-            <%= Setting.model_name.human(count: 2) %>
           </div>
         </div>
       <% end %>
+      <%= box_link_to(Resource, panel_type: 'info', count: 2) %>
     </div>
     <div class="col-md-6">
-      <div class="panel panel-info" onclick="window.location='<%= managers_url %>';">
-        <div class="panel-heading">
-          <h3 class="panel-title">
-            <%= Manager.model_name.human(count: 2)  %>
-          </h3>
-        </div>
-        <div class="panel-body">
-          <%= Manager.model_name.human(count: 2) %>
-        </div>
-      </div>
+      <%= box_link_to(Manager, panel_type: 'info', count: 2) %>
+      <%= box_link_to(Setting, panel_type: 'info', count: 2) %>
     </div>
   </div>
 </div>

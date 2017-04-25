@@ -6,9 +6,13 @@ class ActivitiesController < ApplicationController
   def index
     params[:q] ||= Activity.ransack_default
     @search_q = @activities.search(params[:q])
+    @search_q.sorts ||= 'id asc'
+    @unpaginated_activities = @search_q.result.uniq
     @activities = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
-    respond_with(@activities)
+    respond_with(@activities) do |format|
+      format.csv { send_data Activity.to_csv(@unpaginated_activities), filename: "#{Activity.model_name.human(count: 2)}.csv" }
+    end
   end
 
   def show
@@ -95,6 +99,47 @@ class ActivitiesController < ApplicationController
                   :_destroy
                 ]
               },
+              :_destroy
+            ]
+          },
+          {
+            logo_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            images_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            videos_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            docs_attributes: [
+              :id,
+              :link_type_id,
+              :file,
+              :_destroy
+            ]
+          },
+          {
+            urls_attributes: [
+              :id,
+              :path,
+              :link_type_id,
+              :file,
               :_destroy
             ]
           }

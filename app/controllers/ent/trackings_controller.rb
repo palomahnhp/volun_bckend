@@ -29,12 +29,15 @@ class Ent::TrackingsController < ApplicationController
   end
 
   def create
+    @ent_tracking.tracked_at = Time.now
     @ent_tracking.save
     respond_with(@ent_tracking, location: ent_trackings_path(q: { entity_id_eq: @ent_tracking.entity_id}))
   end
 
   def update
     @ent_tracking.update_attributes(ent_tracking_params)
+    @ent_tracking.tracked_at = Time.now
+    @ent_tracking.save
     respond_with(@ent_tracking, location: ent_trackings_path(q: { entity_id_eq: @ent_tracking.entity_id}))
   end
 

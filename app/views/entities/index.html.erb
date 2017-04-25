@@ -14,7 +14,10 @@
   </div>
 </div>
 
-<p><%= model_class.model_name.human(count: 2) %>: <%= @entities.count %></p>
+<div class="col-md-12 table-csv">
+  <p><%= model_class.model_name.human(count: 2) %>: <%= @entities.count %></p>
+  <%= link_to t('action.download_csv'), entities_path(format: "csv", q: params[:q]), class: "btn btn-success" %>
+</div>
 
 <table class="index-table">
   <thead>
@@ -37,11 +40,14 @@
 <%= render partial: "shared/pagination", locals: {collection: @entities} %>
 
 <script>
-    if ($('.ent-result').length == 0) {
+
+    //No results alert
+    if ($('.ent-results').length == 0) {
         swal(
             "Lo sentimos",
             "Su búsqueda no ha encontrado resultados",
             "error"
         )
-    }
+    };
+
 </script>

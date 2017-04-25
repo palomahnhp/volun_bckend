@@ -7,8 +7,19 @@ class Activity < ActiveRecord::Base
   belongs_to :entity
   belongs_to :area, ->{ where(active: true).order('areas.name asc') }
   belongs_to :project, ->{ where(active: true).order('projects.name asc') }
-  
+  has_many :links, as: :linkable
+  has_many :images, -> { activity_images }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :videos, -> { activity_videos }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :docs,   -> { activity_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_many :urls,   -> { activity_urls   }, class_name: 'Link', foreign_key: 'linkable_id'
+  has_one  :logo,   -> { activity_logo   }, class_name: 'Link', foreign_key: 'linkable_id'
+
   accepts_nested_attributes_for :events, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :images, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :videos, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :docs,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :urls,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :logo,   reject_if: :all_blank, allow_destroy: true
 
   validates :name, uniqueness: true
   validates :name, :description, :start_date, :transport, presence: true
@@ -25,9 +36,9 @@ class Activity < ActiveRecord::Base
   def to_s
     name
   end
-  
+
   private
-  
+
   def start_date_less_than_end_date
     return unless start_date && end_date
 
@@ -35,7 +46,7 @@ class Activity < ActiveRecord::Base
       errors.add(:start_date, :execution_start_date_must_be_less_than_execution_end_date)
     end
   end
-  
+
   def check_timetables_execution_date
     return unless events.any?
     validation = true

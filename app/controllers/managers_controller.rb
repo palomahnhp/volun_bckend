@@ -5,7 +5,7 @@ class ManagersController < ApplicationController
 
   def index
     params[:q] ||= Manager.ransack_default
-    @search_q = @managers.search(params[:q])
+    @search_q = @managers.includes(:role, permissions: [:resource]).search(params[:q])
     @managers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     respond_with(@managers)

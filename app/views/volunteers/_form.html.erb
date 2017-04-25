@@ -7,7 +7,6 @@
     <div class="row well">
       <div class="col-md-12">
         <div class="logo_block col-md-2">
-          <%= show_simple_base_errors(f) %>
           <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
             <%= render partial: 'links/logo', locals: { f: f_logo } %>
           <% end %>
@@ -18,12 +17,20 @@
           <%= f.input :last_name_alt, wrapper_html: { class: 'col-md-6' } %>
           <%= f.association :nationality, wrapper_html: { class: 'col-md-6' } %>
           <%= f.input :gender, wrapper_html: { class: 'col-md-6' } %>
-          <%= f.input :birth_date, as: :string, input_html: date_input_html(f.object.birth_date), wrapper_html: { class: 'col-md-6' } %>
+          <div class="col-md-6">
+            <div class="col-md-8">
+              <%= f.input :birth_date, as: :string, input_html: date_input_html_no_default_values(f.object.birth_date, onfocusout: 'setVolunAge()') %>
+            </div>
+            <div class="col-md-4">
+              <%= label_tag 'age', t('age') %>
+              <%= text_field_tag 'age', '0', class: 'special_input', disabled: true %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <div class="row well">
-      <%= f.association :id_number_type, wrapper_html: { class: 'col-md-5' } %>
+      <%= f.association :id_number_type, collection: IdNumberType.for_volunteers,  wrapper_html: { class: 'col-md-5' } %>
       <%= f.input :id_number, input_html: { class: 'vat_num', data: { mask: 'wwwwwwwww'} }, wrapper_html: { class: 'col-md-5' } %>
     </div>
     <div class="phone row well">
@@ -112,21 +119,6 @@
       <p><%= f.link_to_add icon_new(text: "#{Volun::Assessment.model_name.human}"), :assessments, class: 'btn' %></p>
     </div>
     <div class="row well">
-      <%= content_tag :h3, Volun::AssessmentsProject.model_name.human(count: 2), class: 'form-subtitle' %>
-      <%= f.simple_fields_for :assessments_projects do |f_assessments_projects|  %>
-        <div class="row well col-md-12">
-          <div class="row">
-              <%= f_assessments_projects.association :project, wrapper_html: { class: 'col-md-4' } %>
-              <%= f_assessments_projects.association :trait, input_html: { onchange: "showComments(this.id);" }, wrapper_html: { class: 'col-md-4' } %>
-              <%= hidden_field_tag "others", t('others') %>
-              <%= f_assessments_projects.input :trait_other, wrapper_html: { hidden: true, class: 'col-md-4' }  %>
-              <%= f_assessments_projects.link_to_remove build_icon('trash-o', text: "#{Volun::AssessmentsProject.model_name.human}"), class: 'pull-right' %>
-          </div> <!-- assessment-project-fields -->
-        </div>
-      <% end %>
-      <p><%= f.link_to_add icon_new(text: "#{Volun::AssessmentsProject.model_name.human}"), :assessments_projects, class: 'btn' %></p>
-    </div>
-    <div class="row well">
       <%= f.input :agreement, input_html: {onClick: 'setAgrmtDate()'}, wrapper_html: { class: 'col-md-6' } %>
       <%= f.input :agreement_date, as: :string, input_html: date_input_html(f.object.agreement_date), wrapper_html: { class: 'col-md-6' } %>
     </div>
@@ -144,8 +136,10 @@
         </div>
     <% end %>
     <div class="row well">
-      <%= f.input :comments, wrapper_html: { class: 'col-md-6' } %>
-      <%= f.input :expectations, wrapper_html: { class: 'col-md-6' } %>
+      <%= f.input :expectations, wrapper_html: { class: 'col-md-12 text_area' } %>
+    </div>
+    <div class="row well">
+      <%= f.input :comments, wrapper_html: { class: 'col-md-12 text_area' } %>
     </div>
     <div class="row">
       <div class="well col-md-12">
@@ -241,6 +235,21 @@
           <%= f.association :projects, as: :select, label: false, input_html: { class: 'wide-select col-md-12' } %>
         <% end %>
       </div>
+    </div>
+    <div class="row well">
+      <%= content_tag :h3, Volun::AssessmentsProject.model_name.human(count: 2), class: 'form-subtitle' %>
+      <%= f.simple_fields_for :assessments_projects do |f_assessments_projects|  %>
+        <div class="row well col-md-12">
+          <div class="row">
+              <%= f_assessments_projects.association :project, collection: f.object.projects, wrapper_html: { class: 'col-md-4' } %>
+              <%= f_assessments_projects.association :trait, input_html: { onchange: "showComments(this.id);" }, wrapper_html: { class: 'col-md-4' } %>
+              <%= hidden_field_tag "others", t('others') %>
+              <%= f_assessments_projects.input :trait_other, wrapper_html: { hidden: true, class: 'col-md-4' }  %>
+              <%= f_assessments_projects.link_to_remove build_icon('trash-o', text: "#{Volun::AssessmentsProject.model_name.human}"), class: 'pull-right' %>
+          </div> <!-- assessment-project-fields -->
+        </div>
+      <% end %>
+      <p><%= f.link_to_add icon_new(text: "#{Volun::AssessmentsProject.model_name.human}"), :assessments_projects, class: 'btn' %></p>
     </div>
     <%= render partial: 'links/documents', locals: { f: f } %>
   </div>

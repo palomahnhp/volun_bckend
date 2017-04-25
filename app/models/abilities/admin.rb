@@ -4,8 +4,13 @@ module Abilities
 
     def initialize(user)
       self.merge Abilities::SuperAdmin.new(user)
-      cannot :manage, Manager, id: user.loggable_id
+
+      cannot :manage, Manager, role_id: Role.super_admin.take.id
+      cannot :create, Manager
       cannot :manage, Setting
+      cannot :manage, Resource
+      cannot :destroy, TrackingType, system: true
+      can    [:read, :update], Resource, name: Resource::DEFAULT_RESOURCES
     end
 
   end

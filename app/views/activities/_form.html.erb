@@ -3,6 +3,15 @@
   <%= show_simple_base_errors(f) %>
   <div class="form-inputs">
     <div class='row'>
+      <div class="col-md-12">
+        <div class="logo_block col-md-2">
+          <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
+            <%= render partial: 'links/logo', locals: { f: f_logo } %>
+          <% end %>
+        </div> <!-- logo_block -->
+      </div>
+    </div>
+    <div class='row'>
       <div class='col-md-6'>
         <%= f.input :name %>
         <%= f.input :description %>
@@ -55,6 +64,7 @@
         <p><%= f.link_to_add icon_new(text: "#{t('action.add')} #{Address.model_name.human} #{t('and')} #{Timetable.model_name.human(count: 2)}"), :events, class: 'btn', id: 'addEvent', onclick: 'addEvent();' %></p>
         
       </div> <!-- events-block -->
+      <%= render partial: 'links/documents', locals: { f: f } %>
   </div>
 
   <div class="form-actions">

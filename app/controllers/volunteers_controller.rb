@@ -5,8 +5,9 @@ class VolunteersController < ApplicationController
   def index
     params[:q] ||= Volunteer.ransack_default
     @search_q = @volunteers.search(params[:q])
-    @search_q.sorts = 'id asc' if @search_q.sorts.empty?
-    @volunteers = @search_q.result.paginate(page: params[:page], per_page: params[:per_page]||15).with_status(params[:status])
+    @search_q.sorts ||= 'updated_at desc'
+    @unpaginated_volunteers = @search_q.result.uniq.with_status(params[:status])
+    @volunteers = @unpaginated_volunteers.paginate(page: params[:page], per_page: params[:per_page]||15)
 
     @districts_names = Address.joins(:volunteers).where.not(district: [nil, ""]).all.pluck(:district).uniq.sort_by { |district| district }
 
@@ -15,6 +16,7 @@ class VolunteersController < ApplicationController
       format.html
       format.js
       format.json { render json: @degreeSearch.to_json }
+      format.csv  { render text: Volunteer.to_csv(@unpaginated_volunteers), filename: "#{Volunteer.model_name.human(count: 2)}.csv" }
     end
   end
 
@@ -64,6 +66,8 @@ class VolunteersController < ApplicationController
 
   def destroy
     @volunteer.destroy
+    volunteer_manager = VolunteerManager.new(volunteer: @volunteer, manager_id: current_user.loggable_id)
+    volunteer_manager.register_destroy_volunteer
     respond_with(@volunteer)
   end
 
@@ -74,7 +78,8 @@ class VolunteersController < ApplicationController
 
   def show_sms
     @volunteer = Volunteer.find_by(id: params[:volunteer])
-    if @volunteer.phone_number_alt
+    @sms_number = @volunteer.mobile_number
+    if @sms_number
       respond_with(@volunteer) do |format|
         format.js { render 'shared/popup' }
         format.html
@@ -86,14 +91,14 @@ class VolunteersController < ApplicationController
 
   def send_sms
     @volunteer = Volunteer.find_by(id: params[:volunteer])
+    sms_number =  @volunteer.mobile_number
     begin
-      SMSApi.new.sms_deliver(@volunteer.phone_number_alt, params[:message])
+      SMSApi.new.sms_deliver(sms_number, params[:message])
       redirect_to volunteers_path, notice: I18n.t('success_message_sending')
     rescue
-      render js: "swal( '#{t('alert_title')}','#{t('alert_message_sending')}','error')"
+      redirect_to volunteers_path, alert: I18n.t('alert_message_sending')
     end
   end
-
 
   protected
 

@@ -31,11 +31,39 @@ module ApplicationHelper
     }.reverse_merge(opts)
   end
 
+  def datetime_input_html_no_default_values(date, opts = {})
+    {
+      class: 'datepicker',
+      placeholder: 'dd/mm/aaaa',
+      value: date ? date.strftime('%d/%m/%Y %H:%M') : nil,
+      data: {mask: '99/99/9999'}
+    }.reverse_merge(opts)
+  end
+
   def check_box_filter_for(param_name, js_selector = nil)
     check_box_tag "q[#{param_name}]",
                   params[param_name],
                   params[param_name],
                   onchange: "update_hidden_inputs(this, '#{js_selector || '#' + param_name}')"
+  end
+
+  def box_link_to(model, options = {})
+    return unless can? (options[:action].presence || :read), model
+
+    options[:count] ||= 1
+    panel_type = options[:panel_type] || (model.exists? ? 'warning' : 'danger')
+    path   = options[:path].presence
+    path ||= public_send(options[:count] == 1 ? "new_#{model.model_name.singular}_path" : "#{model.model_name.plural}_path")
+    link_to path, options[:html_input] || {} do
+      content_tag :div, class: "panel panel-#{panel_type}" do
+        ( content_tag :div, class: 'panel-heading' do
+            content_tag :h3, model.model_name.human(count: options[:count]), class: 'panel-title'
+          end  )+
+        ( content_tag :div, model.model_name.human(count: options[:count]), class: 'panel-body' do
+            options[:body]
+          end  )
+      end
+    end
   end
 
 end

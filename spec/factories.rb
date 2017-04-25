@@ -1,4 +1,10 @@
 FactoryGirl.define do
+  factory :degrees_volunteer do
+    
+
+    trait :invalid do
+    end
+  end
   factory :permission do
     manager nil
     resource nil
@@ -12,7 +18,8 @@ FactoryGirl.define do
   end
   factory :resource do
     name "MyString"
-    alias_name "MyString"
+    description "MyString"
+    active false
 
     trait :invalid do
     end

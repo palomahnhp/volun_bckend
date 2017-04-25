@@ -43,9 +43,9 @@
   <dt><%= Entity.human_attribute_name(:active) %>:</dt>
   <dd><%= t("humanize.#{@entity.active}") %></dd>
   <dt><%= Entity.human_attribute_name(:subscribed_at) %>:</dt>
-  <dd><%= @entity.subscribed_at %></dd>
+  <dd><%= show_simple_date(@entity.subscribed_at) %></dd>
   <dt><%= Entity.human_attribute_name(:unsubscribed_at) %>:</dt>
-  <dd><%= @entity.unsubscribed_at %></dd>
+  <dd><%= show_simple_date(@entity.unsubscribed_at) %></dd>
   <dt><%= Entity.human_attribute_name(:created_at) %>:</dt>
   <dd><%= show_simple_date(@entity.created_at) %></dd>
 

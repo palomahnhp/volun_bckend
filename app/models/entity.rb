@@ -14,7 +14,7 @@ class Entity < ActiveRecord::Base
   has_many :videos, -> { entity_videos }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :docs,   -> { entity_docs   }, class_name: 'Link', foreign_key: 'linkable_id'
   has_many :urls,   -> { entity_urls   }, class_name: 'Link', foreign_key: 'linkable_id'
-  
+
   accepts_nested_attributes_for :projects
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :user
@@ -27,8 +27,8 @@ class Entity < ActiveRecord::Base
   validates :name, uniqueness: true
   validates :name, :vat_number, :email, :representative_name, :representative_last_name, :contact_name,
             :contact_last_name, :entity_type_id, presence: true
-  validates :phone_number, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
-  validates :phone_number_alt, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
+  validates :phone_number, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true, unless: :phone_number_blank_mask
+  validates :phone_number_alt, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true, unless: :phone_number_alt_blank_mask
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_blank: true
   validates :vat_number, spanish_vat: true
 
@@ -42,4 +42,19 @@ class Entity < ActiveRecord::Base
   def to_s
     name
   end
+
+  private
+
+  def phone_number_blank_mask
+    avoid_phone_mask(phone_number)
+  end
+
+  def phone_number_alt_blank_mask
+    avoid_phone_mask(phone_number_alt)
+  end
+
+  def avoid_phone_mask(phone)
+    phone == "_________"
+  end
+
 end

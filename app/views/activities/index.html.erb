@@ -7,14 +7,17 @@
 </div>
 <div class="index-panel row well">
   <div class="col-md-6">
-    <%= content_tag(:div, link_to_new(model_class), class: 'col-md-6 pull-left') %>
+    <%= content_tag(:div, link_to_new(model_class, fem: true), class: 'col-md-6 pull-left') %>
   </div>
   <div class="col-md-6">
     <%= content_tag(:div, search_collection(@search_q, :name_or_description_or_transport_or_pdf_url_cont), class: 'col-md-6 pull-right') %>
   </div>
 </div>
 
-<p><%= model_class.model_name.human(count: 2) %>: <%= @activities.count %></p>
+<div class="col-md-12 table-csv">
+  <p><%= model_class.model_name.human(count: 2) %>: <%= @activities.count %></p>
+  <%= link_to t('action.download_csv'), activities_path(format: "csv", q: params[:q]), class: "btn btn-success" %>
+</div>
 
 <table class="index-table">
   <thead>
@@ -37,11 +40,14 @@
 <%= render partial: "shared/pagination", locals: {collection: @activities} %>
 
 <script>
-    if ($('.act-result').length == 0) {
+
+    //No results alert
+    if ($('.act-results').length == 0) {
         swal(
             "Lo sentimos",
             "Su búsqueda no ha encontrado resultados",
             "error"
         )
-    }
+    };
+
 </script>

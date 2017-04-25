@@ -8,8 +8,10 @@ class User < ActiveRecord::Base
   belongs_to :loggable, polymorphic: true #required: true
   belongs_to :manager, -> { includes(:users).where(users: { loggable_type: Manager.name }) }, foreign_key: 'loggable_id'
 
-  validates :notice_type_id, presence: true, if: 'volunteer? || entity?'
+  validates :notice_type_id, presence: true, if: 'volunteer?'
   validates :loggable_id, :loggable_type, :login, presence: true
+
+  default_scope ->{ includes(:loggable) }
 
   def to_s
     login || email

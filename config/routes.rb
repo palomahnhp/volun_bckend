@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :resources
   concern :recoverable do
     post :recover, on: :member
   end
@@ -28,11 +29,12 @@ Rails.application.routes.draw do
   resources :managers, concerns: :recoverable
   resources :nationalities, concerns: :recoverable
   resources :notice_types
-  resources :professions
+  resources :professions, concerns: :recoverable
   resources :profiles
   resources :proposals
   resources :provinces
   resources :record_histories, concerns: :recoverable
+  resources :resources, concerns: :recoverable
   resources :road_types
   resources :roles
   resources :settings

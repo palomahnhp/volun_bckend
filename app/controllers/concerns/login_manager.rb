@@ -37,7 +37,7 @@ class LoginManager
     return unless valid?
 
     self.manager   = Manager.search(login_eq: login_data[:login], uweb_id_eq: login_data[:uweb_id], m: 'or').result.take
-    self.manager ||= Manager.new(login_data.merge(role: Role.internal_staff.take))
+    self.manager ||= Manager.new(login_data.merge(role: Role.internal_staff.take!))
     set_default_permissions(manager)
     copy_errors_from!(manager) unless manager.save
 

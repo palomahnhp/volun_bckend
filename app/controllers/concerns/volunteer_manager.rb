@@ -39,7 +39,6 @@ class VolunteerManager
     ActiveRecord::Base.transaction do
       if volunteer.save
         assign_user_to_volunteer!
-        # TODO set the definitive tracking type
         register_tracking!(
           tracking_type: TrackingType.get_volunteer_subscribe,
           comments:      I18n.t('trackings.volunteer_subscribe')
@@ -82,6 +81,17 @@ class VolunteerManager
     end
     errors.blank?
   end
+
+  def register_destroy_volunteer
+    ActiveRecord::Base.transaction do
+      register_tracking!(
+        tracking_type: TrackingType.get_volunteer_unsubscribe,
+        comments:      I18n.t('trackings.volunteer_unsubscribe')
+      )
+    end
+
+    errors.blank?
+  end
   
   def register_unsubscribe(attributes = {})
     ActiveRecord::Base.transaction do
@@ -119,11 +129,11 @@ class VolunteerManager
   end
 
   def assign_user_to_volunteer!
-    user = User.new(login: "user#{'%09d' % volunteer.id}", loggable: volunteer, notice_type: NoticeType.email.take)
+    user = User.new(login: "uservolunteer#{'%09d' % volunteer.id}", loggable: volunteer, notice_type: NoticeType.email.take)
     user.password = generate_new_password(user)
     user.password_confirmation = user.password
     # TODO Remove this line after removing email column from users
-    user.email = "#{user.login}@volun.es"
+    user.email = "#{user.login}.volunteer@volun.es"
     copy_errors_from!(user) unless user.save
     user
   end

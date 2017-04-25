@@ -1,0 +1,20 @@
+<%= main_title(t("action.show", model: Resource.model_name.human)) %>
+
+<dl class="dl-horizontal">
+
+  <dt><%= Resource.human_attribute_name(:id) %>:</dt>
+  <dd><%= @resource.id %></dd>
+  <dt><%= Resource.human_attribute_name(:name) %>:</dt>
+  <dd><%= @resource.name %></dd>
+  <dt><%= Resource.human_attribute_name(:description) %>:</dt>
+  <dd><%= @resource.description %></dd>
+  <dt><%= Resource.human_attribute_name(:active) %>:</dt>
+  <dd><%= t("humanize.#{@resource.active}") %></dd>
+  <dt><%= Resource.human_attribute_name(:created_at) %>:</dt>
+  <dd><%= show_simple_date(@resource.created_at) %></dd>
+
+</dl>
+<% unless request.xhr? %>
+<%= button_to_back %>
+<%= button_to_edit(@resource) %>
+<% end %>

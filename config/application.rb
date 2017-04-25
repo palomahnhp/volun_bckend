@@ -1,5 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
+require 'csv'
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -20,6 +21,9 @@ module VolunBackend
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :es
 
+    config.time_zone = 'Madrid'
+
+    config.active_record.default_timezone = :local
     config.active_record.schema_format = :sql
 
     # config.autoload_paths += Dir["#{Rails.root.to_s}/app/models/**/"]

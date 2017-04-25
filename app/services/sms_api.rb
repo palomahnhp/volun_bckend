@@ -15,16 +15,16 @@ class SMSApi
     Base64.encode64("#{Rails.application.secrets.sms_username}:#{Rails.application.secrets.sms_password}")
   end
 
-  def sms_deliver(phone_number_alt, message)
+  def sms_deliver(sms_phone_number, message)
     return stubbed_response unless end_point_available?
 
-    response = client.call(:enviar_sms_simples, message: request(phone_number_alt, message))
+    response = client.call(:enviar_sms_simples, message: request(sms_phone_number, message))
     success?(response)
   end
 
-  def request(phone_number_alt, message)
+  def request(sms_phone_number, message)
     { autorizacion:  authorization,
-      destinatarios: { destinatario: phone_number_alt },
+      destinatarios: { destinatario: sms_phone_number },
       texto_mensaje: message,
       solicita_notificacion: "All" }
   end

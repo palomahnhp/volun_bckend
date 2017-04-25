@@ -41,6 +41,11 @@ class ProfessionsController < ApplicationController
     respond_with(@profession)
   end
 
+  def recover
+    @area.recover
+    respond_with(@area)
+  end
+
   protected
 
     def profession_params

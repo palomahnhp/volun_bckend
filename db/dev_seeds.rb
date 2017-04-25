@@ -8,7 +8,6 @@ PROJECTS_NUM      = 10
 REQUEST_FORMS_NUM = 10
 ENTITIES_NUM      = 10
 COORDINATIONS_NUM = 10
-PROPOSAL_NUM      = 10
 ENTITY_NUM        = 10
 RACKING_NUM       = 10
 VOLUNTEERS        = 10
@@ -37,38 +36,6 @@ REQUEST_STATUSES = {
   2 => 'Aceptado',
   3 => 'Rechazado'
 }
-
-COLLECTIVE_NAMES = [
-  'Menores',
-  'Jóvenes',
-  'Mayores',
-  'Diversidad funcional',
-  'Mujer',
-  'Inmigrantes',
-  'Refugiados',
-  'Personas sin hogar',
-  'Reclusos y exreclusos',
-  'Personas enfermas',
-  'Exclusión social',
-  'Voluntariado',
-  'Toda la población',
-  'Otros'
-]
-
-PROPOSALS = %w(subvencionado desistido desestimado excluido)
-
-NATIONALITIES = [
-	'Español',
-	'Inglés',
-	'Alemán',
-	'Francés',
-	'Italiano'
-]
-
-puts "Creando Colectivos"
-COLLECTIVE_NAMES.each do |name|
-  Collective.create!(name: name)
-end
 
 puts "Creando Habilidades"
 (1..SKILLS_NUM).each do |n|

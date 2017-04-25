@@ -500,8 +500,28 @@ ALTER SEQUENCE degrees_id_seq OWNED BY degrees.id;
 
 CREATE TABLE degrees_volunteers (
     degree_id integer NOT NULL,
-    volunteer_id integer NOT NULL
+    volunteer_id integer NOT NULL,
+    id integer NOT NULL
 );
+
+
+--
+-- Name: degrees_volunteers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE degrees_volunteers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: degrees_volunteers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE degrees_volunteers_id_seq OWNED BY degrees_volunteers.id;
 
 
 --
@@ -2791,7 +2811,9 @@ CREATE TABLE tracking_types (
     name character varying NOT NULL,
     active boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    alias_name character varying,
+    system boolean DEFAULT false
 );
 
 
@@ -3305,6 +3327,13 @@ ALTER TABLE ONLY degree_types ALTER COLUMN id SET DEFAULT nextval('degree_types_
 --
 
 ALTER TABLE ONLY degrees ALTER COLUMN id SET DEFAULT nextval('degrees_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY degrees_volunteers ALTER COLUMN id SET DEFAULT nextval('degrees_volunteers_id_seq'::regclass);
 
 
 --
@@ -3910,6 +3939,14 @@ ALTER TABLE ONLY degree_types
 
 ALTER TABLE ONLY degrees
     ADD CONSTRAINT degrees_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: degrees_volunteers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY degrees_volunteers
+    ADD CONSTRAINT degrees_volunteers_pkey PRIMARY KEY (id);
 
 
 --
@@ -5297,6 +5334,13 @@ CREATE INDEX index_timetables_on_event_id ON timetables USING btree (event_id);
 
 
 --
+-- Name: index_tracking_types_on_alias_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_tracking_types_on_alias_name ON tracking_types USING btree (alias_name);
+
+
+--
 -- Name: index_tracking_types_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6586,3 +6630,10 @@ INSERT INTO schema_migrations (version) VALUES ('20170416175829');
 INSERT INTO schema_migrations (version) VALUES ('20170416181032');
 
 INSERT INTO schema_migrations (version) VALUES ('20170416183328');
+
+INSERT INTO schema_migrations (version) VALUES ('20170419152355');
+
+INSERT INTO schema_migrations (version) VALUES ('20170419152451');
+
+INSERT INTO schema_migrations (version) VALUES ('20170425124700');
+
