@@ -125,13 +125,15 @@ class Project < ActiveRecord::Base
     validation = true
     self.events.each do |event|
       event.timetables.each do |timetable|
-        if execution_end_date?
-          unless (timetable.execution_date >= execution_start_date) && (timetable.execution_date <= execution_end_date)
-            validation = false
-          end
-        else
-          unless (timetable.execution_date >= execution_start_date)
-            validation = false
+        if timetable.execution_date?
+          if execution_end_date?
+            unless (timetable.execution_date >= execution_start_date) && (timetable.execution_date <= execution_end_date)
+              validation = false
+            end
+          else
+            unless (timetable.execution_date >= execution_start_date)
+              validation = false
+            end
           end
         end
         unless validation
