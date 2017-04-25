@@ -41,6 +41,9 @@ class EntitiesController < ApplicationController
   def update
     @entity.update_attributes(entity_params)
     create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
+    if params[:entity][:unsubscribed_at].present?
+      register_ent_unsubs_tracking!(@entity)
+    end
     respond_with(@entity)
   end
 
