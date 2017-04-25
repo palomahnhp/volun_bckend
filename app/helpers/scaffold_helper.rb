@@ -179,7 +179,7 @@ module ScaffoldHelper
   end
 
   def link_to_trackings(record, type, project = nil, opts = {})
-    return unless can?(:read, record)
+    return unless can?(:read, "#{type.titleize}::Tracking".safe_constantize)
     options = {
         id:     "#{dom_id(record)}_trackings",
         text:   icon_tracking,

@@ -14,7 +14,10 @@ class Resource < ActiveRecord::Base
     Pt::Punctual.name,
     Pt::Social.name,
     Rt::VolunteerSubscribe.name,
-    Rt::Other.name
+    Rt::Other.name,
+    Ent::Tracking.name,
+    Pro::Tracking.name,
+    Volun::Tracking.name,
   ]
 
   ALL_RESOURCES = [
@@ -30,7 +33,6 @@ class Resource < ActiveRecord::Base
     District.name,
     Document.name,
     EmploymentStatus.name,
-    Ent::Tracking.name,
     Event.name,
     EventType.name,
     FrontpageElement.name,
@@ -47,7 +49,6 @@ class Resource < ActiveRecord::Base
     NoticeType.name,
     Permission.name,
     Pro::Issue.name,
-    Pro::Tracking.name,
     Profession.name,
     Profile.name,
     Proposal.name,
@@ -81,7 +82,6 @@ class Resource < ActiveRecord::Base
     Volun::Availability.name,
     Volun::Contact.name,
     Volun::KnownLanguage.name,
-    Volun::Tracking.name,
   ] + DEFAULT_RESOURCES
 
   include Archivable
