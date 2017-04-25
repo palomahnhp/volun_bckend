@@ -2,6 +2,8 @@
       // Check date fields one time at rendering;
       setAvailDate();
       setAgrmtDate();
+      
+      setVolunAge();
 
       // Clean search values
       resetButton();
@@ -16,6 +18,12 @@
       });
       $.each($('[id^="volunteer_assessments_projects_attributes"][id$="trait_id"]'), function( index, value ) {
         showComments(value.id)
+      });
+
+      $('#volunteer_birth_date').datepicker({
+        onSelect: function () {
+          setVolunAge();
+        }
       });
     });
 
@@ -56,6 +64,38 @@
         $("#volunteer_agreement_date").val("");
       } else {
         $("#volunteer_agreement_date").attr("disabled", false);
+      }
+    }
+
+    function setVolunAge() {
+      if ($("#volunteer_birth_date").length > 0) {
+        birth = $("#volunteer_birth_date").val().split("/");
+        today = new Date();
+        today_day = today.getDate();
+        today_month = today.getMonth() + 1;
+        today_year = today.getFullYear();
+        birth_day = parseInt(birth[0]);
+        birth_month = parseInt(birth[1]);
+        birth_year = parseInt(birth[2]);
+        age = 0;
+        if (today_month > birth_month) {
+          age = today_year - birth_year;
+        } else if (today_month == birth_month) {
+          if (today_day >= birth_day) {
+            age = today_year - birth_year;
+          } else {
+            age = today_year - birth_year - 1;
+          }
+        } else {
+          age = today_year - birth_year - 1;
+        }
+        if (isNaN(age) || age > 200 || age < 0) {
+          $("#age").val("0");
+        } else {
+          $("#age").val(age);
+        }
+      } else {
+        $("#age").val("0");
       }
     }
 
