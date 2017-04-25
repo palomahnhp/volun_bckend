@@ -40,6 +40,11 @@ class Req::ReasonsController < ApplicationController
     respond_with(@req_reason)
   end
 
+  def recover
+    @req_reason.recover
+    respond_with(@req_reason)
+  end
+
   protected
 
     def req_reason_params

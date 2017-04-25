@@ -519,6 +519,11 @@ es:
         kind:        Tipo
         description: Descripción
         created_at : *created_at
+      req/reason:
+        id:          ID
+        name:        Nombre
+        description: Descripción
+        created_at : *created_at
       req/status_trace:
         id:              ID
         req_status:      Estado

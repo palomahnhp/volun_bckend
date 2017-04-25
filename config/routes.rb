@@ -78,7 +78,7 @@ Rails.application.routes.draw do
   namespace :req do
     resources :statuses
     resources :status_traces
-    resources :reasons
+    resources :reasons, concerns: :recoverable
     resources :rejection_types, concerns: :recoverable
   end
   namespace :rt do

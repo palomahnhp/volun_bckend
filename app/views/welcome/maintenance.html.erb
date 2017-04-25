@@ -78,6 +78,18 @@
           </div>
         </div>
       <% end %>
+      <% if can? :read, Req::Reason %>
+        <div class="panel panel-info" onclick="window.location='<%= req_reasons_url %>';">
+          <div class="panel-heading">
+            <h3 class="panel-title">
+              <%= Req::Reason.model_name.human(count: 2) %>
+            </h3>
+          </div>
+          <div class="panel-body">
+            <%= Req::Reason.model_name.human(count: 2) %>
+          </div>
+        </div>
+      <% end %>
     </div>
     <div class="col-md-6">
       <% if can? :read, Collective %>
