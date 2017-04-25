@@ -47,7 +47,7 @@
                                                    include_blank: true,
                                                    class: 'form-control select' %>
               <% else %>
-                <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type.description),
+                <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type),
                                                      include_blank: true,
                                                      class: 'form-control select' %>
               <% end %>
