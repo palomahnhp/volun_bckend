@@ -46,6 +46,10 @@ class Project < ActiveRecord::Base
   validates :execution_end_date, inclusion: { in: (11.months.ago..11.months.since),
                                               message: I18n.t('activerecord.errors.messages.invalid_proj_date'),
                                               allow_blank: true }
+  validates :insurance_date, date: { after:       Proc.new { Date.today },
+                                     before:      Proc.new { 150.years.since },
+                                     message:     I18n.t('activerecord.errors.messages.invalid_proj_insurance_date') },
+                             if: 'insured?'
   validates :volunteers_num, :beneficiaries_num, numericality: { allow_blank: true }
   validate  :check_timetables_execution_date
 

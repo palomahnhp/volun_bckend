@@ -881,6 +881,7 @@ es:
         invalid_volun_availability_date: El formato de fecha debe ser válido y la fecha de disponibilidad debe ser posterior a la actual, en caso contrario, marque la casilla "No disponible"
         invalid_volun_agreement_date: El formato de fecha debe ser válido y debe especificar una fecha de acuerdo si esta marcada la casilla "Acuerdo de colaboración"
         invalid_volun_subscribe_dates: El formato de fecha debe ser válido
+        invalid_proj_insurance_date: El formato de fecha debe ser válido y posterior a la fecha actual. Es obligatorio si esta marcada la casilla "Seguro de accidentes"
         unable_to_delete_due_to_project_references: No se puede eliminar el registro dado que hay referencias en proyectos
         invalid_proj_date: La fecha debe tener un formato válido y situarse en el rango de 11 meses anteriores o posteriores
         one_timetable_at_least: Cada dirección debe tener al menos un horario
