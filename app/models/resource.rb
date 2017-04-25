@@ -1,11 +1,12 @@
 class Resource < ActiveRecord::Base
 
   DEFAULT_RESOURCES = [
-    Project.name,
-    Volunteer.name,
-    Entity.name,
     Activity.name,
-    RequestForm.name,
+    Entity.name,
+    Ent::Tracking.name,
+    Link.name,
+    Project.name,
+    Pro::Tracking.name,
     Pt::Subvention.name,
     Pt::Centre.name,
     Pt::Entity.name,
@@ -13,10 +14,10 @@ class Resource < ActiveRecord::Base
     Pt::Permanent.name,
     Pt::Punctual.name,
     Pt::Social.name,
+    RequestForm.name,
     Rt::VolunteerSubscribe.name,
     Rt::Other.name,
-    Ent::Tracking.name,
-    Pro::Tracking.name,
+    Volunteer.name,
     Volun::Tracking.name,
   ]
 
@@ -42,7 +43,6 @@ class Resource < ActiveRecord::Base
     Language.name,
     LanguageLevel.name,
     LanguageVolunteer.name,
-    Link.name,
     Manager.name,
     Motivation.name,
     Nationality.name,
