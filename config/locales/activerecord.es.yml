@@ -360,9 +360,9 @@ es:
         description: Descripción
         vat_number: CIF
         email: Email
-        representative_name: Nombre
-        representative_last_name: Primer apellido
-        representative_last_name_alt: Segundo apellido
+        representative_name: Nombre del representante
+        representative_last_name: Primer apellido del representante
+        representative_last_name_alt: Segundo apellido del representante
         contact_name: Nombre
         contact_last_name: Primer apellido
         contact_last_name_alt: Segundo apellido
