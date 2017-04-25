@@ -893,3 +893,4 @@ es:
         cannot_change_to_rejected: no puede cambiar a rechazada
         invalid_document_number: número de documento inválido
         cannot_change: no puede cambiar
+        timetables_must_be_unique_in_events: No pueden repetirse tramos horarios para la misma fecha
