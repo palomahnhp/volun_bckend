@@ -115,11 +115,11 @@ ROAD_TYPES = {
 
 puts "#{I18n.t('creating')} #{Resource.model_name.human}"
 Resource::ALL_RESOURCES.each do |resource_name|
-  resource = Resource.new(name: resource_name , active: false)
+  resource = Resource.new(name: resource_name , active: false, main: false)
   resource.description = resource.class_name.model_name.human
   resource.save!
 end
-Resource.where(name: Resource::DEFAULT_RESOURCES).update_all(active: true)
+Resource.where(name: Resource::DEFAULT_RESOURCES).update_all(active: true, main: true)
 
 puts "#{I18n.t('creating')} #{District.model_name.human}"
 DISTRICTS.each do |code, name|

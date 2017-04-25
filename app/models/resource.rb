@@ -94,13 +94,18 @@ class Resource < ActiveRecord::Base
   validates :name, inclusion: { in: ALL_RESOURCES }
 
   default_scope ->{ order('resources.description asc') }
+  scope :main_resources, ->{ where(main: true) }
 
   def self.ransack_default
     {s: 'description asc'}
   end
 
-  def self.main_columns
+  def self.admin_columns
     %i(alias_name name description active)
+  end
+
+  def self.super_admin_columns
+    admin_columns << :main
   end
 
   def alias_name
