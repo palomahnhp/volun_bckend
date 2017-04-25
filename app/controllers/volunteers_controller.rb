@@ -66,6 +66,8 @@ class VolunteersController < ApplicationController
 
   def destroy
     @volunteer.destroy
+    volunteer_manager = VolunteerManager.new(volunteer: @volunteer, manager_id: current_user.loggable_id)
+    volunteer_manager.register_destroy_volunteer
     respond_with(@volunteer)
   end
 
