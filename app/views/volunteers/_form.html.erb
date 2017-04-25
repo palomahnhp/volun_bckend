@@ -17,7 +17,15 @@
           <%= f.input :last_name_alt, wrapper_html: { class: 'col-md-6' } %>
           <%= f.association :nationality, wrapper_html: { class: 'col-md-6' } %>
           <%= f.input :gender, wrapper_html: { class: 'col-md-6' } %>
-          <%= f.input :birth_date, as: :string, input_html: date_input_html(f.object.birth_date), wrapper_html: { class: 'col-md-6' } %>
+          <div class="col-md-6">
+            <div class="col-md-8">
+              <%= f.input :birth_date, as: :string, input_html: date_input_html_no_default_values(f.object.birth_date, onfocusout: 'setVolunAge()') %>
+            </div>
+            <div class="col-md-4">
+              <%= label_tag 'age', t('age') %>
+              <%= text_field_tag 'age', '0', class: 'special_input', disabled: true %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
