@@ -31,6 +31,7 @@ class EntitiesController < ApplicationController
   end
 
   def create
+    avoid_phone_numbers_mask
     @entity.save
     create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
     assign_subscribe_date!(@entity)
@@ -40,6 +41,7 @@ class EntitiesController < ApplicationController
 
   def update
     previously_inactive = !@entity.active
+    avoid_phone_numbers_mask
     @entity.update_attributes(entity_params)
     create_and_assign_user_to_entity!(@entity, params[:entity_notice_type])
     if params[:entity][:unsubscribed_at].present?
@@ -180,7 +182,7 @@ class EntitiesController < ApplicationController
           else
             user.notice_type_id = nil
           end
-          copy_errors_from!(user) unless user.save
+          copy_errors_from!(entity, user) unless user.save
         else
           user = User.find_by(loggable_type: "Entity", loggable_id: entity.id)
           if notice.present?
@@ -188,7 +190,7 @@ class EntitiesController < ApplicationController
           else
             user.notice_type_id = nil
           end
-          copy_errors_from!(user) unless user.save
+          copy_errors_from!(entity, user) unless user.save
         end
       end
     end
@@ -204,7 +206,7 @@ class EntitiesController < ApplicationController
       }
       ActiveRecord::Base.transaction do
         tracking = Ent::Tracking.new(default_attrs)
-        copy_errors_from!(tracking) unless tracking.save
+        copy_errors_from!(entity, tracking) unless tracking.save
       end
     end
 
@@ -219,39 +221,42 @@ class EntitiesController < ApplicationController
       }
       ActiveRecord::Base.transaction do
         tracking = Ent::Tracking.new(default_attrs)
-        copy_errors_from!(tracking) unless tracking.save
+        copy_errors_from!(entity, tracking) unless tracking.save
       end
     end
 
     def assign_subscribe_date!(entity)
-      ActiveRecord::Base.transaction do
-        entity.subscribed_at = Time.now
-        copy_errors_from!(entity) unless entity.save
-      end
+      entity.subscribed_at = Time.now
+      entity.save
     end
 
     def assign_unsubscribe_date!(entity)
-      ActiveRecord::Base.transaction do
-        entity.unsubscribed_at = Time.now
-        copy_errors_from!(entity) unless entity.save
-      end
+      entity.unsubscribed_at = Time.now
+      entity.save
     end
 
     def unassign_unsubscribe_date!(entity)
-      ActiveRecord::Base.transaction do
-        entity.unsubscribed_at = nil
-        copy_errors_from!(entity) unless entity.save
-      end
+      entity.unsubscribed_at = nil
+      entity.save
     end
 
-    def copy_errors_from(record)
-      self.errors += record.errors.full_messages
+    def copy_errors_from(entity, record)
+      entity.errors += record.errors.full_messages
       nil
     end
   
-    def copy_errors_from!(record)
-      copy_errors_from(record)
+    def copy_errors_from!(entity, record)
+      copy_errors_from(entity, record)
       raise ActiveRecord::Rollback
+    end
+
+    def avoid_phone_numbers_mask
+      if params[:entity][:phone_number] == "_________"
+        params[:entity][:phone_number] = nil
+      end
+      if params[:entity][:phone_number_alt] == "_________"
+        params[:entity][:phone_number_alt] = nil
+      end
     end
 
 end

@@ -7,7 +7,7 @@ class Timetable < ActiveRecord::Base
                                                 message: I18n.t('activerecord.errors.messages.invalid_proj_date')}
   validates :start_hour, format: { with: /\A(?:(([01][0-9])|(2[0-4])):([0-5][0-9]))\z/ }, allow_blank: true, unless: :start_hour_blank_mask
   validates :end_hour, format: { with: /\A(?:(([01][0-9])|(2[0-4])):([0-5][0-9]))\z/ }, allow_blank: true, unless: :end_hour_blank_mask
-  validate  :start_hour_less_than_end_hour, if: 'start_hour? && end_hour?'
+  validate  :start_hour_less_than_end_hour, if: 'start_hour? && end_hour?', unless: :start_hour_blank_mask
 
 
   private
