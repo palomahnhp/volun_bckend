@@ -754,6 +754,8 @@ es:
         images:                   Imágenes
         urls:                     URL's
         videos:                   Videos
+        publish_pictures: Publicar fotos
+        annual_survey:    Recibir encuesta
       manager:
         id:                   ID
         login:                Login
