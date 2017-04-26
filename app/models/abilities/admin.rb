@@ -10,7 +10,7 @@ module Abilities
       cannot :manage, Setting
       cannot :manage, Resource
       cannot :destroy, TrackingType, system: true
-      can    [:read, :update], Resource, name: Resource::DEFAULT_RESOURCES
+      can    [:read, :update, :destroy, :recover], Resource, main: true
     end
 
   end

@@ -1,6 +1,6 @@
 <tr id="<%= dom_id(resource) %>" >
 
-  <% resource.main_attributes.each do |attr_name| %>
+  <% Resource.public_send("#{current_user.loggable.role.kind}_columns").each do |attr_name| %>
   <td><%= show_attr(resource, attr_name) %></td>
   <% end %>
 

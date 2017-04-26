@@ -17,7 +17,7 @@
 <table class="index-table">
   <thead>
     <tr>
-    <% model_class.main_columns.each do |column| -%>
+    <% model_class.public_send("#{current_user.loggable.role.kind}_columns").each do |column| -%>
       <th><%= sort_link(@search_q, column, model_class.human_attribute_name(column)) %></th>
     <% end -%>
 

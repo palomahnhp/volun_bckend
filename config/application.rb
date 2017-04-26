@@ -23,6 +23,7 @@ module VolunBackend
 
     config.time_zone = 'Madrid'
 
+    config.active_record.default_timezone = :local
     config.active_record.schema_format = :sql
 
     # config.autoload_paths += Dir["#{Rails.root.to_s}/app/models/**/"]

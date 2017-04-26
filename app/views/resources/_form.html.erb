@@ -2,9 +2,10 @@
   <%= simple_form_for(@resource, default_form_options) do |f| %>
 
   <div class="form-inputs">
-          <%= f.input :name %>
-          <%= f.input :description %>
-          <%= f.input :active %>
+    <%= f.input :name, input_html: { disabled: true } %>
+    <%= f.input :description %>
+    <%= f.input :active %>
+    <%= f.input :main if current_user.loggable.super_admin? %>
   </div>
 
   <div class="form-actions">

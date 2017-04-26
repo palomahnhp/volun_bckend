@@ -9,4 +9,25 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :address
   accepts_nested_attributes_for :timetables, reject_if: :all_blank, allow_destroy: true
 
+  validate :timetables_unique
+
+  private
+
+  def timetables_unique
+    return unless timetables.any?
+    validation = true
+    timetables.each do |first_timetable|
+      timetables_count = 0
+      timetables.each do |timetable|
+        if first_timetable.execution_date == timetable.execution_date && first_timetable.start_hour == timetable.start_hour && first_timetable.end_hour == timetable.end_hour
+          timetables_count += 1
+        end
+      end
+      if timetables_count > 1
+        errors.add(:base, :timetables_must_be_unique_in_events)
+        return
+      end
+    end
+  end
+
 end
