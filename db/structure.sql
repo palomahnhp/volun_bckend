@@ -257,7 +257,9 @@ CREATE TABLE addresses (
     longitude character varying,
     normalize boolean DEFAULT true,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    notes text,
+    comments text
 );
 
 
@@ -849,6 +851,8 @@ CREATE TABLE events (
     address_id integer NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    notes text,
+    comments text,
     CONSTRAINT eventable_must_be_consistent CHECK ((((event_type_id = 1) AND ((eventable_type)::text = 'Activity'::text)) OR ((event_type_id = 2) AND ((eventable_type)::text = 'Project'::text))))
 );
 
@@ -2996,7 +3000,11 @@ CREATE TABLE users (
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
     current_sign_in_ip inet,
-    last_sign_in_ip inet
+    last_sign_in_ip inet,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying
 );
 
 
@@ -12981,3 +12989,12 @@ INSERT INTO schema_migrations (version) VALUES ('20170425124700');
 
 INSERT INTO schema_migrations (version) VALUES ('20170425154420');
 
+INSERT INTO schema_migrations (version) VALUES ('20170426070241');
+
+INSERT INTO schema_migrations (version) VALUES ('20170426070253');
+
+INSERT INTO schema_migrations (version) VALUES ('20170426070322');
+
+INSERT INTO schema_migrations (version) VALUES ('20170426070330');
+
+INSERT INTO schema_migrations (version) VALUES ('20170426070533');

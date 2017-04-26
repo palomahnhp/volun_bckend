@@ -356,6 +356,8 @@ es:
         longitude:        Longitud
         district:         Distrito
         normalize:        Normalizar
+        notes:            Notas
+        comments:         Observaciones
       district:
         code:        Código
         name:        Nombre
@@ -388,6 +390,10 @@ es:
         subscribed_at: Fecha de alta
         unsubscribed_at: Fecha de baja
         created_at : *created_at
+      event:
+        publish:  Publicar
+        notes:    Notas
+        comments: Observaciones
       project_type:
         id:          ID
         kind:        Nombre
@@ -748,6 +754,8 @@ es:
         images:                   Imágenes
         urls:                     URL's
         videos:                   Videos
+        publish_pictures: Publicar fotos
+        annual_survey:    Recibir encuesta
       manager:
         id:                   ID
         login:                Login

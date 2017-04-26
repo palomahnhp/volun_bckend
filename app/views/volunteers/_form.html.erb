@@ -139,7 +139,14 @@
       <%= f.input :expectations, wrapper_html: { class: 'col-md-12 text_area' } %>
     </div>
     <div class="row well">
-      <%= f.input :comments, wrapper_html: { class: 'col-md-12 text_area' } %>
+      <%= content_tag :h3, t('other_data'), class: 'form-subtitle' %>
+      <div class="row">
+        <%= f.input :publish_pictures, wrapper_html: { class: 'col-md-6' } %>
+        <%= f.input :annual_survey, wrapper_html: { class: 'col-md-6' } %>
+      </div>
+      <div class="row">
+        <%= f.input :comments, wrapper_html: { class: 'col-md-12 text_area' } %>
+      </div>
     </div>
     <div class="row">
       <div class="well col-md-12">
