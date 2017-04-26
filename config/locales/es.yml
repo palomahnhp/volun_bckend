@@ -144,6 +144,8 @@ es:
     subscribe_to_project: Alta en un proyecto
     volunteer_subscribe: Alta de voluntario
     volunteer_unsubscribe: Baja de voluntario
+    entity_subscribe: Alta de entidad
+    entity_unsubscribe: Baja de entidad
   errors:
     missing_required_fields: Faltan datos obligatorios
     request_form_no_longer_exists: 'La %{request_type} ya no existe'

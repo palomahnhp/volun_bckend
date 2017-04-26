@@ -1,5 +1,6 @@
 class Skill < ActiveRecord::Base
 
+  include Recordable
   include Archivable
 
   has_and_belongs_to_many :volunteers

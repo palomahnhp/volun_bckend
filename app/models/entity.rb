@@ -2,7 +2,7 @@ class Entity < ActiveRecord::Base
 
   include Archivable
 
-  belongs_to :reason, class_name: 'Req::Reason', foreign_key: 'req_reason_id'
+  belongs_to :reason, -> { where(active: true).order('req_reasons.name asc') }, class_name: 'Req::Reason', foreign_key: 'req_reason_id'
   belongs_to :entity_type #, required: true
   belongs_to :address, required: true
   has_one :user, as: :loggable

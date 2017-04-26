@@ -11,7 +11,7 @@ class Volunteer < ActiveRecord::Base
   belongs_to :employment_status
   belongs_to :info_source
   belongs_to :nationality
-  belongs_to :profession
+  belongs_to :profession, ->{ where(active: true).order('professions.name asc') }
   belongs_to :status
   belongs_to :manager
   belongs_to :unsubscribe_reason

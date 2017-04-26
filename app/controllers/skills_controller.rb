@@ -41,6 +41,11 @@ class SkillsController < ApplicationController
     respond_with(@skill)
   end
 
+  def recover
+    @skill.recover
+    respond_with(@skill)
+  end
+
   protected
 
     def skill_params
