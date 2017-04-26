@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
 
   belongs_to :pt_extendable, polymorphic: true
   belongs_to :project_type, required: true
-  belongs_to :entity, required: true
+  belongs_to :entity, -> { where(active: true).order('entities.name asc') }, required: true
   has_and_belongs_to_many :volunteers
   has_and_belongs_to_many :areas, -> { where(active: true).order('areas.name asc') }
   has_and_belongs_to_many :inactive_areas, -> { where(active: false).order('areas.name asc') }, class_name: 'Area'
