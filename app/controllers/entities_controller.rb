@@ -171,7 +171,7 @@ class EntitiesController < ApplicationController
         notice = NoticeType.kinds_i18n.key(notice_type_id_param)
         puts "notice: #{notice}"
         if User.find_by(loggable_type: "Entity", loggable_id: entity.id).nil?
-          user = User.new(login: "userentity#{'%09d'}#{entity.name}", loggable: entity)
+          user = User.new(login: "userentity#{'%08d' % 0}#{entity.name}", loggable: entity)
           user.password = Digest::SHA1.hexdigest("#{entity.created_at.to_s}--#{user.login}")[0,8]
           user.password_confirmation = user.password
           user.email = "#{user.login}.entity@volun.es"
