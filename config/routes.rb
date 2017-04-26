@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   resources :road_types
   resources :roles
   resources :settings
-  resources :skills
+  resources :skills, concerns: :recoverable
   resources :statuses
   resources :timetables
   resources :tracking_types, concerns: :recoverable
