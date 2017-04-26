@@ -519,6 +519,11 @@ es:
         kind:        Tipo
         description: Descripción
         created_at : *created_at
+      req/reason:
+        id:          ID
+        name:        Nombre
+        description: Descripción
+        created_at : *created_at
       req/status_trace:
         id:              ID
         req_status:      Estado
@@ -606,6 +611,10 @@ es:
         urls:                   URL's
         videos:                 Videos
         created_at:             *created_at
+      profession:
+        name:       Nombre
+        active:     Activo
+        created_at: *created_at
       activity:
         id:                     ID
         name:                   Denominación de la actividad
