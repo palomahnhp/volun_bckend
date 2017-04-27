@@ -39,7 +39,6 @@ es:
   files_are_allowed_olny_on_update: Sólo se pueden subir archivos para registros ya existentes
   does_not_have: "No tiene %{element}"
   details: Detalles
-  mail_message: Correo electrónico
   sms: SMS
   send_sms: Enviar SMS
   send_message: Enviar mensaje
@@ -181,5 +180,8 @@ es:
   volunteer_docs: Documentación del voluntario
   age: Edad
   send_mail:
+    title: Envío de correo electrónico
+    sender: Remitente
     subject: Asunto
+    message: Mensaje
     send_button: Enviar email

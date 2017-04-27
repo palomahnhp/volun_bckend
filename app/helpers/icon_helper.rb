@@ -36,7 +36,7 @@ module IconHelper
   end
 
   def icon_mail(opts = {})
-    build_icon(:show_mail, opts.merge(icon_name: 'envelope-o', title: t('send_mail')))
+    build_icon(:show_mail, opts.merge(icon_name: 'envelope-o', title: t('send_mail.title')))
   end
 
   def icon_search(opts = {})
