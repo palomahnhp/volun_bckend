@@ -1,5 +1,7 @@
 class Link < ActiveRecord::Base
 
+  #TODO Uncomment videos code when required and add to delegate
+
   belongs_to :linkable, polymorphic: true
   belongs_to :link_type
   belongs_to :project, -> { includes(:links).where(links: { linkable_type: 'Project' }) }, foreign_key: 'linkable_id'
@@ -16,7 +18,7 @@ class Link < ActiveRecord::Base
                     default_url: '/images/missing.png',
                     url: '/system/:class/:belongs_to/:id/:attachment/:style/:filename'
   validates_attachment_content_type :file, content_type: /\Aimage\/.*\z/ , if: 'logo? || image?'
-  validates_attachment_content_type :file, content_type: /\Avideo\/.*\z/ , if: 'video?'
+  #validates_attachment_content_type :file, content_type: /\Avideo\/.*\z/ , if: 'video?'
   validates_attachment_content_type :file,
                                     content_type: %w(
                                       text/plain
@@ -35,14 +37,14 @@ class Link < ActiveRecord::Base
   validates :path, format: { with: /\A#{URI.regexp.to_s}\z/ }, if: 'url?'
   after_save :update_path
 
-  delegate :logo?, :image?, :url?, :video?, :document?, :kind_i18n, to: :link_type, allow_nil: true
+  delegate :logo?, :image?, :url?, :document?, :kind_i18n, to: :link_type, allow_nil: true
 
   scope :project_images , ->{
     includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.image.take.id)
   }
-  scope :project_videos , ->{
-    includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.video.take.id)
-  }
+  #scope :project_videos , ->{
+  #  includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.video.take.id)
+  #}
   scope :project_docs   , ->{
     includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.document.take.id)
   }
@@ -56,9 +58,9 @@ class Link < ActiveRecord::Base
   scope :volunteer_images , ->{
     includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.image.take.id)
   }
-  scope :volunteer_videos , ->{
-    includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.video.take.id)
-  }
+  #scope :volunteer_videos , ->{
+  #  includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.video.take.id)
+  #}
   scope :volunteer_docs   , ->{
     includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.document.take.id)
   }
@@ -72,9 +74,9 @@ class Link < ActiveRecord::Base
   scope :entity_images , ->{
     includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.image.take.id)
   }
-  scope :entity_videos , ->{
-    includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.video.take.id)
-  }
+  #scope :entity_videos , ->{
+  #  includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.video.take.id)
+  #}
   scope :entity_docs   , ->{
     includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.document.take.id)
   }
@@ -88,9 +90,9 @@ class Link < ActiveRecord::Base
   scope :activity_images , ->{
     includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.image.take.id)
   }
-  scope :activity_videos , ->{
-    includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.video.take.id)
-  }
+  #scope :activity_videos , ->{
+  #  includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.video.take.id)
+  #}
   scope :activity_docs   , ->{
     includes(:activity, :link_type).where(linkable_type: 'Activity', link_type_id: LinkType.document.take.id)
   }

@@ -1,10 +1,11 @@
 class LinkType < ActiveRecord::Base
 
+  #TODO Add videos to enum when required
+
   enum kind: {
     logo:     1,
     image:    2,
     url:      3,
-    video:    4,
     document: 5
   }
 
