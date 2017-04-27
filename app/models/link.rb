@@ -37,6 +37,7 @@ class Link < ActiveRecord::Base
   validates :path, format: { with: /\A#{URI.regexp.to_s}\z/ }, if: 'url?'
   after_save :update_path
 
+  #delegate :logo?, :image?, :url?, :video?, :document?, :kind_i18n, to: :link_type, allow_nil: true
   delegate :logo?, :image?, :url?, :document?, :kind_i18n, to: :link_type, allow_nil: true
 
   scope :project_images , ->{

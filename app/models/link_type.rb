@@ -6,6 +6,7 @@ class LinkType < ActiveRecord::Base
     logo:     1,
     image:    2,
     url:      3,
+    #video:    4,
     document: 5
   }
 
