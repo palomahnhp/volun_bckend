@@ -41,7 +41,7 @@ class LinksController < ApplicationController
 
   def destroy
     @link.destroy
-    respond_with(@link)
+    respond_with(@link, location: links_path(@link.attributes.slice('linkable_id', 'linkable_type', 'link_type_id')))
   end
 
   protected

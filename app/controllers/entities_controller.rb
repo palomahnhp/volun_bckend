@@ -241,7 +241,7 @@ class EntitiesController < ApplicationController
     end
 
     def copy_errors_from(entity, record)
-      entity.errors += record.errors.full_messages
+      entity.errors.add(:base, record.errors.full_messages.to_sentence)
       nil
     end
   

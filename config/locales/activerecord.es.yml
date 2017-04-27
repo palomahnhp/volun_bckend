@@ -330,8 +330,8 @@ es:
         one:    Estado del seguimiento
         other:  Estados de los seguimientos
       req/reason:
-        one:   Motivo
-        other: Motivos
+        one:   Motivo de alta
+        other: Motivos de alta
       pro/tracking:
         one:    Seguimiento de proyecto
         other:  Seguimientos de proyecto

@@ -5,7 +5,6 @@
     <div class="row well">
       <div class="col-md-12">
         <div class="logo_block col-md-2">
-          <%= show_simple_base_errors(f) %>
           <%= f.simple_fields_for :logo, (f.object.logo || f.object.build_logo) do |f_logo|  %>
             <%= render partial: 'links/logo', locals: { f: f_logo } %>
           <% end %>
@@ -37,19 +36,25 @@
             <%= label_tag NoticeType.model_name.human, nil, class: 'col-sm-5 pull-right' %>
           </div>
           <div class="col-md-7">
-            <% if User.find_by(loggable_type: "Entity", loggable_id: f.object.id).nil? %>
-              <%= select_tag "entity_notice_type", options_for_select(NoticeType.all),
+            <% if params[:entity_notice_type].present? %>
+              <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, params[:entity_notice_type]),
                                                    include_blank: true,
                                                    class: 'form-control select' %>
             <% else %>
-              <% if User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type_id.nil? %>
+              <% if User.find_by(loggable_type: "Entity", loggable_id: f.object.id).nil? %>
                 <%= select_tag "entity_notice_type", options_for_select(NoticeType.all),
-                                                   include_blank: true,
-                                                   class: 'form-control select' %>
-              <% else %>
-                <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type),
                                                      include_blank: true,
                                                      class: 'form-control select' %>
+              <% else %>
+                <% if User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type_id.nil? %>
+                  <%= select_tag "entity_notice_type", options_for_select(NoticeType.all),
+                                                     include_blank: true,
+                                                     class: 'form-control select' %>
+                <% else %>
+                  <%= select_tag "entity_notice_type", options_for_select(NoticeType.all, User.find_by(loggable_type: "Entity", loggable_id: f.object.id).notice_type),
+                                                       include_blank: true,
+                                                       class: 'form-control select' %>
+                <% end %>
               <% end %>
             <% end %>
           </div>
