@@ -276,7 +276,7 @@ module ScaffoldHelper
               when DateTime, ActiveSupport::TimeWithZone
                 '%d/%m/%Y %H:%M'
               else
-                '%d/%m/%Y %H:%M'
+                '%d/%m/%Y'
               end
     l(date, { format: format }.merge(options)) if format
   end
