@@ -9,9 +9,9 @@
   <dt><%= Activity.human_attribute_name(:description) %>:</dt>
   <dd><%= @activity.description %></dd>
   <dt><%= Activity.human_attribute_name(:start_date) %>:</dt>
-  <dd><%= @activity.start_date %></dd>
+  <dd><%= show_simple_date @activity.start_date %></dd>
   <dt><%= Activity.human_attribute_name(:end_date) %>:</dt>
-  <dd><%= @activity.end_date %></dd>
+  <dd><%= show_simple_date @activity.end_date %></dd>
   <dt><%= Activity.human_attribute_name(:transport) %>:</dt>
   <dd><%= @activity.transport %></dd>
   <dt><%= Activity.human_attribute_name(:pdf_url) %>:</dt>

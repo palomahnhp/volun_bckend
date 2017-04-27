@@ -268,13 +268,15 @@ module ScaffoldHelper
   end
 
   def show_simple_date(date, options = {})
+    return unless date
+
     format =  case date
               when Date
                 '%d/%m/%Y'
               when DateTime, ActiveSupport::TimeWithZone
                 '%d/%m/%Y %H:%M'
               else
-                '%d/%m/%Y %H:%M'
+                '%d/%m/%Y'
               end
     l(date, { format: format }.merge(options)) if format
   end
