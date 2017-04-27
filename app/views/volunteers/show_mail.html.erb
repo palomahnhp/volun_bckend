@@ -1,0 +1,26 @@
+<%= main_title(t('message_service')) %>
+
+<div class="row">
+	<div class="col-md-6 pull left">
+		<dl class="dl-horizontal">
+      <dt><%= Volunteer.human_attribute_name(:name) %>: </dt>
+			<dd><%= @volunteer.name %></dd>
+			<dt><%= Volunteer.human_attribute_name(:last_name) %>: </dt>
+			<dd><%= @volunteer.last_name %></dd>
+      <dt><%= Volunteer.human_attribute_name(:email) %>: </dt>
+			<dd><%= @mail_address %></dd>
+    </dl>
+		<div class="form-group">
+  		<label for="comment"><%= t('mail_message') %></label>
+			<%= form_for @volunteer, url: send_mail_path, method: :get do |f| %>
+				<%= text_area_tag "message", nil, class: "sms-message form-control", row: "5" %>
+				<%= hidden_field_tag "volunteer", @volunteer.id %>
+				<%= f.submit t('send_mail.send_button'), class: 'btn btn-success', id: 'btn-send' %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<% unless request.xhr? %>
+<%= button_to_back %>
+<% end %>

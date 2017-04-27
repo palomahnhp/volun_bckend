@@ -39,8 +39,10 @@ es:
   files_are_allowed_olny_on_update: Sólo se pueden subir archivos para registros ya existentes
   does_not_have: "No tiene %{element}"
   details: Detalles
-  sms: Mensaje SMS
+  mail_message: Correo electrónico
+  sms: SMS
   send_sms: Enviar SMS
+  send_message: Enviar mensaje
   search_filter: 'Filtrar búsqueda'
   type_text: 'Introducir texto'
   date_placeholder: 'dd/mm/aaaa'
@@ -128,6 +130,7 @@ es:
   choose_availability: 'Elegir disponibilidad'
   search: 'Buscar'
   sms_service: 'Servicio SMS'
+  mail_service: 'Servicio Mail'
   administration_title_text: Aquí se administran las tablas de la aplicación
   areas_text: Ámbitos a los que pertenece un proyecto
   project_types_text: Tipos de proyecto a los que un proyecto puede ser
@@ -162,7 +165,8 @@ es:
   others: Otros
   inactivate: Dar de baja entidad
   alert_title: 'Lo sentimos'
-  alert_message_phone: 'No se ha encontrado ningún número de teléfono móvil disponible'
+  alert_message: 'No se ha encontrado ningún número de teléfono móvil disponible'
+  alert_mail: 'No se ha encontrado ningúna dirección de correo electrónico disponible'
   alert_message_sending: 'Temporalmente fuera de servicio'
   success_sending: '¡Enviado!'
   success_message_sending: 'El mensaje ha sido enviado'
@@ -176,3 +180,6 @@ es:
   message_body_outstanding: Ya existen tres proyectos destacados
   volunteer_docs: Documentación del voluntario
   age: Edad
+  send_mail:
+    subject: Voluntariado
+    send_button: Enviar email
