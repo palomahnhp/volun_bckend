@@ -227,6 +227,9 @@ a:focus{
       padding-left: 7%;
       padding-right: 7%;
       color: #333333;
+      &:visited {
+        color: #3b5f79;
+      }
       &:hover {
         @include elem-hover;
         color: #3b5f79;
