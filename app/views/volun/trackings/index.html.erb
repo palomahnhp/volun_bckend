@@ -38,7 +38,15 @@
 <%= render partial: "shared/pagination", locals: {collection: @volun_trackings} %>
 
 <% if params[:project_id_assoc].nil? %>
-  <%= button_to_back %>
+  <div class="col-md-12">
+    <div class="col-md-1">
+      <%= button_to_back %>
+    </div>
+  </div>
 <% else %>
-  <%= button_to_back (edit_volunteer_path(@volunteer)) %>
+  <div class="col-md-12">
+    <div class="col-md-1">
+      <%= button_to_back (edit_volunteer_path(@volunteer)) %>
+    </div>
+  </div>
 <% end %>
