@@ -119,7 +119,7 @@ class VolunteersController < ApplicationController
   def send_mail
     @volunteer = Volunteer.find_by(id: params[:volunteer])
     begin
-      VolunteerMailer.send_email(@volunteer.email, message: params[:message]).deliver_now
+      VolunteerMailer.send_email(@volunteer.email, message: params[:message], subject: params[:subject]).deliver_now
       redirect_to volunteers_path, notice: I18n.t('success_message_sending')
     rescue Exception  => e
       Rails.logger.error('VolunteersController#send_mail') do

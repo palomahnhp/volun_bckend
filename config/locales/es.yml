@@ -181,5 +181,5 @@ es:
   volunteer_docs: Documentación del voluntario
   age: Edad
   send_mail:
-    subject: Voluntariado
+    subject: Asunto
     send_button: Enviar email

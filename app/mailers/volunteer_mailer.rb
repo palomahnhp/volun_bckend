@@ -5,6 +5,6 @@ class VolunteerMailer < ActionMailer::Base
 
   def send_email(mail_address, options = {})
     @message = options[:message]
-    mail(to: mail_address, subject: I18n.t('send_mail.subject'))
+    mail(to: mail_address, subject: options[:subject])
   end
 end
