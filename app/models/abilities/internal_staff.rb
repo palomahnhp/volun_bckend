@@ -14,6 +14,7 @@ module Abilities
       cannot :destroy, TrackingType, system: true
 
       can :recover, :all
+      can [:send_mail, :show_mail], Volunteer
       can :bdc_search_towns, Address
       can :bdc_search_roads, Address
       can :bdc_search_road_numbers, Address
