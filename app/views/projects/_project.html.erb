@@ -11,11 +11,11 @@
   <td class="index_table-actions">
     <%= link_to_show(project.pt_extendable || project) %>
     <%= link_to_edit(project.pt_extendable || project) %>
+    <%= link_to_trackings(project, "pro") %>
 <% if project.try(:archived?) %>
     <%= link_to_recover(project) %>
 <% else %>
     <%= link_to_destroy(project) %>
 <% end %>
-    <%= link_to_trackings(project, "pro") %>
   </td>
 </tr>

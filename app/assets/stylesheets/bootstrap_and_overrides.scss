@@ -733,6 +733,12 @@ select[multiple].wide-select {
   height: 148px;
 }
 
+.mail-message.form-control {
+  margin: 0px -202.292px 0px 0px;
+  width: 372px;
+  height: 148px;
+}
+
 #btn-send {
   margin-top: 5%;
 }
@@ -762,4 +768,12 @@ select[multiple].wide-select {
 }
 .table-csv {
   margin-bottom: 3%;
+}
+
+#volunteers {
+  .fa-mobile {
+    font-weight: bold;
+    font-size: medium;
+    margin: 0 1px 0 1px;
+  }
 }

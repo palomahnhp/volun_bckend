@@ -63,6 +63,8 @@ Rails.application.routes.draw do
   resources :volunteers, concerns: :recoverable
     get 'show_sms' => 'volunteers#show_sms', as: 'show_sms'
     get 'send_sms' => 'volunteers#send_sms', as: 'send_sms'
+    get 'show_mail' => 'volunteers#show_mail', as: 'show_mail'
+    get 'send_mail' => 'volunteers#send_mail', as: 'send_mail'
   namespace :volun do
     resources :assessments
     resources :availabilities

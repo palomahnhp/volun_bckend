@@ -209,6 +209,21 @@ module ScaffoldHelper
     link_to(text, public_send(path, options[:path_params]||{}), options)
   end
 
+  def link_to_mail(record, opts = {})
+    return unless can?(:show_mail, record)
+    options = {
+        text: icon_mail,
+        path: "show_mail_path",
+        path_params: { volunteer: record },
+        class: 'grey-color',
+        remote: true
+    }.merge(opts)
+    path = options.delete(:path)
+    text = options.delete(:text)
+
+    link_to(text, public_send(path, options[:path_params]||{}), options)
+  end
+
   def link_to_linkable(record, opts = {})
     #return unless can?(:recover, record)
     options = {
