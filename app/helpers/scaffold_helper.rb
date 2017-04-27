@@ -268,6 +268,8 @@ module ScaffoldHelper
   end
 
   def show_simple_date(date, options = {})
+    return unless date
+
     format =  case date
               when Date
                 '%d/%m/%Y'
