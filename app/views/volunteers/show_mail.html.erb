@@ -1,0 +1,42 @@
+<%= main_title(t('send_mail.title')) %>
+
+<div class="row well-no-border">
+	<div class="col-md-12">
+    <div class="row">
+      <dl class="dl-horizontal pull-left">
+        <dt><%= Volunteer.human_attribute_name(:name) %>: </dt>
+        <dd><%= @volunteer.name %></dd>
+        <dt><%= Volunteer.human_attribute_name(:last_name) %>: </dt>
+        <dd><%= @volunteer.last_name %></dd>
+      </dl>
+    </div>
+  <div class="form-group">
+			<%= form_for @volunteer, url: send_mail_path, method: :get do |f| %>
+        <div class="row">
+          <%= label_tag 'sender', t('send_mail.sender'), class: 'col-md-4' %>
+          <%= text_field_tag "sender", Rails.application.secrets.default_email_sender, placeholder: t('send_mail.sender'), class: 'col-md-8' %>
+        </div>
+        <div class="row">
+          <%= label_tag 'recipient', t('send_mail.recipient'), class: 'col-md-4' %>
+          <%= text_field_tag "recipient", @volunteer.email, placeholder: t('send_mail.recipient'), class: 'col-md-8' %>
+        </div>
+        <div class="row">
+          <%= label_tag 'subject', t('send_mail.subject'), class: 'col-md-4' %>
+  				<%= text_field_tag "subject", nil,  placeholder: t('send_mail.subject'), class: 'col-md-8' %>
+        </div>
+          <br>
+          <br>
+        <div class="row">
+          <%= label_tag 'message', t('send_mail.message'), class: 'col-md-6' %>
+          <%= text_area_tag "message", nil, class: "sms-message form-control", row: "5" %>
+          <%= hidden_field_tag "volunteer", @volunteer.id %>
+          <%= f.submit t('send_mail.send_button'), class: 'btn btn-success', id: 'btn-send' %>
+        </div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<% unless request.xhr? %>
+<%= button_to_back %>
+<% end %>

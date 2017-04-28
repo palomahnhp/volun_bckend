@@ -56,7 +56,7 @@
   <%= link_to t('action.download_csv'), volunteers_path(format: "csv", q: params[:q], status: params[:status], q_address_district_eq: params[:q][:address_district_eq], 'q[availabilities_day_in_all][]' => params[:q][:availabilities_day_in_all] ), class: "btn btn-success" %>
 </div>
 
-<table class="index-table">
+<table class="index-table" id="volunteers">
   <thead>
     <tr>
     <% model_class.main_columns.each do |column| -%>

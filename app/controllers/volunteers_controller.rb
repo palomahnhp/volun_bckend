@@ -85,7 +85,7 @@ class VolunteersController < ApplicationController
         format.html
       end
     else
-      render js: "swal( '#{t('alert_title')}','#{t('alert_message_phone')}','error')"
+      render js: "swal( '#{t('alert_title')}','#{t('alert_message')}','error')"
     end
   end
 
@@ -95,7 +95,36 @@ class VolunteersController < ApplicationController
     begin
       SMSApi.new.sms_deliver(sms_number, params[:message])
       redirect_to volunteers_path, notice: I18n.t('success_message_sending')
-    rescue
+    rescue Exception  => e
+      Rails.logger.error('VolunteersController#send_sms') do
+        "Error sending SMS: \n#{e}"
+      end
+      redirect_to volunteers_path, alert: I18n.t('alert_message_sending')
+    end
+  end
+
+  def show_mail
+    @volunteer = Volunteer.find_by(id: params[:volunteer])
+    @mail_address = @volunteer.email
+    if @mail_address
+      respond_with(@volunteer) do |format|
+        format.js { render 'shared/popup' }
+        format.html
+      end
+    else
+      render js: "swal( '#{t('alert_title')}','#{t('alert_mail')}','error')"
+    end
+  end
+
+  def send_mail
+    @volunteer = Volunteer.find_by(id: params[:volunteer])
+    begin
+      VolunteerMailer.send_email(@volunteer.email, message: params[:message], subject: params[:subject]).deliver_now
+      redirect_to volunteers_path, notice: I18n.t('success_message_sending')
+    rescue Exception  => e
+      Rails.logger.error('VolunteersController#send_mail') do
+        "Error sending Email: \n#{e}"
+      end
       redirect_to volunteers_path, alert: I18n.t('alert_message_sending')
     end
   end

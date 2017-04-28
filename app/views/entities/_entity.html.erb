@@ -7,11 +7,11 @@
   <td class="index_table-actions">
     <%= link_to_show(entity) %>
     <%= link_to_edit(entity) %>
+    <%= link_to_trackings(entity, "ent") %>
 <% if entity.try(:archived?) %>
     <%= link_to_recover(entity) %>
 <% else %>
     <%= link_to_destroy(entity) %>
 <% end %>
-    <%= link_to_trackings(entity, "ent") %>
   </td>
 </tr>
