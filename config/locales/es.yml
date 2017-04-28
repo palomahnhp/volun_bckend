@@ -182,6 +182,7 @@ es:
   send_mail:
     title: Envío de correo electrónico
     sender: Remitente
+    recipient: Destinatario
     subject: Asunto
     message: Mensaje
     send_button: Enviar email
