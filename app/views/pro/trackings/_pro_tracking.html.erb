@@ -12,6 +12,8 @@
 
   <td class="index_table-actions">
     <%= link_to_show(pro_tracking) %>
-    <%= link_to_edit(pro_tracking) %>
+    <% unless pro_tracking.automatic %>
+      <%= link_to_edit(pro_tracking) %>
+    <% end %>
   </td>
 </tr>

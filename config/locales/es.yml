@@ -179,6 +179,9 @@ es:
   message_body_outstanding: Ya existen tres proyectos destacados
   volunteer_docs: Documentación del voluntario
   age: Edad
+  setting:
+    form:
+      note: Tener en cuenta que la clave debe tener el prefijo "VolunBackend." o "VolunFrontend."
   send_mail:
     title: Envío de correo electrónico
     sender: Remitente
@@ -186,3 +189,4 @@ es:
     subject: Asunto
     message: Mensaje
     send_button: Enviar email
+  value: Valor
