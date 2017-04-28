@@ -3,7 +3,36 @@
 
   <div class="form-inputs">
           <%= f.input :key %>
-          <%= f.input :value %>
+          <% if f.object.value == 'true' || f.object.value == 'false' %>
+            <div class="form-group string required">
+              <div class="col-sm-5">
+                <div class="pull-right">
+                  <%= label_tag t('value') %>
+                </div>
+              </div>
+              <div class="col-sm-7">
+                <% if f.object.value == 'true' %>
+                  <%= check_box_tag 'active_value', 'active_value', true %>
+                <% else %>
+                  <%= check_box_tag 'active_value', 'active_value', false %>
+                <% end %>
+              </div>
+            </div>
+            <script>
+              $("#active_value").click(function() {
+                if ($("#active_value").is(':checked')) {
+                  console.log("marcado");
+                  $("#boolean").val("true");
+                } else {
+                  console.log("desmarcado");
+                  $("#boolean").val("false");
+                }
+              });
+            </script>
+            <%= f.input :value, as: :hidden, input_html: { id: 'boolean' } %>
+          <% else %>
+            <%= f.input :value %>
+          <% end %>
   </div>
 
   <div class="form-actions">

@@ -186,3 +186,4 @@ es:
     subject: Asunto
     message: Mensaje
     send_button: Enviar email
+  value: Valor
