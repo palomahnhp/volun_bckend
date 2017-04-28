@@ -60,7 +60,7 @@ class Rt::EntitySubscribesController < ApplicationController
           :phone_number_alt,
           :road_type,
           :road_name,
-          :number_type,
+          :road_number_type,
           :road_number,
           :postal_code,
           :town,

@@ -2258,7 +2258,7 @@ CREATE TABLE rt_entity_subscribes (
     other_subscribe_reason text,
     road_type character varying,
     road_name character varying,
-    number_type character varying,
+    road_number_type character varying,
     road_number character varying,
     postal_code character varying,
     borough character varying,
@@ -2963,7 +2963,8 @@ CREATE TABLE users (
     confirmation_token character varying,
     confirmed_at timestamp without time zone,
     confirmation_sent_at timestamp without time zone,
-    unconfirmed_email character varying
+    unconfirmed_email character varying,
+    terms_of_service boolean DEFAULT false
 );
 
 
@@ -6659,4 +6660,8 @@ INSERT INTO schema_migrations (version) VALUES ('20170426070330');
 INSERT INTO schema_migrations (version) VALUES ('20170426070533');
 
 INSERT INTO schema_migrations (version) VALUES ('20170427104323');
+
+INSERT INTO schema_migrations (version) VALUES ('20170428073441');
+
+INSERT INTO schema_migrations (version) VALUES ('20170428074708');
 
