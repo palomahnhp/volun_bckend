@@ -133,7 +133,11 @@ class VolunteerManager
     user.password = generate_new_password(user)
     user.password_confirmation = user.password
     # TODO Remove this line after removing email column from users
-    user.email = Rt::VolunteerSubscribe.find(@rt_volunteer_subscribe_id).email
+    if @rt_volunteer_subscribe_id.present?
+      user.email = Rt::VolunteerSubscribe.find(@rt_volunteer_subscribe_id).email
+    else
+      user.email = user.email = "#{user.login}.volunteer@volun.es"
+    end
     copy_errors_from!(user) unless user.save
     user
   end
