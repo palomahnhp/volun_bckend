@@ -23,6 +23,8 @@ class Link < ActiveRecord::Base
                                     content_type: %w(
                                       text/plain
                                       text/csv
+                                      application/vnd.oasis.opendocument.text
+                                      application/vnd.oasis.opendocument.spreadsheet
                                       application/pdf
                                       application/vnd.ms-excel
                                       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet

@@ -31,11 +31,13 @@ class LinksController < ApplicationController
 
   def create
     @link.save
+    puts "============>>> Errores: #{@link.errors.full_messages}"
     respond_with(@link, location: links_path(@link.attributes.slice('linkable_id', 'linkable_type', 'link_type_id')))
   end
 
   def update
     @link.update_attributes(link_params)
+    puts "============>>> Errores: #{@link.errors.full_messages}"
     respond_with(@link, location: links_path(@link.attributes.slice('linkable_id', 'linkable_type', 'link_type_id')))
   end
 
