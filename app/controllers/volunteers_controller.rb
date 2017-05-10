@@ -41,6 +41,7 @@ class VolunteersController < ApplicationController
 
   def create
     avoid_phone_numbers_mask
+    avoid_availability_date_mask
     volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id],
                                              volunteer_attributes: volunteer_params,
                                              manager_id: current_user.loggable_id)
@@ -54,6 +55,7 @@ class VolunteersController < ApplicationController
 
   def update
     avoid_phone_numbers_mask
+    avoid_availability_date_mask
     volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: params[:rt_volunteer_unsubscribe_id],
                                              volunteer: @volunteer,
                                              volunteer_attributes: volunteer_params,
@@ -300,4 +302,11 @@ class VolunteersController < ApplicationController
         params[:volunteer][:phone_number_alt] = nil
       end
     end
+
+    def avoid_availability_date_mask
+      if params[:volunteer][:availability_date] == "__/__/____"
+        params[:volunteer][:availability_date] = nil
+      end
+    end
+
 end

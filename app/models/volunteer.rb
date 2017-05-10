@@ -62,8 +62,10 @@ class Volunteer < ActiveRecord::Base
                                  allow_blank: true }
   validates :availability_date, date: { after:       Proc.new { Date.tomorrow },
                                         before:      Proc.new { 150.years.since },
-                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_availability_date') },
-                                if: 'available?'
+                                        message:     I18n.t('activerecord.errors.messages.invalid_volun_availability_date'),
+                                        allow_blank: true },
+                                if: 'available?',
+                                unless: :availability_date_blank_mask
   validates :agreement_date, presence: { message: I18n.t('activerecord.errors.messages.invalid_volun_agreement_date')},
                              if: 'agreement?'
   validates :subscribe_date, date: { after:       Proc.new { 150.years.ago },
@@ -189,6 +191,10 @@ class Volunteer < ActiveRecord::Base
 
   def avoid_phone_mask(phone)
     phone == "_________"
+  end
+
+  def availability_date_blank_mask
+    availability_date == "__/__/____"
   end
 
 end
