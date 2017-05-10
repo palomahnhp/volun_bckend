@@ -86,6 +86,7 @@
                 <div class="row">
                   <%= f_file.input :path, as: :url, wrapper_html: { class: 'link-path col-md-9' } %>
                   <%= f_file.input :link_type_id, as: :hidden, input_html: { value: LinkType.url.take.id } %>
+                  <%= f_file.input :description, wrapper_html: { class: 'link-path col-md-9' } %>
                   <%= content_tag :div, class: 'js-file-link form-group col-md-3' do %>
                       <%= link_to(build_icon(:share), f_file.object.path, target: :_blank, class: 'js-visit') %>
                       <%= f_file.link_to_remove build_icon('trash-o'), data: { confirm: t('messages.confirm_file_deletion') } %>

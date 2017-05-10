@@ -286,6 +286,7 @@ class VolunteersController < ApplicationController
               :path,
               :link_type_id,
               :file,
+              :description,
               :_destroy
             ]
           }
