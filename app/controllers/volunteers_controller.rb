@@ -40,6 +40,7 @@ class VolunteersController < ApplicationController
   end
 
   def create
+    avoid_phone_numbers_mask
     volunteer_manager = VolunteerManager.new(rt_volunteer_subscribe_id: params[:rt_volunteer_subscribe_id],
                                              volunteer_attributes: volunteer_params,
                                              manager_id: current_user.loggable_id)
@@ -52,6 +53,7 @@ class VolunteersController < ApplicationController
   end
 
   def update
+    avoid_phone_numbers_mask
     volunteer_manager = VolunteerManager.new(rt_volunteer_unsubscribe_id: params[:rt_volunteer_unsubscribe_id],
                                              volunteer: @volunteer,
                                              volunteer_attributes: volunteer_params,
@@ -286,5 +288,16 @@ class VolunteersController < ApplicationController
             ]
           }
         )
+    end
+
+  private
+
+    def avoid_phone_numbers_mask
+      if params[:volunteer][:phone_number] == "_________"
+        params[:volunteer][:phone_number] = nil
+      end
+      if params[:volunteer][:phone_number_alt] == "_________"
+        params[:volunteer][:phone_number_alt] = nil
+      end
     end
 end

@@ -53,8 +53,8 @@ class Volunteer < ActiveRecord::Base
 
   validates :name, :last_name, :id_number, presence: true
   validates :id_number, spanish_vat: true, unless: 'id_number_type.try :is_other_type?'
-  validates :phone_number, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
-  validates :phone_number_alt, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true
+  validates :phone_number, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true, unless: :phone_number_blank_mask
+  validates :phone_number_alt, format: { with: /[6|7|8|9]\d{8}/ }, allow_blank: true, unless: :phone_number_alt_blank_mask
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i }, allow_blank: true
   validates :birth_date, date: { after:       Proc.new { 150.years.ago },
                                  before:      Proc.new { Date.yesterday },
@@ -177,6 +177,18 @@ class Volunteer < ActiveRecord::Base
     unless subscribe_date <= unsubscribe_date
       errors.add(:unsubscribe_date, :unsubscribe_date_must_be_higher_than_subscribe_date)
     end
+  end
+
+  def phone_number_blank_mask
+    avoid_phone_mask(phone_number)
+  end
+
+  def phone_number_alt_blank_mask
+    avoid_phone_mask(phone_number_alt)
+  end
+
+  def avoid_phone_mask(phone)
+    phone == "_________"
   end
 
 end
