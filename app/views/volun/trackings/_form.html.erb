@@ -1,4 +1,4 @@
-<div class="well">
+<div class="well well-tracking">
   <%= simple_form_for(@volun_tracking, default_form_options) do |f| %>
   <input type="hidden" name="project_id_assoc" value="<%= params[:project_id_assoc] %>" />
 
@@ -12,7 +12,7 @@
           <%= f.input :manager, input_html: { disabled: true, id: 'manager', value: current_user.loggable } %>
           <%= f.input :manager_id, as: :hidden, input_html: { value: current_user.loggable_id } %>
           <%= f.input :tracked_at, as: :string, input_html: date_input_html_default_values(f.object.tracked_at) %>
-          <%= f.input :comments %>
+          <%= f.input :comments, input_html: { id: 'tracking-comment' } %>
   </div>
 
   <div class="form-actions">
