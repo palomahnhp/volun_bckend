@@ -12,10 +12,10 @@
     <%= link_to_trackings(volunteer, "volun") %>
     <%= link_to_sms(volunteer) %>
     <%= link_to_mail(volunteer) if cast_as_boolean Setting['send_email'] %>
-<% if volunteer.try(:archived?) %>
-    <%= link_to_recover(volunteer) %>
-<% else %>
-    <%= link_to_destroy(volunteer) %>
-<% end %>
+<% #if volunteer.try(:archived?) %>
+    <%#= link_to_recover(volunteer) %>
+<% #else %>
+    <%#= link_to_destroy(volunteer) %>
+<% #end %>
   </td>
 </tr>
