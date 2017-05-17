@@ -21,15 +21,37 @@ class Link < ActiveRecord::Base
   #validates_attachment_content_type :file, content_type: /\Avideo\/.*\z/ , if: 'video?'
   validates_attachment_content_type :file,
                                     content_type: %w(
-                                      text/plain
-                                      text/csv
-                                      application/vnd.oasis.opendocument.text
-                                      application/vnd.oasis.opendocument.spreadsheet
                                       application/pdf
                                       application/vnd.ms-excel
                                       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
                                       application/msword
                                       application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                                      text/csv
+                                      application/vnd.oasis.opendocument.text
+                                      application/vnd.oasis.opendocument.spreadsheet
+                                      application/x-7z-compressed
+                                      image/bmp
+                                      txt/csv
+                                      application/msword
+                                      application/vnd.openxmlformats-officedocument.wordprocessingml.template
+                                      image/gif
+                                      image/jpeg
+                                      application/vnd.oasis.opendocument.graphics
+                                      application/vnd.oasis.opendocument.presentation
+                                      application/vnd.oasis.opendocument.spreadsheet
+                                      application/vnd.oasis.opendocument.text
+                                      application/pdf
+                                      image/png
+                                      application/vnd.ms-powerpoint
+                                      application/vnd.openxmlformats-officedocument.presentationml.presentation
+                                      application/rtf
+                                      application/x-rar-compressed
+                                      text/plain
+                                      image/tiff
+                                      application/x-tar
+                                      application/vnd.ms-excel
+                                      text/xml
+                                      application/zip
                                     ),
                                     if: 'document?'
 
