@@ -191,6 +191,7 @@ class ApplicationController < ActionController::Base
           :path,
           :link_type_id,
           :file,
+          :description,
           :_destroy
         ]
       },

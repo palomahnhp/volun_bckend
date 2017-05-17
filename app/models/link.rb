@@ -21,11 +21,18 @@ class Link < ActiveRecord::Base
   #validates_attachment_content_type :file, content_type: /\Avideo\/.*\z/ , if: 'video?'
   validates_attachment_content_type :file,
                                     content_type: %w(
+                                      application/pdf
+                                      application/vnd.ms-excel
+                                      application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+                                      application/msword
+                                      application/vnd.openxmlformats-officedocument.wordprocessingml.document
+                                      text/csv
+                                      application/vnd.oasis.opendocument.text
+                                      application/vnd.oasis.opendocument.spreadsheet
                                       application/x-7z-compressed
                                       image/bmp
                                       txt/csv
                                       application/msword
-                                      application/vnd.openxmlformats-officedocument.wordprocessingml.document
                                       application/vnd.openxmlformats-officedocument.wordprocessingml.template
                                       image/gif
                                       image/jpeg
@@ -43,7 +50,6 @@ class Link < ActiveRecord::Base
                                       image/tiff
                                       application/x-tar
                                       application/vnd.ms-excel
-                                      application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
                                       text/xml
                                       application/zip
                                     ),
@@ -73,7 +79,7 @@ class Link < ActiveRecord::Base
   scope :project_logo, ->{
     includes(:project, :link_type).where(linkable_type: 'Project', link_type_id: LinkType.logo.take.id)
   }
-
+  
   scope :volunteer_images , ->{
     includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.image.take.id)
   }
@@ -89,7 +95,7 @@ class Link < ActiveRecord::Base
   scope :volunteer_logo, ->{
     includes(:volunteer, :link_type).where(linkable_type: 'Volunteer', link_type_id: LinkType.logo.take.id)
   }
-
+  
   scope :entity_images , ->{
     includes(:entity, :link_type).where(linkable_type: 'Entity', link_type_id: LinkType.image.take.id)
   }
