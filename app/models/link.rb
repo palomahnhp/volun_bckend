@@ -42,7 +42,7 @@ class Link < ActiveRecord::Base
                                       text/plain
                                       image/tiff
                                       application/x-tar
-                                      application/vnd.ms-exce
+                                      application/vnd.ms-excel
                                       application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
                                       text/xml
                                       application/zip
